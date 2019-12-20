@@ -6,11 +6,14 @@ var container, background, canvas, title, visualizer,
 timer, timer_bar, time,
 volume;
 
-var bars = 150;
+var visualizer_mode = "circular";//straight || circular
+var bars = 100;
+var visualizer_radius = 150;
 var particles = [];
 var max_probability = 0.85; //INVERTED SCALE: 1 -> 0; 0.75 -> 0.25; 0 -> 1;
 var center_x, center_y;
-var analyser_range = [0,800];
+//var analyser_range = [0,800];//for straight mode test
+var analyser_range = [150,600];//for circular test
 
 function InitPage() {//page initialization
     //HTML definitions
@@ -48,13 +51,54 @@ function InitPage() {//page initialization
     AnimationLooper();
 }
 
-function CreateVisualizer() {//create the range of bars for audio visualization
+function CreateVisualizer() {//prepare the visualizer and create the range of bars for audio visualization
+    //prepare container
+    switch (visualizer_mode) {
+        case "circular":
+            //position and dimension
+            size = window.innerHeight/2;
+            visualizer.style.width = size+"px";
+            visualizer.style.height = size+"px";
+            visualizer.style.top = (window.innerHeight/2) - (visualizer.offsetHeight/2) + "px";
+            visualizer.style.left = (window.innerWidth/2) - (visualizer.offsetWidth/2) + "px";
+
+            //switch to absolute positioning instead of flex box for the bars.
+            visualizer.style.position = "absolute";
+            visualizer.style.display = "inline-block";
+            break
+        case "straight":
+            //position and dimension
+            visualizer.style.width = window.innerWidth*0.9+"px";
+            visualizer.style.left = (window.innerWidth/2) - (visualizer.offsetWidth/2) + "px";
+            break
+        default:
+            throw `AnimationLooper: ${visualizer_mode} is not a valid visualizer type!`
+    }
+
+    //create all bars
+    var rot_step = 2*Math.PI/bars;
+    var rot_pos = 0;
     for (var i=0; i<bars; i++) {
         //create a bar
         var bar_element = document.createElement("div");
         visualizer.appendChild(bar_element);
         bar_element.id = "bar"+i;
         bar_element.className = "visualizer_bar";
+
+        //apply rotation for circular mode
+        if (visualizer_mode==="circular") {
+            //centering
+            bar_element.style.position = "absolute";
+            var center_x = (visualizer.offsetWidth / 2) - (bar_element.offsetWidth / 2);
+            var center_y = (visualizer.offsetHeight/2);
+            bar_element.style.left = center_x + Math.cos(rot_pos)*visualizer_radius + "px";
+            bar_element.style.top = center_y + Math.sin(rot_pos)*visualizer_radius + "px";
+            //transform
+            bar_element.style.transformOrigin = "center top";
+            bar_element.style.transform = `scale(-1,1) rotate( ${rot_pos+Math.PI/2}rad )`;
+            //iterate
+            rot_pos += rot_step;
+        }
     }
 }
 
@@ -67,17 +111,28 @@ function AnimationLooper() {//animate the visualizer
     container.style.height = window.innerHeight+"px";
 
     title.style.marginTop = 0.4*window.innerHeight+"px";
-
-    visualizer.style.width = window.innerWidth*0.9+"px";
-    visualizer.style.left = window.innerWidth/2 - visualizer.offsetWidth/2 + "px";
     
+    //audio visualizer setup depending of the visualization mode
+    switch (visualizer_mode) {
+        case "circular":
+            visualizer.style.top = (window.innerHeight/2) - (visualizer.offsetHeight/2) + "px";
+            visualizer.style.left = (window.innerWidth/2) - (visualizer.offsetWidth/2) + "px";
+            break
+        case "straight":
+            visualizer.style.width = window.innerWidth*0.9+"px";
+            visualizer.style.left = (window.innerWidth/2) - (visualizer.offsetWidth/2) + "px";
+            break
+        default:
+            throw `AnimationLooper: ${visualizer_mode} is not a valid visualizer type!`
+    }
+
     timer.style.width = window.innerWidth*0.9+"px";
-    timer.style.left = window.innerWidth/2 - timer.offsetWidth/2 + "px";
+    timer.style.left = (window.innerWidth/2) - (timer.offsetWidth/2) + "px";
     
     timer_bar.style.height = timer.offsetHeight - 20 + "px";
-    timer_bar.style.marginTop = (timer.offsetHeight-10)/2 - timer_bar.offsetHeight/2 + "px";
+    timer_bar.style.marginTop = ((timer.offsetHeight-10)/2) - (timer_bar.offsetHeight/2) + "px";
     
-    time.style.marginLeft = window.innerWidth/2 - time.offsetWidth/2 + "px";
+    time.style.marginLeft = (window.innerWidth/2) - (time.offsetWidth/2) + "px";
 
 
     
@@ -89,9 +144,25 @@ function AnimationLooper() {//animate the visualizer
     //collect frequency data
     analyser.getByteFrequencyData(frequency_array);
     visualizer_frequency_array = MappedArray(frequency_array, bars, analyser_range[0], analyser_range[1]);
+    var rot_step = 2*Math.PI/bars;
+    var rot_pos = 0;
     for (var i = 0; i < bars; i++) {
         //apply data to each bar
         document.getElementById("bar"+i).style.height = (visualizer_frequency_array[i]*0.7)+"px";
+        
+        if (visualizer_mode==="circular") {//fix rotation
+            var bar_element = document.getElementById("bar"+i);
+            //centering
+            var center_x = (visualizer.offsetWidth / 2) - (bar_element.offsetWidth / 2);
+            var center_y = (visualizer.offsetHeight/2);
+            bar_element.style.left = center_x + Math.cos(rot_pos)*visualizer_radius + "px";
+            bar_element.style.top = center_y + Math.sin(rot_pos)*visualizer_radius + "px";
+            //transform
+            bar_element.style.transformOrigin = "center top";
+            bar_element.style.transform = `scale(-1,-1) rotate( ${rot_pos+Math.PI/2}rad )`;
+            //iterate
+            rot_pos += rot_step;
+        }
     }
     window.requestAnimationFrame(AnimationLooper);
 
