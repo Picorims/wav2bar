@@ -50,6 +50,18 @@ function MappedArray(array, new_length, min, max) {//function that remaps an arr
 }
 
 
+function InInterval(value, interval, type) {//returns if the given value is in the interval [min,max] included or excluded;
+    switch (type) {
+        case "included":
+            return (   (value >= interval[0]) && (value <= interval[1])   );
+        case "excluded":
+            return (   (value > interval[0])  && (value < interval[1])   );
+        default:
+            throw `InInterval: ${type} is not a valid interval type! (included or excluded)`
+    }
+}
+
+
 
 function IsANumber(value) {//return true if the given variable is a number.
     return (typeof value === "number");

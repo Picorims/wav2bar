@@ -48,7 +48,7 @@ html, body {
     position: absolute;
     bottom: 90px;
     left: 0;
-    height: 100px;
+    height: 230px;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
