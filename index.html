@@ -17,46 +17,53 @@
 
 
 <body onload="InitPage()">
-    <div id="container">
-        <div id="background"></div>
-        <canvas id="particles"></canvas>
-        <div id="color_filter"></div>
-        <button id="start_button">START</button>
-        <h1 id="title">Lights</h1>
-        <h2 id="subtitle">SkyLike</h2>
-        <div id="visualizer">
-            <!--bars goes here-->
+    <div id="control_panel">
+        <button id="start_button">START</button><br>
+        <label for="zoom" style="color: white;">Zoom: </label><input type="number" min="0.2" max="2" step="0.2" id="zoom" oninput="ApplyZoom(this.value)"/>
+    </div><!--CONTROL PANEL-->
+  
+  
+    <div id="interface">
+        <div id="screen"><!-- PREVIEW / RENDER -->
+            <div id="background"></div>
+            <canvas id="particles"></canvas>
+            <div id="color_filter"></div>
+            <h1 id="title">Lights</h1>
+            <h2 id="subtitle">SkyLike</h2>
+            <div id="visualizer">
+                <!--bars goes here-->
+            </div>
+            <div id="timer">
+                <div id="timer_bar"></div>
+            </div>
+            <p id="time">0:00 | 0:00</p>
         </div>
-        <div id="timer">
-            <div id="timer_bar"></div>
-        </div>
-        <p id="time">0:00 | 0:00</p>
     </div>
 
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
         <defs>
 
-          <filter id="goo">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-            <feBlend in="SourceGraphic" in2="goo" />
-          </filter>
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                <feBlend in="SourceGraphic" in2="goo" />
+            </filter>
 
-          <filter id="fancy-goo">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-            <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
-            <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-          </filter>
+            <filter id="fancy-goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+            </filter>
 
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-            <feMerge>
-                <feMergeNode in="coloredBlur" />
-                <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
+            <filter id="glow">
+                <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                </feMerge>
+            </filter>
 
         </defs>
-      </svg>
+    </svg>
 </body>
 </html>

@@ -4,7 +4,7 @@
 
 //NOTE - THIS WILL BE CLEANED UP LATER ON, WHEN CRAFTING THE OBJECT SYSTEM ENGINE
 
-var container, background, canvas, visualizer_cvs, title, visualizer,
+var control_panel, screen_interface, screen, background, canvas, visualizer_cvs, title, visualizer,
 timer, timer_bar, time,
 volume,
 visualizer_frequency_array;
@@ -22,7 +22,9 @@ var analyser_range = [0,800];//for straight mode test
 
 function InitPage() {//page initialization
     //HTML definitions
-    container = document.getElementById("container");
+    control_panel = document.getElementById("control_panel");
+    screen_interface = document.getElementById("interface");
+    screen = document.getElementById("screen");
     background = document.getElementById("background");
     canvas = document.getElementById("particles");
     title = document.getElementById("title");
@@ -31,6 +33,16 @@ function InitPage() {//page initialization
     timer_bar = document.getElementById("timer_bar");
     time = document.getElementById("time");
 
+
+
+
+    //SCREEN SIZE
+    //short syntax
+    screen.width = 858;
+    screen.height = 480;
+    //apply it
+    screen.style.width = screen.width+"px";
+    screen.style.height = screen.height+"px";
 
 
 
@@ -57,15 +69,15 @@ function InitPage() {//page initialization
 }
 
 function CreateVisualizer() {//prepare the visualizer and create the range of bars for audio visualization
-    //prepare container
+    //prepare screen
     switch (visualizer_mode) {
         case "circular":
             //position and dimension
-            size = window.innerHeight/2;
+            size = screen.height/2;
             visualizer.style.width = size+"px";
             visualizer.style.height = size+"px";
-            visualizer.style.top = (window.innerHeight/2) - (visualizer.offsetHeight/2) + "px";
-            visualizer.style.left = (window.innerWidth/2) - (visualizer.offsetWidth/2) + "px";
+            visualizer.style.top = (screen.height/2) - (visualizer.offsetHeight/2) + "px";
+            visualizer.style.left = (screen.width/2) - (visualizer.offsetWidth/2) + "px";
 
             //switch to absolute positioning instead of flex box for the bars.
             visualizer.style.position = "absolute";
@@ -73,8 +85,8 @@ function CreateVisualizer() {//prepare the visualizer and create the range of ba
             break
         case "straight" || "straight-wave":
             //position and dimension
-            visualizer.style.width = window.innerWidth*0.9+"px";
-            visualizer.style.left = (window.innerWidth/2) - (visualizer.offsetWidth/2) + "px";
+            visualizer.style.width = screen.width*0.9+"px";
+            visualizer.style.left = (screen.width/2) - (visualizer.offsetWidth/2) + "px";
             break
         default:
             throw `AnimationLooper: ${visualizer_mode} is not a valid visualizer type!`
@@ -122,27 +134,59 @@ function CreateVisualizer() {//prepare the visualizer and create the range of ba
 
 
 
+function ApplyZoom(zoom) {
+    screen.style.transformOrigin = "0 0";
+    screen.style.transform = `scale(${zoom})`;
+}
+
+
 
 function AnimationLooper() {//animate the visualizer
+    //#################
+    //CSS RECALCULATION
+    //#################
     //HTML elements dimension and margins recalculation to make the page responsive
-    container.style.width = window.innerWidth+"px";
-    container.style.height = window.innerHeight+"px";
+    
+    
+    //screen interface
+    var interface_padding = window.getComputedStyle(screen_interface).getPropertyValue("padding-left"); //padding-left defined trough "padding" is only accessible that way!
+    var interface_padding_value = parseInt( interface_padding.replace("px","") );
 
-    title.style.marginTop = 0.4*window.innerHeight+"px";
+    screen_interface.style.width = ( window.innerWidth - control_panel.offsetWidth - (interface_padding_value*2) ) + "px";
+    screen_interface.style.height = ( window.innerHeight - (interface_padding_value*2) )+"px";
+    screen_interface.style.top = 0;
+    screen_interface.style.left = control_panel.offsetWidth+"px";
+
+    
+    //screen positioning
+    var screen_margin_left = (screen_interface.offsetWidth/2) - (screen.width/2) - interface_padding_value;
+    var screen_margin_top = (window.innerHeight/2) - (screen.height/2);
+    
+    screen.style.marginLeft = (screen_margin_left > 0) ? (screen_margin_left+"px") : "0px";
+    screen.style.marginTop =  (screen_margin_top > 0)  ? (screen_margin_top+"px")  : "0px";
+
+
+
+    //title and subtitle positioning
+    title.style.marginTop = 0.3*screen.height+"px";
+    title.style.marginLeft = ( (screen.width/2) - (title.offsetWidth/2) )+"px";
+    subtitle.style.marginTop = 0.5*screen.height+"px";
+    subtitle.style.marginLeft = ( (screen.width/2) - (subtitle.offsetWidth/2) )+"px";
+    
     
     //audio visualizer setup depending of the visualization mode
     switch (visualizer_mode) {
         case "circular":
-            visualizer.style.top = (window.innerHeight/2) - (visualizer.offsetHeight/2) + "px";
-            visualizer.style.left = (window.innerWidth/2) - (visualizer.offsetWidth/2) + "px";
+            visualizer.style.top = (screen.height/2) - (visualizer.offsetHeight/2) + "px";
+            visualizer.style.left = (screen.width/2) - (visualizer.offsetWidth/2) + "px";
             break
         case "straight":
-            visualizer.style.width = window.innerWidth*0.9+"px";
-            visualizer.style.left = (window.innerWidth/2) - (visualizer.offsetWidth/2) + "px";
+            visualizer.style.width = screen.width*0.9+"px";
+            visualizer.style.left = (screen.width/2) - (visualizer.offsetWidth/2) + "px";
             break
         case "straight-wave":
-            visualizer.style.width = window.innerWidth*0.9+"px";
-            visualizer.style.left = (window.innerWidth/2) - (visualizer.offsetWidth/2) + "px";
+            visualizer.style.width = screen.width*0.9+"px";
+            visualizer.style.left = (screen.width/2) - (visualizer.offsetWidth/2) + "px";
 
             visualizer_cvs.style.width = visualizer.offsetWidth + "px";
             visualizer_cvs.style.height = visualizer.offsetHeight + "px";
@@ -151,18 +195,22 @@ function AnimationLooper() {//animate the visualizer
             throw `AnimationLooper: ${visualizer_mode} is not a valid visualizer type!`
     }
 
-    timer.style.width = window.innerWidth*0.9+"px";
-    timer.style.left = (window.innerWidth/2) - (timer.offsetWidth/2) + "px";
+    
+    timer.style.width = screen.width*0.9+"px";
+    timer.style.left = (screen.width/2) - (timer.offsetWidth/2) + "px";
     
     timer_bar.style.height = timer.offsetHeight - 20 + "px";
     timer_bar.style.marginTop = ((timer.offsetHeight-10)/2) - (timer_bar.offsetHeight/2) + "px";
     
-    time.style.marginLeft = (window.innerWidth/2) - (time.offsetWidth/2) + "px";
+    time.style.marginLeft = (screen.width/2) - (time.offsetWidth/2) + "px";
 
 
     
     
-    
+    //#################
+    //AUDIO CALCULATION
+    //#################
+
     //update canvas
     CanvasLooper();
     
@@ -347,11 +395,11 @@ function VisualizerCanvasLoop() {//visualizers generated through canvas.
 
 function ParticleCanvasLoop() {//particles canvas animation
     // set to the size of device
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = screen.width;
+    canvas.height = screen.height;
     ctx = canvas.getContext("2d");
     
-    // find the center of the window
+    // find the center of the screen
     center_x = canvas.width / 2;
     center_y = canvas.height / 2;
 
@@ -405,9 +453,9 @@ function Particle() {//control particle behavior. Each particle has an independa
         //spawn the particle arround the screen, depending of the direction.
         //set spawn within the allowed boundaries of the screen
         var x_min = -150;
-        var x_max = window.innerWidth + 150;
+        var x_max = screen.width + 150;
         var y_min = -150;
-        var y_max = window.innerHeight + 150;
+        var y_max = screen.height + 150;
         this.leftSpawn = function() {
             this.x = x_min;
             this.y = RandomInt(y_min, y_max);
@@ -497,11 +545,11 @@ function Particle() {//control particle behavior. Each particle has an independa
         this.y += this.y_velocity;
         
         //kill particle being out or range
-        if (this.x > window.innerWidth+200
-        || this.x < -200
-        || this.y > window.innerHeight+200
-        || this.y < -200) 
-        {//if below window :
+        if (this.x > (screen.width + this.radius)
+        || this.x < (- this.radius)
+        || this.y > (screen.height + this.radius)
+        || this.y < (- this.radius) )
+        {//if below screen :
             let index = particles.indexOf(this);//find it in the list,
             particles.splice(index, 1);// and delete it.
         }
