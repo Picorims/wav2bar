@@ -10,8 +10,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>First audio visualizer</title>
 
-    <script type="text/javascript" src="index.js"></script>
-    <script type="text/javascript" src="methods.js"></script>
+    <!-- main process -->
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/methods.js"></script>
+    <script type="text/javascript" src="test_template.js"></script>
+
+    <!-- objects process -->
+    <script type="text/javascript" src="js/objects/background.js"></script>
+    <script type="text/javascript" src="js/objects/image.js"></script>
+    <script type="text/javascript" src="js/objects/particle_flow.js"></script>
+    <script type="text/javascript" src="js/objects/text.js"></script>
+    <script type="text/javascript" src="js/objects/timer.js"></script>
+    <script type="text/javascript" src="js/objects/visualizer.js"></script>
+
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -25,18 +36,7 @@
   
     <div id="interface">
         <div id="screen"><!-- PREVIEW / RENDER -->
-            <div id="background"></div>
-            <canvas id="particles"></canvas>
-            <div id="color_filter"></div>
-            <h1 id="title">Lights</h1>
-            <h2 id="subtitle">SkyLike</h2>
-            <div id="visualizer">
-                <!--bars goes here-->
-            </div>
-            <div id="timer">
-                <div id="timer_bar"></div>
-            </div>
-            <p id="time">0:00 | 0:00</p>
+            <!-- objects goes here! -->
         </div>
     </div>
 

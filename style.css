@@ -30,7 +30,7 @@ html, body {
 
 
 
-
+/*INTERFACE AND IT'S CONTENT*/
 #interface {
     position: absolute;
     width: 0;
@@ -38,90 +38,12 @@ html, body {
     overflow: auto;
     padding: 10px 10px 10px 10px;
 }
-
-
-
-
-
-/*SCREEN AND IT'S CONTENT*/
 #screen {
     position: relative;
     width: 0;
     height: 0;
-    border: 15px solid #111;
+    background-color: black;
+    border: 15px solid #222;
     border-radius: 10px;
-}
-#background {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    background: radial-gradient(circle, rgba(73,224,255,1) 4%, rgba(23,141,198,1) 90%, rgba(0,116,167,1) 100%);
-    filter: brightness(100%);
-}
-#particles {
-    /* filter: url("#glow"); */
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: -1;
-}
-#title {
-    position: absolute;
-    font-size: 55px;
-    color: #ffffff;
-    text-shadow: 0px 0px 10px #ffffff;
-}
-#subtitle {
-    position: absolute;
-    font-size: 30px;
-    color: #ffffff;
-    text-shadow: 0px 0px 10px #ffffff;
-}
-#visualizer {
-    /* filter: url("#fancy-goo"); */
-    position: absolute;
-    bottom: 90px;
-    left: 0;
-    height: 230px;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: flex-end;
-}
-.visualizer_bar {
-    width: 4px;
-    min-height: 4px;
-    background-color: #ffffff;
-    border-radius: 2px 2px 0 0;
-    box-shadow: 0px 0px 10px #ffffff;
-}
-#timer {
-    position: absolute;
-    bottom: 50px;
-    left: 0;
-    height: 30px;
-    border: 5px solid white;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px #ffffff,
-                inset 0px 0px 3px #ffffff;
-}
-#timer_bar {
-    width: 0;
-    background-color: #ffffff;
-    margin-left: 5px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px #ffffff;
-}
-#time {
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    bottom: 10px;
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-    text-shadow: 0px 0px 10px #ffffff;
+    overflow: hidden;
 }
