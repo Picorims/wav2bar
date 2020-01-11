@@ -11,6 +11,7 @@
 
 function Background(data) {
     this.data = data;//collect data
+    this.data.object_type = "background";
     objects.push(this);//add the object to the list
 
 
@@ -24,6 +25,7 @@ function Background(data) {
         
         if (data.id === this.data.id) {//if he is the targeted element (remove executes for all objects!)
             this.data = data;//recollect data
+            this.data.object_type = "background";
 
             
             //APPLY DATA
@@ -63,14 +65,24 @@ function Background(data) {
 
 
 
+    //###############
+    //SAVE THE OBJECT
+    //###############
+    current_save.objects.push(this.data);
 
-    //####################################
+
+
+
+    //##################################
     //FUNCTION TO ANIMATE THE BACKGROUND
-    //####################################
+    //##################################
 
     this.update = function() {
         this.element.style.width = screen.width+"px";
         this.element.style.height = screen.height+"px";
+
+        //finished updating
+        return true;
     }
 
 
@@ -85,6 +97,10 @@ function Background(data) {
             //remove index
             var index = objects.indexOf(this);
             objects.splice(index, 1);
+
+            //remove from save
+            var index = current_save.objects.indexOf(this.data);
+            current_save.objects.splice(index, 1);
 
             //remove element
             this.element.remove();

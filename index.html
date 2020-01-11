@@ -13,6 +13,7 @@
     <!-- main process -->
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/methods.js"></script>
+    <script type="text/javascript" src="js/save.js"></script>
     <script type="text/javascript" src="test_template.js"></script>
 
     <!-- objects process -->
@@ -28,12 +29,21 @@
 
 
 <body onload="InitPage()">
+    
+    <!--CONTROL PANEL-->
     <div id="control_panel">
         <button id="start_button">START</button><br>
+        
         <label for="zoom" style="color: white;">Zoom: </label><input type="number" min="0.2" max="2" step="0.2" id="zoom" oninput="ApplyZoom(this.value)"/>
-    </div><!--CONTROL PANEL-->
+        
+        <br><span style="color: white;" id="fps"></span><span style="color: white;">FPS</span>
+    
+        <br><br><br><label for="audio-file-input" style="color: white;">Import audio: </label><input id="audio-file-input" type="file" accept="audio/*" onchange="LoadAudio(this.files[0], 'file');"/>
+        
+        <br><br><br><label for="save-file-input" style="color: white;">Import save: </label><input id="save-file-input" type="file" accept="text/json" onchange="LoadSave(this.files[0]);"/>
+    </div>
   
-  
+    <!--INTERFACE WITH SCREEN-->
     <div id="interface">
         <div id="screen"><!-- PREVIEW / RENDER -->
             <!-- objects goes here! -->

@@ -18,6 +18,7 @@
 
 function Image(data) {
     this.data = data;//collect data
+    this.data.object_type = "image";
     objects.push(this);//add the object to the list
 
 
@@ -31,6 +32,7 @@ function Image(data) {
         
         if (data.id === this.data.id) {//if he is the targeted element (remove executes for all objects!)
             this.data = data;//recollect data
+            this.data.object_type = "image";
 
             
             //APPLY DATA
@@ -75,6 +77,12 @@ function Image(data) {
 
 
 
+    //###############
+    //SAVE THE OBJECT
+    //###############
+    current_save.objects.push(this.data);
+
+
 
     //#############################
     //FUNCTION TO ANIMATE THE IMAGE
@@ -82,6 +90,9 @@ function Image(data) {
 
     this.update = function() {
         //nothing (this cannot be removed, or it will trigger errors.)
+
+        //finished updating
+        return true;
     }
 
 
@@ -97,6 +108,10 @@ function Image(data) {
             var index = objects.indexOf(this);
             objects.splice(index, 1);
 
+            //remove from save
+            var index = current_save.objects.indexOf(this.data);
+            current_save.objects.splice(index, 1);
+            
             //remove element
             this.element.remove();
         }

@@ -1,6 +1,6 @@
 //MIT License - Copyright (c) 2019 Picorims and Mischa
 
-//TEMPLATE
+//TEMPLATE - TheFatRat & Anjulie - Close To The Sun
 
 function Template() {
 

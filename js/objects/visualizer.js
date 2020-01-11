@@ -22,6 +22,7 @@
 
 function Visualizer(data) {
     this.data = data;//collect data
+    this.data.object_type = "visualizer";
     this.bars = [];//contain all bars for type "straight" and "straight-wave"
     objects.push(this);//add the object to the list
 
@@ -37,6 +38,7 @@ function Visualizer(data) {
         
         if (data.id === this.data.id) {//if he is the targeted element (remove executes for all objects!)
             this.data = data;//recollect data
+            this.data.object_type = "visualizer";
 
             
             //APPLY DATA
@@ -135,6 +137,12 @@ function Visualizer(data) {
     //#############################
     this.updateData(this.data);
 
+
+
+    //###############
+    //SAVE THE OBJECT
+    //###############
+    current_save.objects.push(this.data);
 
 
 
@@ -306,6 +314,9 @@ function Visualizer(data) {
 
 
         //END OF update();
+
+        //finished updating
+        return true;
     }
 
 
@@ -324,6 +335,10 @@ function Visualizer(data) {
             var index = objects.indexOf(this);
             objects.splice(index, 1);
 
+            //remove from save
+            var index = current_save.objects.indexOf(this.data);
+            current_save.objects.splice(index, 1);
+            
             //remove element
             this.element.remove();
         }

@@ -22,6 +22,7 @@
 
 function ParticleFlow(data) {
     this.data = data;//collect data
+    this.data.object_type = "particle_flow";
     this.particles = [];//contain all particles
     objects.push(this);//add the object to the list
 
@@ -37,6 +38,7 @@ function ParticleFlow(data) {
         
         if (data.id === this.data.id) {//if he is the targeted element (remove executes for all objects!)
             this.data = data;//recollect data
+            this.data.object_type = "particle_flow";
 
             
             //APPLY DATA
@@ -85,6 +87,12 @@ function ParticleFlow(data) {
 
 
 
+    //###############
+    //SAVE THE OBJECT
+    //###############
+    current_save.objects.push(this.data);
+
+
 
 
 
@@ -122,6 +130,9 @@ function ParticleFlow(data) {
         }
 
         //END OF update();
+
+        //finished updating
+        return true;
     }
 
 
@@ -140,6 +151,10 @@ function ParticleFlow(data) {
             var index = objects.indexOf(this);
             objects.splice(index, 1);
 
+            //remove from save
+            var index = current_save.objects.indexOf(this.data);
+            current_save.objects.splice(index, 1);
+            
             //remove element
             this.element.remove();
         }

@@ -19,6 +19,7 @@
 
 function Text(data) {
     this.data = data;//collect data
+    this.data.object_type = "text";
     objects.push(this);//add the object to the list
 
 
@@ -31,6 +32,7 @@ function Text(data) {
         
         if (data.id === this.data.id) {//if he is the targeted element (remove executes for all objects!)
             this.data = data;//recollect data
+            this.data.object_type = "text";
 
             
             //APPLY DATA
@@ -76,6 +78,12 @@ function Text(data) {
 
 
 
+    //###############
+    //SAVE THE OBJECT
+    //###############
+    current_save.objects.push(this.data);
+
+
 
     //############################
     //FUNCTION TO ANIMATE THE TEXT
@@ -99,6 +107,9 @@ function Text(data) {
             this.element.innerHTML = `${time_pos_min}:${time_pos_sec} | ${time_length_min}:${time_length_sec}`;
     
         }
+
+        //finished updating
+        return true;
     }
 
 
@@ -113,6 +124,10 @@ function Text(data) {
             var index = objects.indexOf(this);
             objects.splice(index, 1);
 
+            //remove from save
+            var index = current_save.objects.indexOf(this.data);
+            current_save.objects.splice(index, 1);
+            
             //remove element
             this.element.remove();
         }
