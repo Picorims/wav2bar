@@ -1,4 +1,4 @@
-//MIT License - Copyright (c) 2019 Picorims and Mischa
+//MIT License - Copyright (c) 2020 Picorims
 
 //TEXT OBJECT PROCESS
 

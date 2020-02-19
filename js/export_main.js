@@ -1,4 +1,4 @@
-//MIT License - Copyright (c) 2019 Picorims and Mischa
+//MIT License - Copyright (c) 2020 Picorims
 
 //EXPORTING THE PROJECT INTO A VIDEO || MAIN PROCESS PART (completely excluded from renderer window process)
 
