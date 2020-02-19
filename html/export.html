@@ -1,0 +1,39 @@
+<!-- MIT License - Copyright (c) 2019 Picorims and Mischa -->
+
+<!-- HTML FILE FOR EXPORTING THE SCREEN TO VIDEO (OFFSCREEN PROCESS) -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>First audio visualizer Renderer</title>
+
+    <!-- main process -->
+    <script type="text/javascript" src="../js/export_renderer.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
+    <script type="text/javascript" src="../js/methods.js"></script>
+    <script type="text/javascript" src="../js/save.js"></script>
+    <script type="text/javascript" src="../test_template.js"></script>
+
+    <!-- objects process -->
+    <script type="text/javascript" src="../js/objects/background.js"></script>
+    <script type="text/javascript" src="../js/objects/image.js"></script>
+    <script type="text/javascript" src="../js/objects/particle_flow.js"></script>
+    <script type="text/javascript" src="../js/objects/text.js"></script>
+    <script type="text/javascript" src="../js/objects/timer.js"></script>
+    <script type="text/javascript" src="../js/objects/visualizer.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+
+
+<body onload="ConfirmCreation();">
+        
+    <div id="screen" class="renderer_screen"><!-- RENDER -->
+        <!-- objects goes here! -->
+    </div>
+
+</body>
+</html>

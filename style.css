@@ -1,0 +1,126 @@
+/* MIT License - Copyright (c) 2019 Picorims and Mischa */
+
+/* MAIN CSS STYLE FOR THE TOOL */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    background-color: #101215;
+}
+html, body {
+    overflow: hidden;
+}
+
+
+
+/*CONTROL PANEL AND IT'S CONTENT*/
+#control_panel {
+    position: fixed;
+    width: 260px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    background-color: #191e22;
+    z-index: 500;
+    color: #51667d;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+
+#control_panel > button {
+    width: 160px;
+    height: 30px;
+    border: 2px solid #14171e;
+    border-radius: 5px;
+    background-color: #0d1015;
+    box-shadow: 0px 0px 3px #161922;
+    color: #3b4b68;
+    font-size: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    letter-spacing: 1px;
+    transition: 0.2s;
+}
+#control_panel > button:hover {
+    background-color: #090b0f;
+    color: #667fb1;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+
+#control_panel > input {
+    width: 70px;
+    height: 20px;
+    background-color: #0d1015;
+    box-shadow: 0px 0px 3px #161922;
+    border: 2px solid #14171e;
+    border-radius: 5px;
+    color: #3b4b68;
+    font-size: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+#control_panel > input:focus {
+    background-color: #090b0f;
+    color: #667fb1;
+    transition: 0.2s;
+}
+
+
+#control_panel > input[type="file"] {
+    width: 220px;
+    height: 70px;
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #0d1015;
+    box-shadow: 0px 0px 3px #161922;
+    border: 2px solid #14171e;
+    border-radius: 5px;
+    color: #3b4b68;
+    font-size: 10px;
+    text-align: left;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#control_panel > input[type="file"]:hover {
+    background-color: #090b0f;
+    color: #667fb1;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+
+
+
+
+/*INTERFACE AND IT'S CONTENT*/
+#interface {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: auto;
+    padding: 10px 10px 10px 10px;
+}
+#screen {
+    position: relative;
+    width: 0;
+    height: 0;
+    background-color: black;
+    border: 5px solid #15171c;
+    border-radius: 10px;
+    box-shadow: rgb(12, 13, 15) 0px 0px 10px;
+    overflow: hidden;
+}
+.renderer_screen {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    border: 0px !important;
+    border-radius: 0px !important;
+}

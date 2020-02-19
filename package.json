@@ -1,0 +1,23 @@
+{
+  "name": "audio-visualizer-creator-master",
+  "version": "1.0.0",
+  "description": "A tool to create and export an entairtaining video for the music industry",
+  "main": "main",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "audio",
+    "visualizer",
+    "music",
+    "video",
+    "export",
+    "creation"
+  ],
+  "author": "Picorims and Mischa",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^6.1.7",
+    "fluent-ffmpeg": "^2.1.2"
+  }
+}

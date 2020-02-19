@@ -1,0 +1,3 @@
+- electron implementation
+- video export (not finished, issues getting FFT data)
+- small CSS improvement, temporary
