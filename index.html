@@ -15,6 +15,7 @@
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/methods.js"></script>
     <script type="text/javascript" src="js/save.js"></script>
+    <script type="text/javascript" src="js/user_interface.js"></script>
     <script type="text/javascript" src="test_template.js"></script>
 
     <!-- objects process -->
@@ -33,22 +34,64 @@
     
     <!--CONTROL PANEL-->
     <div id="control_panel">
-        <button id="start_button">START</button>
-        
-        <br><br><span id="fps"></span><span>FPS</span>
 
-        <br><br><label for="zoom">Zoom: </label><input type="number" min="0.2" max="2" step="0.2" id="zoom" oninput="ApplyZoom(this.value)"/>
-    
-        <br><br><br><label for="audio-file-input">Import audio: </label>
-        <input id="audio-file-input" type="file" accept="audio/*" onchange="LoadAudio(this.files[0], 'file');"/>
-        
-        <br><br><br><label for="save-file-input">Import save (JSON): </label>
-        <input id="save-file-input" type="file" accept="text/json" onchange="LoadSave(this.files[0]);"/>
-    
-        <br><br><label for="zoom">Export: </label><button id="zoom" onclick="Export();">EXPORT NOW!</button>
+        <!--Labels, tabs naviguation-->
+        <div id="naviguation_tabs">
+            <div class="tab_label" id="project_label">PROJECT</div>
+            <div class="tab_label" id="objects_label">OBJECTS</div>
+            <div class="tab_label" id="export_label">EXPORT</div>
+            <div class="tab_label" id="help_label">CONTACT AND HELP</div>
+        </div>
+
+
+
+        <!--Tabs container-->
+        <div id="tabs_container">
+
+            <!--PROJECT-->
+            <div id="project_tab" class="tab">
+
+                <button id="start_button">START</button>
+
+                <br/><span id="fps"></span><span>FPS</span>
+
+                <br/><label for="zoom">Zoom: </label><input type="number" min="0.2" max="2" step="0.2" id="zoom" oninput="ApplyZoom(this.value)"/>
+
+                <br/><br/><label for="audio-file-input">Import audio: </label>
+                <input id="audio-file-input" type="file" accept="audio/*" onchange="LoadAudio(this.files[0], 'file');"/>
+                
+                <br/><br/><label for="save-file-input">Import save (JSON): </label>
+                <input id="save-file-input" type="file" accept="text/json" onchange="LoadSave(this.files[0]);"/>
+            
+            </div>
+
+            <!--OBJECTS-->
+            <div id="objects_tab" class="tab">
+
+            </div>
+
+            <!--EXPORT-->
+            <div id="export_tab" class="tab">
+                <label for="zoom">Export: </label><button id="zoom" onclick="Export();">EXPORT NOW!</button>
+            </div>
+
+            <!--CONTACT AND HELP-->
+            <div id="help_tab" class="tab">
+                
+            </div>
+
+
+
+        </div>
 
     </div>
   
+
+
+
+
+
+
     <!--INTERFACE WITH SCREEN-->
     <div id="interface">
         <div id="screen"><!-- PREVIEW / RENDER -->
@@ -56,6 +99,13 @@
         </div>
     </div>
 
+
+
+
+
+
+
+    <!--FILTERS-->
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
         <defs>
 

@@ -2,7 +2,7 @@
 A tool to make custom audio visualization and export production videos for the music industry.
 
 ### Important Notes
-**- This tool is unusable at this point, and is still in early development!**
+- **This tool is unusable at this point, and is still in early development!**
 - This tool uses Electron 6 and so run in a Chrome clone locally. This code cannot be runned in the browser as it contains Electron code! A browser version will be done eventually.
 
 ### Running

@@ -1,97 +1,238 @@
 /* MIT License - Copyright (c) 2020 Picorims */
 
-/* MAIN CSS STYLE FOR THE TOOL */
+/*MAIN CSS STYLE FOR THE TOOL */
+
+
+/*
+###########
+DEFAULT CSS
+###########
+*/
+
+html {
+    --main-color: #06a4fa;
+    --main-darker-color: #005ab4;
+    --main-darker-black: #040608;;
+    --main-black: #090c11;
+    --main-lighter-black: #0f151f;
+    --main-gray: #242c3b;
+    --main-white: #c6deff;
+    --main-darker-white: #a2b7d4;
+    --main-alert: #cd3f40;
+}
 
 body {
     margin: 0;
     padding: 0;
+    
+    background-color: var(--main-darker-black);
+}
+
+html, body {
+    overflow: hidden;
+}
+
+body, button, input {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
-    background-color: #101215;
 }
-html, body {
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    box-shadow: 0px 0px 5px var(--main-gray);
+}
+::-webkit-scrollbar-track {
+    background-color: var(--main-gray);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--main-lighter-black);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-corner {
+    background-color: var(--main-lighter-black);
+}
+
+
+
+
+
+
+
+/*
+##############################
+CONTROL PANEL AND IT'S CONTENT
+##############################
+*/
+
+/*
+============
+Main Element
+============
+*/
+
+#control_panel {
+    position: fixed;
+    width: 350px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--main-black);
+    box-shadow: 0px 0px 10px black;
+    z-index: 500;
     overflow: hidden;
 }
 
 
 
-/*CONTROL PANEL AND IT'S CONTENT*/
-#control_panel {
-    position: fixed;
-    width: 260px;
-    height: 100%;
+/*
+================================================
+Naviguation tabs at the top of the control panel
+================================================
+*/
+
+#naviguation_tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    border-bottom: 10px solid var(--main-gray);
+    box-shadow: 0px 0px 5px var(--main-gray);
+}
+
+.tab_label {
+    flex-grow: 1;
+    height: 20px;
+    padding: 6px;
+
+    background-color: var(--main-black);
+    border-left: 2px solid var(--main-lighter-black);
+    border-right: 2px solid var(--main-lighter-black);
+    border-bottom: 3px solid var(--main-darker-color);
+    border-radius: 0px 0px 5px 5px;
+
+    color: var(--main-white);
+    font-weight: bold;
+    font-size: 18px;
+
+    transition: 0.2s;
+}
+
+.tab_label:hover {
+    transition: 0.2s;
+    cursor: pointer;
+    height: 25px;
+    background-color: var(--main-darker-color);
+}
+
+.selected_tab {
+    height: 25px;
+    border-bottom: 3px solid var(--main-color);
+    background-color: var(--main-darker-color);
+}
+
+
+
+
+/*
+=======================
+Tabs container and tabs
+=======================
+*/
+
+#tabs_container {
+    height: calc(100% - 50px);
+    overflow: hidden;
+}
+
+
+
+
+.tab {
+    position: relative;
     top: 0;
     left: 0;
-    padding: 20px;
-    background-color: #191e22;
-    z-index: 500;
-    color: #51667d;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
+
+    width: calc(100% - 2 * 15px);
+    height: calc(100% - 2 * 15px);
+    padding: 15px;
     overflow-x: hidden;
     overflow-y: scroll;
+
+    color: var(--main-white);
+    font-size: 16px;
+    text-align: center;
 }
 
 
-#control_panel > button {
-    width: 160px;
+#tabs_container > button {
     height: 30px;
-    border: 2px solid #14171e;
+    margin: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    background-color: var(--main-gray);
+    border: none;
     border-radius: 5px;
-    background-color: #0d1015;
-    box-shadow: 0px 0px 3px #161922;
-    color: #3b4b68;
-    font-size: 18px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-shadow: 0px 0px 3px var(--main-gray);
+    
+    color: var(--main-white);
+    font-size: 16px;
     letter-spacing: 1px;
+    
     transition: 0.2s;
 }
-#control_panel > button:hover {
-    background-color: #090b0f;
-    color: #667fb1;
+
+#tabs_container > button:hover {
+    background-color: var(--main-darker-color);
+    box-shadow: 0px 0px 20px var(--main-darker-color);
     cursor: pointer;
+    
     transition: 0.2s;
 }
 
 
-#control_panel > input {
+#tabs_container > input {
     width: 70px;
     height: 20px;
-    background-color: #0d1015;
-    box-shadow: 0px 0px 3px #161922;
-    border: 2px solid #14171e;
+    margin: 10px;
+
+    background-color: var(--main-lighter-black);
+    box-shadow: 0px 0px 3px var(--main-gray);
+    border: 3px solid var(--main-gray);
     border-radius: 5px;
-    color: #3b4b68;
+    
+    color: var(--main-darker-white);
     font-size: 18px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
+
+    transition: 0.2s;
 }
-#control_panel > input:focus {
-    background-color: #090b0f;
-    color: #667fb1;
+#tabs_container > input:focus {
+    box-shadow: 0px 0px 20px var(--main-darker-color);
+    border: 3px solid var(--main-darker-color);
+
     transition: 0.2s;
 }
 
 
-#control_panel > input[type="file"] {
-    width: 220px;
+#tabs_container > input[type="file"] {
+    width: 90%;
     height: 70px;
     margin-top: 10px;
     padding: 5px;
-    background-color: #0d1015;
-    box-shadow: 0px 0px 3px #161922;
-    border: 2px solid #14171e;
-    border-radius: 5px;
-    color: #3b4b68;
-    font-size: 10px;
+    
+    font-size: 12px;
     text-align: left;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-#control_panel > input[type="file"]:hover {
-    background-color: #090b0f;
-    color: #667fb1;
+#tabs_container > input[type="file"]:hover {
     cursor: pointer;
+
+    box-shadow: 0px 0px 20px var(--main-darker-color);
+    border: 3px solid var(--main-darker-color);
+
     transition: 0.2s;
 }
 
@@ -99,7 +240,22 @@ html, body {
 
 
 
-/*INTERFACE AND IT'S CONTENT*/
+
+
+
+
+
+
+
+
+
+/*
+##########################
+INTERFACE AND IT'S CONTENT
+##########################
+*/
+
+
 #interface {
     position: absolute;
     width: 0;
@@ -107,16 +263,19 @@ html, body {
     overflow: auto;
     padding: 10px 10px 10px 10px;
 }
+
 #screen {
     position: relative;
     width: 0;
     height: 0;
+    margin: 10px;
     background-color: black;
-    border: 5px solid #15171c;
+    border: 5px solid var(--main-gray);
     border-radius: 10px;
-    box-shadow: rgb(12, 13, 15) 0px 0px 10px;
+    box-shadow: var(--main-darker-black) 0px 0px 10px;
     overflow: hidden;
 }
+
 .renderer_screen {
     position: absolute !important;
     top: 0;

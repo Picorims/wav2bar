@@ -17,6 +17,7 @@ function InitPage() {//page initialization
     control_panel = document.getElementById("control_panel");
     screen_interface = document.getElementById("interface");
     screen = document.getElementById("screen");
+    InitUI();
     
 
 
