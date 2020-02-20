@@ -255,6 +255,11 @@ INTERFACE AND IT'S CONTENT
 ##########################
 */
 
+/*
+============
+Main element
+============
+*/
 
 #interface {
     position: absolute;
@@ -263,6 +268,93 @@ INTERFACE AND IT'S CONTENT
     overflow: auto;
     padding: 10px 10px 10px 10px;
 }
+
+
+
+
+/*
+==================
+Top Naviguation UI
+==================
+*/
+
+#top_UI {
+    position: fixed;
+    top: 20px;
+    left: 370px;
+    z-index: 500;
+
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px black;
+
+    font-size: 0px;
+}
+
+.top_UI {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+
+    background-color: var(--main-white);
+    border: 2px solid var(--main-darker-white);
+    box-shadow: inset 0px 0px 10px var(--main-darker-white);
+
+    color: var(--main-gray);
+    font-size: 20px;
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+.top_UI:hover {
+    color: var(--main-darker-black);
+
+    cursor: pointer;
+
+    background-color: var(--main-color);
+    border-color: var(--main-darker-color);
+    box-shadow: inset 0px 0px 10px var(--main-darker-color);
+}
+
+.left_round {
+    border-radius: 5px 0 0 5px;
+}
+.right_round {
+    border-radius: 0 5px 5px 0;
+}
+
+.double_size {
+    width: 100px;
+}
+
+.dropdown_option {
+    position: fixed;
+    width: 100px;
+    height: 30px;
+    padding-top: 5px;
+
+    background-color: var(--main-white);
+    border: 1px solid var(--main-darker-white);
+
+    color: var(--main-gray);
+    font-size: 20px;
+    font-weight: bold;
+}
+.dropdown_option:hover {
+    background-color: var(--main-color);
+
+    cursor: pointer;
+}
+
+
+
+
+
+/*
+======
+Screen
+======
+*/
 
 #screen {
     position: relative;

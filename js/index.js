@@ -112,11 +112,6 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
 
 
 
-function ApplyZoom(zoom) {//function that apply to the screen the zoom given in the control_panel.
-    screen.style.transformOrigin = "0 0";
-    screen.style.transform = `scale(${zoom})`;
-}
-
 
 
 function StartAnimating(fps) {//prepare fps animation

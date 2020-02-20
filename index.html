@@ -55,8 +55,6 @@
 
                 <br/><span id="fps"></span><span>FPS</span>
 
-                <br/><label for="zoom">Zoom: </label><input type="number" min="0.2" max="2" step="0.2" id="zoom" oninput="ApplyZoom(this.value)"/>
-
                 <br/><br/><label for="audio-file-input">Import audio: </label>
                 <input id="audio-file-input" type="file" accept="audio/*" onchange="LoadAudio(this.files[0], 'file');"/>
                 
@@ -97,7 +95,9 @@
         
         <!--Naviguation Buttons-->
         <div id="top_UI">
-
+            <button class="top_UI left_round" id="zoom_out">-</button>
+            <button class="top_UI double_size" id="zoom_value"> <span id="zoom_display"></span>% </button>
+            <button class="top_UI right_round"id="zoom_in" >+</button>
         </div>
 
 
