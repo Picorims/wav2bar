@@ -8,6 +8,7 @@ var fps_array, fps_array_max_length;
 var volume;
 var current_save; //all data of the project that can be saved
 var audio, audio_file, audio_file_type, source, context, analyzer, frequency_array;//audio object for JavaScript / audio File() object / file format / audio API required modules
+var audio_position_string;// ??:?? | ??:??
 var objects = [];//all objects inside the screen
 var objects_callback = [];
 
@@ -93,17 +94,51 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
     //setup
     source.connect(analyser);
     analyser.connect(context.destination);
-    if (type==="file") document.getElementById("start_button").onclick = function() { 
-        if (!animating) StartAnimating(fps);
-        audio.play();
-    };//file objects are only loaded from the main window, and they are also the only type of file
-    //loaded here. So this is the only case requiring to update the "START" button!
+    if (type==="file") SetupAudioUI();
+    //file objects are only loaded from the main window, and they are also the only type of file
+    //loaded here (in the main window). So this is the only case requiring audio UI.
 
 
     //prepare data collection
     frequency_array = new Uint8Array(analyser.frequencyBinCount);//0 to 1023 => length=1024.
     
 }
+
+
+
+
+function UpdateFPS() {//display FPS regularly
+    fps_array_max_length = 10;
+    
+    //maintain the max length of the array
+    if (fps_array.length > fps_array_max_length) {
+        
+        var overflow = fps_array.length - fps_array_max_length;
+        fps_array.splice(0, overflow);
+    }
+
+    //calculates average FPS from the fps array
+    var sum = 0;
+    for (var index of fps_array) {
+        sum += index;
+    }
+    var average_fps = sum / fps_array_max_length;
+
+    //display fps
+    document.getElementById("fps").innerHTML = average_fps;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -159,6 +194,7 @@ function Animate() {
         time.then = time.now - (time.elapsed % fps_interval);
 
         //Draw the frame
+        UpdateTimeDisplay();
         DrawFrame();
     }
 }
@@ -175,28 +211,6 @@ function UpdateFinished() {//returns if all the objects have finished updating.
     return finished_render;
 }
 
-
-
-function UpdateFPS() {//display FPS regularly
-    fps_array_max_length = 10;
-    
-    //maintain the max length of the array
-    if (fps_array.length > fps_array_max_length) {
-        
-        var overflow = fps_array.length - fps_array_max_length;
-        fps_array.splice(0, overflow);
-    }
-
-    //calculates average FPS from the fps array
-    var sum = 0;
-    for (var index of fps_array) {
-        sum += index;
-    }
-    var average_fps = sum / fps_array_max_length;
-
-    //display fps
-    document.getElementById("fps").innerHTML = average_fps;
-}
 
 
 

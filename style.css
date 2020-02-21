@@ -9,6 +9,7 @@ DEFAULT CSS
 ###########
 */
 
+/*color palette*/
 html {
     --main-color: #06a4fa;
     --main-darker-color: #005ab4;
@@ -21,6 +22,7 @@ html {
     --main-alert: #cd3f40;
 }
 
+/*body general behaviour*/
 body {
     margin: 0;
     padding: 0;
@@ -32,11 +34,13 @@ html, body {
     overflow: hidden;
 }
 
+/*font family*/
 body, button, input {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
 }
 
+/*scroll bars*/
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -52,6 +56,20 @@ body, button, input {
 ::-webkit-scrollbar-corner {
     background-color: var(--main-lighter-black);
 }
+
+/*input type range*/
+input[type=range] {
+    -webkit-appearance: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+}
+
 
 
 
@@ -283,6 +301,7 @@ Top Naviguation UI
     top: 20px;
     left: 370px;
     z-index: 500;
+    display: flex;
 
     border-radius: 5px;
     box-shadow: 0px 0px 10px black;
@@ -290,6 +309,7 @@ Top Naviguation UI
     font-size: 0px;
 }
 
+/*default block*/
 .top_UI {
     width: 50px;
     height: 50px;
@@ -306,7 +326,7 @@ Top Naviguation UI
 
     transition: 0.2s;
 }
-.top_UI:hover {
+.top_UI:hover, .activated {
     color: var(--main-darker-black);
 
     cursor: pointer;
@@ -315,18 +335,64 @@ Top Naviguation UI
     border-color: var(--main-darker-color);
     box-shadow: inset 0px 0px 10px var(--main-darker-color);
 }
+div.top_UI {
+    height: 46px; /*div element's border increase the size, it has to be removed from main size*/
+    display: inline-block;
+}
 
+/*Round a block*/
 .left_round {
-    border-radius: 5px 0 0 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 .right_round {
-    border-radius: 0 5px 5px 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    margin-right: 15px;
 }
 
+/*change block size*/
 .double_size {
     width: 100px;
 }
+.triple_size {
+    width: 150px;
+}
 
+/*range block*/
+.range {
+    width: 300px;
+}
+.range_track {
+    width: 270px;
+    margin-top: 18px;
+}
+.range_track::-webkit-slider-runnable-track {
+    height: 10px;
+    
+    background-color: var(--main-gray);
+    border-radius: 3px;
+    box-shadow: inset 0px 0px 5px black;
+}
+.range_track::-webkit-slider-thumb {
+    width: 20px;
+    height: 30px;
+    margin-top: -10px;
+
+    background-color: var(--main-darker-white);
+    border: 2px solid var(--main-gray);
+    box-shadow: inset 0px 0px 5px var(--main-gray);
+    border-radius: 5px;
+}
+
+/*text block*/
+.text {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/*dropdown menu for a double sized block*/
 .dropdown_option {
     position: fixed;
     width: 100px;

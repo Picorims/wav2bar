@@ -26,7 +26,11 @@
     <script type="text/javascript" src="js/objects/timer.js"></script>
     <script type="text/javascript" src="js/objects/visualizer.js"></script>
 
+    <!--CSS-->
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="assets/icons/fontawesome-free-5.12.1-web/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/icons/fontawesome-free-5.12.1-web/css/solid.css">
+    <link rel="stylesheet" type="text/css" href="assets/icons/fontawesome-free-5.12.1-web/css/brands.css">
 </head>
 
 
@@ -37,10 +41,10 @@
 
         <!--Labels, tabs naviguation-->
         <div id="naviguation_tabs">
-            <div class="tab_label" id="project_label">PROJECT</div>
-            <div class="tab_label" id="objects_label">OBJECTS</div>
-            <div class="tab_label" id="export_label">EXPORT</div>
-            <div class="tab_label" id="help_label">CONTACT AND HELP</div>
+            <div class="tab_label" id="project_label"> <i class="fas fa-cubes"></i> PROJECT</div>
+            <div class="tab_label" id="objects_label"> <i class="fas fa-object-group"></i> OBJECTS</div>
+            <div class="tab_label" id="export_label"> <i class="fas fa-film"></i> EXPORT</div>
+            <div class="tab_label" id="help_label"> <i class="fas fa-question-circle"></i> CONTACT AND HELP</div>
         </div>
 
 
@@ -50,8 +54,6 @@
 
             <!--PROJECT-->
             <div id="project_tab" class="tab">
-
-                <button id="start_button">START</button>
 
                 <br/><span id="fps"></span><span>FPS</span>
 
@@ -95,9 +97,45 @@
         
         <!--Naviguation Buttons-->
         <div id="top_UI">
-            <button class="top_UI left_round" id="zoom_out">-</button>
-            <button class="top_UI double_size" id="zoom_value"> <span id="zoom_display"></span>% </button>
-            <button class="top_UI right_round"id="zoom_in" >+</button>
+            
+            <!--Zoom-->
+            <button class="top_UI left_round" id="zoom_out">
+                <i class="fas fa-search-minus"></i>
+            </button>
+            <button class="top_UI double_size" id="zoom_value">
+                <span id="zoom_display"></span>%
+            </button>
+            <button class="top_UI right_round"id="zoom_in">
+                <i class="fas fa-search-plus"></i>
+            </button>
+
+            <!--Play, pause, etc-->
+            <button class="top_UI left_round" id="play_audio">
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="top_UI" id="pause_audio">
+                <i class="fas fa-pause"></i>
+            </button>
+            <button class="top_UI" id="stop_audio">
+                <i class="fas fa-stop"></i>
+            </button>
+            <div class="top_UI triple_size">
+                <span class="text" id="time_display">0:00 | 0:00</span>
+            </div>
+            <button class="top_UI" id="audio_to_start">
+                <i class="fas fa-fast-backward"></i>
+            </button>
+            <div class="top_UI range">
+                <input class="range_track" type="range" id="audio_range"/>
+            </div>
+            <button class="top_UI right_round" id="audio_to_end">
+                <i class="fas fa-fast-forward"></i>
+            </button>
+
+            <!--Loop music-->
+            <button class="top_UI left_round right_round" id="loop_audio">
+                <i class="fas fa-sync-alt"></i>
+            </button>
         </div>
 
 

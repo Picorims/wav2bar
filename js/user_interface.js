@@ -4,7 +4,21 @@
 
 var tab;//all tabs
 var tab_label;//all tab labels
+
 var zoom;//screen zoom value
+
+var audio_range_update;//setInterval that updates audio range
+var audio_range_used;//if the user uses the range
+var audio_time_update;//setInterval that updates audio time display
+
+
+
+
+/*
+##############
+INITIALIZATION
+##############
+*/
 
 //user interface initialization
 function InitUI() {
@@ -88,7 +102,11 @@ function InitUI() {
 
 
 
-
+/*
+###############
+SHOW / HIDE TAB
+###############
+*/
 
 //hides any tab shown
 function HideAnyTab() {
@@ -111,7 +129,11 @@ function ShowTab(tab, tab_label) {
 
 
 
-
+/*
+####
+ZOOM
+####
+*/
 
 //creates a dropdown menu to choose the zoom
 function CreateZoomMenu() {
@@ -169,4 +191,161 @@ function ApplyZoom(zoom_value) {
     zoom = zoom_value;
     screen.style.transformOrigin = "0 0";
     screen.style.transform = `scale(${zoom})`;
+}
+
+
+
+
+
+
+
+
+
+/*
+#############
+AUDIO CONTROL
+#############
+*/
+
+//this function is called by the function LoadAudio() which load audio files.
+//it cannot be called by the global UI initialization because of the access to the audio process,
+//which has to be created with an audio file.
+
+//it initialize the audio control at the top of the screen
+function SetupAudioUI() {
+    //DOM elements (range excluded)
+    var play_audio = document.getElementById("play_audio");
+    var pause_audio = document.getElementById("pause_audio");
+    var stop_audio = document.getElementById("stop_audio");
+    var audio_to_start = document.getElementById("audio_to_start");
+    var audio_to_end = document.getElementById("audio_to_end");
+    var loop_audio = document.getElementById("loop_audio");
+
+
+    //PLAY
+    play_audio.onclick = function() { 
+        if (!animating) StartAnimating(fps);
+        audio.play();
+
+        //update visuals
+        play_audio.classList.add("activated");
+        pause_audio.classList.remove("activated");
+        stop_audio.classList.remove("activated");
+    };
+
+
+    //PAUSE
+    pause_audio.onclick = function() {
+        if (animating) StopAnimating();
+        audio.pause();
+
+        //update visuals
+        play_audio.classList.remove("activated");
+        pause_audio.classList.add("activated");
+        stop_audio.classList.remove("activated");
+    }
+
+
+    //STOP
+    stop_audio.onclick = function() {
+        if (animating) StopAnimating();
+        audio.pause();
+        audio.currentTime = 0;
+
+        //update visuals
+        play_audio.classList.remove("activated");
+        pause_audio.classList.remove("activated");
+        stop_audio.classList.add("activated");
+    }
+
+
+    //TO START
+    audio_to_start.onclick = function() {
+        audio.currentTime = 0;
+    }
+
+
+    //TO END
+    audio_to_end.onclick = function() {
+        audio.currentTime = audio.duration;
+    }
+
+
+    //LOOP
+    audio.loop = false;
+    loop_audio.onclick = function() {
+        audio.loop = (audio.loop) ?  false : true;
+
+        //update visuals
+        loop_audio.classList.toggle("activated");
+    }
+
+
+    //RANGE
+    //init
+    var audio_range = document.getElementById("audio_range");
+    audio_range.min = 0;
+    var wait_for_audio_ready = setInterval(function() {//seek required to not get a NaN value
+        if (audio.readyState === 4) {
+            audio_range.max = audio.duration;
+            clearInterval(wait_for_audio_ready);
+        }
+    }, 10);
+
+    //know if it is used
+    audio_range.onmousedown = function() {
+        audio_range_used = true;
+    }
+    audio_range.onmouseup = function() {
+        audio_range_used = false;
+    }
+
+    //position update
+    if (!audio_range_update) {
+        audio_range_update = setInterval(UpdateAudioRange, 200);
+    }
+
+    //ability to change audio_position
+    audio_range.oninput = function() {
+        audio.currentTime = audio_range.value;
+    }
+
+
+    //TIME DISPLAY
+    if (!audio_time_update) {
+        audio_time_update = setInterval(UpdateTimeDisplay, 200);
+    }
+
+}
+
+//updates the cursor position of the audio range input to match the audio position
+function UpdateAudioRange() {
+    if (!audio_range_used) {
+        var audio_range = document.getElementById("audio_range");
+        audio_range.value = audio.currentTime;
+    }
+}
+
+//update the string indicating the time position
+function UpdateTimeDisplay() {
+    
+    //find elapsed time
+    var time_pos_sec = Math.floor(audio.currentTime)%60;
+    if (time_pos_sec < 10) time_pos_sec = "0"+time_pos_sec;
+    var time_pos_min = Math.floor(audio.currentTime/60);
+    
+    //find total time
+    var time_length_sec = Math.floor(audio.duration)%60;
+    if (time_length_sec < 10) time_length_sec = "0"+time_length_sec;
+    var time_length_min = Math.floor(audio.duration/60);
+    
+    //apply time
+    document.getElementById("time_display").innerHTML = `${time_pos_min}:${time_pos_sec} | ${time_length_min}:${time_length_sec}`;
+    
+
+    //if both are equal, update display to indicates it's not playing anymore (if not loop mode)
+    if ( (audio.currentTime === audio.duration) && !audio.loop ) {
+        document.getElementById("play_audio").classList.remove("activated");
+        document.getElementById("pause_audio").classList.add("activated");
+    }
 }
