@@ -55,8 +55,6 @@
             <!--PROJECT-->
             <div id="project_tab" class="tab">
 
-                <br/><span id="fps"></span><span>FPS</span>
-
                 <br/><br/><label for="audio-file-input">Import audio: </label>
                 <input id="audio-file-input" type="file" accept="audio/*" onchange="LoadAudio(this.files[0], 'file');"/>
                 
@@ -99,6 +97,10 @@
         <div id="top_UI">
             
             <!--Zoom-->
+            <div class="top_UI left_round right_round double_size">
+                <span id="fps" class="text"></span><span>FPS</span>
+            </div>
+
             <button class="top_UI left_round" id="zoom_out">
                 <i class="fas fa-search-minus"></i>
             </button>
