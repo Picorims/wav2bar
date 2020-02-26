@@ -40,7 +40,7 @@
     <div id="control_panel">
 
         <!--Labels, tabs naviguation-->
-        <div id="naviguation_tabs">
+        <div id="naviguation_tab_labels">
             <div class="tab_label" id="project_label"> <i class="fas fa-cubes"></i> PROJECT</div>
             <div class="tab_label" id="objects_label"> <i class="fas fa-object-group"></i> OBJECTS</div>
             <div class="tab_label" id="export_label"> <i class="fas fa-film"></i> EXPORT</div>
@@ -55,11 +55,15 @@
             <!--PROJECT-->
             <div id="project_tab" class="tab">
 
-                <br/><br/><label for="audio-file-input">Import audio: </label>
-                <input id="audio-file-input" type="file" accept="audio/*" onchange="LoadAudio(this.files[0], 'file');"/>
+                <div class="panel_param_container">
+                    <label for="audio-file-input">Import audio: </label>
+                    <input id="audio-file-input" class="panel_input panel_input_file" type="file" accept="audio/*" onchange="LoadAudio(this.files[0], 'file');"/>    
+                </div>
                 
-                <br/><br/><label for="save-file-input">Import save (JSON): </label>
-                <input id="save-file-input" type="file" accept="text/json" onchange="LoadSave(this.files[0]);"/>
+                <div class="panel_param_container">
+                    <label for="save-file-input">Import save (JSON): </label>
+                    <input id="save-file-input" class="panel_input panel_input_file" type="file" accept="text/json" onchange="LoadSave(this.files[0]);"/>    
+                </div>
             
             </div>
 
@@ -70,7 +74,9 @@
 
             <!--EXPORT-->
             <div id="export_tab" class="tab">
-                <label for="zoom">Export: </label><button id="zoom" onclick="Export();">EXPORT NOW!</button>
+                <div class="panel_param_container">
+                    <label for="zoom">Export: </label><button id="zoom" class="panel_button" onclick="Export();">EXPORT NOW!</button>
+                </div>
             </div>
 
             <!--CONTACT AND HELP-->

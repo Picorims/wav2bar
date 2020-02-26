@@ -104,24 +104,29 @@ Main Element
 
 
 /*
-================================================
-Naviguation tabs at the top of the control panel
-================================================
+======================================================
+Naviguation tab labels at the top of the control panel
+======================================================
 */
 
-#naviguation_tabs {
+#naviguation_tab_labels {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
 
     border-bottom: 10px solid var(--main-gray);
     box-shadow: 0px 0px 5px var(--main-gray);
 }
 
 .tab_label {
-    flex-grow: 1;
-    height: 20px;
-    padding: 6px;
+    flex-grow: 3;
+    flex-shrink: 0;
+    height: 25px;
+    padding: 10px;
+    margin-bottom: 5px;
 
     background-color: var(--main-black);
     border-left: 2px solid var(--main-lighter-black);
@@ -139,12 +144,12 @@ Naviguation tabs at the top of the control panel
 .tab_label:hover {
     transition: 0.2s;
     cursor: pointer;
-    height: 25px;
+    height: 30px;
     background-color: var(--main-darker-color);
 }
 
 .selected_tab {
-    height: 25px;
+    height: 30px;
     border-bottom: 3px solid var(--main-color);
     background-color: var(--main-darker-color);
 }
@@ -183,7 +188,49 @@ Tabs container and tabs
 }
 
 
-.tab > button {
+
+
+
+/*
+============
+Tabs content
+============
+*/
+
+/*panel containers
+  -----------------*/
+
+.tab > .panel_param_container ~ .panel_param_container {
+    /*All panele_param_containers in .tab that have a panel_param_container before him.
+    i.e : All the elements with the class panel_param_container but the first one, as it has no one before him.
+    That means it has both this style and the style below
+
+    - The first child has only the 2nd style below
+    - all others have both this one and the one below, this one being in priority
+    
+    https://stackoverflow.com/questions/2717480/css-selector-for-first-element-with-class*/
+    border-top: 0px !important;
+    border-bottom: 2px solid var(--main-gray);
+}
+
+.panel_param_container {
+    padding: 5px;
+
+    border-top: 2px solid var(--main-gray);
+    border-bottom: 2px solid var(--main-gray);
+    box-shadow: inset 0px 0px 10px black;
+}
+
+.panel_param {
+    /*to do*/
+    color: blue;
+}
+
+
+/*panel DOM objects
+  -----------------*/
+
+.panel_button {
     height: 30px;
     margin: 10px;
     padding-left: 15px;
@@ -201,7 +248,7 @@ Tabs container and tabs
     transition: 0.2s;
 }
 
-.tab > button:hover {
+.panel_button:hover {
     background-color: var(--main-darker-color);
     box-shadow: 0px 0px 20px var(--main-darker-color);
     cursor: pointer;
@@ -210,10 +257,11 @@ Tabs container and tabs
 }
 
 
-.tab > input {
+.panel_input {
     width: 70px;
     height: 20px;
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
     background-color: var(--main-lighter-black);
     box-shadow: 0px 0px 3px var(--main-gray);
@@ -227,7 +275,7 @@ Tabs container and tabs
 
     transition: 0.2s;
 }
-.tab > input:focus {
+.panel_input:focus {
     box-shadow: 0px 0px 20px var(--main-darker-color);
     border: 3px solid var(--main-darker-color);
 
@@ -235,17 +283,16 @@ Tabs container and tabs
 }
 
 
-.tab > input[type="file"] {
+.panel_input_file {
     width: 90%;
     height: 70px;
-    margin-top: 10px;
     padding: 5px;
     
     font-size: 12px;
     text-align: left;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-.tab > input[type="file"]:hover {
+.panel_input_file:hover {
     cursor: pointer;
 
     box-shadow: 0px 0px 20px var(--main-darker-color);
