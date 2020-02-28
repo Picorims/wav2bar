@@ -66,8 +66,17 @@ function InInterval(value, interval, type) {//returns if the given value is in t
 function IsANumber(value) {//return true if the given variable is a number.
     return (typeof value === "number");
 }
+function IsAnInt(value) {//return true if the given variable is an integer. (IsANumber() included in it)
+    return( (typeof value === "number") && Number.isInteger(value) );
+}
+function IsAString(value) {//return true if the given variable is a string.
+    return (typeof value === "string");
+}
 function IsAnArray(value) {//return true if the given variable is an array.
     return (  (typeof value === "object")    &&    ( (value instanceof Array) || (value instanceof Uint8Array) )  );
+}
+function IsAnObject(value) {
+    return ( (typeof value === 'object') && (value !== null) )
 }
 function IsUndefined(value) {//return true if the given variable is either undefined or null.
     return (  (value===undefined) || (value===null)  );

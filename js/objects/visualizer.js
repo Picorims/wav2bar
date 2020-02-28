@@ -28,6 +28,143 @@ function Visualizer(data) {
 
     
     
+
+    //########################################
+    //VERIFY RECEIVED DATA, SET DEFAULT VALUES
+    //########################################
+
+    //Note: ignore_undefined is useful when we only want to verify the given values without setting any default value
+    //(invalid data is still overwritten)
+
+    this.verifyData = function(data, ignore_undefined) {
+        if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
+
+        //ID
+        if ( IsUndefined(data.id) || !IsAString(data.id) ) {
+            console.error("Visualizer object: received an object with an unspecified/invalid ID! A random ID is given.");
+            data.id = `${Math.random()}`;
+        }
+
+        //layer
+        if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = 0;}
+        if ( !IsUndefined(data.layer) && (!IsAnInt(data.layer) || (data.layer <= -1)) ) {
+            console.warn("Visualizer object: Invalid layer! Set to 0.");
+            data.layer = 0;
+        }
+
+        //x
+        if ( IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = 0;}
+        if ( !IsUndefined(data.x) && !IsAnInt(data.x) ) {
+            console.warn("Visualizer object: Invalid x coordinate! Set to 0.");
+            data.x = 0;
+        }
+
+        //y
+        if ( IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = 0;}
+        if ( !IsUndefined(data.y) && !IsAnInt(data.y) ) {
+            console.warn("Visualizer object: Invalid y coordinate! Set to 0.");
+            data.y = 0;
+        }
+
+        //width
+        if ( IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = 300;}
+        if ( !IsUndefined(data.width) && (!IsAnInt(data.width) || (data.width < 0)) ) {
+            console.warn("Visualizer object: Invalid width! Set to 300.");
+            data.width = 300;
+        }
+
+        //height
+        if ( IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = 100;}
+        if ( !IsUndefined(data.height) && (!IsAnInt(data.height) || (data.height < 0)) ) {
+            console.warn("Visualizer object: Invalid height! Set to 100.");
+            data.height = 100;
+        }
+
+        //rotation
+        if ( IsUndefined(data.rotation) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.rotation = 0;}
+        if ( !IsUndefined(data.rotation) && !IsAnInt(data.rotation) ) {
+            console.warn("Visualizer object: Invalid rotation! Set to 0.");
+            data.rotation = 0;
+        }
+
+        //radius
+        if ( IsUndefined(data.radius) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.radius = 50;}
+        if ( !IsUndefined(data.radius) && (!IsAnInt(data.radius) || (data.radius < 0)) ) {
+            console.warn("Visualizer object: Invalid radius! Set to 50.");
+            data.radius = 50;
+        }
+
+        //type
+        if ( IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = "straight";}
+        if ( !IsUndefined(data.type) && (!IsAString(data.type) || ( (data.type !== "straight") && (data.type !== "straight-wave") && (data.type !== "circular") )) ) {
+            console.warn("Visualizer object: Invalid type! Set to straight.");
+            data.type = "straight";
+        }
+
+        //points count
+        if ( IsUndefined(data.points_count) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.points_count = 50;}
+        if ( !IsUndefined(data.points_count) && (!IsAnInt(data.points_count) || (data.points_count < 0)) ) {
+            console.warn("Visualizer object: Invalid points count! Set to 50.");
+            data.points_count = 50;
+        }
+
+        //analyser range
+        if ( IsUndefined(data.analyser_range) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.analyser_range = [0,750];}
+        if ( !IsUndefined(data.analyser_range) && (!IsAnArray(data.analyser_range) || (data.analyser_range.length !== 2) || !IsAnInt(data.analyser_range[0]) || !IsAnInt(data.analyser_range[1]) || (data.analyser_range[0] < 0) || (data.analyser_range[0] > 1023) || (data.analyser_range[1] < 0) || (data.analyser_range[1] > 1023)) ) {
+            console.warn("Visualizer object: Invalid analyser range! Set to [0,750].");
+            data.analyser_range = [0,750];
+        }
+
+        //color
+        if ( IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = "#fff";}
+        if ( !IsUndefined(data.color) && !IsAString(data.color) ) {
+            console.warn("Visualizer object: Invalid color! White color is applied."); //do not detect css errors!
+            data.color = "#fff";
+        }
+
+        //bar thickness
+        if ( IsUndefined(data.bar_thickness) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.bar_thickness = 2;}
+        if ( !IsUndefined(data.bar_thickness) && (!IsAnInt(data.bar_thickness) || (data.bar_thickness < 0)) ) {
+            console.warn("Timer object: Invalid bar thickness! Set to 2.");
+            data.bar_thickness = 2;
+        }
+
+        //border-radius
+        if ( IsUndefined(data.border_radius) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_radius = "";}
+        if ( !IsUndefined(data.border_radius) && !IsAString(data.border_radius) ) {
+            console.warn("Visualizer object: Invalid border-radius! No border-radius is applied."); //do not detect css errors!
+            data.border_radius = "";
+        }
+
+        //box-shadow
+        if ( IsUndefined(data.box_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.box_shadow = "";}
+        if ( !IsUndefined(data.box_shadow) && !IsAString(data.box_shadow) ) {
+            console.warn("Visualizer object: Invalid box-shadow! No box-shadow is applied."); //do not detect css errors!
+            data.box_shadow = "";
+        }
+
+        return data;
+
+    }
+
+    this.data = this.verifyData(this.data);
+
+
+
+
+    //##################################
+    //FUNCTION TO MERGE TWO DATA OBJECTS
+    //##################################
+
+    this.mergeData = function(data, data_destination) {
+        for (key of Object.keys(data)) {
+            data_destination[key] = data[key];
+        }
+
+        return data_destination;
+    }
+
+
     
     //########################################
     //FUNCTION TO APPLY DATA TO THE VISUALIZER
@@ -36,12 +173,22 @@ function Visualizer(data) {
     this.updateData = function(data) {
         //NOTE: it is NOT possible to change the visualizer type (data.type) and id (data.id). A new visualizer must be created in such case!
         
+        if ( IsUndefined(data.id) ) {
+            console.error("Visualizer object: No ID specified!");
+            return;
+        }
+
         if (data.id === this.data.id) {//if he is the targeted element (remove executes for all objects!)
+            //LOAD DATA
+            this.data_backup = JSON.parse(JSON.stringify(this.data)); //keep a copy of the existing data
             this.data = data;//recollect data
             this.data.object_type = "visualizer";
 
+            //VERIFY DATA
+            this.data = this.verifyData(this.data, "IGNORE_UNDEFINED");
             
             //APPLY DATA
+            this.data = this.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
             this.element.style.zIndex = this.data.layer;//layer
             this.element.style.left = this.data.x+"px";//x
             this.element.style.top = this.data.y+"px";//y

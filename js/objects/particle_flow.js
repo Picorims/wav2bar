@@ -16,7 +16,7 @@
         y: ?, (px)
     },
     particle_direction: ,(rad, between 0 and 2PI)
-    max_spawn_probability: ?, (int) //IT IS SUPPOSED TO BE SO, BUT IT'S REVERSED AND NOT COMPLETELY TRUE, IT WILL BE IMPROVED (eg: 0 is a lot, 1 is small probability)
+    max_spawn_probability: ?, (float) //IT IS SUPPOSED TO BE SO, BUT IT'S REVERSED AND NOT COMPLETELY TRUE, IT WILL BE IMPROVED (eg: 0 is a lot, 1 is small probability)
     color: ?, (string: hex, rgb, rgba)
 }*/
 
@@ -28,6 +28,123 @@ function ParticleFlow(data) {
 
 
 
+    //########################################
+    //VERIFY RECEIVED DATA, SET DEFAULT VALUES
+    //########################################
+
+    //Note: ignore_undefined is useful when we only want to verify the given values without setting any default value
+    //(invalid data is still overwritten)
+
+    this.verifyData = function(data, ignore_undefined) {
+        if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
+
+        //ID
+        if ( IsUndefined(data.id) || !IsAString(data.id) ) {
+            console.error("Particle Flow object: received an object with an unspecified/invalid ID! A random ID is given.");
+            data.id = `${Math.random()}`;
+        }
+
+        //layer
+        if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = 0;}
+        if ( !IsUndefined(data.layer) && (!IsAnInt(data.layer) || (data.layer <= -1)) ) {
+            console.warn("Particle Flow object: Invalid layer! Set to 0.");
+            data.layer = 0;
+        }
+
+        //x
+        if ( IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = 0;}
+        if ( !IsUndefined(data.x) && !IsAnInt(data.x) ) {
+            console.warn("Particle Flow object: Invalid x coordinate! Set to 0.");
+            data.x = 0;
+        }
+
+        //y
+        if ( IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = 0;}
+        if ( !IsUndefined(data.y) && !IsAnInt(data.y) ) {
+            console.warn("Particle Flow object: Invalid y coordinate! Set to 0.");
+            data.y = 0;
+        }
+
+        //width
+        if ( IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = 100;}
+        if ( !IsUndefined(data.width) && (!IsAnInt(data.width) || (data.width < 0)) ) {
+            console.warn("Particle Flow object: Invalid width! Set to 100.");
+            data.width = 100;
+        }
+
+        //height
+        if ( IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = 100;}
+        if ( !IsUndefined(data.height) && (!IsAnInt(data.height) || (data.height < 0)) ) {
+            console.warn("Particle Flow object: Invalid height! Set to 100.");
+            data.height = 100;
+        }
+
+        //particle_radius_range
+        if ( IsUndefined(data.particle_radius_range) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.particle_radius_range = [1,2];}
+        if ( !IsUndefined(data.particle_radius_range) && (!IsAnArray(data.particle_radius_range) || (data.particle_radius_range.length !== 2) || !IsAnInt(data.particle_radius_range[0]) || !IsAnInt(data.particle_radius_range[1])) ) {
+            console.warn("Particle Flow object: Invalid particle radius range! Set to [1,2].");
+            data.particle_radius_range = [1,2];
+        }
+
+        //type
+        if ( IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = "radial";}
+        if ( !IsUndefined(data.type) && (!IsAString(data.type) || ( (data.type !== "radial") && (data.type !== "directional") )) ) {
+            console.warn("Particle Flow object: Invalid type! Set to radial.");
+            data.type = "radial";
+        }
+
+        //center
+        if ( IsUndefined(data.center) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.center = {x:1, y:1};}
+        if ( !IsUndefined(data.center) && (!IsAnObject(data.center) || !IsAnInt(data.center.x) || !IsAnInt(data.center.y)) ) {
+            console.warn("Particle Flow object: Invalid center coordinates! Set to (0,0).");
+            data.center = {x:1, y:1};
+        }
+
+        //particle direction
+        if ( IsUndefined(data.particle_direction) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.particle_direction = 0;}
+        if ( !IsUndefined(data.particle_direction) && (!IsAnInt(data.particle_direction) || (data.particle_direction < 0) || (data.particle_direction > 2*Math.PI)) ) {
+            console.warn("Particle Flow object: Invalid particle direction! Set to 0.");
+            data.particle_direction = 0;
+        }
+
+        //max spawn probability
+        if ( IsUndefined(data.max_spawn_probability) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.max_spawn_probability = 0.75;}
+        if ( !IsUndefined(data.max_spawn_probability) && (!IsANumber(data.max_spawn_probability) || (data.max_spawn_probability < 0) || (data.max_spawn_probability > 1)) ) {
+            console.warn("Particle Flow object: Invalid max spawn probability! Set to 0,75.");
+            data.max_spawn_probability = 0.75;
+        }
+
+        //color
+        if ( IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = "#fff";}
+        if ( !IsUndefined(data.color) && !IsAString(data.color) ) {
+            console.warn("Particle Flow object: Invalid color! White color is applied."); //do not detect css errors!
+            data.color = "#fff";
+        }
+
+        return data;
+
+    }
+
+    this.data = this.verifyData(this.data);
+
+
+
+
+    //##################################
+    //FUNCTION TO MERGE TWO DATA OBJECTS
+    //##################################
+
+    this.mergeData = function(data, data_destination) {
+        for (key of Object.keys(data)) {
+            data_destination[key] = data[key];
+        }
+
+        return data_destination;
+    }
+
+
+
+
 
     //###########################################
     //FUNCTION TO APPLY DATA TO THE PARTICLE FLOW
@@ -36,12 +153,22 @@ function ParticleFlow(data) {
     this.updateData = function(data) {
         //NOTE: it is NOT possible to change the particle flow type (data.type) and id (data.id). A new particle flow must be created in such case!
         
+        if ( IsUndefined(data.id) ) {
+            console.error("Particle Flow object: No ID specified!");
+            return;
+        }
+
         if (data.id === this.data.id) {//if he is the targeted element (remove executes for all objects!)
+            //LOAD DATA
+            this.data_backup = JSON.parse(JSON.stringify(this.data)); //keep a copy of the existing data
             this.data = data;//recollect data
             this.data.object_type = "particle_flow";
 
+            //VERIFY DATA
+            this.data = this.verifyData(this.data, "IGNORE_UNDEFINED");
             
             //APPLY DATA
+            this.data = this.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
             this.element.style.zIndex = this.data.layer;//layer
             this.element.style.left = this.data.x+"px";//x
             this.element.style.top = this.data.y+"px";//y

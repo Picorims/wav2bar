@@ -181,7 +181,6 @@ function KillZoomMenu() {
     var elements = [...elements];//unlink the array from live count by replacing it by a clone of it
     
     for (var i=0; i < elements.length; i++) {
-        console.log(elements[i]);
         elements[i].remove();
     }
 }

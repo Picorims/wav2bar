@@ -24,6 +24,132 @@ function Timer(data) {
     objects.push(this);//add the object to the list
 
 
+
+    
+
+    //########################################
+    //VERIFY RECEIVED DATA, SET DEFAULT VALUES
+    //########################################
+
+    //Note: ignore_undefined is useful when we only want to verify the given values without setting any default value
+    //(invalid data is still overwritten)
+
+    this.verifyData = function(data, ignore_undefined) {
+        if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
+
+        //ID
+        if ( IsUndefined(data.id) || !IsAString(data.id) ) {
+            console.error("Timer object: received an object with an unspecified/invalid ID! A random ID is given.");
+            data.id = `${Math.random()}`;
+        }
+
+        //layer
+        if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = 0;}
+        if ( !IsUndefined(data.layer) && (!IsAnInt(data.layer) || (data.layer <= -1)) ) {
+            console.warn("Timer object: Invalid layer! Set to 0.");
+            data.layer = 0;
+        }
+
+        //x
+        if ( IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = 0;}
+        if ( !IsUndefined(data.x) && !IsAnInt(data.x) ) {
+            console.warn("Timer object: Invalid x coordinate! Set to 0.");
+            data.x = 0;
+        }
+
+        //y
+        if ( IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = 0;}
+        if ( !IsUndefined(data.y) && !IsAnInt(data.y) ) {
+            console.warn("Timer object: Invalid y coordinate! Set to 0.");
+            data.y = 0;
+        }
+
+        //width
+        if ( IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = 100;}
+        if ( !IsUndefined(data.width) && (!IsAnInt(data.width) || (data.width < 0)) ) {
+            console.warn("Timer object: Invalid width! Set to 100.");
+            data.width = 100;
+        }
+
+        //height
+        if ( IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = 10;}
+        if ( !IsUndefined(data.height) && (!IsAnInt(data.height) || (data.height < 0)) ) {
+            console.warn("Timer object: Invalid height! Set to 10.");
+            data.height = 10;
+        }
+
+        //rotation
+        if ( IsUndefined(data.rotation) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.rotation = 0;}
+        if ( !IsUndefined(data.rotation) && !IsAnInt(data.rotation) ) {
+            console.warn("Timer object: Invalid rotation! Set to 0.");
+            data.rotation = 0;
+        }
+
+        //type
+        if ( IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = "bar";}
+        if ( !IsUndefined(data.type) && (!IsAString(data.type) || ( (data.type !== "bar") && (data.type !== "point") )) ) {
+            console.warn("Timer object: Invalid type! Set to bar.");
+            data.type = "bar";
+        }
+
+        //color
+        if ( IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = "#fff";}
+        if ( !IsUndefined(data.color) && !IsAString(data.color) ) {
+            console.warn("Timer object: Invalid color! White color is applied."); //do not detect css errors!
+            data.color = "#fff";
+        }
+
+        //border to bar space
+        if ( IsUndefined(data.border_to_bar_space) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_to_bar_space = 2;}
+        if ( !IsUndefined(data.border_to_bar_space) && (!IsAnInt(data.border_to_bar_space) || (data.border_to_bar_space < 0)) ) {
+            console.warn("Timer object: Invalid border to bar space! Set to 2.");
+            data.border_to_bar_space = 2;
+        }
+        
+        //border thickness
+        if ( IsUndefined(data.border_thickness) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_thickness = 2;}
+        if ( !IsUndefined(data.border_thickness) && (!IsAnInt(data.border_thickness) || (data.border_thickness < 0)) ) {
+            console.warn("Timer object: Invalid border thickness! Set to 2.");
+            data.border_thickness = 2;
+        }
+
+        //border-radius
+        if ( IsUndefined(data.border_radius) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_radius = "";}
+        if ( !IsUndefined(data.border_radius) && !IsAString(data.border_radius) ) {
+            console.warn("Timer object: Invalid border-radius! No border-radius is applied."); //do not detect css errors!
+            data.border_radius = "";
+        }
+
+        //box-shadow
+        if ( IsUndefined(data.box_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.box_shadow = "";}
+        if ( !IsUndefined(data.box_shadow) && !IsAString(data.box_shadow) ) {
+            console.warn("Timer object: Invalid box-shadow! No box-shadow is applied."); //do not detect css errors!
+            data.box_shadow = "";
+        }
+
+        return data;
+
+    }
+
+    this.data = this.verifyData(this.data);
+
+
+
+
+    //##################################
+    //FUNCTION TO MERGE TWO DATA OBJECTS
+    //##################################
+
+    this.mergeData = function(data, data_destination) {
+        for (key of Object.keys(data)) {
+            data_destination[key] = data[key];
+        }
+
+        return data_destination;
+    }
+
+
+
     //###################################
     //FUNCTION TO APPLY DATA TO THE TIMER
     //###################################
@@ -31,12 +157,22 @@ function Timer(data) {
     this.updateData = function(data) {
         //NOTE: it is NOT possible to change the timer type (data.type) and id (data.id). A new timer must be created in such case!
         
+        if ( IsUndefined(data.id) ) {
+            console.error("Timer object: No ID specified!");
+            return;
+        }
+
         if (data.id === this.data.id) {//if he is the targeted element (remove executes for all objects!)
+            //LOAD DATA
+            this.data_backup = JSON.parse(JSON.stringify(this.data)); //keep a copy of the existing data
             this.data = data;//recollect data
             this.data.object_type = "timer";
 
+            //VERIFY DATA
+            this.data = this.verifyData(this.data, "IGNORE_UNDEFINED");
             
             //APPLY DATA
+            this.data = this.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
             this.element.style.zIndex = this.data.layer;//layer
             this.element.style.width = this.data.width+"px";//width
             if (this.data.type === "bar") this.element.style.height = this.data.height+"px";//height
