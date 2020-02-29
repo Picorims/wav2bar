@@ -102,7 +102,7 @@ function ParticleFlow(data) {
 
         //particle direction
         if ( IsUndefined(data.particle_direction) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.particle_direction = 0;}
-        if ( !IsUndefined(data.particle_direction) && (!IsAnInt(data.particle_direction) || (data.particle_direction < 0) || (data.particle_direction > 2*Math.PI)) ) {
+        if ( !IsUndefined(data.particle_direction) && (!IsANumber(data.particle_direction) || (data.particle_direction < 0) || (data.particle_direction > 2*Math.PI)) ) {
             console.warn("Particle Flow object: Invalid particle direction! Set to 0.");
             data.particle_direction = 0;
         }

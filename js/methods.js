@@ -72,6 +72,9 @@ function IsAnInt(value) {//return true if the given variable is an integer. (IsA
 function IsAString(value) {//return true if the given variable is a string.
     return (typeof value === "string");
 }
+function IsABoolean(value) {//return true if the given variable is a boolean. (true or false)
+    return ( (value === true) || (value === false) )
+}
 function IsAnArray(value) {//return true if the given variable is an array.
     return (  (typeof value === "object")    &&    ( (value instanceof Array) || (value instanceof Uint8Array) )  );
 }

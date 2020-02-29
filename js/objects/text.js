@@ -14,6 +14,12 @@
     text: "", (string)
     font_size: ?, (px)
     color: ?, (string: hex, rgb, rgba)
+    italic: true/false, (bool)
+    bold: true/false, (bool)
+    underline: true/false, (bool)
+    overline: true/false, (bool)
+    line_through: true/false, (bool)
+    text_align: ("left"||"center"||"right"),
     text_shadow: ?, (string, css text-shadow)
 }*/
 
@@ -113,6 +119,48 @@ function Text(data) {
             data.color = "#fff";
         }
 
+        //italic
+        if ( IsUndefined(data.italic) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.italic = false;}
+        if ( !IsUndefined(data.italic) && !IsABoolean(data.italic) ) {
+            console.warn("Text object: Invalid status for italic! Set to false.");
+            data.italic = false;
+        }
+
+        //bold
+        if ( IsUndefined(data.bold) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.bold = false;}
+        if ( !IsUndefined(data.bold) && !IsABoolean(data.bold) ) {
+            console.warn("Text object: Invalid status for bold! Set to false.");
+            data.bold = false;
+        }
+
+        //underline
+        if ( IsUndefined(data.underline) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.underline = false;}
+        if ( !IsUndefined(data.underline) && !IsABoolean(data.underline) ) {
+            console.warn("Text object: Invalid status for underline! Set to false.");
+            data.underline = false;
+        }
+
+        //overline
+        if ( IsUndefined(data.overline) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.overline = false;}
+        if ( !IsUndefined(data.overline) && !IsABoolean(data.overline) ) {
+            console.warn("Text object: Invalid status for overline! Set to false.");
+            data.overline = false;
+        }
+
+        //line-through
+        if ( IsUndefined(data.line_through) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.line_through = false;}
+        if ( !IsUndefined(data.line_through) && !IsABoolean(data.line_through) ) {
+            console.warn("Text object: Invalid status for line-through! Set to false.");
+            data.line_through = false;
+        }
+
+        //text align
+        if ( IsUndefined(data.text_align) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.text_align = "center";}
+        if ( !IsUndefined(data.text_align) && (!IsAString(data.text_align) || ( (data.text_align !== "left") && (data.text_align !== "center") && (data.text_align !== "right") )) ) {
+            console.warn("Text object: Invalid text align! Set to center.");
+            data.text_align = "center";
+        }
+
         //text shadow
         if ( IsUndefined(data.text_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.text_shadow = "";}
         if ( !IsUndefined(data.text_shadow) && !IsAString(data.text_shadow) ) {
@@ -175,6 +223,14 @@ function Text(data) {
             this.element.innerHTML = this.data.text;//text
             this.element.style.fontSize = this.data.font_size+"px";//font_size
             this.element.style.color = this.data.color;//color
+            this.element.style.fontStyle = (this.data.italic)? "italic":"";//italic
+            this.element.style.fontWeight = (this.data.bold)? "bold":"";//bold
+            //underline, overline, line-trough
+            var underline = (this.data.underline)? "underline":"";
+            var overline = (this.data.overline)? "overline":"";
+            var line_through = (this.data.line_through)? "line-through":"";
+            this.element.style.textDecoration = `${underline} ${overline} ${line_through}`;
+            this.element.style.textAlign = this.data.text_align;//text align
             this.element.style.textShadow = this.data.text_shadow;//text shadow
         }
 
