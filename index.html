@@ -56,13 +56,30 @@
             <div id="project_tab" class="tab">
 
                 <div class="panel_param_container">
-                    <label for="audio-file-input">Import audio: </label>
-                    <input id="audio-file-input" class="panel_input panel_input_file" type="file" accept="audio/*" onchange="LoadAudio(this.files[0], 'file');"/>    
+                    <span>Framerate: </span>
+                    <input id="fps_input" class="panel_input" type="number" min="1" max="8000" step="1"/>    
+                </div>
+
+                <div class="panel_param_container">
+                    <span>Screen resolution: </span>
+                    <input id="screen_width_input" class="panel_input" type="number" min="100" max="8000" step="1"/>
+                    <span> x </span>
+                    <input id="screen_height_input" class="panel_input" type="number" min="100" max="8000" step="1"/>
+                </div>
+
+                <div class="panel_param_container">
+                    <span>Import audio (mp3/wav/ogg): </span>
+                    <input id="audio_file_input" class="panel_input panel_input_file" type="file" accept="audio/*"/>
                 </div>
                 
                 <div class="panel_param_container">
-                    <label for="save-file-input">Import save (JSON): </label>
-                    <input id="save-file-input" class="panel_input panel_input_file" type="file" accept="text/json" onchange="LoadSave(this.files[0]);"/>    
+                    <span>Import save (JSON): </span>
+                    <input id="save_file_input" class="panel_input panel_input_file" type="file" accept="text/json"/>
+                </div>
+
+                <div class="panel_param_container">
+                    <span>Export save (JSON) (audio not saved): </span>
+                    <button id="export_save_button" class="panel_button">SAVE</button>
                 </div>
             
             </div>
@@ -75,7 +92,8 @@
             <!--EXPORT-->
             <div id="export_tab" class="tab">
                 <div class="panel_param_container">
-                    <label for="zoom">Export: </label><button id="zoom" class="panel_button" onclick="Export();">EXPORT NOW!</button>
+                    <span>Export: </span>
+                    <button id="export_button" class="panel_button">EXPORT NOW!</button>
                 </div>
             </div>
 

@@ -68,6 +68,54 @@ function InitUI() {
 
 
 
+    //PROJECT TAB
+    //fps selection
+    document.getElementById("fps_input").value = fps;
+    document.getElementById("fps_input").onchange = function() {
+        StopAnimating();
+        fps = parseInt(this.value);
+        StartAnimating(fps);
+    }
+
+    //screen width
+    document.getElementById("screen_width_input").value = screen.width;
+    document.getElementById("screen_width_input").onchange = function() {
+        screen.width = parseInt(this.value);
+        screen.style.width = screen.width + "px";
+    }
+    
+    //screen height
+    document.getElementById("screen_height_input").value = screen.height;
+    document.getElementById("screen_height_input").onchange = function() {
+        screen.height = parseInt(this.value);
+        screen.style.height = screen.height + "px";
+    }
+
+    //import audio
+    document.getElementById("audio_file_input").onchange = function() {
+        LoadAudio(this.files[0], 'file');
+    }
+
+    //import save
+    document.getElementById("save_file_input").onchange = function() {
+        LoadSave(this.files[0]);
+    }
+
+    //export save
+    document.getElementById("export_save_button").onclick = function() {
+        ExportSaveAsJSON();
+    }
+
+
+
+
+    //EXPORT TAB
+    //export
+    document.getElementById("export_button").onclick = function() { Export(); }
+
+
+
+
     //ZOOM UI
     zoom = 1;
     var zoom_disp = document.getElementById("zoom_display");

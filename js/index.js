@@ -13,12 +13,20 @@ var objects = [];//all objects inside the screen
 var objects_callback = [];
 
 
+
+
+/*
+######################################
+GLOBAL INITIALIZATION AND AUDIO IMPORT
+######################################
+*/
+
 function InitPage() {//page initialization
     //HTML DEFINITIONS
     control_panel = document.getElementById("control_panel");
     screen_interface = document.getElementById("interface");
     screen = document.getElementById("screen");
-    InitUI();
+    
     
 
 
@@ -48,6 +56,12 @@ function InitPage() {//page initialization
     fps = 60;
     animating = false;
     setInterval(UpdateFPS, 1000);
+
+
+
+
+    //UI INITIALIZATION
+    InitUI();
 }
 
 
@@ -107,26 +121,6 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
 
 
 
-function UpdateFPS() {//display FPS regularly
-    fps_array_max_length = 10;
-    
-    //maintain the max length of the array
-    if (fps_array.length > fps_array_max_length) {
-        
-        var overflow = fps_array.length - fps_array_max_length;
-        fps_array.splice(0, overflow);
-    }
-
-    //calculates average FPS from the fps array
-    var sum = 0;
-    for (var index of fps_array) {
-        sum += index;
-    }
-    var average_fps = sum / fps_array_max_length;
-
-    //display fps
-    document.getElementById("fps").innerHTML = average_fps;
-}
 
 
 
@@ -142,11 +136,11 @@ function UpdateFPS() {//display FPS regularly
 
 
 
-
-
-
-
-
+/*
+#########
+ANIMATION
+#########
+*/
 
 
 function StartAnimating(fps) {//prepare fps animation
@@ -270,4 +264,29 @@ function DrawFrame() {//update and draw the screen
    
     
     //end of a frame
+}
+
+
+
+
+
+function UpdateFPS() {//display FPS regularly
+    fps_array_max_length = 10;
+    
+    //maintain the max length of the array
+    if (fps_array.length > fps_array_max_length) {
+        
+        var overflow = fps_array.length - fps_array_max_length;
+        fps_array.splice(0, overflow);
+    }
+
+    //calculates average FPS from the fps array
+    var sum = 0;
+    for (var index of fps_array) {
+        sum += index;
+    }
+    var average_fps = sum / fps_array_max_length;
+
+    //display fps
+    document.getElementById("fps").innerHTML = average_fps;
 }

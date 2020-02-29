@@ -40,6 +40,11 @@ body, button, input {
     text-align: center;
 }
 
+/*strong*/
+strong {
+    font-weight: bold;
+}
+
 /*scroll bars*/
 ::-webkit-scrollbar {
     width: 10px;
@@ -68,6 +73,14 @@ input[type=range]::-webkit-slider-thumb {
 }
 input[type=range]::-webkit-slider-runnable-track {
     -webkit-appearance: none;
+}
+
+/*input type number*/
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+
+   opacity: 1;
+
 }
 
 
@@ -197,8 +210,8 @@ Tabs content
 ============
 */
 
-/*panel containers
-  -----------------*/
+/*control panel containers
+  ------------------------*/
 
 .tab > .panel_param_container ~ .panel_param_container {
     /*All panele_param_containers in .tab that have a panel_param_container before him.
@@ -210,21 +223,30 @@ Tabs content
     
     https://stackoverflow.com/questions/2717480/css-selector-for-first-element-with-class*/
     border-top: 0px !important;
-    border-bottom: 2px solid var(--main-gray);
+    border-bottom: 4px solid var(--main-gray);
 }
 
 .panel_param_container {
-    padding: 5px;
+    padding: 5px 15px;
 
-    border-top: 2px solid var(--main-gray);
-    border-bottom: 2px solid var(--main-gray);
+    border-top: 4px solid var(--main-gray);
+    border-bottom: 4px solid var(--main-gray);
     box-shadow: inset 0px 0px 10px black;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-.panel_param {
-    /*to do*/
-    color: blue;
+.panel_param_container > span {
+    text-align: left;
 }
+
+.panel_param_container > input[type=file] {
+    flex-shrink: 0;
+}
+
 
 
 /*panel DOM objects
@@ -232,7 +254,7 @@ Tabs content
 
 .panel_button {
     height: 30px;
-    margin: 10px;
+    margin: 10px 0;
     padding-left: 15px;
     padding-right: 15px;
 
@@ -284,7 +306,7 @@ Tabs content
 
 
 .panel_input_file {
-    width: 90%;
+    width: 95%;
     height: 70px;
     padding: 5px;
     
