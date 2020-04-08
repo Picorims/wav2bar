@@ -223,6 +223,119 @@ function ParticleFlow(data) {
 
 
 
+    //#####################
+    //CREATE USER INTERFACE
+    //#####################
+
+    //create category
+    CreateObjectContainer(this.data.id);
+    
+    //layer
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Layer", function(id, value) {  //id, type, parameters, name, callback with id
+                                                                            //and returned value by the input
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            layer: value,
+        });
+    });
+
+    //x and y
+    AddParameter(this.data.id, "value-xy", {step: 1}, "Coordinates", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            x: value1,
+            y: value2,
+        });
+    });
+
+    //width and height
+    AddParameter(this.data.id, "value-xy", {min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            width: value1,
+            height: value2,
+        });
+    });
+
+    //particle_radius_range
+    AddParameter(this.data.id, "value-xy", {min: 1, step: 1}, "Particle minimum and maximum size", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            particle_radius_range: [value1, value2],
+        });
+    });
+
+    //type
+    AddParameter(this.data.id, "choice", {list:["radial", "directional"]}, "Movement type", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            type: value,
+        });
+    });
+
+    //center
+    AddParameter(this.data.id, "value-xy", {step: 1}, "Center position (radial)", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            center: {
+                x: value1,
+                y: value2,
+            },
+        });
+    });
+
+    //direction
+    AddParameter(this.data.id, "value", {min: 0, max: 360, step: 1}, "Direction (directional)", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+        value = value * (2*Math.PI / 360);//conversion in radians
+
+        this_object.updateData({
+            id: id,
+            particle_direction: value,
+        });
+    });
+
+    //max spawn probability
+    AddParameter(this.data.id, "value", {min: 0, max: 1, step: 0.01}, "Spawn probability", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            max_spawn_probability: value,
+        });
+    });
+
+    //color
+    AddParameter(this.data.id, "string", {}, "Color", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            color: value,
+        });
+    });
+
+
 
 
 

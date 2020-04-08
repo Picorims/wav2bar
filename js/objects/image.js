@@ -205,6 +205,109 @@ function Image(data) {
 
 
 
+
+
+    //#####################
+    //CREATE USER INTERFACE
+    //#####################
+
+    //create category
+    CreateObjectContainer(this.data.id);
+    
+    //layer
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Layer", function(id, value) {  //id, type, parameters, name, callback with id
+                                                                            //and returned value by the input
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            layer: value,
+        });
+    });
+
+    //x and y
+    AddParameter(this.data.id, "value-xy", {step: 1}, "Coordinates", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            x: value1,
+            y: value2,
+        });
+    });
+
+    //width and height
+    AddParameter(this.data.id, "value-xy", {min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            width: value1,
+            height: value2,
+        });
+    });
+
+    //rotation
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            rotation: value,
+        });
+    });
+
+    //background
+    AddParameter(this.data.id, "string", {}, "Background", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            background: value,
+        });
+    });
+
+    //size
+    AddParameter(this.data.id, "string", {}, "Background Size", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            size: value,
+        });
+    });
+
+    //border-radius
+    AddParameter(this.data.id, "string", {}, "Border Radius", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            border_radius: value,
+        });
+    });
+
+    //box-shadow
+    AddParameter(this.data.id, "string", {}, "Box Shadow", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            box_shadow: value,
+        });
+    });
+
+
+
+
+
     //#############################
     //FUNCTION TO ANIMATE THE IMAGE
     //#############################

@@ -168,7 +168,7 @@ function HideAnyTab() {
 //show the tab given in parameter
 function ShowTab(tab, tab_label) {
     tab.style.left = 0;
-    tab.style.display = "initial";
+    tab.style.display = "inline-block";
     tab_label.classList.add("selected_tab");
 }
 
@@ -395,4 +395,232 @@ function UpdateTimeDisplay() {
         document.getElementById("play_audio").classList.remove("activated");
         document.getElementById("pause_audio").classList.add("activated");
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+############################
+OBJECTS PARAMETER CONTAINERS
+############################
+*/
+
+//function that creates an object container with no parameters, ready for an object with the given ID.
+function CreateObjectContainer(object_id) {
+    
+    //CREATE ELEMENT
+    var container = document.createElement("div");
+    tab.objects.appendChild(container);
+
+    //CONFIGURE ELEMENT
+    container.id = `UI${object_id}`;
+    container.classList.add("object_param_container");
+    container.setAttribute("data-closed", "false");//custom attribute to know if the object container is closed
+
+
+    //ADD SUB ELEMENTS
+    //title container
+    var title_container = document.createElement("div");
+    container.appendChild(title_container);
+    title_container.classList.add("object_param_title");
+    title_container.innerHTML = object_id.replace("_","");
+    
+    //ability to open and close the object parameters' container
+    title_container.onclick = function() {
+        
+        var parent = this.parentNode; //the container
+        var closed = parent.getAttribute("data-closed");
+        
+        if (closed === "true") {
+            parent.classList.remove("object_param_closed");
+            parent.setAttribute("data-closed", "false");
+        }
+        else {
+            parent.classList.add("object_param_closed");
+            parent.setAttribute("data-closed", "true");
+        }
+    }
+
+    //arrow
+    var arrow = document.createElement("div");
+    container.appendChild(arrow);
+    arrow.innerHTML = '<i class="fas fa-angle-right"></i>';
+    arrow.classList.add("object_param_arrow");
+
+}
+
+
+
+
+//function to add a parameter to an object parameter container
+function AddParameter(object_id, type, parameters, title, callback) {
+    
+    //CREATE ELEMENT    
+    var param_container = document.createElement("div");
+    var parent = document.getElementById(`UI${object_id}`);
+    parent.appendChild(param_container);
+
+    //CONFIGURE ELEMENT
+    param_container.classList.add("panel_param_container");
+
+    //ADD NAME
+    var title_elt = document.createElement("span");
+    param_container.appendChild(title_elt);
+    title_elt.innerHTML = `${title}: `;
+
+
+    //CONFIGURE TYPE
+    switch (type) {
+        case "string":
+            //do not accept parameters
+
+            //element
+            var input = document.createElement("input");
+            param_container.appendChild(input);
+            input.classList.add("panel_input", "panel_input_string");
+            
+            //function
+            input.oninput = function() {
+                callback(object_id, input.value);
+            }
+        break
+
+
+
+        case "value":
+            /**parameters:
+             * min: value,
+             * max: value,
+             * step: value,
+             */
+
+            //element
+            var input = document.createElement("input");
+            param_container.appendChild(input);
+            input.classList.add("panel_input", "panel_input");
+            input.type = "number";
+            if ( !IsUndefined(parameters.min) ) input.min = parameters.min;
+            if ( !IsUndefined(parameters.max) ) input.max = parameters.max;
+            if ( !IsUndefined(parameters.step) ) input.step = parameters.step;
+            
+            //function
+            input.oninput = function() {
+                callback(object_id, parseFloat(input.value) );
+            }
+        break
+
+
+
+        case "value-xy":
+            /**parameters:
+             * min: value,
+             * max: value,
+             * step: value,
+             */
+
+            //elements
+            var input1 = document.createElement("input");
+            param_container.appendChild(input1);
+            input1.classList.add("panel_input", "panel_input");
+            input1.type = "number";
+            if ( !IsUndefined(parameters.min) ) input1.min = parameters.min;
+            if ( !IsUndefined(parameters.max) ) input1.max = parameters.max;
+            if ( !IsUndefined(parameters.step) ) input1.step = parameters.step;
+
+            var input2 = document.createElement("input");
+            param_container.appendChild(input2);
+            input2.classList.add("panel_input", "panel_input");
+            input2.type = "number";
+            if ( !IsUndefined(parameters.min) ) input2.min = parameters.min;
+            if ( !IsUndefined(parameters.max) ) input2.max = parameters.max;
+            if ( !IsUndefined(parameters.step) ) input2.step = parameters.step;
+            
+            //functions
+            input1.oninput = function() {
+                callback(object_id, parseFloat(input1.value), parseFloat(input2.value) );
+            }
+            input2.oninput = function() {
+                callback(object_id, parseFloat(input1.value), parseFloat(input2.value) );
+            }
+        break
+
+
+
+        case "choice":
+            /**parameters:
+             * list:[option1, option2, ...] (strings)
+             */
+
+            //element
+            var list = document.createElement("select");
+            param_container.appendChild(list);
+            list.classList.add("panel_input", "panel_input_list");
+
+            //options
+            for (var i=0; i< parameters.list.length; i++) {
+                var option = document.createElement("option");
+                list.appendChild(option);
+                option.innerHTML = parameters.list[i];
+                option.value = parameters.list[i];
+            }
+            
+            //function
+            list.oninput = function() {
+                callback(object_id, list.value);
+            }
+        break
+
+
+
+        case "checkbox":
+            //do not accept parameters
+
+            //element
+            var input = document.createElement("input");
+            param_container.appendChild(input);
+            input.classList.add("panel_input", "panel_input_checkbox");
+            input.type = "checkbox";
+            
+            //function
+            input.oninput = function() {
+                callback(object_id, input.checked);
+            }
+        break
+
+
+
+        default:
+            throw "AddParameter: no type specified for the parameter";
+    }
+
 }

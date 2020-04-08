@@ -271,6 +271,185 @@ function Text(data) {
 
 
 
+
+    //#####################
+    //CREATE USER INTERFACE
+    //#####################
+
+    //create category
+    CreateObjectContainer(this.data.id);
+    
+    //layer
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
+                                                                                            //and returned value by the input
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            layer: value,
+        });
+    });
+
+    //x and y
+    AddParameter(this.data.id, "value-xy", {step: 1}, "Coordinates", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            x: value1,
+            y: value2,
+        });
+    });
+
+    //width and height
+    AddParameter(this.data.id, "value-xy", {min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            width: value1,
+            height: value2,
+        });
+    });
+
+    //rotation
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            rotation: value,
+        });
+    });
+
+    //type
+    AddParameter(this.data.id, "choice", {list:["any", "time"]}, "Text type", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            type: value,
+        });
+    });
+
+    //text
+    AddParameter(this.data.id, "string", {}, "Text", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            text: value,
+        });
+    });
+
+    //font size
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Font size", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            font_size: value,
+        });
+    });
+
+    //color
+    AddParameter(this.data.id, "string", {}, "Color", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            color: value,
+        });
+    });
+
+    //italic
+    AddParameter(this.data.id, "checkbox", {}, "Italic", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            italic: value,
+        });
+    });
+
+    //bold
+    AddParameter(this.data.id, "checkbox", {}, "Bold", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            bold: value,
+        });
+    });
+
+    //underline
+    AddParameter(this.data.id, "checkbox", {}, "Underline", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            underline: value,
+        });
+    });
+
+    //overline
+    AddParameter(this.data.id, "checkbox", {}, "Overline", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            overline: value,
+        });
+    });
+
+    //line through
+    AddParameter(this.data.id, "checkbox", {}, "Line through", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            line_through: value,
+        });
+    });
+
+    //text align
+    AddParameter(this.data.id, "choice", {list:["left", "center", "right"]}, "Text align", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            text_align: value,
+        });
+    });
+
+    //text-shadow
+    AddParameter(this.data.id, "string", {}, "Text Shadow", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            text_shadow: value,
+        });
+    });
+
+
+
+
+
     //############################
     //FUNCTION TO ANIMATE THE TEXT
     //############################

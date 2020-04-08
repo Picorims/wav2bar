@@ -248,6 +248,119 @@ function Timer(data) {
 
 
 
+
+    //#####################
+    //CREATE USER INTERFACE
+    //#####################
+
+    //create category
+    CreateObjectContainer(this.data.id);
+    
+    //layer
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
+                                                                                            //and returned value by the input
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            layer: value,
+        });
+    });
+
+    //x and y
+    AddParameter(this.data.id, "value-xy", {step: 1}, "Coordinates", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            x: value1,
+            y: value2,
+        });
+    });
+
+    //width and height
+    AddParameter(this.data.id, "value-xy", {min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            width: value1,
+            height: value2,
+        });
+    });
+
+    //rotation
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            rotation: value,
+        });
+    });
+
+    //color
+    AddParameter(this.data.id, "string", {}, "Color", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            color: value,
+        });
+    });
+
+    //border to bar space
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Space between the border and the bar", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            border_to_bar_space: value,
+        });
+    });
+
+    //border thickness
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Border thickness", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            border_thickness: value,
+        });
+    });
+
+    //border-radius
+    AddParameter(this.data.id, "string", {}, "Border Radius", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            border_radius: value,
+        });
+    });
+
+    //box-shadow
+    AddParameter(this.data.id, "string", {}, "Box Shadow", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            box_shadow: value,
+        });
+    });
+
+
+
+
+
     //############################
     //FUNCTION TO ANIMATE THE TEXT
     //############################

@@ -146,6 +146,53 @@ function Background(data) {
 
 
 
+
+    //#####################
+    //CREATE USER INTERFACE
+    //#####################
+
+    //create category
+    CreateObjectContainer(this.data.id);
+    
+    //layer
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Layer", function(id, value) {  //id, type, parameters, name, callback with id
+                                                                            //and returned value by the input
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            layer: value,
+        });
+    });
+
+    //background
+    AddParameter(this.data.id, "string", {}, "Background", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            background: value,
+        });
+    });
+
+    //size
+    AddParameter(this.data.id, "string", {}, "Background Size", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            size: value,
+        });
+    });
+
+
+
+
+
+
+
     //##################################
     //FUNCTION TO ANIMATE THE BACKGROUND
     //##################################

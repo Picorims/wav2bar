@@ -294,6 +294,137 @@ function Visualizer(data) {
 
 
 
+    //#####################
+    //CREATE USER INTERFACE
+    //#####################
+
+    //create category
+    CreateObjectContainer(this.data.id);
+    
+    //layer
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
+                                                                                            //and returned value by the input
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            layer: value,
+        });
+    });
+
+    //x and y
+    AddParameter(this.data.id, "value-xy", {step: 1}, "Coordinates", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            x: value1,
+            y: value2,
+        });
+    });
+
+    //width and height
+    AddParameter(this.data.id, "value-xy", {min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            width: value1,
+            height: value2,
+        });
+    });
+
+    //rotation
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            rotation: value,
+        });
+    });
+
+    //radius
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Radius", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            radius: value,
+        });
+    });
+
+    //points count
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Points count", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            points_count: value,
+        });
+    });
+
+    //analyzer range
+    AddParameter(this.data.id, "value-xy", {min: 0, max: 1023, step: 1}, "Analyzer range", function(id, value1, value2) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            analyser_range: [value1, value2],
+        });
+    });
+
+    //color
+    AddParameter(this.data.id, "string", {}, "Color", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            color: value,
+        });
+    });
+
+    //bar thickness
+    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Bar thickness", function(id, value) {
+        
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            bar_thickness: value,
+        });
+    });
+
+    //border-radius
+    AddParameter(this.data.id, "string", {}, "Border Radius", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            border_radius: value,
+        });
+    });
+
+    //box-shadow
+    AddParameter(this.data.id, "string", {}, "Box Shadow", function(id, value) {
+
+        var this_object = object_method.getByID(id);
+
+        this_object.updateData({
+            id: id,
+            box_shadow: value,
+        });
+    });
+
+
 
 
 

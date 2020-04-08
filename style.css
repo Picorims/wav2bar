@@ -130,7 +130,6 @@ Naviguation tab labels at the top of the control panel
     overflow-x: scroll;
     overflow-y: hidden;
 
-    border-bottom: 10px solid var(--main-gray);
     box-shadow: 0px 0px 5px var(--main-gray);
 }
 
@@ -189,9 +188,8 @@ Tabs container and tabs
     top: 0;
     left: 0;
 
-    width: calc(100% - 2 * 15px);
-    height: calc(100% - 2 * 15px);
-    padding: 15px;
+    width: 100%;
+    height: calc(100% - 18px);
     overflow-x: hidden;
     overflow-y: scroll;
 
@@ -213,7 +211,9 @@ Tabs content
 /*control panel containers
   ------------------------*/
 
-.tab > .panel_param_container ~ .panel_param_container {
+/*parameter container*/
+.tab > .panel_param_container ~ .panel_param_container,
+.object_param_container > .panel_param_container ~ .panel_param_container {
     /*All panele_param_containers in .tab that have a panel_param_container before him.
     i.e : All the elements with the class panel_param_container but the first one, as it has no one before him.
     That means it has both this style and the style below
@@ -237,15 +237,78 @@ Tabs content
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
+
+    overflow: hidden;
 }
 
 .panel_param_container > span {
     text-align: left;
 }
 
-.panel_param_container > input[type=file] {
+.panel_param_container > .panel_input_file,
+.panel_param_container > .panel_input_string {
     flex-shrink: 0;
 }
+
+
+/*object container, that contains param containers.*/
+.object_param_container {
+    position: relative;
+
+    padding-top: 20px;
+    padding-bottom: 40px;
+
+    border-top: 4px solid var(--main-gray);
+}
+
+.object_param_title {/*displays the name*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 25px;
+    
+    background-color: var(--main-darker-white);
+    color: var(--main-lighter-black);
+
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    cursor: pointer;
+}
+
+.object_param_arrow {
+    display: block;
+    z-index: 10;
+
+    position: absolute;
+    top: 0;
+    left: 5px;
+    width: 25px;
+    height: 25px;
+
+    font-size: 20px;
+    color: var(--main-lighter-black);
+
+    transform: rotate(90deg);
+
+    transition: 0.2s;
+}
+
+.object_param_closed {
+    height: 25px;
+    padding: 0;
+}
+.object_param_closed > .object_param_arrow {
+    transform: rotate(0deg);
+    transition: 0.2s;
+}
+.object_param_closed > .panel_param_container {
+    display: none;
+}
+
+
 
 
 
@@ -305,6 +368,15 @@ Tabs content
 }
 
 
+.panel_input_string {
+    width: 95%;
+}
+
+.panel_input_checkbox {
+    width: 20px;
+}
+
+
 .panel_input_file {
     width: 95%;
     height: 70px;
@@ -321,6 +393,12 @@ Tabs content
     border: 3px solid var(--main-darker-color);
 
     transition: 0.2s;
+}
+
+
+.panel_input_list {
+    width: 150px;
+    height: 30px;
 }
 
 
