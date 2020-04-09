@@ -4,13 +4,13 @@
 
 var object_method = {
     
-    //function that returns an object with the matching id
+    //function that returns the last object in the object list with the matching id
+    //(considering an ID is unique, it always match the right object)
     getByID: function(id) {
         
         var object;
         for (var obj of objects) {
             if (obj.data.id === id) object = obj;
-            break
         }
 
         return object;

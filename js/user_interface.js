@@ -109,6 +109,15 @@ function InitUI() {
 
 
 
+    //OBJECTS TAB
+    //create object
+    document.getElementById("create_object_button").onclick = function() {
+        CreateObject();
+    }
+
+
+
+
     //EXPORT TAB
     //export
     document.getElementById("export_button").onclick = function() { Export(); }
@@ -411,9 +420,76 @@ function UpdateTimeDisplay() {
 
 
 
+/*
+###############
+OBJECT CREATION
+###############
+*/
+
+//function that creates an object using the given parameters
+function CreateObject() {
+
+    //get ID
+    var id = document.getElementById("create_object_input").value;
+    if (id === "") {
+        alert("please specify an ID. (keep it unique!)");
+        return;
+    }
+
+    //get type
+    var type = document.getElementById("create_object_select").value;
+
+    //create object
+    switch (type) {
+        case "background":
+            new Background({id:id});
+            break;
+
+        case "image":
+            new Image({id:id});
+            break;
+
+        case "particle_flow":
+            new ParticleFlow({id:id});
+            break;
+
+        case "text":
+            new Text({id:id});
+            break;
 
 
 
+
+        case "timer_bar":
+            new Timer({id:id, type:"bar"});
+            break;
+
+        case "timer_point":
+            new Timer({id:id, type:"point"});
+            break;
+
+
+
+
+
+        case "visualizer_straight":
+            new Visualizer({id:id, type:"straight"});
+            break;
+
+        case "visualizer_straight_wave":
+            new Visualizer({id:id, type:"steaight_wave"});
+            break;
+
+        case "visualizer_circular":
+            new Visualizer({id:id, type:"circular"});
+            break;
+
+        default:
+            throw `CreateObject: ${type} is an unknown object type!`;
+
+    }
+
+}
 
 
 
@@ -453,7 +529,7 @@ function CreateObjectContainer(object_id) {
     var title_container = document.createElement("div");
     container.appendChild(title_container);
     title_container.classList.add("object_param_title");
-    title_container.innerHTML = object_id.replace("_","");
+    title_container.innerHTML = object_id;
     
     //ability to open and close the object parameters' container
     title_container.onclick = function() {

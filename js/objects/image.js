@@ -251,7 +251,7 @@ function Image(data) {
 
     //rotation
     AddParameter(this.data.id, "value", {min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
-        
+
         var this_object = object_method.getByID(id);
 
         this_object.updateData({
