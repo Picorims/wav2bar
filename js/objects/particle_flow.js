@@ -214,13 +214,6 @@ function ParticleFlow(data) {
 
 
 
-    //###############
-    //SAVE THE OBJECT
-    //###############
-    current_save.objects.push(this.data);
-
-
-
 
 
     //#####################
@@ -390,10 +383,6 @@ function ParticleFlow(data) {
             //remove index
             var index = objects.indexOf(this);
             objects.splice(index, 1);
-
-            //remove from save
-            var index = current_save.objects.indexOf(this.data);
-            current_save.objects.splice(index, 1);
             
             //remove element
             this.element.remove();

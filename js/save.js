@@ -7,7 +7,7 @@ var current_save;
 function DefaultSave() {//set the save data to default values
     current_save = {
         save_version: 1,
-        screen: {width: 1920, height: 1080},
+        screen: {width: 1280, height: 720},
         fps: 60,
         objects: [],
     }
@@ -74,12 +74,6 @@ function ApplyLoadedSave() {//read and apply a loaded user save
     console.log(objects_data_list);
 
 
-    //Because objects will be saved in current_save.objects, saved data here has then to be
-    //removed, because it will be replaced by real working objects, instead of pure data.
-    //(Plus those are unusable anyway and calling an update on them will crash the app!)
-    current_save.objects = [];
-    objects_data_list[0].object_type = "background";
-
     //create all objects
     for (var i=0; i<objects_data_list.length; i++) {
         
@@ -119,7 +113,19 @@ function ExportSaveAsJSON() {//export the current save to JSON format.
 
     console.log("generating download file...");
     
-    //prepare data
+    //update current save
+    current_save.screen.width = screen.width;
+    current_save.screen.height = screen.height;
+    current_save.fps = fps;
+    current_save.objects = [];
+
+    for (var i=0; i < objects.length; i++) {
+        current_save.objects.push(objects[i].data);
+    }
+    console.log(current_save);
+
+
+    //prepare data for export
     var exported_save = JSON.stringify(current_save);
     var data_string = "data:text/json; charset=utf-8," + encodeURIComponent(exported_save);
     
