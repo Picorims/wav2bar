@@ -293,7 +293,33 @@ Tabs content
 
     transform: rotate(90deg);
 
+    cursor: pointer;
+
     transition: 0.2s;
+}
+
+.object_param_cross {
+    display: block;
+    z-index: 10;
+
+    position: absolute;
+    top: 0;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+
+    font-size: 20px;
+    color: var(--main-lighter-black);
+
+    cursor: pointer;
+
+    transition: 0.1s;
+}
+.object_param_cross:hover {
+    color: var(--main-alert);
+    text-shadow: 0px 0px 4px var(--main-alert);
+
+    transition: 0.1s;
 }
 
 .object_param_closed {

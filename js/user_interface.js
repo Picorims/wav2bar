@@ -530,22 +530,6 @@ function CreateObjectContainer(object_id) {
     container.appendChild(title_container);
     title_container.classList.add("object_param_title");
     title_container.innerHTML = object_id;
-    
-    //ability to open and close the object parameters' container
-    title_container.onclick = function() {
-        
-        var parent = this.parentNode; //the container
-        var closed = parent.getAttribute("data-closed");
-        
-        if (closed === "true") {
-            parent.classList.remove("object_param_closed");
-            parent.setAttribute("data-closed", "false");
-        }
-        else {
-            parent.classList.add("object_param_closed");
-            parent.setAttribute("data-closed", "true");
-        }
-    }
 
     //arrow
     var arrow = document.createElement("div");
@@ -553,6 +537,43 @@ function CreateObjectContainer(object_id) {
     arrow.innerHTML = '<i class="fas fa-angle-right"></i>';
     arrow.classList.add("object_param_arrow");
 
+    //deletion cross
+    var cross = document.createElement("div");
+    container.appendChild(cross);
+    cross.innerHTML = '<i class="fas fa-times-circle"></i>';
+    cross.classList.add("object_param_cross");
+
+    //ability to open and close the object parameters' container
+    title_container.onclick = function() {
+        ToggleOpen(this);
+    }
+    arrow.onclick = function() {
+        ToggleOpen(this);
+    }
+
+    //object deletion
+    cross.onclick = function() {
+        object_method.getByID(object_id).remove(object_id);
+        //NOTE: this also deletes this container.
+    }
+
+}
+
+
+//function that opens or closes an object container
+function ToggleOpen(title_container) {
+    
+    var parent = title_container.parentNode; //the container
+    var closed = parent.getAttribute("data-closed");
+    
+    if (closed === "true") {
+        parent.classList.remove("object_param_closed");
+        parent.setAttribute("data-closed", "false");
+    }
+    else {
+        parent.classList.add("object_param_closed");
+        parent.setAttribute("data-closed", "true");
+    }
 }
 
 

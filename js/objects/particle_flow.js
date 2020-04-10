@@ -383,6 +383,9 @@ function ParticleFlow(data) {
             //remove index
             var index = objects.indexOf(this);
             objects.splice(index, 1);
+
+            //remove UI
+            document.getElementById(`UI${id}`).remove();
             
             //remove element
             this.element.remove();
