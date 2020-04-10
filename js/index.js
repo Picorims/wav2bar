@@ -31,7 +31,7 @@ function InitPage() {//page initialization
 
 
     //SCREEN SIZE
-    //short syntax
+    //short syntax for the program
     screen.width = 1280;
     screen.height = 720;
     //apply it

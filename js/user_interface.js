@@ -74,7 +74,7 @@ function InitUI() {
     document.getElementById("fps_input").onchange = function() {
         StopAnimating();
         fps = parseInt(this.value);
-        StartAnimating(fps);
+        if (audio) StartAnimating(fps);
     }
 
     //screen width
