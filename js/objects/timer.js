@@ -250,7 +250,7 @@ function Timer(data) {
     CreateObjectContainer(this.data.id);
     
     //layer
-    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
+    AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
                                                                                             //and returned value by the input
         var this_object = object_method.getByID(id);
 
@@ -261,7 +261,7 @@ function Timer(data) {
     });
 
     //x and y
-    AddParameter(this.data.id, "value-xy", {step: 1}, "Coordinates", function(id, value1, value2) {
+    AddParameter(this.data.id, "value-xy", {default_x: this.data.x, default_y: this.data.y, step: 1}, "Coordinates", function(id, value1, value2) {
         
         var this_object = object_method.getByID(id);
 
@@ -273,7 +273,7 @@ function Timer(data) {
     });
 
     //width and height
-    AddParameter(this.data.id, "value-xy", {min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
+    AddParameter(this.data.id, "value-xy", {default_x: this.data.width, default_y: this.data.height, min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
         
         var this_object = object_method.getByID(id);
 
@@ -285,7 +285,7 @@ function Timer(data) {
     });
 
     //rotation
-    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
+    AddParameter(this.data.id, "value", {default: this.data.rotation, min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
         
         var this_object = object_method.getByID(id);
 
@@ -296,7 +296,7 @@ function Timer(data) {
     });
 
     //color
-    AddParameter(this.data.id, "string", {}, "Color", function(id, value) {
+    AddParameter(this.data.id, "string", {default: this.data.color}, "Color", function(id, value) {
 
         var this_object = object_method.getByID(id);
 
@@ -307,7 +307,7 @@ function Timer(data) {
     });
 
     //border to bar space
-    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Space between the border and the bar", function(id, value) {
+    AddParameter(this.data.id, "value", {default: this.data.border_to_bar_space, min: 0, step: 1}, "Space between the border and the bar", function(id, value) {
         
         var this_object = object_method.getByID(id);
 
@@ -318,7 +318,7 @@ function Timer(data) {
     });
 
     //border thickness
-    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Border thickness", function(id, value) {
+    AddParameter(this.data.id, "value", {default: this.data.border_thickness, min: 0, step: 1}, "Border thickness", function(id, value) {
         
         var this_object = object_method.getByID(id);
 
@@ -329,7 +329,7 @@ function Timer(data) {
     });
 
     //border-radius
-    AddParameter(this.data.id, "string", {}, "Border Radius", function(id, value) {
+    AddParameter(this.data.id, "string", {default: this.data.border_radius}, "Border Radius", function(id, value) {
 
         var this_object = object_method.getByID(id);
 
@@ -340,7 +340,7 @@ function Timer(data) {
     });
 
     //box-shadow
-    AddParameter(this.data.id, "string", {}, "Box Shadow", function(id, value) {
+    AddParameter(this.data.id, "string", {default: this.data.box_shadow}, "Box Shadow", function(id, value) {
 
         var this_object = object_method.getByID(id);
 

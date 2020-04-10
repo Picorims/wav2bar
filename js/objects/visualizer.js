@@ -295,7 +295,7 @@ function Visualizer(data) {
     CreateObjectContainer(this.data.id);
     
     //layer
-    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
+    AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
                                                                                             //and returned value by the input
         var this_object = object_method.getByID(id);
 
@@ -306,7 +306,7 @@ function Visualizer(data) {
     });
 
     //x and y
-    AddParameter(this.data.id, "value-xy", {step: 1}, "Coordinates", function(id, value1, value2) {
+    AddParameter(this.data.id, "value-xy", {default_x: this.data.x, default_y: this.data.y, step: 1}, "Coordinates", function(id, value1, value2) {
         
         var this_object = object_method.getByID(id);
 
@@ -318,7 +318,7 @@ function Visualizer(data) {
     });
 
     //width and height
-    AddParameter(this.data.id, "value-xy", {min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
+    AddParameter(this.data.id, "value-xy", {default_x: this.data.x, default_y: this.data.y, min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
         
         var this_object = object_method.getByID(id);
 
@@ -330,7 +330,7 @@ function Visualizer(data) {
     });
 
     //rotation
-    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
+    AddParameter(this.data.id, "value", {default: this.data.rotation, min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
         
         var this_object = object_method.getByID(id);
 
@@ -341,7 +341,7 @@ function Visualizer(data) {
     });
 
     //radius
-    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Radius", function(id, value) {
+    AddParameter(this.data.id, "value", {default: this.data.radius, min: 0, step: 1}, "Radius", function(id, value) {
         
         var this_object = object_method.getByID(id);
 
@@ -352,7 +352,7 @@ function Visualizer(data) {
     });
 
     //points count
-    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Points count", function(id, value) {
+    AddParameter(this.data.id, "value", {default: this.data.points_count, min: 0, step: 1}, "Points count", function(id, value) {
         
         var this_object = object_method.getByID(id);
 
@@ -363,7 +363,7 @@ function Visualizer(data) {
     });
 
     //analyzer range
-    AddParameter(this.data.id, "value-xy", {min: 0, max: 1023, step: 1}, "Analyzer range", function(id, value1, value2) {
+    AddParameter(this.data.id, "value-xy", {default_x: this.data.analyser_range[0], default_y: this.data.analyser_range[1], min: 0, max: 1023, step: 1}, "Analyzer range", function(id, value1, value2) {
         
         var this_object = object_method.getByID(id);
 
@@ -374,7 +374,7 @@ function Visualizer(data) {
     });
 
     //color
-    AddParameter(this.data.id, "string", {}, "Color", function(id, value) {
+    AddParameter(this.data.id, "string", {default: this.data.color}, "Color", function(id, value) {
 
         var this_object = object_method.getByID(id);
 
@@ -385,7 +385,7 @@ function Visualizer(data) {
     });
 
     //bar thickness
-    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Bar thickness", function(id, value) {
+    AddParameter(this.data.id, "value", {default: this.data.bar_thickness, min: 0, step: 1}, "Bar thickness", function(id, value) {
         
         var this_object = object_method.getByID(id);
 
@@ -396,7 +396,7 @@ function Visualizer(data) {
     });
 
     //border-radius
-    AddParameter(this.data.id, "string", {}, "Border Radius", function(id, value) {
+    AddParameter(this.data.id, "string", {default: this.data.border_radius}, "Border Radius", function(id, value) {
 
         var this_object = object_method.getByID(id);
 
@@ -407,7 +407,7 @@ function Visualizer(data) {
     });
 
     //box-shadow
-    AddParameter(this.data.id, "string", {}, "Box Shadow", function(id, value) {
+    AddParameter(this.data.id, "string", {default: this.data.box_shadow}, "Box Shadow", function(id, value) {
 
         var this_object = object_method.getByID(id);
 

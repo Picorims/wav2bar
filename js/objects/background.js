@@ -148,7 +148,7 @@ function Background(data) {
     CreateObjectContainer(this.data.id);
     
     //layer
-    AddParameter(this.data.id, "value", {min: 0, step: 1}, "Layer", function(id, value) {  //id, type, parameters, name, callback with id
+    AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {  //id, type, parameters, name, callback with id
                                                                             //and returned value by the input
         var this_object = object_method.getByID(id);
 
@@ -159,7 +159,7 @@ function Background(data) {
     });
 
     //background
-    AddParameter(this.data.id, "string", {}, "Background", function(id, value) {
+    AddParameter(this.data.id, "string", {default: this.data.background}, "Background", function(id, value) {
 
         var this_object = object_method.getByID(id);
 
@@ -170,7 +170,7 @@ function Background(data) {
     });
 
     //size
-    AddParameter(this.data.id, "string", {}, "Background Size", function(id, value) {
+    AddParameter(this.data.id, "string", {default: this.data.size}, "Background Size", function(id, value) {
 
         var this_object = object_method.getByID(id);
 

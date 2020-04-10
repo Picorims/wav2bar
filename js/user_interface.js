@@ -599,12 +599,18 @@ function AddParameter(object_id, type, parameters, title, callback) {
     //CONFIGURE TYPE
     switch (type) {
         case "string":
-            //do not accept parameters
+            /**parameters:
+             * default: value,
+             * min: value,
+             * max: value,
+             * step: value,
+             */
 
             //element
             var input = document.createElement("input");
             param_container.appendChild(input);
             input.classList.add("panel_input", "panel_input_string");
+            input.value = parameters.default;
             
             //function
             input.oninput = function() {
@@ -616,6 +622,7 @@ function AddParameter(object_id, type, parameters, title, callback) {
 
         case "value":
             /**parameters:
+             * default: value,
              * min: value,
              * max: value,
              * step: value,
@@ -626,6 +633,7 @@ function AddParameter(object_id, type, parameters, title, callback) {
             param_container.appendChild(input);
             input.classList.add("panel_input", "panel_input");
             input.type = "number";
+            input.value = parameters.default;
             if ( !IsUndefined(parameters.min) ) input.min = parameters.min;
             if ( !IsUndefined(parameters.max) ) input.max = parameters.max;
             if ( !IsUndefined(parameters.step) ) input.step = parameters.step;
@@ -640,6 +648,8 @@ function AddParameter(object_id, type, parameters, title, callback) {
 
         case "value-xy":
             /**parameters:
+             * default_x: value,
+             * default_y: value,
              * min: value,
              * max: value,
              * step: value,
@@ -650,6 +660,7 @@ function AddParameter(object_id, type, parameters, title, callback) {
             param_container.appendChild(input1);
             input1.classList.add("panel_input", "panel_input");
             input1.type = "number";
+            input1.value = parameters.default_x;
             if ( !IsUndefined(parameters.min) ) input1.min = parameters.min;
             if ( !IsUndefined(parameters.max) ) input1.max = parameters.max;
             if ( !IsUndefined(parameters.step) ) input1.step = parameters.step;
@@ -658,6 +669,7 @@ function AddParameter(object_id, type, parameters, title, callback) {
             param_container.appendChild(input2);
             input2.classList.add("panel_input", "panel_input");
             input2.type = "number";
+            input2.value = parameters.default_y;
             if ( !IsUndefined(parameters.min) ) input2.min = parameters.min;
             if ( !IsUndefined(parameters.max) ) input2.max = parameters.max;
             if ( !IsUndefined(parameters.step) ) input2.step = parameters.step;
@@ -675,6 +687,7 @@ function AddParameter(object_id, type, parameters, title, callback) {
 
         case "choice":
             /**parameters:
+             * default: value;
              * list:[option1, option2, ...] (strings)
              */
 
@@ -682,6 +695,7 @@ function AddParameter(object_id, type, parameters, title, callback) {
             var list = document.createElement("select");
             param_container.appendChild(list);
             list.classList.add("panel_input", "panel_input_list");
+            list.value = parameters.default;
 
             //options
             for (var i=0; i< parameters.list.length; i++) {
@@ -700,13 +714,16 @@ function AddParameter(object_id, type, parameters, title, callback) {
 
 
         case "checkbox":
-            //do not accept parameters
+            /**parameters:
+             * default: value;
+             */
 
             //element
             var input = document.createElement("input");
             param_container.appendChild(input);
             input.classList.add("panel_input", "panel_input_checkbox");
             input.type = "checkbox";
+            input.checked = parameters.default;
             
             //function
             input.oninput = function() {
