@@ -2,21 +2,22 @@
 A tool to make custom audio visualization and export production videos for the music industry.
 
 ### Important Notes
-- **This tool is unusable at this point, and is still in early development!**
-- This tool uses Electron 6 and so run in a Chrome clone locally. This code cannot be runned in the browser as it contains Electron code! A browser version will be done eventually.
+- **This tool is usable at this point, but is still in early development! Video export DO NOT work. The use of the software is subject to bugs.**
+- This tool uses Electron 6 and so run in a Chrome clone locally. This code cannot be runned in the browser as it contains Electron code! A browser version may be considered.
 
 ### Running
 - Open git and run `npm start`.
 - No compilation required, no export option available yet.
 
 ### About the broken video export
-I am having issues collecting frequency data at non real-time as the Web Audio API is not made for that.
-I may have workarounds, however **if you think you have any help to provide to move forward and fix it, please reach me at picorims.contact@gmail.com!**. Beside this issue, the rest of the video basic export is fully working.
+~~I am having issues collecting frequency data at non real-time as the Web Audio API is not made for that.
+I may have workarounds, however **if you think you have any help to provide to move forward and fix it, please reach me at picorims.contact@gmail.com!**. Beside this issue, the rest of the video basic export is fully working.~~
+I may have found a solution that I will try later.
 
 ### License
 This tool is MIT licensed.
 
-> Copyright 2020 Picorims, France.
+> Copyright (c) 2020 Picorims, France.
 
 > Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
