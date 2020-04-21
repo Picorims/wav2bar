@@ -536,6 +536,35 @@ function CreateObjectContainer(object_id) {
     container.appendChild(title_container);
     title_container.classList.add("object_param_title");
     title_container.innerHTML = object_id;
+    var obj_type = object_method.getByID(object_id).data.object_type;
+    switch (obj_type) {
+        case "background":
+            title_container.innerHTML = '<i class="fas fa-mountain"></i> ' + title_container.innerHTML;
+            break;
+
+        case "image":
+            title_container.innerHTML = '<i class="far fa-image"></i> ' + title_container.innerHTML;
+            break;
+
+        case "particle_flow":
+            title_container.innerHTML = '<i class="fas fa-certificate"></i> ' + title_container.innerHTML;
+            break;
+
+        case "text":
+            title_container.innerHTML = '<i class="fas fa-heading"></i> ' + title_container.innerHTML;
+            break;
+
+        case "timer":
+            title_container.innerHTML = '<i class="fas fa-clock"></i> ' + title_container.innerHTML;
+            break;
+
+        case "visualizer":
+            title_container.innerHTML = '<i class="fas fa-chart-bar"></i> ' + title_container.innerHTML;
+            break;
+
+        default:
+            throw `CreateObjectContainer: ${obj_type} is an unknown object type!`;
+    }
 
     //arrow
     var arrow = document.createElement("div");

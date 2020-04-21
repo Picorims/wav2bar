@@ -3,6 +3,7 @@
 //PARTICLE FLOW OBJECT PROCESS
 
 /*data = {
+    object_type: "particle_flow",
     id: ?, (string, name)
     layer: ?, (integer)
     x: ?, (px)

@@ -3,6 +3,7 @@
 //TEXT OBJECT PROCESS
 
 /*data = {
+    object_type: "text",
     id: ?, (string, name)
     layer: ?, (integer)
     x: ?, (px)

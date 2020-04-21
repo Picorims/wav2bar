@@ -3,9 +3,10 @@
 //BACKGROUND OBJECT PROCESS
 
 /*data = {
+    object_type: "background",
     id: ?, (string, name)
     layer: ?, (integer)
-    background: ?; (string, css background)
+    background: ?, (string, css background)
     size: ?, (string, css background-size for image resizing, shrinking, repeating)
 }*/
 

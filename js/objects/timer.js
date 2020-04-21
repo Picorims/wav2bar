@@ -3,6 +3,7 @@
 //TIMER OBJECT PROCESS
 
 /*data = {
+    object_type: "timer",
     id: ?, (string, name)
     layer: ?, (integer)
     x: ?, (px)

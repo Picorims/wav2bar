@@ -3,6 +3,7 @@
 //VISUALIZER OBJECT PROCESS
 
 /*data = {
+    object_type: "visualizer",
     id: ?, (string, name)
     layer: 1, (integer)
     x: ?, (px)
@@ -22,7 +23,7 @@
 
 function Visualizer(data) {
     if (IsUndefined(data)) throw "Visualizer: data missing!";
-    
+
     this.data = data;//collect data
     this.data.object_type = "visualizer";
     this.bars = [];//contain all bars for type "straight" and "straight-wave"

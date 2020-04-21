@@ -3,6 +3,7 @@
 //IMAGE OBJECT PROCESS
 
 /*data = {
+    object_type: "image",
     id: ?, (string, name)
     layer: ?, (integer)
     x: ?, (px)
@@ -18,7 +19,7 @@
 
 function Image(data) {
     if (IsUndefined(data)) throw "Image: data missing!";
-    
+
     this.data = data;//collect data
     this.data.object_type = "image";
     objects.push(this);//add the object to the list
