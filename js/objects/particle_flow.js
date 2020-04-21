@@ -21,6 +21,8 @@
 }*/
 
 function ParticleFlow(data) {
+    if (IsUndefined(data)) throw "ParticleFlow: data missing!";
+    
     this.data = data;//collect data
     this.data.object_type = "particle_flow";
     this.particles = [];//contain all particles
@@ -36,6 +38,10 @@ function ParticleFlow(data) {
     //(invalid data is still overwritten)
 
     this.verifyData = function(data, ignore_undefined) {
+        if (IsUndefined(data)) throw "ParticleFlow.verifyData: data missing!";
+        if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "ParticleFlow.verifyData: IGNORE_UNDEFINED is the only valid node.";
+
+    
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
@@ -135,6 +141,9 @@ function ParticleFlow(data) {
     //##################################
 
     this.mergeData = function(data, data_destination) {
+        if (IsUndefined(data)) throw "ParticleFlow.mergeData: data missing!";
+        if (IsUndefined(data_destination)) throw "ParticleFlow.mergeData: data_destination missing!";
+
         for (key of Object.keys(data)) {
             data_destination[key] = data[key];
         }
@@ -151,6 +160,7 @@ function ParticleFlow(data) {
     //###########################################
 
     this.updateData = function(data) {
+        if (IsUndefined(data)) throw "ParticleFlow.updateData: data missing!";
         //NOTE: it is NOT possible to change the particle flow type (data.type) and id (data.id). A new particle flow must be created in such case!
         
         if ( IsUndefined(data.id) ) {
@@ -379,6 +389,8 @@ function ParticleFlow(data) {
     //####################################
 
     this.remove = function(id) {
+        if (!IsAString(object_id)) throw `ParticleFlow.remove: ${object_id} is not a valid ID.`;
+
         if (this.data.id === id) {//if he is the targeted element (remove executes for all objects!)
             //remove index
             var index = objects.indexOf(this);
@@ -404,6 +416,9 @@ function ParticleFlow(data) {
 
 
 function Particle(data, canvas) {//control each particle's behavior with an independant process.
+    if (IsUndefined(data)) throw "Particle: data missing!";
+    if (!IsAnElement(canvas)) throw "Particle: No valid canvas!";
+
     this.data = data;//main process data transfer
 
     //size and context of the canvas

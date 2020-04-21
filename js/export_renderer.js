@@ -47,7 +47,8 @@ function InitRender() {//render initialization
 
 
 function InitExport(data) {//prepare video export
-    
+    if (!IsAnObject(data)) throw "InitExport: invalid data provided!";
+
     //SCREEN SETUP
     screen.width = data.screen.width;
     screen.height = data.screen.height;
@@ -182,23 +183,23 @@ function SeekAudioReady() {//what must be executed when the audio is ready to be
 
 
 function GetAudioBuffer(callback) {//get the buffer array from the audio_file File() object
-        
-        //file url
-        var url = audio_file_path.replace(/\\/g,"/");
-        console.log(url);
-        
-        //request
-        var request = new XMLHttpRequest();
 
-        request.open("GET", url, true);
-        request.responceType = "arraybuffer";
+    //file url
+    var url = audio_file_path.replace(/\\/g,"/");
+    console.log(url);
+    
+    //request
+    var request = new XMLHttpRequest();
 
-        //when the request is completed
-        request.onload = function() {
-            //console.log(request.response);
-        }
+    request.open("GET", url, true);
+    request.responceType = "arraybuffer";
 
-        request.send();
+    //when the request is completed
+    request.onload = function() {
+        //console.log(request.response);
+    }
+
+    request.send();
 }
 
 
@@ -207,6 +208,7 @@ function GetAudioBuffer(callback) {//get the buffer array from the audio_file Fi
 
 function StartRendering(fps) {//prepare rendering
     // initialize the timer variables and start the animation
+    if (!IsANumber(fps)) throw `StartRendering: ${fps} is not a valid fps value, rendering aborted.`;
 
     frames_to_render = (export_array[1] - export_array[0]) * fps;
     frames_rendered = 0;

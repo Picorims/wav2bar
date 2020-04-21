@@ -24,6 +24,8 @@
 }*/
 
 function Text(data) {
+    if (IsUndefined(data)) throw "Text: data missing!";
+    
     this.data = data;//collect data
     this.data.object_type = "text";
     objects.push(this);//add the object to the list
@@ -41,6 +43,9 @@ function Text(data) {
     //(invalid data is still overwritten)
 
     this.verifyData = function(data, ignore_undefined) {
+        if (IsUndefined(data)) throw "Text.verifyData: data missing!";
+        if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "Text.verifyData: IGNORE_UNDEFINED is the only valid node.";
+    
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
@@ -182,6 +187,9 @@ function Text(data) {
     //##################################
 
     this.mergeData = function(data, data_destination) {
+        if (IsUndefined(data)) throw "Text.mergeData: data missing!";
+        if (IsUndefined(data_destination)) throw "Text.mergeData: data_destination missing!";
+
         for (key of Object.keys(data)) {
             data_destination[key] = data[key];
         }
@@ -196,6 +204,8 @@ function Text(data) {
     //##################################
 
     this.updateData = function(data) {
+        if (IsUndefined(data)) throw "Text.updateData: data missing!";
+
         //NOTE: it is NOT possible to change the text id (data.id). A new text must be created in such case!
         
         if ( IsUndefined(data.id) ) {
@@ -477,6 +487,8 @@ function Text(data) {
     //###########################
 
     this.remove = function(id) {
+        if (!IsAString(object_id)) throw `Text.remove: ${object_id} is not a valid ID.`;
+
         if (this.data.id === id) {//if he is the targeted element (remove executes for all objects!)
             //remove index
             var index = objects.indexOf(this);

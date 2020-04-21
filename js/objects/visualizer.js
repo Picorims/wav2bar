@@ -21,6 +21,8 @@
 }*/
 
 function Visualizer(data) {
+    if (IsUndefined(data)) throw "Visualizer: data missing!";
+    
     this.data = data;//collect data
     this.data.object_type = "visualizer";
     this.bars = [];//contain all bars for type "straight" and "straight-wave"
@@ -37,6 +39,9 @@ function Visualizer(data) {
     //(invalid data is still overwritten)
 
     this.verifyData = function(data, ignore_undefined) {
+        if (IsUndefined(data)) throw "Visualizer.verifyData: data missing!";
+        if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "Visualizer.verifyData: IGNORE_UNDEFINED is the only valid node.";
+
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
@@ -157,6 +162,9 @@ function Visualizer(data) {
     //##################################
 
     this.mergeData = function(data, data_destination) {
+        if (IsUndefined(data)) throw "Visualizer.mergeData: data missing!";
+        if (IsUndefined(data_destination)) throw "Visualizer.mergeData: data_destination missing!";
+
         for (key of Object.keys(data)) {
             data_destination[key] = data[key];
         }
@@ -171,6 +179,7 @@ function Visualizer(data) {
     //########################################
 
     this.updateData = function(data) {
+        if (IsUndefined(data)) throw "Visualizer.updateData: data missing!";
         //NOTE: it is NOT possible to change the visualizer type (data.type) and id (data.id). A new visualizer must be created in such case!
         
         if ( IsUndefined(data.id) ) {
@@ -601,6 +610,8 @@ function Visualizer(data) {
     //##################################
 
     this.remove = function(id) {
+        if (!IsAString(object_id)) throw `Visualizer.remove: ${object_id} is not a valid ID.`;
+
         if (this.data.id === id) {//if he is the targeted element (remove executes for all objects!)
             //remove index
             var index = objects.indexOf(this);

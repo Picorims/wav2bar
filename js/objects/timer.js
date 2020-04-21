@@ -19,6 +19,8 @@
 }*/
 
 function Timer(data) {
+    if (IsUndefined(data)) throw "Timer: data missing!";
+    
     this.data = data;//collect data
     this.data.object_type = "timer";
     objects.push(this);//add the object to the list
@@ -35,6 +37,10 @@ function Timer(data) {
     //(invalid data is still overwritten)
 
     this.verifyData = function(data, ignore_undefined) {
+        if (IsUndefined(data)) throw "Timer.verifyData: data missing!";
+        if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "Timer.verifyData: IGNORE_UNDEFINED is the only valid node.";
+
+    
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
@@ -141,6 +147,9 @@ function Timer(data) {
     //##################################
 
     this.mergeData = function(data, data_destination) {
+        if (IsUndefined(data)) throw "Timer.mergeData: data missing!";
+        if (IsUndefined(data_destination)) throw "Timer.mergeData: data_destination missing!";
+
         for (key of Object.keys(data)) {
             data_destination[key] = data[key];
         }
@@ -155,6 +164,7 @@ function Timer(data) {
     //###################################
 
     this.updateData = function(data) {
+        if (IsUndefined(data)) throw "Timer.updateData: data missing!";
         //NOTE: it is NOT possible to change the timer type (data.type) and id (data.id). A new timer must be created in such case!
         
         if ( IsUndefined(data.id) ) {
@@ -376,6 +386,8 @@ function Timer(data) {
     //###########################
 
     this.remove = function(id) {
+        if (!IsAString(object_id)) throw `Timer.remove: ${object_id} is not a valid ID.`;
+
         if (this.data.id === id) {//if he is the targeted element (remove executes for all objects!)
             //remove index
             var index = objects.indexOf(this);

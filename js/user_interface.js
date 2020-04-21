@@ -176,6 +176,9 @@ function HideAnyTab() {
 
 //show the tab given in parameter
 function ShowTab(tab, tab_label) {
+    if (!IsAnElement(tab)) throw "ShowTab: tab isn't a DOM element.";
+    if (!IsAnElement(tab_label)) throw "ShowTab: tab_label isn't a DOM element.";
+
     tab.style.left = 0;
     tab.style.display = "inline-block";
     tab_label.classList.add("selected_tab");
@@ -244,6 +247,8 @@ function KillZoomMenu() {
 
 //function that apply to the screen the zoom given in the control_panel.
 function ApplyZoom(zoom_value) {
+    if (!IsANumber(zoom_value)) throw `ApplyZoom: ${zoom_value} is not a valid zoom value.`;
+
     zoom = zoom_value;
     screen.style.transformOrigin = "0 0";
     screen.style.transform = `scale(${zoom})`;
@@ -513,7 +518,8 @@ OBJECTS PARAMETER CONTAINERS
 
 //function that creates an object container with no parameters, ready for an object with the given ID.
 function CreateObjectContainer(object_id) {
-    
+    if (!IsAString(object_id)) throw `CreateObjectContainer: ${object_id} is not a valid ID.`;
+
     //CREATE ELEMENT
     var container = document.createElement("div");
     tab.objects.appendChild(container);
@@ -562,6 +568,7 @@ function CreateObjectContainer(object_id) {
 
 //function that opens or closes an object container
 function ToggleOpen(title_container) {
+    if (!IsAnElement(title_container)) throw "ToggleOpen: the argument is not a DOM element.";
     
     var parent = title_container.parentNode; //the container
     var closed = parent.getAttribute("data-closed");
@@ -581,6 +588,15 @@ function ToggleOpen(title_container) {
 
 //function to add a parameter to an object parameter container
 function AddParameter(object_id, type, parameters, title, callback) {
+    if (!IsAString(object_id)) throw `AddParameter: ${object_id} is not a valid ID.`;
+    
+    if ( (type!=="string") && (type!=="value") && (type!=="value-xy") && (type!=="choice") && (type!=="checkbox") ) {
+        throw `AddParameter: ${type} is not a valid parameter type.`;
+    }
+    if (!IsAnObject(parameters))    throw "AddParameter: The parameters provided aren't of type object.";
+    if (!IsAString(title))          throw "AddParameter: The title must be a string!";
+    if (IsUndefined(callback))      throw "AddParameter: Callback missing.";
+
     
     //CREATE ELEMENT    
     var param_container = document.createElement("div");

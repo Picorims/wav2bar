@@ -2,16 +2,32 @@
 
 //USEFUL METHODS USED IN THE PROGRAM. THIS SHOULD ONLY CONTAIN GENERAL NON SPECIFIC METHODS, MANIPULATING ALL SORT OF DATA.
 
+
+//Random values
+//=============
+
 function RandomInt(min, max) {//give a random integer between min and max.
+    if (!IsANumber(min)) throw `RandomInt: ${min} is not a valid min value.`;
+    if (!IsANumber(max)) throw `RandomInt: ${max} is not a valid max value.`;
+
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
+
+
+
+
+
+//Arrays
+//======
+
 function MappedArray(array, new_length, min, max) {//function that remaps an array, within the given min and max, to a new length.
+
     //CHECK VARIABLES
     if ( !IsAnArray(array) )                    throw `MappedArray: ${array} is not an array!`;
     if ( !IsANumber(new_length) )               throw `MappedArray: ${new_length} is not a number!`;
-    if ( !IsUndefined(min) && !IsANumber(min) ) throw `MappedArray: ${min} is not a number!`;
-    if ( !IsUndefined(min) && !IsANumber(max) ) throw `MappedArray: ${max} is not a number!`;
+    if ( !IsUndefined(min) && !IsANumber(min) ) throw `MappedArray: ${min} is not a number!`; //min and max are optional and undefined shouldn't
+    if ( !IsUndefined(min) && !IsANumber(max) ) throw `MappedArray: ${max} is not a number!`; //trigger any error.
     for (var i=0; i< array.length; i++) {
         if ( IsUndefined(array[i]) ) throw `MappedArray: the value ${i} of the array is undefined or null!`
     }
@@ -63,24 +79,45 @@ function InInterval(value, interval, type) {//returns if the given value is in t
 
 
 
-function IsANumber(value) {//return true if the given variable is a number.
+
+
+
+
+
+
+
+
+//Variable type tests
+//===================
+
+function IsANumber(value) {//returns true if the given variable is a number.
     return (typeof value === "number");
 }
-function IsAnInt(value) {//return true if the given variable is an integer. (IsANumber() included in it)
+
+function IsAnInt(value) {//returns true if the given variable is an integer. (IsANumber() included in it)
     return( (typeof value === "number") && Number.isInteger(value) );
 }
-function IsAString(value) {//return true if the given variable is a string.
+
+function IsAString(value) {//returns true if the given variable is a string.
     return (typeof value === "string");
 }
-function IsABoolean(value) {//return true if the given variable is a boolean. (true or false)
+
+function IsABoolean(value) {//returns true if the given variable is a boolean. (true or false)
     return ( (value === true) || (value === false) )
 }
-function IsAnArray(value) {//return true if the given variable is an array.
+
+function IsAnArray(value) {//returns true if the given variable is an array.
     return (  (typeof value === "object")    &&    ( (value instanceof Array) || (value instanceof Uint8Array) )  );
 }
-function IsAnObject(value) {
+
+function IsAnObject(value) {//returns true if the given variable is an Object of any kind.
     return ( (typeof value === 'object') && (value !== null) )
 }
-function IsUndefined(value) {//return true if the given variable is either undefined or null.
+
+function IsUndefined(value) {//returns true if the given variable is either undefined or null.
     return (  (value===undefined) || (value===null)  );
+}
+
+function IsAnElement(value) {//returns true if the given variable is an HTML DOM element.
+    return value instanceof HTMLElement;
 }

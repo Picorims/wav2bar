@@ -17,6 +17,7 @@ function DefaultSave() {//set the save data to default values
 
 
 function LoadSave(save_file) {//load a user save or a preset (JSON format)
+    if (!IsAnObject(save_file)) throw "LoadSave: no valid save file given!";
 
     console.log("Loading the save...");
 

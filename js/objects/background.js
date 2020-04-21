@@ -10,6 +10,8 @@
 }*/
 
 function Background(data) {
+    if (IsUndefined(data)) throw "Background: data missing!";
+    
     this.data = data;//collect data
     this.data.object_type = "background";
     objects.push(this);//add the object to the list
@@ -25,6 +27,9 @@ function Background(data) {
     //(invalid data is still overwritten)
 
     this.verifyData = function(data, ignore_undefined) {
+        if (IsUndefined(data)) throw "Background.verifyData: data missing!";
+        if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "Background.verifyData: IGNORE_UNDEFINED is the only valid node.";
+    
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
@@ -68,6 +73,9 @@ function Background(data) {
     //##################################
 
     this.mergeData = function(data, data_destination) {
+        if (IsUndefined(data)) throw "Background.mergeData: data missing!";
+        if (IsUndefined(data_destination)) throw "Background.mergeData: data_destination missing!";
+
         for (key of Object.keys(data)) {
             data_destination[key] = data[key];
         }
@@ -84,6 +92,7 @@ function Background(data) {
     //########################################
 
     this.updateData = function(data) {
+        if (IsUndefined(data)) throw "Background.updateData: data missing!";
         //NOTE: it is NOT possible to change the background id (data.id). A new background must be created in such case!
         
         if ( IsUndefined(data.id) ) {
@@ -206,6 +215,8 @@ function Background(data) {
     //####################################
 
     this.remove = function(id) {
+        if (!IsAString(object_id)) throw `Background.remove: ${object_id} is not a valid ID.`;
+
         if (this.data.id === id) {//if he is the targeted element (remove executes for all objects!)
             //remove index
             var index = objects.indexOf(this);

@@ -67,8 +67,9 @@ function InitPage() {//page initialization
 
 
 
-function LoadAudio(file_data, type) {//load an audio file into the app. type: "file" || "url"
-    if (typeof is_offline === undefined) is_offline = false;//optional argument    
+function LoadAudio(file_data, type) {//load an audio file into the app. type: "file" || "url"  
+    if (IsUndefined(file_data)) throw "LoadAudio: No file data provided, couldn't load the audio file.";
+    if ( (type!=="file") && (type!=="url") ) throw `LoadAudio: ${type} is not a valid audio file type!`;
 
     //stop current audio
     if (typeof audio !== "undefined") {
@@ -145,6 +146,7 @@ ANIMATION
 
 function StartAnimating(fps) {//prepare fps animation
     // initialize the timer variables and start the animation
+    if (!IsANumber(fps)) throw `StartAnimating: ${fps} is not a valid fps value, start aborted.`;
 
     stop_animating = false;
     animating = true;
