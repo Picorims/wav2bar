@@ -2,12 +2,14 @@
 A tool to make custom audio visualization and export production videos for the music industry.
 
 ### Important Notes
-- **This tool is usable at this point, but is still in early development! Video export DO NOT work. The use of the software is subject to bugs.**
+- **This tool is usable at this point, but is still in early development! Video export DO NOT work. The use of this software is subject to bugs, backup your saves!**
 - This tool uses Electron 6 and so run in a Chrome clone locally. This code cannot be runned in the browser as it contains Electron code! A browser version may be considered.
 
 ### Running
-- Open git and run `npm start`.
-- No compilation required, no export option available yet.
+- NodeJS must be installed (It will install npm too).
+- Git is recommended.
+- Open the repository folder in a prompt and run `npm start`.
+- No compilation required, it cannot be compiled too.
 
 ### About the broken video export
 ~~I am having issues collecting frequency data at non real-time as the Web Audio API is not made for that.
