@@ -2,15 +2,17 @@
 
 //MAIN PROCESS, PAGE INITIALIZATION
 
-var control_panel, screen_interface, screen;//MAIN HTML ELEMENTS
 var fps, stop_animating, animating, frame_count, fps_interval, time; //fps related variables
-var fps_array, fps_array_max_length;
-var volume;
+var fps_array, fps_array_max_length; //fps display
+
 var current_save; //all data of the project that can be saved
+
 var audio, audio_file, audio_file_type, source, context, analyzer, frequency_array;//audio object for JavaScript / audio File() object / file format / audio API required modules
 var audio_position_string;// ??:?? | ??:??
+
 var objects = [];//all objects inside the screen
 var objects_callback = [];
+var volume;//audio average volume
 
 
 
@@ -22,31 +24,9 @@ GLOBAL INITIALIZATION AND AUDIO IMPORT
 */
 
 function InitPage() {//page initialization
-    //HTML DEFINITIONS
-    control_panel = document.getElementById("control_panel");
-    screen_interface = document.getElementById("interface");
-    screen = document.getElementById("screen");
-    
-    
-
-
-    //SCREEN SIZE
-    //short syntax for the program
-    screen.width = 1280;
-    screen.height = 720;
-    //apply it
-    screen.style.width = screen.width+"px";
-    screen.style.height = screen.height+"px";
-
-
-
-
 
     //PREPARE SAVE
     DefaultSave();
-
-    
-
 
 
     //FPS PREPARATION
@@ -56,7 +36,6 @@ function InitPage() {//page initialization
     fps = 60;
     animating = false;
     setInterval(UpdateFPS, 1000);
-
 
 
 
@@ -211,34 +190,8 @@ function UpdateFinished() {//returns if all the objects have finished updating.
 
 
 function DrawFrame() {//update and draw the screen
-    //#################
-    //CSS RECALCULATION
-    //#################
-    //HTML elements dimension and margins recalculation to make the page responsive
     
-    
-    //screen interface
-    var interface_padding = window.getComputedStyle(screen_interface).getPropertyValue("padding-left"); //padding-left defined trough "padding" is only accessible that way!
-    var interface_padding_value = parseInt( interface_padding.replace("px","") );
 
-    screen_interface.style.width = ( window.innerWidth - control_panel.offsetWidth - (interface_padding_value*2) ) + "px";
-    screen_interface.style.height = ( window.innerHeight - (interface_padding_value*2) )+"px";
-    screen_interface.style.top = 0;
-    screen_interface.style.left = control_panel.offsetWidth+"px";
-
-    
-    //screen positioning
-    var screen_margin_left = (screen_interface.offsetWidth/2) - (screen.width/2) - interface_padding_value;
-    var screen_margin_top = (window.innerHeight/2) - (screen.height/2);
-    
-    screen.style.marginLeft = (screen_margin_left > 0) ? (screen_margin_left+"px") : "0px";
-    screen.style.marginTop =  (screen_margin_top > 0)  ? (screen_margin_top+"px")  : "0px";
-
-
-
-
-    
-    
     //#################
     //AUDIO CALCULATION
     //#################

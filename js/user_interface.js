@@ -2,6 +2,8 @@
 
 //USER INTERFACE PROCESS (CONTROL PANEL INCLUDED)
 
+var control_panel, screen_interface, screen;//MAIN HTML ELEMENTS
+
 var tab;//all tabs
 var tab_label;//all tab labels
 
@@ -22,6 +24,19 @@ INITIALIZATION
 
 //user interface initialization
 function InitUI() {
+
+    //HTML DEFINITIONS
+    control_panel = document.getElementById("control_panel");
+    screen_interface = document.getElementById("interface");
+    screen = document.getElementById("screen");
+
+    //SCREEN SIZE
+    //short syntax for the program
+    screen.width = 1280;
+    screen.height = 720;
+    //apply it
+    screen.style.width = screen.width+"px";
+    screen.style.height = screen.height+"px";
     
     //TABS
     tab = {
@@ -149,7 +164,63 @@ function InitUI() {
         CreateZoomMenu();
     }
 
+
+
+
+
+
+    //RESPONSIVE INTERFACE
+    setInterval(LoopUI, 100);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+####
+LOOP
+####
+*/
+function LoopUI() {//UI responsive update
+
+
+    //###########################
+    //CSS POSITIONS RECALCULATION
+    //###########################
+    //HTML elements dimension and margins recalculation to make the page responsive
+    
+    
+    //screen interface
+    var interface_padding = window.getComputedStyle(screen_interface).getPropertyValue("padding-left"); //padding-left defined trough "padding" is only accessible that way!
+    var interface_padding_value = parseInt( interface_padding.replace("px","") );
+
+    screen_interface.style.width = ( window.innerWidth - control_panel.offsetWidth - (interface_padding_value*2) ) + "px";
+    screen_interface.style.height = ( window.innerHeight - (interface_padding_value*2) )+"px";
+    screen_interface.style.top = 0;
+    screen_interface.style.left = control_panel.offsetWidth+"px";
+
+    
+    //screen positioning
+    var screen_margin_left = (screen_interface.offsetWidth/2) - (screen.width/2) - interface_padding_value;
+    var screen_margin_top = (window.innerHeight/2) - (screen.height/2);
+    
+    screen.style.marginLeft = (screen_margin_left > 0) ? (screen_margin_left+"px") : "0px";
+    screen.style.marginTop =  (screen_margin_top > 0)  ? (screen_margin_top+"px")  : "0px";
+    
+
+}
+
+
+
+
 
 
 
