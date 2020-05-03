@@ -115,6 +115,10 @@ function Background(data) {
             this.element.style.zIndex = this.data.layer;//layer
             this.element.style.background = this.data.background;//background
             this.element.style.backgroundSize = this.data.size;//size
+
+            //SET BACKGROUND TO SCREEN SIZE
+            this.element.style.width = screen.width + "px";
+            this.element.style.height = screen.height + "px";
         }
 
 

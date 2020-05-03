@@ -97,6 +97,13 @@ function InitUI() {
     document.getElementById("screen_width_input").onchange = function() {
         screen.width = parseInt(this.value);
         screen.style.width = screen.width + "px";
+
+        //update background size
+        for (var i=0; i<objects.length; i++) {
+            if (objects[i].data.object_type === "background") {
+                objects[i].update();
+            }
+        }
     }
     
     //screen height
@@ -104,6 +111,13 @@ function InitUI() {
     document.getElementById("screen_height_input").onchange = function() {
         screen.height = parseInt(this.value);
         screen.style.height = screen.height + "px";
+
+        //update background size
+        for (var i=0; i<objects.length; i++) {
+            if (objects[i].data.object_type === "background") {
+                objects[i].update();
+            }
+        }
     }
 
     //import audio
@@ -214,7 +228,7 @@ function LoopUI() {//UI responsive update
     
     screen.style.marginLeft = (screen_margin_left > 0) ? (screen_margin_left+"px") : "0px";
     screen.style.marginTop =  (screen_margin_top > 0)  ? (screen_margin_top+"px")  : "0px";
-    
+
 
 }
 
