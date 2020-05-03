@@ -524,6 +524,13 @@ function CreateObject() {
     if (id === "") {
         alert("please specify an ID. (keep it unique!)");
         return;
+    } else {
+        for (var i=0; i < objects.length; i++) {
+            if (objects[i].data.id === id) {
+                alert("This ID is already used!");
+                return;
+            }
+        }
     }
 
     //get type
