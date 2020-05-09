@@ -574,7 +574,7 @@ function CreateObject() {
             break;
 
         case "visualizer_straight_wave":
-            new Visualizer({id:id, type:"steaight_wave"});
+            new Visualizer({id:id, type:"straight-wave"});
             break;
 
         case "visualizer_circular":
