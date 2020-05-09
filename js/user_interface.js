@@ -635,7 +635,7 @@ function CreateObjectContainer(object_id) {
             break;
 
         case "image":
-            title_container.innerHTML = '<i class="far fa-image"></i> ' + title_container.innerHTML;
+            title_container.innerHTML = '<i class="fas fa-image"></i> ' + title_container.innerHTML;
             break;
 
         case "particle_flow":

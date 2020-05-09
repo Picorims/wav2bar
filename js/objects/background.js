@@ -220,7 +220,7 @@ function Background(data) {
     //####################################
 
     this.remove = function(id) {
-        if (!IsAString(object_id)) throw `Background.remove: ${object_id} is not a valid ID.`;
+        if (!IsAString(id)) throw `Background.remove: ${id} is not a valid ID.`;
 
         if (this.data.id === id) {//if he is the targeted element (remove executes for all objects!)
             //remove index

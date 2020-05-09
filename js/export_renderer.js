@@ -112,7 +112,7 @@ function InitExport(data) {//prepare video export
     frame_count = 0;
     fps_array = [];
     fps = 60;
-    export_array = [0,10];//from when to when in seconds to export, based on audio length.
+    export_array = [0,1];//from when to when in seconds to export, based on audio length.
     //interval type: [x,y[
 
     
@@ -137,9 +137,12 @@ function SeekAudioReady() {//what must be executed when the audio is ready to be
         ###############################
         */
         
-        // //GET BUFFER FROM File() object of the song. Cf. function definition.
-        // GetAudioBuffer(function(buffer) {
-        //     console.log(buffer);
+        //GET BUFFER FROM THE AUDIO FILE. Cf. function definition.
+        GetAudioBuffer(function(buffer) {
+            
+            
+
+        });
 
         //     //PREPARE AUDIO DATA COLLECTION
         //     //the array buffer must be transformed into an audio buffer to be read.
@@ -182,7 +185,7 @@ function SeekAudioReady() {//what must be executed when the audio is ready to be
 
 
 
-function GetAudioBuffer(callback) {//get the buffer array from the audio_file File() object
+function GetAudioBuffer(callback) {//get the buffer array from the audio file
 
     //file url
     var url = audio_file_path.replace(/\\/g,"/");
@@ -196,7 +199,11 @@ function GetAudioBuffer(callback) {//get the buffer array from the audio_file Fi
 
     //when the request is completed
     request.onload = function() {
-        //console.log(request.response);
+        buffer = request.response;
+        //DECODE THE BUFFER
+        context.decodeAudioData(buffer, function(decoded_buffer) {
+            console.log(decoded_buffer);
+        }, function() {throw "SeekAudioReady: audio decoding has failed."});
     }
 
     request.send();

@@ -19,5 +19,8 @@
   "devDependencies": {
     "electron": "^6.1.7",
     "fluent-ffmpeg": "^2.1.2"
+  },
+  "dependencies": {
+    "fourier-transform": "^1.1.2"
   }
 }

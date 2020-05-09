@@ -488,7 +488,7 @@ function Text(data) {
     //###########################
 
     this.remove = function(id) {
-        if (!IsAString(object_id)) throw `Text.remove: ${object_id} is not a valid ID.`;
+        if (!IsAString(id)) throw `Text.remove: ${id} is not a valid ID.`;
 
         if (this.data.id === id) {//if he is the targeted element (remove executes for all objects!)
             //remove index

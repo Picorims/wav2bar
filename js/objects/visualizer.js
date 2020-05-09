@@ -611,7 +611,7 @@ function Visualizer(data) {
     //##################################
 
     this.remove = function(id) {
-        if (!IsAString(object_id)) throw `Visualizer.remove: ${object_id} is not a valid ID.`;
+        if (!IsAString(id)) throw `Visualizer.remove: ${id} is not a valid ID.`;
 
         if (this.data.id === id) {//if he is the targeted element (remove executes for all objects!)
             //remove index
