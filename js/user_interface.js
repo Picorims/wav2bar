@@ -86,38 +86,21 @@ function InitUI() {
     //PROJECT TAB
     //fps selection
     document.getElementById("fps_input").value = fps;
-    document.getElementById("fps_input").onchange = function() {
-        StopAnimating();
-        fps = parseInt(this.value);
-        if (audio) StartAnimating(fps);
+    document.getElementById("fps_input").oninput = function() {
+        ChangeFPSTo(parseInt(this.value));
     }
 
     //screen width
     document.getElementById("screen_width_input").value = screen.width;
-    document.getElementById("screen_width_input").onchange = function() {
-        screen.width = parseInt(this.value);
-        screen.style.width = screen.width + "px";
-
-        //update background size
-        for (var i=0; i<objects.length; i++) {
-            if (objects[i].data.object_type === "background") {
-                objects[i].update();
-            }
-        }
+    document.getElementById("screen_width_input").oninput = function() {
+        SetScreenTo(parseInt(this.value), screen.height);
+        
     }
     
     //screen height
     document.getElementById("screen_height_input").value = screen.height;
-    document.getElementById("screen_height_input").onchange = function() {
-        screen.height = parseInt(this.value);
-        screen.style.height = screen.height + "px";
-
-        //update background size
-        for (var i=0; i<objects.length; i++) {
-            if (objects[i].data.object_type === "background") {
-                objects[i].update();
-            }
-        }
+    document.getElementById("screen_height_input").oninput = function() {
+        SetScreenTo(screen.width, parseInt(this.value));
     }
 
     //import audio
@@ -268,6 +251,39 @@ function ShowTab(tab, tab_label) {
     tab.style.display = "inline-block";
     tab_label.classList.add("selected_tab");
 }
+
+
+
+
+
+
+
+/*
+######
+SCREEN
+######
+*/
+
+function SetScreenTo(width, height) {//changes the screen size to the given values
+    if(!IsAnInt(width)) throw `SetScreenTo: ${width} is not an integer.`;
+    if(!IsAnInt(height)) throw `SetScreenTo: ${width} is not an integer.`;
+
+    //update screen
+    screen.width = width;
+    screen.height = height;
+    screen.style.width = width+"px";
+    screen.style.height = height+"px";
+
+    //update background size
+    for (var i=0; i<objects.length; i++) {
+        if (objects[i].data.object_type === "background") {
+            objects[i].update();
+        }
+    }
+}
+
+
+
 
 
 

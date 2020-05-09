@@ -83,7 +83,7 @@ function ApplyLoadedSave() {//read and apply a loaded user save
 
         //avoid overflow
         if (i>100) {
-            throw "LoadSave: infernal loop stopped!";
+            throw `LoadSave: Maximum object count reached (${i-1})`;
         }
 
         //create relevant object
@@ -99,6 +99,14 @@ function ApplyLoadedSave() {//read and apply a loaded user save
         console.log(`Added ${type}, if it is a valid object type.`);
 
     }
+
+
+
+    //apply FPS
+    ChangeFPSTo(current_save.fps);
+
+    //apply screen size
+    SetScreenTo(current_save.screen.width, current_save.screen.height);
 
 
 

@@ -35,7 +35,7 @@ function InitPage() {//page initialization
     fps_array = [];
     fps = 60;
     animating = false;
-    setInterval(UpdateFPS, 1000);
+    setInterval(UpdateFPSDisplay, 1000);
 
 
 
@@ -225,7 +225,22 @@ function DrawFrame() {//update and draw the screen
 
 
 
-function UpdateFPS() {//display FPS regularly
+
+
+
+
+
+
+
+
+
+
+
+//###
+//FPS
+//###
+
+function UpdateFPSDisplay() {//display FPS regularly
     fps_array_max_length = 10;
     
     //maintain the max length of the array
@@ -244,4 +259,17 @@ function UpdateFPS() {//display FPS regularly
 
     //display fps
     document.getElementById("fps").innerHTML = average_fps;
+}
+
+
+
+
+
+function ChangeFPSTo(new_fps) {//changes the FPS used by restarting the animation with the right FPS
+    //error check
+    if (!IsAnInt(new_fps)) throw `ChangeFPSto: ${new_fps} is not an integer or a valid FPS value.`;
+
+    fps = new_fps;
+    StopAnimating();
+    if (audio) StartAnimating(new_fps);
 }
