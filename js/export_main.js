@@ -38,6 +38,7 @@ function Export() {//Launch the rendering process which will export the video
 
         //write audio into temp directory because putting it in data result in a memory overflow
         //getting buffer from audio file
+        console.log(audio_file);
         new Response(audio_file).arrayBuffer().then(function(result) {
             audio_buffer = result;
 

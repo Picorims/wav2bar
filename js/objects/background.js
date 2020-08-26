@@ -33,6 +33,8 @@ function Background(data) {
     
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
+        if ( IsUndefined(data.export_mode) ) data.export_mode = false;
+
         //ID
         if ( IsUndefined(data.id) || !IsAString(data.id) ) {
             console.error("Background object: received an object with an unspecified/invalid ID! A random ID is given.");
@@ -157,43 +159,43 @@ function Background(data) {
     //#####################
     //CREATE USER INTERFACE
     //#####################
+    if (!data.export_mode) {
+        //create category
+        CreateObjectContainer(this.data.id);
+        
+        //layer
+        AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {  //id, type, parameters, name, callback with id
+                                                                                //and returned value by the input
+            var this_object = object_method.getByID(id);
 
-    //create category
-    CreateObjectContainer(this.data.id);
-    
-    //layer
-    AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {  //id, type, parameters, name, callback with id
-                                                                            //and returned value by the input
-        var this_object = object_method.getByID(id);
-
-        this_object.updateData({
-            id: id,
-            layer: value,
+            this_object.updateData({
+                id: id,
+                layer: value,
+            });
         });
-    });
 
-    //background
-    AddParameter(this.data.id, "string", {default: this.data.background}, "Background", function(id, value) {
+        //background
+        AddParameter(this.data.id, "string", {default: this.data.background}, "Background", function(id, value) {
 
-        var this_object = object_method.getByID(id);
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            background: value,
+            this_object.updateData({
+                id: id,
+                background: value,
+            });
         });
-    });
 
-    //size
-    AddParameter(this.data.id, "string", {default: this.data.size}, "Background Size", function(id, value) {
+        //size
+        AddParameter(this.data.id, "string", {default: this.data.size}, "Background Size", function(id, value) {
 
-        var this_object = object_method.getByID(id);
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            size: value,
+            this_object.updateData({
+                id: id,
+                size: value,
+            });
         });
-    });
-
+    }
 
 
 

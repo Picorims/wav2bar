@@ -18,9 +18,8 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^6.1.7",
-    "fluent-ffmpeg": "^2.1.2"
-  },
-  "dependencies": {
+    "fluent-ffmpeg": "^2.1.2",
     "fourier-transform": "^1.1.2"
-  }
+  },
+  "dependencies": {}
 }

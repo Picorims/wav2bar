@@ -63,8 +63,8 @@ function LoadSave(save_file) {//load a user save or a preset (JSON format)
 
 
 
-function ApplyLoadedSave() {//read and apply a loaded user save
-
+function ApplyLoadedSave(export_mode) {//read and apply a loaded user save
+    if (IsUndefined(export_mode)) export_mode = "";
     //CREATE OBJECTS
 
     //because objects are created in current_data.objects during the for loop,
@@ -82,12 +82,13 @@ function ApplyLoadedSave() {//read and apply a loaded user save
         var object_data = objects_data_list[i];
 
         //avoid overflow
-        if (i>100) {
+        if (i>255) {
             throw `LoadSave: Maximum object count reached (${i-1})`;
         }
 
         //create relevant object
         var type = object_data.object_type;
+        if (export_mode === "EXPORT") object_data.export_mode = true;
         if (type === "background")          {new Background(object_data)}
         else if (type === "image")          {new Image(object_data)}
         else if (type === "particle_flow")  {new ParticleFlow(object_data)}

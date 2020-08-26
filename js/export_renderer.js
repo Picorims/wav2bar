@@ -10,7 +10,8 @@ var main = remote.require("./main");
 var received_data;
 var screen;//HTML screen element
 var audio_file_path;
-var offline_context, offline_analyser, offline_source, offline_freq_data, audio_rendered;
+var PCM_data, sample_rate, duration;
+//var offline_context, offline_analyser, offline_source, offline_freq_data, audio_rendered;
 var frames_to_render, frames_rendered;
 var export_array;
 var event;
@@ -65,7 +66,7 @@ function InitExport(data) {//prepare video export
     
     //LOAD SAVE
     current_save = data.save;
-    ApplyLoadedSave();
+    ApplyLoadedSave("EXPORT");
 
 
     
@@ -95,10 +96,9 @@ function InitExport(data) {//prepare video export
             throw `InitExport: ${type} is not a valid audio type!`;
     }
     console.log("locating audio: ", audio_file_path);
-    LoadAudio(audio_file_path, "url");//is_offline = true (offline context)
     
     
-
+    
 
 
     //EVENTS
@@ -108,105 +108,147 @@ function InitExport(data) {//prepare video export
 
 
 
-    //FPS PREPARATION
-    frame_count = 0;
-    fps_array = [];
-    fps = 60;
-    export_array = [0,1];//from when to when in seconds to export, based on audio length.
-    //interval type: [x,y[
 
     
 
-    //START RENDERING ONLY WHEN THE AUDIO IS FULLY READY TO BE PLAYED WITHOUT LATENCY
-    SeekAudioReady();
+    //PROCESS AUDIO
+    GetAudioData();
 }
 
-function SeekAudioReady() {//what must be executed when the audio is ready to be played
-    
-    //Enough data is available—and the download rate is high enough—that the media
-    //can be played through to the end without interruption.
-    console.log(audio.readyState);
-    if (audio.readyState === 4) {
 
-        StartRendering(fps);
+
+
+
+
+
+
+function GetAudioData() {//Transform the audio temp file into PCM data, use FFT on it to get the waveform for each frame.
+
+    //GET BUFFER FROM THE AUDIO FILE. Cf. function definition.
+    GetAudioBuffer(function(audio_buffer) {
         
+        duration = audio_buffer.duration;      //time
+        sample_rate = audio_buffer.sampleRate; //number of samples (one value) per second
+
+        //STEREO FUSION TO A SINGLE INTERLEAVED PCM ARRAY
+
+        // Float32Array samples
+        const [left, right] =  [audio_buffer.getChannelData(0), audio_buffer.getChannelData(1)];
+
+        // interleaved
+        const interleaved = new Float32Array(left.length + right.length);
+        for (let src=0, dst=0; src < left.length; src++, dst+=2) {
+            interleaved[dst] =   left[src];
+            interleaved[dst+1] = right[src];
+        }
+
+        PCM_data = interleaved;
+        console.log(left, PCM_data);
+
+        PrepareRendering(duration);
+    });
+
+
+
+
+
+            /*
+    ###############################
+    OFFLINE CONTEXT EXPERIMENTATION
+    ###############################
+    */
+
+
+    //     //PREPARE AUDIO DATA COLLECTION
+    //     //the array buffer must be transformed into an audio buffer to be read.
+    //     context.decodeAudioData(buffer, function(audio_buffer) {
+            
+    //         //modules
+    //         offline_context = new OfflineAudioContext(2, audio_buffer.length, 44100);//channels, length, sampleRate
+    //         offline_analyser = offline_context.createAnalyser();
+    //         offline_source = offline_context.createBufferSource();
+    //         offline_source.buffer = audio_buffer;
+            
+    //         //connect modules
+    //         offline_source.connect(offline_analyser);
+    //         offline_source.connect(offline_context.destination);
+
+    //         //prepare frequency array
+    //         offline_freq_data = new Uint8Array(offline_analyser.frequencyBinCount);
+
+    //         //render audio
+    //         audio_rendered = false;
+    //         offline_source.start(0);
+            
+    //         offline_context.startRendering();
+    //         offline_context.oncomplete = function() {
+    //             audio_rendered = true;
+    //             console.log("done!");
+    //         }
+
+    //     });
+
         
-        /*
-        ###############################
-        OFFLINE CONTEXT EXPERIMENTATION
-        ###############################
-        */
-        
-        //GET BUFFER FROM THE AUDIO FILE. Cf. function definition.
-        GetAudioBuffer(function(buffer) {
-            
-            
-
-        });
-
-        //     //PREPARE AUDIO DATA COLLECTION
-        //     //the array buffer must be transformed into an audio buffer to be read.
-        //     context.decodeAudioData(buffer, function(audio_buffer) {
-                
-        //         //modules
-        //         offline_context = new OfflineAudioContext(2, audio_buffer.length, 44100);//channels, length, sampleRate
-        //         offline_analyser = offline_context.createAnalyser();
-        //         offline_source = offline_context.createBufferSource();
-        //         offline_source.buffer = audio_buffer;
-                
-        //         //connect modules
-        //         offline_source.connect(offline_analyser);
-        //         offline_source.connect(offline_context.destination);
-
-        //         //prepare frequency array
-        //         offline_freq_data = new Uint8Array(offline_analyser.frequencyBinCount);
-
-        //         //render audio
-        //         audio_rendered = false;
-        //         offline_source.start(0);
-                
-        //         offline_context.startRendering();
-        //         offline_context.oncomplete = function() {
-        //             audio_rendered = true;
-        //             console.log("done!");
-        //         }
-
-        //     });
-
-            
-        // });
-
-
-    } else {
-        setTimeout(SeekAudioReady, 100);
-    }
+    // });
 
 }
+
 
 
 
 function GetAudioBuffer(callback) {//get the buffer array from the audio file
 
+    //setup
+    var context = new AudioContext();
+    
     //file url
     var url = audio_file_path.replace(/\\/g,"/");
     console.log(url);
+
+    //get buffer
+    fetch(url)
+        .then(response => response.blob()) // Gets the response and returns it as a blob
+        .then(blob => {
+            new Response(blob).arrayBuffer().then(function(result) {//converts to array buffer
+                array_buffer = result;
+                
+                context.decodeAudioData(array_buffer, function(decoded_buffer) {//converts to audio buffer
+                    callback(decoded_buffer);//return data
+                
+                }, function() {throw "GetAudioBuffer: audio decoding has failed."});
+
+            });
+        });
     
-    //request
-    var request = new XMLHttpRequest();
+    
+}
 
-    request.open("GET", url, true);
-    request.responceType = "arraybuffer";
 
-    //when the request is completed
-    request.onload = function() {
-        buffer = request.response;
-        //DECODE THE BUFFER
-        context.decodeAudioData(buffer, function(decoded_buffer) {
-            console.log(decoded_buffer);
-        }, function() {throw "SeekAudioReady: audio decoding has failed."});
-    }
 
-    request.send();
+
+
+
+
+
+
+
+
+
+
+
+
+function PrepareRendering() {//define important variables
+        
+    //FPS PREPARATION
+    frame_count = 0;
+    fps = current_save.fps;
+    export_array = [0, duration];//from when to when in seconds to export, based on audio length.
+    //interval type: [x,y[
+
+    //SPECTRUM STORAGE USED BY THE OBJECTS
+    frequency_array = [];
+
+    StartRendering(fps);
 }
 
 
@@ -217,10 +259,8 @@ function StartRendering(fps) {//prepare rendering
     // initialize the timer variables and start the animation
     if (!IsANumber(fps)) throw `StartRendering: ${fps} is not a valid fps value, rendering aborted.`;
 
-    frames_to_render = (export_array[1] - export_array[0]) * fps;
+    frames_to_render = Math.floor((export_array[1] - export_array[0]) * fps);
     frames_rendered = 0;
-    audio.currentTime = 0;//in SECONDS
-    audio.play();
 
     document.addEventListener("render-loop", Render);
     Render();
@@ -234,7 +274,7 @@ function Render() {//render every frame into an image
     //if frame ready (all objects finished rendering)
     if ( UpdateFinished() ) {
 
-        console.log(frames_to_render,"/",frames_rendered);
+        console.log("rendered:",frames_rendered,"/",frames_to_render);
 
         //if there is still frames to draw
         if (frames_rendered < frames_to_render) {
@@ -244,23 +284,32 @@ function Render() {//render every frame into an image
                 frames_rendered++;
                 console.log(frames_rendered);
                 
-                //prepare data collection at the targeted position
-                audio.currentTime = frames_rendered * (1/fps); //1000/fps = one frame duration in ms. /1000 set it to seconds.
-                //Draw the new frame now that the previous finished exporting
-                context.resume().then(function() {
-                    //collect frequency data (audio must be playing to get data from it)
-                    analyser.getByteFrequencyData(frequency_array);
-                    //stop audio from continuing to play to draw the frame for this position
-                    context.suspend().then(function() {
-                        
-                        //render frame, recall loop 
-                        console.log("audio time:",audio.currentTime);
-                        RenderFrame();
-                        document.dispatchEvent(event.render_loop);
-                    
-                    });
-                });
+                //get waveform data
+                var length = 8192;//output is length/2
+                var waveform = new Float32Array(length);
+                var current_time = frames_rendered/60;
+                var center_point = Math.floor(current_time*sample_rate*2); //2 channels in PCM_data
+
+                //take a portion of the PCM data
+                for (var i = center_point-(length/2), j=0 ; i < center_point+(length/2); i++, j++) {
+                    waveform[j] = (i >= 0)? PCM_data[i] : 0;
+                }
+
+                //get spectrum
+                var spectrum = main.PCMtoSpectrum(waveform);
+
+                //scale from 0-1 to 0-255 (used format in the Web Audio API because of Int8Array)
+                for (var i=0; i<spectrum.length; i++) {
+                    frequency_array[i] = (1 - Math.exp(-16*spectrum[i])) * 255;//(amplification with ceiling) * (scale to 0-255) 
+                }
+                console.log(frequency_array);
                 
+                //Draw the new frame now that the previous finished exporting .     
+                //render frame, recall loop 
+                console.log("audio time:",current_time);
+                RenderFrame();
+                document.dispatchEvent(event.render_loop);
+
             });
 
     
@@ -270,7 +319,8 @@ function Render() {//render every frame into an image
             main.ExportScreen({width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`, function() {
                 document.removeEventListener("render-loop", Render);
                 var data = received_data;
-                main.CreateVideo(data.screen, data.audio_file_type);
+                var export_duration = export_array[1] - export_array[0];
+                main.CreateVideo(data.screen, data.audio_file_type, fps, export_duration);
             });
             
         }
@@ -292,6 +342,10 @@ function RenderFrame() {//render one frame
     //#################
     //AUDIO CALCULATION
     //#################
+
+    //time update
+    current_time = frames_rendered/60;
+    audio_duration = duration;
 
     //volume update
     volume = 0;

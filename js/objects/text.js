@@ -49,6 +49,8 @@ function Text(data) {
     
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
+        if ( IsUndefined(data.export_mode) ) data.export_mode = false;
+
         //ID
         if ( IsUndefined(data.id) || !IsAString(data.id) ) {
             console.error("Text object: received an object with an unspecified/invalid ID! A random ID is given.");
@@ -279,177 +281,178 @@ function Text(data) {
     //#####################
     //CREATE USER INTERFACE
     //#####################
+    if (!data.export_mode) {
 
-    //create category
-    CreateObjectContainer(this.data.id);
-    
-    //layer
-    AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
-                                                                                            //and returned value by the input
-        var this_object = object_method.getByID(id);
-
-        this_object.updateData({
-            id: id,
-            layer: value,
-        });
-    });
-
-    //x and y
-    AddParameter(this.data.id, "value-xy", {default_x: this.data.x, default_y: this.data.y, step: 1}, "Coordinates", function(id, value1, value2) {
+        //create category
+        CreateObjectContainer(this.data.id);
         
-        var this_object = object_method.getByID(id);
+        //layer
+        AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
+                                                                                                //and returned value by the input
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            x: value1,
-            y: value2,
+            this_object.updateData({
+                id: id,
+                layer: value,
+            });
         });
-    });
 
-    //width and height
-    AddParameter(this.data.id, "value-xy", {default_x: this.data.width, default_y: this.data.height, min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
-        
-        var this_object = object_method.getByID(id);
+        //x and y
+        AddParameter(this.data.id, "value-xy", {default_x: this.data.x, default_y: this.data.y, step: 1}, "Coordinates", function(id, value1, value2) {
+            
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            width: value1,
-            height: value2,
+            this_object.updateData({
+                id: id,
+                x: value1,
+                y: value2,
+            });
         });
-    });
 
-    //rotation
-    AddParameter(this.data.id, "value", {default: this.data.rotation, min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
-        
-        var this_object = object_method.getByID(id);
+        //width and height
+        AddParameter(this.data.id, "value-xy", {default_x: this.data.width, default_y: this.data.height, min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
+            
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            rotation: value,
+            this_object.updateData({
+                id: id,
+                width: value1,
+                height: value2,
+            });
         });
-    });
 
-    //type
-    AddParameter(this.data.id, "choice", {default: this.data.type, list:["any", "time"]}, "Text type", function(id, value) {
-        
-        var this_object = object_method.getByID(id);
+        //rotation
+        AddParameter(this.data.id, "value", {default: this.data.rotation, min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
+            
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            type: value,
+            this_object.updateData({
+                id: id,
+                rotation: value,
+            });
         });
-    });
 
-    //text
-    AddParameter(this.data.id, "string", {default: this.data.text}, "Text", function(id, value) {
+        //type
+        AddParameter(this.data.id, "choice", {default: this.data.type, list:["any", "time"]}, "Text type", function(id, value) {
+            
+            var this_object = object_method.getByID(id);
 
-        var this_object = object_method.getByID(id);
-
-        this_object.updateData({
-            id: id,
-            text: value,
+            this_object.updateData({
+                id: id,
+                type: value,
+            });
         });
-    });
 
-    //font size
-    AddParameter(this.data.id, "value", {default: this.data.font_size, min: 0, step: 1}, "Font size", function(id, value) {
-        
-        var this_object = object_method.getByID(id);
+        //text
+        AddParameter(this.data.id, "string", {default: this.data.text}, "Text", function(id, value) {
 
-        this_object.updateData({
-            id: id,
-            font_size: value,
+            var this_object = object_method.getByID(id);
+
+            this_object.updateData({
+                id: id,
+                text: value,
+            });
         });
-    });
 
-    //color
-    AddParameter(this.data.id, "string", {default: this.data.color}, "Color", function(id, value) {
+        //font size
+        AddParameter(this.data.id, "value", {default: this.data.font_size, min: 0, step: 1}, "Font size", function(id, value) {
+            
+            var this_object = object_method.getByID(id);
 
-        var this_object = object_method.getByID(id);
-
-        this_object.updateData({
-            id: id,
-            color: value,
+            this_object.updateData({
+                id: id,
+                font_size: value,
+            });
         });
-    });
 
-    //italic
-    AddParameter(this.data.id, "checkbox", {default: this.data.italic}, "Italic", function(id, value) {
-        
-        var this_object = object_method.getByID(id);
+        //color
+        AddParameter(this.data.id, "string", {default: this.data.color}, "Color", function(id, value) {
 
-        this_object.updateData({
-            id: id,
-            italic: value,
+            var this_object = object_method.getByID(id);
+
+            this_object.updateData({
+                id: id,
+                color: value,
+            });
         });
-    });
 
-    //bold
-    AddParameter(this.data.id, "checkbox", {default: this.data.bold}, "Bold", function(id, value) {
-        
-        var this_object = object_method.getByID(id);
+        //italic
+        AddParameter(this.data.id, "checkbox", {default: this.data.italic}, "Italic", function(id, value) {
+            
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            bold: value,
+            this_object.updateData({
+                id: id,
+                italic: value,
+            });
         });
-    });
 
-    //underline
-    AddParameter(this.data.id, "checkbox", {default: this.data.underline}, "Underline", function(id, value) {
-        
-        var this_object = object_method.getByID(id);
+        //bold
+        AddParameter(this.data.id, "checkbox", {default: this.data.bold}, "Bold", function(id, value) {
+            
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            underline: value,
+            this_object.updateData({
+                id: id,
+                bold: value,
+            });
         });
-    });
 
-    //overline
-    AddParameter(this.data.id, "checkbox", {default: this.data.overline}, "Overline", function(id, value) {
-        
-        var this_object = object_method.getByID(id);
+        //underline
+        AddParameter(this.data.id, "checkbox", {default: this.data.underline}, "Underline", function(id, value) {
+            
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            overline: value,
+            this_object.updateData({
+                id: id,
+                underline: value,
+            });
         });
-    });
 
-    //line through
-    AddParameter(this.data.id, "checkbox", {default: this.data.line_through}, "Line through", function(id, value) {
-        
-        var this_object = object_method.getByID(id);
+        //overline
+        AddParameter(this.data.id, "checkbox", {default: this.data.overline}, "Overline", function(id, value) {
+            
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            line_through: value,
+            this_object.updateData({
+                id: id,
+                overline: value,
+            });
         });
-    });
 
-    //text align
-    AddParameter(this.data.id, "choice", {default: this.data.text_align, list:["left", "center", "right"]}, "Text align", function(id, value) {
-        
-        var this_object = object_method.getByID(id);
+        //line through
+        AddParameter(this.data.id, "checkbox", {default: this.data.line_through}, "Line through", function(id, value) {
+            
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            text_align: value,
+            this_object.updateData({
+                id: id,
+                line_through: value,
+            });
         });
-    });
 
-    //text-shadow
-    AddParameter(this.data.id, "string", {default: this.data.text_shadow}, "Text Shadow", function(id, value) {
+        //text align
+        AddParameter(this.data.id, "choice", {default: this.data.text_align, list:["left", "center", "right"]}, "Text align", function(id, value) {
+            
+            var this_object = object_method.getByID(id);
 
-        var this_object = object_method.getByID(id);
-
-        this_object.updateData({
-            id: id,
-            text_shadow: value,
+            this_object.updateData({
+                id: id,
+                text_align: value,
+            });
         });
-    });
 
+        //text-shadow
+        AddParameter(this.data.id, "string", {default: this.data.text_shadow}, "Text Shadow", function(id, value) {
+
+            var this_object = object_method.getByID(id);
+
+            this_object.updateData({
+                id: id,
+                text_shadow: value,
+            });
+        });
+    }
 
 
 
@@ -463,14 +466,14 @@ function Text(data) {
             //update time
 
             //find elapsed time
-            var time_pos_sec = Math.floor(audio.currentTime)%60;
+            var time_pos_sec = Math.floor(current_time)%60;
             if (time_pos_sec < 10) time_pos_sec = "0"+time_pos_sec;
-            var time_pos_min = Math.floor(audio.currentTime/60);
+            var time_pos_min = Math.floor(current_time/60);
             
             //find total time
-            var time_length_sec = Math.floor(audio.duration)%60;
+            var time_length_sec = Math.floor(audio_duration)%60;
             if (time_length_sec < 10) time_length_sec = "0"+time_length_sec;
-            var time_length_min = Math.floor(audio.duration/60);
+            var time_length_min = Math.floor(audio_duration/60);
             
             //apply time
             this.element.innerHTML = `${time_pos_min}:${time_pos_sec} | ${time_length_min}:${time_length_sec}`;

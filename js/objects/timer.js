@@ -44,6 +44,8 @@ function Timer(data) {
     
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
+        if ( IsUndefined(data.export_mode) ) data.export_mode = false;
+
         //ID
         if ( IsUndefined(data.id) || !IsAString(data.id) ) {
             console.error("Timer object: received an object with an unspecified/invalid ID! A random ID is given.");
@@ -256,110 +258,112 @@ function Timer(data) {
     //#####################
     //CREATE USER INTERFACE
     //#####################
+    if (!data.export_mode) {
 
-    //create category
-    CreateObjectContainer(this.data.id);
-    
-    //layer
-    AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
-                                                                                            //and returned value by the input
-        var this_object = object_method.getByID(id);
-
-        this_object.updateData({
-            id: id,
-            layer: value,
-        });
-    });
-
-    //x and y
-    AddParameter(this.data.id, "value-xy", {default_x: this.data.x, default_y: this.data.y, step: 1}, "Coordinates", function(id, value1, value2) {
+        //create category
+        CreateObjectContainer(this.data.id);
         
-        var this_object = object_method.getByID(id);
+        //layer
+        AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
+                                                                                                //and returned value by the input
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            x: value1,
-            y: value2,
+            this_object.updateData({
+                id: id,
+                layer: value,
+            });
         });
-    });
 
-    //width and height
-    AddParameter(this.data.id, "value-xy", {default_x: this.data.width, default_y: this.data.height, min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
-        
-        var this_object = object_method.getByID(id);
+        //x and y
+        AddParameter(this.data.id, "value-xy", {default_x: this.data.x, default_y: this.data.y, step: 1}, "Coordinates", function(id, value1, value2) {
+            
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            width: value1,
-            height: value2,
+            this_object.updateData({
+                id: id,
+                x: value1,
+                y: value2,
+            });
         });
-    });
 
-    //rotation
-    AddParameter(this.data.id, "value", {default: this.data.rotation, min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
-        
-        var this_object = object_method.getByID(id);
+        //width and height
+        AddParameter(this.data.id, "value-xy", {default_x: this.data.width, default_y: this.data.height, min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
+            
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            rotation: value,
+            this_object.updateData({
+                id: id,
+                width: value1,
+                height: value2,
+            });
         });
-    });
 
-    //color
-    AddParameter(this.data.id, "string", {default: this.data.color}, "Color", function(id, value) {
+        //rotation
+        AddParameter(this.data.id, "value", {default: this.data.rotation, min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
+            
+            var this_object = object_method.getByID(id);
 
-        var this_object = object_method.getByID(id);
-
-        this_object.updateData({
-            id: id,
-            color: value,
+            this_object.updateData({
+                id: id,
+                rotation: value,
+            });
         });
-    });
 
-    //border to bar space
-    AddParameter(this.data.id, "value", {default: this.data.border_to_bar_space, min: 0, step: 1}, "Space between the border and the bar", function(id, value) {
-        
-        var this_object = object_method.getByID(id);
+        //color
+        AddParameter(this.data.id, "string", {default: this.data.color}, "Color", function(id, value) {
 
-        this_object.updateData({
-            id: id,
-            border_to_bar_space: value,
+            var this_object = object_method.getByID(id);
+
+            this_object.updateData({
+                id: id,
+                color: value,
+            });
         });
-    });
 
-    //border thickness
-    AddParameter(this.data.id, "value", {default: this.data.border_thickness, min: 0, step: 1}, "Border thickness", function(id, value) {
-        
-        var this_object = object_method.getByID(id);
+        //border to bar space
+        AddParameter(this.data.id, "value", {default: this.data.border_to_bar_space, min: 0, step: 1}, "Space between the border and the bar", function(id, value) {
+            
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            border_thickness: value,
+            this_object.updateData({
+                id: id,
+                border_to_bar_space: value,
+            });
         });
-    });
 
-    //border-radius
-    AddParameter(this.data.id, "string", {default: this.data.border_radius}, "Border Radius", function(id, value) {
+        //border thickness
+        AddParameter(this.data.id, "value", {default: this.data.border_thickness, min: 0, step: 1}, "Border thickness", function(id, value) {
+            
+            var this_object = object_method.getByID(id);
 
-        var this_object = object_method.getByID(id);
-
-        this_object.updateData({
-            id: id,
-            border_radius: value,
+            this_object.updateData({
+                id: id,
+                border_thickness: value,
+            });
         });
-    });
 
-    //box-shadow
-    AddParameter(this.data.id, "string", {default: this.data.box_shadow}, "Box Shadow", function(id, value) {
+        //border-radius
+        AddParameter(this.data.id, "string", {default: this.data.border_radius}, "Border Radius", function(id, value) {
 
-        var this_object = object_method.getByID(id);
+            var this_object = object_method.getByID(id);
 
-        this_object.updateData({
-            id: id,
-            box_shadow: value,
+            this_object.updateData({
+                id: id,
+                border_radius: value,
+            });
         });
-    });
+
+        //box-shadow
+        AddParameter(this.data.id, "string", {default: this.data.box_shadow}, "Box Shadow", function(id, value) {
+
+            var this_object = object_method.getByID(id);
+
+            this_object.updateData({
+                id: id,
+                box_shadow: value,
+            });
+        });
+    }
 
 
 
@@ -371,9 +375,9 @@ function Timer(data) {
 
     this.update = function() {
         if (this.data.type === "bar") {
-            this.element.child.style.width = ( (this.data.width - 2*this.data.border_to_bar_space) * (audio.currentTime / audio.duration) ) + "px";
+            this.element.child.style.width = ( (this.data.width - 2*this.data.border_to_bar_space) * (current_time / audio_duration) ) + "px";
         } else if (this.data.type === "point") {
-            this.element.child.style.left = ( -(this.data.height/2) + this.data.width * (audio.currentTime / audio.duration) ) + "px";
+            this.element.child.style.left = ( -(this.data.height/2) + this.data.width * (current_time / audio_duration) ) + "px";
         }
 
         //finished updating

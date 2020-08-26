@@ -7,7 +7,7 @@ var fps_array, fps_array_max_length; //fps display
 
 var current_save; //all data of the project that can be saved
 
-var audio, audio_file, audio_file_type, source, context, analyzer, frequency_array;//audio object for JavaScript / audio File() object / file format / audio API required modules
+var audio, audio_file, audio_file_type, source, context, analyzer, frequency_array, current_time, audio_duration;//audio object for JavaScript / audio File() object / file format / audio API required modules
 var audio_position_string;// ??:?? | ??:??
 
 var objects = [];//all objects inside the screen
@@ -200,6 +200,9 @@ function DrawFrame() {//update and draw the screen
     //collect frequency data
     analyser.getByteFrequencyData(frequency_array);
 
+    //time update
+    current_time = audio.currentTime;
+    audio_duration = audio.duration;
 
     //volume update
     volume = 0;

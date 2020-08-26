@@ -11,6 +11,8 @@ const { app,
 //node js dependencies
 var path = require("path");
 var fs = require("fs");//file system
+var ft = require('fourier-transform/asm');
+
 
 //fluent-ffmpeg dependencies
 var ffmpeg = require("fluent-ffmpeg");
@@ -161,7 +163,12 @@ exports.SendEventToExportWin = SendEventToExportWin;
 
 
 
-
+function PCMtoSpectrum(waveform) {//takes a Float32Array and get waveform data from it 
+    //get normalized magnitudes for frequencies from 0 to 22050 with interval 44100/1024 ≈ 43Hz
+    var spectrum = ft(waveform);
+    return spectrum;
+}
+exports.PCMtoSpectrum = PCMtoSpectrum;
 
 
 
@@ -178,7 +185,7 @@ let ExportScreen = function (screen_data, name, callback) {//exports the app's r
         //create the file
         fs.writeFile(`./temp/render/${name}.png`, image.toPNG(), (err) => {
             if (err) throw err
-            console.log("image of the screen created!");
+            console.log("image of the screen created!\n==================");
             if (callback) callback();
         });
 
@@ -192,7 +199,7 @@ exports.ExportScreen = ExportScreen;
 
 
 
-function CreateVideo(screen, audio_format) {//generates final video from generated framesa and audio contained in temp folder
+function CreateVideo(screen, audio_format, fps, duration) {//generates final video from generated framesa and audio contained in temp folder
     
     //get audio path
     var audio_file_path;
@@ -231,9 +238,11 @@ function CreateVideo(screen, audio_format) {//generates final video from generat
     //command
     var command = ffmpeg()
         .addInput("./temp/render/frame%d.png")
+        .inputFPS(fps)
         .addInput(audio_file_path)
         .size(`${screen.width}x${screen.height}`)
-        .fps(60)
+        .fps(fps)
+        .duration(duration)
         .videoCodec("libx264")
         .outputOptions(['-pix_fmt yuv420p'])//avoid possible trouble in some apps like QuickTime
         .on('start', function() {
@@ -253,29 +262,3 @@ function CreateVideo(screen, audio_format) {//generates final video from generat
 
 }
 exports.CreateVideo = CreateVideo;
-
-
-
-
-
-
-
-
-
-
-
-
-
-var ft = require('fourier-transform');
- 
-var frequency = 440;
-var size = 1024;
-var sampleRate = 44100;
-var waveform = new Float32Array(size);
-for (var i = 0; i < size; i++) {
-    waveform[i] = Math.sin(frequency * Math.PI * 2 * (i / sampleRate));
-}
- 
-//get normalized magnitudes for frequencies from 0 to 22050 with interval 44100/1024 ≈ 43Hz
-var spectrum = ft(waveform);
-console.log(spectrum);
