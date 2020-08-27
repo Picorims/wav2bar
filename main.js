@@ -33,7 +33,7 @@ function createWindow () {
         height: height,
         webPreferences: {
             nodeIntegration: true,
-        }
+        },
     })
     win.webContents.id = 1;
 
@@ -89,9 +89,10 @@ function createExportWin() {
         width: 1500,
         height: 1000,
         frame: false,
+        enableLargerThanScreen: true,
         webPreferences: {
             nodeIntegration: true,
-        }
+        },
     })
     win.webContents.id = 2;
     

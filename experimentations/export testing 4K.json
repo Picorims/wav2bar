@@ -1,0 +1,1 @@
+{"save_version":1,"screen":{"width":3840,"height":2160},"fps":60,"objects":[{"id":"test","type":"straight","object_type":"visualizer","export_mode":false,"layer":0,"x":0,"y":1000,"width":3000,"height":255,"rotation":0,"radius":50,"points_count":50,"analyser_range":[0,750],"color":"#fff","bar_thickness":10,"border_radius":"","box_shadow":""}]}
