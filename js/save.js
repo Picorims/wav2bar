@@ -2,6 +2,8 @@
 
 //SAVING AND LOADING USER SAVES OR PRESETS
 
+//all data of the project that can be saved is in this variable.
+//It is used for saving and exporting data, never for getting data in a process.
 var current_save;
 
 function DefaultSave() {//set the save data to default values
@@ -119,11 +121,14 @@ function ApplyLoadedSave(export_mode) {//read and apply a loaded user save
 
 
 
-function ExportSaveAsJSON() {//export the current save to JSON format.
 
-    console.log("generating download file...");
+
+
+
+
+
+function SyncSave() { //function that updates the current save with latest data
     
-    //update current save
     current_save.screen.width = screen.width;
     current_save.screen.height = screen.height;
     current_save.fps = fps;
@@ -132,6 +137,29 @@ function ExportSaveAsJSON() {//export the current save to JSON format.
     for (var i=0; i < objects.length; i++) {
         current_save.objects.push(objects[i].data);
     }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function ExportSaveAsJSON() {//export the current save to JSON format.
+
+    console.log("generating download file...");
+    
+    //update current save
+    SyncSave();
+    
     console.log(current_save);
 
 

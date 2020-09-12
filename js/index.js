@@ -5,8 +5,6 @@
 var fps, stop_animating, animating, frame_count, fps_interval, time; //fps related variables
 var fps_array, fps_array_max_length; //fps display
 
-var current_save; //all data of the project that can be saved
-
 var audio_file, audio_file_type , current_time, audio_duration; //audio file related
 var audio, source, context, analyzer, ctx_frequency_array; //Web Audio API related
 var frequency_array; //spectrum array
@@ -29,13 +27,14 @@ function InitPage() {//page initialization
 
     //PREPARE SAVE
     DefaultSave();
+    setInterval(SyncSave, 500);
 
 
     //FPS PREPARATION
     stop_animating = false;
     frame_count = 0;
     fps_array = [];
-    fps = 60;
+    fps = current_save.fps;
     animating = false;
     setInterval(UpdateFPSDisplay, 1000);
 

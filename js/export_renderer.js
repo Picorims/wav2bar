@@ -245,7 +245,7 @@ function Render() {//render every frame into an image
                 //get waveform data
                 var length = 8192;//output is length/2
                 var waveform = new Float32Array(length);
-                var current_time = frames_rendered/60;
+                var current_time = frames_rendered/fps;
                 var center_point = Math.floor(current_time*sample_rate*2); //2 channels in PCM_data
 
                 //take a portion of the PCM data
@@ -305,7 +305,7 @@ function RenderFrame() {//render one frame
     //#################
 
     //time update
-    current_time = frames_rendered/60;
+    current_time = frames_rendered/fps;
     audio_duration = duration;
 
     //volume update
