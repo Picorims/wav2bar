@@ -154,6 +154,7 @@ function GetAudioData() {//Transform the audio temp file into PCM data, use FFT 
 
 
 function GetAudioBuffer(callback) {//get the buffer array from the audio file
+    if (IsUndefined(callback)) throw `GetAudioBuffer: Please provide a callback.`
 
     //setup
     var context = new AudioContext();
@@ -199,7 +200,7 @@ function PrepareRendering() {//define important variables
     //FPS PREPARATION
     frame_count = 0;
     fps = current_save.fps;
-    export_array = [0, 57];//from when to when in seconds to export, based on audio length.
+    export_array = [0, 10];//from when to when in seconds to export, based on audio length.
     //interval type: [x,y[
 
     //SPECTRUM STORAGE USED BY THE OBJECTS

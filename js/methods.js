@@ -27,7 +27,7 @@ function MappedArray(array, new_length, min, max) {//function that remaps an arr
     if ( !IsAnArray(array) )                    throw `MappedArray: ${array} is not an array!`;
     if ( !IsANumber(new_length) )               throw `MappedArray: ${new_length} is not a number!`;
     if ( !IsUndefined(min) && !IsANumber(min) ) throw `MappedArray: ${min} is not a number!`; //min and max are optional and undefined shouldn't
-    if ( !IsUndefined(min) && !IsANumber(max) ) throw `MappedArray: ${max} is not a number!`; //trigger any error.
+    if ( !IsUndefined(max) && !IsANumber(max) ) throw `MappedArray: ${max} is not a number!`; //trigger any error.
     for (var i=0; i< array.length; i++) {
         if ( IsUndefined(array[i]) ) throw `MappedArray: the value ${i} of the array is undefined or null!`
     }
@@ -67,6 +67,8 @@ function MappedArray(array, new_length, min, max) {//function that remaps an arr
 
 
 function LinearToLog(array) {//redistributes the indexes in a logarithmic base 10 scale
+    if (!IsAnArray(array)) throw `LinearToLog: ${array} is not a valid array.`;
+
     var length = array.length;
     var base_l = 1/Math.log(length); //so the new index without scaling is always between 0 and 1
     var log_array = [];
@@ -98,6 +100,11 @@ function LinearToLog(array) {//redistributes the indexes in a logarithmic base 1
 
 
 function InInterval(value, interval, type) {//returns if the given value is in the interval [min,max] included or excluded;
+    if (!IsANumber(value)) throw `InInterval: ${value} is not a number`;
+    if (!IsAnArray(interval)) throw `InInterval: ${interval} is not a valid array`;
+    if (!IsUndefined(interval) && interval[0] > interval[1]) throw `InInterval: ${interval} has values in the wrong order. It must be [min,max], min<max`;
+    if (IsUndefined(type) || (type !== "included" && type !== "excluded")) throw `InInterval: ${type} is not a valid type. It must be "included" or "excluded"!`;
+    
     switch (type) {
         case "included":
             return (   (value >= interval[0]) && (value <= interval[1])   );
