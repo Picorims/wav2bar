@@ -66,6 +66,37 @@ function MappedArray(array, new_length, min, max) {//function that remaps an arr
 }
 
 
+function LinearToLog(array) {//redistributes the indexes in a logarithmic base 10 scale
+    var length = array.length;
+    var base_l = 1/Math.log(length); //so the new index without scaling is always between 0 and 1
+    var log_array = [];
+    var non_empty_indexes = [];
+    
+    //re-index
+    for (var i=0; i<length; i++) {
+        log_index = Math.floor( Math.log(i+1)*base_l * length ); //pos * scale
+        log_array[log_index] = array[i];
+        if (!IsUndefined(log_array[i])) non_empty_indexes.push(i); //can be done here as log_index grow faster than i.
+    }
+
+    //interpolate empty indexes
+    var j = 0;
+    for (var i=0; i<length; i++) {
+        if (IsUndefined(log_array[i])) {
+            var interpolate = [ log_array[non_empty_indexes[j]], log_array[non_empty_indexes[j+1]] ]; //values to interpolate between.
+            
+            log_array[i] = interpolate[0] + ((i-non_empty_indexes[j]) / (non_empty_indexes[j+1] - non_empty_indexes[j])) * (interpolate[1]-interpolate[0]);
+            //y = y1 + (x-x1)/(x2-x1) * (y2-y1);
+
+            //change of area when the right boundary is bypassed.
+            if (i >= non_empty_indexes[j+1]) j++;
+        }
+    }
+
+    return log_array;
+}
+
+
 function InInterval(value, interval, type) {//returns if the given value is in the interval [min,max] included or excluded;
     switch (type) {
         case "included":

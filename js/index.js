@@ -7,7 +7,9 @@ var fps_array, fps_array_max_length; //fps display
 
 var current_save; //all data of the project that can be saved
 
-var audio, audio_file, audio_file_type, source, context, analyzer, frequency_array, current_time, audio_duration;//audio object for JavaScript / audio File() object / file format / audio API required modules
+var audio_file, audio_file_type , current_time, audio_duration; //audio file related
+var audio, source, context, analyzer, ctx_frequency_array; //Web Audio API related
+var frequency_array; //spectrum array
 var audio_position_string;// ??:?? | ??:??
 
 var objects = [];//all objects inside the screen
@@ -94,7 +96,7 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
 
 
     //prepare data collection
-    frequency_array = new Uint8Array(analyser.frequencyBinCount);//0 to 1023 => length=1024.
+    ctx_frequency_array = new Uint8Array(analyser.frequencyBinCount);//0 to 1023 => length=1024.
     
 }
 
@@ -198,7 +200,8 @@ function DrawFrame() {//update and draw the screen
 
 
     //collect frequency data
-    analyser.getByteFrequencyData(frequency_array);
+    analyser.getByteFrequencyData(ctx_frequency_array);
+    frequency_array = LinearToLog(ctx_frequency_array);
 
     //time update
     current_time = audio.currentTime;

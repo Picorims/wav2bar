@@ -148,49 +148,6 @@ function GetAudioData() {//Transform the audio temp file into PCM data, use FFT 
         PrepareRendering(duration);
     });
 
-
-
-
-
-            /*
-    ###############################
-    OFFLINE CONTEXT EXPERIMENTATION
-    ###############################
-    */
-
-
-    //     //PREPARE AUDIO DATA COLLECTION
-    //     //the array buffer must be transformed into an audio buffer to be read.
-    //     context.decodeAudioData(buffer, function(audio_buffer) {
-            
-    //         //modules
-    //         offline_context = new OfflineAudioContext(2, audio_buffer.length, 44100);//channels, length, sampleRate
-    //         offline_analyser = offline_context.createAnalyser();
-    //         offline_source = offline_context.createBufferSource();
-    //         offline_source.buffer = audio_buffer;
-            
-    //         //connect modules
-    //         offline_source.connect(offline_analyser);
-    //         offline_source.connect(offline_context.destination);
-
-    //         //prepare frequency array
-    //         offline_freq_data = new Uint8Array(offline_analyser.frequencyBinCount);
-
-    //         //render audio
-    //         audio_rendered = false;
-    //         offline_source.start(0);
-            
-    //         offline_context.startRendering();
-    //         offline_context.oncomplete = function() {
-    //             audio_rendered = true;
-    //             console.log("done!");
-    //         }
-
-    //     });
-
-        
-    // });
-
 }
 
 
@@ -242,7 +199,7 @@ function PrepareRendering() {//define important variables
     //FPS PREPARATION
     frame_count = 0;
     fps = current_save.fps;
-    export_array = [0, 10];//from when to when in seconds to export, based on audio length.
+    export_array = [0, 57];//from when to when in seconds to export, based on audio length.
     //interval type: [x,y[
 
     //SPECTRUM STORAGE USED BY THE OBJECTS
@@ -299,9 +256,12 @@ function Render() {//render every frame into an image
                 var spectrum = main.PCMtoSpectrum(waveform);
 
                 //scale from 0-1 to 0-255 (used format in the Web Audio API because of Int8Array)
+                frequency_array = [];
                 for (var i=0; i<spectrum.length; i++) {
-                    frequency_array[i] = (1 - Math.exp(-16*spectrum[i])) * 255;//(amplification with ceiling) * (scale to 0-255) 
+                    frequency_array.push( (1 - Math.exp(-32*spectrum[i])) * 255 );//(amplification with ceiling) * (scale to 0-255) 
                 }
+                frequency_array = MappedArray(frequency_array, 1024, 0, 1023); //TEMP FIX FOR EXPORT VISUALIZATION
+                frequency_array = LinearToLog(frequency_array);
                 console.log(frequency_array);
                 
                 //Draw the new frame now that the previous finished exporting .     
