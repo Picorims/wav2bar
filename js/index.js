@@ -1,5 +1,7 @@
 //MIT License - Copyright (c) 2020 Picorims
 
+const { BrowserWindowProxy } = require("electron");
+
 //MAIN PROCESS, PAGE INITIALIZATION
 
 var fps, stop_animating, animating, frame_count, fps_interval, time; //fps related variables
@@ -22,6 +24,8 @@ var volume;//audio average volume
 GLOBAL INITIALIZATION AND AUDIO IMPORT
 ######################################
 */
+
+window.onload = function() {InitPage();};
 
 function InitPage() {//page initialization
 
@@ -264,17 +268,4 @@ function UpdateFPSDisplay() {//display FPS regularly
 
     //display fps
     document.getElementById("fps").innerHTML = average_fps;
-}
-
-
-
-
-
-function ChangeFPSTo(new_fps) {//changes the FPS used by restarting the animation with the right FPS
-    //error check
-    if (!IsAnInt(new_fps)) throw `ChangeFPSto: ${new_fps} is not an integer or a valid FPS value.`;
-
-    fps = new_fps;
-    StopAnimating();
-    if (audio) StartAnimating(new_fps);
 }

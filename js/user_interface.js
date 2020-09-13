@@ -105,12 +105,13 @@ function InitUI() {
 
     //import audio
     document.getElementById("audio_file_input").onchange = function() {
-        LoadAudio(this.files[0], 'file');
+        console.log(this.files[0]);
+        if (this.files[0]) LoadAudio(this.files[0], 'file');
     }
 
     //import save
     document.getElementById("save_file_input").onchange = function() {
-        LoadSave(this.files[0]);
+        if (this.files[0]) LoadSave(this.files[0]);
     }
 
     //export save
@@ -280,6 +281,25 @@ function SetScreenTo(width, height) {//changes the screen size to the given valu
             objects[i].update();
         }
     }
+
+    //update UI
+    document.getElementById("screen_width_input").value = screen.width;
+    document.getElementById("screen_height_input").value = screen.height;
+}
+
+
+
+function ChangeFPSTo(new_fps) {//changes the FPS used by restarting the animation with the right FPS
+    //error check
+    if (!IsAnInt(new_fps)) throw `ChangeFPSto: ${new_fps} is not an integer or a valid FPS value.`;
+
+    //trigger update
+    fps = new_fps;
+    StopAnimating();
+    if (audio && !audio.paused) StartAnimating(new_fps);
+
+    //update UI
+    document.getElementById("fps_input").value = fps;
 }
 
 
@@ -693,6 +713,8 @@ function CreateObjectContainer(object_id) {
     arrow.onclick = function() {
         ToggleOpen(this);
     }
+    //defaults to closed
+    ToggleOpen(title_container);
 
     //object deletion
     cross.onclick = function() {

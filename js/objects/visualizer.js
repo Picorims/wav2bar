@@ -331,7 +331,7 @@ function Visualizer(data) {
         });
 
         //width and height
-        AddParameter(this.data.id, "value-xy", {default_x: this.data.x, default_y: this.data.y, min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
+        AddParameter(this.data.id, "value-xy", {default_x: this.data.width, default_y: this.data.height, min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
             
             var this_object = object_method.getByID(id);
 
