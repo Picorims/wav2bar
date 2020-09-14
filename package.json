@@ -17,7 +17,7 @@
   "author": "Picorims and Mischa",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^6.1.7",
+    "electron": "^9.3.0",
     "fluent-ffmpeg": "^2.1.2",
     "fourier-transform": "^1.1.2"
   },
