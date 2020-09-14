@@ -5,6 +5,7 @@
 const { remote, ipcRenderer } = require("electron");
 var main = remote.require("./main");
 var export_win = main.export_win;
+var export_mode = false; //not in export window
 
 function Export() {//Launch the rendering process which will export the video
     if (typeof audio === "undefined") {

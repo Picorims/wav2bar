@@ -45,9 +45,6 @@ function ParticleFlow(data) {
     
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
-        if ( IsUndefined(data.export_mode) ) data.export_mode = false;
-
-
         //ID
         if ( IsUndefined(data.id) || !IsAString(data.id) ) {
             console.error("Particle Flow object: received an object with an unspecified/invalid ID! A random ID is given.");
@@ -233,7 +230,7 @@ function ParticleFlow(data) {
     //#####################
     //CREATE USER INTERFACE
     //#####################
-    if (!data.export_mode) {
+    if (!export_mode) {
 
         //create category
         CreateObjectContainer(this.data.id);

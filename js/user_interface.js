@@ -283,8 +283,10 @@ function SetScreenTo(width, height) {//changes the screen size to the given valu
     }
 
     //update UI
-    document.getElementById("screen_width_input").value = screen.width;
-    document.getElementById("screen_height_input").value = screen.height;
+    if (!export_mode) {
+        document.getElementById("screen_width_input").value = screen.width;
+        document.getElementById("screen_height_input").value = screen.height;    
+    }
 }
 
 
@@ -299,7 +301,7 @@ function ChangeFPSTo(new_fps) {//changes the FPS used by restarting the animatio
     if (audio && !audio.paused) StartAnimating(new_fps);
 
     //update UI
-    document.getElementById("fps_input").value = fps;
+    if (!export_mode) document.getElementById("fps_input").value = fps;
 }
 
 

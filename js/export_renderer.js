@@ -5,7 +5,7 @@
 const { remote, ipcRenderer } = require("electron");
 var path = require("path");
 var main = remote.require("./main");
-
+var export_mode = true; //in export window
 
 var received_data;
 var screen;//HTML screen element
@@ -66,7 +66,7 @@ function InitExport(data) {//prepare video export
     
     //LOAD SAVE
     current_save = data.save;
-    ApplyLoadedSave("EXPORT");
+    ApplyLoadedSave();
 
 
     
