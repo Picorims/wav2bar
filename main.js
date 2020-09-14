@@ -51,7 +51,7 @@ function createWindow () {
         win = null
     })
     
-
+    Init();
 }
 
 // This method will be called when Electron has finished
@@ -117,6 +117,24 @@ exports.createExportWin = createExportWin;
 //===================================================================================
 //===================================================================================
 //===================================================================================
+
+
+function Init() {//main initialization
+    if (!fs.existsSync("./temp")) {
+        fs.mkdirSync("./temp");
+
+        if (!fs.existsSync("./temp/render")) {
+            fs.mkdirSync("./temp/render");
+        }
+    }
+}
+
+
+
+
+
+
+
 
 
 let WriteAudioToTemp = function (arrayBuffer, type) {//exports Int8Array object to file in ./temp
