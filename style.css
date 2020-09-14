@@ -83,6 +83,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 }
 
+/*link*/
+a {
+    color: var(--main-color);
+    cursor: pointer;
+}
+
 
 
 

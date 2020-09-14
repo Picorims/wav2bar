@@ -8,6 +8,8 @@ var tab;//all tabs
 var tab_label;//all tab labels
 
 var zoom;//screen zoom value
+var zoom_index;//selected zoom
+var zoom_list;//list of allowed zoom values
 
 var audio_range_update;//setInterval that updates audio range
 var audio_range_used;//if the user uses the range
@@ -138,21 +140,38 @@ function InitUI() {
 
 
 
+    //HELP AND INFO TAB
+    document.getElementById("website_link").onclick = function() { main.OpenInBrowser("https://picorims.github.io/wav2bar-website"); }
+    document.getElementById("github_link").onclick = function() { main.OpenInBrowser("https://github.com/Picorims/audio-visualizer-creator"); }
+    document.getElementById("twitter_link").onclick = function() { main.OpenInBrowser("https://twitter.com/Picorims"); }
+    document.getElementById("youtube_link").onclick = function() { main.OpenInBrowser("https://www.youtube.com/channel/UCf15T29ZZ5RxQcbS9onQq9A"); }
+    document.getElementById("discord_link").onclick = function() { main.OpenInBrowser("https://discord.gg/EVGzfdP"); }
+
+
+
     //ZOOM UI
     zoom = 1;
+    zoom_index = 5; //1
+    zoom_list = [0.1, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.5, 3.0];
     var zoom_disp = document.getElementById("zoom_display");
     zoom_disp.innerHTML = Math.round(zoom*100);
     
     //zoom out
     document.getElementById("zoom_out").onclick = function() {
-        if (zoom >= 0.3) zoom -= 0.2;
+        if (zoom_index > 0) {
+            zoom_index--;
+            zoom = zoom_list[zoom_index];
+        }
         ApplyZoom(zoom);
         zoom_disp.innerHTML = Math.round(zoom*100);
     }
 
     //zoom in
     document.getElementById("zoom_in").onclick = function() {
-        if (zoom < 1.9) zoom += 0.2;
+        if (zoom_index < zoom_list.length) {
+            zoom_index++;
+            zoom = zoom_list[zoom_index];
+        }
         ApplyZoom(zoom);
         zoom_disp.innerHTML = Math.round(zoom*100);
     }
@@ -320,7 +339,6 @@ ZOOM
 
 //creates a dropdown menu to choose the zoom
 function CreateZoomMenu() {
-    var zoom_list = [0.1, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2.0];
     var zoom_value = document.getElementById("zoom_value");
 
     //create all options as a dropdown menu
@@ -338,18 +356,19 @@ function CreateZoomMenu() {
 
         //value
         zoom_option.innerHTML = `${ zoom_list[i]*100 }%`;
+        zoom_option.setAttribute("data-zoom-index", i);
         
         //action
         zoom_option.onclick = function() {
             
             //apply
-            var zoom_value = parseFloat( this.innerHTML.replace("%", "") ) / 100;
-            ApplyZoom(zoom_value);
+            zoom_index = parseFloat( this.getAttribute("data-zoom-index") );
+            ApplyZoom(zoom_list[zoom_index]);
             KillZoomMenu();
 
             //display
             var zoom_disp = document.getElementById("zoom_display");
-            zoom_disp.innerHTML = Math.round(zoom_value*100);
+            zoom_disp.innerHTML = Math.round(zoom_list[zoom_index]*100);
 
         };
 
