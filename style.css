@@ -478,17 +478,29 @@ Top Naviguation UI
 
 #top_UI {
     position: fixed;
+    max-width: calc(100% - 400px);
     top: 20px;
     left: 370px;
     z-index: 500;
+
     display: flex;
+    flex-wrap: wrap;
 
     border-radius: 5px;
 
     font-size: 0px;
 }
 
-/*default block*/
+/*group of tiles*/
+.top_UI_block {
+    display: block;
+    max-height: 50px;
+    margin-top: 20px;
+
+    flex-shrink: 0;
+}
+
+/*default tile*/
 .top_UI {
     width: 50px;
     height: 50px;
@@ -519,7 +531,7 @@ div.top_UI {
     display: inline-block;
 }
 
-/*Round a block*/
+/*Round a tile*/
 .left_round {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -531,7 +543,7 @@ div.top_UI {
     margin-right: 15px;
 }
 
-/*change block size*/
+/*change tile size*/
 .double_size {
     width: 100px;
 }
@@ -539,13 +551,13 @@ div.top_UI {
     width: 150px;
 }
 
-/*range block*/
+/*range tile*/
 .range {
     width: 300px;
 }
 .range_track {
     width: 270px;
-    margin-top: 18px;
+    margin-top: 21px;
 }
 .range_track::-webkit-slider-runnable-track {
     height: 10px;
@@ -565,13 +577,13 @@ div.top_UI {
     border-radius: 5px;
 }
 
-/*text block*/
+/*text tile*/
 .text {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 11px;
 }
 
-/*dropdown menu for a double sized block*/
+/*dropdown menu for a double sized tile*/
 .dropdown_option {
     position: fixed;
     width: 100px;

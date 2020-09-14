@@ -139,49 +139,58 @@
         
         <!--Naviguation Buttons-->
         <div id="top_UI">
-            
-            <!--Zoom-->
-            <div class="top_UI left_round right_round double_size">
-                <span id="fps" class="text"></span><span>FPS</span>
-            </div>
-
-            <button class="top_UI left_round" id="zoom_out">
-                <i class="fas fa-search-minus"></i>
-            </button>
-            <button class="top_UI double_size" id="zoom_value">
-                <span id="zoom_display"></span>%
-            </button>
-            <button class="top_UI right_round"id="zoom_in">
-                <i class="fas fa-search-plus"></i>
-            </button>
 
             <!--Play, pause, etc-->
-            <button class="top_UI left_round" id="play_audio">
-                <i class="fas fa-play"></i>
-            </button>
-            <button class="top_UI" id="pause_audio">
-                <i class="fas fa-pause"></i>
-            </button>
-            <button class="top_UI" id="stop_audio">
-                <i class="fas fa-stop"></i>
-            </button>
-            <div class="top_UI triple_size">
-                <span class="text" id="time_display">0:00 | 0:00</span>
+            <div class="top_UI_block">
+                <button class="top_UI left_round" id="play_audio">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="top_UI" id="pause_audio">
+                    <i class="fas fa-pause"></i>
+                </button>
+                <button class="top_UI" id="stop_audio">
+                    <i class="fas fa-stop"></i>
+                </button>
+                <div class="top_UI triple_size">
+                    <span class="text" id="time_display">0:00 | 0:00</span>
+                </div>
+                <button class="top_UI" id="audio_to_start">
+                    <i class="fas fa-fast-backward"></i>
+                </button>
+                <div class="top_UI range">
+                    <input class="range_track" type="range" id="audio_range"/>
+                </div>
+                <button class="top_UI right_round" id="audio_to_end">
+                    <i class="fas fa-fast-forward"></i>
+                </button>
             </div>
-            <button class="top_UI" id="audio_to_start">
-                <i class="fas fa-fast-backward"></i>
-            </button>
-            <div class="top_UI range">
-                <input class="range_track" type="range" id="audio_range"/>
-            </div>
-            <button class="top_UI right_round" id="audio_to_end">
-                <i class="fas fa-fast-forward"></i>
-            </button>
 
             <!--Loop music-->
-            <button class="top_UI left_round right_round" id="loop_audio">
-                <i class="fas fa-sync-alt"></i>
-            </button>
+            <div class="top_UI_block">
+                <button class="top_UI left_round right_round" id="loop_audio">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+
+            <!--FPS-->
+            <div class="top_UI_block">
+                <div class="top_UI left_round right_round double_size">
+                    <span id="fps" class="text"></span><span>FPS</span>
+                </div>
+            </div>
+
+            <!--Zoom-->
+            <div class="top_UI_block">
+                <button class="top_UI left_round" id="zoom_out">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="top_UI double_size" id="zoom_value">
+                    <span id="zoom_display"></span>%
+                </button>
+                <button class="top_UI right_round"id="zoom_in">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+            </div>
         </div>
 
 

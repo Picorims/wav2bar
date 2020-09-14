@@ -320,7 +320,7 @@ ZOOM
 
 //creates a dropdown menu to choose the zoom
 function CreateZoomMenu() {
-    var zoom_list = [0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2.0];
+    var zoom_list = [0.1, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2.0];
     var zoom_value = document.getElementById("zoom_value");
 
     //create all options as a dropdown menu
