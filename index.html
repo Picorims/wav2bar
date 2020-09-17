@@ -55,29 +55,29 @@
             <!--PROJECT-->
             <div id="project_tab" class="tab">
 
-                <div class="panel_param_container">
+                <div class="panel_param_container" data-help="fps">
                     <span>Framerate: </span>
                     <input id="fps_input" class="panel_input" type="number" min="1" max="8000" step="1"/>    
                 </div>
 
-                <div class="panel_param_container">
+                <div class="panel_param_container" data-help="screen_size">
                     <span>Screen resolution: </span>
                     <input id="screen_width_input" class="panel_input" type="number" min="100" max="8000" step="1"/>
                     <span> x </span>
                     <input id="screen_height_input" class="panel_input" type="number" min="100" max="8000" step="1"/>
                 </div>
 
-                <div class="panel_param_container">
+                <div class="panel_param_container" data-help="audio">
                     <span>Import audio (mp3/wav/ogg): </span>
                     <input id="audio_file_input" class="panel_input panel_input_file" type="file" accept="audio/*"/>
                 </div>
                 
-                <div class="panel_param_container">
+                <div class="panel_param_container" data-help="save_import">
                     <span>Import save (JSON): </span>
                     <input id="save_file_input" class="panel_input panel_input_file" type="file" accept=".json"/>
                 </div>
 
-                <div class="panel_param_container">
+                <div class="panel_param_container" data-help="save_export">
                     <span>Export save (JSON) (audio not saved): </span>
                     <button id="export_save_button" class="panel_button">SAVE</button>
                 </div>
@@ -86,7 +86,7 @@
 
             <!--OBJECTS-->
             <div id="objects_tab" class="tab">
-                <div class="panel_param_container">
+                <div class="panel_param_container" data-help="new_object">
                     <span>New Object: </span>
                     <input id="create_object_input" class="panel_input panel_input_string" />
                     <select id="create_object_select" class="panel_input panel_input_list">
@@ -111,7 +111,7 @@
 
             <!--EXPORT-->
             <div id="export_tab" class="tab">
-                <div class="panel_param_container">
+                <div class="panel_param_container" data-help="export">
                     <span>Export: </span>
                     <button id="export_button" class="panel_button">EXPORT NOW!</button>
                 </div>
@@ -119,7 +119,7 @@
 
             <!--CONTACT AND HELP-->
             <div id="help_tab" class="tab">
-                <div class="panel_param_container">
+                <div class="panel_param_container" " data-help="">
                     <span>
                         Click on the <i class="fas fa-question-circle"></i> icons to get help on a specific feature.
                         <br/><br/>

@@ -15,6 +15,7 @@ var audio_range_update;//setInterval that updates audio range
 var audio_range_used;//if the user uses the range
 var audio_time_update;//setInterval that updates audio time display
 
+var help; //help strings
 
 
 
@@ -181,6 +182,31 @@ function InitUI() {
         CreateZoomMenu();
     }
 
+
+
+
+
+
+    //HELP UI
+    //apply help to existing parameters not generated.
+    help = main.ReadJSONFile("./assets/help/help.json");
+
+    var elements = document.getElementsByClassName("panel_param_container");
+    console.log(elements);
+    for (var i=0; i<elements.length; i++) {
+        var help_node = elements[i].getAttribute("data-help");
+
+        switch (help_node) {
+            case "fps":         AppendHelp(elements[i], help.parameter.screen.fps); break;
+            case "screen_size": AppendHelp(elements[i], help.parameter.screen.size); break;
+            case "audio":       AppendHelp(elements[i], help.audio.import); break;
+            case "save_import": AppendHelp(elements[i], help.save.import); break;
+            case "save_export": AppendHelp(elements[i], help.save.export); break;
+            case "new_object":  AppendHelp(elements[i], help.parameter.object.general.creation); break;
+            case "export":      AppendHelp(elements[i], help.export.action); break;
+            default: break;
+        }
+    }
 
 
 
@@ -931,6 +957,81 @@ function AddParameter(object_id, type, parameters, title, callback) {
 
         default:
             throw "AddParameter: no type specified for the parameter";
+    }
+
+
+    //APPEND HELP TO THE END
+    AppendHelp(param_container, parameters.help);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+##################
+HELP HOVER BUTTONS
+##################
+*/
+
+//Append to a DOM element with the class ".panel_param_container" a question mark displaying the help.
+//The path is indicated by the data-help attribute.
+function AppendHelp(DOM_elt, help_string) {
+    
+    //create help hover button
+    var question_mark = document.createElement("div");
+    DOM_elt.appendChild(question_mark);
+    question_mark.className = "question_mark";
+    question_mark.innerHTML = "<i class='fas fa-question-circle'></i>";
+    
+    //help display
+    question_mark.setAttribute("data-content", help_string);
+    
+    question_mark.onpointerenter = function() {
+        this.setAttribute("data-hover", "true");
+
+        //display delay
+        setTimeout(DisplayHelpMsg(this), 1000);
+    }
+
+    question_mark.onpointerleave = function() {
+        this.setAttribute("data-hover", "false");
+        var msgs = document.getElementsByClassName("help_msg");
+
+        for (var i=msgs.length-1; i>=0; i--) {
+            msgs[i].remove();
+        }
+    }
+}
+
+
+
+
+function DisplayHelpMsg(question_mark) {//display a help message at the given coordinates
+
+    //only display if the pointer is on the question_mark
+    if (question_mark.getAttribute("data-hover") === "true") {
+        //msg container
+        var msg = document.createElement("div");
+        document.body.appendChild(msg);
+        msg.className = "help_msg";
+        msg.innerHTML = question_mark.getAttribute("data-content");
+        
+        //positioning
+        var pos = question_mark.getBoundingClientRect();
+        msg.style.top = `${pos.top + 30}px`;
+        msg.style.left = `${pos.left + 30}px`;
     }
 
 }

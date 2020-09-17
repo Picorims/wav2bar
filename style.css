@@ -257,6 +257,54 @@ Tabs content
 }
 
 
+
+.question_mark {
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    z-index: 1000;
+
+    transition: 0.2s;
+}
+.question_mark:hover {
+    transition: 0.2s;
+    cursor: help;
+    color: var(--main-color);
+    transform: scale(1.2);
+}
+.question_mark i {transition: 0.1s;}
+.question_mark:hover i {
+    transition: 0.1s;
+    text-shadow: 0px 0px 10px var(--main-darker-color);
+}
+
+.help_msg {
+    position: fixed;
+    max-width: 400px;
+    padding: 10px;
+    z-index: 1000;
+
+    font-size: 16px;
+
+    background-color: var(--main-gray);
+    color: var(--main-darker-white);
+
+    border-radius: 10px;
+    border-bottom: 2px solid var(--main-lighter-black);
+    
+    box-shadow: 0px 5px 10px var(--main-darker-black);
+
+    animation: 1s MsgShow ease-in-out;
+}
+@keyframes MsgShow {
+    0% {opacity: 0}
+    50% {opacity: 0}
+    100% {opacity: 1};
+}
+
+
+
+
 /*object container, that contains param containers.*/
 .object_param_container {
     position: relative;
@@ -339,6 +387,7 @@ Tabs content
 .object_param_closed > .panel_param_container {
     display: none;
 }
+
 
 
 

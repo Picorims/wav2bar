@@ -162,15 +162,25 @@ function Background(data) {
         CreateObjectContainer(this.data.id);
         
         //layer
-        AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {  //id, type, parameters, name, callback with id
+        AddParameter(
+            this.data.id,
+            "value",
+            {
+                default: this.data.layer,
+                min: 0,
+                step: 1,
+            },
+            "Layer",
+            function(id, value) {  //id, type, parameters, name, callback with id
                                                                                 //and returned value by the input
-            var this_object = object_method.getByID(id);
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                layer: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    layer: value,
+                });
+            }
+        );
 
         //background
         AddParameter(this.data.id, "string", {default: this.data.background}, "Background", function(id, value) {

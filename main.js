@@ -121,6 +121,8 @@ exports.createExportWin = createExportWin;
 
 
 function Init() {//main initialization
+    
+    //create temp directory
     if (!fs.existsSync("./temp")) {
         fs.mkdirSync("./temp");
 
@@ -128,11 +130,18 @@ function Init() {//main initialization
             fs.mkdirSync("./temp/render");
         }
     }
+
 }
 
 
 
 
+
+
+let ReadJSONFile = function(path) {//read a JSON file at the specified path
+    return JSON.parse(fs.readFileSync(path));
+}
+exports.ReadJSONFile = ReadJSONFile;
 
 
 let OpenInBrowser = function(link) {//open provided link in external browser
