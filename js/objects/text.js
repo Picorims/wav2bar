@@ -285,171 +285,349 @@ function Text(data) {
         CreateObjectContainer(this.data.id);
         
         //layer
-        AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
-                                                                                                //and returned value by the input
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.layer,
+                    min: 0,
+                    step: 1,   
+                },
+                title: "Layer",
+                help: help.parameter.object.general.layer,
+            },
+            function(id, value) {   //id, type, parameters, name, callback with id
+                                                                                                    //and returned value by the input
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                layer: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    layer: value,
+                });
+            }
+        );
 
         //x and y
-        AddParameter(this.data.id, "value-xy", {default_x: this.data.x, default_y: this.data.y, step: 1}, "Coordinates", function(id, value1, value2) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value-xy",
+                settings: {
+                    default_x: this.data.x,
+                    default_y: this.data.y,
+                    step: 1,    
+                },
+                title: "Coordinates",
+                help: help.parameter.object.general.pos,
+            },
+            function(id, value1, value2) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                x: value1,
-                y: value2,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    x: value1,
+                    y: value2,
+                });
+            }
+        );
 
         //width and height
-        AddParameter(this.data.id, "value-xy", {default_x: this.data.width, default_y: this.data.height, min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value-xy",
+                settings: {
+                    default_x: this.data.width,
+                    default_y: this.data.height,
+                    min: 0,
+                    step: 1,    
+                },
+                title: "Width and Height",
+                help: help.parameter.object.general.size,
+            },
+            function(id, value1, value2) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                width: value1,
-                height: value2,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    width: value1,
+                    height: value2,
+                });
+            }
+        );
 
         //rotation
-        AddParameter(this.data.id, "value", {default: this.data.rotation, min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.rotation,
+                    min: 0,
+                    step: 1,    
+                },
+                title: "Rotation (degrees)",
+                help: help.parameter.object.general.rotation,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                rotation: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    rotation: value,
+                });
+            }
+        );
 
         //type
-        AddParameter(this.data.id, "choice", {default: this.data.type, list:["any", "time"]}, "Text type", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "choice",
+                settings: {
+                    default: this.data.type,
+                    list:["any", "time"],    
+                },
+                title: "Text type",
+                help: help.parameter.object.text.type,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                type: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    type: value,
+                });
+            }
+        );
 
         //text
-        AddParameter(this.data.id, "string", {default: this.data.text}, "Text", function(id, value) {
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "string",
+                settings: {
+                    default: this.data.text,
+                },
+                title: "Text",
+                help: help.parameter.object.text.text_content,
+            },
+            function(id, value) {
 
-            var this_object = object_method.getByID(id);
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                text: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    text: value,
+                });
+            }
+        );
 
         //font size
-        AddParameter(this.data.id, "value", {default: this.data.font_size, min: 0, step: 1}, "Font size", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.font_size,
+                    min: 0,
+                    step: 1,                        
+                },
+                title: "Font size",
+                help: help.parameter.object.text.font_size,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                font_size: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    font_size: value,
+                });
+            }
+        );
 
         //color
-        AddParameter(this.data.id, "string", {default: this.data.color}, "Color", function(id, value) {
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "string",
+                settings: {
+                    default: this.data.color,
+                },
+                title: "Color",
+                help: help.parameter.object.general.color,
+            },
+            function(id, value) {
 
-            var this_object = object_method.getByID(id);
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                color: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    color: value,
+                });
+            }
+        );
 
         //italic
-        AddParameter(this.data.id, "checkbox", {default: this.data.italic}, "Italic", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "checkbox",
+                settings: {
+                    default: this.data.italic,
+                },
+                title: "Italic",
+                help: help.parameter.object.text.italic,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                italic: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    italic: value,
+                });
+            }
+        );
 
         //bold
-        AddParameter(this.data.id, "checkbox", {default: this.data.bold}, "Bold", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "checkbox",
+                settings: {
+                    default: this.data.bold,
+                },
+                title: "Bold",
+                help: help.parameter.object.text.bold,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                bold: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    bold: value,
+                });
+            }
+        );
 
         //underline
-        AddParameter(this.data.id, "checkbox", {default: this.data.underline}, "Underline", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "checkbox",
+                settings: {
+                    default: this.data.underline,
+                },
+                title: "Underline",
+                help: help.parameter.object.text.underline,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                underline: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    underline: value,
+                });
+            }
+        );
 
         //overline
-        AddParameter(this.data.id, "checkbox", {default: this.data.overline}, "Overline", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "checkbox",
+                settings: {
+                    default: this.data.overline,
+                },
+                title :"Overline",
+                help: help.parameter.object.text.overline,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                overline: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    overline: value,
+                });
+            }
+        );
 
         //line through
-        AddParameter(this.data.id, "checkbox", {default: this.data.line_through}, "Line through", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "checkbox",
+                settings: {
+                    default: this.data.line_through,
+                },
+                title :"Line through",
+                help: help.parameter.object.text.line_through,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                line_through: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    line_through: value,
+                });
+            }
+        );
 
         //text align
-        AddParameter(this.data.id, "choice", {default: this.data.text_align, list:["left", "center", "right"]}, "Text align", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "choice",
+                settings: {
+                    default: this.data.text_align,
+                    list:["left", "center", "right"],    
+                },
+                title: "Text align",
+                help: help.parameter.object.text.text_align,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                text_align: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    text_align: value,
+                });
+            }
+        );
 
         //text-shadow
-        AddParameter(this.data.id, "string", {default: this.data.text_shadow}, "Text Shadow", function(id, value) {
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "string",
+                settings: {
+                    default: this.data.text_shadow,
+                },
+                title: "Text Shadow",
+                help: help.parameter.object.general.shadow,
+            },
+            function(id, value) {
 
-            var this_object = object_method.getByID(id);
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                text_shadow: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    text_shadow: value,
+                });
+            }
+        );
     }
 
 

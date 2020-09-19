@@ -306,127 +306,267 @@ function Visualizer(data) {
         CreateObjectContainer(this.data.id);
         
         //layer
-        AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {   //id, type, parameters, name, callback with id
-                                                                                                //and returned value by the input
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.layer,
+                    min: 0,
+                    step: 1,    
+                },
+                title: "Layer",
+                help: help.parameter.object.general.layer,
+            },
+            function(id, value) {   //id, type, parameters, name, callback with id
+                                                                                                    //and returned value by the input
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                layer: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    layer: value,
+                });
+            }
+        );
 
         //x and y
-        AddParameter(this.data.id, "value-xy", {default_x: this.data.x, default_y: this.data.y, step: 1}, "Coordinates", function(id, value1, value2) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default_x: this.data.x,
+                    default_y: this.data.y,
+                    step: 1,    
+                },
+                title: "Coordinates",
+                help: help.parameter.object.general.pos,
+            },
+            function(id, value1, value2) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                x: value1,
-                y: value2,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    x: value1,
+                    y: value2,
+                });
+            }
+        );
 
         //width and height
-        AddParameter(this.data.id, "value-xy", {default_x: this.data.width, default_y: this.data.height, min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value-xy",
+                settings: {
+                    default_x: this.data.width,
+                    default_y: this.data.height,
+                    min: 0,
+                    step: 1,    
+                },
+                title: "Width and Height",
+                help: help.parameter.object.general.size,
+            },
+            function(id, value1, value2) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                width: value1,
-                height: value2,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    width: value1,
+                    height: value2,
+                });
+            }
+        );
 
         //rotation
-        AddParameter(this.data.id, "value", {default: this.data.rotation, min: 0, step: 1}, "Rotation (degrees)", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.rotation,
+                    min: 0,
+                    step: 1,    
+                },
+                title: "Rotation (degrees)",
+                help: help.parameter.object.general.rotation,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                rotation: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    rotation: value,
+                });
+            }
+        );
 
         //radius
-        AddParameter(this.data.id, "value", {default: this.data.radius, min: 0, step: 1}, "Radius", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.radius,
+                    min: 0,
+                    step: 1,    
+                },
+                title: "Radius",
+                help: help.parameter.object.visualizer.circular_kind.radius,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                radius: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    radius: value,
+                });
+            }    
+        );
 
         //points count
-        AddParameter(this.data.id, "value", {default: this.data.points_count, min: 0, step: 1}, "Points count", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.points_count,
+                    min: 0,
+                    step: 1,    
+                },
+                title: "Points count",
+                help: help.parameter.object.visualizer.general.points_count,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                points_count: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    points_count: value,
+                });
+            }
+        );
 
         //analyzer range
-        AddParameter(this.data.id, "value-xy", {default_x: this.data.analyser_range[0], default_y: this.data.analyser_range[1], min: 0, max: 1023, step: 1}, "Analyzer range", function(id, value1, value2) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value-xy",
+                settings: {
+                    default_x: this.data.analyser_range[0],
+                    default_y: this.data.analyser_range[1],
+                    min: 0,
+                    max: 1023,
+                    step: 1    
+                },
+                title: "Analyzer range",
+                help: help.parameter.object.visualizer.general.analyser_range,
+            },
+            function(id, value1, value2) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                analyser_range: [value1, value2],
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    analyser_range: [value1, value2],
+                });
+            }
+        );
 
         //color
-        AddParameter(this.data.id, "string", {default: this.data.color}, "Color", function(id, value) {
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "string",
+                settings: {
+                    default: this.data.color,
+                },
+                title: "Color",
+                help: help.parameter.object.general.color,
+            },
+            function(id, value) {
 
-            var this_object = object_method.getByID(id);
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                color: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    color: value,
+                });
+            }
+        );
 
         //bar thickness
-        AddParameter(this.data.id, "value", {default: this.data.bar_thickness, min: 0, step: 1}, "Bar thickness", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.bar_thickness,
+                    min: 0,
+                    step: 1,    
+                },
+                title: "Bar thickness",
+                help: help.parameter.object.visualizer.bar_kind.bar_thickness,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                bar_thickness: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    bar_thickness: value,
+                });
+            }
+        );
 
         //border-radius
-        AddParameter(this.data.id, "string", {default: this.data.border_radius}, "Border Radius", function(id, value) {
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "string",
+                settings: {
+                    default: this.data.border_radius,
+                },
+                title: "Border Radius",
+                help: help.parameter.object.general.border_radius,
+            },
+            function(id, value) {
 
-            var this_object = object_method.getByID(id);
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                border_radius: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    border_radius: value,
+                });
+            }    
+        );
 
         //box-shadow
-        AddParameter(this.data.id, "string", {default: this.data.box_shadow}, "Box Shadow", function(id, value) {
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "string",
+                settings: {
+                    default: this.data.box_shadow,
+                },
+                title: "Box Shadow",
+                help: help.parameter.object.general.shadow,
+            },
+            function(id, value) {
 
-            var this_object = object_method.getByID(id);
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                box_shadow: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    box_shadow: value,
+                });
+            }
+        );
     }
 
 

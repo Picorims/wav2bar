@@ -48,7 +48,7 @@
             "visualizer": {
                 "general": {
                     "points_count": "'precision' of the visualizer. It specifies how much bars/points... are drawn, and can give different visual results. Big values are resource intensive.",
-                    "analyzer_range": "Audio spectrum range used for the visualization, between 0 and 1023. 0 stands for 20Hz and 1023 for 20000Hz. Usually the extremes are not very interesting visually."
+                    "analyser_range": "Audio spectrum range used for the visualization, between 0 and 1023. 0 stands for 20Hz and 1023 for 20000Hz. Usually the extremes are not very interesting visually."
                 },
                 "bar_kind": {
                     "bar_thickness": "Sets the bar thickness. The height is controlled by the object size."

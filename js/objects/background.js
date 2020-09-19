@@ -163,14 +163,17 @@ function Background(data) {
         
         //layer
         AddParameter(
-            this.data.id,
-            "value",
             {
-                default: this.data.layer,
-                min: 0,
-                step: 1,
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.layer,
+                    min: 0,
+                    step: 1,
+                },
+                title: "Layer",
+                help: help.parameter.object.general.layer,
             },
-            "Layer",
             function(id, value) {  //id, type, parameters, name, callback with id
                                                                                 //and returned value by the input
                 var this_object = object_method.getByID(id);
@@ -183,26 +186,48 @@ function Background(data) {
         );
 
         //background
-        AddParameter(this.data.id, "string", {default: this.data.background}, "Background", function(id, value) {
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "string",
+                settings: {
+                    default: this.data.background,
+                },
+                title: "Background",
+                help: help.parameter.object.background.bgnd,
+            },
+            function(id, value) {
 
-            var this_object = object_method.getByID(id);
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                background: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    background: value,
+                });
+            }
+        );
 
         //size
-        AddParameter(this.data.id, "string", {default: this.data.size}, "Background Size", function(id, value) {
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "string",
+                settings: {
+                    default: this.data.size,
+                },
+                title: "Background Size",
+                help: help.parameter.object.general.bgnd_size,
+            },
+            function(id, value) {
 
-            var this_object = object_method.getByID(id);
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                size: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    size: value,
+                });
+            }
+        );
     }
 
 

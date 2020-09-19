@@ -793,20 +793,20 @@ function ToggleOpen(title_container) {
 
 
 //function to add a parameter to an object parameter container
-function AddParameter(object_id, type, parameters, title, callback) {
-    if (!IsAString(object_id)) throw `AddParameter: ${object_id} is not a valid ID.`;
+function AddParameter(args, callback, object_id, type, parameters, title) {
+    if (!IsAString(args.object_id)) throw `AddParameter: ${args.object_id} is not a valid ID.`;
     
-    if ( (type!=="string") && (type!=="value") && (type!=="value-xy") && (type!=="choice") && (type!=="checkbox") ) {
-        throw `AddParameter: ${type} is not a valid parameter type.`;
+    if ( (args.type!=="string") && (args.type!=="value") && (args.type!=="value-xy") && (args.type!=="choice") && (args.type!=="checkbox") ) {
+        throw `AddParameter: ${args.type} is not a valid parameter type.`;
     }
-    if (!IsAnObject(parameters))    throw "AddParameter: The parameters provided aren't of type object.";
-    if (!IsAString(title))          throw "AddParameter: The title must be a string!";
+    if (!IsAnObject(args.settings))    throw "AddParameter: The parameters provided aren't of type object.";
+    if (!IsAString(args.title))          throw "AddParameter: The title must be a string!";
     if (IsUndefined(callback))      throw "AddParameter: Callback missing.";
 
     
     //CREATE ELEMENT    
     var param_container = document.createElement("div");
-    var parent = document.getElementById(`UI${object_id}`);
+    var parent = document.getElementById(`UI${args.object_id}`);
     parent.appendChild(param_container);
 
     //CONFIGURE ELEMENT
@@ -815,13 +815,13 @@ function AddParameter(object_id, type, parameters, title, callback) {
     //ADD NAME
     var title_elt = document.createElement("span");
     param_container.appendChild(title_elt);
-    title_elt.innerHTML = `${title}: `;
+    title_elt.innerHTML = `${args.title}: `;
 
 
     //CONFIGURE TYPE
-    switch (type) {
+    switch (args.type) {
         case "string":
-            /**parameters:
+            /**settings:
              * default: value,
              * min: value,
              * max: value,
@@ -832,18 +832,18 @@ function AddParameter(object_id, type, parameters, title, callback) {
             var input = document.createElement("input");
             param_container.appendChild(input);
             input.classList.add("panel_input", "panel_input_string");
-            input.value = parameters.default;
+            input.value = args.settings.default;
             
             //function
             input.oninput = function() {
-                callback(object_id, input.value);
+                callback(args.object_id, input.value);
             }
         break
 
 
 
         case "value":
-            /**parameters:
+            /**settings:
              * default: value,
              * min: value,
              * max: value,
@@ -855,21 +855,21 @@ function AddParameter(object_id, type, parameters, title, callback) {
             param_container.appendChild(input);
             input.classList.add("panel_input", "panel_input");
             input.type = "number";
-            input.value = parameters.default;
-            if ( !IsUndefined(parameters.min) ) input.min = parameters.min;
-            if ( !IsUndefined(parameters.max) ) input.max = parameters.max;
-            if ( !IsUndefined(parameters.step) ) input.step = parameters.step;
+            input.value = args.settings.default;
+            if ( !IsUndefined(args.settings.min) ) input.min = args.settings.min;
+            if ( !IsUndefined(args.settings.max) ) input.max = args.settings.max;
+            if ( !IsUndefined(args.settings.step) ) input.step = args.settings.step;
             
             //function
             input.oninput = function() {
-                callback(object_id, parseFloat(input.value) );
+                callback(args.object_id, parseFloat(input.value) );
             }
         break
 
 
 
         case "value-xy":
-            /**parameters:
+            /**settings:
              * default_x: value,
              * default_y: value,
              * min: value,
@@ -882,33 +882,33 @@ function AddParameter(object_id, type, parameters, title, callback) {
             param_container.appendChild(input1);
             input1.classList.add("panel_input", "panel_input");
             input1.type = "number";
-            input1.value = parameters.default_x;
-            if ( !IsUndefined(parameters.min) ) input1.min = parameters.min;
-            if ( !IsUndefined(parameters.max) ) input1.max = parameters.max;
-            if ( !IsUndefined(parameters.step) ) input1.step = parameters.step;
+            input1.value = args.settings.default_x;
+            if ( !IsUndefined(args.settings.min) ) input1.min = args.settings.min;
+            if ( !IsUndefined(args.settings.max) ) input1.max = args.settings.max;
+            if ( !IsUndefined(args.settings.step) ) input1.step = args.settings.step;
 
             var input2 = document.createElement("input");
             param_container.appendChild(input2);
             input2.classList.add("panel_input", "panel_input");
             input2.type = "number";
-            input2.value = parameters.default_y;
-            if ( !IsUndefined(parameters.min) ) input2.min = parameters.min;
-            if ( !IsUndefined(parameters.max) ) input2.max = parameters.max;
-            if ( !IsUndefined(parameters.step) ) input2.step = parameters.step;
+            input2.value = args.settings.default_y;
+            if ( !IsUndefined(args.settings.min) ) input2.min = args.settings.min;
+            if ( !IsUndefined(args.settings.max) ) input2.max = args.settings.max;
+            if ( !IsUndefined(args.settings.step) ) input2.step = args.settings.step;
             
             //functions
             input1.oninput = function() {
-                callback(object_id, parseFloat(input1.value), parseFloat(input2.value) );
+                callback(args.object_id, parseFloat(input1.value), parseFloat(input2.value) );
             }
             input2.oninput = function() {
-                callback(object_id, parseFloat(input1.value), parseFloat(input2.value) );
+                callback(args.object_id, parseFloat(input1.value), parseFloat(input2.value) );
             }
         break
 
 
 
         case "choice":
-            /**parameters:
+            /**settings:
              * default: value;
              * list:[option1, option2, ...] (strings)
              */
@@ -917,26 +917,26 @@ function AddParameter(object_id, type, parameters, title, callback) {
             var list = document.createElement("select");
             param_container.appendChild(list);
             list.classList.add("panel_input", "panel_input_list");
-            list.value = parameters.default;
+            list.value = args.settings.default;
 
             //options
-            for (var i=0; i< parameters.list.length; i++) {
+            for (var i=0; i< args.settings.list.length; i++) {
                 var option = document.createElement("option");
                 list.appendChild(option);
-                option.innerHTML = parameters.list[i];
-                option.value = parameters.list[i];
+                option.innerHTML = args.settings.list[i];
+                option.value = args.settings.list[i];
             }
             
             //function
             list.oninput = function() {
-                callback(object_id, list.value);
+                callback(args.object_id, list.value);
             }
         break
 
 
 
         case "checkbox":
-            /**parameters:
+            /**settings:
              * default: value;
              */
 
@@ -945,11 +945,11 @@ function AddParameter(object_id, type, parameters, title, callback) {
             param_container.appendChild(input);
             input.classList.add("panel_input", "panel_input_checkbox");
             input.type = "checkbox";
-            input.checked = parameters.default;
+            input.checked = args.settings.default;
             
             //function
             input.oninput = function() {
-                callback(object_id, input.checked);
+                callback(args.object_id, input.checked);
             }
         break
 
@@ -961,7 +961,7 @@ function AddParameter(object_id, type, parameters, title, callback) {
 
 
     //APPEND HELP TO THE END
-    AppendHelp(param_container, parameters.help);
+    AppendHelp(param_container, args.help);
 
 }
 

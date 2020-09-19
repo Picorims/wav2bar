@@ -236,109 +236,227 @@ function ParticleFlow(data) {
         CreateObjectContainer(this.data.id);
         
         //layer
-        AddParameter(this.data.id, "value", {default: this.data.layer, min: 0, step: 1}, "Layer", function(id, value) {  //id, type, parameters, name, callback with id
-                                                                                //and returned value by the input
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.layer,
+                    min: 0,
+                    step: 1,    
+                },
+                title: "Layer",
+                help: help.parameter.object.general.layer,
+            },
+            function(id, value) {  //id, type, parameters, name, callback with id
+                                                                                    //and returned value by the input
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                layer: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    layer: value,
+                });
+            }
+        );
 
         //x and y
-        AddParameter(this.data.id, "value-xy", {default_x: this.data.x, default_y: this.data.y, step: 1}, "Coordinates", function(id, value1, value2) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value-xy",
+                settings: {
+                    default_x: this.data.x,
+                    default_y: this.data.y,
+                    step: 1,    
+                },
+                title: "Coordinates",
+                help: help.parameter.object.general.pos,
+            },
+            function(id, value1, value2) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                x: value1,
-                y: value2,
-            });
-        });
-
-        //width and height
-        AddParameter(this.data.id, "value-xy", {default_x: this.data.width, default_y: this.data.height, min: 0, step: 1}, "Width and Height", function(id, value1, value2) {
-            
-            var this_object = object_method.getByID(id);
-
-            this_object.updateData({
-                id: id,
-                width: value1,
-                height: value2,
-            });
-        });
-
-        //particle_radius_range
-        AddParameter(this.data.id, "value-xy", {default_x: this.data.particle_radius_range[0], default_y: this.data.particle_radius_range[1], min: 1, step: 1}, "Particle minimum and maximum size", function(id, value1, value2) {
-            
-            var this_object = object_method.getByID(id);
-
-            this_object.updateData({
-                id: id,
-                particle_radius_range: [value1, value2],
-            });
-        });
-
-        //type
-        AddParameter(this.data.id, "choice", {default: this.data.type, list:["radial", "directional"]}, "Movement type", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
-
-            this_object.updateData({
-                id: id,
-                type: value,
-            });
-        });
-
-        //center
-        AddParameter(this.data.id, "value-xy", {default_x: this.data.center.x, default_y: this.data.center.y, step: 1}, "Center position (radial)", function(id, value1, value2) {
-            
-            var this_object = object_method.getByID(id);
-
-            this_object.updateData({
-                id: id,
-                center: {
+                this_object.updateData({
+                    id: id,
                     x: value1,
                     y: value2,
+                });
+            }
+        );
+
+        //width and height
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value-xy",
+                settings: {
+                    default_x: this.data.width,
+                    default_y: this.data.height,
+                    min: 0,
+                    step: 1,    
                 },
-            });
-        });
+                title: "Width and Height",
+                help: help.parameter.object.general.size,
+            },
+            function(id, value1, value2) {
+            
+                var this_object = object_method.getByID(id);
+
+                this_object.updateData({
+                    id: id,
+                    width: value1,
+                    height: value2,
+                });
+            }
+        );
+
+        //particle_radius_range
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value-xy",
+                settings: {
+                    default_x: this.data.particle_radius_range[0],
+                    default_y: this.data.particle_radius_range[1],
+                    min: 1,
+                    step: 1,                        
+                },
+                title: "Particle minimum and maximum size",
+                help: help.parameter.object.particles.ptcl_size,
+            },
+            function(id, value1, value2) {
+                
+                var this_object = object_method.getByID(id);
+
+                this_object.updateData({
+                    id: id,
+                    particle_radius_range: [value1, value2],
+                });
+            }
+        );
+
+        //type
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "choice",
+                settings: {
+                    default: this.data.type,
+                    list:["radial", "directional"],    
+                },
+                title: "Movement type",
+                help: help.parameter.object.particles.mvmt_type,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
+
+                this_object.updateData({
+                    id: id,
+                    type: value,
+                });
+            }
+        );
+
+        //center
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value-xy",
+                settings: {
+                    default_x: this.data.center.x,
+                    default_y: this.data.center.y,
+                    step: 1,    
+                },
+                title: "Center position (radial)",
+                help: help.parameter.object.particles.center_pos,
+            },
+            function(id, value1, value2) {
+                
+                var this_object = object_method.getByID(id);
+
+                this_object.updateData({
+                    id: id,
+                    center: {
+                        x: value1,
+                        y: value2,
+                    },
+                });
+            }
+        );
 
         //direction
-        AddParameter(this.data.id, "value", {default: this.data.direction, min: 0, max: 360, step: 1}, "Direction (directional)", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
-            value = value * (2*Math.PI / 360);//conversion in radians
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.direction,
+                    min: 0,
+                    max: 360,
+                    step: 1,    
+                },
+                title: "Direction (directional)",
+                help: help.parameter.object.particles.direction,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
+                value = value * (2*Math.PI / 360);//conversion in radians
 
-            this_object.updateData({
-                id: id,
-                particle_direction: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    particle_direction: value,
+                });
+            }
+        );
 
         //max spawn probability
-        AddParameter(this.data.id, "value", {default: this.data.max_spawn_probability, min: 0, max: 1, step: 0.01}, "Spawn probability", function(id, value) {
-            
-            var this_object = object_method.getByID(id);
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.max_spawn_probability,
+                    min: 0,
+                    max: 1,
+                    step: 0.01,    
+                },
+                title: "Spawn probability",
+                help: help.parameter.object.particles.spawn_probability,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                max_spawn_probability: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    max_spawn_probability: value,
+                });
+            }
+        );
 
         //color
-        AddParameter(this.data.id, "string", {default: this.data.color}, "Color", function(id, value) {
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "string",
+                settings: {
+                    default: this.data.color,
+                },
+                title: "Color",
+                help: help.parameter.object.particles.ptcl_color,
+            },
+            function(id, value) {
 
-            var this_object = object_method.getByID(id);
+                var this_object = object_method.getByID(id);
 
-            this_object.updateData({
-                id: id,
-                color: value,
-            });
-        });
+                this_object.updateData({
+                    id: id,
+                    color: value,
+                });
+            }
+        );
     }
 
 
