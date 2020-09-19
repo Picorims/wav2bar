@@ -250,14 +250,19 @@ function LoopUI() {//UI responsive update
     screen_interface.style.top = 0;
     screen_interface.style.left = control_panel.offsetWidth+"px";
 
+    //fix the inner space of the interface containing the screen
+    var extra_space = 100;
+    var screen_border = parseInt( window.getComputedStyle(screen).getPropertyValue("border-width").replace("px","") );
+    var screen_width  = (screen.width + screen_border*2)  * zoom;
+    var screen_height = (screen.height + screen_border*2) * zoom;
     
-    //screen positioning
-    var screen_margin_left = (screen_interface.offsetWidth/2) - (screen.width/2) - interface_padding_value;
-    var screen_margin_top = (window.innerHeight/2) - (screen.height/2);
+    var inner_spacing_width  = screen_width  + (2*extra_space);
+    var inner_spacing_height = screen_height + (2*extra_space)
+    document.getElementById("inner_spacing_fixer").style.width  = inner_spacing_width  + "px";
+    document.getElementById("inner_spacing_fixer").style.height = inner_spacing_height + "px";
     
-    screen.style.marginLeft = (screen_margin_left > 0) ? (screen_margin_left+"px") : "0px";
-    screen.style.marginTop =  (screen_margin_top > 0)  ? (screen_margin_top+"px")  : "0px";
-
+    screen.style.left = (screen_width   < screen_interface.offsetWidth)?  screen_interface.offsetWidth/2  - screen_width/2  + "px" : extra_space + "px";
+    screen.style.top  = (screen_height  < screen_interface.offsetHeight)? screen_interface.offsetHeight/2 - screen_height/2 + "px" : extra_space + "px";
 
 }
 

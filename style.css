@@ -519,8 +519,56 @@ Main element
     width: 0;
     height: 0;
     overflow: auto;
-    padding: 10px 10px 10px 10px;
+    padding: 0;
 }
+
+
+
+
+/*
+======
+Screen
+======
+*/
+
+#screen {
+    position: absolute;
+    width: 0;
+    height: 0;
+    background-color: black;
+    border: 5px solid var(--main-gray);
+    border-radius: 3px;
+    box-shadow: var(--main-darker-black) 0px 0px 10px;
+    overflow: hidden;
+}
+
+.renderer_screen {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    margin: 0 !important;
+    border: 0px !important;
+    border-radius: 0px !important;
+}
+
+
+
+
+/*
+===================
+Inner Spacing Fixer
+===================
+*/
+
+#inner_spacing_fixer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    z-index: -1;
+}
+
 
 
 
@@ -656,35 +704,4 @@ div.top_UI {
     background-color: var(--main-color);
 
     cursor: pointer;
-}
-
-
-
-
-
-/*
-======
-Screen
-======
-*/
-
-#screen {
-    position: relative;
-    width: 0;
-    height: 0;
-    margin: 10px;
-    background-color: black;
-    border: 5px solid var(--main-gray);
-    border-radius: 10px;
-    box-shadow: var(--main-darker-black) 0px 0px 10px;
-    overflow: hidden;
-}
-
-.renderer_screen {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    margin: 0 !important;
-    border: 0px !important;
-    border-radius: 0px !important;
 }
