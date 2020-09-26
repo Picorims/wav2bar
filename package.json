@@ -1,10 +1,12 @@
 {
-  "name": "audio-visualizer-creator-master",
-  "version": "1.0.0",
-  "description": "A tool to create and export an entairtaining video for the music industry",
+  "name": "wav2bar",
+  "version": "0.1.0",
+  "description": "A tool to create and export audio visualization mainly for the music industry",
   "main": "main",
   "scripts": {
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "keywords": [
     "audio",
@@ -14,12 +16,100 @@
     "export",
     "creation"
   ],
-  "author": "Picorims and Mischa",
+  "author": "Picorims",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^9.3.0",
+    "@electron-forge/cli": "^6.0.0-beta.53",
+    "@electron-forge/maker-deb": "^6.0.0-beta.53",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.53",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.53",
+    "@electron-forge/maker-wix": "^6.0.0-beta.53",
+    "@electron-forge/maker-zip": "^6.0.0-beta.53",
+    "electron": "^9.3.0"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
     "fluent-ffmpeg": "^2.1.2",
     "fourier-transform": "^1.1.2"
   },
-  "dependencies": {}
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "appCopyright": "Copyright (c) 2020 Picorims",
+        "icon": "assets/icons/wav2bar_square_logo",
+        "name": "Wav2Bar",
+        "overwrite": true,
+        "win32metadata": {
+          "CompanyName": "Picorims",
+          "FileDescription": "A tool to create and export audio visualization mainly for the music industry"
+        },
+        "appCategoryType": "public.app-category.video"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "win32",
+            "darwin",
+            "linux"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-wix",
+          "config": {
+            "description": "A tool to create and export audio visualization mainly for the music industry",
+            "exe": "Wav2Bar",
+            "name": "Wav2Bar",
+            "shortcutFolderName": "Wav2Bar",
+            "manufacturer": "Picorims",
+            "version": "0.1.0",
+            "iconPath": "C:/Users/mario/Desktop/Programmation/JS/Web Audio Visualizer/audio-visualizer-creator-master/assets/icons/wav2bar_square_logo.ico",
+            "ui": {
+              "chooseDirectory": true,
+              "images": {
+                "background": "C:/Users/mario/Desktop/Programmation/JS/Web Audio Visualizer/audio-visualizer-creator-master/assets/installer/installer_banner_493x312.png",
+                "banner": "C:/Users/mario/Desktop/Programmation/JS/Web Audio Visualizer/audio-visualizer-creator-master/assets/installer/installer_banner_493x58.png"
+              }
+            }
+          }
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {
+            "options": {
+              "categories": "Video",
+              "description": "A tool to create and export audio visualization mainly for the music industry",
+              "productDescription": "A tool to create and export audio visualization mainly for the music industry",
+              "name": "Wav2Bar",
+              "productName": "Wav2Bar",
+              "genericName": "Wav2Bar",
+              "homepage": "https://picorims.github.io/wav2bar-website",
+              "icon": "assets/icons/wav2bar_square_logo.png",
+              "maintainer": "Picorims",
+              "revision": "0.1.0",
+              "version": "0.1.0"
+            }
+          }
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {
+            "options": {
+              "categories": "Video",
+              "section": "video",
+              "description": "A tool to create and export audio visualization mainly for the music industry",
+              "productDescription": "A tool to create and export audio visualization mainly for the music industry",
+              "name": "Wav2Bar",
+              "productName": "Wav2Bar",
+              "genericName": "Wav2Bar",
+              "homepage": "https://picorims.github.io/wav2bar-website",
+              "icon": "assets/icons/wav2bar_square_logo.png",
+              "license": "MIT",
+              "version": "0.1.0"
+            }
+          }
+        }
+      ]
+    }
+  }
 }

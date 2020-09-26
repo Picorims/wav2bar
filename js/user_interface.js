@@ -192,7 +192,7 @@ function InitUI() {
     help = main.ReadJSONFile("./assets/help/help.json");
 
     var elements = document.getElementsByClassName("panel_param_container");
-    console.log(elements);
+
     for (var i=0; i<elements.length; i++) {
         var help_node = elements[i].getAttribute("data-help");
 

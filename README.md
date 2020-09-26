@@ -1,10 +1,10 @@
-# Audio Visualizer Creator
+# Wav2Bar
 A tool to make custom audio visualization and export production videos for the music industry.
 
 ### Important Notes
 - **This tool is usable at this point, but is still in early development! Your work is subject to bugs, backup your saves!**
 
-### Running
+### Hacking
 - NodeJS must be installed (It will install npm too).
 - Git is recommended.
 - Open the repository folder in a prompt and run `npm start`.

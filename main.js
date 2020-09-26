@@ -18,6 +18,9 @@ var ft = require('fourier-transform/asm');
 //fluent-ffmpeg dependencies
 var ffmpeg = require("fluent-ffmpeg");
 
+//set process directory to the position of main.js (i.e root of the app)
+process.chdir(__dirname);
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -30,6 +33,7 @@ function createWindow () {
     // Create the browser window.
     const { width, height } = require('electron').screen.getPrimaryDisplay().workAreaSize;//screen size
     win = new BrowserWindow({
+        icon: path.join(__dirname, "assets/icons/wav2bar_square_logo.png"),
         width: width,
         height: height,
         webPreferences: {
@@ -87,6 +91,7 @@ function createExportWin() {
     console.log("creating window for rendering...");
     
     export_win = new BrowserWindow({
+        icon: path.join(__dirname, "assets/icons/wav2bar_square_logo.png"),
         width: 1500,
         height: 1000,
         frame: false,
