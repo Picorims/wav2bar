@@ -50,6 +50,8 @@ strong {
     width: 10px;
     height: 10px;
     box-shadow: 0px 0px 5px var(--main-gray);
+
+    transition: 0.1s;
 }
 ::-webkit-scrollbar-track {
     background-color: var(--main-gray);
@@ -166,6 +168,11 @@ Naviguation tab labels at the top of the control panel
     background-color: var(--main-darker-color);
 }
 
+.tab_label i::before {
+    position: relative;
+    top: 2px;
+}
+
 .selected_tab {
     height: 30px;
     border-bottom: 3px solid var(--main-color);
@@ -261,7 +268,7 @@ Tabs content
 .question_mark {
     width: 25px;
     height: 25px;
-    font-size: 20px;
+    font-size: 25px;
     z-index: 1000;
 
     transition: 0.2s;
@@ -330,6 +337,10 @@ Tabs content
     text-transform: uppercase;
 
     cursor: pointer;
+}
+.object_param_title i {
+    position: relative;
+    top: 3px;
 }
 
 .object_param_arrow {
@@ -489,6 +500,12 @@ Tabs content
     height: 30px;
 }
 
+/*else
+  ----*/
+.about_info i {
+    position: relative;
+    top: 2px;
+}
 
 
 
@@ -634,6 +651,14 @@ div.top_UI {
     display: inline-block;
 }
 
+.top_UI i {
+    display: block;
+    font-size: 24px;
+}
+.top_UI i.ri-zoom-in-line, .top_UI i.ri-zoom-out-line {
+    font-size: 30px;
+}
+
 /*Round a tile*/
 .left_round {
     border-top-left-radius: 5px;
@@ -660,7 +685,9 @@ div.top_UI {
 }
 .range_track {
     width: 270px;
-    margin-top: 21px;
+    position: relative;
+    margin-top: 25px;
+    top: -7px;
 }
 .range_track::-webkit-slider-runnable-track {
     height: 10px;
@@ -683,7 +710,12 @@ div.top_UI {
 /*text tile*/
 .text {
     display: inline-block;
-    margin-top: 11px;
+    margin-top: 15px;
+    position: relative;
+    top: -5px;
+}
+#zoom_display {
+    top: -8px;
 }
 
 /*dropdown menu for a double sized tile*/

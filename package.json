@@ -30,7 +30,8 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
     "fluent-ffmpeg": "^2.1.2",
-    "fourier-transform": "^1.1.2"
+    "fourier-transform": "^1.1.2",
+    "remixicon": "^2.5.0"
   },
   "config": {
     "forge": {

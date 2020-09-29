@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>First audio visualizer</title>
 
     <!-- main process -->
@@ -27,10 +27,8 @@
     <script type="text/javascript" src="js/objects/visualizer.js"></script>
 
     <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="assets/icons/fontawesome-free-5.12.1-web/css/fontawesome.css">
-    <link rel="stylesheet" type="text/css" href="assets/icons/fontawesome-free-5.12.1-web/css/solid.css">
-    <link rel="stylesheet" type="text/css" href="assets/icons/fontawesome-free-5.12.1-web/css/brands.css">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="node_modules/remixicon/fonts/remixicon.css"/>
 </head>
 
 
@@ -41,10 +39,10 @@
 
         <!--Labels, tabs naviguation-->
         <div id="naviguation_tab_labels">
-            <div class="tab_label" id="project_label"> <i class="fas fa-cubes"></i> PROJECT</div>
-            <div class="tab_label" id="objects_label"> <i class="fas fa-object-group"></i> OBJECTS</div>
-            <div class="tab_label" id="export_label"> <i class="fas fa-film"></i> EXPORT</div>
-            <div class="tab_label" id="help_label"> <i class="fas fa-question-circle"></i> CONTACT AND HELP</div>
+            <div class="tab_label" id="project_label"> <i class="ri-file-edit-line"></i></i> PROJECT</div>
+            <div class="tab_label" id="objects_label"> <i class="ri-node-tree"></i></i> OBJECTS</div>
+            <div class="tab_label" id="export_label"> <i class="ri-film-line"></i> EXPORT</div>
+            <div class="tab_label" id="help_label"> <i class="ri-question-line"></i> CONTACT AND HELP</div>
         </div>
 
 
@@ -120,8 +118,8 @@
             <!--CONTACT AND HELP-->
             <div id="help_tab" class="tab">
                 <div class="panel_param_container" " data-help="">
-                    <span>
-                        Click on the <i class="fas fa-question-circle"></i> icons to get help on a specific feature.
+                    <span class="about_info">
+                        Click on the <i class="ri-question-line"></i> icons to get help on a specific feature.
                         <br/><br/>
                         Information and contacts:
                         <br/>
@@ -132,6 +130,10 @@
                         <a id="discord_link">Discord Server</a><br/>
                         <br/>
                         Send an email at: <a href="mailto:picorims.contact@gmail.com">picorims.contact@gmail.com</a>
+                        <br/><br/>
+                        Special thanks:
+                        <br/>
+                        - RemixIcon (remixicon.com)
                     </span>
                 </div>
             </div>
@@ -157,52 +159,52 @@
             <!--Play, pause, etc-->
             <div class="top_UI_block">
                 <button class="top_UI left_round" id="play_audio">
-                    <i class="fas fa-play"></i>
+                    <i class="ri-play-fill"></i>
                 </button>
                 <button class="top_UI" id="pause_audio">
-                    <i class="fas fa-pause"></i>
+                    <i class="ri-pause-fill"></i>
                 </button>
                 <button class="top_UI" id="stop_audio">
-                    <i class="fas fa-stop"></i>
+                    <i class="ri-stop-fill"></i>
                 </button>
                 <div class="top_UI triple_size">
                     <span class="text" id="time_display">0:00 | 0:00</span>
                 </div>
                 <button class="top_UI" id="audio_to_start">
-                    <i class="fas fa-fast-backward"></i>
+                    <i class="ri-skip-back-fill"></i>
                 </button>
                 <div class="top_UI range">
                     <input class="range_track" type="range" id="audio_range"/>
                 </div>
                 <button class="top_UI right_round" id="audio_to_end">
-                    <i class="fas fa-fast-forward"></i>
+                    <i class="ri-skip-forward-fill"></i>
                 </button>
             </div>
 
             <!--Loop music-->
             <div class="top_UI_block">
                 <button class="top_UI left_round right_round" id="loop_audio">
-                    <i class="fas fa-sync-alt"></i>
+                    <i class="ri-repeat-fill"></i>
                 </button>
             </div>
 
             <!--FPS-->
             <div class="top_UI_block">
                 <div class="top_UI left_round right_round double_size">
-                    <span id="fps" class="text"></span><span>FPS</span>
+                    <span id="fps" class="text"></span>
                 </div>
             </div>
 
             <!--Zoom-->
             <div class="top_UI_block">
                 <button class="top_UI left_round" id="zoom_out">
-                    <i class="fas fa-search-minus"></i>
+                    <i class="ri-zoom-out-line"></i>
                 </button>
                 <button class="top_UI double_size" id="zoom_value">
-                    <span id="zoom_display"></span>%
+                    <span id="zoom_display" class="text"></span>
                 </button>
                 <button class="top_UI right_round"id="zoom_in">
-                    <i class="fas fa-search-plus"></i>
+                    <i class="ri-zoom-in-line"></i>
                 </button>
             </div>
         </div>

@@ -200,7 +200,7 @@ function PrepareRendering() {//define important variables
     //FPS PREPARATION
     frame_count = 0;
     fps = current_save.fps;
-    export_array = [0, 10];//from when to when in seconds to export, based on audio length.
+    export_array = [0, duration];//from when to when in seconds to export, based on audio length.
     //interval type: [x,y[
 
     //SPECTRUM STORAGE USED BY THE OBJECTS
@@ -281,7 +281,9 @@ function Render() {//render every frame into an image
                 document.removeEventListener("render-loop", Render);
                 var data = received_data;
                 var export_duration = export_array[1] - export_array[0];
-                main.CreateVideo(data.screen, data.audio_file_type, fps, export_duration);
+                main.CreateVideo(data.screen, data.audio_file_type, fps, export_duration, function() {
+                    window.close();
+                });
             });
             
         }

@@ -108,7 +108,7 @@ function createExportWin() {
     export_win.loadFile('./html/export.html');
 
     //open dev tools
-    export_win.webContents.openDevTools();
+    //export_win.webContents.openDevTools();
 
     export_win.webContents.on('paint', (event, dirty, image) => {
         // updateBitmap(dirty, image.getBitmap())
@@ -241,7 +241,7 @@ exports.ExportScreen = ExportScreen;
 
 
 
-function CreateVideo(screen, audio_format, fps, duration) {//generates final video from generated framesa and audio contained in temp folder
+function CreateVideo(screen, audio_format, fps, duration, callback) {//generates final video from generated framesa and audio contained in temp folder
     
     //get audio path
     var audio_file_path;
@@ -295,6 +295,7 @@ function CreateVideo(screen, audio_format, fps, duration) {//generates final vid
         })
         .on('end', function() {
             console.log('Video created!');
+            callback();
         })
         .on('error', function(err) {
             console.log('an error happened: ' + err.message);

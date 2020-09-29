@@ -267,5 +267,5 @@ function UpdateFPSDisplay() {//display FPS regularly
     var average_fps = sum / fps_array_max_length;
 
     //display fps
-    document.getElementById("fps").innerHTML = average_fps;
+    document.getElementById("fps").innerHTML = `${average_fps}FPS`;
 }

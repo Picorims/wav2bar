@@ -155,7 +155,7 @@ function InitUI() {
     zoom_index = 5; //1
     zoom_list = [0.1, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.5, 3.0];
     var zoom_disp = document.getElementById("zoom_display");
-    zoom_disp.innerHTML = Math.round(zoom*100);
+    zoom_disp.innerHTML = `${Math.round(zoom*100)}%`;
     
     //zoom out
     document.getElementById("zoom_out").onclick = function() {
@@ -164,7 +164,7 @@ function InitUI() {
             zoom = zoom_list[zoom_index];
         }
         ApplyZoom(zoom);
-        zoom_disp.innerHTML = Math.round(zoom*100);
+        zoom_disp.innerHTML = `${Math.round(zoom*100)}%`;
     }
 
     //zoom in
@@ -174,7 +174,7 @@ function InitUI() {
             zoom = zoom_list[zoom_index];
         }
         ApplyZoom(zoom);
-        zoom_disp.innerHTML = Math.round(zoom*100);
+        zoom_disp.innerHTML = `${Math.round(zoom*100)}%`;
     }
 
     //choose zoom
@@ -719,27 +719,27 @@ function CreateObjectContainer(object_id) {
     var obj_type = object_method.getByID(object_id).data.object_type;
     switch (obj_type) {
         case "background":
-            title_container.innerHTML = '<i class="fas fa-mountain"></i> ' + title_container.innerHTML;
+            title_container.innerHTML = '<i class="ri-landscape-fill"></i> ' + title_container.innerHTML;
             break;
 
         case "image":
-            title_container.innerHTML = '<i class="fas fa-image"></i> ' + title_container.innerHTML;
+            title_container.innerHTML = '<i class="ri-image-fill"></i> ' + title_container.innerHTML;
             break;
 
         case "particle_flow":
-            title_container.innerHTML = '<i class="fas fa-certificate"></i> ' + title_container.innerHTML;
+            title_container.innerHTML = '<i class="ri-loader-line"></i> ' + title_container.innerHTML;
             break;
 
         case "text":
-            title_container.innerHTML = '<i class="fas fa-heading"></i> ' + title_container.innerHTML;
+            title_container.innerHTML = '<i class="ri-text"></i> ' + title_container.innerHTML;
             break;
 
         case "timer":
-            title_container.innerHTML = '<i class="fas fa-clock"></i> ' + title_container.innerHTML;
+            title_container.innerHTML = '<i class="ri-timer-2-line"></i> ' + title_container.innerHTML;
             break;
 
         case "visualizer":
-            title_container.innerHTML = '<i class="fas fa-chart-bar"></i> ' + title_container.innerHTML;
+            title_container.innerHTML = '<i class="ri-rhythm-line"></i> ' + title_container.innerHTML;
             break;
 
         default:
@@ -998,7 +998,7 @@ function AppendHelp(DOM_elt, help_string) {
     var question_mark = document.createElement("div");
     DOM_elt.appendChild(question_mark);
     question_mark.className = "question_mark";
-    question_mark.innerHTML = "<i class='fas fa-question-circle'></i>";
+    question_mark.innerHTML = "<i class='ri-question-line'></i>";
     
     //help display
     question_mark.setAttribute("data-content", help_string);
