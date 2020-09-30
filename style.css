@@ -387,6 +387,11 @@ Tabs content
     transition: 0.1s;
 }
 
+.object_param_cross i, .object_param_arrow i {
+    position: relative;
+    top: 3px;
+}
+
 .object_param_closed {
     height: 25px;
     padding: 0;

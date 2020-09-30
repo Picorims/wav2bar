@@ -23,7 +23,7 @@
                 "bgnd": "Sets the background, using the CSS syntax. It can be an image, but also a color or a gradient to make a colored shape."
             },
             "particles": {
-                "ptcl_size": "Sets the minimum and maximum size of a particle in pixels. It takes a random value between the min and max specified for each particle. For a constant size, do min = max.",
+                "ptcl_size": "Sets the size range of a particle in pixels. It takes a random value between the two specified for each particle. For a constant size, use two times the same value. The order doesn't have any impact.",
                 "mvmt_type": "Sets the type of flow for the particles. Their spawn and movement behaviour are linked to this setting",
                 "center_pos": "Sets the spawn position for a radial flow.",
                 "direction": "Sets the particle direction for a directional flow.",
@@ -48,7 +48,7 @@
             "visualizer": {
                 "general": {
                     "points_count": "'precision' of the visualizer. It specifies how much bars/points... are drawn, and can give different visual results. Big values are resource intensive.",
-                    "analyser_range": "Audio spectrum range used for the visualization, between 0 and 1023. 0 stands for 20Hz and 1023 for 20000Hz. Usually the extremes are not very interesting visually."
+                    "analyser_range": "Audio spectrum range used for the visualization, between 0 and 1023. 0 stands for 20Hz and 1023 for 20000Hz. Usually the extremes are not very interesting visually. Invert the minimum and maximum values to mirror the range."
                 },
                 "bar_kind": {
                     "bar_thickness": "Sets the bar thickness. The height is controlled by the object size."

@@ -749,13 +749,13 @@ function CreateObjectContainer(object_id) {
     //arrow
     var arrow = document.createElement("div");
     container.appendChild(arrow);
-    arrow.innerHTML = '<i class="fas fa-angle-right"></i>';
+    arrow.innerHTML = '<i class="ri-arrow-right-s-line"></i>';
     arrow.classList.add("object_param_arrow");
 
     //deletion cross
     var cross = document.createElement("div");
     container.appendChild(cross);
-    cross.innerHTML = '<i class="fas fa-times-circle"></i>';
+    cross.innerHTML = '<i class="ri-close-circle-fill"></i>';
     cross.classList.add("object_param_cross");
 
     //ability to open and close the object parameters' container

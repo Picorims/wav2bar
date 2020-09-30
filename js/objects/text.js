@@ -24,10 +24,10 @@
     text_shadow: ?, (string, css text-shadow)
 }*/
 
-function Text(data) {
-    if (IsUndefined(data)) throw "Text: data missing!";
+function Text(glob_data) {
+    if (IsUndefined(glob_data)) throw "Text: data missing!";
     
-    this.data = data;//collect data
+    this.data = glob_data;//collect data
     this.data.object_type = "text";
     objects.push(this);//add the object to the list
 
@@ -187,15 +187,15 @@ function Text(data) {
     //FUNCTION TO MERGE TWO DATA OBJECTS
     //##################################
 
-    this.mergeData = function(data, data_destination) {
-        if (IsUndefined(data)) throw "Text.mergeData: data missing!";
-        if (IsUndefined(data_destination)) throw "Text.mergeData: data_destination missing!";
+    this.mergeData = function(data_to_add, data_receiver) {
+        if (IsUndefined(data_to_add)) throw "Text.mergeData: data missing!";
+        if (IsUndefined(data_receiver)) throw "Text.mergeData: data_destination missing!";
 
-        for (key of Object.keys(data)) {
-            data_destination[key] = data[key];
+        for (key of Object.keys(data_to_add)) {
+            data_receiver[key] = data_to_add[key];
         }
 
-        return data_destination;
+        return data_receiver;
     }
 
 
@@ -240,7 +240,8 @@ function Text(data) {
             var underline = (this.data.underline)? "underline":"";
             var overline = (this.data.overline)? "overline":"";
             var line_through = (this.data.line_through)? "line-through":"";
-            this.element.style.textDecoration = `${underline} ${overline} ${line_through}`;
+            this.element.style.textDecoration = ` ${underline} ${overline} ${line_through}`;
+            if (!this.data.underline && !this.data.overline && !this.data.line_through) this.element.style.textDecoration = ""; //fixes css not updating
             this.element.style.textAlign = this.data.text_align;//text align
             this.element.style.textShadow = this.data.text_shadow;//text shadow
         }

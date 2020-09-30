@@ -21,10 +21,10 @@
     color: ?, (string: hex, rgb, rgba)
 }*/
 
-function ParticleFlow(data) {
-    if (IsUndefined(data)) throw "ParticleFlow: data missing!";
+function ParticleFlow(glob_data) {
+    if (IsUndefined(glob_data)) throw "ParticleFlow: data missing!";
     
-    this.data = data;//collect data
+    this.data = glob_data;//collect data
     this.data.object_type = "particle_flow";
     this.particles = [];//contain all particles
     objects.push(this);//add the object to the list
@@ -141,15 +141,15 @@ function ParticleFlow(data) {
     //FUNCTION TO MERGE TWO DATA OBJECTS
     //##################################
 
-    this.mergeData = function(data, data_destination) {
-        if (IsUndefined(data)) throw "ParticleFlow.mergeData: data missing!";
-        if (IsUndefined(data_destination)) throw "ParticleFlow.mergeData: data_destination missing!";
+    this.mergeData = function(data_to_add, data_receiver) {
+        if (IsUndefined(data_to_add)) throw "Text.mergeData: data missing!";
+        if (IsUndefined(data_receiver)) throw "Text.mergeData: data_destination missing!";
 
-        for (key of Object.keys(data)) {
-            data_destination[key] = data[key];
+        for (key of Object.keys(data_to_add)) {
+            data_receiver[key] = data_to_add[key];
         }
 
-        return data_destination;
+        return data_receiver;
     }
 
 
@@ -321,7 +321,7 @@ function ParticleFlow(data) {
                     min: 1,
                     step: 1,                        
                 },
-                title: "Particle minimum and maximum size",
+                title: "Particle size range",
                 help: help.parameter.object.particles.ptcl_size,
             },
             function(id, value1, value2) {

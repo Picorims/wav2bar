@@ -129,11 +129,13 @@ function Init() {//main initialization
     
     //create temp directory
     if (!fs.existsSync("./temp")) {
-        fs.mkdirSync("./temp");
-
-        if (!fs.existsSync("./temp/render")) {
-            fs.mkdirSync("./temp/render");
-        }
+        fs.mkdirSync("./temp");   
+    }
+    if (!fs.existsSync("./temp/render")) {
+        fs.mkdirSync("./temp/render");
+    }
+    if(!fs.existsSync("./temp/current_save")) {
+        fs.mkdirSync("./temp/current_save");
     }
 
 }

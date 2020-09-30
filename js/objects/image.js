@@ -17,10 +17,10 @@
     box_shadow: ?, (string, css box-shadow)
 }*/
 
-function Image(data) {
-    if (IsUndefined(data)) throw "Image: data missing!";
+function Image(glob_data) {
+    if (IsUndefined(glob_data)) throw "Image: data missing!";
 
-    this.data = data;//collect data
+    this.data = glob_data;//collect data
     this.data.object_type = "image";
     objects.push(this);//add the object to the list
 
@@ -130,15 +130,15 @@ function Image(data) {
     //FUNCTION TO MERGE TWO DATA OBJECTS
     //##################################
 
-    this.mergeData = function(data, data_destination) {
-        if (IsUndefined(data)) throw "Image.mergeData: data missing!";
-        if (IsUndefined(data_destination)) throw "Image.mergeData: data_destination missing!";
+    this.mergeData = function(data_to_add, data_receiver) {
+        if (IsUndefined(data_to_add)) throw "Text.mergeData: data missing!";
+        if (IsUndefined(data_receiver)) throw "Text.mergeData: data_destination missing!";
 
-        for (key of Object.keys(data)) {
-            data_destination[key] = data[key];
+        for (key of Object.keys(data_to_add)) {
+            data_receiver[key] = data_to_add[key];
         }
 
-        return data_destination;
+        return data_receiver;
     }
 
 
