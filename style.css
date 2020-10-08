@@ -28,6 +28,7 @@ body {
     padding: 0;
     
     background-color: var(--main-darker-black);
+    user-select: none;
 }
 
 html, body {

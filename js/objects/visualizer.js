@@ -590,10 +590,10 @@ function Visualizer(glob_data) {
             
             for (var i = 0; i < this.bars.length; i++) {
                 //apply data to each bar
-                this.bars[i].style.height = (visualizer_frequency_array[i]/255*this.data.height)+"px";//proportionality to adapt to the full height. (max volume = 255)
+                this.bars[i].style.height = (visualizer_frequency_array[i]/256*this.data.height)+"px";//proportionality to adapt to the full height. (max volume = 256)
                 
                 if (this.data.type === "circular") {//fix rotation
-                    this.bars[i].style.height = ( visualizer_frequency_array[i]/255*(this.data.height/2 - this.data.radius) )+"px";//proportionality to adapt to the full height. (max volume = 255)
+                    this.bars[i].style.height = ( visualizer_frequency_array[i]/256*(this.data.height/2 - this.data.radius) )+"px";//proportionality to adapt to the full height. (max volume = 256)
 
                     var bar_element = this.bars[i];
                     
@@ -629,8 +629,8 @@ function Visualizer(glob_data) {
 
 
             //divide the canvas into equal parts
-            var wave_step = (visualizer_cvs.width / this.data.points_count);//create step
-            var wave_step_pos = wave_step/2;//start centered.
+            var wave_step = (visualizer_cvs.width / (this.data.points_count-1));//create steps
+            var wave_step_pos = 0;
 
             //clear
             vis_ctx.clearRect(0, 0, visualizer_cvs.width, visualizer_cvs.height);
@@ -639,33 +639,23 @@ function Visualizer(glob_data) {
             
             //CREATE THE WAVE
             vis_ctx.beginPath();
-            vis_ctx.moveTo(0, visualizer_cvs.height);
+            vis_ctx.moveTo(visualizer_frequency_array[i]/256*this.data.height, visualizer_cvs.height);
             //make all wave points
             for (var i=0; i < this.data.points_count; i++) {
                 //place a new bezier point
                 // => parameters
                 var x = wave_step_pos;
-                var y = visualizer_cvs.height - (visualizer_frequency_array[i]/255*this.data.height);//proportionality to adapt to the full height. (max volume = 255)
+                var y = visualizer_cvs.height - (visualizer_frequency_array[i]/256*this.data.height);//proportionality to adapt to the full height. (max volume = 256)
                 var ctrl_point_1_x = (i===0) ? x-(wave_step/4) : x-(wave_step/2);//the first point creates a bezier with a width 2 times smaller, so it has to be taken in count!
-                var ctrl_point_1_y = (visualizer_cvs.height - (visualizer_frequency_array[i-1]/255*this.data.height) ) || visualizer_cvs.height;//at the same height of the previous point, if that one exists.
+                var ctrl_point_1_y = (visualizer_cvs.height - (visualizer_frequency_array[i-1]/256*this.data.height) ) || visualizer_cvs.height;//at the same height of the previous point, if that one exists.
                 var ctrl_point_2_x = ctrl_point_1_x;
                 var ctrl_point_2_y = y;
                 // => canvas draw
                 vis_ctx.bezierCurveTo(ctrl_point_1_x, ctrl_point_1_y, ctrl_point_2_x, ctrl_point_2_y, x, y);
                 wave_step_pos += wave_step;
             }
-            //END THE WAVE
-            //place a new bezier point
-            // => parameters
-            var x = visualizer_cvs.width;
-            var y = visualizer_cvs.height;
-            var ctrl_point_1_x = x-(wave_step/4);//the last point creates a bezier with a width 2 times smaller, so it has to be taken in count!
-            var ctrl_point_1_y = visualizer_cvs.height - (visualizer_frequency_array[this.data.points_count-1]/255*this.data.height);//last bar height.
-            var ctrl_point_2_x = ctrl_point_1_x;
-            var ctrl_point_2_y = y;
-            // => canvas draw
-            vis_ctx.bezierCurveTo(ctrl_point_1_x, ctrl_point_1_y, ctrl_point_2_x, ctrl_point_2_y, x, y);
-            
+            // //END THE WAVE
+            vis_ctx.lineTo(visualizer_cvs.width, visualizer_cvs.height);
             
             //DRAW THE WAVE ON THE CANVAS
             vis_ctx.fillStyle = this.data.color;
@@ -682,14 +672,14 @@ function Visualizer(glob_data) {
             // for (var i=0; i < bars; i++) {
             //     vis_ctx.beginPath();
             //     var x = wave_step_pos;
-            //     var y = visualizer_cvs.height - (visualizer_frequency_array[i]/255*this.data.height);//proportionality to adapt to the full height. (max volume = 255)
+            //     var y = visualizer_cvs.height - (visualizer_frequency_array[i]/256*this.data.height);//proportionality to adapt to the full height. (max volume = 256)
             //     vis_ctx.arc(x, y, 3, 0, 2*Math.PI);
             //     vis_ctx.fillStyle = `rgb(${r},0,0)`;
             //     vis_ctx.fill();
 
             //     vis_ctx.beginPath();
             //     var ctrl_point_1_x = (i===0) ? x-(wave_step/4) : x-(wave_step/2);
-            //     var ctrl_point_1_y = (visualizer_cvs.height - (visualizer_frequency_array[i-1]/255*this.data.height) ) || visualizer_cvs.height;//at the same height of the previous point, if that one exists.
+            //     var ctrl_point_1_y = (visualizer_cvs.height - (visualizer_frequency_array[i-1]/256*this.data.height) ) || visualizer_cvs.height;//at the same height of the previous point, if that one exists.
             //     vis_ctx.arc(ctrl_point_1_x, ctrl_point_1_y, 3, 0, 2*Math.PI);
             //     vis_ctx.fillStyle = `rgb(0,${r},0)`;
             //     vis_ctx.fill();
@@ -714,7 +704,7 @@ function Visualizer(glob_data) {
 
             // vis_ctx.beginPath();
             // var ctrl_point_1_x = x-(wave_step/4);
-            // var ctrl_point_1_y = visualizer_cvs.height - (visualizer_frequency_array[this.data.points_count-1]/255*this.data.height);//last bar height.
+            // var ctrl_point_1_y = visualizer_cvs.height - (visualizer_frequency_array[this.data.points_count-1]/256*this.data.height);//last bar height.
             // vis_ctx.arc(ctrl_point_1_x, ctrl_point_1_y, 3, 0, 2*Math.PI);
             // vis_ctx.fillStyle = `rgb(0,${r},0)`;
             // vis_ctx.fill();

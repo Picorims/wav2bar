@@ -169,7 +169,7 @@ function InitUI() {
 
     //zoom in
     document.getElementById("zoom_in").onclick = function() {
-        if (zoom_index < zoom_list.length) {
+        if (zoom_index < zoom_list.length-1) {
             zoom_index++;
             zoom = zoom_list[zoom_index];
         }
@@ -399,8 +399,7 @@ function CreateZoomMenu() {
 
             //display
             var zoom_disp = document.getElementById("zoom_display");
-            zoom_disp.innerHTML = Math.round(zoom_list[zoom_index]*100);
-
+            zoom_disp.innerHTML = `${Math.round(zoom*100)}%`;
         };
 
 
