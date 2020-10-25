@@ -16,6 +16,8 @@ var frames_to_render, frames_rendered;
 var export_array;
 var event;
 
+var progress_window;//progress bar
+
 
 //callback to the main window that the renderer windows exists
 function ConfirmCreation() {
@@ -232,15 +234,15 @@ function Render() {//render every frame into an image
     //if frame ready (all objects finished rendering)
     if ( UpdateFinished() ) {
 
+        //update progress display
         console.log("rendered:",frames_rendered,"/",frames_to_render);
+        ipcRenderer.sendTo(1, "export-progress", frames_to_render, frames_rendered);
 
         //if there is still frames to draw
         if (frames_rendered < frames_to_render) {
     
             //the previous frame is rendered only now because the render of this one is now finished (UpdateFinished = true). it wasn't the case before
             main.ExportScreen({width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`, function() {
-                frames_rendered++;
-                console.log(frames_rendered);
                 
                 //get waveform data
                 var length = 8192;//output is length/2
@@ -263,12 +265,13 @@ function Render() {//render every frame into an image
                 }
                 frequency_array = MappedArray(frequency_array, 1024, 0, 1023); //TEMP FIX FOR EXPORT VISUALIZATION
                 frequency_array = LinearToLog(frequency_array);
-                console.log(frequency_array);
+                //console.log(frequency_array);
                 
                 //Draw the new frame now that the previous finished exporting .     
                 //render frame, recall loop 
                 console.log("audio time:",current_time);
                 RenderFrame();
+                frames_rendered++;
                 document.dispatchEvent(event.render_loop);
 
             });
@@ -279,6 +282,7 @@ function Render() {//render every frame into an image
             
             main.ExportScreen({width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`, function() {
                 document.removeEventListener("render-loop", Render);
+                ipcRenderer.sendTo(1, "frames-rendered");
                 var data = received_data;
                 var export_duration = export_array[1] - export_array[0];
                 main.CreateVideo(data.screen, data.audio_file_type, fps, export_duration, function() {

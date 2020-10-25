@@ -8,7 +8,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>First audio visualizer</title>
+    <title>Wav2Bar - Beta</title>
 
     <!-- main process -->
     <script type="text/javascript" src="js/export_main.js"></script>
@@ -112,6 +112,16 @@
                 <div class="panel_param_container" data-help="export">
                     <span>Export: </span>
                     <button id="export_button" class="panel_button">EXPORT NOW!</button>
+                    
+                    <span>Frames rendered: </span><span id="export_frame_span"></span>
+                    <div class="progress_bar">
+                        <div id="export_frame_progress" class="progress_child"></div>
+                    </div>
+                    
+                    <span>Encoding video: </span><span id="export_encoding_span"></span>
+                    <div class="progress_bar">
+                        <div id="export_encoding_progress" class="progress_child"></div>
+                    </div>
                 </div>
             </div>
 

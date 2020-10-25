@@ -7,7 +7,8 @@ const { app,
     BrowserWindow,
     ipcMain,
     webContents,
-    shell } = require('electron');
+    shell, 
+    ipcRenderer} = require('electron');
 
 //node js dependencies
 var path = require("path");
@@ -36,6 +37,7 @@ function createWindow () {
         icon: path.join(__dirname, "assets/icons/wav2bar_square_logo.png"),
         width: width,
         height: height,
+        backgroundColor: "#000000",
         webPreferences: {
             nodeIntegration: true,
         },
@@ -98,6 +100,7 @@ function createExportWin() {
         enableLargerThanScreen: true,
         webPreferences: {
             nodeIntegration: true,
+            nativeWindowOpen: true,
         },
     })
     win.webContents.id = 2;
@@ -108,7 +111,7 @@ function createExportWin() {
     export_win.loadFile('./html/export.html');
 
     //open dev tools
-    //export_win.webContents.openDevTools();
+    export_win.webContents.openDevTools();
 
     export_win.webContents.on('paint', (event, dirty, image) => {
         // updateBitmap(dirty, image.getBitmap())
@@ -294,13 +297,16 @@ function CreateVideo(screen, audio_format, fps, duration, callback) {//generates
         })
         .on('progress', function(info) {
             console.log('progress ' + info.percent + '%');
+            win.webContents.send("encoding-progress", info);
         })
         .on('end', function() {
             console.log('Video created!');
             callback();
+            win.webContents.send("encoding-finished", true);
         })
         .on('error', function(err) {
             console.log('an error happened: ' + err.message);
+            win.webContents.send("encoding-finished", false);
         })
         .save("video.mp4");
 

@@ -6,6 +6,7 @@ const { remote, ipcRenderer } = require("electron");
 var main = remote.require("./main");
 var export_win = main.export_win;
 var export_mode = false; //not in export window
+var max_frames; //allow setting the max progress through every progress event.
 
 function Export() {//Launch the rendering process which will export the video
     if (typeof audio === "undefined") {
@@ -53,6 +54,26 @@ function Export() {//Launch the rendering process which will export the video
         });
         
 
+
+        //track progress
+        ipcRenderer.on("export-progress", (event, max, progress) => {
+            document.getElementById("export_frame_span").innerHTML = `${progress}/${max}`;
+            document.getElementById("export_frame_progress").style.width = `${progress/max*100}%`;
+            max_frames = max;
+        });
+        ipcRenderer.once("frames-rendered", (event) => {
+            ipcRenderer.removeAllListeners("export-progress");
+        });
+
+        ipcRenderer.on("encoding-progress", (event, info) => {
+            document.getElementById("export_encoding_span").innerHTML = `${info.frames}/${max_frames+1}`;
+            document.getElementById("export_encoding_progress").style.width = `${info.frames/(max_frames+1)*100}%`;
+        });
+        ipcRenderer.once("encoding-finished", (event, success) => {
+            ipcRenderer.removeAllListeners("encoding-progress");
+            if (success) alert("The video has been successfully created!");
+            else alert("An error occurred during the process");
+        });
 
     });
 
