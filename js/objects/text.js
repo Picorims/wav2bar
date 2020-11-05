@@ -4,7 +4,8 @@
 
 /*data = {
     object_type: "text",
-    id: ?, (string, name)
+    id: ?, (UUID)
+    name: ?, (string)
     layer: ?, (integer)
     x: ?, (px)
     y: ?, (px)
@@ -50,9 +51,9 @@ function Text(glob_data) {
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
-        if ( IsUndefined(data.id) || !IsAString(data.id) ) {
+        if ( IsUndefined(data.id) || !IsAString(data.id) || !object_method.validID(data.id) ) {
             console.error("Text object: received an object with an unspecified/invalid ID! A random ID is given.");
-            data.id = `${Math.random()}`;
+            data.id = object_method.generateID();
         }
 
         //layer
@@ -60,6 +61,12 @@ function Text(glob_data) {
         if ( !IsUndefined(data.layer) && (!IsAnInt(data.layer) || (data.layer <= -1)) ) {
             console.warn("Text object: Invalid layer! Set to 0.");
             data.layer = 0;
+        }
+
+        //name
+        if ( IsUndefined(data.name) || !IsAString(data.name) || data.name === "" ) {
+            console.warn("Text object: Invalid name! Set to 'text'.");
+            data.name = "text";
         }
 
         //x
@@ -676,7 +683,7 @@ function Text(glob_data) {
             objects.splice(index, 1);
 
             //remove UI
-            document.getElementById(`UI${id}`).remove();
+            document.getElementById(`UI-${id}`).remove();
             
             //remove element
             this.element.remove();

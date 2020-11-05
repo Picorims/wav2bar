@@ -606,19 +606,8 @@ OBJECT CREATION
 //function that creates an object using the given parameters
 function CreateObject() {
 
-    //get ID
-    var id = document.getElementById("create_object_input").value;
-    if (id === "") {
-        alert("please specify an ID. (keep it unique!)");
-        return;
-    } else {
-        for (var i=0; i < objects.length; i++) {
-            if (objects[i].data.id === id) {
-                alert("This ID is already used!");
-                return;
-            }
-        }
-    }
+    //get name
+    var name = document.getElementById("create_object_input").value;
 
     //get type
     var type = document.getElementById("create_object_select").value;
@@ -626,30 +615,30 @@ function CreateObject() {
     //create object
     switch (type) {
         case "background":
-            new Background({id:id});
+            new Background({name: name});
             break;
 
         case "image":
-            new Image({id:id});
+            new Image({name: name});
             break;
 
         case "particle_flow":
-            new ParticleFlow({id:id});
+            new ParticleFlow({name: name});
             break;
 
         case "text":
-            new Text({id:id});
+            new Text({name: name});
             break;
 
 
 
 
         case "timer_bar":
-            new Timer({id:id, type:"bar"});
+            new Timer({name: name, type:"bar"});
             break;
 
         case "timer_point":
-            new Timer({id:id, type:"point"});
+            new Timer({name: name, type:"point"});
             break;
 
 
@@ -657,15 +646,15 @@ function CreateObject() {
 
 
         case "visualizer_straight":
-            new Visualizer({id:id, type:"straight"});
+            new Visualizer({name: name, type:"straight"});
             break;
 
         case "visualizer_straight_wave":
-            new Visualizer({id:id, type:"straight-wave"});
+            new Visualizer({name: name, type:"straight-wave"});
             break;
 
         case "visualizer_circular":
-            new Visualizer({id:id, type:"circular"});
+            new Visualizer({name: name, type:"circular"});
             break;
 
         default:
@@ -704,19 +693,21 @@ function CreateObjectContainer(object_id) {
     tab.objects.appendChild(container);
 
     //CONFIGURE ELEMENT
-    container.id = `UI${object_id}`;
+    container.id = `UI-${object_id}`;
     container.classList.add("object_param_container");
     container.setAttribute("data-closed", "false");//custom attribute to know if the object container is closed
 
+    //GET OBJECT
+    var obj_data = object_method.getByID(object_id).data;
 
     //ADD SUB ELEMENTS
     //title container
     var title_container = document.createElement("div");
     container.appendChild(title_container);
     title_container.classList.add("object_param_title");
-    title_container.innerHTML = object_id;
-    var obj_type = object_method.getByID(object_id).data.object_type;
-    switch (obj_type) {
+    title_container.innerHTML = obj_data.name;
+
+    switch (obj_data.object_type) {
         case "background":
             title_container.innerHTML = '<i class="ri-landscape-fill"></i> ' + title_container.innerHTML;
             break;
@@ -742,7 +733,7 @@ function CreateObjectContainer(object_id) {
             break;
 
         default:
-            throw `CreateObjectContainer: ${obj_type} is an unknown object type!`;
+            throw `CreateObjectContainer: ${obj_data.object_type} is an unknown object type!`;
     }
 
     //arrow
@@ -797,7 +788,7 @@ function ToggleOpen(title_container) {
 
 
 //function to add a parameter to an object parameter container
-function AddParameter(args, callback, object_id, type, parameters, title) {
+function AddParameter(args, callback) {
     if (!IsAString(args.object_id)) throw `AddParameter: ${args.object_id} is not a valid ID.`;
     
     if ( (args.type!=="string") && (args.type!=="value") && (args.type!=="value-xy") && (args.type!=="choice") && (args.type!=="checkbox") ) {
@@ -810,7 +801,7 @@ function AddParameter(args, callback, object_id, type, parameters, title) {
     
     //CREATE ELEMENT    
     var param_container = document.createElement("div");
-    var parent = document.getElementById(`UI${args.object_id}`);
+    var parent = document.getElementById(`UI-${args.object_id}`);
     parent.appendChild(param_container);
 
     //CONFIGURE ELEMENT
