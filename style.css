@@ -379,6 +379,11 @@ Tabs content
     text-transform: uppercase;
 
     cursor: pointer;
+    transition: 0.2s;
+}
+.object_param_title:hover {
+    transition: 0.2s;
+    background-color: var(--main-white);
 }
 .object_param_title i {
     position: relative;
@@ -545,6 +550,7 @@ Tabs content
 .panel_input_list {
     width: 150px;
     height: 30px;
+    cursor: pointer;
 }
 
 /*else

@@ -56,6 +56,14 @@ function Export() {//Launch the rendering process which will export the video
 
 
         //track progress
+
+        //reset
+        document.getElementById("export_frame_span").innerHTML = "";
+        document.getElementById("export_frame_progress").style.width = "0%";
+        document.getElementById("export_encoding_span").innerHTML = "";
+        document.getElementById("export_encoding_progress").style.width = "0%";
+
+        //events
         ipcRenderer.on("export-progress", (event, max, progress) => {
             document.getElementById("export_frame_span").innerHTML = `${progress}/${max}`;
             document.getElementById("export_frame_progress").style.width = `${progress/max*100}%`;

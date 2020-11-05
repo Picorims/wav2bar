@@ -882,8 +882,11 @@ function AddParameter(args, callback, object_id, type, parameters, title) {
              */
 
             //elements
+            var input_container = document.createElement("div");
+            param_container.appendChild(input_container);
+
             var input1 = document.createElement("input");
-            param_container.appendChild(input1);
+            input_container.appendChild(input1);
             input1.classList.add("panel_input", "panel_input");
             input1.type = "number";
             input1.value = args.settings.default_x;
@@ -892,7 +895,7 @@ function AddParameter(args, callback, object_id, type, parameters, title) {
             if ( !IsUndefined(args.settings.step) ) input1.step = args.settings.step;
 
             var input2 = document.createElement("input");
-            param_container.appendChild(input2);
+            input_container.appendChild(input2);
             input2.classList.add("panel_input", "panel_input");
             input2.type = "number";
             input2.value = args.settings.default_y;

@@ -60,11 +60,13 @@
 
                 <div class="panel_param_container" data-help="screen_size">
                     <span>Screen resolution: </span>
-                    <input id="screen_width_input" class="panel_input" type="number" min="100" max="8000" step="1"/>
-                    <span> x </span>
-                    <input id="screen_height_input" class="panel_input" type="number" min="100" max="8000" step="1"/>
+                    <div>
+                        <input id="screen_width_input" class="panel_input" type="number" min="16" max="8000" step="1"/>
+                        <span> x </span>
+                        <input id="screen_height_input" class="panel_input" type="number" min="16" max="8000" step="1"/>
+                
+                    </div>
                 </div>
-
                 <div class="panel_param_container" data-help="audio">
                     <span>Import audio (mp3/wav/ogg): </span>
                     <input id="audio_file_input" class="panel_input panel_input_file" type="file" accept="audio/*"/>
