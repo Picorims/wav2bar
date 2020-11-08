@@ -18,7 +18,7 @@ var object_method = {
     },
 
     //function that returns if an ID is valid (unique uuid v4)
-    validID: function(id) {
+    validID: function(id, corresponding_object) {
         if (!IsAString(id)) throw `object_method.validateID: ${object_id} is not a string.`;
 
         var valid = true;
@@ -27,7 +27,9 @@ var object_method = {
         }
         else {
             for (var obj of objects) {
-                if (obj.data.id === id) valid = false;
+                //if the ID is identical, and it is another object than the object
+                //we are validating the ID for (otherwise himself would be a false positive)
+                if (obj.data.id === id && obj !== corresponding_object) valid = false;
             }    
         }
 

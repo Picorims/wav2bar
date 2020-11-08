@@ -47,13 +47,14 @@ function Visualizer(glob_data) {
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
-        if ( IsUndefined(data.id) || !IsAString(data.id) || !object_method.validID(data.id) ) {
+        if ( IsUndefined(data.id) || !IsAString(data.id) || !object_method.validID(data.id, this) ) {
             console.error("Visualizer object: received an object with an unspecified/invalid ID! A random ID is given.");
             data.id = object_method.generateID();
         }
 
         //name
-        if ( IsUndefined(data.name) || !IsAString(data.name) || data.name === "" ) {
+        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";} 
+        if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
             console.warn("Visualizer object: Invalid name! Set to 'visualizer'.");
             data.name = "visualizer";
         }

@@ -705,31 +705,40 @@ function CreateObjectContainer(object_id) {
     var title_container = document.createElement("div");
     container.appendChild(title_container);
     title_container.classList.add("object_param_title");
-    title_container.innerHTML = obj_data.name;
+    
+    //icon in the title_container
+    var icon = document.createElement("span");
+    title_container.appendChild(icon);
 
+    //name of the title_container
+    var title = document.createElement("span");
+    title_container.appendChild(title);
+    title.innerHTML = obj_data.name;
+    
+    //assign icon related to object type
     switch (obj_data.object_type) {
         case "background":
-            title_container.innerHTML = '<i class="ri-landscape-fill"></i> ' + title_container.innerHTML;
+            icon.innerHTML = '<i class="ri-landscape-fill"></i>';
             break;
 
         case "image":
-            title_container.innerHTML = '<i class="ri-image-fill"></i> ' + title_container.innerHTML;
+            icon.innerHTML = '<i class="ri-image-fill"></i>';
             break;
 
         case "particle_flow":
-            title_container.innerHTML = '<i class="ri-loader-line"></i> ' + title_container.innerHTML;
+            icon.innerHTML = '<i class="ri-loader-line"></i>';
             break;
 
         case "text":
-            title_container.innerHTML = '<i class="ri-text"></i> ' + title_container.innerHTML;
+            icon.innerHTML = '<i class="ri-text"></i>';
             break;
 
         case "timer":
-            title_container.innerHTML = '<i class="ri-timer-2-line"></i> ' + title_container.innerHTML;
+            icon.innerHTML = '<i class="ri-timer-2-line"></i>';
             break;
 
         case "visualizer":
-            title_container.innerHTML = '<i class="ri-rhythm-line"></i> ' + title_container.innerHTML;
+            icon.innerHTML = '<i class="ri-rhythm-line"></i>';
             break;
 
         default:
@@ -748,6 +757,13 @@ function CreateObjectContainer(object_id) {
     cross.innerHTML = '<i class="ri-close-circle-fill"></i>';
     cross.classList.add("object_param_cross");
 
+    //edit button
+    var edit = document.createElement("div");
+    container.appendChild(edit);
+    edit.innerHTML = '<i class="ri-pencil-fill"></i>';
+    edit.classList.add("object_param_edit");
+
+
     //ability to open and close the object parameters' container
     title_container.onclick = function() {
         ToggleOpen(this);
@@ -764,6 +780,15 @@ function CreateObjectContainer(object_id) {
         //NOTE: this also deletes this container.
     }
 
+    //object renaming
+    edit.onclick = function() {
+        InputDialog("Enter a new name for the object:", function(result, args) {
+
+            object_method.getByID(args[0]).updateData({id: args[0], name: result});
+            args[1].innerHTML = result;
+
+        }, [object_id, title]); //passed arguments
+    }
 }
 
 
@@ -987,6 +1012,9 @@ HELP HOVER BUTTONS
 //The path is indicated by the data-help attribute.
 function AppendHelp(DOM_elt, help_string) {
     
+    if( !IsAnElement(DOM_elt) ) throw `AppendHelp: ${DOM_elt} is not a DOM element.`;
+    if (!IsAString(help_string) ) throw `AppendHelp: ${help_string} is not a string.`;
+
     //create help hover button
     var question_mark = document.createElement("div");
     DOM_elt.appendChild(question_mark);
@@ -1015,15 +1043,17 @@ function AppendHelp(DOM_elt, help_string) {
 
 
 
-
+//Display the help message linked to a question mark element of a parameter.
 function DisplayHelpMsg(question_mark) {//display a help message at the given coordinates
+
+    if( !IsAnElement(question_mark) ) throw `DisplayHelpMsg: ${question_mark} is not a DOM element.`;
 
     //only display if the pointer is on the question_mark
     if (question_mark.getAttribute("data-hover") === "true") {
         //msg container
         var msg = document.createElement("div");
         document.body.appendChild(msg);
-        msg.className = "help_msg";
+        msg.classList.add("help_msg","dialog_box","fadein_dialog");
         msg.innerHTML = question_mark.getAttribute("data-content");
         
         //positioning
@@ -1032,4 +1062,73 @@ function DisplayHelpMsg(question_mark) {//display a help message at the given co
         msg.style.left = `${pos.left + 30}px`;
     }
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+#######
+DIALOGS
+#######
+*/
+
+//Creates a dialog box with an input, a cancel button and a confirm button. Handle events.
+//args allows for passing arguments to the callback.
+function InputDialog(message, callback, args) {
+
+    if ( !IsAString(message) ) throw `InputDialog: ${message} is not a string.`;
+    if (IsUndefined(callback)) throw `InputDialog: callback missing!`;
+
+    var tmp_input_id = "input" + Math.floor(performance.now());
+
+    //create elements
+    var container = document.createElement("div");
+    document.body.appendChild(container);
+    container.classList.add("dialog_box", "sticky_dialog");
+
+    var msg = document.createElement("span");
+    container.appendChild(msg);
+    msg.innerHTML = message;
+
+    var input = document.createElement("input");
+    container.appendChild(input);
+    input.classList.add("panel_input", "panel_input_string", "dialog_input");
+    input.id = tmp_input_id;
+
+    var cancel_button = document.createElement("button");
+    container.appendChild(cancel_button);
+    cancel_button.classList.add("panel_button", "dialog_button");
+    cancel_button.innerHTML = "Cancel";
+    cancel_button.onclick = function() {
+        this.parentElement.remove();
+    }
+
+    var confirm_button = document.createElement("button");
+    container.appendChild(confirm_button);
+    confirm_button.classList.add("panel_button", "dialog_button");
+    confirm_button.innerHTML = "Confirm";
+    confirm_button.setAttribute("data-tmp-input-id", tmp_input_id);
+    confirm_button.onclick = function() {
+        var input = document.getElementById(this.getAttribute("data-tmp-input-id"));
+        var result = input.value;
+        callback(result, args);
+        this.parentElement.remove();
+    }
+
+    //centering (once every element is created)
+    container.style.left = window.innerWidth/2 - container.offsetWidth/2 + "px";
+    container.style.top = window.innerHeight/2 - container.offsetHeight/2 + "px";
 }

@@ -327,31 +327,6 @@ Tabs content
     text-shadow: 0px 0px 10px var(--main-darker-color);
 }
 
-.help_msg {
-    position: fixed;
-    max-width: 400px;
-    padding: 10px;
-    z-index: 1000;
-
-    font-size: 16px;
-
-    background-color: var(--main-gray);
-    color: var(--main-darker-white);
-
-    border-radius: 10px;
-    border-bottom: 2px solid var(--main-lighter-black);
-    
-    box-shadow: 0px 5px 10px var(--main-darker-black);
-
-    animation: 1s MsgShow ease-in-out;
-}
-@keyframes MsgShow {
-    0% {opacity: 0}
-    50% {opacity: 0}
-    100% {opacity: 1};
-}
-
-
 
 
 /*object container, that contains param containers.*/
@@ -368,8 +343,10 @@ Tabs content
     position: absolute;
     top: 0;
     left: 0;
-    width: 350px;
-    height: 25px;
+    width: 100%;
+    min-height: 25px;
+    padding: 0 10%;
+    box-sizing: border-box;
     
     background-color: var(--main-darker-white);
     color: var(--main-lighter-black);
@@ -377,6 +354,7 @@ Tabs content
     font-size: 20px;
     font-weight: bold;
     text-transform: uppercase;
+    word-wrap: break-word;
 
     cursor: pointer;
     transition: 0.2s;
@@ -434,7 +412,31 @@ Tabs content
     transition: 0.1s;
 }
 
-.object_param_cross i, .object_param_arrow i {
+.object_param_edit {
+    display: block;
+    z-index: 10;
+
+    position: absolute;
+    top: 0;
+    right: 30px;
+    width: 25px;
+    height: 25px;
+
+    font-size: 20px;
+    color: var(--main-lighter-black);
+
+    cursor: pointer;
+
+    transition: 0.1s;
+}
+.object_param_edit:hover {
+    color: var(--main-darker-color);
+    text-shadow: 0px 0px 4px var(--main-darker-color);
+
+    transition: 0.1s;
+}
+
+.object_param_cross i, .object_param_arrow i, .object_param_edit i {
     position: relative;
     top: 3px;
 }
@@ -558,6 +560,53 @@ Tabs content
 .about_info i {
     position: relative;
     top: 2px;
+}
+
+
+
+
+
+
+/*
+============
+Dialog Boxes
+============
+*/
+
+.dialog_box {
+    position: fixed;
+    max-width: 500px;
+    padding: 10px;
+    z-index: 1000;
+
+    font-size: 16px;
+    word-wrap: break-word;
+
+    background-color: var(--main-gray);
+    color: var(--main-darker-white);
+
+    border-radius: 10px;
+    border-bottom: 2px solid var(--main-lighter-black);
+    
+    box-shadow: 0px 5px 10px var(--main-darker-black);
+}
+
+.fadein_dialog {
+    animation: 1s FadeIn ease-in-out;
+}
+@keyframes FadeIn {
+    0% {opacity: 0}
+    50% {opacity: 0}
+    100% {opacity: 1};
+}
+
+.dialog_button {
+    background-color: var(--main-lighter-black);
+    margin: 10px 20px;
+}
+
+.dialog_input {
+    border-color: var(--main-black);
 }
 
 
