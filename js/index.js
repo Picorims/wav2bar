@@ -1,6 +1,7 @@
 //MIT License - Copyright (c) 2020 Picorims
 
 const { BrowserWindowProxy } = require("electron");
+var software_version; //current build version
 
 //MAIN PROCESS, PAGE INITIALIZATION
 
@@ -28,6 +29,8 @@ GLOBAL INITIALIZATION AND AUDIO IMPORT
 window.onload = function() {InitPage();};
 
 function InitPage() {//page initialization
+
+    software_version = '0.1.0';
 
     //PREPARE SAVE
     DefaultSave();

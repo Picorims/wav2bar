@@ -8,7 +8,9 @@ var current_save;
 
 function DefaultSave() {//set the save data to default values
     current_save = {
+        //1 -> Wav2Bar 0.1.0+
         save_version: 1,
+        software_version_used: software_version,
         screen: {width: 1280, height: 720},
         fps: 60,
         objects: [],
@@ -128,6 +130,7 @@ function ApplyLoadedSave() {//read and apply a loaded user save
 
 function SyncSave() { //function that updates the current save with latest data
     
+    current_save.software_version_used = software_version;
     current_save.screen.width = screen.width;
     current_save.screen.height = screen.height;
     current_save.fps = fps;

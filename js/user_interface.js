@@ -28,6 +28,10 @@ INITIALIZATION
 //user interface initialization
 function InitUI() {
 
+    //DISPLAY VERSION
+    document.title = document.title + " " + software_version;
+    document.getElementById("software_version").innerHTML = software_version;
+
     //HTML DEFINITIONS
     control_panel = document.getElementById("control_panel");
     screen_interface = document.getElementById("interface");
@@ -318,7 +322,7 @@ SCREEN
 function SetScreenTo(width, height) {//changes the screen size to the given values
     if(!IsAnInt(width)) throw `SetScreenTo: ${width} is not an integer.`;
     if(!IsAnInt(height)) throw `SetScreenTo: ${width} is not an integer.`;
-
+    
     //update screen
     screen.width = width;
     screen.height = height;
