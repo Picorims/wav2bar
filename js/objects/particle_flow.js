@@ -13,12 +13,13 @@
     height: ?, (px)
     particle_radius_range: [?, ?], (min and max integer, radius)
     type: ("radial"||"directional"),
-    center: {
+    center: { //spawn position
         x: ?, (px)
         y: ?, (px)
     },
     particle_direction: ,(rad, between 0 and 2PI)
-    max_spawn_probability: ?, (float) //IT IS SUPPOSED TO BE SO, BUT IT'S REVERSED AND NOT COMPLETELY TRUE, IT WILL BE IMPROVED (eg: 0 is a lot, 1 is small probability)
+    spawn_probability: ?, (float) //probability to spawn a particle at each test (0: none, 1: full)
+    spawn_tests: ?, (int >=1) //how many spawn tests are done at every frame
     color: ?, (string: hex, rgb, rgba)
 }*/
 
@@ -122,11 +123,18 @@ function ParticleFlow(glob_data) {
             data.particle_direction = 0;
         }
 
-        //max spawn probability
-        if ( IsUndefined(data.max_spawn_probability) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.max_spawn_probability = 0.75;}
-        if ( !IsUndefined(data.max_spawn_probability) && (!IsANumber(data.max_spawn_probability) || (data.max_spawn_probability < 0) || (data.max_spawn_probability > 1)) ) {
-            console.warn("Particle Flow object: Invalid max spawn probability! Set to 0,75.");
-            data.max_spawn_probability = 0.75;
+        //spawn probability
+        if ( IsUndefined(data.spawn_probability) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.spawn_probability = 0.75;}
+        if ( !IsUndefined(data.spawn_probability) && (!IsANumber(data.spawn_probability) || (data.spawn_probability < 0) || (data.spawn_probability > 1)) ) {
+            console.warn("Particle Flow object: Invalid spawn probability! Set to 0,75.");
+            data.spawn_probability = 0.75;
+        }
+
+        //spawn tests
+        if ( IsUndefined(data.spawn_tests) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.spawn_tests = 1;}
+        if ( !IsUndefined(data.spawn_tests) && (!IsAnInt(data.spawn_tests) || (data.spawn_tests < 1)) ) {
+            console.warn("Particle Flow object: Invalid number of spawn tests! Set to 1.");
+            data.spawn_probability = 1;
         }
 
         //color
@@ -419,13 +427,13 @@ function ParticleFlow(glob_data) {
             }
         );
 
-        //max spawn probability
+        //spawn probability
         AddParameter(
             {
                 object_id: this.data.id,
                 type: "value",
                 settings: {
-                    default: this.data.max_spawn_probability,
+                    default: this.data.spawn_probability,
                     min: 0,
                     max: 1,
                     step: 0.01,    
@@ -439,7 +447,31 @@ function ParticleFlow(glob_data) {
 
                 this_object.updateData({
                     id: id,
-                    max_spawn_probability: value,
+                    spawn_probability: value,
+                });
+            }
+        );
+
+        //spawn tests
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.spawn_tests,
+                    min: 1,
+                    step: 1,    
+                },
+                title: "Spawn tests per frame",
+                help: help.parameter.object.particles.spawn_tests,
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
+
+                this_object.updateData({
+                    id: id,
+                    spawn_tests: value,
                 });
             }
         );
@@ -487,9 +519,10 @@ function ParticleFlow(glob_data) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             //probability to spawn a new particle
-            probability = this.data.max_spawn_probability - volume/400;
-            if (Math.random() > probability) {
-                this.particles.push(new Particle(this.data, canvas));
+            for (let i=0; i<this.data.spawn_tests; i++) {
+                if (Math.random() < this.data.spawn_probability) {
+                    this.particles.push(new Particle(this.data, canvas));
+                }    
             }
 
             //update all particles

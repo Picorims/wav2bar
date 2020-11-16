@@ -27,7 +27,8 @@
                 "mvmt_type": "Sets the type of flow for the particles. Their spawn and movement behaviour are linked to this setting",
                 "center_pos": "Sets the spawn position for a radial flow.",
                 "direction": "Sets the particle direction for a directional flow.",
-                "spawn_probability": "Sets the particle's spawn probability. Note that the volume of the audio also has an influence on this value",
+                "spawn_probability": "Sets the particle's spawn probability for one spawn test. The value must be between 0 and 1: 0 means it will never spawn, 1 means it will always spawn. The impact of this value is proportional to the number of tests.",
+                "spawn_tests": "Sets how many time the probability is tested for one frame. A higher value means more particles spawning.",
                 "ptcl_color": "Sets the color of the particle."
             },
             "text": {

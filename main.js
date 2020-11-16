@@ -105,13 +105,11 @@ function createExportWin() {
     })
     win.webContents.id = 2;
     
-    ipcMain.on("i-got-it", (event) => {console.log("damnit");});
-
     //load the export.html of the app.
     export_win.loadFile('./html/export.html');
 
     //open dev tools
-    export_win.webContents.openDevTools();
+    //export_win.webContents.openDevTools();
 
     export_win.webContents.on('paint', (event, dirty, image) => {
         // updateBitmap(dirty, image.getBitmap())
