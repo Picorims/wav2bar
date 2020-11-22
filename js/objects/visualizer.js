@@ -16,6 +16,11 @@
     type: ("straight"||"straight-wave"||"circular"),
     points_count: ?, (integer)
     analyser_range: [?, ?], (between 0 and 1023 included, min < max)
+    visualization_smoothing: {
+        type: ("constant_decay"||"proportional_decrease"||"average"),
+        factor: ?, (positive value)
+    },
+    visualizti
     color: ?, (string, hex, rgb, rgba)
     bar_thickness: ?, (px)
     border_radius: ?, (css border-radius, string)
@@ -129,6 +134,26 @@ function Visualizer(glob_data) {
             data.analyser_range = [0,750];
         }
 
+        //visualization smoothing (prevent errors related to an incomplete path)
+        if ( IsUndefined(data.visualization_smoothing) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing = {type: undefined, factor: undefined};}
+
+        
+        if ( !IsUndefined(data.visualization_smoothing) ) {//it is undefined if it has not been set before in the data argument and IGNORE_UNDEFINED is active
+            //visualization smoothing type
+            if ( IsUndefined(data.visualization_smoothing.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing.type = "proportional_decrease";}
+            if ( !IsUndefined(data.visualization_smoothing.type) && (!IsAString(data.visualization_smoothing.type) || ( (data.visualization_smoothing.type !== "proportional_decrease") && (data.visualization_smoothing.type !== "constant_decay")  && (data.visualization_smoothing.type !== "average") )) ) {
+                console.warn("Visualizer object: Invalid visualization smoothing type! Set to proportional_decrease.");
+                data.visualization_smoothing.type = "proportional_decrease";
+            }
+
+            //visualization smoothing factor
+            if ( IsUndefined(data.visualization_smoothing.factor) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing.factor = 2;}
+            if ( !IsUndefined(data.visualization_smoothing.factor) && (!IsANumber(data.visualization_smoothing.factor) || (data.visualization_smoothing.factor < 0)) ) {
+                console.warn("Visualizer object: Invalid visualization smoothing factor! Set to 2.");
+                data.visualization_smoothing.factor = 2;
+            }
+        }
+
         //color
         if ( IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = "#fff";}
         if ( !IsUndefined(data.color) && !IsAString(data.color) ) {
@@ -139,7 +164,7 @@ function Visualizer(glob_data) {
         //bar thickness
         if ( IsUndefined(data.bar_thickness) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.bar_thickness = 2;}
         if ( !IsUndefined(data.bar_thickness) && (!IsAnInt(data.bar_thickness) || (data.bar_thickness < 0)) ) {
-            console.warn("Timer object: Invalid bar thickness! Set to 2.");
+            console.warn("Visualizer object: Invalid bar thickness! Set to 2.");
             data.bar_thickness = 2;
         }
 
@@ -171,11 +196,17 @@ function Visualizer(glob_data) {
     //##################################
 
     this.mergeData = function(data_to_add, data_receiver) {
-        if (IsUndefined(data_to_add)) throw "Text.mergeData: data missing!";
-        if (IsUndefined(data_receiver)) throw "Text.mergeData: data_destination missing!";
+        if (IsUndefined(data_to_add)) throw "Visualizer.mergeData: data missing!";
+        if (IsUndefined(data_receiver)) throw "Visualizer.mergeData: data_destination missing!";
 
-        for (key of Object.keys(data_to_add)) {
-            data_receiver[key] = data_to_add[key];
+        for (key of Object.keys(data_to_add)) { //only update the changed nodes in data_to_add
+            if (IsAnObject(data_to_add[key]) && !IsAnArray(data_to_add[key])) {
+                //there are multiple sub keys in this key, they must be considered independently.
+                this.mergeData(data_to_add[key], data_receiver[key]);
+            } else {
+                //The key is a simple value, it can be processed directly
+                data_receiver[key] = data_to_add[key];
+            }
         }
 
         return data_receiver;
@@ -482,6 +513,57 @@ function Visualizer(glob_data) {
                 this_object.updateData({
                     id: id,
                     analyser_range: [value1, value2],
+                });
+            }
+        );
+
+        //visualization smoothing type
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "choice",
+                settings: {
+                    default: this.data.visualization_smoothing.type,
+                    list:["proportional decrease", "constant decay", "average"],    
+                },
+                title: "Visualization smoothing type",
+                help: help.parameter.object.text.type,//TODO
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
+
+                this_object.updateData({
+                    id: id,
+                    visualization_smoothing: {
+                        type: value.replace(" ","_"),
+                    },
+                });
+            }
+        );
+
+        //visualization smoothing factor
+        AddParameter(
+            {
+                object_id: this.data.id,
+                type: "value",
+                settings: {
+                    default: this.data.visualization_smoothing.factor,
+                    min: 0,
+                    step: 0.001,
+                },
+                title: "Visualization smoothing factor",
+                help: help.parameter.object.visualizer.bar_kind.bar_thickness,//TODO
+            },
+            function(id, value) {
+                
+                var this_object = object_method.getByID(id);
+
+                this_object.updateData({
+                    id: id,
+                    visualization_smoothing: {
+                        factor: value,
+                    }
                 });
             }
         );

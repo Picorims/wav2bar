@@ -156,11 +156,17 @@ function Timer(glob_data) {
     //##################################
 
     this.mergeData = function(data_to_add, data_receiver) {
-        if (IsUndefined(data_to_add)) throw "Text.mergeData: data missing!";
-        if (IsUndefined(data_receiver)) throw "Text.mergeData: data_destination missing!";
+        if (IsUndefined(data_to_add)) throw "Timer.mergeData: data missing!";
+        if (IsUndefined(data_receiver)) throw "Timer.mergeData: data_destination missing!";
 
-        for (key of Object.keys(data_to_add)) {
-            data_receiver[key] = data_to_add[key];
+        for (key of Object.keys(data_to_add)) { //only update the changed nodes in data_to_add
+            if (IsAnObject(data_to_add[key]) && !IsAnArray(data_to_add[key])) {
+                //there are multiple sub keys in this key, they must be considered independently.
+                this.mergeData(data_to_add[key], data_receiver[key]);
+            } else {
+                //The key is a simple value, it can be processed directly
+                data_receiver[key] = data_to_add[key];
+            }
         }
 
         return data_receiver;

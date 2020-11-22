@@ -158,8 +158,12 @@ Main Element
     height: 100%;
     top: 0;
     left: 0;
+    display: flex;
+    flex-direction: column;
+
     background-color: var(--main-black);
     box-shadow: 0px 0px 10px black;
+    
     z-index: 500;
     overflow: hidden;
 }
@@ -176,6 +180,8 @@ Naviguation tab labels at the top of the control panel
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding-bottom: 20px;
+    flex-shrink: 0;
 
     overflow-x: hidden;
     overflow-y: hidden;
@@ -232,8 +238,9 @@ Tabs container and tabs
 */
 
 #tabs_container {
-    height: calc(100% - 50px);
     overflow: hidden;
+    flex-grow: 1;
+    flex-basis: auto;
 }
 
 
@@ -245,7 +252,7 @@ Tabs container and tabs
     left: 0;
 
     width: 100%;
-    height: calc(100% - 18px);
+    height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
 
@@ -551,7 +558,7 @@ Tabs content
 
 
 .panel_input_list {
-    width: 150px;
+    width: 95%;
     height: 30px;
     cursor: pointer;
 }
