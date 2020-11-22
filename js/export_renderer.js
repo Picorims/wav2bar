@@ -248,7 +248,7 @@ function Render() {//render every frame into an image
                 var length = 8192;//output is length/2
                 var waveform = new Float32Array(length);
                 var current_time = frames_rendered/fps;
-                var center_point = Math.floor(current_time*sample_rate*2); //2 channels in PCM_data
+                var center_point = Math.floor(current_time*sample_rate*2); //2 channels in PCM_data, pos in seconds -> pos in samples
 
                 //take a portion of the PCM data
                 for (var i = center_point-(length/2), j=0 ; i < center_point+(length/2); i++, j++) {
@@ -263,7 +263,7 @@ function Render() {//render every frame into an image
                 for (var i=0; i<spectrum.length; i++) {
                     frequency_array.push( (1 - Math.exp(-32*spectrum[i])) * 255 );//(amplification with ceiling) * (scale to 0-255) 
                 }
-                frequency_array = MappedArray(frequency_array, 1024, 0, 1023); //TEMP FIX FOR EXPORT VISUALIZATION
+                frequency_array = MappedArray(frequency_array, 1024, 0, 1023); //TEMP FIX FOR EXPORT VISUALIZATION. Ideally, visualization should work no matter the array size.
                 frequency_array = LinearToLog(frequency_array);
                 //console.log(frequency_array);
                 

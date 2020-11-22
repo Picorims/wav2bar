@@ -253,6 +253,8 @@ Tabs container and tabs
 
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
+    padding-bottom: 100px;
     overflow-x: hidden;
     overflow-y: scroll;
 
@@ -318,6 +320,7 @@ Tabs content
 .question_mark {
     width: 25px;
     height: 25px;
+    margin-left: auto; /*makes them stick to the right*/
     font-size: 25px;
     z-index: 1000;
 
@@ -615,6 +618,10 @@ Dialog Boxes
 
 .dialog_input {
     border-color: var(--main-black);
+}
+
+.help_msg {
+    text-align: left;
 }
 
 

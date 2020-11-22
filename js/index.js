@@ -85,6 +85,9 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
     audio = new Audio();
     context = new window.AudioContext();
     analyser = context.createAnalyser();
+    //disable the Web Audio API visualization smoothing, as each visualizer
+    //implements it's own smoothing system.
+    analyser.smoothingTimeConstant = 0;
 
     //audio source
     audio.src = (type==="url")? file_data : window.URL.createObjectURL(file_data); //"url" -> file_data is an url || "file" -> generate url from file

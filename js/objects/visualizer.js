@@ -140,17 +140,17 @@ function Visualizer(glob_data) {
         
         if ( !IsUndefined(data.visualization_smoothing) ) {//it is undefined if it has not been set before in the data argument and IGNORE_UNDEFINED is active
             //visualization smoothing type
-            if ( IsUndefined(data.visualization_smoothing.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing.type = "proportional_decrease";}
+            if ( IsUndefined(data.visualization_smoothing.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing.type = "average";}
             if ( !IsUndefined(data.visualization_smoothing.type) && (!IsAString(data.visualization_smoothing.type) || ( (data.visualization_smoothing.type !== "proportional_decrease") && (data.visualization_smoothing.type !== "constant_decay")  && (data.visualization_smoothing.type !== "average") )) ) {
-                console.warn("Visualizer object: Invalid visualization smoothing type! Set to proportional_decrease.");
-                data.visualization_smoothing.type = "proportional_decrease";
+                console.warn("Visualizer object: Invalid visualization smoothing type! Set to average.");
+                data.visualization_smoothing.type = "average";
             }
 
             //visualization smoothing factor
-            if ( IsUndefined(data.visualization_smoothing.factor) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing.factor = 2;}
+            if ( IsUndefined(data.visualization_smoothing.factor) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing.factor = 0.7;}
             if ( !IsUndefined(data.visualization_smoothing.factor) && (!IsANumber(data.visualization_smoothing.factor) || (data.visualization_smoothing.factor < 0)) ) {
-                console.warn("Visualizer object: Invalid visualization smoothing factor! Set to 2.");
-                data.visualization_smoothing.factor = 2;
+                console.warn("Visualizer object: Invalid visualization smoothing factor! Set to 0.7 .");
+                data.visualization_smoothing.factor = 0.7;
             }
         }
 
@@ -527,7 +527,7 @@ function Visualizer(glob_data) {
                     list:["proportional decrease", "constant decay", "average"],    
                 },
                 title: "Visualization smoothing type",
-                help: help.parameter.object.text.type,//TODO
+                help: help.parameter.object.visualizer.general.visualization_smoothing.type,
             },
             function(id, value) {
                 
@@ -550,10 +550,11 @@ function Visualizer(glob_data) {
                 settings: {
                     default: this.data.visualization_smoothing.factor,
                     min: 0,
-                    step: 0.001,
+                    max: 1,
+                    step: 0.01,
                 },
                 title: "Visualization smoothing factor",
-                help: help.parameter.object.visualizer.bar_kind.bar_thickness,//TODO
+                help: help.parameter.object.visualizer.general.visualization_smoothing.factor,
             },
             function(id, value) {
                 
@@ -671,6 +672,54 @@ function Visualizer(glob_data) {
         //collect audio data
         var visualizer_frequency_array = MappedArray(frequency_array, this.data.points_count, this.data.analyser_range[0], this.data.analyser_range[1]);
         
+        //apply visualization smoothing
+        if (IsUndefined(this.previous_visualizer_frequency_array)) this.previous_visualizer_frequency_array = visualizer_frequency_array;
+        var smooth_type = this.data.visualization_smoothing.type;
+        var smooth_factor = this.data.visualization_smoothing.factor;
+
+        for (let i=0; i<visualizer_frequency_array.length; i++) {
+
+            if (smooth_type === "constant_decay") {
+                //The new value can't decrease more than the factor value between current[i] and previous[i].
+                //The decrease is linear as long as the new value is below the old value minus the factor.
+                //This factor defines how quick the decay is.
+                
+                //factor = 0 prevents from decreasing. factor > (maximum possible value for current[i]) disables the smoothing.
+                let scaled_smooth_factor = smooth_factor * 255; //0 to 1 -> 0 to max array value (255 with Int8Array)
+                let max_decay_limit = this.previous_visualizer_frequency_array[i] - scaled_smooth_factor;
+                if (visualizer_frequency_array[i] < max_decay_limit ) {
+                    visualizer_frequency_array[i] = max_decay_limit;
+                }
+
+            } else if (smooth_type === "proportional_decrease") {
+                //The new value can't decrease more than the previous[i]*factor.
+                //The higher current[i] is, the more impacted it is, making low smoothing for high values,
+                //but high smoothing for low values.
+                //The decrease is proportional as long as the new value is below the old value multiplicated by the factor.
+
+                //factor = 1 prevents from decreasing. factor > 1 indefinitely increase quicker and quicker previous[i].
+                //factor = 0 disables the smoothing
+                max_proportional_decay_limit = this.previous_visualizer_frequency_array[i] * smooth_factor;
+                if (visualizer_frequency_array[i] < max_proportional_decay_limit) {
+                    visualizer_frequency_array[i] = max_proportional_decay_limit;
+                }
+
+            } else if (smooth_type === "average") {
+                //This is very similar to the smoothing system used by the Web Audio API.
+                //The formula is the following (|x|: absolute value of x):
+                //new[i] = factor * previous[i] + (1-factor) * |current[i]|
+
+                //factor = 0 disables the smoothing. factor = 1 freezes everything and keep previous[i] forever.
+                //factor not belonging to [0,1] creates uncontrolled behaviour.
+                visualizer_frequency_array[i] = smooth_factor * this.previous_visualizer_frequency_array[i] + (1-smooth_factor) * Math.abs(visualizer_frequency_array[i]);
+            }
+
+        }
+
+        this.previous_visualizer_frequency_array = visualizer_frequency_array;
+
+
+
         //STRAIGHT OR CIRCULAR
         //====================
         if ( (this.data.type === "straight") || (this.data.type === "circular") ) {
