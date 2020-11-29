@@ -11,6 +11,7 @@ var fps_array, fps_array_max_length; //fps display
 var audio_file, audio_file_type , current_time, audio_duration; //audio file related
 var audio, source, context, analyzer, ctx_frequency_array; //Web Audio API related
 var frequency_array; //spectrum array
+var vol_prev_frequency_array, vol_frequency_array; //for volume smoothing
 var audio_position_string;// ??:?? | ??:??
 
 var objects = [];//all objects inside the screen
@@ -216,14 +217,29 @@ function DrawFrame() {//update and draw the screen
     current_time = audio.currentTime;
     audio_duration = audio.duration;
 
+    //smoothing
+    vol_frequency_array = frequency_array;
+    if (IsUndefined(vol_prev_frequency_array)) vol_prev_frequency_array = vol_frequency_array;
+
+    //This is very similar to the smoothing system used by the Web Audio API.
+    //The formula is the following (|x|: absolute value of x):
+    //new[i] = factor * previous[i] + (1-factor) * |current[i]|
+
+    //factor = 0 disables the smoothing. factor = 1 freezes everything and keep previous[i] forever.
+    //factor not belonging to [0,1] creates uncontrolled behaviour.
+    var smooth_factor = 0.6;
+    for (let i=0; i<vol_frequency_array.length; i++) {
+        vol_frequency_array[i] = smooth_factor * vol_prev_frequency_array[i] + (1-smooth_factor) * Math.abs(vol_frequency_array[i]);
+    }
+    vol_prev_frequency_array = vol_frequency_array; // for next iteration
+
     //volume update
     volume = 0;
     var sum = 0;
-    for (var i=0; i<frequency_array.length-100; i++) {
-        sum += frequency_array[i];
+    for (var i=0; i<vol_frequency_array.length-100; i++) {
+        sum += vol_frequency_array[i];
     }
-    volume = sum/(frequency_array.length-100); //0 to 120 most of the time
-
+    volume = sum/(vol_frequency_array.length-100); //0 to 120 most of the time
 
     //update all objects
     objects_callback = [];
