@@ -8,7 +8,8 @@ const { app,
     ipcMain,
     webContents,
     shell, 
-    ipcRenderer} = require('electron');
+    ipcRenderer,
+    contentTracing} = require('electron');
 
 //node js dependencies
 var path = require("path");
@@ -109,14 +110,21 @@ function createExportWin() {
     export_win.loadFile('./html/export.html');
 
     //open dev tools
-    //export_win.webContents.openDevTools();
+    export_win.webContents.openDevTools();
 
     export_win.webContents.on('paint', (event, dirty, image) => {
         // updateBitmap(dirty, image.getBitmap())
     })
 
 }
-exports.createExportWin = createExportWin;
+//exports.createExportWin = createExportWin;
+
+ipcMain.handle("create-export-win", async () => {
+    createExportWin();
+});
+ipcMain.handle("resize-export-window", async (event, width, height) => {
+    export_win.setSize(width, height);
+});
 
 
 
@@ -146,16 +154,32 @@ function Init() {//main initialization
 
 
 
-let ReadJSONFile = function(path) {//read a JSON file at the specified path
-    return JSON.parse(fs.readFileSync(path));
-}
-exports.ReadJSONFile = ReadJSONFile;
+// let ReadJSONFile = function(path) {//read a JSON file at the specified path
+//     return JSON.parse(fs.readFileSync(path));
+// }
+// exports.ReadJSONFile = ReadJSONFile;
+
+//read a JSON file at the specified path, and return the content of this file as a string.
+ipcMain.handle('read-json-file', async (event, path) => {
+    var file_content;
+    try {
+        file_content = await fs.promises.readFile(path);
+        return JSON.parse(file_content);
+    } catch (error) {
+        throw new Error("read-json-file: invalid path provided.");
+    }
+});
 
 
-let OpenInBrowser = function(link) {//open provided link in external browser
+// let OpenInBrowser = function(link) {//open provided link in external browser
+//     shell.openExternal(link);
+// }
+// exports.OpenInBrowser = OpenInBrowser;
+
+//open provided link in external browser
+ipcMain.handle('open-in-browser', async (event, link) => {
     shell.openExternal(link);
-}
-exports.OpenInBrowser = OpenInBrowser;
+});
 
 
 
@@ -163,33 +187,63 @@ exports.OpenInBrowser = OpenInBrowser;
 
 
 
-let WriteAudioToTemp = function (arrayBuffer, type) {//exports Int8Array object to file in ./temp
+// let WriteAudioToTemp = function (arrayBuffer, type) {//exports Int8Array object to file in ./temp
+//     console.log("writing file of type: ",type);
+//     switch (type) {
+//         case "audio/x-wav":
+//         case "audio/wav":
+//             fs.writeFileSync("./temp/temp.wav", arrayBuffer);
+//             break;
+
+
+//         case "audio/mpeg":
+//         case "audio/mp3":
+//             fs.writeFileSync("./temp/temp.mp3", arrayBuffer);
+//             break;
+
+
+//         case "application/ogg":
+//             fs.writeFileSync("./temp/temp.ogg", arrayBuffer);
+//             break;
+
+
+//         default:
+//             throw `WriteAudioToTemp: ${type} is not a valid audio type!`;
+        
+//     }
+    
+// }
+// exports.WriteAudioToTemp = WriteAudioToTemp;
+
+//exports Int8Array object to file in ./temp
+
+ipcMain.handle('write-audio-to-temp', async (event, arrayBuffer, type) => {
     console.log("writing file of type: ",type);
     switch (type) {
         case "audio/x-wav":
         case "audio/wav":
-            fs.writeFileSync("./temp/temp.wav", arrayBuffer);
+            await fs.promises.writeFile("./temp/temp.wav", arrayBuffer);
             break;
 
 
         case "audio/mpeg":
         case "audio/mp3":
-            fs.writeFileSync("./temp/temp.mp3", arrayBuffer);
+            await fs.promises.writeFile("./temp/temp.mp3", arrayBuffer);
             break;
 
 
         case "application/ogg":
-            fs.writeFileSync("./temp/temp.ogg", arrayBuffer);
+            await fs.promises.writeFile("./temp/temp.ogg", arrayBuffer);
             break;
 
 
         default:
-            throw `WriteAudioToTemp: ${type} is not a valid audio type!`;
+            throw new Error(`WriteAudioToTemp: ${type} is not a valid audio type!`);
         
     }
-    
-}
-exports.WriteAudioToTemp = WriteAudioToTemp;
+
+    console.log("done!");
+} );
 
 
 
@@ -197,117 +251,218 @@ exports.WriteAudioToTemp = WriteAudioToTemp;
 
 
 
+// let SendEventToExportWin = function (event, data) {//send an event to the rendering window (export_win)
+//     //console.log(`sending event ${event} to window with id ${web_contents_id}, with data: ${data}`);
+//     export_win.webContents.send(event, data);
+// }
+// exports.SendEventToExportWin = SendEventToExportWin;
 
-let SendEventToExportWin = function (event, data) {//send an event to the rendering window (export_win)
-    //console.log(`sending event ${event} to window with id ${web_contents_id}, with data: ${data}`);
-    export_win.webContents.send(event, data);
-}
-exports.SendEventToExportWin = SendEventToExportWin;
+//send an event to the rendering window (export_win)
+ipcMain.handle('send-event-to-export-win', async (event, send_event, data) => {
+    console.log(`sending event ${event} to export window with data: ${data}`);
+    export_win.webContents.send(send_event, data);
+});
 
 
 
 
 
-function PCMtoSpectrum(waveform) {//takes a Float32Array and get waveform data from it 
+// function PCMtoSpectrum(waveform) {//takes a Float32Array and get waveform data from it 
+//     //get normalized magnitudes for frequencies from 0 to 22050 with interval 44100/1024 ≈ 43Hz
+//     var spectrum = ft(waveform);
+//     return spectrum;
+// }
+// exports.PCMtoSpectrum = PCMtoSpectrum;
+
+//takes a Float32Array and get waveform data from it 
+ipcMain.handle('pcm-to-spectrum', async (event, waveform) => {
     //get normalized magnitudes for frequencies from 0 to 22050 with interval 44100/1024 ≈ 43Hz
     var spectrum = ft(waveform);
     return spectrum;
-}
-exports.PCMtoSpectrum = PCMtoSpectrum;
+});
 
 
-
-
-let ExportScreen = function (screen_data, name, callback) {//exports the app's rendering screen as an image
-    console.log("==================\ncapturing requested at: ", screen_data);
-    console.log("frame: ",name);
+// let ExportScreen = function (screen_data, name, callback) {//exports the app's rendering screen as an image
+//     console.log("==================\ncapturing requested at: ", screen_data);
+//     console.log("frame: ",name);
     
 
-    //capture the screen
-    export_win.capturePage(screen_data).then( function(image) {//screen_data: x,y,width,height.
-        console.log("captured! Writing file...", image);
+//     //capture the screen
+//     export_win.capturePage(screen_data).then( function(image) {//screen_data: x,y,width,height.
+//         console.log("captured! Writing file...", image);
         
-        //create the file
-        fs.writeFile(`./temp/render/${name}.png`, image.toPNG(), (err) => {
-            if (err) throw err
+//         //create the file
+//         fs.writeFile(`./temp/render/${name}.png`, image.toPNG(), (err) => {
+//             if (err) throw err
+//             console.log("image of the screen created!\n==================");
+//             if (callback) callback();
+//         });
+
+//     });
+
+
+
+// }
+// exports.ExportScreen = ExportScreen;
+
+//exports the app's rendering screen as an image
+ipcMain.handle('export-screen', async (event, screen_data, name) => {
+    return new Promise( async (resolve, reject) => {
+        
+        console.log("==================\ncapturing requested at: ", screen_data);
+        console.log("frame: ",name);
+        
+        try {
+            //capture the screen
+            image = await export_win.capturePage(screen_data);//screen_data: x,y,width,height.    
+            console.log("captured! Writing file...", image);
+                
+            //create the file
+            await fs.promises.writeFile(`./temp/render/${name}.png`, image.toPNG());
             console.log("image of the screen created!\n==================");
-            if (callback) callback();
-        });
-
+            resolve();
+        } catch (error) {
+            reject(error);
+        }
     });
-
-
-
-}
-exports.ExportScreen = ExportScreen;
+});
 
 
 
 
-function CreateVideo(screen, audio_format, fps, duration, callback) {//generates final video from generated framesa and audio contained in temp folder
+// function CreateVideo(screen, audio_format, fps, duration, callback) {//generates final video from generated framesa and audio contained in temp folder
     
-    //get audio path
-    var audio_file_path;
-    switch (audio_format) {
-        case "audio/mp3":
-        case "audio/mpeg":
-            audio_file_path = path.join(__dirname, "/temp/temp.mp3");//.. because __dirname goes in /html.
-            break;
+//     //get audio path
+//     var audio_file_path;
+//     switch (audio_format) {
+//         case "audio/mp3":
+//         case "audio/mpeg":
+//             audio_file_path = path.join(__dirname, "/temp/temp.mp3");//.. because __dirname goes in /html.
+//             break;
 
 
-        case "audio/wav":
-        case "audio/x-wav":
-            audio_file_path = path.join(__dirname, "/temp/temp.wav");
-            break;
+//         case "audio/wav":
+//         case "audio/x-wav":
+//             audio_file_path = path.join(__dirname, "/temp/temp.wav");
+//             break;
 
         
-        case "application/ogg":
-            audio_file_path = path.join(__dirname, "/temp/temp.ogg");
-            break;
+//         case "application/ogg":
+//             audio_file_path = path.join(__dirname, "/temp/temp.ogg");
+//             break;
         
-        default:
-            throw `InitExport: ${type} is not a valid audio type!`;
-    }
+//         default:
+//             throw `InitExport: ${type} is not a valid audio type!`;
+//     }
 
 
-    //ffmpeg location
-    var ffmpeg_path = path.join(__dirname, "/ffmpeg/ffmpeg-4.2.1-win32-static/bin/ffmpeg.exe");
-    var ffprobe_path = path.join(__dirname, "/ffmpeg/ffmpeg-4.2.1-win32-static/bin/ffprobe.exe");
-    ffmpeg.setFfmpegPath(ffmpeg_path);
-    ffmpeg.setFfprobePath(ffprobe_path);
+//     //ffmpeg location
+//     var ffmpeg_path = path.join(__dirname, "/ffmpeg/ffmpeg-4.2.1-win32-static/bin/ffmpeg.exe");
+//     var ffprobe_path = path.join(__dirname, "/ffmpeg/ffmpeg-4.2.1-win32-static/bin/ffprobe.exe");
+//     ffmpeg.setFfmpegPath(ffmpeg_path);
+//     ffmpeg.setFfprobePath(ffprobe_path);
 
-    // ffmpeg.getAvailableEncoders((err, encoders) => {
-    //     console.log('getAvailableEncoders', encoders);
-    // });
+//     // ffmpeg.getAvailableEncoders((err, encoders) => {
+//     //     console.log('getAvailableEncoders', encoders);
+//     // });
 
-    //command
-    var command = ffmpeg()
-        .addInput("./temp/render/frame%d.png")
-        .inputFPS(fps)
-        .addInput(audio_file_path)
-        .size(`${screen.width}x${screen.height}`)
-        .fps(fps)
-        .duration(duration)
-        .videoCodec("libx264")
-        .outputOptions(['-pix_fmt yuv420p'])//avoid possible trouble in some apps like QuickTime
-        .on('start', function() {
-            console.log("========================\nstarted creating the video...")
-        })
-        .on('progress', function(info) {
-            console.log('progress ' + info.percent + '%');
-            win.webContents.send("encoding-progress", info);
-        })
-        .on('end', function() {
-            console.log('Video created!');
-            callback();
-            win.webContents.send("encoding-finished", true);
-        })
-        .on('error', function(err) {
-            console.log('an error happened: ' + err.message);
-            win.webContents.send("encoding-finished", false);
-        })
-        .save("video.mp4");
+//     //command
+//     var command = ffmpeg()
+//         .addInput("./temp/render/frame%d.png")
+//         .inputFPS(fps)
+//         .addInput(audio_file_path)
+//         .size(`${screen.width}x${screen.height}`)
+//         .fps(fps)
+//         .duration(duration)
+//         .videoCodec("libx264")
+//         .outputOptions(['-pix_fmt yuv420p'])//avoid possible trouble in some apps like QuickTime
+//         .on('start', function() {
+//             console.log("========================\nstarted creating the video...")
+//         })
+//         .on('progress', function(info) {
+//             console.log('progress ' + info.percent + '%');
+//             win.webContents.send("encoding-progress", info);
+//         })
+//         .on('end', function() {
+//             console.log('Video created!');
+//             callback();
+//             win.webContents.send("encoding-finished", true);
+//         })
+//         .on('error', function(err) {
+//             console.log('an error happened: ' + err.message);
+//             win.webContents.send("encoding-finished", false);
+//         })
+//         .save("video.mp4");
 
 
-}
-exports.CreateVideo = CreateVideo;
+// }
+// exports.CreateVideo = CreateVideo;
+
+ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration) => {
+    return new Promise( (resolve, reject) => {
+        
+        //get audio path
+        var audio_file_path;
+        switch (audio_format) {
+            case "audio/mp3":
+            case "audio/mpeg":
+                audio_file_path = path.join(__dirname, "/temp/temp.mp3");//.. because __dirname goes in /html.
+                break;
+
+
+            case "audio/wav":
+            case "audio/x-wav":
+                audio_file_path = path.join(__dirname, "/temp/temp.wav");
+                break;
+
+            
+            case "application/ogg":
+                audio_file_path = path.join(__dirname, "/temp/temp.ogg");
+                break;
+            
+            default:
+                throw `InitExport: ${type} is not a valid audio type!`;
+        }
+
+
+        //ffmpeg location
+        var ffmpeg_path = path.join(__dirname, "/ffmpeg/ffmpeg-4.2.1-win32-static/bin/ffmpeg.exe");
+        var ffprobe_path = path.join(__dirname, "/ffmpeg/ffmpeg-4.2.1-win32-static/bin/ffprobe.exe");
+        ffmpeg.setFfmpegPath(ffmpeg_path);
+        ffmpeg.setFfprobePath(ffprobe_path);
+
+        // ffmpeg.getAvailableEncoders((err, encoders) => {
+        //     console.log('getAvailableEncoders', encoders);
+        // });
+
+        //command
+        var command = ffmpeg()
+            .addInput("./temp/render/frame%d.png")
+            .inputFPS(fps)
+            .addInput(audio_file_path)
+            .size(`${screen.width}x${screen.height}`)
+            .fps(fps)
+            .duration(duration)
+            .videoCodec("libx264")
+            .outputOptions(['-pix_fmt yuv420p'])//avoid possible trouble in some apps like QuickTime
+            .on('start', function() {
+                console.log("========================\nstarted creating the video...")
+            })
+            .on('progress', function(info) {
+                console.log('progress ' + info.percent + '%');
+                win.webContents.send("encoding-progress", info);
+            })
+            .on('end', function() {
+                console.log('Video created!');
+                resolve();
+                win.webContents.send("encoding-finished", true);
+            })
+            .on('error', function(error) {
+                console.log('an error happened: ' + error.message);
+                reject(error);
+                win.webContents.send("encoding-finished", false);
+            })
+            .save("video.mp4");
+    
+    });
+});

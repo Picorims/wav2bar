@@ -26,7 +26,7 @@ INITIALIZATION
 */
 
 //user interface initialization
-function InitUI() {
+async function InitUI() {
 
     //DISPLAY VERSION
     document.title = document.title + " " + software_version;
@@ -146,11 +146,11 @@ function InitUI() {
 
 
     //HELP AND INFO TAB
-    document.getElementById("website_link").onclick = function() { main.OpenInBrowser("https://picorims.github.io/wav2bar-website"); }
-    document.getElementById("github_link").onclick = function() { main.OpenInBrowser("https://github.com/Picorims/audio-visualizer-creator"); }
-    document.getElementById("twitter_link").onclick = function() { main.OpenInBrowser("https://twitter.com/Picorims"); }
-    document.getElementById("youtube_link").onclick = function() { main.OpenInBrowser("https://www.youtube.com/channel/UCf15T29ZZ5RxQcbS9onQq9A"); }
-    document.getElementById("discord_link").onclick = function() { main.OpenInBrowser("https://discord.gg/EVGzfdP"); }
+    document.getElementById("website_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://picorims.github.io/wav2bar-website"); }
+    document.getElementById("github_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://github.com/Picorims/audio-visualizer-creator"); }
+    document.getElementById("twitter_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://twitter.com/Picorims"); }
+    document.getElementById("youtube_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://www.youtube.com/channel/UCf15T29ZZ5RxQcbS9onQq9A"); }
+    document.getElementById("discord_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://discord.gg/EVGzfdP"); }
 
 
 
@@ -193,7 +193,7 @@ function InitUI() {
 
     //HELP UI
     //apply help to existing parameters not generated.
-    help = main.ReadJSONFile("./assets/help/help.json");
+    help = await ipcRenderer.invoke("read-json-file", "./assets/help/help.json");
 
     var elements = document.getElementsByClassName("panel_param_container");
 

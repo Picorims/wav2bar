@@ -1,6 +1,7 @@
 //MIT License - Copyright (c) 2020 Picorims
 
-const { BrowserWindowProxy } = require("electron");
+const { ipcRenderer } = require("electron");
+
 var software_version; //current build version
 
 //MAIN PROCESS, PAGE INITIALIZATION

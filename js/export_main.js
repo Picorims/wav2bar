@@ -2,9 +2,6 @@
 
 //EXPORTING THE PROJECT INTO A VIDEO || MAIN PROCESS PART (completely excluded from renderer window process)
 
-const { remote, ipcRenderer } = require("electron");
-var main = remote.require("./main");
-var export_win = main.export_win;
 var export_mode = false; //not in export window
 var max_frames; //allow setting the max progress through every progress event.
 
@@ -18,7 +15,7 @@ function Export() {//Launch the rendering process which will export the video
     StopAnimating();//this avoids useless background process in the main window
 
     //create renderer window
-    main.createExportWin();
+    ipcRenderer.invoke('create-export-win');
 
     //wait callback
     ipcRenderer.once("renderer-exists", (event) => {//once avoid the listener to be persistent (if it was,
@@ -41,16 +38,15 @@ function Export() {//Launch the rendering process which will export the video
         //write audio into temp directory because putting it in data result in a memory overflow
         //getting buffer from audio file
         console.log(audio_file);
-        new Response(audio_file).arrayBuffer().then(function(result) {
+        new Response(audio_file).arrayBuffer().then(async result => {
             audio_buffer = result;
 
             console.log(audio_buffer, audio_file.type);
             //requesting file write
-            main.WriteAudioToTemp(new Int8Array(audio_buffer), audio_file_type);
-
+            await ipcRenderer.invoke("write-audio-to-temp", new Uint8Array(audio_buffer), audio_file_type);
 
             //send required data to the renderer
-            main.SendEventToExportWin("data-sent", data);
+            await ipcRenderer.invoke("send-event-to-export-win", "data-sent", data);
         });
         
 

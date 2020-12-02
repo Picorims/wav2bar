@@ -2,9 +2,7 @@
 
 //EXPORTING THE PROJECT INTO A VIDEO || RENDERER PROCESS PART (completely excluded from main window process)
 
-const { remote, ipcRenderer } = require("electron");
 var path = require("path");
-var main = remote.require("./main");
 var export_mode = true; //in export window
 
 var received_data;
@@ -49,7 +47,7 @@ function InitRender() {//render initialization
 
 
 
-function InitExport(data) {//prepare video export
+async function InitExport(data) {//prepare video export
     if (!IsAnObject(data)) throw "InitExport: invalid data provided!";
 
     //SCREEN SETUP
@@ -61,7 +59,8 @@ function InitExport(data) {//prepare video export
     //adapt window size to screen (if the screen is bigger than the user screen resolution,
     //the window will take the size of the user screen. Multiple screenshots will then be
     //required to render an entire frame)
-    remote.getCurrentWindow().setSize(screen.width, screen.height);
+    //remote.getCurrentWindow().setSize(screen.width, screen.height);
+    await ipcRenderer.invoke('resize-export-window', screen.width, screen.height);
 
     
     
@@ -229,7 +228,7 @@ function StartRendering(fps) {//prepare rendering
 
 
 
-function Render() {//render every frame into an image
+async function Render() {//render every frame into an image
 
     //if frame ready (all objects finished rendering)
     if ( UpdateFinished() ) {
@@ -242,52 +241,56 @@ function Render() {//render every frame into an image
         if (frames_rendered < frames_to_render) {
     
             //the previous frame is rendered only now because the render of this one is now finished (UpdateFinished = true). it wasn't the case before
-            main.ExportScreen({width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`, function() {
+            await ipcRenderer.invoke('export-screen', {width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`);
                 
-                //get waveform data
-                var length = 8192;//output is length/2
-                var waveform = new Float32Array(length);
-                var current_time = frames_rendered/fps;
-                var center_point = Math.floor(current_time*sample_rate*2); //2 channels in PCM_data, pos in seconds -> pos in samples
+            //get waveform data
+            var length = 8192;//output is length/2
+            var waveform = new Float32Array(length);
+            var current_time = frames_rendered/fps;
+            var center_point = Math.floor(current_time*sample_rate*2); //2 channels in PCM_data, pos in seconds -> pos in samples
 
-                //take a portion of the PCM data
-                for (var i = center_point-(length/2), j=0 ; i < center_point+(length/2); i++, j++) {
-                    waveform[j] = (i >= 0)? PCM_data[i] : 0;
-                }
+            //take a portion of the PCM data
+            for (var i = center_point-(length/2), j=0 ; i < center_point+(length/2); i++, j++) {
+                waveform[j] = (i >= 0)? PCM_data[i] : 0;
+            }
 
-                //get spectrum
-                var spectrum = main.PCMtoSpectrum(waveform);
+            //get spectrum
+            var spectrum = await ipcRenderer.invoke('pcm-to-spectrum', waveform);
 
-                //scale from 0-1 to 0-255 (used format in the Web Audio API because of Int8Array)
-                frequency_array = [];
-                for (var i=0; i<spectrum.length; i++) {
-                    frequency_array.push( (1 - Math.exp(-32*spectrum[i])) * 255 );//(amplification with ceiling) * (scale to 0-255) 
-                }
-                frequency_array = MappedArray(frequency_array, 1024, 0, 1023); //TEMP FIX FOR EXPORT VISUALIZATION. Ideally, visualization should work no matter the array size.
-                frequency_array = LinearToLog(frequency_array);
-                //console.log(frequency_array);
-                
-                //Draw the new frame now that the previous finished exporting .     
-                //render frame, recall loop 
-                console.log("audio time:",current_time);
-                RenderFrame();
-                frames_rendered++;
-                document.dispatchEvent(event.render_loop);
+            //scale from 0-1 to 0-255 (used format in the Web Audio API because of Int8Array)
+            frequency_array = [];
+            for (var i=0; i<spectrum.length; i++) {
+                frequency_array.push( (1 - Math.exp(-32*spectrum[i])) * 255 );//(amplification with ceiling) * (scale to 0-255) 
+            }
+            frequency_array = MappedArray(frequency_array, 1024, 0, 1023); //TEMP FIX FOR EXPORT VISUALIZATION. Ideally, visualization should work no matter the array size.
+            frequency_array = LinearToLog(frequency_array);
+            //console.log(frequency_array);
+            
+            //Draw the new frame now that the previous finished exporting .     
+            //render frame, recall loop 
+            console.log("audio time:",current_time);
+            RenderFrame();
+            frames_rendered++;
+            document.dispatchEvent(event.render_loop);
 
-            });
 
     
         }//if all frames have been rendered and this is the last frame to export, stop the loop and export the last frame
         else {
             
-            main.ExportScreen({width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`, function() {
-                document.removeEventListener("render-loop", Render);
-                ipcRenderer.sendTo(1, "frames-rendered");
-                var data = received_data;
-                var export_duration = export_array[1] - export_array[0];
-                main.CreateVideo(data.screen, data.audio_file_type, fps, export_duration, function() {
-                    window.close();
-                });
+            await ipcRenderer.invoke('export-screen', {width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`);
+            
+            document.removeEventListener("render-loop", Render);
+            ipcRenderer.sendTo(1, "frames-rendered");
+            var data = received_data;
+            var export_duration = export_array[1] - export_array[0];
+            ipcRenderer.invoke("create-video", data.screen, data.audio_file_type, fps, export_duration)
+            .then( () => {
+                window.close();
+            })
+            .catch( (error) => {
+                alert(error);
+                window.close();
             });
             
         }
