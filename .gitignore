@@ -1,0 +1,9 @@
+# temp files
+temp/
+out/
+
+#vscode
+.vscode/
+
+#outputs
+/*.mp4

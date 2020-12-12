@@ -12,9 +12,10 @@ const { app,
     contentTracing} = require('electron');
 
 //node js dependencies
-var path = require("path");
-var fs = require("fs");//file system
-var ft = require('fourier-transform/asm');
+const path = require("path");
+const fs = require("fs");//file system
+const os = require("os");
+const ft = require('fourier-transform/asm');
 
 
 //fluent-ffmpeg dependencies
@@ -37,6 +38,8 @@ function createWindow () {
     win = new BrowserWindow({
         icon: path.join(__dirname, "assets/icons/wav2bar_square_logo.png"),
         width: width,
+        minWidth: 750,
+        minHeight: 500,
         height: height,
         backgroundColor: "#000000",
         webPreferences: {
@@ -97,6 +100,7 @@ function createExportWin() {
         icon: path.join(__dirname, "assets/icons/wav2bar_square_logo.png"),
         width: 1500,
         height: 1000,
+        resizable: false,
         frame: false,
         enableLargerThanScreen: true,
         webPreferences: {
@@ -179,6 +183,60 @@ ipcMain.handle('read-json-file', async (event, path) => {
 //open provided link in external browser
 ipcMain.handle('open-in-browser', async (event, link) => {
     shell.openExternal(link);
+});
+
+
+
+
+ipcMain.handle('get-home-path', async (event) => {
+    return os.homedir();
+});
+
+
+
+
+//read a directory and return its content
+ipcMain.handle('read-dir', async (event, path) => {
+    try {
+        //get files
+        files = await fs.promises.readdir(path);
+        console.log(path);
+        console.log(files);
+
+        //differentiate files and folders
+        var files_object = [];
+        for (let i=0; i<files.length; i++) {
+
+            files_object.push({name: files[i], type: "unknown"});
+            
+            let file_path = path + '\\' + files[i];
+            const stat = await fs.promises.lstat(file_path);
+            
+            if (stat.isFile()) {
+                files_object[i].type = "file";
+            } else if (stat.isDirectory()) {
+                files_object[i].type = "directory";
+            }
+
+        }
+
+        return files_object;
+
+    } catch (error) {
+        throw new Error(`read-dir: impossible to read this directory: ${error}`);
+    }
+});
+
+
+
+
+//create a directory
+ipcMain.handle('make-dir', async (event, path) => {
+    try {
+        await fs.promises.mkdir(path);
+    } catch (error) {
+        throw new Error(`make-dir: impossible to create this directory: ${error}`);
+    }
 });
 
 

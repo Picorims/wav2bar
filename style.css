@@ -511,7 +511,7 @@ Tabs content
     border-radius: 5px;
     
     color: var(--main-darker-white);
-    font-size: 18px;
+    font-size: 17px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
 
@@ -522,6 +522,9 @@ Tabs content
     border: 3px solid var(--main-darker-color);
 
     transition: 0.2s;
+}
+.panel_input::-webkit-input-placeholder {
+    color: var(--main-darker-color);
 }
 
 
@@ -584,9 +587,24 @@ Dialog Boxes
 ============
 */
 
+.background_dialog_container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #090c1199;
+}
+
 .dialog_box {
     position: fixed;
-    max-width: 500px;
+    max-width: 90vw;
     padding: 10px;
     z-index: 1000;
 
@@ -620,10 +638,98 @@ Dialog Boxes
     border-color: var(--main-black);
 }
 
+.dialog_title {
+    margin: 0;
+    font-size: 1.5em;
+}
+
 .help_msg {
     text-align: left;
 }
 
+
+
+.file_browser_flex_sub_container {
+    width: 100%;
+    
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file_browser_path_input {
+    flex: 0 1 auto;
+    text-align: left;
+}
+
+.file_browser_icon_button {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 0 5px;
+    font-size: 25px;
+
+    transition: 0.1s;
+}
+.file_browser_icon_button:hover {
+    cursor: pointer;
+    color: var(--main-color);
+    text-shadow: 0px 0px 10px var(--main-color);
+    transition: 0.1s;
+}
+
+.file_browser_container {
+    width: 60vw;
+    height: 50vh;
+    margin: 10px auto;
+
+    text-align: left;
+    overflow: scroll;
+
+    background-color: var(--main-darker-black);
+    border-radius: 5px;
+}
+
+.file_browser_item {
+    display: inline-block;
+    min-width: 100%;
+    padding: 1px 10px;
+    box-sizing: border-box;
+
+    border: 1px solid var(--main-lighter-black);
+
+    transition: 0.1s;
+}
+.file_browser_item.contrast {
+    background-color: var(--main-black);
+}
+.file_browser_item:not(.file_browser_item_disabled):hover {
+    padding-left: 15px;
+    
+    background-color: var(--main-darker-color);
+    border: 1px solid var(--main-color);
+    color: var(--main-white);
+    
+    cursor: pointer;
+
+    transition: 0.1s;
+}
+.file_browser_item_disabled {
+    filter: brightness(0.5);
+}
+
+
+.icon_directory {
+    color: var(--main-darker-white);
+}
+.icon_file {
+    color: var(--main-color);
+}
+
+.file_browser_flex_span {
+    flex: 0 0 auto;
+}
 
 
 

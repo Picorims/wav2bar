@@ -1096,16 +1096,20 @@ function InputDialog(message, callback, args) {
     if ( !IsAString(message) ) throw `InputDialog: ${message} is not a string.`;
     if (IsUndefined(callback)) throw `InputDialog: callback missing!`;
 
-    var tmp_input_id = "input" + Math.floor(performance.now());
-
     //create elements
+    var background_container = document.createElement("div");
+    document.body.appendChild(background_container);
+    background_container.classList.add("background_dialog_container");
+
     var container = document.createElement("div");
-    document.body.appendChild(container);
+    background_container.appendChild(container);
     container.classList.add("dialog_box", "sticky_dialog");
 
     var msg = document.createElement("span");
     container.appendChild(msg);
     msg.innerHTML = message;
+
+    var tmp_input_id = "input" + Math.floor(performance.now());
 
     var input = document.createElement("input");
     container.appendChild(input);
@@ -1117,7 +1121,7 @@ function InputDialog(message, callback, args) {
     cancel_button.classList.add("panel_button", "dialog_button");
     cancel_button.innerHTML = "Cancel";
     cancel_button.onclick = function() {
-        this.parentElement.remove();
+        background_container.remove();
     }
 
     var confirm_button = document.createElement("button");
@@ -1129,10 +1133,414 @@ function InputDialog(message, callback, args) {
         var input = document.getElementById(this.getAttribute("data-tmp-input-id"));
         var result = input.value;
         callback(result, args);
-        this.parentElement.remove();
+        background_container.remove();
     }
 
-    //centering (once every element is created)
-    container.style.left = window.innerWidth/2 - container.offsetWidth/2 + "px";
-    container.style.top = window.innerHeight/2 - container.offsetHeight/2 + "px";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+############
+FILE BROWSER
+############
+*/
+
+//Creates a file browser in-app, and the callback returns the selected path
+//including the name of the file/folder.
+//The extension is returned as well!
+//"args" allows for passing arguments to the callback.
+/*settings = {
+    type: "get_file"|"get_directory"|"save_file";
+    allowed_extensions: ["png", "json" , ...] || ["#any"] || ["#none"];
+    display_hidden_files: true|false;
+    show_disabled_files: true|false;
+}*/
+async function FileBrowserDialog(settings, callback, args) {
+    if ( !IsAnObject(settings) ) throw `FileBrowserDialog: ${settings} is not an object.`;
+    if (IsUndefined(callback)) throw `FileBrowserDialog: callback missing!`;
+
+    //SETTINGS VERIFICATION
+
+    //is undefined
+    if (IsUndefined(settings.type)) throw `FileBrowserDialog: Dialog type required!`;
+    if (IsUndefined(settings.allowed_extensions)) settings.allowed_extensions = ["#any"];
+    if (IsUndefined(settings.display_hidden_files)) settings.display_hidden_files = false;
+    if (IsUndefined(settings.show_disabled_files)) settings.show_disabled_files = false;
+
+    //is invalid
+    if (!IsUndefined(settings.type) && settings.type !== "get_file" && settings.type !== "get_directory" && settings.type !== "save_file") {
+        throw `FileBrowserDialog: ${settings.type} dialog type is invalid! It must be get_file, get_directory, or save_file.`;
+    }
+    if (!IsUndefined(settings.allowed_extensions) && !IsAnArray(settings.allowed_extensions)) {
+        throw `FileBrowserDialog: displayed extentions must be expressed as an array of strings, or ["#none"] or ["#any"].`;
+    } 
+    for (let i=0; i<settings.allowed_extensions.length; i++) {
+        if (!IsAString(settings.allowed_extensions[i])) throw `FileBrowserDialog: displayed extentions must be expressed as an array of strings, or ["#none"] or ["#any"].`;
+    }
+    if (!IsUndefined(settings.display_hidden_files) && !IsABoolean(settings.display_hidden_files)) {
+        throw `FileBrowserDialog: display_hidden_files with value ${settings.display_hidden_files} must be a boolean value.`;
+    }
+    if (!IsUndefined(settings.show_disabled_files) && !IsABoolean(settings.show_disabled_files)) {
+        throw `FileBrowserDialog: show_disabled_files with value ${settings.show_disabled_files} must be a boolean value.`;
+    }
+
+
+    //DIALOG CREATION
+
+    //container
+    var background_container = document.createElement("div");
+    document.body.appendChild(background_container);
+    background_container.classList.add("background_dialog_container");
+
+    var container = document.createElement("div");
+    background_container.appendChild(container);
+    container.classList.add("dialog_box", "sticky_dialog");
+
+    
+
+    //title of the container
+    var title = document.createElement("h1");
+    container.appendChild(title);
+    title.classList.add("dialog_title");
+    title.innerHTML = settings.type.replace("_"," ");
+
+    
+
+    //top path input, followed by action buttons to the right
+    var path_container = document.createElement("div");
+    container.appendChild(path_container);
+    path_container.classList.add("file_browser_flex_sub_container");
+    
+    var path_input = document.createElement("input");
+    path_container.appendChild(path_input);
+    path_input.classList.add("panel_input", "panel_input_string", "dialog_input", "file_browser_path_input");
+    path_input.oninput = async () => {
+        try {
+            await FillTree(path_input.value, file_browser, path_input, name_input, settings);
+        } catch (error) {
+            console.log(`${path_input.value} do not exists: ${error}`);
+        }
+    }
+
+    var go_back = document.createElement("div");
+    path_container.appendChild(go_back);
+    go_back.classList.add("file_browser_icon_button");
+    go_back.innerHTML = '<i class="ri-arrow-left-circle-line"></i>';
+    go_back.onclick = async () => {
+        // "...\love\whatever(\)" -> "...\love\"
+        //erase the last directory in the path,
+        //taking into account if there is a remaining \ at the end of the string.
+        //translation: \, then a string that do not contain a backslash, then maybe a \, then end of the line ==> become \.
+        
+        try {
+            var path = path_input.value.replace(/\\[^\\]*\\?$/,"\\");
+            await FillTree(path, file_browser, path_input, name_input, settings);
+        } catch (error) {
+            console.log(`${path_input.value} do not exists: ${error}`);
+        }
+    }
+
+    var new_folder = document.createElement("div");
+    path_container.appendChild(new_folder);
+    new_folder.classList.add("file_browser_icon_button");
+    new_folder.innerHTML = '<i class="ri-folder-add-fill"></i>';
+    new_folder.onclick = function () {
+        //create folder
+        InputDialog("Name of the directory:", async (name, path) => {
+            await ipcRenderer.invoke('make-dir', `${path}\\${name}`);
+
+            var event = new Event('input', {
+                bubbles: true,
+                cancelable: true,
+            });
+            
+            path_input.dispatchEvent(event);
+        }, path_input.value.replace(/\\$/,"")); //path
+    }
+
+    var home_dir = document.createElement("div");
+    path_container.appendChild(home_dir);
+    home_dir.classList.add("file_browser_icon_button");
+    home_dir.innerHTML = '<i class="ri-home-4-line"></i>';
+    home_dir.onclick = async () => {
+        //go to home directory
+        var home_dir = await ipcRenderer.invoke('get-home-path');
+
+        path_input.value = home_dir;
+
+        var event = new Event('input', {
+            bubbles: true,
+            cancelable: true,
+        });
+        
+        path_input.dispatchEvent(event);
+    }
+
+    
+
+    //file browser itself
+    var file_browser = document.createElement("div");
+    container.appendChild(file_browser);
+    file_browser.classList.add("file_browser_container");
+
+
+
+    //bottom container for file selection
+    var file_selection_container = document.createElement("div");
+    container.appendChild(file_selection_container);
+    file_selection_container.classList.add("file_browser_flex_sub_container");
+
+    //check box to show not allowed files
+    var checkbox_title = document.createElement("span");
+    file_selection_container.appendChild(checkbox_title);
+    checkbox_title.classList.add("file_browser_flex_span");
+    checkbox_title.innerHTML = "Show disabled files : ";
+
+    var show_all_files = document.createElement("input");
+    file_selection_container.appendChild(show_all_files);
+    show_all_files.classList.add("panel_input", "panel_input_checkbox");
+    show_all_files.type = "checkbox";
+    show_all_files.checked = false;
+    show_all_files.onchange = function() {
+        //show/hide disabled files
+        settings.show_disabled_files = this.checked;
+
+        var event = new Event('input', {
+            bubbles: true,
+            cancelable: true,
+        });
+        
+        path_input.dispatchEvent(event);
+    }
+
+    //input for the name of the file
+    var tmp_input_id = "input" + Math.floor(performance.now());
+
+    var name_input = document.createElement("input");
+    file_selection_container.appendChild(name_input);
+    name_input.classList.add("panel_input", "panel_input_string", "dialog_input");
+    name_input.placeholder = 'file or folder name';
+    name_input.id = tmp_input_id;
+    if (settings.type === "get_file" || settings.type === "get_directory") {
+        name_input.disabled = "disabled"; //get file should not allow custom names that doesn't exists.
+    }
+    
+
+
+    //cancel and confirm action buttons
+    var cancel_button = document.createElement("button");
+    container.appendChild(cancel_button);
+    cancel_button.classList.add("panel_button", "dialog_button");
+    cancel_button.innerHTML = "Cancel";
+    cancel_button.onclick = function() {
+        background_container.remove();
+    }
+
+    var confirm_button = document.createElement("button");
+    container.appendChild(confirm_button);
+    confirm_button.classList.add("panel_button", "dialog_button");
+    confirm_button.innerHTML = "Confirm";
+    confirm_button.setAttribute("data-tmp-input-id", tmp_input_id);
+    confirm_button.onclick = function() {
+        
+        var name_input = document.getElementById(this.getAttribute("data-tmp-input-id"));
+        var extensions = settings.allowed_extensions;
+        console.log("nope");
+        if ( settings.type === "save_file") {
+            if (extensions[0] === "#none") {
+
+                var regexp = new RegExp(/\..*$/,"g");
+                if (regexp.test(name_input.value)) {
+                    alert("no extension allowed!")
+                    return;
+
+                }
+            } else if (extensions[0] !== "#any") {
+                if (!HasValidExtension(name_input.value, extensions)) {
+                    alert(`this extension is not allowed: use one in the following list:\n${extensions}`);
+                    return;
+                }
+            }
+        }
+
+        //erase the potential \ at the end of the path
+        path_input.value = path_input.value.replace(/\\$/,"");
+        var result = (settings.type === "get_directory")? path_input.value : path_input.value + '\\' + name_input.value;
+            
+        callback(result, args);
+        background_container.remove();    
+    }
+
+    //first update of the file browser
+    let homedir = await ipcRenderer.invoke('get-home-path');
+    FillTree(homedir, file_browser, path_input, name_input, settings);
+}
+
+
+//function that takes a path and a DOM container (the file browser dialog container for files and folders)
+//and generate the selection UI in it for the provided path
+async function FillTree(path, container, path_input, name_input, settings) {
+
+    //get directory content
+    const files = await ipcRenderer.invoke('read-dir', path);
+    //execution stops if the path do not exists.
+
+    //separate files and folders, and only keep files matching settings
+    var files_files = [];
+    var files_directories = [];
+    var extensions = settings.allowed_extensions;
+    for (let i=0; i<files.length; i++) {
+
+        files[i].disabled = false;
+        
+        //filter
+        let can_push = true;
+        if (files[i].type === "file") {
+
+            if (extensions[0] === "#none") { //do not display any file
+                if (!settings.show_disabled_files) {
+                    can_push = false;
+                } else {
+                    files[i].disabled = true;
+                }
+
+            } else if (extensions[0] !== "#any") { //not set in display all files
+                //do not display by default
+                //can_push = false;
+
+                //only display if the file has an extension that exists in the list of extensions to display.
+                // for (let j=0; j<extensions.length; j++) {
+                //     let regexp = new RegExp(`\.${extensions[j]}$`,"g"); // ends with .my_extension
+                //     if (regexp.test(files[i].name)) can_push = true;
+                // }
+                let valid = HasValidExtension(files[i].name, extensions);
+                if (!settings.show_disabled_files) {
+                    can_push = valid;
+                } else if (!valid) {//&& show_disabled_files
+                    files[i].disabled = true;
+                }
+            }
+
+        }
+
+        // filter hidden files
+        if (!settings.display_hidden_files) {
+            let regexp = /^\..*/;
+            if (regexp.test(files[i].name)) can_push = false;
+        }
+        
+        //organize
+        if (can_push) {
+            if (files[i].type === "directory") files_directories.push(files[i]);
+            else if (files[i].type === "file") files_files.push(files[i]);
+        }
+    }
+    var sorted_files = [...files_directories, ...files_files];
+    console.log(sorted_files);
+
+    //delete previous UI
+    var children = container.children;
+    var count = children.length;
+    for (let i=count-1; i>=0; i--) {
+        children[i].remove();
+    }
+
+    //create UI
+    for (let i=0; i<sorted_files.length; i++) {
+        let file = sorted_files[i];
+        if ( file.type !== "unknown") {//only display files and folders
+            
+            //element
+            let item = document.createElement("span");
+            container.appendChild(item);
+            item.classList.add("file_browser_item");
+            if (file.disabled) item.classList.add("file_browser_item_disabled");
+            if (i%2 === 0) item.classList.add("contrast");
+
+            //content
+            let icon;
+            if (file.type === "file") icon = '<i class="ri-file-fill icon_directory"></i>';
+            else if (file.type === "directory") icon = '<i class="ri-folder-3-fill icon_file"></i>';
+            item.innerHTML = `${icon} ${file.name}`;
+
+            //event
+            if (!file.disabled) {
+                item.onclick = function() {
+                
+                    if (file.type === "file") {
+    
+                        if (settings.type === "get_file" || settings.type === "save_file") {
+                            //set file name to the file selected
+                            name_input.value = file.name;
+                        }
+    
+                    } else if (file.type === "directory") {
+                        
+                        //open directory
+    
+                        //erase the potential \ at the end of the path
+                        path_input.value = path_input.value.replace(/\\$/,"");
+                        path_input.value += `\\${file.name}`;
+    
+                        var event = new Event('input', {
+                            bubbles: true,
+                            cancelable: true,
+                        });
+                        
+                        path_input.dispatchEvent(event);
+    
+                        //sets the folder name to the selected directory.
+                        if (settings.type === "get_directory") name_input.value = file.name;
+    
+                    }
+                    
+                }
+            }
+            
+        }
+    }
+
+    //update path
+    path_input.value = path;
+    path_input.scrollLeft = path_input.scrollWidth;
+}
+
+
+
+//function that tests if the provided file name matches the list of extensions. It returns false if none of the extensions matches.
+//The dot mustn't be included!
+function HasValidExtension(file_name, extensions_list) {
+    if (!IsAString(file_name)) throw `HasValidExtension: the file name must be a string!`;
+    if (!IsAnArray(extensions_list)) {
+        throw `HasValidExtension: the extensions list must be an array!`;
+    } else {
+        for (let i=0; i<extensions_list; i++) {
+            if (!IsAString(extensions_list[i])) throw `HasValidExtension: The extensions list must only be made of strings!`;
+        }
+    }
+
+    var file_matches = false;
+
+    for (let i=0; i < extensions_list.length; i++) {
+        let regexp = new RegExp(`\.${extensions_list[i]}$`,"g"); // ends with .my_extension
+        if (regexp.test(file_name)) file_matches = true;
+    }
+
+    return file_matches;
 }
