@@ -284,7 +284,7 @@ async function Render() {//render every frame into an image
             ipcRenderer.sendTo(1, "frames-rendered");
             var data = received_data;
             var export_duration = export_array[1] - export_array[0];
-            ipcRenderer.invoke("create-video", data.screen, data.audio_file_type, fps, export_duration)
+            ipcRenderer.invoke("create-video", data.screen, data.audio_file_type, fps, export_duration, data.output_path)
             .then( () => {
                 window.close();
             })

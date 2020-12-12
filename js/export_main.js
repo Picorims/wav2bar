@@ -5,7 +5,7 @@
 var export_mode = false; //not in export window
 var max_frames; //allow setting the max progress through every progress event.
 
-function Export() {//Launch the rendering process which will export the video
+function Export(path) {//Launch the rendering process which will export the video
     if (typeof audio === "undefined") {
         alert("No audio file selected!");
         return;
@@ -32,6 +32,7 @@ function Export() {//Launch the rendering process which will export the video
             },
             save: current_save,
             audio_file_type: audio_file_type,
+            output_path: path,
         }
 
 

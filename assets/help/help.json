@@ -72,6 +72,7 @@
         "import": "Imports an audio file to be used by the software. .mp3, .wav or .ogg formats are highly recommended."
     },
     "export": {
+        "video_path": "Sets the video output path and name",
         "action": "Exports the project into a video file in .mp4 format, to the length of the audio file."
     }
 }

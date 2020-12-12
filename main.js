@@ -456,7 +456,7 @@ ipcMain.handle('export-screen', async (event, screen_data, name) => {
 // }
 // exports.CreateVideo = CreateVideo;
 
-ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration) => {
+ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration, output_path) => {
     return new Promise( (resolve, reject) => {
         
         //get audio path
@@ -520,7 +520,7 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
                 reject(error);
                 win.webContents.send("encoding-finished", false);
             })
-            .save("video.mp4");
+            .save(output_path);
     
     });
 });

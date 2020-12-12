@@ -139,8 +139,25 @@ async function InitUI() {
 
 
     //EXPORT TAB
+    //choose video path through file browser
+    document.getElementById("choose_video_path_button").onclick = function() {
+        FileBrowserDialog({
+            type: "save_file",
+            allowed_extensions: ["mp4"]
+        }, function(result) {
+            document.getElementById("video_export_path_input").value = result;
+        });
+    }
+
     //export
-    document.getElementById("export_button").onclick = function() { Export(); }
+    document.getElementById("export_button").onclick = function() {
+        let input_value = document.getElementById("video_export_path_input").value
+        if (input_value == "") {
+            alert("please specify the video output path.");
+        } else {
+            Export(input_value);
+        }
+    }
 
 
 
@@ -201,13 +218,14 @@ async function InitUI() {
         var help_node = elements[i].getAttribute("data-help");
 
         switch (help_node) {
-            case "fps":         AppendHelp(elements[i], help.parameter.screen.fps); break;
-            case "screen_size": AppendHelp(elements[i], help.parameter.screen.size); break;
-            case "audio":       AppendHelp(elements[i], help.audio.import); break;
-            case "save_import": AppendHelp(elements[i], help.save.import); break;
-            case "save_export": AppendHelp(elements[i], help.save.export); break;
-            case "new_object":  AppendHelp(elements[i], help.parameter.object.general.creation); break;
-            case "export":      AppendHelp(elements[i], help.export.action); break;
+            case "fps":                 AppendHelp(elements[i], help.parameter.screen.fps); break;
+            case "screen_size":         AppendHelp(elements[i], help.parameter.screen.size); break;
+            case "audio":               AppendHelp(elements[i], help.audio.import); break;
+            case "save_import":         AppendHelp(elements[i], help.save.import); break;
+            case "save_export":         AppendHelp(elements[i], help.save.export); break;
+            case "new_object":          AppendHelp(elements[i], help.parameter.object.general.creation); break;
+            case "export_video_path":   AppendHelp(elements[i], help.export.video_path); break;
+            case "export":              AppendHelp(elements[i], help.export.action); break;
             default: break;
         }
     }
