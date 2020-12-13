@@ -532,9 +532,10 @@ function ParticleFlow(glob_data) {
             }
 
             //update all particles
-            for (var particle of this.particles) {
-                particle.update();
-                particle.display();
+            for (let i=this.particles.length-1; i>=0; i--) {
+                this.particles[i].update();
+                //display if it hasn't been deleted
+                if (this.particles[i]) this.particles[i].display();
             }
 
         }
