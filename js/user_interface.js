@@ -1379,7 +1379,7 @@ async function FileBrowserDialog(settings, callback, args) {
         
         var name_input = document.getElementById(this.getAttribute("data-tmp-input-id"));
         var extensions = settings.allowed_extensions;
-        console.log("nope");
+
         if ( settings.type === "save_file") {
             if (extensions[0] === "#none") {
 

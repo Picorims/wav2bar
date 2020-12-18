@@ -53,6 +53,7 @@ function Export(path) {//Launch the rendering process which will export the vide
 
 
         //track progress
+        var start = performance.now();
 
         //reset
         document.getElementById("export_frame_span").innerHTML = "";
@@ -62,21 +63,67 @@ function Export(path) {//Launch the rendering process which will export the vide
 
         //events
         ipcRenderer.on("export-progress", (event, max, progress) => {
+            //progress display
             document.getElementById("export_frame_span").innerHTML = `${progress}/${max}`;
             document.getElementById("export_frame_progress").style.width = `${progress/max*100}%`;
             max_frames = max;
+
+            //time estimation
+            let now = performance.now();
+            let ellapsed = now-start;
+            //estimate the total time it will take based on the ellapsed time,
+            //the number of frames rendered and the total number of frames
+            //to render, using proportionality.
+            //This works because most frames usually takes the same amount of time to render.
+            let total_estimation = (ellapsed/progress)*max;
+            let time_left_estimation = total_estimation-ellapsed;
+            let hours = Math.floor(time_left_estimation/3600000);// /1000/60/60
+            let mins = Math.floor((time_left_estimation/60000)%60);// /1000/60
+            let secs = Math.floor((time_left_estimation/1000)%60);
+            mins = (mins<10)? "0"+mins : mins;
+            secs = (secs<10)? "0"+secs : secs;
+
+            document.getElementById("export_frame_time_span").innerHTML = `${hours}:${mins}:${secs}`;
         });
         ipcRenderer.once("frames-rendered", (event) => {
             ipcRenderer.removeAllListeners("export-progress");
         });
 
         ipcRenderer.on("encoding-progress", (event, info) => {
+            //progress display
             document.getElementById("export_encoding_span").innerHTML = `${info.frames}/${max_frames+1}`;
             document.getElementById("export_encoding_progress").style.width = `${info.frames/(max_frames+1)*100}%`;
+        
+            //time estimation
+            let now = performance.now();
+            let ellapsed = now-start;
+            //estimate the total time it will take based on the ellapsed time,
+            //the number of frames rendered and the total number of frames
+            //to render, using proportionality.
+            //This works because most frames usually takes the same amount of time to render.
+            let total_estimation = (ellapsed/info.frames)*(max_frames+1);//ffmpeg renders one more frame
+            let time_left_estimation = total_estimation-ellapsed;
+            let hours = Math.floor(time_left_estimation/3600000);// /1000/60/60
+            let mins = Math.floor((time_left_estimation/60000)%60);// /1000/60
+            let secs = Math.floor((time_left_estimation/1000)%60);
+            mins = (mins<10)? "0"+mins : mins;
+            secs = (secs<10)? "0"+secs : secs;
+
+            document.getElementById("export_encoding_time_span").innerHTML = `${hours}:${mins}:${secs}`;
         });
         ipcRenderer.once("encoding-finished", (event, success) => {
             ipcRenderer.removeAllListeners("encoding-progress");
-            if (success) alert("The video has been successfully created!");
+            if (success) {
+                let now = performance.now();
+                let ellapsed = now-start;
+                let hours = Math.floor(ellapsed/3600000);// /1000/60/60
+                let mins = Math.floor((ellapsed/60000)%60);// /1000/60
+                let secs = Math.floor((ellapsed/1000)%60);
+                mins = (mins<10)? "0"+mins : mins;
+                secs = (secs<10)? "0"+secs : secs;
+
+                alert(`The video has been successfully created in ${hours}:${mins}:${secs} !`);
+            }
             else alert("An error occurred during the process");
         });
 
