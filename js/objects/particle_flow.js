@@ -49,98 +49,98 @@ function ParticleFlow(glob_data) {
 
         //ID
         if ( IsUndefined(data.id) || !IsAString(data.id) || !object_method.validID(data.id, this) ) {
-            console.error("Particle Flow object: received an object with an unspecified/invalid ID! A random ID is given.");
+            CustomLog("error","Particle Flow object: received an object with an unspecified/invalid ID! A random ID is given.");
             data.id = object_method.generateID();
         }
 
         //name
         if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";} 
         if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
-            console.warn("Particle Flow object: Invalid name! Set to 'particle flow'.");
+            CustomLog("warn","Particle Flow object: Invalid name! Set to 'particle flow'.");
             data.name = "particle flow";
         }        
 
         //layer
         if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = 0;}
         if ( !IsUndefined(data.layer) && (!IsAnInt(data.layer) || (data.layer <= -1)) ) {
-            console.warn("Particle Flow object: Invalid layer! Set to 0.");
+            CustomLog("warn","Particle Flow object: Invalid layer! Set to 0.");
             data.layer = 0;
         }
 
         //x
         if ( IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = 0;}
         if ( !IsUndefined(data.x) && !IsAnInt(data.x) ) {
-            console.warn("Particle Flow object: Invalid x coordinate! Set to 0.");
+            CustomLog("warn","Particle Flow object: Invalid x coordinate! Set to 0.");
             data.x = 0;
         }
 
         //y
         if ( IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = 0;}
         if ( !IsUndefined(data.y) && !IsAnInt(data.y) ) {
-            console.warn("Particle Flow object: Invalid y coordinate! Set to 0.");
+            CustomLog("warn","Particle Flow object: Invalid y coordinate! Set to 0.");
             data.y = 0;
         }
 
         //width
         if ( IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = 100;}
         if ( !IsUndefined(data.width) && (!IsAnInt(data.width) || (data.width < 0)) ) {
-            console.warn("Particle Flow object: Invalid width! Set to 100.");
+            CustomLog("warn","Particle Flow object: Invalid width! Set to 100.");
             data.width = 100;
         }
 
         //height
         if ( IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = 100;}
         if ( !IsUndefined(data.height) && (!IsAnInt(data.height) || (data.height < 0)) ) {
-            console.warn("Particle Flow object: Invalid height! Set to 100.");
+            CustomLog("warn","Particle Flow object: Invalid height! Set to 100.");
             data.height = 100;
         }
 
         //particle_radius_range
         if ( IsUndefined(data.particle_radius_range) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.particle_radius_range = [1,2];}
         if ( !IsUndefined(data.particle_radius_range) && (!IsAnArray(data.particle_radius_range) || (data.particle_radius_range.length !== 2) || !IsAnInt(data.particle_radius_range[0]) || !IsAnInt(data.particle_radius_range[1])) ) {
-            console.warn("Particle Flow object: Invalid particle radius range! Set to [1,2].");
+            CustomLog("warn","Particle Flow object: Invalid particle radius range! Set to [1,2].");
             data.particle_radius_range = [1,2];
         }
 
         //type
         if ( IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = "radial";}
         if ( !IsUndefined(data.type) && (!IsAString(data.type) || ( (data.type !== "radial") && (data.type !== "directional") )) ) {
-            console.warn("Particle Flow object: Invalid type! Set to radial.");
+            CustomLog("warn","Particle Flow object: Invalid type! Set to radial.");
             data.type = "radial";
         }
 
         //center
         if ( IsUndefined(data.center) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.center = {x:1, y:1};}
         if ( !IsUndefined(data.center) && (!IsAnObject(data.center) || !IsAnInt(data.center.x) || !IsAnInt(data.center.y)) ) {
-            console.warn("Particle Flow object: Invalid center coordinates! Set to (1,1).");
+            CustomLog("warn","Particle Flow object: Invalid center coordinates! Set to (1,1).");
             data.center = {x:1, y:1};
         }
 
         //particle direction
         if ( IsUndefined(data.particle_direction) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.particle_direction = 0;}
         if ( !IsUndefined(data.particle_direction) && (!IsANumber(data.particle_direction) || (data.particle_direction < 0) || (data.particle_direction > 2*Math.PI)) ) {
-            console.warn("Particle Flow object: Invalid particle direction! Set to 0.");
+            CustomLog("warn","Particle Flow object: Invalid particle direction! Set to 0.");
             data.particle_direction = 0;
         }
 
         //spawn probability
         if ( IsUndefined(data.spawn_probability) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.spawn_probability = 0.75;}
         if ( !IsUndefined(data.spawn_probability) && (!IsANumber(data.spawn_probability) || (data.spawn_probability < 0) || (data.spawn_probability > 1)) ) {
-            console.warn("Particle Flow object: Invalid spawn probability! Set to 0,75.");
+            CustomLog("warn","Particle Flow object: Invalid spawn probability! Set to 0,75.");
             data.spawn_probability = 0.75;
         }
 
         //spawn tests
         if ( IsUndefined(data.spawn_tests) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.spawn_tests = 1;}
         if ( !IsUndefined(data.spawn_tests) && (!IsAnInt(data.spawn_tests) || (data.spawn_tests < 1)) ) {
-            console.warn("Particle Flow object: Invalid number of spawn tests! Set to 1.");
+            CustomLog("warn","Particle Flow object: Invalid number of spawn tests! Set to 1.");
             data.spawn_probability = 1;
         }
 
         //color
         if ( IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = "#fff";}
         if ( !IsUndefined(data.color) && !IsAString(data.color) ) {
-            console.warn("Particle Flow object: Invalid color! White color is applied."); //do not detect css errors!
+            CustomLog("warn","Particle Flow object: Invalid color! White color is applied."); //do not detect css errors!
             data.color = "#fff";
         }
 
@@ -187,7 +187,7 @@ function ParticleFlow(glob_data) {
         //NOTE: it is NOT possible to change the particle flow type (data.type) and id (data.id). A new particle flow must be created in such case!
         
         if ( IsUndefined(data.id) ) {
-            console.error("Particle Flow object: No ID specified!");
+            CustomLog("error","Particle Flow object: No ID specified!");
             return;
         }
 

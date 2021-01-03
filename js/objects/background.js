@@ -36,14 +36,14 @@ function Background(glob_data) {
 
         //ID
         if ( IsUndefined(data.id) || !IsAString(data.id) || !object_method.validID(data.id, this) ) {
-            console.error("Background object: received an object with an unspecified/invalid ID! A random ID is given.");
+            CustomLog("error","Background object: received an object with an unspecified/invalid ID! A random ID is given.");
             data.id = object_method.generateID();
         }
 
         //name
         if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";} 
         if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
-            console.warn("Background object: Invalid name! Set to 'background'.");
+            CustomLog("warn","Background object: Invalid name! Set to 'background'.");
             console.log(data.name);
             data.name = "background";
         }
@@ -51,21 +51,21 @@ function Background(glob_data) {
         //layer
         if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = 0;}
         if ( !IsUndefined(data.layer) && (!IsAnInt(data.layer) || (data.layer <= -1)) ) {
-            console.warn("Background object: Invalid layer! Set to 0.");
+            CustomLog("warn","Background object: Invalid layer! Set to 0.");
             data.layer = 0;
         }
 
         //background
         if ( IsUndefined(data.background) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background = "";}
         if ( !IsUndefined(data.background) && !IsAString(data.background) ) {
-            console.warn("Background object: Invalid background! No background is applied."); //do not detect css errors!
+            CustomLog("warn","Background object: Invalid background! No background is applied."); //do not detect css errors!
             data.background = "";
         }
 
         //size
         if ( IsUndefined(data.size) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.size = "";}
         if ( !IsUndefined(data.size) && !IsAString(data.size) ) {
-            console.warn("Background object: Invalid size! No css size is applied."); //do not detect css errors!
+            CustomLog("warn","Background object: Invalid size! No css size is applied."); //do not detect css errors!
             data.size = "";
         }
 
@@ -112,7 +112,7 @@ function Background(glob_data) {
         //NOTE: it is NOT possible to change the background id (data.id). A new background must be created in such case!
         
         if ( IsUndefined(data.id) ) {
-            console.error("Background object: No ID specified!");
+            CustomLog("error","Background object: No ID specified!");
             return;
         }
 

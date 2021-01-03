@@ -30,7 +30,7 @@ async function InitUI() {
 
     //DISPLAY VERSION
     document.title = document.title + " " + software_version;
-    document.getElementById("software_version").innerHTML = software_version;
+    document.getElementById("software_version").innerHTML = `${software_version} ${software_status}`;
 
     //HTML DEFINITIONS
     control_panel = document.getElementById("control_panel");
@@ -112,7 +112,6 @@ async function InitUI() {
 
     //import audio
     document.getElementById("audio_file_input").onchange = function() {
-        console.log(this.files[0]);
         if (this.files[0]) LoadAudio(this.files[0], 'file');
     }
 
@@ -359,6 +358,8 @@ function SetScreenTo(width, height) {//changes the screen size to the given valu
         document.getElementById("screen_width_input").value = screen.width;
         document.getElementById("screen_height_input").value = screen.height;    
     }
+
+    CustomLog("info",`screen set to ${width}x${height}`);
 }
 
 
@@ -374,6 +375,8 @@ function ChangeFPSTo(new_fps) {//changes the FPS used by restarting the animatio
 
     //update UI
     if (!export_mode) document.getElementById("fps_input").value = fps;
+
+    CustomLog("info",`FPS set to ${new_fps}`);
 }
 
 
@@ -427,6 +430,12 @@ function CreateZoomMenu() {
 
     }
 
+    //close if the user clicks elsewhere
+    setTimeout(() => {window.onclick = function() {
+        KillZoomMenu();
+        window.onclick = null;
+    }},100);
+
 }
 
 //destroy the menu created below
@@ -446,6 +455,8 @@ function ApplyZoom(zoom_value) {
     zoom = zoom_value;
     screen.style.transformOrigin = "0 0";
     screen.style.transform = `scale(${zoom})`;
+
+    CustomLog("info",`Zoom changed to ${zoom_value}`);
 }
 
 
@@ -1252,7 +1263,7 @@ async function FileBrowserDialog(settings, callback, args) {
         try {
             await FillTree(path_input.value, file_browser, path_input, name_input, settings);
         } catch (error) {
-            console.log(`${path_input.value} do not exists: ${error}`);
+            CustomLog("error",`${path_input.value} do not exists: ${error}`);
         }
     }
 
@@ -1270,7 +1281,7 @@ async function FileBrowserDialog(settings, callback, args) {
             var path = path_input.value.replace(/\\[^\\]*\\?$/,"\\");
             await FillTree(path, file_browser, path_input, name_input, settings);
         } catch (error) {
-            console.log(`${path_input.value} do not exists: ${error}`);
+            CustomLog("error",`${path_input.value} do not exists: ${error}`);
         }
     }
 
@@ -1470,7 +1481,6 @@ async function FillTree(path, container, path_input, name_input, settings) {
         }
     }
     var sorted_files = [...files_directories, ...files_files];
-    console.log(sorted_files);
 
     //delete previous UI
     var children = container.children;

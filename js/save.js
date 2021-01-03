@@ -10,11 +10,12 @@ function DefaultSave() {//set the save data to default values
     current_save = {
         //1 -> Wav2Bar 0.1.0+
         save_version: 1,
-        software_version_used: software_version,
+        software_version_used: `${software_version} ${software_status}`,
         screen: {width: 1280, height: 720},
         fps: 60,
         objects: [],
     }
+    CustomLog('info','loaded default save.');
 }
 
 
@@ -23,7 +24,7 @@ function DefaultSave() {//set the save data to default values
 function LoadSave(save_file) {//load a user save or a preset (JSON format)
     if (!IsAnObject(save_file)) throw "LoadSave: no valid save file given!";
 
-    console.log("Loading the save...");
+    CustomLog("info","Loading the save...");
 
     //ERASE CURRENT DATA
 
@@ -53,7 +54,6 @@ function LoadSave(save_file) {//load a user save or a preset (JSON format)
         
         //clone it into the current_save (direct assign doesn't work)
         current_save = JSON.parse(JSON.stringify(save));
-        console.log(current_save);
 
         ApplyLoadedSave();
 
@@ -68,7 +68,7 @@ function LoadSave(save_file) {//load a user save or a preset (JSON format)
 
 
 function ApplyLoadedSave() {//read and apply a loaded user save
-
+    CustomLog('info','applying save...');
     //CREATE OBJECTS
 
     //because objects are created in current_data.objects during the for loop,
@@ -76,7 +76,6 @@ function ApplyLoadedSave() {//read and apply a loaded user save
     //the loop to never end.
     //So the array and it's length are separately saved.
     var objects_data_list = current_save.objects.slice();    
-    console.log(objects_data_list);
 
 
     //create all objects
@@ -100,7 +99,7 @@ function ApplyLoadedSave() {//read and apply a loaded user save
         else if (type === "visualizer")     {new Visualizer(object_data)}
         else {throw `LoadSave: ${type} is not a valid object type. Is the save corrupted ?`}
 
-        console.log(`Added ${type}, if it is a valid object type.`);
+        CustomLog("info",`Added ${type}.`);
 
     }
 
@@ -115,7 +114,7 @@ function ApplyLoadedSave() {//read and apply a loaded user save
 
 
 
-    console.log("Save loaded!", current_save);
+    CustomLog("info","Save loaded!");
 
 }
 
@@ -157,13 +156,11 @@ function SyncSave() { //function that updates the current save with latest data
 
 function ExportSaveAsJSON() {//export the current save to JSON format.
 
-    console.log("generating download file...");
+    CustomLog("info","generating download file for the save...");
     
     //update current save
     SyncSave();
     
-    console.log(current_save);
-
 
     //prepare data for export
     var exported_save = JSON.stringify(current_save);
@@ -181,5 +178,5 @@ function ExportSaveAsJSON() {//export the current save to JSON format.
     //remove downloader element
     downloader.remove();
 
-
+    CustomLog("info","save file provided for download.");
 }

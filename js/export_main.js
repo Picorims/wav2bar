@@ -11,7 +11,7 @@ function Export(path) {//Launch the rendering process which will export the vide
         return;
     }
 
-    console.log("Exporting...");
+    CustomLog("info","Exporting...");
     StopAnimating();//this avoids useless background process in the main window
 
     //create renderer window
@@ -21,7 +21,7 @@ function Export(path) {//Launch the rendering process which will export the vide
     ipcRenderer.once("renderer-exists", (event) => {//once avoid the listener to be persistent (if it was,
                                                     //on window re-open, a new listener would stack upon this
                                                     //one, making multiple process stacking on forever.
-        console.log("renderer created, sending data...");
+        CustomLog("debug","renderer created, sending data...");
         
 
         //data to send to the renderer process (the project, so it can be recreated into the new window)
@@ -38,11 +38,10 @@ function Export(path) {//Launch the rendering process which will export the vide
 
         //write audio into temp directory because putting it in data result in a memory overflow
         //getting buffer from audio file
-        console.log(audio_file);
         new Response(audio_file).arrayBuffer().then(async result => {
             audio_buffer = result;
 
-            console.log(audio_buffer, audio_file.type);
+            CustomLog("info",`file type: ${audio_file.type}`)
             //requesting file write
             await ipcRenderer.invoke("write-audio-to-temp", new Uint8Array(audio_buffer), audio_file_type);
 
@@ -123,6 +122,7 @@ function Export(path) {//Launch the rendering process which will export the vide
                 secs = (secs<10)? "0"+secs : secs;
 
                 alert(`The video has been successfully created in ${hours}:${mins}:${secs} !`);
+                CustomLog('info',`The video has been successfully created in ${hours}:${mins}:${secs} !`);
             }
             else alert("An error occurred during the process");
         });

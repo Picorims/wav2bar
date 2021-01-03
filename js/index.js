@@ -1,8 +1,10 @@
 //MIT License - Copyright (c) 2020 Picorims
 
 const { ipcRenderer } = require("electron");
+const { Logger } = require("log4js");
 
-var software_version; //current build version
+const software_version = '0.1.0'; //current build version
+const software_status = 'Beta';
 
 //MAIN PROCESS, PAGE INITIALIZATION
 
@@ -32,10 +34,9 @@ window.onload = function() {InitPage();};
 
 function InitPage() {//page initialization
 
-    software_version = '0.1.0';
-
     //PREPARE SAVE
     DefaultSave();
+    CustomLog('syncing save object every 500ms, starting from now.');
     setInterval(SyncSave, 500);
 
 
@@ -59,6 +60,8 @@ function InitPage() {//page initialization
 function LoadAudio(file_data, type) {//load an audio file into the app. type: "file" || "url"  
     if (IsUndefined(file_data)) throw "LoadAudio: No file data provided, couldn't load the audio file.";
     if ( (type!=="file") && (type!=="url") ) throw `LoadAudio: ${type} is not a valid audio file type!`;
+
+    CustomLog("info","loading audio...");
 
     //stop current audio
     if (typeof audio !== "undefined") {
@@ -109,6 +112,7 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
     //prepare data collection
     ctx_frequency_array = new Uint8Array(analyser.frequencyBinCount);//0 to 1023 => length=1024.
     
+    CustomLog("info","audio loaded successfully.");
 }
 
 
@@ -148,12 +152,14 @@ function StartAnimating(fps) {//prepare fps animation
     time.start = time.then;
 
     Animate();
+    CustomLog('info','animation started.');
 }
 
 
 function StopAnimating() {//stop the fps animation loop
     stop_animating = true;
     animating = false;
+    CustomLog('info','animation stopped.');
 }
 
 // the animation loop calculates time elapsed since the last loop
@@ -228,7 +234,7 @@ function DrawFrame() {//update and draw the screen
 
     //factor = 0 disables the smoothing. factor = 1 freezes everything and keep previous[i] forever.
     //factor not belonging to [0,1] creates uncontrolled behaviour.
-    var smooth_factor = 0.6;
+    var smooth_factor = 0.7;
     for (let i=0; i<vol_frequency_array.length; i++) {
         vol_frequency_array[i] = smooth_factor * vol_prev_frequency_array[i] + (1-smooth_factor) * Math.abs(vol_frequency_array[i]);
     }
@@ -291,4 +297,62 @@ function UpdateFPSDisplay() {//display FPS regularly
 
     //display fps
     document.getElementById("fps").innerHTML = `${average_fps}FPS`;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//#######
+//LOGGING
+//#######
+
+function CustomLog(type, log) {
+    switch (type) {
+        case 'trace':
+            console.log('[TRACE] ',log);
+            break;
+        case 'debug':
+            console.debug(log);
+            break;
+        case 'info':
+            console.info(log);
+            break;
+        case 'log':
+            console.log(log);
+            break;
+        case 'warn':
+            console.warn(log);
+            break;
+        case 'error':
+            console.error(log);
+            break;
+        case 'fatal':
+            console.error('[FATAL] ',log);
+            break;
+    }
+    ipcRenderer.invoke('log', type, log);
+}
+
+//catch all window error (throws...)
+window.onerror = function GlobalErrorHandler(error_msg, url, line_number) {
+    CustomLog("error",`${error_msg}\nsource: ${url}\n line: ${line_number}`);
+    return false;
 }

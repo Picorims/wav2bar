@@ -16,10 +16,9 @@ var event;
 
 var progress_window;//progress bar
 
-
 //callback to the main window that the renderer windows exists
 function ConfirmCreation() {
-    console.log("renderer created");
+    CustomLog("debug","renderer created");
     
     //confirm that the window exists when it is ready
     ipcRenderer.sendTo(1, "renderer-exists");
@@ -29,14 +28,14 @@ function ConfirmCreation() {
 
 function InitRender() {//render initialization
 
-    console.log("initialization");
+    CustomLog("debug","initialization of the renderer.");
     screen = document.getElementById("screen");
     
     //collecting needed data
     ipcRenderer.once("data-sent", (event, data) => {//once avoid the listener to be persistent (if it was,
                                                     //on window re-open, a new listener would stack upon this
                                                     //one, making multiple process stacking on forever.
-        console.log("received data: ", data);
+        CustomLog("debug","received data of the main renderer.");
         received_data = data;
         InitExport(data);
     
@@ -68,7 +67,7 @@ async function InitExport(data) {//prepare video export
     //LOAD SAVE
     current_save = data.save;
     ApplyLoadedSave();
-
+    CustomLog("debug","save loaded into the renderer");
 
     
     
@@ -96,7 +95,7 @@ async function InitExport(data) {//prepare video export
         default:
             throw `InitExport: ${type} is not a valid audio type!`;
     }
-    console.log("locating audio: ", audio_file_path);
+    CustomLog("debug",`locating audio: ${audio_file_path}`);
     
     
     
@@ -113,6 +112,7 @@ async function InitExport(data) {//prepare video export
     
 
     //PROCESS AUDIO
+    CustomLog("debug","processing audio...");
     GetAudioData();
 }
 
@@ -144,8 +144,8 @@ function GetAudioData() {//Transform the audio temp file into PCM data, use FFT 
         }
 
         PCM_data = interleaved;
-        console.log(left, PCM_data);
 
+        CustomLog("debug","audio processed. Preparing to render...");
         PrepareRendering(duration);
     });
 
@@ -162,7 +162,7 @@ function GetAudioBuffer(callback) {//get the buffer array from the audio file
     
     //file url
     var url = audio_file_path.replace(/\\/g,"/");
-    console.log(url);
+    CustomLog("debug", `audio source: ${url}`);
 
     //get buffer
     fetch(url)
@@ -207,6 +207,8 @@ function PrepareRendering() {//define important variables
     //SPECTRUM STORAGE USED BY THE OBJECTS
     frequency_array = [];
 
+    CustomLog("info","renderer ready, starting...");
+
     StartRendering(fps);
 }
 
@@ -234,7 +236,7 @@ async function Render() {//render every frame into an image
     if ( UpdateFinished() ) {
 
         //update progress display
-        console.log("rendered:",frames_rendered,"/",frames_to_render);
+        CustomLog("info",`rendered: ${frames_rendered}/${frames_to_render}`);
         ipcRenderer.sendTo(1, "export-progress", frames_to_render, frames_rendered);
 
         //if there is still frames to draw
@@ -268,7 +270,7 @@ async function Render() {//render every frame into an image
             
             //Draw the new frame now that the previous finished exporting .     
             //render frame, recall loop 
-            console.log("audio time:",current_time);
+            CustomLog("info",`audio time: ${current_time}`);
             RenderFrame();
             frames_rendered++;
             document.dispatchEvent(event.render_loop);
@@ -286,10 +288,12 @@ async function Render() {//render every frame into an image
             var export_duration = export_array[1] - export_array[0];
             ipcRenderer.invoke("create-video", data.screen, data.audio_file_type, fps, export_duration, data.output_path)
             .then( () => {
+                CustomLog("info","shutting down the renderer...");
                 window.close();
             })
             .catch( (error) => {
-                alert(error);
+                CustomLog("error",`The video encoding failed: ${error}`);
+                alert(`The video encoding failed. For more information, see the logs.\n\n${error}`);
                 window.close();
             });
             

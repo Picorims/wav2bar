@@ -44,84 +44,84 @@ function Image(glob_data) {
 
         //ID
         if ( IsUndefined(data.id) || !IsAString(data.id) || !object_method.validID(data.id, this) ) {
-            console.error("Image object: received an object with an unspecified/invalid ID! A random ID is given.");
+            CustomLog("error","Image object: received an object with an unspecified/invalid ID! A random ID is given.");
             data.id = object_method.generateID();
         }
 
         //name
         if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";} 
         if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
-            console.warn("Image object: Invalid name! Set to 'image'.");
+            CustomLog("warn","Image object: Invalid name! Set to 'image'.");
             data.name = "image";
         }
 
         //layer
         if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = 0;}
         if ( !IsUndefined(data.layer) && (!IsAnInt(data.layer) || (data.layer <= -1)) ) {
-            console.warn("Image object: Invalid layer! Set to 0.");
+            CustomLog("warn","Image object: Invalid layer! Set to 0.");
             data.layer = 0;
         }
 
         //x
         if ( IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = 0;}
         if ( !IsUndefined(data.x) && !IsAnInt(data.x) ) {
-            console.warn("Image object: Invalid x coordinate! Set to 0.");
+            CustomLog("warn","Image object: Invalid x coordinate! Set to 0.");
             data.x = 0;
         }
 
         //y
         if ( IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = 0;}
         if ( !IsUndefined(data.y) && !IsAnInt(data.y) ) {
-            console.warn("Image object: Invalid y coordinate! Set to 0.");
+            CustomLog("warn","Image object: Invalid y coordinate! Set to 0.");
             data.y = 0;
         }
 
         //width
         if ( IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = 100;}
         if ( !IsUndefined(data.width) && (!IsAnInt(data.width) || (data.width < 0)) ) {
-            console.warn("Image object: Invalid width! Set to 100.");
+            CustomLog("warn","Image object: Invalid width! Set to 100.");
             data.width = 100;
         }
 
         //height
         if ( IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = 100;}
         if ( !IsUndefined(data.height) && (!IsAnInt(data.height) || (data.height < 0)) ) {
-            console.warn("Image object: Invalid height! Set to 100.");
+            CustomLog("warn","Image object: Invalid height! Set to 100.");
             data.height = 100;
         }
 
         //rotation
         if ( IsUndefined(data.rotation) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.rotation = 0;}
         if ( !IsUndefined(data.rotation) && !IsAnInt(data.rotation) ) {
-            console.warn("Image object: Invalid rotation! Set to 0.");
+            CustomLog("warn","Image object: Invalid rotation! Set to 0.");
             data.rotation = 0;
         }
 
         //background
         if ( IsUndefined(data.background) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background = "#fff";}
         if ( !IsUndefined(data.background) && !IsAString(data.background) ) {
-            console.warn("Image object: Invalid background! A white background is applied."); //do not detect css errors!
+            CustomLog("warn","Image object: Invalid background! A white background is applied."); //do not detect css errors!
             data.background = "#fff";
         }
 
         //size
         if ( IsUndefined(data.size) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.size = "";}
         if ( !IsUndefined(data.size) && !IsAString(data.size) ) {
-            console.warn("Image object: Invalid size! No css size is applied."); //do not detect css errors!
+            CustomLog("warn","Image object: Invalid size! No css size is applied."); //do not detect css errors!
             data.size = "";
         }
 
         //border-radius
         if ( IsUndefined(data.border_radius) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_radius = "";}
         if ( !IsUndefined(data.border_radius) && !IsAString(data.border_radius) ) {
-            console.warn("Image object: Invalid border-radius! No border-radius is applied."); //do not detect css errors!
+            CustomLog("warn","Image object: Invalid border-radius! No border-radius is applied."); //do not detect css errors!
             data.border_radius = "";
         }
 
         //box-shadow
         if ( IsUndefined(data.box_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.box_shadow = "";}
         if ( !IsUndefined(data.box_shadow) && !IsAString(data.box_shadow) ) {
-            console.warn("Image object: Invalid box-shadow! No box-shadow is applied."); //do not detect css errors!
+            CustomLog("warn","Image object: Invalid box-shadow! No box-shadow is applied."); //do not detect css errors!
             data.box_shadow = "";
         }
 
@@ -167,7 +167,7 @@ function Image(glob_data) {
         //NOTE: it is NOT possible to change the image id (data.id). A new image must be created in such case!
         
         if ( IsUndefined(data.id) ) {
-            console.error("Image object: No ID specified!");
+            CustomLog("error","Image object: No ID specified!");
             return;
         }
 

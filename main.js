@@ -16,7 +16,12 @@ const path = require("path");
 const fs = require("fs");//file system
 const os = require("os");
 const ft = require('fourier-transform/asm');
-
+require('./node_modules/log4js/lib/appenders/stdout');
+require('./node_modules/log4js/lib/appenders/console');
+const log4js = require("log4js");
+let main_log, main_renderer_log, export_log;
+const software_version = require("./package.json").version;
+const software_status = 'Beta';
 
 //fluent-ffmpeg dependencies
 var ffmpeg = require("fluent-ffmpeg");
@@ -33,6 +38,9 @@ exports.win = win;
 exports.export_win = export_win;
 
 function createWindow () {
+    Init();
+    main_log.info(`creating main renderer...`);
+
     // Create the browser window.
     const { width, height } = require('electron').screen.getPrimaryDisplay().workAreaSize;//screen size
     win = new BrowserWindow({
@@ -46,7 +54,7 @@ function createWindow () {
             nodeIntegration: true,
         },
     })
-    win.webContents.id = 1;
+    //win.webContents.id = 1; READONLY
 
     // and load the index.html of the app.
     win.loadFile('index.html');
@@ -59,10 +67,11 @@ function createWindow () {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
+        main_log.info("closing main renderer...");
         win = null
     })
-    
-    Init();
+
+    main_log.info("main renderer created.");
 }
 
 // This method will be called when Electron has finished
@@ -75,6 +84,7 @@ app.on('window-all-closed', () => {
     // On macOS it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
+        main_log.info("quitting...");
         app.quit();
     }
 });
@@ -94,7 +104,7 @@ app.on('activate', () => {
 
 //this window is for video export
 function createExportWin() {
-    console.log("creating window for rendering...");
+    main_log.info("creating window for export...");
     
     export_win = new BrowserWindow({
         icon: path.join(__dirname, "assets/icons/wav2bar_square_logo.png"),
@@ -108,7 +118,7 @@ function createExportWin() {
             nativeWindowOpen: true,
         },
     })
-    win.webContents.id = 2;
+    //win.webContents.id = 2; READONLY
     
     //load the export.html of the app.
     export_win.loadFile('./html/export.html');
@@ -120,6 +130,7 @@ function createExportWin() {
         // updateBitmap(dirty, image.getBitmap())
     })
 
+    main_log.info("export window created.");
 }
 //exports.createExportWin = createExportWin;
 
@@ -128,7 +139,30 @@ ipcMain.handle("create-export-win", async () => {
 });
 ipcMain.handle("resize-export-window", async (event, width, height) => {
     export_win.setSize(width, height);
+    main_log.info(`export window: new size: ${width}x${height}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -151,7 +185,79 @@ function Init() {//main initialization
         fs.mkdirSync("./temp/current_save");
     }
 
+
+
+    //Setup log
+    let date = new Date();
+
+    // if(!fs.existsSync("./logs")) {
+    //     fs.mkdirSync("./logs");
+    // }
+
+    let log_name = date.toJSON().split(":").join("-");//replace : with -
+
+    log4js.configure({
+        appenders: {
+            file: {type: "file", filename: `./logs/${log_name}.log`},
+            console: {type: "console"},
+        },
+        categories: {
+            main: {appenders: ['file','console'], level: 'trace'},//main process
+            main_renderer: {appenders: ['file','console'], level: 'trace'},//main renderer process of the app
+            export: {appenders: ['file','console'],level: 'trace'},//export process
+            default: {appenders: ['file','console'],level: 'trace'},
+        },
+    });
+
+    main_log = log4js.getLogger('main');
+    main_renderer_log = log4js.getLogger('main_renderer');
+    export_log = log4js.getLogger('export');
+
+    main_log.info(`Running Wav2Bar v${software_version} ${software_status}`);
+    
 }
+
+
+
+
+
+
+//log4js logging from renderer
+ipcMain.handle('log', (event, type, log) => {
+    var logger;
+    switch (event.sender.id) {
+        case win.webContents.id: logger = main_renderer_log; break;
+        case export_win.webContents.id: logger = export_log; break;
+        default:
+            logger = main_log;
+            main_log.warn(`receiving logs from an unknown renderer with id ${event.sender.id}!`);
+            break;
+    }
+
+    switch (type) {
+        case 'trace':
+            logger.trace(log);
+            break;
+        case 'debug':
+            logger.debug(log);
+            break;
+        case 'info':
+            logger.info(log);
+            break;
+        case 'log':
+            logger.log(log);
+            break;
+        case 'warn':
+            logger.warn(log);
+            break;
+        case 'error':
+            logger.error(log);
+            break;
+        case 'fatal':
+            logger.fatal(log);
+            break;
+    }
+});
 
 
 
@@ -161,10 +267,14 @@ function Init() {//main initialization
 //read a JSON file at the specified path, and return the content of this file as a string.
 ipcMain.handle('read-json-file', async (event, path) => {
     var file_content;
+
     try {
+        main_log.debug(`reading ${path}...`);
         file_content = await fs.promises.readFile(path);
+        main_log.debug(`reading ${path} done.`);
         return JSON.parse(file_content);
     } catch (error) {
+        main_log.error(`could not read ${path}: ${error}`)
         throw new Error("read-json-file: invalid path provided.");
     }
 });
@@ -174,6 +284,7 @@ ipcMain.handle('read-json-file', async (event, path) => {
 
 //open provided link in external browser
 ipcMain.handle('open-in-browser', async (event, link) => {
+    main_log.warn(`opening ${link} in an external browser.`);
     shell.openExternal(link);
 });
 
@@ -191,9 +302,8 @@ ipcMain.handle('get-home-path', async (event) => {
 ipcMain.handle('read-dir', async (event, path) => {
     try {
         //get files
+        main_log.debug(`reading directory ${path}`);
         files = await fs.promises.readdir(path);
-        console.log(path);
-        console.log(files);
 
         //differentiate files and folders
         var files_object = [];
@@ -212,6 +322,7 @@ ipcMain.handle('read-dir', async (event, path) => {
 
         }
 
+        main_log.debug(`reading directory ${path} done`);
         return files_object;
 
     } catch (error) {
@@ -225,8 +336,11 @@ ipcMain.handle('read-dir', async (event, path) => {
 //create a directory
 ipcMain.handle('make-dir', async (event, path) => {
     try {
+        main_log.info(`making directory ${path}`);
         await fs.promises.mkdir(path);
+        main_log.info(`${path} created.`);
     } catch (error) {
+        main_log.error(`error making ${path}: ${error}`);
         throw new Error(`make-dir: impossible to create this directory: ${error}`);
     }
 });
@@ -240,7 +354,7 @@ ipcMain.handle('make-dir', async (event, path) => {
 
 //exports Int8Array object to file in ./temp
 ipcMain.handle('write-audio-to-temp', async (event, arrayBuffer, type) => {
-    console.log("writing file of type: ",type);
+    main_log.debug(`writing file of type ${type} in temp directory...`);
     switch (type) {
         case "audio/x-wav":
         case "audio/wav":
@@ -264,7 +378,7 @@ ipcMain.handle('write-audio-to-temp', async (event, arrayBuffer, type) => {
         
     }
 
-    console.log("done!");
+    main_log.debug("audio cached.");
 } );
 
 
@@ -275,7 +389,7 @@ ipcMain.handle('write-audio-to-temp', async (event, arrayBuffer, type) => {
 
 //send an event to the rendering window (export_win)
 ipcMain.handle('send-event-to-export-win', async (event, send_event, data) => {
-    console.log(`sending event ${event} to export window with data: ${data}`);
+    main_log.debug(`sending event ${send_event} to export window.`);
     export_win.webContents.send(send_event, data);
 });
 
@@ -298,20 +412,21 @@ ipcMain.handle('pcm-to-spectrum', async (event, waveform) => {
 ipcMain.handle('export-screen', async (event, screen_data, name) => {
     return new Promise( async (resolve, reject) => {
         
-        console.log("==================\ncapturing requested at: ", screen_data);
-        console.log("frame: ",name);
+        main_log.info(`Capture requested.`);
+        main_log.info(`frame: ${name}`);
         
         try {
             //capture the screen
             image = await export_win.capturePage(screen_data);//screen_data: x,y,width,height.    
-            console.log("captured! Writing file...", image);
+            main_log.info("captured! Writing file...");
                 
             //create the file
             await fs.promises.writeFile(`./temp/render/${name}.png`, image.toPNG());
-            console.log("image of the screen created!\n==================");
+            main_log.info("image of the screen created!");
             resolve();
         } catch (error) {
             reject(error);
+            main_log.error(error);
         }
     });
 });
@@ -323,7 +438,8 @@ ipcMain.handle('export-screen', async (event, screen_data, name) => {
 //creates a video using ffmpeg from a set of frames and an audio file
 ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration, output_path) => {
     return new Promise( (resolve, reject) => {
-        
+        main_log.info(`creating video: ${screen.width}x${screen.height}, ${audio_format}, ${fps}fps, duration: ${duration}s, at ${output_path}`);
+
         //get audio path
         var audio_file_path;
         switch (audio_format) {
@@ -354,6 +470,7 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
         ffmpeg.setFfmpegPath(ffmpeg_path);
         ffmpeg.setFfprobePath(ffprobe_path);
 
+        //DEBUG
         // ffmpeg.getAvailableEncoders((err, encoders) => {
         //     console.log('getAvailableEncoders', encoders);
         // });
@@ -369,19 +486,19 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
             .videoCodec("libx264")
             .outputOptions(['-pix_fmt yuv420p'])//avoid possible trouble in some apps like QuickTime
             .on('start', function() {
-                console.log("========================\nstarted creating the video...")
+                main_log.info("started creating the video...");
             })
             .on('progress', function(info) {
-                console.log(`${info.frames} frames rendered, ${info.timemark} seconds rendered`);
+                main_log.info(`${info.frames} frames rendered, ${info.timemark} seconds rendered`);
                 win.webContents.send("encoding-progress", info);
             })
             .on('end', function() {
-                console.log('Video created!');
+                main_log.info('Video created!');
                 resolve();
                 win.webContents.send("encoding-finished", true);
             })
             .on('error', function(error) {
-                console.log('an error occured in the process: ' + error.message);
+                main_log.error('an error occured in the process: ' + error.message);
                 reject(error);
                 win.webContents.send("encoding-finished", false);
             })
