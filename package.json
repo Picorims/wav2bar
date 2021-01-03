@@ -37,7 +37,7 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "appCopyright": "Copyright (c) 2020 Picorims",
+        "appCopyright": "Copyright (c) 2020-2021 Picorims",
         "icon": "assets/icons/wav2bar_square_logo",
         "name": "Wav2Bar",
         "overwrite": true,

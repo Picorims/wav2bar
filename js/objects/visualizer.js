@@ -1,4 +1,4 @@
-//MIT License - Copyright (c) 2020 Picorims
+//MIT License - Copyright (c) 2020-2021 Picorims
 
 //VISUALIZER OBJECT PROCESS
 

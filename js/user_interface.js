@@ -1,4 +1,4 @@
-//MIT License - Copyright (c) 2020 Picorims
+//MIT License - Copyright (c) 2020-2021 Picorims
 
 //USER INTERFACE PROCESS (CONTROL PANEL INCLUDED)
 
