@@ -124,7 +124,7 @@ function Export(path) {//Launch the rendering process which will export the vide
                 alert(`The video has been successfully created in ${hours}:${mins}:${secs} !`);
                 CustomLog('info',`The video has been successfully created in ${hours}:${mins}:${secs} !`);
             }
-            else alert("An error occurred during the process");
+            else alert("An error occurred during the encoding process. For more information, see the logs.");
         });
 
     });

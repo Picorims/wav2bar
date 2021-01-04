@@ -20,11 +20,15 @@ require('./node_modules/log4js/lib/appenders/stdout');
 require('./node_modules/log4js/lib/appenders/console');
 const log4js = require("log4js");
 let main_log, main_renderer_log, export_log;
+
+//software version
 const software_version = require("./package.json").version;
 const software_status = 'Beta';
 
 //fluent-ffmpeg dependencies
-var ffmpeg = require("fluent-ffmpeg");
+const ffmpeg = require("fluent-ffmpeg");
+var ffmpeg_path = "";
+var ffprobe_path = "";
 
 //set process directory to the position of main.js (i.e root of the app)
 process.chdir(__dirname);
@@ -175,15 +179,13 @@ ipcMain.handle("resize-export-window", async (event, width, height) => {
 function Init() {//main initialization
     
     //create temp directory
-    if (!fs.existsSync("./temp")) {
-        fs.mkdirSync("./temp");   
-    }
-    if (!fs.existsSync("./temp/render")) {
-        fs.mkdirSync("./temp/render");
-    }
-    if(!fs.existsSync("./temp/current_save")) {
-        fs.mkdirSync("./temp/current_save");
-    }
+    if (!fs.existsSync("./temp")) fs.mkdirSync("./temp");
+    if (!fs.existsSync("./temp/render")) fs.mkdirSync("./temp/render");
+    if(!fs.existsSync("./temp/current_save")) fs.mkdirSync("./temp/current_save");
+
+    //create user directory
+    if(!fs.existsSync("./user")) fs.mkdirSync("./user");
+    if(!fs.existsSync("./user/settings")) fs.mkdirSync("./user/settings");
 
 
 
@@ -281,6 +283,13 @@ ipcMain.handle('read-json-file', async (event, path) => {
 
 
 
+//write a JSON file at the specified path
+ipcMain.handle('write-json-file', async (event, path, json_string) => {
+    fs.promises.writeFile(path, json_string);
+});
+
+
+
 
 //open provided link in external browser
 ipcMain.handle('open-in-browser', async (event, link) => {
@@ -290,9 +299,27 @@ ipcMain.handle('open-in-browser', async (event, link) => {
 
 
 
+//open a folder in the file explorer
+ipcMain.handle('open-folder-in-file-explorer', async (event, path_to_open) => {
+    main_log.warn(`opening ${path_to_open}.`);
+    var regexp = new RegExp(/^\.\//);
+    if (regexp.test(path_to_open)) path_to_open = path.join(__dirname, path_to_open);
+    shell.openPath(path_to_open);
+});
+
+
+
 //returns the OS's home path directory
 ipcMain.handle('get-home-path', async (event) => {
     return os.homedir();
+});
+
+
+
+
+//return if a path exists
+ipcMain.handle('path-exists', async (event, path_to_test) => {
+    return fs.existsSync(path_to_test);
 });
 
 
@@ -434,6 +461,16 @@ ipcMain.handle('export-screen', async (event, screen_data, name) => {
 
 
 
+//set ffmpeg path
+ipcMain.handle('set-ffmpeg-path', async (event, path) => {
+    ffmpeg_path = path;
+});
+//set ffprobe path
+ipcMain.handle('set-ffprobe-path', async (event, path) => {
+    ffprobe_path = path;
+});
+
+
 
 //creates a video using ffmpeg from a set of frames and an audio file
 ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration, output_path) => {
@@ -465,8 +502,8 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
 
 
         //ffmpeg location
-        var ffmpeg_path = path.join(__dirname, "/ffmpeg/ffmpeg-4.2.1-win32-static/bin/ffmpeg.exe");
-        var ffprobe_path = path.join(__dirname, "/ffmpeg/ffmpeg-4.2.1-win32-static/bin/ffprobe.exe");
+        main_log.debug(`ffmpeg path: ${ffmpeg_path}`);
+        main_log.debug(`ffprobe path: ${ffprobe_path}`);
         ffmpeg.setFfmpegPath(ffmpeg_path);
         ffmpeg.setFfprobePath(ffprobe_path);
 

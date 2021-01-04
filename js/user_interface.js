@@ -50,6 +50,7 @@ async function InitUI() {
         project: document.getElementById("project_tab"),
         objects: document.getElementById("objects_tab"),
         export: document.getElementById("export_tab"),
+        settings: document.getElementById("settings_tab"),
         help: document.getElementById("help_tab"),
     }
 
@@ -60,6 +61,7 @@ async function InitUI() {
         project: document.getElementById("project_label"),
         objects: document.getElementById("objects_label"),
         export: document.getElementById("export_label"),
+        settings: document.getElementById("settings_label"),
         help: document.getElementById("help_label"),
     }
 
@@ -74,6 +76,10 @@ async function InitUI() {
     tab_label.export.onclick = function() {
         HideAnyTab();
         ShowTab(tab.export, tab_label.export);
+    }
+    tab_label.settings.onclick = function() {
+        HideAnyTab();
+        ShowTab(tab.settings, tab_label.settings);
     }
     tab_label.help.onclick = function() {
         HideAnyTab();
@@ -158,6 +164,42 @@ async function InitUI() {
         }
     }
 
+
+
+
+
+    //SETTINGS TAB
+    await InitSettings();
+    //choose ffmpeg path through file browser
+    document.getElementById("choose_ffmpeg_path_button").onclick = function() {
+        FileBrowserDialog({
+            type: "get_file",
+            allowed_extensions: ["#any"]
+        }, function(result) {
+            document.getElementById("ffmpeg_path_input").value = result;
+            settings.ffmpeg.ffmpeg_path = result;
+            ipcRenderer.invoke("set-ffmpeg-path", result);
+            SaveSettings();
+        });
+    }
+
+    //choose ffprobe path through file browser
+    document.getElementById("choose_ffprobe_path_button").onclick = function() {
+        FileBrowserDialog({
+            type: "get_file",
+            allowed_extensions: ["#any"]
+        }, function(result) {
+            document.getElementById("ffprobe_path_input").value = result;
+            settings.ffmpeg.ffprobe_path = result;
+            ipcRenderer.invoke("set-ffprobe-path", result);
+            SaveSettings();
+        });
+    }
+
+    //open recommended location for FFmpeg and FFprobe
+    document.getElementById("open_ffmpeg_folder").onclick = function() {
+        ipcRenderer.invoke("open-folder-in-file-explorer", "./ffmpeg/");
+    }
 
 
 

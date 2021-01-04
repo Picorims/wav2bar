@@ -8,3 +8,6 @@ logs/
 
 #outputs
 /*.mp4
+
+#user settings
+user/settings/user_settings.json

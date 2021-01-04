@@ -13,6 +13,7 @@
     <!-- main process -->
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/methods.js"></script>
+    <script type="text/javascript" src="js/settings.js"></script>
     <script type="text/javascript" src="js/save.js"></script>
     <script type="text/javascript" src="js/user_interface.js"></script>
     <script type="text/javascript" src="js/export_main.js"></script>
@@ -42,6 +43,7 @@
             <div class="tab_label" id="project_label"> <i class="ri-file-edit-line"></i></i> PROJECT</div>
             <div class="tab_label" id="objects_label"> <i class="ri-node-tree"></i></i> OBJECTS</div>
             <div class="tab_label" id="export_label"> <i class="ri-film-line"></i> EXPORT</div>
+            <div class="tab_label" id="settings_label"> <i class="ri-settings-4-line"></i> SETTINGS</div>
             <div class="tab_label" id="help_label"> <i class="ri-question-line"></i> CONTACT AND HELP</div>
         </div>
 
@@ -135,9 +137,27 @@
                 </div>
             </div>
 
+            <!--SETTINGS-->
+            <div id="settings_tab" class="tab">
+                <div class="panel_param_container" data-help="">
+                    <span>Locate FFmpeg: </span>
+                    <input id="ffmpeg_path_input" class="panel_input panel_input_string" />
+                    <button id="choose_ffmpeg_path_button" class="panel_button">BROWSE</button>    
+                </div>
+                <div class="panel_param_container" data-help="">
+                    <span>Locate FFprobe: </span>
+                    <input id="ffprobe_path_input" class="panel_input panel_input_string" />
+                    <button id="choose_ffprobe_path_button" class="panel_button">BROWSE</button>
+                </div>
+                <div class="panel_param_container" data-help="">
+                    <span>Import FFmpeg and FFprobe: </span>
+                    <button id="open_ffmpeg_folder" class="panel_button">OPEN RECOMMENDED FOLDER</button>
+                </div>
+            </div>
+
             <!--CONTACT AND HELP-->
             <div id="help_tab" class="tab">
-                <div class="panel_param_container" " data-help="">
+                <div class="panel_param_container" data-help="">
                     <span class="about_info">
                         You are running Wav2Bar v<span id="software_version"></span> .
                         <br/><br/>
