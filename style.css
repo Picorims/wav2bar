@@ -666,6 +666,27 @@ Dialog Boxes
 }
 
 
+/*message dialog
+  --------------*/
+.dialog_msg_with_icon {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.dialog_big_icon {
+    font-size: 5em;
+    margin: 0 15px;
+}
+.dialog_big_icon.blue {
+    color: var(--main-color);
+    text-shadow: 0 0 5px var(--main-color);
+}
+.dialog_big_icon.red {
+    color: var(--main-alert);
+    text-shadow: 0 0 5px var(--main-alert);
+}
+
 /*file browser dialog
   -------------------*/
 .file_browser_flex_sub_container {

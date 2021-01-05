@@ -7,7 +7,7 @@ var max_frames; //allow setting the max progress through every progress event.
 
 function Export(path) {//Launch the rendering process which will export the video
     if (typeof audio === "undefined") {
-        alert("No audio file selected!");
+        MessageDialog("warn","No audio file selected!");
         return;
     }
 
@@ -121,10 +121,10 @@ function Export(path) {//Launch the rendering process which will export the vide
                 mins = (mins<10)? "0"+mins : mins;
                 secs = (secs<10)? "0"+secs : secs;
 
-                alert(`The video has been successfully created in ${hours}:${mins}:${secs} !`);
+                MessageDialog("info",`The video has been successfully created in ${hours}:${mins}:${secs} !`);
                 CustomLog('info',`The video has been successfully created in ${hours}:${mins}:${secs} !`);
             }
-            else alert("An error occurred during the encoding process. For more information, see the logs.");
+            else MessageDialog("error","An error occurred during the encoding process. For more information, see the logs.");
         });
 
     });

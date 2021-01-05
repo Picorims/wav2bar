@@ -23,6 +23,10 @@ async function InitSettings() {
     SaveSettings();
     LoadSettings();
 
+    if (settings.ffmpeg.ffmpeg_path === "" || settings.ffmpeg.ffprobe_path === "") {
+        MessageDialog("warn","FFmpeg and/or FFprobe is/are missing. Wav2BAr can't export videos without these libraries. Packages can be found on ffmpeg.org. Be sure to define the path to these libraries in the settings!");
+    }
+
     CustomLog("info","settings loaded:");
     CustomLog("info", JSON.stringify(settings));
 }
@@ -45,4 +49,23 @@ async function SaveSettings() {
     CustomLog("info", "saving settings...");
     await ipcRenderer.invoke("write-json-file", "./user/settings/user_settings.json", JSON.stringify(settings));
     CustomLog("info", "settings saved!");
+}
+
+
+
+
+//Change FFmpeg path
+function setFFmpegPath(path) {
+    document.getElementById("ffmpeg_path_input").value = path;
+    settings.ffmpeg.ffmpeg_path = path;
+    ipcRenderer.invoke("set-ffmpeg-path", path);
+    SaveSettings();
+}
+
+//Change FFprobe path
+function setFFprobePath(path) {
+    document.getElementById("ffprobe_path_input").value = path;
+    settings.ffmpeg.ffprobe_path = path;
+    ipcRenderer.invoke("set-ffprobe-path", path);
+    SaveSettings();
 }

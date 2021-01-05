@@ -7,8 +7,7 @@ const { app,
     BrowserWindow,
     ipcMain,
     webContents,
-    shell, 
-    ipcRenderer,
+    shell,
     contentTracing} = require('electron');
 
 //node js dependencies
@@ -312,6 +311,11 @@ ipcMain.handle('open-folder-in-file-explorer', async (event, path_to_open) => {
 //returns the OS's home path directory
 ipcMain.handle('get-home-path', async (event) => {
     return os.homedir();
+});
+
+//return OS type
+ipcMain.handle('get-os', async (event) => {
+    return process.platform
 });
 
 

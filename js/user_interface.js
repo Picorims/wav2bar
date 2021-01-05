@@ -155,10 +155,13 @@ async function InitUI() {
     }
 
     //export
-    document.getElementById("export_button").onclick = function() {
+    document.getElementById("export_button").onclick = async function() {
         let input_value = document.getElementById("video_export_path_input").value
         if (input_value == "") {
-            alert("please specify the video output path.");
+            MessageDialog("info","please specify the video output path.");
+        } else if (!await ipcRenderer.invoke("path-exists",settings.ffmpeg.ffmpeg_path)
+                || !await ipcRenderer.invoke("path-exists",settings.ffmpeg.ffprobe_path) ) {
+            MessageDialog("error","FFmpeg and/or FFprobe have an invalid path, or it is missing.");    
         } else {
             Export(input_value);
         }
@@ -176,11 +179,11 @@ async function InitUI() {
             type: "get_file",
             allowed_extensions: ["#any"]
         }, function(result) {
-            document.getElementById("ffmpeg_path_input").value = result;
-            settings.ffmpeg.ffmpeg_path = result;
-            ipcRenderer.invoke("set-ffmpeg-path", result);
-            SaveSettings();
+            setFFmpegPath(result);
         });
+    }
+    document.getElementById("ffmpeg_path_input").oninput = function() {
+        setFFmpegPath(this.value);
     }
 
     //choose ffprobe path through file browser
@@ -189,12 +192,13 @@ async function InitUI() {
             type: "get_file",
             allowed_extensions: ["#any"]
         }, function(result) {
-            document.getElementById("ffprobe_path_input").value = result;
-            settings.ffmpeg.ffprobe_path = result;
-            ipcRenderer.invoke("set-ffprobe-path", result);
-            SaveSettings();
+            setFFprobePath(result);
         });
     }
+    document.getElementById("ffprobe_path_input").oninput = function() {
+        setFFprobePath(this.value);
+    }
+
 
     //open recommended location for FFmpeg and FFprobe
     document.getElementById("open_ffmpeg_folder").onclick = function() {
@@ -1212,6 +1216,88 @@ function InputDialog(message, callback, args) {
 
 
 
+//Creates a dialog box with a message. Handle events.
+//args allows for passing arguments to the callback.
+function MessageDialog(type, message, callback, args) {
+
+    if ( !IsAString(type)    ) throw `MessageDialog: ${message} must be a string`;
+    else if (type!=="info" && type!=="warn" && type!=="error" && type!=="confirm") throw `MessageDialog: ${message} must be "info", "warn" or "error"`;
+    if ( !IsAString(message) ) throw `MessageDialog: ${message} is not a string.`;
+    if (IsUndefined(callback) && type==="confirm") throw `MessageDialog: callback missing!`;
+
+    //create elements
+    var background_container = document.createElement("div");
+    document.body.appendChild(background_container);
+    background_container.classList.add("background_dialog_container");
+
+    var container = document.createElement("div");
+    background_container.appendChild(container);
+    container.classList.add("dialog_box", "sticky_dialog");
+
+    //title of the container
+    var title = document.createElement("h1");
+    container.appendChild(title);
+    title.classList.add("dialog_title");
+    title.innerHTML = type;
+
+    var msg_container = document.createElement("div");
+    container.appendChild(msg_container);
+    msg_container.classList.add("dialog_msg_with_icon");
+
+    //icon
+    var icon = document.createElement("span");
+    msg_container.appendChild(icon);
+    icon.classList.add("dialog_big_icon");
+    switch (type) {
+        case "info":
+            icon.innerHTML = '<i class="ri-information-line"></i>';
+            icon.classList.add("blue");
+            break;
+        case "warn":
+            icon.innerHTML = '<i class="ri-alert-line"></i>';
+            icon.classList.add("blue");
+            break;
+        case "error":
+            icon.innerHTML = '<i class="ri-error-warning-line"></i>';
+            icon.classList.add("red");
+            break;
+        case "confirm":
+            icon.innerHTML = '<i class="ri-question-line"></i>';
+            icon.classList.add("blue");
+            break;
+    }
+
+    //message
+    var msg = document.createElement("p");
+    msg_container.appendChild(msg);
+    msg.innerHTML = message;
+
+    //cancel and confirm action buttons
+    if (type==="confirm") {
+        var cancel_button = document.createElement("button");
+        container.appendChild(cancel_button);
+        cancel_button.classList.add("panel_button", "dialog_button");
+        cancel_button.innerHTML = "Cancel";
+        cancel_button.onclick = function() {
+            background_container.remove();
+        }    
+    }
+
+    //button to close if not in confirm mode.
+    var confirm_button = document.createElement("button");
+    container.appendChild(confirm_button);
+    confirm_button.classList.add("panel_button", "dialog_button");
+    confirm_button.innerHTML = (type==="confirm")? "Confirm" : "OK";
+    confirm_button.onclick = function() {
+        if (callback) callback(args);
+        background_container.remove();
+    }
+
+}
+
+
+
+
 
 
 
@@ -1314,13 +1400,16 @@ async function FileBrowserDialog(settings, callback, args) {
     go_back.classList.add("file_browser_icon_button");
     go_back.innerHTML = '<i class="ri-arrow-left-circle-line"></i>';
     go_back.onclick = async () => {
-        // "...\love\whatever(\)" -> "...\love\"
+        // ".../love/whatever(/)" -> ".../love/"
         //erase the last directory in the path,
-        //taking into account if there is a remaining \ at the end of the string.
-        //translation: \, then a string that do not contain a backslash, then maybe a \, then end of the line ==> become \.
+        //taking into account if there is a remaining / at the end of the string.
+        //translation: /, then a string that do not contain a backslash, then maybe a /, then end of the line ==> become /.
         
         try {
-            var path = path_input.value.replace(/\\[^\\]*\\?$/,"\\");
+            var os = await ipcRenderer.invoke("get-os");
+            var path;
+            if (os==="win32") path = path_input.value.replace(/\\[^\\]*\\?$/,"\\");
+            else path = path_input.value.replace(/\/[^\/]*\/?$/,"\/");
             await FillTree(path, file_browser, path_input, name_input, settings);
         } catch (error) {
             CustomLog("error",`${path_input.value} do not exists: ${error}`);
@@ -1334,7 +1423,9 @@ async function FileBrowserDialog(settings, callback, args) {
     new_folder.onclick = function () {
         //create folder
         InputDialog("Name of the directory:", async (name, path) => {
-            await ipcRenderer.invoke('make-dir', `${path}\\${name}`);
+            var os = await ipcRenderer.invoke("get-os");
+            if (os==="win32") await ipcRenderer.invoke('make-dir', `${path}\\${name}`);
+            else await ipcRenderer.invoke('make-dir', `${path}/${name}`);
 
             var event = new Event('input', {
                 bubbles: true,
@@ -1342,7 +1433,7 @@ async function FileBrowserDialog(settings, callback, args) {
             });
             
             path_input.dispatchEvent(event);
-        }, path_input.value.replace(/\\$/,"")); //path
+        }, path_input.value.replace(/\\$/,"").replace(/\/$/,"")); //path
     }
 
     var home_dir = document.createElement("div");
@@ -1438,21 +1529,28 @@ async function FileBrowserDialog(settings, callback, args) {
 
                 var regexp = new RegExp(/\..*$/,"g");
                 if (regexp.test(name_input.value)) {
-                    alert("no extension allowed!")
+                    MessageDialog("warn","no extension allowed!")
                     return;
 
                 }
             } else if (extensions[0] !== "#any") {
                 if (!HasValidExtension(name_input.value, extensions)) {
-                    alert(`this extension is not allowed: use one in the following list:\n${extensions}`);
+                    MessageDialog("warn",`this extension is not allowed: use one in the following list:\n${extensions}`);
                     return;
                 }
             }
         }
 
-        //erase the potential \ at the end of the path
-        path_input.value = path_input.value.replace(/\\$/,"");
-        var result = (settings.type === "get_directory")? path_input.value : path_input.value + '\\' + name_input.value;
+        //erase the potential / at the end of the path
+        path_input.value = path_input.value.replace(/\\$/,"").replace(/\/$/,"");
+        var result;
+        if (settings.type === "get_directory") {
+            result = path_input.value;
+        } else if (await ipcRenderer.invoke("get-os") === "win32") {
+            result = `${path_input.value}\\${name_input.value}`;
+        } else {
+            result = `${path_input.value}/${name_input.value}`;
+        }
             
         callback(result, args);
         background_container.remove();    
@@ -1496,10 +1594,6 @@ async function FillTree(path, container, path_input, name_input, settings) {
                 //can_push = false;
 
                 //only display if the file has an extension that exists in the list of extensions to display.
-                // for (let j=0; j<extensions.length; j++) {
-                //     let regexp = new RegExp(`\.${extensions[j]}$`,"g"); // ends with .my_extension
-                //     if (regexp.test(files[i].name)) can_push = true;
-                // }
                 let valid = HasValidExtension(files[i].name, extensions);
                 if (!settings.show_disabled_files) {
                     can_push = valid;
@@ -1564,9 +1658,9 @@ async function FillTree(path, container, path_input, name_input, settings) {
                         
                         //open directory
     
-                        //erase the potential \ at the end of the path
-                        path_input.value = path_input.value.replace(/\\$/,"");
-                        path_input.value += `\\${file.name}`;
+                        //erase the potential / at the end of the path
+                        path_input.value = path_input.value.replace(/\\$/,"").replace(/\/$/,"");
+                        path_input.value += (await ipcRenderer.invoke("get-os")==="win32")? `\\${file.name}` : `/${file.name}`;
     
                         var event = new Event('input', {
                             bubbles: true,
