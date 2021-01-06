@@ -1519,7 +1519,7 @@ async function FileBrowserDialog(settings, callback, args) {
     confirm_button.classList.add("panel_button", "dialog_button");
     confirm_button.innerHTML = "Confirm";
     confirm_button.setAttribute("data-tmp-input-id", tmp_input_id);
-    confirm_button.onclick = function() {
+    confirm_button.onclick = async function() {
         
         var name_input = document.getElementById(this.getAttribute("data-tmp-input-id"));
         var extensions = settings.allowed_extensions;
@@ -1544,9 +1544,10 @@ async function FileBrowserDialog(settings, callback, args) {
         //erase the potential / at the end of the path
         path_input.value = path_input.value.replace(/\\$/,"").replace(/\/$/,"");
         var result;
+        var os = await ipcRenderer.invoke("get-os");
         if (settings.type === "get_directory") {
             result = path_input.value;
-        } else if (await ipcRenderer.invoke("get-os") === "win32") {
+        } else if (os === "win32") {
             result = `${path_input.value}\\${name_input.value}`;
         } else {
             result = `${path_input.value}/${name_input.value}`;
@@ -1645,7 +1646,7 @@ async function FillTree(path, container, path_input, name_input, settings) {
 
             //event
             if (!file.disabled) {
-                item.onclick = function() {
+                item.onclick = async () => {
                 
                     if (file.type === "file") {
     
@@ -1659,8 +1660,9 @@ async function FillTree(path, container, path_input, name_input, settings) {
                         //open directory
     
                         //erase the potential / at the end of the path
+                        var os = await ipcRenderer.invoke("get-os");
                         path_input.value = path_input.value.replace(/\\$/,"").replace(/\/$/,"");
-                        path_input.value += (await ipcRenderer.invoke("get-os")==="win32")? `\\${file.name}` : `/${file.name}`;
+                        path_input.value += (os==="win32")? `\\${file.name}` : `/${file.name}`;
     
                         var event = new Event('input', {
                             bubbles: true,
