@@ -13,6 +13,8 @@ const { app,
 //node js dependencies
 const path = require("path");
 const fs = require("fs");//file system
+const fsExtra = require("fs-extra");
+const zipper = require("zip-local");
 const os = require("os");
 const ft = require('fourier-transform/asm');
 require('./node_modules/log4js/lib/appenders/stdout');
@@ -88,6 +90,7 @@ app.on('window-all-closed', () => {
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
         main_log.info("quitting...");
+        fsExtra.emptyDirSync("./temp"); //clear cache
         app.quit();
     }
 });
@@ -545,5 +548,43 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
             })
             .save(output_path);
     
+    });
+});
+
+
+
+
+ipcMain.handle("create-save-file", async (event, save_path) => {
+    main_log.info(`creating save file at ${save_path}`);
+    
+    //check extension
+    var regexp = /.w2bzip$/;
+    if(!regexp.test(save_path)) {
+        main_log.error("failed to create the save file: missing .w2bzip extension!");
+        throw "missing .w2bzip extension!";
+    }
+    
+    //zip current save
+    var save_path_zip = save_path.replace(".w2bzip",".zip");
+    zipper.zip("./temp/current_save", function(error, zipped) {
+
+        if (!error) {
+            zipped.compress(); // compress before exporting
+        
+            //save the zipped file to disk
+            zipped.save(save_path_zip, function(error) {
+                if (!error) {
+                    main_log.info("zipped successfully!");
+
+                    //rename .zip to .w2bzip
+                    fs.promises.rename(save_path_zip, save_path);
+                    main_log.info(`created save file at ${save_path}`);
+                } else {
+                    main_log.error(`failed at creating the save file: ${error}`);
+                }
+            });
+        } else {
+            main_log.error(`failed at creating the save file: ${error}`);
+        }
     });
 });

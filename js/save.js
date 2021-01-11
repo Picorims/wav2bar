@@ -153,7 +153,7 @@ function SyncSave() { //function that updates the current save with latest data
 
 
 
-
+//legacy save export
 function ExportSaveAsJSON() {//export the current save to JSON format.
 
     CustomLog("info","generating download file for the save...");
@@ -179,4 +179,30 @@ function ExportSaveAsJSON() {//export the current save to JSON format.
     downloader.remove();
 
     CustomLog("info","save file provided for download.");
+}
+
+
+
+//save project to file
+/**
+ * structure:
+ * project_name.w2bzip (renamed .zip file)
+ * |- data.json
+ * |- assets
+ * |    |- (audio, images, etc...)
+ * |    /
+ * /
+ */
+function ExportSave() {
+    CustomLog("info","generating save file...");
+    //update the current save
+    SyncSave();
+
+    //update JSON data in temp save
+    var save_data = JSON.stringify(current_save);
+    ipcRenderer.invoke("write-json-file", "./temp/current_save/data.json", save_data);
+
+    //package file
+    ipcRenderer.invoke("create-save-file", "./save.w2bzip");
+    CustomLog("info","save file generated!");
 }
