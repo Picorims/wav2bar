@@ -122,13 +122,23 @@ async function InitUI() {
     }
 
     //import save
-    document.getElementById("save_file_input").onchange = function() {
-        if (this.files[0]) LoadSave(this.files[0]);
+    document.getElementById("save_file_button").onclick = function() {
+        FileBrowserDialog({
+            type: "get_file",
+            allowed_extensions:[".w2bzip"],
+        }, function(result) {
+            LoadSave(result);
+        });
     }
 
     //export save
     document.getElementById("export_save_button").onclick = function() {
-        ExportSaveAsJSON();
+        FileBrowserDialog({
+            type: 'save_file',
+            allowed_extensions:[".w2bzip"],
+        }, function(result) {
+            ExportSave(result);
+        });
     }
 
 
@@ -1395,6 +1405,7 @@ async function FileBrowserDialog(settings, callback, args) {
         }
     }
 
+    //go back button
     var go_back = document.createElement("div");
     path_container.appendChild(go_back);
     go_back.classList.add("file_browser_icon_button");
@@ -1416,6 +1427,7 @@ async function FileBrowserDialog(settings, callback, args) {
         }
     }
 
+    //new folder button
     var new_folder = document.createElement("div");
     path_container.appendChild(new_folder);
     new_folder.classList.add("file_browser_icon_button");
@@ -1436,6 +1448,7 @@ async function FileBrowserDialog(settings, callback, args) {
         }, path_input.value.replace(/\\$/,"").replace(/\/$/,"")); //path
     }
 
+    //home directory button
     var home_dir = document.createElement("div");
     path_container.appendChild(home_dir);
     home_dir.classList.add("file_browser_icon_button");
@@ -1474,6 +1487,7 @@ async function FileBrowserDialog(settings, callback, args) {
     checkbox_title.classList.add("file_browser_flex_span");
     checkbox_title.innerHTML = "Show disabled files : ";
 
+    //show all files checkbox
     var show_all_files = document.createElement("input");
     file_selection_container.appendChild(show_all_files);
     show_all_files.classList.add("panel_input", "panel_input_checkbox");
@@ -1505,7 +1519,7 @@ async function FileBrowserDialog(settings, callback, args) {
     
 
 
-    //cancel and confirm action buttons
+    //cancel button
     var cancel_button = document.createElement("button");
     container.appendChild(cancel_button);
     cancel_button.classList.add("panel_button", "dialog_button");
@@ -1514,6 +1528,7 @@ async function FileBrowserDialog(settings, callback, args) {
         background_container.remove();
     }
 
+    //confirm button
     var confirm_button = document.createElement("button");
     container.appendChild(confirm_button);
     confirm_button.classList.add("panel_button", "dialog_button");
@@ -1640,7 +1655,13 @@ async function FillTree(path, container, path_input, name_input, settings) {
 
             //content
             let icon;
-            if (file.type === "file") icon = '<i class="ri-file-fill icon_directory"></i>';
+            if (file.type === "file") {
+                if (getExtension(file.name) === "w2bzip") {
+                    icon = '<i class="ri-save-3-fill"></i>';
+                } else {
+                    icon = '<i class="ri-file-fill icon_directory"></i>';
+                }
+            }
             else if (file.type === "directory") icon = '<i class="ri-folder-3-fill icon_file"></i>';
             item.innerHTML = `${icon} ${file.name}`;
 
@@ -1709,4 +1730,10 @@ function HasValidExtension(file_name, extensions_list) {
     }
 
     return file_matches;
+}
+
+
+//give a file's extension. ex: test.txt -> "txt". ex2: test -> "".
+function getExtension(file_name) {
+    return file_name.substring(file_name.lastIndexOf('.')+1, file_name.length) || filename;
 }

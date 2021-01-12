@@ -554,6 +554,43 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
 
 
 
+ipcMain.handle("cache-save-file", async (event, save_path) => {
+    main_log.info(`loading save file at ${save_path}`);
+    var sender;
+    switch (event.sender.id) {
+        case win.webContents.id: sender = win; break;
+        case export_win.webContents.id: sender = export_win; break;
+    }
+
+    //check extension
+    var regexp = /.w2bzip$/;
+    if(!regexp.test(save_path)) {
+        main_log.error("failed to create the save file: missing .w2bzip extension!");
+        throw "missing .w2bzip extension!";
+    }
+
+    //copy file in temp and rename it to zip
+    await fs.promises.copyFile(save_path, "./temp/save_to_load.zip");
+
+    //cache save
+    fsExtra.emptyDirSync("./temp/current_save");
+    await zipper.unzip("./temp/save_to_load.zip", function (error, unzipped) {
+        if (!error) {
+            // extract to the current working directory
+            unzipped.save("./temp/current_save", function() {
+                sender.webContents.send("finished-caching-save");
+            });
+        } else {
+            main_log.error(`failed at caching the save file: ${error}`);
+        }
+        
+    });
+});
+
+
+
+
+//function that packages the content of ./temp/current_save (JSON data, assets...) into a save file.
 ipcMain.handle("create-save-file", async (event, save_path) => {
     main_log.info(`creating save file at ${save_path}`);
     

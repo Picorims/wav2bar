@@ -21,8 +21,8 @@ function DefaultSave() {//set the save data to default values
 
 
 
-function LoadSave(save_file) {//load a user save or a preset (JSON format)
-    if (!IsAnObject(save_file)) throw "LoadSave: no valid save file given!";
+async function LoadSave(save_file_path) {//load a user save or a preset (JSON format)
+    if (!IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
 
     CustomLog("info","Loading the save...");
 
@@ -45,20 +45,29 @@ function LoadSave(save_file) {//load a user save or a preset (JSON format)
     
     //LOAD NEW DATA
     //the data must be extracted from the file in order to be able to read it.
+    ipcRenderer.once("finished-caching-save", async (event) => {
+        //read data cached in ./temp/current_save
+        CustomLog("info","reading the save...");
 
-    var file_reader = new FileReader();    
-    file_reader.onload = function(e) {
-        
-        //get parsed data
-        var save = JSON.parse(file_reader.result);
-        
-        //clone it into the current_save (direct assign doesn't work)
-        current_save = JSON.parse(JSON.stringify(save));
-
+        const JSON_data = await ipcRenderer.invoke("read-json-file","./temp/current_save/data.json");
+        current_save = JSON.parse(JSON.stringify(JSON_data)); //copy data
         ApplyLoadedSave();
+    });
+    await ipcRenderer.invoke("cache-save-file", save_file_path);
 
-    }
-    file_reader.readAsText(save_file, "utf-8");
+    // var file_reader = new FileReader();    
+    // file_reader.onload = function(e) {
+        
+    //     //get parsed data
+    //     var save = JSON.parse(file_reader.result);
+        
+    //     //clone it into the current_save (direct assign doesn't work)
+    //     current_save = JSON.parse(JSON.stringify(save));
+
+    //     ApplyLoadedSave();
+
+    // }
+    // file_reader.readAsText(save_file, "utf-8");
 
 }
 
@@ -193,7 +202,9 @@ function ExportSaveAsJSON() {//export the current save to JSON format.
  * |    /
  * /
  */
-function ExportSave() {
+function ExportSave(save_path) {
+    if (!IsAString(save_path)) throw `ExportSave: ${save_path} is an invalid save path (not a string).`;
+    
     CustomLog("info","generating save file...");
     //update the current save
     SyncSave();
@@ -203,6 +214,6 @@ function ExportSave() {
     ipcRenderer.invoke("write-json-file", "./temp/current_save/data.json", save_data);
 
     //package file
-    ipcRenderer.invoke("create-save-file", "./save.w2bzip");
+    ipcRenderer.invoke("create-save-file", save_path);
     CustomLog("info","save file generated!");
 }
