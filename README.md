@@ -6,7 +6,7 @@ A tool to make custom audio visualization and export production videos for the a
 
 ## Hacking
 - NodeJS must be installed (It will install npm too).
-- Clone the git repository (you can also use GitHub's download button *if you only need to perform tests*). Note that Git LFS is used!
+- Clone the git repository (you can also use GitHub's download button *if you only need to perform tests*). Note that Git LFS is used too. Git LFS files should be packaged together with the archive download.
 - Mac/linux:
     - Reinstall the same version of Electron, the repository contains a Windows 64bit version of it.
     - download FFmpeg for your operating system and configure it in the app settings (otherwise export won't work!).
