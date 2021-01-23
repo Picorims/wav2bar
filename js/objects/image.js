@@ -12,8 +12,14 @@
     width: ?, (px)
     height: ?, (px)
     rotation: ?, (deg)
-    background: ?, (string, css background)
-    size: ?, (string, css background-size for image resizing, shrinking, repeating)
+    background: {
+        type: "color"|"gradient"|"image",
+        last_color: css color,
+        last_gradient: css gradient,
+        last_image: image name, (path: ./temp/current_save/assets/object_id/background/image_name_with_extension)
+        size: ?, (string, css background-size for image resizing, shrinking, repeating)
+        repeat: no-repeat|repeat-x|repeat-y|repeat,
+    },
     border_radius: ?, (string, css border-radius)
     box_shadow: ?, (string, css box-shadow)
 }*/
@@ -98,17 +104,52 @@ function Image(glob_data) {
         }
 
         //background
-        if ( IsUndefined(data.background) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background = "#fff";}
-        if ( !IsUndefined(data.background) && !IsAString(data.background) ) {
-            CustomLog("warn","Image object: Invalid background! A white background is applied."); //do not detect css errors!
-            data.background = "#fff";
-        }
+        if ( IsUndefined(data.background) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background = {type: null, last_color: null, last_gradient: null, last_image: null};}
+        
+        if (!IsUndefined(data.background)) {//it is undefined if it has not been set before in the data argument and IGNORE_UNDEFINED is active
+            
+            //type
+            if ( IsUndefined(data.background.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.type = "color";}
+            if ( !IsUndefined(data.background.type) && (!IsAString(data.background.type) || ( (data.background.type !== "color") && (data.background.type !== "gradient") && (data.background.type !== "image") )) ) {
+                CustomLog("warn","Image object: Invalid background type! Set to color.");
+                data.background.type = "color";
+            }
 
-        //size
-        if ( IsUndefined(data.size) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.size = "";}
-        if ( !IsUndefined(data.size) && !IsAString(data.size) ) {
-            CustomLog("warn","Image object: Invalid size! No css size is applied."); //do not detect css errors!
-            data.size = "";
+            //last color
+            if ( IsUndefined(data.background.last_color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_color = "#ffffff";}
+            if ( !IsUndefined(data.background.last_color) && !IsAString(data.background.last_color) ) {
+                CustomLog("warn","Image object: Invalid background color! Set to #ffffff."); //do not detect css errors!
+                data.background.last_color = "#ffffff";
+            }
+
+            //last gradient
+            if ( IsUndefined(data.background.last_gradient) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_gradient = "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%)";}
+            if ( !IsUndefined(data.background.last_gradient) && !IsAString(data.background.last_gradient) ) {
+                CustomLog("warn","Image object: Invalid background gradient! Set to a basic gradient."); //do not detect css errors!
+                data.background.last_gradient = "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%)";
+            }
+
+            //last image
+            if ( IsUndefined(data.background.last_image) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_image = "";}
+            if ( !IsUndefined(data.background.last_image) && !IsAString(data.background.last_image) ) {
+                CustomLog("warn","Image object: Invalid background image! Value ignored."); //do not detect css errors!
+                data.background.last_image = "";
+            }
+
+            //size
+            if ( IsUndefined(data.background.size) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.size = "";}
+            if ( !IsUndefined(data.background.size) && !IsAString(data.background.size) ) {
+                CustomLog("warn","Image object: Invalid size! No css size is applied."); //do not detect css errors!
+                data.background.size = "";
+            }
+
+            //repeat
+            if ( IsUndefined(data.background.repeat) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.repeat = "no-repeat";}
+            if ( !IsUndefined(data.background.repeat) && (!IsAString(data.background.repeat) || ( (data.background.repeat !== "no-repeat") && (data.background.repeat !== "repeat") && (data.background.repeat !== "repeat-x") && (data.background.repeat !== "repeat-y") )) ) {
+                CustomLog("warn","Image object: Invalid repeat type! Set to no-repeat.");
+                data.background.repeat = "no-repeat";
+            }
+            
         }
 
         //border-radius
@@ -188,8 +229,30 @@ function Image(glob_data) {
             this.element.style.left = this.data.x+"px";//x
             this.element.style.top = this.data.y+"px";//y
             this.element.style.transform = `rotate(${this.data.rotation}deg)`;//rotation
-            this.element.style.background = this.data.background;//background
-            this.element.style.backgroundSize = this.data.size;//size
+            switch (this.data.background.type) {//background
+                case "color":
+                    this.element.style.background = "";
+                    this.element.style.backgroundColor = this.data.background.last_color;
+                    this.element.backgroundImage = "";
+                    break;
+                case "gradient":
+                    this.element.style.background = this.data.background.last_gradient;
+                    this.element.style.backgroundColor = "";
+                    this.element.backgroundImage = "";
+                    break;
+                case "image":
+                    this.element.style.background = "";
+                    this.element.style.backgroundColor = "";
+                    if (this.data.background.last_image !== "") {
+                        this.element.style.backgroundImage = `url(./temp/current_save/assets/${this.data.id}/background/${this.data.background.last_image})`;
+                    } else {
+                        this.element.style.backgroundImage = "";
+                        this.element.style.backgroundColor = "#000000";
+                    }
+                    this.element.style.backgroundRepeat = this.data.background.repeat;
+                    break;
+            }
+            this.element.style.backgroundSize = this.data.background.size;//background size
             this.element.style.borderRadius = this.data.border_radius;//
             this.element.style.boxShadow = this.data.box_shadow;
         }
@@ -333,46 +396,98 @@ function Image(glob_data) {
         );
 
         //background
+        let bgnd_size_array = this.data.background.size.split(" ");
+        let def_size_type, def_size_x, def_size_y;
+        let val_percent_regex = new RegExp(/[0-9]+%/);//no g flag so it doesn't keep track of last index
+        if (bgnd_size_array[0] === "contain") {
+            def_size_type = "contain";
+            def_size_x = def_size_y = "";
+        } else if (bgnd_size_array[0] === "cover") {
+            def_size_type = "cover";
+            def_size_x = def_size_y = "";
+        } else if ( bgnd_size_array.length === 1 && val_percent_regex.test(bgnd_size_array[0]) ) {
+            def_size_type = "scale_size_control";
+            def_size_x = bgnd_size_array[0].replace("%","");
+            def_size_y = "";
+        } else if ( bgnd_size_array.length === 2 && val_percent_regex.test(bgnd_size_array[0]) && val_percent_regex.test(bgnd_size_array[1]) ) {
+            def_size_type = "width_height_size_control";
+            def_size_x = bgnd_size_array[0].replace("%","");
+            def_size_y = bgnd_size_array[1].replace("%","");
+        } else {
+            def_size_type = "cover";
+            def_size_x = def_size_y = "";
+        }
+        let repeat_x_bool, repeat_y_bool;
+        switch (this.data.background.repeat) {
+            case "repeat":
+                repeat_x_bool = repeat_y_bool = true;
+                break;
+            case "repeat-x":
+                repeat_x_bool = true;
+                repeat_y_bool = false;
+                break;
+            case "repeat-y":
+                repeat_x_bool = false;
+                repeat_y_bool = true;
+                break;
+            case "no-repeat":
+            default:
+                repeat_x_bool = repeat_y_bool = false;
+                break;
+        }
         AddParameter(
             {
                 object_id: this.data.id,
-                type: "string",
+                type: "background-picker",
                 settings: {
-                    default: this.data.background,
+                    default_type: this.data.background.type,
+                    default_color: this.data.background.last_color,
+                    default_gradient: this.data.background.last_gradient,
+                    default_image: this.data.background.last_image,
+                    default_size_type: def_size_type,
+                    default_size_x: def_size_x,
+                    default_size_y: def_size_y,
+                    default_repeat_x: repeat_x_bool,
+                    default_repeat_y: repeat_y_bool,
+                    size_step: 1,
                 },
                 title: "Background",
                 help: help.parameter.object.image.bgnd,
             },
-            function(id, value) {
+            function(id, type, value, size_type, size_x, size_y, repeat_x, repeat_y) {
 
                 var this_object = object_method.getByID(id);
-
-                this_object.updateData({
+                var updated_data = {
                     id: id,
-                    background: value,
-                });
-            }
-        );
+                    background: {
+                        type: type,
+                    }
+                }
+                switch (type) {
+                    case "color": updated_data.background.last_color = value; break;
+                    case "gradient": updated_data.background.last_gradient = value; break;
+                    case "image":
+                        updated_data.background.last_image = value; 
+                        switch (size_type) {
+                            case "contain":
+                            case "cover":
+                                updated_data.background.size = size_type;
+                                break;
+                            case "scale_size_control":
+                                updated_data.background.size = size_x+"%";
+                                break;
+                            case "width_height_size_control":
+                                updated_data.background.size = `${size_x}% ${size_y}%`;
+                                break;
+                        }
+                        if (repeat_x && repeat_y) updated_data.background.repeat = "repeat";
+                        else if (repeat_x && !repeat_y) updated_data.background.repeat = "repeat-x";
+                        else if (!repeat_x && repeat_y) updated_data.background.repeat = "repeat-y";
+                        else if (!repeat_x && !repeat_y) updated_data.background.repeat = "no-repeat";
+                        break;
+                }
 
-        //size
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "string",
-                settings: {
-                    default: this.data.size,
-                },
-                title: "Background Size",
-                help: help.parameter.object.general.bgnd_size,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    size: value,
-                });
+                this_object.updateData(updated_data);
             }
         );
 

@@ -5,11 +5,13 @@
 //all data of the project that can be saved is in this variable.
 //It is used for saving and exporting data, never for getting data in a process.
 var current_save;
+const save_version = 2;
 
 function DefaultSave() {//set the save data to default values
     current_save = {
-        //1 -> Wav2Bar 0.1.0+
-        save_version: 1,
+        //1 -> Wav2Bar 0.1.0 indev before save revamp (image embedding, music embedding)
+        //2 -> Wav2Bar 0.1.0 Beta and after
+        save_version: save_version,
         software_version_used: `${software_version} ${software_status}`,
         screen: {width: 1280, height: 720},
         fps: 60,

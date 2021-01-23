@@ -135,7 +135,7 @@ function Visualizer(glob_data) {
         }
 
         //visualization smoothing (prevent errors related to an incomplete path)
-        if ( IsUndefined(data.visualization_smoothing) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing = {type: undefined, factor: undefined};}
+        if ( IsUndefined(data.visualization_smoothing) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing = {type: null, factor: null};}
 
         
         if ( !IsUndefined(data.visualization_smoothing) ) {//it is undefined if it has not been set before in the data argument and IGNORE_UNDEFINED is active

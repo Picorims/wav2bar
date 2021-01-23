@@ -902,10 +902,17 @@ function ToggleOpen(title_container) {
 
 
 //function to add a parameter to an object parameter container
+/**args {
+ *  object_id: uuid,
+ *  type: string|value|value-xy|choice|checkbox|background-picker,
+ *  settings: {cf mode settings},
+ *  title: string,
+ * }
+ */
 function AddParameter(args, callback) {
     if (!IsAString(args.object_id)) throw `AddParameter: ${args.object_id} is not a valid ID.`;
     
-    if ( (args.type!=="string") && (args.type!=="value") && (args.type!=="value-xy") && (args.type!=="choice") && (args.type!=="checkbox") ) {
+    if ( (args.type!=="string") && (args.type!=="value") && (args.type!=="value-xy") && (args.type!=="choice") && (args.type!=="checkbox") && (args.type!=="background-picker") ) {
         throw `AddParameter: ${args.type} is not a valid parameter type.`;
     }
     if (!IsAnObject(args.settings))    throw "AddParameter: The parameters provided aren't of type object.";
@@ -932,9 +939,6 @@ function AddParameter(args, callback) {
         case "string":
             /**settings:
              * default: value,
-             * min: value,
-             * max: value,
-             * step: value,
              */
 
             //element
@@ -947,16 +951,16 @@ function AddParameter(args, callback) {
             input.oninput = function() {
                 callback(args.object_id, input.value);
             }
-        break
+        break;
 
 
 
         case "value":
             /**settings:
              * default: value,
-             * min: value,
-             * max: value,
-             * step: value,
+             * min: value, (optional)
+             * max: value, (optional)
+             * step: value, (optional)
              */
 
             //element
@@ -973,7 +977,7 @@ function AddParameter(args, callback) {
             input.oninput = function() {
                 callback(args.object_id, parseFloat(input.value) );
             }
-        break
+        break;
 
 
 
@@ -981,9 +985,9 @@ function AddParameter(args, callback) {
             /**settings:
              * default_x: value,
              * default_y: value,
-             * min: value,
-             * max: value,
-             * step: value,
+             * min: value, (optional)
+             * max: value, (optional)
+             * step: value, (optional)
              */
 
             //elements
@@ -1015,7 +1019,7 @@ function AddParameter(args, callback) {
             input2.oninput = function() {
                 callback(args.object_id, parseFloat(input1.value), parseFloat(input2.value) );
             }
-        break
+        break;
 
 
 
@@ -1029,7 +1033,6 @@ function AddParameter(args, callback) {
             var list = document.createElement("select");
             param_container.appendChild(list);
             list.classList.add("panel_input", "panel_input_list");
-            list.value = args.settings.default;
 
             //options
             for (var i=0; i< args.settings.list.length; i++) {
@@ -1038,18 +1041,19 @@ function AddParameter(args, callback) {
                 option.innerHTML = args.settings.list[i];
                 option.value = args.settings.list[i];
             }
+            list.value = args.settings.default;
             
             //function
             list.oninput = function() {
                 callback(args.object_id, list.value);
             }
-        break
+        break;
 
 
 
         case "checkbox":
             /**settings:
-             * default: value;
+             * default: boolean;
              */
 
             //element
@@ -1063,7 +1067,290 @@ function AddParameter(args, callback) {
             input.oninput = function() {
                 callback(args.object_id, input.checked);
             }
-        break
+        break;
+
+
+
+        case "background-picker":
+            /**settings:
+             * default_color: value;
+             * default_gradient: value;
+             * default_image: value; (only filename!)
+             * default_type: color|gradient|image;
+             * default_size_type: cover|contain|scale_size_control|width_height_size_control,
+             * default_size_x: value (string),
+             * default_size_y: value (string),
+             * size_min: value, (optional)
+             * size_max: value, (optional)
+             * size_step: value, (optional)
+            */
+
+
+            //TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO
+            /**
+             * - background repeat control
+             * - background updating (repeat)
+             * - add support for background repeat in save file
+             */
+
+            //event to trigger on main input when user change settings
+            var input_event = new Event('input', {
+                bubbles: true,
+                cancelable: true,
+            });
+
+
+
+            //MAIN UI
+
+            //mode picker
+            var list = document.createElement("select");
+            param_container.appendChild(list);
+            list.classList.add("panel_input", "panel_input_list");
+
+            //options
+            let background_options = ["color","gradient","image"];
+            for (let i = 0; i < background_options.length; i++) {
+                let option = document.createElement("option");
+                list.appendChild(option);
+                option.innerHTML = background_options[i];
+                option.value = background_options[i];
+            }
+            list.value = args.settings.default_type;
+
+            //input for all modes
+            var input = document.createElement("input");
+            param_container.appendChild(input);
+            input.classList.add("panel_input", "panel_input_string");
+            switch (args.settings.default_type) {
+                case "color": input.value = args.settings.default_color; break;
+                case "gradient": input.value = args.settings.default_gradient; break;
+                case "image": input.value = ""; break;
+            }
+
+            //image display
+            //using a div make more sense, so it matches the behaviour of the screen,
+            //that also uses a div to handle colors and gradients.
+            var img_disp = document.createElement("div");
+            param_container.appendChild(img_disp);
+            img_disp.classList.add("panel_img_display");
+            if (args.settings.default_image !== "") {
+                img_disp.style.backgroundImage = `url(./temp/current_save/assets/${args.object_id}/background/${args.settings.default_image})`;
+            }
+
+            //image picker
+            var img_picker = document.createElement("button");
+            param_container.appendChild(img_picker);
+            img_picker.classList.add("panel_button");
+            img_picker.innerHTML = "BROWSE";
+
+            img_picker.onclick = function() {
+                FileBrowserDialog({
+                    type: "get_file",
+                    allowed_extensions: ["avif","jpg","jpeg","jfif","pjpeg","pjp","png","svg","webp","bmp","ico","cur"],
+                    //source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
+                }, async (result) => {
+                    //copying file
+                    let filename = result.replace(/^.*[\\\/]/, '');
+                    let new_path = `./temp/current_save/assets/${args.object_id}/background/`;
+                    let image_exists = await ipcRenderer.invoke("path-exists", `${new_path}${filename}`);
+                    if (image_exists) await ipcRenderer.invoke("empty-dir", new_path);
+                        else await ipcRenderer.invoke("make-dir", new_path)
+                    await ipcRenderer.invoke("copy-file", result, `${new_path}${filename}`);
+
+                    //update display and keep new name in memory;
+                    img_disp.style.backgroundImage = `url(${new_path}${filename})`;
+                    args.settings.default_image = filename;
+
+                    //update object
+                    callback(args.object_id, list.value, filename);
+
+                    //TODO: - update background/image UI
+                });
+            }
+
+
+
+
+
+
+
+
+
+            //BACKGROUND SIZE
+
+            var size_title_elt = document.createElement("span");
+            param_container.appendChild(size_title_elt);
+            size_title_elt.innerHTML = "Background size: ";
+
+            //size mode picker
+            var bgnd_size_mode_list = document.createElement("select");
+            param_container.appendChild(bgnd_size_mode_list);
+            bgnd_size_mode_list.classList.add("panel_input", "panel_input_list");
+            
+            //options
+            let background_size_options = ["contain","cover","scale_size_control","width_height_size_control"];
+            for (let i = 0; i < background_size_options.length; i++) {
+                let option = document.createElement("option");
+                bgnd_size_mode_list.appendChild(option);
+                option.innerHTML = background_size_options[i].split("_").join(" ");
+                option.value = background_size_options[i];
+            }
+            bgnd_size_mode_list.value = args.settings.default_size_type;
+
+            //size control by values
+            var bgnd_size_inputs = document.createElement("div");
+            param_container.appendChild(bgnd_size_inputs);
+
+            var bgnd_size_input_div1 = document.createElement("div");
+            bgnd_size_inputs.appendChild(bgnd_size_input_div1);
+            bgnd_size_input_div1.style.display = (args.settings.default_size_type === "scale_size_control" || args.settings.default_size_type === "width_height_size_control")? "initial":"none";
+
+            var bgnd_size_input_1 = document.createElement("input");
+            bgnd_size_input_div1.appendChild(bgnd_size_input_1);
+            bgnd_size_input_1.classList.add("panel_input", "panel_input");
+            bgnd_size_input_1.type = "number";
+            bgnd_size_input_1.value = args.settings.default_size_x;
+            if ( !IsUndefined(args.settings.size_min) ) bgnd_size_input_1.min = args.settings.size_min;
+            if ( !IsUndefined(args.settings.size_max) ) bgnd_size_input_1.max = args.settings.size_max;
+            if ( !IsUndefined(args.settings.size_step) ) bgnd_size_input_1.step = args.settings.size_step;
+            bgnd_size_input_1.oninput = function() {
+                args.settings.default_size_x = this.value;
+                //update background
+                input.dispatchEvent(input_event);
+            };
+
+            var bgnd_size_input_1_unit = document.createElement("span");
+            bgnd_size_input_div1.appendChild(bgnd_size_input_1_unit);
+            bgnd_size_input_1_unit.innerHTML = "%";
+
+            var bgnd_size_input_div2 = document.createElement("div");
+            bgnd_size_inputs.appendChild(bgnd_size_input_div2);
+            bgnd_size_input_div2.style.display = (args.settings.default_size_type === "width_height_size_control")? "initial":"none";
+
+            var bgnd_size_input_2 = document.createElement("input");
+            bgnd_size_input_div2.appendChild(bgnd_size_input_2);
+            bgnd_size_input_2.classList.add("panel_input", "panel_input");
+            bgnd_size_input_2.type = "number";
+            bgnd_size_input_2.value = args.settings.default_size_y;
+            if ( !IsUndefined(args.settings.size_min) ) bgnd_size_input_2.min = args.settings.size_min;
+            if ( !IsUndefined(args.settings.size_max) ) bgnd_size_input_2.max = args.settings.size_max;
+            if ( !IsUndefined(args.settings.size_step) ) bgnd_size_input_2.step = args.settings.size_step;
+            bgnd_size_input_2.oninput = function() {
+                args.settings.default_size_y = this.value;
+                //update background
+                input.dispatchEvent(input_event);
+            };
+
+            var bgnd_size_input_2_unit = document.createElement("span");
+            bgnd_size_input_div2.appendChild(bgnd_size_input_2_unit);
+            bgnd_size_input_2_unit.innerHTML = "%";
+
+
+
+
+            //BACKGROUND REPEAT UI
+            var repeat_x_div = document.createElement("div");
+            param_container.appendChild(repeat_x_div);
+
+            var repeat_x_title = document.createElement("span");
+            repeat_x_div.appendChild(repeat_x_title);
+            repeat_x_title.innerHTML = "Background repeat X: ";
+
+            var repeat_x_input = document.createElement("input");
+            repeat_x_div.appendChild(repeat_x_input);
+            repeat_x_input.classList.add("panel_input", "panel_input_checkbox");
+            repeat_x_input.type = "checkbox";
+            repeat_x_input.checked = args.settings.default_repeat_x;
+
+            var repeat_y_div = document.createElement("div");
+            param_container.appendChild(repeat_y_div);
+
+            var repeat_y_title = document.createElement("span");
+            repeat_y_div.appendChild(repeat_y_title);
+            repeat_y_title.innerHTML = "Background repeat Y: ";
+
+            var repeat_y_input = document.createElement("input");
+            repeat_y_div.appendChild(repeat_y_input);
+            repeat_y_input.classList.add("panel_input", "panel_input_checkbox");
+            repeat_y_input.type = "checkbox";
+            repeat_y_input.checked = args.settings.default_repeat_y;
+
+            repeat_x_input.oninput = repeat_y_input.oninput = function() {
+                input.dispatchEvent(input_event);
+            }
+
+
+
+
+            //LIST FUNCTIONS
+            
+            //option choice
+            let image_UI = [img_disp, img_picker, size_title_elt, bgnd_size_mode_list, bgnd_size_inputs, repeat_x_div, repeat_y_div];
+            if (args.settings.default_type === "image") image_UI.forEach(element => element.style.display = "initial");
+                else image_UI.forEach(element => element.style.display = "none");
+            list.oninput = function() {
+                //update UI
+                switch (list.value) {
+                    case "color":
+                        input.style.display = "initial";
+                        input.value = args.settings.default_color;
+                        image_UI.forEach(element => element.style.display = "none");
+                    break;
+                    case "gradient":
+                        input.style.display = "initial";
+                        input.value = args.settings.default_gradient;
+                        image_UI.forEach(element => element.style.display = "none");
+                    break;
+                    case "image":
+                        input.style.display = "none";
+                        input.value = "";
+                        image_UI.forEach(element => element.style.display = "initial");
+                    break;
+                }
+
+                //update background on type switch
+                input.dispatchEvent(input_event);
+            }
+
+            //background size type choice
+            bgnd_size_mode_list.oninput = function() {
+                switch (bgnd_size_mode_list.value) {
+                    case "cover":
+                    case "contain":
+                        bgnd_size_input_div1.style.display = "none";
+                        bgnd_size_input_div2.style.display = "none";
+                    break;
+                    case "scale_size_control":
+                        bgnd_size_input_div1.style.display = "initial";
+                        bgnd_size_input_div2.style.display = "none";
+                    break;
+                    case "width_height_size_control":
+                        bgnd_size_input_div1.style.display = "initial";
+                        bgnd_size_input_div2.style.display = "initial";
+                    break;
+                }
+
+                //update background on size type switch
+                input.dispatchEvent(input_event);
+            }
+
+
+            //MAIN FUNCTION
+
+            //function
+            input.oninput = function() {
+                if (list.value === "image") callback(args.object_id, list.value, args.settings.default_image, bgnd_size_mode_list.value, args.settings.default_size_x, args.settings.default_size_y, repeat_x_input.checked, repeat_y_input.checked);
+                    else callback(args.object_id, list.value, input.value);
+                
+                //keep in memory the changes to when the users change of type, he gets back what he wrote.
+                switch (list.value) {
+                    case "color": args.settings.default_color = input.value; break;
+                    case "gradient": args.settings.default_gradient = input.value; break;
+                    //image changes managed by image picker button
+                }
+            }
+        break;
 
 
 

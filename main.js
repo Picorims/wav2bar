@@ -287,9 +287,29 @@ ipcMain.handle('read-json-file', async (event, path) => {
 
 //write a JSON file at the specified path
 ipcMain.handle('write-json-file', async (event, path, json_string) => {
-    fs.promises.writeFile(path, json_string);
+    try {
+        main_log.debug(`writing json file to ${path}.`);
+        await fs.promises.writeFile(path, json_string);
+        main_log.debug(`wrote json file to ${path}.`);
+    } catch (error) {
+        main_log.error(`could not write ${path}: ${error}`)
+        throw new Error(`write-json-file: failed to write file at ${path}.`);
+    }
 });
 
+
+
+//copy file at the specified path
+ipcMain.handle('copy-file', async (event, path, new_path) => {
+    try {
+        main_log.debug(`copying ${path} to ${path}.`);
+        await fs.promises.copyFile(path, new_path);
+        main_log.debug(`copied ${path} to ${path}.`);
+    } catch (error) {
+        main_log.error(`could not copy ${path} to ${new_path}: ${error}`)
+        throw new Error(`copy-file: failed to copy ${path} to ${new_path}.`);
+    }
+});
 
 
 
@@ -371,11 +391,26 @@ ipcMain.handle('read-dir', async (event, path) => {
 ipcMain.handle('make-dir', async (event, path) => {
     try {
         main_log.info(`making directory ${path}`);
-        await fs.promises.mkdir(path);
+        await fs.promises.mkdir(path, {recursive: true});
         main_log.info(`${path} created.`);
     } catch (error) {
         main_log.error(`error making ${path}: ${error}`);
         throw new Error(`make-dir: impossible to create this directory: ${error}`);
+    }
+});
+
+
+
+
+//clear a directory
+ipcMain.handle("empty-dir", async (event, path) => {
+    try {
+        main_log.info(`clearing directory ${path}`);
+        await fs.promises.mkdir(path);
+        main_log.info(`cleared directory ${path}.`);
+    } catch (error) {
+        main_log.error(`error clearing ${path}: ${error}`);
+        throw new Error(`empty-dir: impossible to empty this directory: ${error}`);
     }
 });
 

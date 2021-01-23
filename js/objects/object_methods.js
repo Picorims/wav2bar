@@ -19,7 +19,7 @@ var object_method = {
 
     //function that returns if an ID is valid (unique uuid v4)
     validID: function(id, corresponding_object) {
-        if (!IsAString(id)) throw `object_method.validateID: ${object_id} is not a string.`;
+        if (!IsAString(id)) throw `object_method.validateID: ${IDBCursor} is not a string.`;
 
         var valid = true;
         if (id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i) == null) {
