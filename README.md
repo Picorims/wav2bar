@@ -1,21 +1,21 @@
 # Wav2Bar
 A tool to make custom audio visualization and export production videos for the audio/music industry.
 
-### Important Notes
+## Important Notes
 - **This tool is usable at this point, but is still in early development! Your work is subject to bugs, backup your saves!**
 
-### Hacking
+## Hacking
 - NodeJS must be installed (It will install npm too).
-- Clone the git repository. Since git lfs is used, using the download feature of GitHub won't work, and so you might need to fork. Otherwise, __if you only want to get it for personal use and not for contributing__, use the source code download provided in a release.
+- Clone the git repository (you can also use GitHub's download button *if you only need to perform tests*). Note that Git LFS is used!
 - Mac/linux:
     - Reinstall the same version of Electron, the repository contains a Windows 64bit version of it.
-    - download FFmpeg for your operating system. (in the create-video event in main.js, you need to change the paths accordingly for fluent-ffmpeg to work properly!)
+    - download FFmpeg for your operating system and configure it in the app settings (otherwise export won't work!).
 - Open the repository folder in a prompt and run `npm start`.
 
-### Website (WIP)
+## Website (WIP)
 - https://picorims.github.io/wav2bar-website
 
-### License
+## License
 This tool is MIT licensed.
 
 > Copyright (c) 2020-2021 Picorims, France.
