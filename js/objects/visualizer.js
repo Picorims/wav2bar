@@ -20,7 +20,6 @@
         type: ("constant_decay"||"proportional_decrease"||"average"),
         factor: ?, (positive value)
     },
-    visualizti
     color: ?, (string, hex, rgb, rgba)
     bar_thickness: ?, (px)
     border_radius: ?, (css border-radius, string)

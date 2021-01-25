@@ -140,7 +140,7 @@ function ApplyLoadedSave() {//read and apply a loaded user save
 
 function SyncSave() { //function that updates the current save with latest data
     
-    current_save.software_version_used = software_version;
+    current_save.software_version_used = `${software_version} ${software_status}`;
     current_save.screen.width = screen.width;
     current_save.screen.height = screen.height;
     current_save.fps = fps;
