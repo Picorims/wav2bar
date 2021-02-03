@@ -209,7 +209,10 @@ root
 |   |-[OBJECT_ID]
 |   |   |-background
 |   |   |   |-[IMAGE_NAME]
-\   \   \   \
+|   |   \   \
+|   |-audio
+|   |   |-[AUDIO_FILENAME]
+\   \   \
 ```
 - **data.json:** Stores All the save data.
 
@@ -223,6 +226,7 @@ root
         "height": int
     },
     "fps": int,
+    "audio_filename": "string",
     "objects": []
 }
 ```

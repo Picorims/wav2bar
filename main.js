@@ -341,6 +341,11 @@ ipcMain.handle('get-os', async (event) => {
     return process.platform
 });
 
+ipcMain.handle('get-full-path', async (event, relative_path) => {
+    return path.resolve(relative_path);
+});
+
+
 
 
 
@@ -406,7 +411,7 @@ ipcMain.handle('make-dir', async (event, path) => {
 ipcMain.handle("empty-dir", async (event, path) => {
     try {
         main_log.info(`clearing directory ${path}`);
-        await fs.promises.mkdir(path);
+        fsExtra.emptyDirSync(path);
         main_log.info(`cleared directory ${path}.`);
     } catch (error) {
         main_log.error(`error clearing ${path}: ${error}`);

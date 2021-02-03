@@ -71,7 +71,8 @@
                 </div>
                 <div class="panel_param_container" data-help="audio">
                     <span>Import audio (mp3/wav/ogg): </span>
-                    <input id="audio_file_input" class="panel_input panel_input_file" type="file" accept="audio/*"/>
+                    <button id="load_audio_button" class="panel_button">CHOOSE AUDIO FILE</button>
+                    <div><span>Opened audio file: </span><span id="opened_audio"></span></div>
                 </div>
                 
                 <div class="panel_param_container" data-help="save_import">
@@ -81,7 +82,7 @@
                 </div>
 
                 <div class="panel_param_container" data-help="save_export">
-                    <span>Export save (JSON) (audio not saved): </span>
+                    <span>Export save (audio not saved): </span>
                     <button id="export_save_button" class="panel_button">SAVE</button>
                 </div>
             

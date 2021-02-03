@@ -117,15 +117,20 @@ async function InitUI() {
     }
 
     //import audio
-    document.getElementById("audio_file_input").onchange = function() {
-        if (this.files[0]) LoadAudio(this.files[0], 'file');
+    document.getElementById("load_audio_button").onclick = function() {
+        FileBrowserDialog({
+            type: "get_file",
+            allowed_extensions: ["wav","mp3","ogg"],
+        }, function(result) {
+            SaveAudio(result);
+        });
     }
 
     //import save
     document.getElementById("save_file_button").onclick = function() {
         FileBrowserDialog({
             type: "get_file",
-            allowed_extensions:[".w2bzip"],
+            allowed_extensions:["w2bzip"],
         }, function(result) {
             LoadSave(result);
         });
@@ -135,7 +140,7 @@ async function InitUI() {
     document.getElementById("export_save_button").onclick = function() {
         FileBrowserDialog({
             type: 'save_file',
-            allowed_extensions:[".w2bzip"],
+            allowed_extensions:["w2bzip"],
         }, function(result) {
             ExportSave(result);
         });
@@ -543,6 +548,8 @@ function SetupAudioUI() {
     var audio_to_end = document.getElementById("audio_to_end");
     var loop_audio = document.getElementById("loop_audio");
 
+    //DISPLAY TITLE OF LOADED AUDIO
+    document.getElementById("opened_audio").innerHTML = current_save.audio_filename;
 
     //PLAY
     play_audio.onclick = function() { 
@@ -1164,8 +1171,6 @@ function AddParameter(args, callback) {
 
                     //update object
                     callback(args.object_id, list.value, filename);
-
-                    //TODO: - update background/image UI
                 });
             }
 

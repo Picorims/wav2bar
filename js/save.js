@@ -15,6 +15,7 @@ function DefaultSave() {//set the save data to default values
         software_version_used: `${software_version} ${software_status}`,
         screen: {width: 1280, height: 720},
         fps: 60,
+        audio_filename: "",
         objects: [],
     }
     CustomLog('info','loaded default save.');
@@ -122,7 +123,12 @@ function ApplyLoadedSave() {//read and apply a loaded user save
     //apply screen size
     SetScreenTo(current_save.screen.width, current_save.screen.height);
 
-
+    //apply audio
+    if (current_save.audio_filename !== "") {
+        ipcRenderer.invoke("get-full-path", `./temp/current_save/assets/audio/${current_save.audio_filename}`).then((result => {
+            LoadAudio(result, "url");
+        }));
+    }
 
 
     CustomLog("info","Save loaded!");

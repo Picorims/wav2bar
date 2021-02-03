@@ -57,6 +57,36 @@ function InitPage() {//page initialization
 
 
 
+async function SaveAudio(path) {
+    let filename = path.replace(/^.*[\\\/]/, '');
+    let new_path = `./temp/current_save/assets/audio/`;
+
+    //is an audio file already imported ?
+    let path_exists = await ipcRenderer.invoke("path-exists", new_path);
+    let audio_exists;
+    if (path_exists) {
+        let audio_dir_content = await ipcRenderer.invoke("read-dir", new_path);
+        audio_exists = (audio_dir_content.length !== 0);
+    } else {
+        audio_exists = false;
+    }
+
+    //cache audio in current save.
+    if (audio_exists) await ipcRenderer.invoke("empty-dir", new_path);
+        else await ipcRenderer.invoke("make-dir", new_path)
+    await ipcRenderer.invoke("copy-file", path, `${new_path}${filename}`);
+
+    //keep new audio name in memory;
+    current_save.audio_filename = filename;
+
+    //load audio
+    let audio_path = await ipcRenderer.invoke("get-full-path", `${new_path}${filename}`);
+    LoadAudio(audio_path, 'url');
+}
+
+
+
+
 function LoadAudio(file_data, type) {//load an audio file into the app. type: "file" || "url"  
     if (IsUndefined(file_data)) throw "LoadAudio: No file data provided, couldn't load the audio file.";
     if ( (type!=="file") && (type!=="url") ) throw `LoadAudio: ${type} is not a valid audio file type!`;
@@ -104,9 +134,7 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
     //setup
     source.connect(analyser);
     analyser.connect(context.destination);
-    if (type==="file") SetupAudioUI();
-    //file objects are only loaded from the main window, and they are also the only type of file
-    //loaded here (in the main window). So this is the only case requiring audio UI.
+    if (!export_mode) SetupAudioUI(); //no need for UI in export mode.
 
 
     //prepare data collection
