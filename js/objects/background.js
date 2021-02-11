@@ -19,7 +19,7 @@
 
 function Background(glob_data) {
     if (IsUndefined(glob_data)) throw "Background: data missing!";
-    
+
     this.data = glob_data;//collect data
     this.data.object_type = "background";
     objects.push(this);//add the object to the list
@@ -37,7 +37,7 @@ function Background(glob_data) {
     this.verifyData = function(data, ignore_undefined) {
         if (IsUndefined(data)) throw "Background.verifyData: data missing!";
         if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "Background.verifyData: IGNORE_UNDEFINED is the only valid node.";
-    
+
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
@@ -47,7 +47,7 @@ function Background(glob_data) {
         }
 
         //name
-        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";} 
+        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";}
         if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
             CustomLog("warn","Background object: Invalid name! Set to 'background'.");
             data.name = "background";
@@ -62,9 +62,9 @@ function Background(glob_data) {
 
         //background
         if ( IsUndefined(data.background) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background = {type: null, last_color: null, last_gradient: null, last_image: null};}
-        
+
         if (!IsUndefined(data.background)) {//it is undefined if it has not been set before in the data argument and IGNORE_UNDEFINED is active
-            
+
             //type
             if ( IsUndefined(data.background.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.type = "color";}
             if ( !IsUndefined(data.background.type) && (!IsAString(data.background.type) || ( (data.background.type !== "color") && (data.background.type !== "gradient") && (data.background.type !== "image") )) ) {
@@ -106,7 +106,7 @@ function Background(glob_data) {
                 CustomLog("warn","Background object: Invalid repeat type! Set to no-repeat.");
                 data.background.repeat = "no-repeat";
             }
-            
+
         }
 
         return data;
@@ -150,7 +150,7 @@ function Background(glob_data) {
     this.updateData = function(data) {
         if (IsUndefined(data)) throw "Background.updateData: data missing!";
         //NOTE: it is NOT possible to change the background id (data.id). A new background must be created in such case!
-        
+
         if ( IsUndefined(data.id) ) {
             CustomLog("error","Background object: No ID specified!");
             return;
@@ -164,7 +164,7 @@ function Background(glob_data) {
 
             //VERIFY DATA
             this.data = this.verifyData(this.data, "IGNORE_UNDEFINED");
-            
+
             //APPLY DATA
             this.data = this.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
             this.element.style.zIndex = this.data.layer;//layer
@@ -211,17 +211,17 @@ function Background(glob_data) {
 
     //canvas or div depending of the context
     this.element = document.createElement("div");
-    
+
     //basic parameters
     screen.appendChild(this.element);
     this.element.style.position = "absolute";
     this.element.style.top = 0;
-    this.element.style.left = 0;  
+    this.element.style.left = 0;
     this.element.style.display = "inline-block";
     this.element.style.overflow = "hidden";
 
 
-    
+
     //#############################
     //APPLY DATA FOR THE FIRST TIME
     //#############################
@@ -237,7 +237,7 @@ function Background(glob_data) {
     if (!export_mode) {
         //create category
         CreateObjectContainer(this.data.id);
-        
+
         //layer
         AddParameter(
             {
@@ -334,7 +334,7 @@ function Background(glob_data) {
                     case "color": updated_data.background.last_color = value; break;
                     case "gradient": updated_data.background.last_gradient = value; break;
                     case "image":
-                        updated_data.background.last_image = value; 
+                        updated_data.background.last_image = value;
                         switch (size_type) {
                             case "contain":
                             case "cover":

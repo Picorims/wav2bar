@@ -22,7 +22,7 @@ function Export(path) {//Launch the rendering process which will export the vide
                                                     //on window re-open, a new listener would stack upon this
                                                     //one, making multiple process stacking on forever.
         CustomLog("debug","renderer created, sending data...");
-        
+
 
         //data to send to the renderer process (the project, so it can be recreated into the new window)
         var data = {
@@ -48,7 +48,7 @@ function Export(path) {//Launch the rendering process which will export the vide
             //send required data to the renderer
             await ipcRenderer.invoke("send-event-to-export-win", "data-sent", data);
         });
-        
+
 
 
         //track progress
@@ -92,7 +92,7 @@ function Export(path) {//Launch the rendering process which will export the vide
             //progress display
             document.getElementById("export_encoding_span").innerHTML = `${info.frames}/${max_frames+1}`;
             document.getElementById("export_encoding_progress").style.width = `${info.frames/(max_frames+1)*100}%`;
-        
+
             //time estimation
             let now = performance.now();
             let ellapsed = now-start;

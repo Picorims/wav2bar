@@ -22,14 +22,14 @@
 
 function Timer(glob_data) {
     if (IsUndefined(glob_data)) throw "Timer: data missing!";
-    
+
     this.data = glob_data;//collect data
     this.data.object_type = "timer";
     objects.push(this);//add the object to the list
 
 
 
-    
+
 
     //########################################
     //VERIFY RECEIVED DATA, SET DEFAULT VALUES
@@ -42,7 +42,7 @@ function Timer(glob_data) {
         if (IsUndefined(data)) throw "Timer.verifyData: data missing!";
         if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "Timer.verifyData: IGNORE_UNDEFINED is the only valid node.";
 
-    
+
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
@@ -50,9 +50,9 @@ function Timer(glob_data) {
             CustomLog("error","Timer object: received an object with an unspecified/invalid ID! A random ID is given.");
             data.id = object_method.generateID();
         }
-        
+
         //name
-        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";} 
+        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";}
         if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
             CustomLog("warn","Timer object: Invalid name! Set to 'timer'.");
             data.name = "timer";
@@ -120,7 +120,7 @@ function Timer(glob_data) {
             CustomLog("warn","Timer object: Invalid border to bar space! Set to 2.");
             data.border_to_bar_space = 2;
         }
-        
+
         //border thickness
         if ( IsUndefined(data.border_thickness) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_thickness = 2;}
         if ( !IsUndefined(data.border_thickness) && (!IsAnInt(data.border_thickness) || (data.border_thickness < 0)) ) {
@@ -181,7 +181,7 @@ function Timer(glob_data) {
     this.updateData = function(data) {
         if (IsUndefined(data)) throw "Timer.updateData: data missing!";
         //NOTE: it is NOT possible to change the timer type (data.type) and id (data.id). A new timer must be created in such case!
-        
+
         if ( IsUndefined(data.id) ) {
             CustomLog("error","Timer object: No ID specified!");
             return;
@@ -195,7 +195,7 @@ function Timer(glob_data) {
 
             //VERIFY DATA
             this.data = this.verifyData(this.data, "IGNORE_UNDEFINED");
-            
+
             //APPLY DATA
             this.data = this.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
             this.element.style.zIndex = this.data.layer;//layer
@@ -208,14 +208,14 @@ function Timer(glob_data) {
             this.element.style.borderRadius = this.data.border_radius;//border_radius
             this.element.style.boxShadow = this.data.box_shadow;//box_shadow
 
-            
-            
+
+
             //APPLY DATA TO CHILD ELEMENT
             var child = this.element.child;
             child.style.zIndex = this.data.layer;//layer
             child.style.backgroundColor = this.data.color;//color
             child.style.boxShadow = this.data.box_shadow;//box_shadow
-            
+
             if (this.data.type === "bar") {
                 child.style.top = this.data.border_to_bar_space + "px";
                 child.style.left = this.data.border_to_bar_space + "px";
@@ -229,7 +229,7 @@ function Timer(glob_data) {
                 child.style.height = this.data.height + "px";//height
                 child.style.borderRadius = (this.data.height/2) + "px";//border_radius
             }
-        
+
         }
 
 
@@ -245,7 +245,7 @@ function Timer(glob_data) {
 
     //canvas or div depending of the context
     this.element = document.createElement("div");
-    
+
     //basic parameters
     screen.appendChild(this.element);
     this.element.style.position = "absolute";
@@ -258,7 +258,7 @@ function Timer(glob_data) {
     this.element.child.style.display = "inline-block";
 
 
-    
+
     //#############################
     //APPLY DATA FOR THE FIRST TIME
     //#############################
@@ -274,7 +274,7 @@ function Timer(glob_data) {
 
         //create category
         CreateObjectContainer(this.data.id);
-        
+
         //layer
         AddParameter(
             {
@@ -283,7 +283,7 @@ function Timer(glob_data) {
                 settings: {
                     default: this.data.layer,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Layer",
                 help: help.parameter.object.general.layer,
@@ -307,13 +307,13 @@ function Timer(glob_data) {
                 settings: {
                     default_x: this.data.x,
                     default_y: this.data.y,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Coordinates",
                 help: help.parameter.object.general.pos,
             },
             function(id, value1, value2) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -333,13 +333,13 @@ function Timer(glob_data) {
                     default_x: this.data.width,
                     default_y: this.data.height,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Width and Height",
                 help: help.parameter.object.general.size,
             },
             function(id, value1, value2) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -358,13 +358,13 @@ function Timer(glob_data) {
                 settings: {
                     default: this.data.rotation,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Rotation (degrees)",
                 help: help.parameter.object.general.rotation,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -404,13 +404,13 @@ function Timer(glob_data) {
                 settings: {
                     default: this.data.border_to_bar_space,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Space between the border and the bar",
                 help: help.parameter.object.timer.space_between,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -428,13 +428,13 @@ function Timer(glob_data) {
                 settings: {
                     default: this.data.border_to_bar_space,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Border thickness",
                 help: help.parameter.object.timer.border_thickness,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -524,7 +524,7 @@ function Timer(glob_data) {
 
             //remove UI
             document.getElementById(`UI-${id}`).remove();
-            
+
             //remove element
             this.element.remove();
         }

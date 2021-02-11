@@ -85,7 +85,7 @@ async function SaveAudio(path) {
 
 
 
-function LoadAudio(file_data, type) {//load an audio file into the app. type: "file" || "url"  
+function LoadAudio(file_data, type) {//load an audio file into the app. type: "file" || "url"
     if (IsUndefined(file_data)) throw "LoadAudio: No file data provided, couldn't load the audio file.";
     if ( (type!=="file") && (type!=="url") ) throw `LoadAudio: ${type} is not a valid audio file type!`;
 
@@ -106,7 +106,7 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
 
         var cloned_file = new File([file_data], {type: file_data.type});
         audio_file_type = file_data.type;
-        
+
         file_data = cloned_file;
         audio_file = cloned_file;
     }
@@ -125,7 +125,7 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
     //audio source
     audio.src = (type==="url")? file_data : window.URL.createObjectURL(file_data); //"url" -> file_data is an url || "file" -> generate url from file
     source = context.createMediaElementSource(audio);
-    
+
 
 
 
@@ -137,7 +137,7 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
 
     //prepare data collection
     ctx_frequency_array = new Uint8Array(analyser.frequencyBinCount);//0 to 1023 => length=1024.
-    
+
     CustomLog("info","audio loaded successfully.");
 }
 
@@ -194,7 +194,7 @@ function Animate() {
 
     //stop animating if requested
     if (stop_animating) return;
-    
+
     // request another frame
     requestAnimationFrame(Animate);
 
@@ -227,7 +227,7 @@ function UpdateFinished() {//returns if all the objects have finished updating.
     for (var i=0; i<objects_callback.length; i++) {
         if (!objects_callback[i]) finished_render = false;
     }
-    
+
     return finished_render;
 }
 
@@ -235,7 +235,7 @@ function UpdateFinished() {//returns if all the objects have finished updating.
 
 
 function DrawFrame() {//update and draw the screen
-    
+
 
     //#################
     //AUDIO CALCULATION
@@ -280,8 +280,8 @@ function DrawFrame() {//update and draw the screen
         objects_callback[i] = false;//reset all callbacks to false
         objects_callback[i] = objects[i].update();//set to true once update is finished
     }
-   
-    
+
+
     //end of a frame
 }
 
@@ -306,10 +306,10 @@ function DrawFrame() {//update and draw the screen
 
 function UpdateFPSDisplay() {//display FPS regularly
     fps_array_max_length = 10;
-    
+
     //maintain the max length of the array
     if (fps_array.length > fps_array_max_length) {
-        
+
         var overflow = fps_array.length - fps_array_max_length;
         fps_array.splice(0, overflow);
     }

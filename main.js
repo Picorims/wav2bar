@@ -111,7 +111,7 @@ app.on('activate', () => {
 //this window is for video export
 function createExportWin() {
     main_log.info("creating window for export...");
-    
+
     export_win = new BrowserWindow({
         icon: path.join(__dirname, "assets/icons/wav2bar_square_logo.png"),
         width: 1500,
@@ -125,7 +125,7 @@ function createExportWin() {
         },
     })
     //win.webContents.id = 2; READONLY
-    
+
     //load the export.html of the app.
     export_win.loadFile('./html/export.html');
 
@@ -179,7 +179,7 @@ ipcMain.handle("resize-export-window", async (event, width, height) => {
 
 
 function Init() {//main initialization
-    
+
     //create temp directory
     if (!fs.existsSync("./temp")) fs.mkdirSync("./temp");
     if (!fs.existsSync("./temp/render")) fs.mkdirSync("./temp/render");
@@ -218,7 +218,7 @@ function Init() {//main initialization
     export_log = log4js.getLogger('export');
 
     main_log.info(`Running Wav2Bar v${software_version} ${software_status}`);
-    
+
 }
 
 
@@ -369,10 +369,10 @@ ipcMain.handle('read-dir', async (event, path) => {
         for (let i=0; i<files.length; i++) {
 
             files_object.push({name: files[i], type: "unknown"});
-            
+
             let file_path = path + '\\' + files[i];
             const stat = await fs.promises.lstat(file_path);
-            
+
             if (stat.isFile()) {
                 files_object[i].type = "file";
             } else if (stat.isDirectory()) {
@@ -449,7 +449,7 @@ ipcMain.handle('write-audio-to-temp', async (event, arrayBuffer, type) => {
 
         default:
             throw new Error(`WriteAudioToTemp: ${type} is not a valid audio type!`);
-        
+
     }
 
     main_log.debug("audio cached.");
@@ -472,7 +472,7 @@ ipcMain.handle('send-event-to-export-win', async (event, send_event, data) => {
 
 
 
-//takes a Float32Array and get waveform data from it 
+//takes a Float32Array and get waveform data from it
 ipcMain.handle('pcm-to-spectrum', async (event, waveform) => {
     //get normalized magnitudes for frequencies from 0 to 22050 with interval 44100/1024 ≈ 43Hz
     var spectrum = ft(waveform);
@@ -485,15 +485,15 @@ ipcMain.handle('pcm-to-spectrum', async (event, waveform) => {
 //exports the app's rendering screen as an image
 ipcMain.handle('export-screen', async (event, screen_data, name) => {
     return new Promise( async (resolve, reject) => {
-        
+
         main_log.info(`Capture requested.`);
         main_log.info(`frame: ${name}`);
-        
+
         try {
             //capture the screen
-            image = await export_win.capturePage(screen_data);//screen_data: x,y,width,height.    
+            image = await export_win.capturePage(screen_data);//screen_data: x,y,width,height.
             main_log.info("captured! Writing file...");
-                
+
             //create the file
             await fs.promises.writeFile(`./temp/render/${name}.png`, image.toPNG());
             main_log.info("image of the screen created!");
@@ -538,11 +538,11 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
                 audio_file_path = path.join(__dirname, "/temp/temp.wav");
                 break;
 
-            
+
             case "application/ogg":
                 audio_file_path = path.join(__dirname, "/temp/temp.ogg");
                 break;
-            
+
             default:
                 throw `InitExport: ${type} is not a valid audio type!`;
         }
@@ -587,7 +587,7 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
                 win.webContents.send("encoding-finished", false);
             })
             .save(output_path);
-    
+
     });
 });
 
@@ -623,7 +623,7 @@ ipcMain.handle("cache-save-file", async (event, save_path) => {
         } else {
             main_log.error(`failed at caching the save file: ${error}`);
         }
-        
+
     });
 });
 
@@ -633,21 +633,21 @@ ipcMain.handle("cache-save-file", async (event, save_path) => {
 //function that packages the content of ./temp/current_save (JSON data, assets...) into a save file.
 ipcMain.handle("create-save-file", async (event, save_path) => {
     main_log.info(`creating save file at ${save_path}`);
-    
+
     //check extension
     var regexp = /.w2bzip$/;
     if(!regexp.test(save_path)) {
         main_log.error("failed to create the save file: missing .w2bzip extension!");
         throw "missing .w2bzip extension!";
     }
-    
+
     //zip current save
     var save_path_zip = save_path.replace(".w2bzip",".zip");
     zipper.zip("./temp/current_save", function(error, zipped) {
 
         if (!error) {
             zipped.compress(); // compress before exporting
-        
+
             //save the zipped file to disk
             zipped.save(save_path_zip, function(error) {
                 if (!error) {

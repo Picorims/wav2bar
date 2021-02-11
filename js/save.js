@@ -52,10 +52,10 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
 
         object.remove(object.data.id);
     }
-    
 
 
-    
+
+
     //LOAD NEW DATA
     //the data must be extracted from the file in order to be able to read it.
     ipcRenderer.once("finished-caching-save", async (event) => {
@@ -92,12 +92,12 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
     });
     await ipcRenderer.invoke("cache-save-file", save_file_path);
 
-    // var file_reader = new FileReader();    
+    // var file_reader = new FileReader();
     // file_reader.onload = function(e) {
-        
+
     //     //get parsed data
     //     var save = JSON.parse(file_reader.result);
-        
+
     //     //clone it into the current_save (direct assign doesn't work)
     //     current_save = JSON.parse(JSON.stringify(save));
 
@@ -117,7 +117,7 @@ function ConvertSave(log_array = []) {
     //something's wrong ?
     CustomLog("debug", JSON.stringify(current_save));
     if (current_save.save_version > save_version) throw `Can't convert the save: the save version (${current_save.save_version}) is greater than the supported version (${save_version})!`;
-    
+
     //Does it still needs to be converted ?
     else if (current_save.save_version < save_version) {
         CustomLog("info",`Converting the save from version ${current_save.save_version} to ${current_save.save_version + 1}. The goal is ${save_version}.`);
@@ -130,7 +130,7 @@ function ConvertSave(log_array = []) {
                         //cache legacy data
                         let legacy_bgnd = obj.background;
                         let legacy_size = obj.size;
-                        
+
                         //delete useless keys
                         delete obj.size;
 
@@ -141,7 +141,7 @@ function ConvertSave(log_array = []) {
                         //process legacy_bgnd
                         //NOTE: images, repeat scheme, and other color schemes are lost in the process.
                         //NOTE: validity of the data isn't verified (number ranges, syntax...).
-                        
+
                         // hex or rgb or rgba
                         let color_regexp = new RegExp(/^#[0-9a-fA-F]{3,8}$|^rgb\(\d{1,3},\d{1,3},\d{1,3}\)$|^rgba\(\d{1,3},\d{1,3},\d{1,3},[01]\.?\d*\)$/);
                         //recognize css gradient functions.
@@ -192,7 +192,7 @@ function ConvertSave(log_array = []) {
                 log_string += "- " + msg + '\n';
             }
             CustomLog("info", log_string);
-            MessageDialog("info", log_string.split("\n").join("<br>"));    
+            MessageDialog("info", log_string.split("\n").join("<br>"));
         }
     }
 }
@@ -210,12 +210,12 @@ function ApplyLoadedSave() {//read and apply a loaded user save
     //objects are constantly added in it, and using it as a reference for length make
     //the loop to never end.
     //So the array and it's length are separately saved.
-    var objects_data_list = current_save.objects.slice();    
+    var objects_data_list = current_save.objects.slice();
 
 
     //create all objects
     for (var i=0; i<objects_data_list.length; i++) {
-        
+
         //get data
         var object_data = objects_data_list[i];
 
@@ -275,13 +275,13 @@ function SyncSave() { //function that updates the current save with latest data
         current_save.fps = fps;
         //audio_filename not needed to sync
         current_save.objects = [];
-    
+
         for (var i=0; i < objects.length; i++) {
             current_save.objects.push(objects[i].data);
-        }    
+        }
     } else {
         CustomLog("debug","Save syncing locked, didn't synchronize data.");
-    } 
+    }
 }
 
 
@@ -300,24 +300,24 @@ function SyncSave() { //function that updates the current save with latest data
 function ExportSaveAsJSON() {//export the current save to JSON format.
 
     CustomLog("info","generating download file for the save...");
-    
+
     //update current save
     SyncSave();
-    
+
 
     //prepare data for export
     var exported_save = JSON.stringify(current_save);
     var data_string = "data:text/json; charset=utf-8," + encodeURIComponent(exported_save);
-    
+
     //create downloader element
     var downloader = document.createElement('a');
     downloader.href = data_string;
     downloader.download = "save.json";
     document.body.appendChild(downloader); // required for firefox
-    
+
     //trigger download
     downloader.click();
-    
+
     //remove downloader element
     downloader.remove();
 
@@ -338,7 +338,7 @@ function ExportSaveAsJSON() {//export the current save to JSON format.
  */
 function ExportSave(save_path) {
     if (!IsAString(save_path)) throw `ExportSave: ${save_path} is an invalid save path (not a string).`;
-    
+
     CustomLog("info","generating save file...");
     //update the current save
     SyncSave();

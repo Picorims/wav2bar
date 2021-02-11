@@ -45,7 +45,7 @@ function Image(glob_data) {
         if (IsUndefined(data)) throw "Image.verifyData: data missing!";
         if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "Image.verifyData: IGNORE_UNDEFINED is the only valid node.";
 
-    
+
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
@@ -55,7 +55,7 @@ function Image(glob_data) {
         }
 
         //name
-        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";} 
+        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";}
         if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
             CustomLog("warn","Image object: Invalid name! Set to 'image'.");
             data.name = "image";
@@ -105,9 +105,9 @@ function Image(glob_data) {
 
         //background
         if ( IsUndefined(data.background) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background = {type: null, last_color: null, last_gradient: null, last_image: null};}
-        
+
         if (!IsUndefined(data.background)) {//it is undefined if it has not been set before in the data argument and IGNORE_UNDEFINED is active
-            
+
             //type
             if ( IsUndefined(data.background.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.type = "color";}
             if ( !IsUndefined(data.background.type) && (!IsAString(data.background.type) || ( (data.background.type !== "color") && (data.background.type !== "gradient") && (data.background.type !== "image") )) ) {
@@ -149,7 +149,7 @@ function Image(glob_data) {
                 CustomLog("warn","Image object: Invalid repeat type! Set to no-repeat.");
                 data.background.repeat = "no-repeat";
             }
-            
+
         }
 
         //border-radius
@@ -206,7 +206,7 @@ function Image(glob_data) {
     this.updateData = function(data) {
         if (IsUndefined(data)) throw "Image.updateData: data missing!";
         //NOTE: it is NOT possible to change the image id (data.id). A new image must be created in such case!
-        
+
         if ( IsUndefined(data.id) ) {
             CustomLog("error","Image object: No ID specified!");
             return;
@@ -220,7 +220,7 @@ function Image(glob_data) {
 
             //VERIFY DATA
             this.data = this.verifyData(this.data, "IGNORE_UNDEFINED");
-            
+
             //APPLY DATA
             this.data = this.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
             this.element.style.zIndex = this.data.layer;//layer
@@ -270,7 +270,7 @@ function Image(glob_data) {
 
     //canvas or div depending of the context
     this.element = document.createElement("div");
-    
+
     //basic parameters
     screen.appendChild(this.element);
     this.element.style.position = "absolute";
@@ -278,7 +278,7 @@ function Image(glob_data) {
     this.element.style.overflow = "hidden";
 
 
-    
+
     //#############################
     //APPLY DATA FOR THE FIRST TIME
     //#############################
@@ -295,7 +295,7 @@ function Image(glob_data) {
 
         //create category
         CreateObjectContainer(this.data.id);
-        
+
         //layer
         AddParameter(
             {
@@ -304,7 +304,7 @@ function Image(glob_data) {
                 settings: {
                     default: this.data.layer,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Layer",
                 help: help.parameter.object.general.layer,
@@ -334,7 +334,7 @@ function Image(glob_data) {
                 help: help.parameter.object.general.pos,
             },
             function(id, value1, value2) {
-            
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -360,7 +360,7 @@ function Image(glob_data) {
                 help: help.parameter.object.general.size,
             },
             function(id, value1, value2) {
-            
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -379,7 +379,7 @@ function Image(glob_data) {
                 settings: {
                     default: this.data.rotation,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Rotation (degrees)",
                 help: help.parameter.object.general.rotation,
@@ -467,7 +467,7 @@ function Image(glob_data) {
                     case "color": updated_data.background.last_color = value; break;
                     case "gradient": updated_data.background.last_gradient = value; break;
                     case "image":
-                        updated_data.background.last_image = value; 
+                        updated_data.background.last_image = value;
                         switch (size_type) {
                             case "contain":
                             case "cover":
@@ -567,7 +567,7 @@ function Image(glob_data) {
 
             //remove UI
             document.getElementById(`UI-${id}`).remove();
-            
+
             //remove element
             this.element.remove();
         }

@@ -34,8 +34,8 @@ function Visualizer(glob_data) {
     this.bars = [];//contain all bars for type "straight" and "straight-wave"
     objects.push(this);//add the object to the list
 
-    
-    
+
+
 
     //########################################
     //VERIFY RECEIVED DATA, SET DEFAULT VALUES
@@ -57,7 +57,7 @@ function Visualizer(glob_data) {
         }
 
         //name
-        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";} 
+        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";}
         if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
             CustomLog("warn","Visualizer object: Invalid name! Set to 'visualizer'.");
             data.name = "visualizer";
@@ -136,7 +136,7 @@ function Visualizer(glob_data) {
         //visualization smoothing (prevent errors related to an incomplete path)
         if ( IsUndefined(data.visualization_smoothing) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing = {type: null, factor: null};}
 
-        
+
         if ( !IsUndefined(data.visualization_smoothing) ) {//it is undefined if it has not been set before in the data argument and IGNORE_UNDEFINED is active
             //visualization smoothing type
             if ( IsUndefined(data.visualization_smoothing.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing.type = "average";}
@@ -212,7 +212,7 @@ function Visualizer(glob_data) {
     }
 
 
-    
+
     //########################################
     //FUNCTION TO APPLY DATA TO THE VISUALIZER
     //########################################
@@ -220,7 +220,7 @@ function Visualizer(glob_data) {
     this.updateData = function(data) {
         if (IsUndefined(data)) throw "Visualizer.updateData: data missing!";
         //NOTE: it is NOT possible to change the visualizer type (data.type) and id (data.id). A new visualizer must be created in such case!
-        
+
         if ( IsUndefined(data.id) ) {
             CustomLog("error","Visualizer object: No ID specified!");
             return;
@@ -234,7 +234,7 @@ function Visualizer(glob_data) {
 
             //VERIFY DATA
             this.data = this.verifyData(this.data, "IGNORE_UNDEFINED");
-            
+
             //APPLY DATA
             this.data = this.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
             this.element.style.zIndex = this.data.layer;//layer
@@ -281,11 +281,11 @@ function Visualizer(glob_data) {
                         var center_y = (this.element.offsetHeight/2);
                         bar_element.style.left = (center_x + Math.cos(rot_pos) * this.data.radius) + "px";//radius
                         bar_element.style.top = (center_y + Math.sin(rot_pos) * this.data.radius) + "px";// ^^^^
-                        
+
                         //transform
                         bar_element.style.transformOrigin = "center top";
                         bar_element.style.transform = `scale(-1,-1) rotate( ${rot_pos+Math.PI/2}rad )`;
-                        
+
                         //iterate
                         rot_pos += rot_step;
                     }
@@ -305,9 +305,9 @@ function Visualizer(glob_data) {
     //###################
 
     //canvas or div depending of the context
-    if (this.data.type === "straight-wave") {this.element = document.createElement("canvas");}   
+    if (this.data.type === "straight-wave") {this.element = document.createElement("canvas");}
         else if ( (this.data.type === "straight") || (this.data.type === "circular") ) {this.element = document.createElement("div");}
-    
+
     //basic parameters
     screen.appendChild(this.element);
     this.element.style.position = "absolute";
@@ -323,10 +323,10 @@ function Visualizer(glob_data) {
     }
 
 
-    
-    
-    
-    
+
+
+
+
     //#############################
     //APPLY DATA FOR THE FIRST TIME
     //#############################
@@ -342,7 +342,7 @@ function Visualizer(glob_data) {
 
         //create category
         CreateObjectContainer(this.data.id);
-        
+
         //layer
         AddParameter(
             {
@@ -351,7 +351,7 @@ function Visualizer(glob_data) {
                 settings: {
                     default: this.data.layer,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Layer",
                 help: help.parameter.object.general.layer,
@@ -375,13 +375,13 @@ function Visualizer(glob_data) {
                 settings: {
                     default_x: this.data.x,
                     default_y: this.data.y,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Coordinates",
                 help: help.parameter.object.general.pos,
             },
             function(id, value1, value2) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -401,13 +401,13 @@ function Visualizer(glob_data) {
                     default_x: this.data.width,
                     default_y: this.data.height,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Width and Height",
                 help: help.parameter.object.general.size,
             },
             function(id, value1, value2) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -426,13 +426,13 @@ function Visualizer(glob_data) {
                 settings: {
                     default: this.data.rotation,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Rotation (degrees)",
                 help: help.parameter.object.general.rotation,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -450,20 +450,20 @@ function Visualizer(glob_data) {
                 settings: {
                     default: this.data.radius,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Radius",
                 help: help.parameter.object.visualizer.circular_kind.radius,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
                     id: id,
                     radius: value,
                 });
-            }    
+            }
         );
 
         //points count
@@ -474,13 +474,13 @@ function Visualizer(glob_data) {
                 settings: {
                     default: this.data.points_count,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Points count",
                 help: help.parameter.object.visualizer.general.points_count,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -503,13 +503,13 @@ function Visualizer(glob_data) {
                     default_y: this.data.analyser_range[1],
                     min: 0,
                     max: 1023,
-                    step: 1    
+                    step: 1
                 },
                 title: "Analyzer range",
                 help: help.parameter.object.visualizer.general.analyser_range,
             },
             function(id, value1, value2) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -526,13 +526,13 @@ function Visualizer(glob_data) {
                 type: "choice",
                 settings: {
                     default: this.data.visualization_smoothing.type,
-                    list:["proportional decrease", "constant decay", "average"],    
+                    list:["proportional decrease", "constant decay", "average"],
                 },
                 title: "Visualization smoothing type",
                 help: help.parameter.object.visualizer.general.visualization_smoothing.type,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -559,7 +559,7 @@ function Visualizer(glob_data) {
                 help: help.parameter.object.visualizer.general.visualization_smoothing.factor,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -601,13 +601,13 @@ function Visualizer(glob_data) {
                 settings: {
                     default: this.data.bar_thickness,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Bar thickness",
                 help: help.parameter.object.visualizer.bar_kind.bar_thickness,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -636,7 +636,7 @@ function Visualizer(glob_data) {
                     id: id,
                     border_radius: value,
                 });
-            }    
+            }
         );
 
         //box-shadow
@@ -673,7 +673,7 @@ function Visualizer(glob_data) {
     this.update = function() {
         //collect audio data
         var visualizer_frequency_array = MappedArray(frequency_array, this.data.points_count, this.data.analyser_range[0], this.data.analyser_range[1]);
-        
+
         //apply visualization smoothing
         if (IsUndefined(this.previous_visualizer_frequency_array)) this.previous_visualizer_frequency_array = visualizer_frequency_array;
         var smooth_type = this.data.visualization_smoothing.type;
@@ -685,7 +685,7 @@ function Visualizer(glob_data) {
                 //The new value can't decrease more than the factor value between current[i] and previous[i].
                 //The decrease is linear as long as the new value is below the old value minus the factor.
                 //This factor defines how quick the decay is.
-                
+
                 //factor = 0 prevents from decreasing. factor > (maximum possible value for current[i]) disables the smoothing.
                 let scaled_smooth_factor = smooth_factor * 255; //0 to 1 -> 0 to max array value (255 with Int8Array)
                 let max_decay_limit = this.previous_visualizer_frequency_array[i] - scaled_smooth_factor;
@@ -725,29 +725,29 @@ function Visualizer(glob_data) {
         //STRAIGHT OR CIRCULAR
         //====================
         if ( (this.data.type === "straight") || (this.data.type === "circular") ) {
-    
+
             var rot_step = 2*Math.PI/this.data.points_count;//for "circular" only
             var rot_pos = 0;                                // ^^^^
-            
+
             for (var i = 0; i < this.bars.length; i++) {
                 //apply data to each bar
                 this.bars[i].style.height = (visualizer_frequency_array[i]/256*this.data.height)+"px";//proportionality to adapt to the full height. (max volume = 256)
-                
+
                 if (this.data.type === "circular") {//fix rotation
                     this.bars[i].style.height = ( visualizer_frequency_array[i]/256*(this.data.height/2 - this.data.radius) )+"px";//proportionality to adapt to the full height. (max volume = 256)
 
                     var bar_element = this.bars[i];
-                    
+
                     //centering
                     var center_x = (this.element.offsetWidth / 2) - (bar_element.offsetWidth / 2);
                     var center_y = (this.element.offsetHeight/2);
                     bar_element.style.left = (center_x + Math.cos(rot_pos) * this.data.radius) + "px";//radius
                     bar_element.style.top = (center_y + Math.sin(rot_pos) * this.data.radius) + "px";// ^^^^
-                    
+
                     //transform
                     bar_element.style.transformOrigin = "center top";
                     bar_element.style.transform = `scale(-1,-1) rotate( ${rot_pos+Math.PI/2}rad )`;
-                    
+
                     //iterate
                     rot_pos += rot_step;
                 }
@@ -755,9 +755,9 @@ function Visualizer(glob_data) {
             }
 
             //END OF STRAIGHT OR CIRCULAR
-        
+
         }
-        
+
 
 
         //STRAIGHT WAVE
@@ -776,8 +776,8 @@ function Visualizer(glob_data) {
             //clear
             vis_ctx.clearRect(0, 0, visualizer_cvs.width, visualizer_cvs.height);
 
-            
-            
+
+
             //CREATE THE WAVE
             vis_ctx.beginPath();
             vis_ctx.moveTo(visualizer_frequency_array[i]/256*this.data.height, visualizer_cvs.height);
@@ -797,7 +797,7 @@ function Visualizer(glob_data) {
             }
             // //END THE WAVE
             vis_ctx.lineTo(visualizer_cvs.width, visualizer_cvs.height);
-            
+
             //DRAW THE WAVE ON THE CANVAS
             vis_ctx.fillStyle = this.data.color;
             vis_ctx.fill();
@@ -892,7 +892,7 @@ function Visualizer(glob_data) {
 
             //remove UI
             document.getElementById(`UI-${id}`).remove();
-            
+
             //remove element
             this.element.remove();
         }

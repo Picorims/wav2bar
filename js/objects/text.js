@@ -27,7 +27,7 @@
 
 function Text(glob_data) {
     if (IsUndefined(glob_data)) throw "Text: data missing!";
-    
+
     this.data = glob_data;//collect data
     this.data.object_type = "text";
     objects.push(this);//add the object to the list
@@ -47,7 +47,7 @@ function Text(glob_data) {
     this.verifyData = function(data, ignore_undefined) {
         if (IsUndefined(data)) throw "Text.verifyData: data missing!";
         if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "Text.verifyData: IGNORE_UNDEFINED is the only valid node.";
-    
+
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
@@ -57,7 +57,7 @@ function Text(glob_data) {
         }
 
         //name
-        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";} 
+        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";}
         if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
             CustomLog("warn","Text object: Invalid name! Set to 'text'.");
             data.name = "text";
@@ -222,7 +222,7 @@ function Text(glob_data) {
         if (IsUndefined(data)) throw "Text.updateData: data missing!";
 
         //NOTE: it is NOT possible to change the text id (data.id). A new text must be created in such case!
-        
+
         if ( IsUndefined(data.id) ) {
             CustomLog("error","Text object: No ID specified!");
             return;
@@ -236,7 +236,7 @@ function Text(glob_data) {
 
             //VERIFY DATA
             this.data = this.verifyData(this.data, "IGNORE_UNDEFINED");
-            
+
             //APPLY DATA
             this.data = this.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
             this.element.style.zIndex = this.data.layer;//layer
@@ -273,7 +273,7 @@ function Text(glob_data) {
 
     //canvas or div depending of the context
     this.element = document.createElement("div");
-    
+
     //basic parameters
     screen.appendChild(this.element);
     this.element.style.position = "absolute";
@@ -282,7 +282,7 @@ function Text(glob_data) {
     this.element.style.overflowWrap = "break-word";
 
 
-    
+
     //#############################
     //APPLY DATA FOR THE FIRST TIME
     //#############################
@@ -298,7 +298,7 @@ function Text(glob_data) {
 
         //create category
         CreateObjectContainer(this.data.id);
-        
+
         //layer
         AddParameter(
             {
@@ -307,7 +307,7 @@ function Text(glob_data) {
                 settings: {
                     default: this.data.layer,
                     min: 0,
-                    step: 1,   
+                    step: 1,
                 },
                 title: "Layer",
                 help: help.parameter.object.general.layer,
@@ -331,13 +331,13 @@ function Text(glob_data) {
                 settings: {
                     default_x: this.data.x,
                     default_y: this.data.y,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Coordinates",
                 help: help.parameter.object.general.pos,
             },
             function(id, value1, value2) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -357,13 +357,13 @@ function Text(glob_data) {
                     default_x: this.data.width,
                     default_y: this.data.height,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Width and Height",
                 help: help.parameter.object.general.size,
             },
             function(id, value1, value2) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -382,13 +382,13 @@ function Text(glob_data) {
                 settings: {
                     default: this.data.rotation,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Rotation (degrees)",
                 help: help.parameter.object.general.rotation,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -405,13 +405,13 @@ function Text(glob_data) {
                 type: "choice",
                 settings: {
                     default: this.data.type,
-                    list:["any", "time"],    
+                    list:["any", "time"],
                 },
                 title: "Text type",
                 help: help.parameter.object.text.type,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -451,13 +451,13 @@ function Text(glob_data) {
                 settings: {
                     default: this.data.font_size,
                     min: 0,
-                    step: 1,                        
+                    step: 1,
                 },
                 title: "Font size",
                 help: help.parameter.object.text.font_size,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -501,7 +501,7 @@ function Text(glob_data) {
                 help: help.parameter.object.text.italic,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -523,7 +523,7 @@ function Text(glob_data) {
                 help: help.parameter.object.text.bold,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -545,7 +545,7 @@ function Text(glob_data) {
                 help: help.parameter.object.text.underline,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -567,7 +567,7 @@ function Text(glob_data) {
                 help: help.parameter.object.text.overline,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -589,7 +589,7 @@ function Text(glob_data) {
                 help: help.parameter.object.text.line_through,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -606,13 +606,13 @@ function Text(glob_data) {
                 type: "choice",
                 settings: {
                     default: this.data.text_align,
-                    list:["left", "center", "right"],    
+                    list:["left", "center", "right"],
                 },
                 title: "Text align",
                 help: help.parameter.object.text.text_align,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -660,15 +660,15 @@ function Text(glob_data) {
             var time_pos_sec = Math.floor(current_time)%60;
             if (time_pos_sec < 10) time_pos_sec = "0"+time_pos_sec;
             var time_pos_min = Math.floor(current_time/60);
-            
+
             //find total time
             var time_length_sec = Math.floor(audio_duration)%60;
             if (time_length_sec < 10) time_length_sec = "0"+time_length_sec;
             var time_length_min = Math.floor(audio_duration/60);
-            
+
             //apply time
             this.element.innerHTML = `${time_pos_min}:${time_pos_sec} | ${time_length_min}:${time_length_sec}`;
-    
+
         }
 
         //finished updating
@@ -691,7 +691,7 @@ function Text(glob_data) {
 
             //remove UI
             document.getElementById(`UI-${id}`).remove();
-            
+
             //remove element
             this.element.remove();
         }

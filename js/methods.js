@@ -15,7 +15,7 @@ function RandomInt(min, max) {//give a random integer between min and max.
 
 //taken from https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid
 //This should only be used in non sensitive contexts!
-function uuidv4() {//uuid v4 generator. 
+function uuidv4() {//uuid v4 generator.
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
@@ -39,7 +39,7 @@ function MappedArray(array, new_length, min, max) {//function that remaps an arr
     for (var i=0; i< array.length; i++) {
         if ( IsUndefined(array[i]) ) throw `MappedArray: the value ${i} of the array is undefined or null!`
     }
-    
+
     //DEFINITIONS
     if ( IsUndefined(min) || IsUndefined(max) ) {//if min or max not specified.
         min = 0;
@@ -50,16 +50,16 @@ function MappedArray(array, new_length, min, max) {//function that remaps an arr
     var step = (   (max-min+1) / new_length   ) * new_length / (new_length-1);//range length / new length.
     //Proportionality to one less equal part (* new_length / (new_length-1)) is here so the step goes up to the last
     //value of the array when dividing the range into equal parts. (as the final increment would otherwise stop 1 equal part before the last value).
-    
+
     var increment = min;//we start a the minimum of the range
-    
+
     //We want to take at equal distance a "new_length" number of values in the old array, from min to max.
     //In order to know how much we need to increment, we create a step.
     //If the range length is inferior than the new length, step < 1 since we have to get some values multiple times
     //to match the new length.
     //If the range length is superior than the new length, step > 1 since we have to skip some values to match the new length.
 
-    
+
 
 
     //ARRAY CREATION
@@ -81,7 +81,7 @@ function LinearToLog(array) {//redistributes the indexes in a logarithmic base 1
     var base_l = 1/Math.log(length); //so the new index without scaling is always between 0 and 1
     var log_array = [];
     var non_empty_indexes = [];
-    
+
     //re-index
     for (var i=0; i<length; i++) {
         log_index = Math.floor( Math.log(i+1)*base_l * length ); //pos * scale
@@ -94,7 +94,7 @@ function LinearToLog(array) {//redistributes the indexes in a logarithmic base 1
     for (var i=0; i<length; i++) {
         if (IsUndefined(log_array[i])) {
             var interpolate = [ log_array[non_empty_indexes[j]], log_array[non_empty_indexes[j+1]] ]; //values to interpolate between.
-            
+
             log_array[i] = interpolate[0] + ((i-non_empty_indexes[j]) / (non_empty_indexes[j+1] - non_empty_indexes[j])) * (interpolate[1]-interpolate[0]);
             //y = y1 + (x-x1)/(x2-x1) * (y2-y1);
 
@@ -112,7 +112,7 @@ function InInterval(value, interval, type) {//returns if the given value is in t
     if (!IsAnArray(interval)) throw `InInterval: ${interval} is not a valid array`;
     if (!IsUndefined(interval) && interval[0] > interval[1]) throw `InInterval: ${interval} has values in the wrong order. It must be [min,max], min<max`;
     if (IsUndefined(type) || (type !== "included" && type !== "excluded")) throw `InInterval: ${type} is not a valid type. It must be "included" or "excluded"!`;
-    
+
     switch (type) {
         case "included":
             return (   (value >= interval[0]) && (value <= interval[1])   );

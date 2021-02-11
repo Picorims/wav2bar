@@ -25,7 +25,7 @@
 
 function ParticleFlow(glob_data) {
     if (IsUndefined(glob_data)) throw "ParticleFlow: data missing!";
-    
+
     this.data = glob_data;//collect data
     this.data.object_type = "particle_flow";
     this.particles = [];//contain all particles
@@ -44,7 +44,7 @@ function ParticleFlow(glob_data) {
         if (IsUndefined(data)) throw "ParticleFlow.verifyData: data missing!";
         if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "ParticleFlow.verifyData: IGNORE_UNDEFINED is the only valid node.";
 
-    
+
         if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
@@ -54,11 +54,11 @@ function ParticleFlow(glob_data) {
         }
 
         //name
-        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";} 
+        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";}
         if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
             CustomLog("warn","Particle Flow object: Invalid name! Set to 'particle flow'.");
             data.name = "particle flow";
-        }        
+        }
 
         //layer
         if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = 0;}
@@ -185,7 +185,7 @@ function ParticleFlow(glob_data) {
     this.updateData = function(data) {
         if (IsUndefined(data)) throw "ParticleFlow.updateData: data missing!";
         //NOTE: it is NOT possible to change the particle flow type (data.type) and id (data.id). A new particle flow must be created in such case!
-        
+
         if ( IsUndefined(data.id) ) {
             CustomLog("error","Particle Flow object: No ID specified!");
             return;
@@ -199,7 +199,7 @@ function ParticleFlow(glob_data) {
 
             //VERIFY DATA
             this.data = this.verifyData(this.data, "IGNORE_UNDEFINED");
-            
+
             //APPLY DATA
             this.data = this.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
             this.element.style.zIndex = this.data.layer;//layer
@@ -228,7 +228,7 @@ function ParticleFlow(glob_data) {
     //canvas creation
     this.element = document.createElement("canvas");
     screen.appendChild(this.element);
-    
+
     //basic parameters
     this.element.style.position = "absolute";
     this.element.style.display = "inline-block";
@@ -236,10 +236,10 @@ function ParticleFlow(glob_data) {
 
 
 
-    
-    
-    
-    
+
+
+
+
     //#############################
     //APPLY DATA FOR THE FIRST TIME
     //#############################
@@ -256,7 +256,7 @@ function ParticleFlow(glob_data) {
 
         //create category
         CreateObjectContainer(this.data.id);
-        
+
         //layer
         AddParameter(
             {
@@ -265,7 +265,7 @@ function ParticleFlow(glob_data) {
                 settings: {
                     default: this.data.layer,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Layer",
                 help: help.parameter.object.general.layer,
@@ -289,13 +289,13 @@ function ParticleFlow(glob_data) {
                 settings: {
                     default_x: this.data.x,
                     default_y: this.data.y,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Coordinates",
                 help: help.parameter.object.general.pos,
             },
             function(id, value1, value2) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -315,13 +315,13 @@ function ParticleFlow(glob_data) {
                     default_x: this.data.width,
                     default_y: this.data.height,
                     min: 0,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Width and Height",
                 help: help.parameter.object.general.size,
             },
             function(id, value1, value2) {
-            
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -341,13 +341,13 @@ function ParticleFlow(glob_data) {
                     default_x: this.data.particle_radius_range[0],
                     default_y: this.data.particle_radius_range[1],
                     min: 1,
-                    step: 1,                        
+                    step: 1,
                 },
                 title: "Particle size range",
                 help: help.parameter.object.particles.ptcl_size,
             },
             function(id, value1, value2) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -364,13 +364,13 @@ function ParticleFlow(glob_data) {
                 type: "choice",
                 settings: {
                     default: this.data.type,
-                    list:["radial", "directional"],    
+                    list:["radial", "directional"],
                 },
                 title: "Movement type",
                 help: help.parameter.object.particles.mvmt_type,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -388,13 +388,13 @@ function ParticleFlow(glob_data) {
                 settings: {
                     default_x: this.data.center.x,
                     default_y: this.data.center.y,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Center position (radial)",
                 help: help.parameter.object.particles.center_pos,
             },
             function(id, value1, value2) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -416,13 +416,13 @@ function ParticleFlow(glob_data) {
                     default: this.data.direction,
                     min: 0,
                     max: 360,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Direction (directional)",
                 help: help.parameter.object.particles.direction,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
                 value = value * (2*Math.PI / 360);//conversion in radians
 
@@ -442,13 +442,13 @@ function ParticleFlow(glob_data) {
                     default: this.data.spawn_probability,
                     min: 0,
                     max: 1,
-                    step: 0.01,    
+                    step: 0.01,
                 },
                 title: "Spawn probability",
                 help: help.parameter.object.particles.spawn_probability,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -466,13 +466,13 @@ function ParticleFlow(glob_data) {
                 settings: {
                     default: this.data.spawn_tests,
                     min: 1,
-                    step: 1,    
+                    step: 1,
                 },
                 title: "Spawn tests per frame",
                 help: help.parameter.object.particles.spawn_tests,
             },
             function(id, value) {
-                
+
                 var this_object = object_method.getByID(id);
 
                 this_object.updateData({
@@ -515,12 +515,12 @@ function ParticleFlow(glob_data) {
     this.update = function() {
         var canvas = this.element;
         var ctx = canvas.getContext("2d");
-        
-        
+
+
         //IF AUDIO IS PLAYING
         var audio_progress = current_time/audio_duration;
         if (audio_progress !== 0 && audio_progress !== 1) {
-            
+
             //clear canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -528,7 +528,7 @@ function ParticleFlow(glob_data) {
             for (let i=0; i<this.data.spawn_tests; i++) {
                 if (Math.random() < this.data.spawn_probability) {
                     this.particles.push(new Particle(this.data, canvas));
-                }    
+                }
             }
 
             //update all particles
@@ -566,7 +566,7 @@ function ParticleFlow(glob_data) {
 
             //remove UI
             document.getElementById(`UI-${id}`).remove();
-            
+
             //remove element
             this.element.remove();
         }
@@ -595,11 +595,11 @@ function Particle(data, canvas) {//control each particle's behavior with an inde
     //PARAMETERS
     this.radius = RandomInt(this.data.particle_radius_range[0], this.data.particle_radius_range[1]);
     this.speed = 0;
-    
+
     //direction
     if (this.data.type === "radial") this.direction = Math.random() * 2*Math.PI;
     if (this.data.type === "directional") this.direction = this.data.particle_direction;
-    
+
     //spawn coordinates
     if (this.data.type === "radial") {
         //spawn to the center
@@ -631,11 +631,11 @@ function Particle(data, canvas) {//control each particle's behavior with an inde
             this.y = y_max;
         }
 
-        
+
         //DEFINE THE SPAWN TYPE
         this.spawn_type;//on which sides of the screen particles can spawn;
         //left || bottom-left || bottom || bottom-right || right || top-right || top || top-left;
-        
+
         var PI = Math.PI;
         var axis_direction = true;
         //cases with a direction aligned with an axis
@@ -653,7 +653,7 @@ function Particle(data, canvas) {//control each particle's behavior with an inde
         else if (InInterval(this.data.particle_direction, [PI      , (3*PI)/2], "excluded")) {this.spawn_type = "bottom-right"}
         else if (InInterval(this.data.particle_direction, [(3*PI)/2, 2*PI    ], "excluded")) {this.spawn_type = "bottom-left"}
         else if (!axis_direction) throw `Particle: ${this.data.particle_direction} is not a valid particle direction. It must be a radian value between 0 and 2PI!`
-        
+
 
         //APPLY THE SPAWN TYPE
         var random = RandomInt(0,1);
@@ -673,7 +673,7 @@ function Particle(data, canvas) {//control each particle's behavior with an inde
                     else this.rightSpawn(); break;
             //====================================================
             case "right": this.rightSpawn(); break;
-             //====================================================               
+             //====================================================
             case "top-right":
                 if (random==0) this.topSpawn();
                     else this.rightSpawn(); break;
@@ -687,10 +687,10 @@ function Particle(data, canvas) {//control each particle's behavior with an inde
             default: throw `Particle: ${this.spawn_type} is not a valid spawn type!`
         }
     }
-    
-    
-    
-    
+
+
+
+
     //METHODS
     this.update = function() {
         //compute speed
@@ -701,7 +701,7 @@ function Particle(data, canvas) {//control each particle's behavior with an inde
         //apply speed
         this.x += this.x_velocity;
         this.y += this.y_velocity;
-        
+
         //kill particle being out or range
         if (this.x > (canvas.width + this.radius)
         || this.x < (- this.radius)

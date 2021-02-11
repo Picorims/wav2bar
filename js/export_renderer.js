@@ -19,7 +19,7 @@ var progress_window;//progress bar
 //callback to the main window that the renderer windows exists
 function ConfirmCreation() {
     CustomLog("debug","renderer created");
-    
+
     //confirm that the window exists when it is ready
     ipcRenderer.sendTo(1, "renderer-exists");
     InitRender();
@@ -30,7 +30,7 @@ function InitRender() {//render initialization
 
     CustomLog("debug","initialization of the renderer.");
     screen = document.getElementById("screen");
-    
+
     //collecting needed data
     ipcRenderer.once("data-sent", (event, data) => {//once avoid the listener to be persistent (if it was,
                                                     //on window re-open, a new listener would stack upon this
@@ -38,7 +38,7 @@ function InitRender() {//render initialization
         CustomLog("debug","received data of the main renderer.");
         received_data = data;
         InitExport(data);
-    
+
     });
 }
 
@@ -61,18 +61,18 @@ async function InitExport(data) {//prepare video export
     //remote.getCurrentWindow().setSize(screen.width, screen.height);
     await ipcRenderer.invoke('resize-export-window', screen.width, screen.height);
 
-    
-    
-    
+
+
+
     //LOAD SAVE
     current_save = data.save;
     ApplyLoadedSave();
     CustomLog("debug","save loaded into the renderer");
 
-    
-    
-    
-    
+
+
+
+
     //LOAD AUDIO FROM TEMP FILE
     audio_file_path;
     switch (data.audio_file_type) {
@@ -87,18 +87,18 @@ async function InitExport(data) {//prepare video export
             audio_file_path = path.join(__dirname, "../temp/temp.wav");
             break;
 
-        
+
         case "application/ogg":
             audio_file_path = path.join(__dirname, "../temp/temp.ogg");
             break;
-        
+
         default:
             throw `InitExport: ${type} is not a valid audio type!`;
     }
     CustomLog("debug",`locating audio: ${audio_file_path}`);
-    
-    
-    
+
+
+
 
 
     //EVENTS
@@ -109,7 +109,7 @@ async function InitExport(data) {//prepare video export
 
 
 
-    
+
 
     //PROCESS AUDIO
     CustomLog("debug","processing audio...");
@@ -127,7 +127,7 @@ function GetAudioData() {//Transform the audio temp file into PCM data, use FFT 
 
     //GET BUFFER FROM THE AUDIO FILE. Cf. function definition.
     GetAudioBuffer(function(audio_buffer) {
-        
+
         duration = audio_buffer.duration;      //time
         sample_rate = audio_buffer.sampleRate; //number of samples (one value) per second
 
@@ -159,7 +159,7 @@ function GetAudioBuffer(callback) {//get the buffer array from the audio file
 
     //setup
     var context = new AudioContext();
-    
+
     //file url
     var url = audio_file_path.replace(/\\/g,"/");
     CustomLog("debug", `audio source: ${url}`);
@@ -170,16 +170,16 @@ function GetAudioBuffer(callback) {//get the buffer array from the audio file
         .then(blob => {
             new Response(blob).arrayBuffer().then(function(result) {//converts to array buffer
                 array_buffer = result;
-                
+
                 context.decodeAudioData(array_buffer, function(decoded_buffer) {//converts to audio buffer
                     callback(decoded_buffer);//return data
-                
+
                 }, function() {throw "GetAudioBuffer: audio decoding has failed."});
 
             });
         });
-    
-    
+
+
 }
 
 
@@ -197,7 +197,7 @@ function GetAudioBuffer(callback) {//get the buffer array from the audio file
 
 
 function PrepareRendering() {//define important variables
-        
+
     //FPS PREPARATION
     frame_count = 0;
     fps = current_save.fps;
@@ -241,10 +241,10 @@ async function Render() {//render every frame into an image
 
         //if there is still frames to draw
         if (frames_rendered < frames_to_render) {
-    
+
             //the previous frame is rendered only now because the render of this one is now finished (UpdateFinished = true). it wasn't the case before
             await ipcRenderer.invoke('export-screen', {width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`);
-                
+
             //get waveform data
             var length = 8192;//output is length/2
             var waveform = new Float32Array(length);
@@ -262,26 +262,26 @@ async function Render() {//render every frame into an image
             //scale from 0-1 to 0-255 (used format in the Web Audio API because of Int8Array)
             frequency_array = [];
             for (var i=0; i<spectrum.length; i++) {
-                frequency_array.push( (1 - Math.exp(-32*spectrum[i])) * 255 );//(amplification with ceiling) * (scale to 0-255) 
+                frequency_array.push( (1 - Math.exp(-32*spectrum[i])) * 255 );//(amplification with ceiling) * (scale to 0-255)
             }
             frequency_array = MappedArray(frequency_array, 1024, 0, 1023); //TEMP FIX FOR EXPORT VISUALIZATION. Ideally, visualization should work no matter the array size.
             frequency_array = LinearToLog(frequency_array);
             //console.log(frequency_array);
-            
-            //Draw the new frame now that the previous finished exporting .     
-            //render frame, recall loop 
+
+            //Draw the new frame now that the previous finished exporting .
+            //render frame, recall loop
             CustomLog("info",`audio time: ${current_time}`);
             RenderFrame();
             frames_rendered++;
             document.dispatchEvent(event.render_loop);
 
 
-    
+
         }//if all frames have been rendered and this is the last frame to export, stop the loop and export the last frame
         else {
-            
+
             await ipcRenderer.invoke('export-screen', {width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`);
-            
+
             document.removeEventListener("render-loop", Render);
             ipcRenderer.sendTo(1, "frames-rendered");
             var data = received_data;
@@ -296,7 +296,7 @@ async function Render() {//render every frame into an image
                 alert(`The video encoding failed. For more information, see the logs.\n\n${error}`);
                 window.close();
             });
-            
+
         }
 
     } else {
@@ -312,7 +312,7 @@ async function Render() {//render every frame into an image
 
 
 function RenderFrame() {//render one frame
-    
+
     //#################
     //AUDIO CALCULATION
     //#################
@@ -336,8 +336,8 @@ function RenderFrame() {//render one frame
         objects_callback[i] = false;
         objects_callback[i] = objects[i].update();
     }
-   
-    
+
+
     //end of a frame
 
 }
