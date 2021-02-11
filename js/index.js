@@ -35,9 +35,7 @@ window.onload = function() {InitPage();};
 function InitPage() {//page initialization
 
     //PREPARE SAVE
-    DefaultSave();
-    CustomLog('syncing save object every 500ms, starting from now.');
-    setInterval(SyncSave, 500);
+    InitSave();
 
 
     //FPS PREPARATION

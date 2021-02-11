@@ -6,6 +6,15 @@
 //It is used for saving and exporting data, never for getting data in a process.
 var current_save;
 const save_version = 2;
+var lock_save_sync = false;
+
+
+//save initialization
+function InitSave() {
+    DefaultSave();
+    CustomLog("debug",'syncing save object every 500ms, starting from now.');
+    setInterval(SyncSave, 500);
+}
 
 function DefaultSave() {//set the save data to default values
     current_save = {
@@ -28,6 +37,7 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
     if (!IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
 
     CustomLog("info","Loading the save...");
+    lock_save_sync = true;
 
     //ERASE CURRENT DATA
 
@@ -54,7 +64,31 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
 
         const JSON_data = await ipcRenderer.invoke("read-json-file","./temp/current_save/data.json");
         current_save = JSON.parse(JSON.stringify(JSON_data)); //copy data
-        ApplyLoadedSave();
+
+        //check version
+        if (current_save.save_version > save_version) {
+            //newer version
+
+            CustomLog("error",`The save can't be opened because its version (${current_save.save_version}) is greater than the supported version (${save_version})`);
+            MessageDialog("error", `This project has been created in a newer version of Wav2Bar (${save_version.software_version_used}). To be able to open this project, please upgrade your installed version.`);
+            lock_save_sync = false;
+        } else if (current_save.save_version < save_version) {
+            //older version
+
+            CustomLog("warning",`The supported save version is ${save_version} but the provided save is of version ${current_save.save_version}`);
+            MessageDialog("confirm",`This project has been created in an older version of Wav2Bar (${current_save.software_version_used}). Do you want to upgrade it ? (Always backup your project before converting it!)`,
+                function(confirmed) {
+                    if (confirmed) {
+                        ConvertSave();
+                        ApplyLoadedSave();
+                    }
+                    lock_save_sync = false;
+                });
+        } else {
+            //same version
+            ApplyLoadedSave();
+            lock_save_sync = false;
+        }
     });
     await ipcRenderer.invoke("cache-save-file", save_file_path);
 
@@ -72,6 +106,95 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
     // }
     // file_reader.readAsText(save_file, "utf-8");
 
+}
+
+
+
+
+//upgrade an older save file to the current version.
+//versions are documented in [root]/docs/save.md.
+function ConvertSave(log_array = []) {
+    //something's wrong ?
+    CustomLog("debug", JSON.stringify(current_save));
+    if (current_save.save_version > save_version) throw `Can't convert the save: the save version (${current_save.save_version}) is greater than the supported version (${save_version})!`;
+    
+    //Does it still needs to be converted ?
+    else if (current_save.save_version < save_version) {
+        CustomLog("info",`Converting the save from version ${current_save.save_version} to ${current_save.save_version + 1}. The goal is ${save_version}.`);
+
+        switch (current_save.save_version) {
+            case 1:
+                //convert objects
+                for (obj of current_save.objects) {
+                    if (obj.object_type === "background" || obj.object_type === "image") {
+                        //cache legacy data
+                        let legacy_bgnd = obj.background;
+                        let legacy_size = obj.size;
+                        
+                        //delete useless keys
+                        delete obj.size;
+
+                        //CONVERT DATA
+                        obj.background = {};
+                        obj.background.size = legacy_size;
+
+                        //process legacy_bgnd
+                        //NOTE: images, repeat scheme, and other color schemes are lost in the process.
+                        //NOTE: validity of the data isn't verified (number ranges, syntax...).
+                        
+                        // hex or rgb or rgba
+                        let color_regexp = new RegExp(/^#[0-9a-fA-F]{3,8}$|^rgb\(\d{1,3},\d{1,3},\d{1,3}\)$|^rgba\(\d{1,3},\d{1,3},\d{1,3},[01]\.?\d*\)$/);
+                        //recognize css gradient functions.
+                        let gradient_regexp = new RegExp(/gradient\(/);
+                        //remove misleading spaces
+                        legacy_bgnd = legacy_bgnd.split(" ").join("");
+                        if (color_regexp.test(legacy_bgnd)) {
+                            obj.background.type = "color";
+                            obj.background.last_color = legacy_bgnd;
+                            obj.background.last_gradient = "";
+                        } else if (gradient_regexp.test(legacy_bgnd)) {
+                            obj.background.type = "gradient";
+                            obj.background.last_color = "";
+                            obj.background.last_gradient = legacy_bgnd;
+                        } else {
+                            obj.background.type = "color";
+                            obj.background.last_color = "#fff";
+                            obj.background.last_gradient = "";
+                            log_array.push(`[1 -> 2] Couldn't convert background for ${obj.name}, assigned a default value.`);
+                        }
+
+                        //other missing nodes
+                        obj.background.last_image = "";
+                        obj.background.repeat = "no-repeat";
+                    }
+                }
+
+                //create audio node
+                current_save.audio_filename = "";
+            break;
+
+
+
+            default:
+                CustomLog("error",`A save of version ${current_save.save_version} can't be converted!`);
+        }
+        current_save.save_version++;
+        CustomLog("info", `Save converted to version ${current_save.save_version}!`);
+        ConvertSave(log_array);
+    } else {
+        //finished conversion.
+        CustomLog("info", `Conversion done!`);
+
+        //conversion logs
+        if (log_array.length > 0) {
+            let log_string = "Conversion details:\n";
+            for (msg of log_array) {
+                log_string += "- " + msg + '\n';
+            }
+            CustomLog("info", log_string);
+            MessageDialog("info", log_string.split("\n").join("<br>"));    
+        }
+    }
 }
 
 
@@ -145,17 +268,20 @@ function ApplyLoadedSave() {//read and apply a loaded user save
 
 
 function SyncSave() { //function that updates the current save with latest data
+    if (!lock_save_sync) {
+        current_save.software_version_used = `${software_version} ${software_status}`;
+        current_save.screen.width = screen.width;
+        current_save.screen.height = screen.height;
+        current_save.fps = fps;
+        //audio_filename not needed to sync
+        current_save.objects = [];
     
-    current_save.software_version_used = `${software_version} ${software_status}`;
-    current_save.screen.width = screen.width;
-    current_save.screen.height = screen.height;
-    current_save.fps = fps;
-    current_save.objects = [];
-
-    for (var i=0; i < objects.length; i++) {
-        current_save.objects.push(objects[i].data);
-    }
-    
+        for (var i=0; i < objects.length; i++) {
+            current_save.objects.push(objects[i].data);
+        }    
+    } else {
+        CustomLog("debug","Save syncing locked, didn't synchronize data.");
+    } 
 }
 
 

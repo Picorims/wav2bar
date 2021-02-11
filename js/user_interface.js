@@ -1582,6 +1582,7 @@ function MessageDialog(type, message, callback, args) {
         cancel_button.innerHTML = "Cancel";
         cancel_button.onclick = function() {
             background_container.remove();
+            if (callback) callback(false, args);
         }    
     }
 
@@ -1591,7 +1592,7 @@ function MessageDialog(type, message, callback, args) {
     confirm_button.classList.add("panel_button", "dialog_button");
     confirm_button.innerHTML = (type==="confirm")? "Confirm" : "OK";
     confirm_button.onclick = function() {
-        if (callback) callback(args);
+        if (callback) callback(true, args);
         background_container.remove();
     }
 
