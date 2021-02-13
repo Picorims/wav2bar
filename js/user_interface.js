@@ -1093,12 +1093,6 @@ function AddParameter(args, callback) {
             */
 
 
-            //TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO
-            /**
-             * - background repeat control
-             * - background updating (repeat)
-             * - add support for background repeat in save file
-             */
 
             //event to trigger on main input when user change settings
             var input_event = new Event('input', {
@@ -1157,6 +1151,7 @@ function AddParameter(args, callback) {
                     allowed_extensions: ["avif","jpg","jpeg","jfif","pjpeg","pjp","png","svg","webp","bmp","ico","cur"],
                     //source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
                 }, async (result) => {
+                    console.log(result);
                     //copying file
                     let filename = result.replace(/^.*[\\\/]/, '');
                     let new_path = `./temp/current_save/assets/${args.object_id}/background/`;
@@ -2016,9 +2011,10 @@ function HasValidExtension(file_name, extensions_list) {
     }
 
     var file_matches = false;
+    file_name = file_name.toLowerCase();
 
     for (let i=0; i < extensions_list.length; i++) {
-        let regexp = new RegExp(`\.${extensions_list[i]}$`,"g"); // ends with .my_extension
+        let regexp = new RegExp(`\.${extensions_list[i].toLowerCase()}$`,"g"); // ends with .my_extension
         if (regexp.test(file_name)) file_matches = true;
     }
 
