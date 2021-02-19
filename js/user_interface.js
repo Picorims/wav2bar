@@ -1155,7 +1155,18 @@ function AddParameter(args, callback) {
                     //copying file
                     let filename = result.replace(/^.*[\\\/]/, '');
                     let new_path = `./temp/current_save/assets/${args.object_id}/background/`;
-                    let image_exists = await ipcRenderer.invoke("path-exists", `${new_path}${filename}`);
+                    
+                    //is an image file already imported ?
+                    let path_exists = await ipcRenderer.invoke("path-exists", new_path);
+                    let image_exists;
+                    if (path_exists) {
+                        let image_dir_content = await ipcRenderer.invoke("read-dir", new_path);
+                        image_exists = (image_dir_content.length !== 0);
+                    } else {
+                        image_exists = false;
+                    }
+
+                    //cache image in current save
                     if (image_exists) await ipcRenderer.invoke("empty-dir", new_path);
                         else await ipcRenderer.invoke("make-dir", new_path)
                     await ipcRenderer.invoke("copy-file", result, `${new_path}${filename}`);
