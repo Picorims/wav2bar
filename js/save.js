@@ -5,7 +5,7 @@
 //all data of the project that can be saved is in this variable.
 //It is used for saving and exporting data, never for getting data in a process.
 var current_save;
-const save_version = 2;
+const current_save_version = 2;
 var lock_save_sync = false;
 
 
@@ -20,7 +20,7 @@ function DefaultSave() {//set the save data to default values
     current_save = {
         //1 -> Wav2Bar 0.1.0 indev before save revamp (image embedding, music embedding)
         //2 -> Wav2Bar 0.1.0 Beta and after
-        save_version: save_version,
+        save_version: current_save_version,
         software_version_used: `${software_version} ${software_status}`,
         screen: {width: 1280, height: 720},
         fps: 60,
@@ -35,6 +35,9 @@ function DefaultSave() {//set the save data to default values
 
 async function LoadSave(save_file_path) {//load a user save or a preset (JSON format)
     if (!IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
+
+    CustomLog("info", "Backing up currently opened save...");
+    ExportSave("./temp/before_new_save_open.w2bzip");
 
     CustomLog("info","Loading the save...");
     lock_save_sync = true;
@@ -66,21 +69,24 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
         current_save = JSON.parse(JSON.stringify(JSON_data)); //copy data
 
         //check version
-        if (current_save.save_version > save_version) {
+        if (current_save.save_version > current_save_version) {
             //newer version
 
-            CustomLog("error",`The save can't be opened because its version (${current_save.save_version}) is greater than the supported version (${save_version})`);
-            MessageDialog("error", `This project has been created in a newer version of Wav2Bar (${save_version.software_version_used}). To be able to open this project, please upgrade your installed version.`);
+            CustomLog("error",`The save can't be opened because its version (${current_save.save_version}) is greater than the supported version (${current_save_version})`);
+            MessageDialog("error", `This project has been created in a newer version of Wav2Bar (${current_save.software_version_used}). To be able to open this project, please upgrade your installed version.`);
             lock_save_sync = false;
-        } else if (current_save.save_version < save_version) {
+        } else if (current_save.save_version < current_save_version) {
             //older version
 
-            CustomLog("warning",`The supported save version is ${save_version} but the provided save is of version ${current_save.save_version}`);
+            CustomLog("warning",`The supported save version is ${current_save_version} but the provided save is of version ${current_save.save_version}`);
             MessageDialog("confirm",`This project has been created in an older version of Wav2Bar (${current_save.software_version_used}). Do you want to upgrade it ? (Always backup your project before converting it!)`,
                 function(confirmed) {
                     if (confirmed) {
                         ConvertSave();
                         ApplyLoadedSave();
+                    } else {
+                        CustomLog("info", "Save load aborted, loading back the project in it's old state.");
+                        LoadSave("./temp/before_new_save_open.w2bzip");
                     }
                     lock_save_sync = false;
                 });
@@ -116,11 +122,11 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
 function ConvertSave(log_array = []) {
     //something's wrong ?
     CustomLog("debug", JSON.stringify(current_save));
-    if (current_save.save_version > save_version) throw `Can't convert the save: the save version (${current_save.save_version}) is greater than the supported version (${save_version})!`;
+    if (current_save.save_version > current_save_version) throw `Can't convert the save: the save version (${current_save.save_version}) is greater than the supported version (${current_save_version})!`;
 
     //Does it still needs to be converted ?
-    else if (current_save.save_version < save_version) {
-        CustomLog("info",`Converting the save from version ${current_save.save_version} to ${current_save.save_version + 1}. The goal is ${save_version}.`);
+    else if (current_save.save_version < current_save_version) {
+        CustomLog("info",`Converting the save from version ${current_save.save_version} to ${current_save.save_version + 1}. The goal is ${current_save_version}.`);
 
         switch (current_save.save_version) {
             case 1:
