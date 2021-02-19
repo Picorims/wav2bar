@@ -1151,7 +1151,6 @@ function AddParameter(args, callback) {
                     allowed_extensions: ["avif","jpg","jpeg","jfif","pjpeg","pjp","png","svg","webp","bmp","ico","cur"],
                     //source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
                 }, async (result) => {
-                    console.log(result);
                     //copying file
                     let filename = result.replace(/^.*[\\\/]/, '');
                     let new_path = `./temp/current_save/assets/${args.object_id}/background/`;
@@ -1172,8 +1171,9 @@ function AddParameter(args, callback) {
                     await ipcRenderer.invoke("copy-file", result, `${new_path}${filename}`);
 
                     //update display and keep new name in memory;
-                    img_disp.style.backgroundImage = `url(${new_path}${filename})`;
+                    img_disp.style.backgroundImage = `url("${new_path}${filename}")`;
                     args.settings.default_image = filename;
+                    console.log(img_disp.style.backgroundImage);
 
                     //update object
                     callback(args.object_id, list.value, filename);
@@ -1841,7 +1841,7 @@ async function FileBrowserDialog(settings, callback, args) {
         if ( settings.type === "save_file") {
             if (extensions[0] === "#none") {
 
-                var regexp = new RegExp(/\..*$/,"g");
+                var regexp = new RegExp(/\..*$/,"g"); //has a dot with anything after it at the end of the path.
                 if (regexp.test(name_input.value)) {
                     MessageDialog("warn","no extension allowed!")
                     return;
