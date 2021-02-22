@@ -355,5 +355,7 @@ function ExportSave(save_path) {
 
     //package file
     ipcRenderer.invoke("create-save-file", save_path);
+
+    MessageDialog("info","The save has been created!");
     CustomLog("info","save file generated!");
 }
