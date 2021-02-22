@@ -86,20 +86,50 @@ function LinearToLog(array) {//redistributes the indexes in a logarithmic base 1
     for (var i=0; i<length; i++) {
         log_index = Math.floor( Math.log(i+1)*base_l * length ); //pos * scale
         log_array[log_index] = array[i];
-        if (!IsUndefined(log_array[i])) non_empty_indexes.push(i); //can be done here as log_index grow faster than i.
+        
+        //flag non empty indexes at the same time.
+        //it can be done here as log_index grow faster than i.
+        if (!IsUndefined(log_array[i])) non_empty_indexes.push(i);
     }
 
     //interpolate empty indexes
     var j = 0;
-    for (var i=0; i<length; i++) {
+    //index 0 is defined and is a starting point for the first interpolation (j=0 to j+1 = 1)
+    //If "i" was starting to 0 an unecessary increment would be performed, as the loop would think there was an
+    //interpolation done before index 0.
+    for (var i=1; i<length; i++) {
         if (IsUndefined(log_array[i])) {
+            //change of area when the right boundary is bypassed.
+            //if (i >= non_empty_indexes[j+1]) j++;
+
             var interpolate = [ log_array[non_empty_indexes[j]], log_array[non_empty_indexes[j+1]] ]; //values to interpolate between.
 
-            log_array[i] = interpolate[0] + ((i-non_empty_indexes[j]) / (non_empty_indexes[j+1] - non_empty_indexes[j])) * (interpolate[1]-interpolate[0]);
-            //y = y1 + (x-x1)/(x2-x1) * (y2-y1);
-
+            var from = interpolate[0];
+            var to = interpolate[1];
+            var start_index = non_empty_indexes[j];
+            var end_index = non_empty_indexes[j+1];
+            var current_index = i;
+            log_array[i] = from + ((current_index - start_index) / (end_index - start_index)) * (to - from);
+            /*
+            interpolation between y1 and y2
+            x = current index (i)
+            x1 = index of y1
+            x2 = index of y2
+            k = interpolated value
+            k = y1 + (x-x1)/(x2-x1) * (y2-y1);
+            k = left_value + current_pos/total_length * distance_between_values
+            
+            example: interpolate from 5 to 10 on array[5,?,?,10]
+            x1 = 0 and x2 = 3 (indexes)
+            3-0 = 3 steps to reach 10 from 5.
+            (array[0] = 5 + 0/3*5 = 5)
+            array[1] = 5 + (1-0)/(3-0) * (10-5) = 5 + (1/3 * 5) = 6,6666...
+            array[2] = 5 + (2-0)/(3-0) * (10-5) = 5 + (2/3 * 5) = 8.3333...
+            (array[3] = 5 + 3/3 * 5 = 10)
+            */
+        } else {
             //change of area when the right boundary is bypassed.
-            if (i >= non_empty_indexes[j+1]) j++;
+            j++;
         }
     }
 
