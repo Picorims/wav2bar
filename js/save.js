@@ -37,7 +37,7 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
     if (!IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
 
     CustomLog("info", "Backing up currently opened save...");
-    ExportSave("./temp/before_new_save_open.w2bzip");
+    ExportSave("./temp/before_new_save_open.w2bzip", true);
 
     CustomLog("info","Loading the save...");
     lock_save_sync = true;
@@ -342,8 +342,9 @@ function ExportSaveAsJSON() {//export the current save to JSON format.
  * |    /
  * /
  */
-function ExportSave(save_path) {
+function ExportSave(save_path, no_dialog = false) {
     if (!IsAString(save_path)) throw `ExportSave: ${save_path} is an invalid save path (not a string).`;
+    if (!IsABoolean(no_dialog)) throw `ExportSave: ${no_dialog} must be a boolean for no_dialog value!`;
 
     CustomLog("info","generating save file...");
     //update the current save
@@ -356,6 +357,6 @@ function ExportSave(save_path) {
     //package file
     ipcRenderer.invoke("create-save-file", save_path);
 
-    MessageDialog("info","The save has been created!");
+    if (!no_dialog) MessageDialog("info","The save has been created!");
     CustomLog("info","save file generated!");
 }
