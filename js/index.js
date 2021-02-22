@@ -6,6 +6,8 @@ const { Logger } = require("log4js");
 const software_version = '0.1.0'; //current build version
 const software_status = 'Beta';
 
+var can_close_window_safely = false;//set to true when the user confirmed exit
+
 //MAIN PROCESS, PAGE INITIALIZATION
 
 var fps, stop_animating, animating, frame_count, fps_interval, time; //fps related variables
@@ -31,6 +33,7 @@ GLOBAL INITIALIZATION AND AUDIO IMPORT
 */
 
 window.onload = function() {InitPage();};
+window.onbeforeunload = function(event) {PrepareWindowClose(event);};
 
 function InitPage() {//page initialization
 
@@ -50,6 +53,27 @@ function InitPage() {//page initialization
 
     //UI INITIALIZATION
     InitUI();
+}
+
+
+
+
+function PrepareWindowClose(event) {
+    CustomLog("info", "The window will be closed.");
+
+    if (!can_close_window_safely) {
+        event.returnValue = false;
+
+        MessageDialog("confirm","Are you sure you want to quit? All unsaved changes will be lost!", function(success) {
+            if (success) {
+                can_close_window_safely = true;
+                window.close();
+            }
+        });
+
+    } else {
+        CloseAudio();
+    }
 }
 
 
@@ -141,6 +165,11 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
     CustomLog("info","audio loaded successfully.");
 }
 
+function CloseAudio() {
+    CustomLog("info","Closing audio context if any...");
+    if (!IsUndefined(context)) context.close();
+    CustomLog("info","Audio context closed.");
+}
 
 
 

@@ -38,6 +38,7 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
 
     CustomLog("info", "Backing up currently opened save...");
     ExportSave("./temp/before_new_save_open.w2bzip", true);
+    await CloseAudio();
 
     CustomLog("info","Loading the save...");
     lock_save_sync = true;
