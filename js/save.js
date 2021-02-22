@@ -257,6 +257,7 @@ function ApplyLoadedSave() {//read and apply a loaded user save
     if (current_save.audio_filename !== "") {
         ipcRenderer.invoke("get-full-path", `./temp/current_save/assets/audio/${current_save.audio_filename}`).then((result => {
             LoadAudio(result, "url");
+            document.getElementById("opened_audio").innerHTML = current_save.audio_filename;
         }));
     }
 

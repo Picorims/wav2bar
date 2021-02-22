@@ -168,6 +168,7 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
 function CloseAudio() {
     CustomLog("info","Closing audio context if any...");
     if (!IsUndefined(context)) context.close();
+    document.getElementById("opened_audio").innerHTML = current_save.audio_filename;
     CustomLog("info","Audio context closed.");
 }
 
