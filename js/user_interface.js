@@ -797,19 +797,25 @@ function CreateObjectContainer(object_id) {
     var obj_data = object_method.getByID(object_id).data;
 
     //ADD SUB ELEMENTS
+    //banner
+    var banner = document.createElement("div");
+    container.appendChild(banner);
+    banner.classList.add("object_param_banner");
+
     //title container
     var title_container = document.createElement("div");
-    container.appendChild(title_container);
+    banner.appendChild(title_container);
     title_container.classList.add("object_param_title");
-
-    //icon in the title_container
-    var icon = document.createElement("span");
-    title_container.appendChild(icon);
 
     //name of the title_container
     var title = document.createElement("span");
     title_container.appendChild(title);
     title.innerHTML = obj_data.name;
+
+    //icon in the title_container
+    var icon = document.createElement("div");
+    banner.appendChild(icon);
+    icon.classList.add("object_param_icon", "object_param_type");
 
     //assign icon related to object type
     switch (obj_data.object_type) {
@@ -843,32 +849,32 @@ function CreateObjectContainer(object_id) {
 
     //arrow
     var arrow = document.createElement("div");
-    container.appendChild(arrow);
+    banner.appendChild(arrow);
     arrow.innerHTML = '<i class="ri-arrow-right-s-line"></i>';
-    arrow.classList.add("object_param_arrow");
+    arrow.classList.add("object_param_icon", "object_param_arrow");
 
     //deletion cross
     var cross = document.createElement("div");
-    container.appendChild(cross);
+    banner.appendChild(cross);
     cross.innerHTML = '<i class="ri-close-circle-fill"></i>';
-    cross.classList.add("object_param_cross");
+    cross.classList.add("object_param_icon", "object_param_cross");
 
     //edit button
     var edit = document.createElement("div");
-    container.appendChild(edit);
+    banner.appendChild(edit);
     edit.innerHTML = '<i class="ri-pencil-fill"></i>';
-    edit.classList.add("object_param_edit");
+    edit.classList.add("object_param_icon", "object_param_edit");
 
 
     //ability to open and close the object parameters' container
     title_container.onclick = function() {
-        ToggleOpen(this);
+        ToggleOpen(container);
     }
     arrow.onclick = function() {
-        ToggleOpen(this);
+        ToggleOpen(container);
     }
     //defaults to closed
-    ToggleOpen(title_container);
+    ToggleOpen(container);
 
     //object deletion
     cross.onclick = function() {
@@ -889,19 +895,18 @@ function CreateObjectContainer(object_id) {
 
 
 //function that opens or closes an object container
-function ToggleOpen(title_container) {
-    if (!IsAnElement(title_container)) throw "ToggleOpen: the argument is not a DOM element.";
+function ToggleOpen(DOM_container) {
+    if (!IsAnElement(DOM_container)) throw "ToggleOpen: the argument is not a DOM element.";
 
-    var parent = title_container.parentNode; //the container
-    var closed = parent.getAttribute("data-closed");
+    var closed = DOM_container.getAttribute("data-closed");
 
     if (closed === "true") {
-        parent.classList.remove("object_param_closed");
-        parent.setAttribute("data-closed", "false");
+        DOM_container.classList.remove("object_param_closed");
+        DOM_container.setAttribute("data-closed", "false");
     }
     else {
-        parent.classList.add("object_param_closed");
-        parent.setAttribute("data-closed", "true");
+        DOM_container.classList.add("object_param_closed");
+        DOM_container.setAttribute("data-closed", "true");
     }
 }
 
