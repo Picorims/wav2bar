@@ -1671,6 +1671,8 @@ async function FileBrowserDialog(settings, callback, args) {
         throw `FileBrowserDialog: show_disabled_files with value ${settings.show_disabled_files} must be a boolean value.`;
     }
 
+    //starting directory
+    let homedir = await ipcRenderer.invoke('get-home-path');
 
     //DIALOG CREATION
 
@@ -1698,14 +1700,26 @@ async function FileBrowserDialog(settings, callback, args) {
     container.appendChild(path_container);
     path_container.classList.add("file_browser_flex_sub_container");
 
+    var last_valid_path = homedir;
+    var last_path_worked = true;
     var path_input = document.createElement("input");
     path_container.appendChild(path_input);
     path_input.classList.add("panel_input", "panel_input_string", "dialog_input", "file_browser_path_input");
     path_input.oninput = async () => {
         try {
             await FillTree(path_input.value, file_browser, path_input, name_input, settings);
+            last_valid_path = path_input.value;
+            last_path_worked = true;
         } catch (error) {
             CustomLog("error",`${path_input.value} do not exists: ${error}`);
+            last_path_worked = false;
+        }
+    }
+    //on lost focus, if the last path is wrong, fix it.
+    path_input.onblur = async () => {
+        if (!last_path_worked) {
+            path_input.value = last_valid_path;
+            FillTree(path_input.value, file_browser, path_input, name_input, settings);
         }
     }
 
@@ -1864,7 +1878,6 @@ async function FileBrowserDialog(settings, callback, args) {
     }
 
     //first update of the file browser
-    let homedir = await ipcRenderer.invoke('get-home-path');
     FillTree(homedir, file_browser, path_input, name_input, settings);
 }
 
