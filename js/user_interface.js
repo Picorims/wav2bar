@@ -1715,20 +1715,7 @@ async function FileBrowserDialog(settings, callback, args) {
     go_back.classList.add("file_browser_icon_button");
     go_back.innerHTML = '<i class="ri-arrow-left-circle-line"></i>';
     go_back.onclick = async () => {
-        // ".../love/whatever(/)" -> ".../love/"
-        //erase the last directory in the path,
-        //taking into account if there is a remaining / at the end of the string.
-        //translation: /, then a string that do not contain a backslash, then maybe a /, then end of the line ==> become /.
-
-        try {
-            var os = await ipcRenderer.invoke("get-os");
-            var path;
-            if (os==="win32") path = path_input.value.replace(/\\[^\\]*\\?$/,"\\");
-            else path = path_input.value.replace(/\/[^\/]*\/?$/,"\/");
-            await FillTree(path, file_browser, path_input, name_input, settings);
-        } catch (error) {
-            CustomLog("error",`${path_input.value} do not exists: ${error}`);
-        }
+        GoBackPrevDirectory(file_browser, path_input, name_input, settings);
     }
 
     //new folder button
@@ -1882,6 +1869,25 @@ async function FileBrowserDialog(settings, callback, args) {
 }
 
 
+//function that go back one folder up in the file explorer
+async function GoBackPrevDirectory(file_browser, path_input, name_input, settings) {
+    // ".../love/whatever(/)" -> ".../love/"
+    //erase the last directory in the path,
+    //taking into account if there is a remaining / at the end of the string.
+    //translation: /, then a string that do not contain a backslash, then maybe a /, then end of the line ==> become /.
+
+    try {
+        var os = await ipcRenderer.invoke("get-os");
+        var path;
+        if (os==="win32") path = path_input.value.replace(/\\[^\\]*\\?$/,"\\");
+        else path = path_input.value.replace(/\/[^\/]*\/?$/,"\/");
+        await FillTree(path, file_browser, path_input, name_input, settings);
+    } catch (error) {
+        CustomLog("error",`${path_input.value} do not exists: ${error}`);
+    }
+}
+
+
 //function that takes a path and a DOM container (the file browser dialog container for files and folders)
 //and generate the selection UI in it for the provided path
 async function FillTree(path, container, path_input, name_input, settings) {
@@ -1936,7 +1942,7 @@ async function FillTree(path, container, path_input, name_input, settings) {
             else if (files[i].type === "file") files_files.push(files[i]);
         }
     }
-    var sorted_files = [...files_directories, ...files_files];
+    var sorted_files = [{name:"..", type:"directory"}, ...files_directories, ...files_files];
 
     //delete previous UI
     var children = container.children;
@@ -1982,24 +1988,27 @@ async function FillTree(path, container, path_input, name_input, settings) {
                         }
 
                     } else if (file.type === "directory") {
+                        var os = await ipcRenderer.invoke("get-os");
 
                         //open directory
+                        if (file.name !== "..") {
+                            //erase the potential / at the end of the path
+                            
+                            path_input.value = path_input.value.replace(/\\$/,"").replace(/\/$/,"");
+                            path_input.value += (os==="win32")? `\\${file.name}` : `/${file.name}`;
 
-                        //erase the potential / at the end of the path
-                        var os = await ipcRenderer.invoke("get-os");
-                        path_input.value = path_input.value.replace(/\\$/,"").replace(/\/$/,"");
-                        path_input.value += (os==="win32")? `\\${file.name}` : `/${file.name}`;
+                            var event = new Event('input', {
+                                bubbles: true,
+                                cancelable: true,
+                            });
 
-                        var event = new Event('input', {
-                            bubbles: true,
-                            cancelable: true,
-                        });
+                            path_input.dispatchEvent(event);
 
-                        path_input.dispatchEvent(event);
-
-                        //sets the folder name to the selected directory.
-                        if (settings.type === "get_directory") name_input.value = file.name;
-
+                            //sets the folder name to the selected directory.
+                            if (settings.type === "get_directory") name_input.value = file.name;
+                        } else {
+                            GoBackPrevDirectory(container, path_input, name_input, settings)
+                        }
                     }
 
                 }
