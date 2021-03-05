@@ -1967,6 +1967,7 @@ async function FillTree(path, container, path_input, name_input, settings) {
                 }
             }
             else if (file.type === "directory") icon = '<i class="ri-folder-3-fill icon_file"></i>';
+            else if (file.type === "locked_file") icon = '<i class="ri-lock-2-fill icon_file"></i>';
             item.innerHTML = `${icon} ${file.name}`;
 
             //event

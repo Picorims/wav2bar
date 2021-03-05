@@ -358,30 +358,36 @@ ipcMain.handle('path-exists', async (event, path_to_test) => {
 
 
 //read a directory and return its content
-ipcMain.handle('read-dir', async (event, path) => {
+ipcMain.handle('read-dir', async (event, directory) => {
     try {
         //get files
-        main_log.debug(`reading directory ${path}`);
-        files = await fs.promises.readdir(path);
+        main_log.debug(`reading directory ${directory}`);
+        files = await fs.promises.readdir(directory);
 
         //differentiate files and folders
         var files_object = [];
-        for (let i=0; i<files.length; i++) {
 
+        for (let i=0; i<files.length; i++) {
+            //add file to returned list
             files_object.push({name: files[i], type: "unknown"});
 
-            let file_path = path + '\\' + files[i];
-            const stat = await fs.promises.lstat(file_path);
+            //some files should not be analyzed whatsoever
+            try {
+                let file_path = path.resolve(directory, files[i]);
+                const stat = await fs.promises.lstat(file_path);
 
-            if (stat.isFile()) {
-                files_object[i].type = "file";
-            } else if (stat.isDirectory()) {
-                files_object[i].type = "directory";
+                //set file type
+                if (stat.isFile()) {
+                    files_object[i].type = "file";
+                } else if (stat.isDirectory()) {
+                    files_object[i].type = "directory";
+                }
+            } catch {
+                files_object[i].type = "locked_file";
             }
-
         }
 
-        main_log.debug(`reading directory ${path} done`);
+        main_log.debug(`reading directory ${directory} done`);
         return files_object;
 
     } catch (error) {
