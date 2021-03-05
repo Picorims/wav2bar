@@ -67,12 +67,12 @@
             "shortcutFolderName": "Wav2Bar",
             "manufacturer": "Picorims",
             "version": "0.1.0",
-            "iconPath": "C:/Users/mario/Desktop/Programmation/JS/Web Audio Visualizer/audio-visualizer-creator-master/assets/icons/wav2bar_square_logo.ico",
+            "iconPath": "C:/Users/mario/Desktop/Programmation - U/JS/Web Audio Visualizer/wav2bar-master/assets/icons/wav2bar_square_logo.ico",
             "ui": {
               "chooseDirectory": true,
               "images": {
-                "background": "C:/Users/mario/Desktop/Programmation/JS/Web Audio Visualizer/audio-visualizer-creator-master/assets/installer/installer_banner_493x312.png",
-                "banner": "C:/Users/mario/Desktop/Programmation/JS/Web Audio Visualizer/audio-visualizer-creator-master/assets/installer/installer_banner_493x58.png"
+                "background": "C:/Users/mario/Desktop/Programmation - U/JS/Web Audio Visualizer/wav2bar-master/assets/installer/installer_banner_493x312.png",
+                "banner": "C:/Users/mario/Desktop/Programmation - U/JS/Web Audio Visualizer/wav2bar-master/assets/installer/installer_banner_493x58.png"
               }
             }
           }
