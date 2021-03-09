@@ -45,7 +45,7 @@
         "overwrite": true,
         "win32metadata": {
           "CompanyName": "Picorims",
-          "FileDescription": "A tool to create and export audio visualization mainly for the music industry"
+          "FileDescription": "Wav2Bar - A tool to create and export audio visualization mainly for the music industry"
         },
         "appCategoryType": "public.app-category.video"
       },
@@ -61,7 +61,7 @@
         {
           "name": "@electron-forge/maker-wix",
           "config": {
-            "description": "A tool to create and export audio visualization mainly for the music industry",
+            "description": "Wav2Bar - A tool to create and export audio visualization mainly for the music industry",
             "exe": "Wav2Bar",
             "name": "Wav2Bar",
             "shortcutFolderName": "Wav2Bar",
@@ -82,8 +82,8 @@
           "config": {
             "options": {
               "categories": "Video",
-              "description": "A tool to create and export audio visualization mainly for the music industry",
-              "productDescription": "A tool to create and export audio visualization mainly for the music industry",
+              "description": "Wav2Bar - A tool to create and export audio visualization mainly for the music industry",
+              "productDescription": "Wav2Bar - A tool to create and export audio visualization mainly for the music industry",
               "name": "Wav2Bar",
               "productName": "Wav2Bar",
               "genericName": "Wav2Bar",
@@ -101,8 +101,8 @@
             "options": {
               "categories": "Video",
               "section": "video",
-              "description": "A tool to create and export audio visualization mainly for the music industry",
-              "productDescription": "A tool to create and export audio visualization mainly for the music industry",
+              "description": "Wav2Bar - A tool to create and export audio visualization mainly for the music industry",
+              "productDescription": "Wav2Bar - A tool to create and export audio visualization mainly for the music industry",
               "name": "Wav2Bar",
               "productName": "Wav2Bar",
               "genericName": "Wav2Bar",
