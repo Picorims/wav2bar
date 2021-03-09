@@ -13,7 +13,7 @@ A tool to make custom audio visualization and export production videos for the a
 - Open the repository folder in a prompt and run `npm start`.
 
 ## Compiling
-Compilation is done through electron-forge v6's `make` command. No matter the platform, you can compile by running `npm run make` which is an alias to electron-forge make. It will automatically package the app before, but you can also do it using `npm run package`. More info at https://www.electronforge.io/.
+Compilation is done through electron-forge v6's `make` command. No matter the platform, you can compile by running `npm run make` which is an alias to electron-forge make. It will automatically package the app before, but you can also do it using `npm run package`. More info at https://www.electronforge.io/ and https://www.electronforge.io/configuration.
 
 Compilation settings are detailed in package.JSON at the "config" node. You can add additional configurations to export in other formats, but you need to have access to the targetted platform/OS and install required dependencies. The list of available makers is available at https://www.electronforge.io/config/makers.
 
