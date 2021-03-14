@@ -80,6 +80,8 @@ function PrepareWindowClose(event) {
 
 
 async function SaveAudio(path) {
+    await CloseAudio();
+
     let filename = path.replace(/^.*[\\\/]/, '');
     let new_path = `./temp/current_save/assets/audio/`;
 
