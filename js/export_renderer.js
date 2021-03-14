@@ -73,30 +73,35 @@ async function InitExport(data) {//prepare video export
 
 
 
+    //LOAD AUDIO FROM TEMP FILE LEGACY WAY
+    // audio_file_path;
+    // switch (data.audio_file_type) {
+    //     case "audio/mp3":
+    //     case "audio/mpeg":
+    //         audio_file_path = path.join(__dirname, "../temp/temp.mp3");//.. because __dirname goes in /html.
+    //         break;
+
+
+    //     case "audio/wav":
+    //     case "audio/x-wav":
+    //         audio_file_path = path.join(__dirname, "../temp/temp.wav");
+    //         break;
+
+
+    //     case "application/ogg":
+    //         audio_file_path = path.join(__dirname, "../temp/temp.ogg");
+    //         break;
+
+    //     default:
+    //         throw `InitExport: ${type} is not a valid audio type!`;
+    // }
+    // CustomLog("debug",`locating audio: ${audio_file_path}`);
+
+    
+    
     //LOAD AUDIO FROM TEMP FILE
-    audio_file_path;
-    switch (data.audio_file_type) {
-        case "audio/mp3":
-        case "audio/mpeg":
-            audio_file_path = path.join(__dirname, "../temp/temp.mp3");//.. because __dirname goes in /html.
-            break;
-
-
-        case "audio/wav":
-        case "audio/x-wav":
-            audio_file_path = path.join(__dirname, "../temp/temp.wav");
-            break;
-
-
-        case "application/ogg":
-            audio_file_path = path.join(__dirname, "../temp/temp.ogg");
-            break;
-
-        default:
-            throw `InitExport: ${type} is not a valid audio type!`;
-    }
-    CustomLog("debug",`locating audio: ${audio_file_path}`);
-
+    audio_file_path = path.join(__dirname, `../temp/temp.${data.audio_file_extension}`);
+    CustomLog("debug",`using audio: ${audio_file_path}`);
 
 
 

@@ -18,13 +18,23 @@ function Export(path) {//Launch the rendering process which will export the vide
     ipcRenderer.invoke('create-export-win');
 
     //wait callback
-    ipcRenderer.once("renderer-exists", (event) => {//once avoid the listener to be persistent (if it was,
+    ipcRenderer.once("renderer-exists", async (event) => {//once avoid the listener to be persistent (if it was,
                                                     //on window re-open, a new listener would stack upon this
                                                     //one, making multiple process stacking on forever.
         CustomLog("debug","renderer created, sending data...");
 
 
         //data to send to the renderer process (the project, so it can be recreated into the new window)
+        let filename = current_save.audio_filename;
+        let extension = filename.replace(/^.*\./,"");
+        if (IsUndefined(audio_file_type)) {
+            switch (extension.toLowerCase()) {
+                case 'mp3': audio_file_type = 'audio/mp3'; break;
+                case 'wav': audio_file_type = 'audio/wav'; break;
+                case 'ogg': audio_file_type = 'application/ogg'; break;
+                default: throw `Export: Unknown audio type!`;
+            }
+        }
         var data = {
             screen: {
                 width: screen.width,
@@ -32,22 +42,29 @@ function Export(path) {//Launch the rendering process which will export the vide
             },
             save: current_save,
             audio_file_type: audio_file_type,
+            audio_file_extension: extension,
             output_path: path,
         }
 
+        //cache audio for rendering in a separate file.
+        await ipcRenderer.invoke("copy-file", `./temp/current_save/assets/audio/${filename}`, `./temp/temp.${extension}`);
+        
+        //send data to the export window renderer
+        await ipcRenderer.invoke("send-event-to-export-win", "data-sent", data);
 
-        //write audio into temp directory because putting it in data result in a memory overflow
-        //getting buffer from audio file
-        new Response(audio_file).arrayBuffer().then(async result => {
-            audio_buffer = result;
+        //LEGACY AUDIO CACHING FOR File() OBJECT
+        // //write audio into temp directory because putting it in data result in a memory overflow
+        // //getting buffer from audio file
+        // new Response(audio_file).arrayBuffer().then(async result => {
+        //     audio_buffer = result;
 
-            CustomLog("info",`file type: ${audio_file.type}`)
-            //requesting file write
-            await ipcRenderer.invoke("write-audio-to-temp", new Uint8Array(audio_buffer), audio_file_type);
+        //     CustomLog("info",`file type: ${audio_file.type}`)
+        //     //requesting file write
+        //     await ipcRenderer.invoke("write-audio-to-temp", new Uint8Array(audio_buffer), audio_file_type);
 
-            //send required data to the renderer
-            await ipcRenderer.invoke("send-event-to-export-win", "data-sent", data);
-        });
+        //     //send required data to the renderer
+        //     await ipcRenderer.invoke("send-event-to-export-win", "data-sent", data);
+        // });
 
 
 
