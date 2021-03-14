@@ -61,16 +61,16 @@ function InitPage() {//page initialization
 function PrepareWindowClose(event) {
     CustomLog("info", "The window will be closed.");
 
-    if (!can_close_window_safely) {
+    if (!can_close_window_safely && !export_mode) {
         event.returnValue = false;
 
+        
         MessageDialog("confirm","Are you sure you want to quit? All unsaved changes will be lost!", function(success) {
             if (success) {
                 can_close_window_safely = true;
                 window.close();
             }
         });
-
     } else {
         CloseAudio();
     }
