@@ -183,7 +183,8 @@ function Background(glob_data) {
                     this.element.style.background = "";
                     this.element.style.backgroundColor = "";
                     if (this.data.background.last_image !== "") {
-                        this.element.style.backgroundImage = `url("./temp/current_save/assets/${this.data.id}/background/${this.data.background.last_image}")`;
+                        if (export_mode) this.element.style.backgroundImage = `url("../temp/current_save/assets/${this.data.id}/background/${this.data.background.last_image}")`;
+                        else this.element.style.backgroundImage = `url("./temp/current_save/assets/${this.data.id}/background/${this.data.background.last_image}")`;
                     } else {
                         this.element.style.backgroundImage = "";
                         this.element.style.backgroundColor = "#000000";
