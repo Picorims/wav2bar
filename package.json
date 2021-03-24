@@ -43,7 +43,7 @@
         "icon": "assets/icons/wav2bar_square_logo",
         "name": "Wav2Bar",
         "overwrite": true,
-        "ignore":"/ffmpeg|/user/settings/user_settings.json",
+        "ignore": "/ffmpeg|/user/settings/user_settings.json",
         "win32metadata": {
           "CompanyName": "Picorims",
           "FileDescription": "Wav2Bar - A tool to create and export audio visualization mainly for the music industry"
