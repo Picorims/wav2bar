@@ -90,7 +90,12 @@ app.on('window-all-closed', () => {
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
         main_log.info("quitting...");
-        fsExtra.emptyDirSync("./temp"); //clear cache
+        try {
+            fsExtra.emptyDirSync("./temp"); //clear cache
+        }
+        catch (error) {
+            main_log.error("Couldn't clear all the cache because some files are still busy.");
+        }
         app.quit();
     }
 });
@@ -182,6 +187,9 @@ function Init() {//main initialization
 
     //create temp directory
     if (!fs.existsSync("./temp")) fs.mkdirSync("./temp");
+    //clear existing cache if files remains from the last execution
+    fsExtra.emptyDirSync("./temp");
+    //recreate the temp hierarchy
     if (!fs.existsSync("./temp/render")) fs.mkdirSync("./temp/render");
     if(!fs.existsSync("./temp/current_save")) fs.mkdirSync("./temp/current_save");
 
