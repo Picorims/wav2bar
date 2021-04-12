@@ -43,7 +43,7 @@
         "icon": "assets/icons/wav2bar_square_logo",
         "name": "Wav2Bar",
         "overwrite": true,
-        "ignore": "/ffmpeg|/user/settings/user_settings.json",
+        "ignore": "/ffmpeg|/user/settings/user_settings.json|/logs|/.vscode|/temp|/out",
         "win32metadata": {
           "CompanyName": "Picorims",
           "FileDescription": "Wav2Bar - A tool to create and export audio visualization mainly for the music industry"
@@ -68,12 +68,12 @@
             "shortcutFolderName": "Wav2Bar",
             "manufacturer": "Picorims",
             "version": "0.1.0",
-            "iconPath": "C:/Users/mario/Desktop/Programmation - U/JS/Web Audio Visualizer/wav2bar-master/assets/icons/wav2bar_square_logo.ico",
+            "iconPath": "D:/wav2bar_wix_imgs_U/wav2bar_square_logo.ico",
             "ui": {
               "chooseDirectory": true,
               "images": {
-                "background": "C:/Users/mario/Desktop/Programmation - U/JS/Web Audio Visualizer/wav2bar-master/assets/installer/installer_banner_493x312.png",
-                "banner": "C:/Users/mario/Desktop/Programmation - U/JS/Web Audio Visualizer/wav2bar-master/assets/installer/installer_banner_493x58.png"
+                "background": "D:/wav2bar_wix_imgs_U/installer/installer_banner_493x312.png",
+                "banner": "D:/wav2bar_wix_imgs_U/installer/installer_banner_493x58.png"
               }
             }
           }

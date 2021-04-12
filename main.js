@@ -197,6 +197,9 @@ function Init() {//main initialization
     if(!fs.existsSync("./user")) fs.mkdirSync("./user");
     if(!fs.existsSync("./user/settings")) fs.mkdirSync("./user/settings");
 
+    //create logs directory
+    if(!fs.existsSync("./logs")) fs.mkdirSync("./logs");
+
 
 
     //Setup log
