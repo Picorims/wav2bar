@@ -67,6 +67,9 @@ function createWindow () {
     // Open the DevTools.
     //win.webContents.openDevTools();
 
+    //Hide menu bar
+    win.setMenuBarVisibility(false);
+
     // Emitted when the window is closed.
     win.on('closed', () => {
         // Dereference the window object, usually you would store windows
@@ -175,7 +178,12 @@ function CreateHTMLDisplayWin(link) {
         },
     })
 
+    //load link
     html_win.loadFile(link);
+
+    //Hide menu bar
+    win.setMenuBarVisibility(false);
+
 
     main_log.info("HTML window created");
 }

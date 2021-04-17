@@ -3,7 +3,7 @@
 const { ipcRenderer } = require("electron");
 const { Logger } = require("log4js");
 
-const software_version = '0.1.0'; //current build version
+const software_version = '0.1.1'; //current build version
 const software_status = 'Beta';
 
 var can_close_window_safely = false;//set to true when the user confirmed exit
