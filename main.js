@@ -158,6 +158,33 @@ ipcMain.handle("resize-export-window", async (event, width, height) => {
 
 
 
+//creates a window to display any local html page
+function CreateHTMLDisplayWin(link) {
+    main_log.info("creating HTML window...");
+
+    let html_win = new BrowserWindow({
+        icon: path.join(__dirname, "assets/icons/wav2bar_square_logo.png"),
+        width: 1000,
+        height: 500,
+        resizable: true,
+        frame: true,
+        enableLargerThanScreen: false,
+        webPreferences: {
+            nodeIntegration: false,
+            nativeWindowOpen: true,
+        },
+    })
+
+    html_win.loadFile(link);
+
+    main_log.info("HTML window created");
+}
+
+
+
+
+
+
 
 
 
@@ -328,6 +355,11 @@ ipcMain.handle('copy-file', async (event, path, new_path) => {
 ipcMain.handle('open-in-browser', async (event, link) => {
     main_log.warn(`opening ${link} in an external browser.`);
     shell.openExternal(link);
+});
+
+//open local html path in a new window.
+ipcMain.handle('open-local-html', async (event, link) => {
+    CreateHTMLDisplayWin(link);
 });
 
 

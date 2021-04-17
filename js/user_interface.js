@@ -215,9 +215,9 @@ async function InitUI() {
     }
 
 
-    //open recommended location for FFmpeg and FFprobe
-    document.getElementById("open_ffmpeg_folder").onclick = function() {
-        ipcRenderer.invoke("open-folder-in-file-explorer", "./ffmpeg/");
+    //open help for FFmpeg and FFprobe installation
+    document.getElementById("open_ffmpeg_help").onclick = function() {
+        ipcRenderer.invoke("open-local-html", "./html/install_ffmpeg.html");
     }
 
 

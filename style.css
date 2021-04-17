@@ -117,6 +117,31 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 
+/*
+####################
+DOCUMENTATION WINDOW
+####################
+*/
+
+body.documentation_body {
+    color: var(--main-white);
+    text-align: left;
+    padding: 20px;
+}
+.documentation_body h1 {
+    color: var(--main-color);
+}
+.documentation_body h2 {
+    border-bottom: 2px solid var(--main-darker-color);
+}
+.documentation_body ol li {
+    padding: 5px 0;
+}
+
+
+
+
+
 
 /*
 ################

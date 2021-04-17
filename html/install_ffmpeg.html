@@ -1,0 +1,62 @@
+<!-- MIT License - Copyright (c) 2020-2021 Picorims -->
+
+<!-- HELP ON INSTALLING FFMPEG AND FFPROBE FOR WAV2BAR -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install FFmpeg</title>
+
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="../style.css"/>
+    <link rel="stylesheet" type="text/css" href="../node_modules/remixicon/fonts/remixicon.css"/>
+
+    <style>
+        html {
+            overflow: scroll;
+        }
+    </style>
+    
+</head>
+<body class="documentation_body">
+    <h1>Install FFmpeg and FFprobe in Wav2Bar</h1>
+
+    <h2>Why is FFmpeg not installed with Wav2Bar ?</h2>
+    <p>
+        For legal reasons, it is complicated to ship FFmpeg with wa2bar packages while dealing
+        with legal restrictions. That's why you need to install it manually. But don't worry,
+        it's not very much complicated, this page is here to guide you!
+    </p>
+
+    <h2>Why do I need FFmpeg and FFprobe ?</h2>
+    <p>
+        <strong>To export your work as a video</strong>, an encoding executable is required. FFmpeg and FFprobe are the executables
+        that do that job. FFmpeg is known world wide for it's reliability, flexbility and speed, and is used in many
+        popular open source softwares such as Blender or Audacity. So don't worry, it's not a virus!
+    </p>
+
+    <h2>How do I install FFmpeg and FFprobe with Wav2Bar ?</h2>
+    <ol>
+        <li>Go to ffmpeg.org.</li>
+        <li>Go to the download section and choose your platform.</li>
+        <li>
+            Download the package. On Windows, You can use gyan.dev link provided, go to the
+            release section at the bottom, and pick https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip.
+        </li>
+        <li>
+            Extract the zip or 7z package, and save it anywhere you want, preferably in a place where you won't
+            rename your folders often. (If you rename a folder of the path, you will have to change it in
+            Wav2Bar's settings as well!)
+        </li>
+        <li>
+            Go to Wav2Bar settings, and click on Browse under Locate FFmpeg. Select ffmpeg executable. On Windows,
+            go to "bin" folder, and choose ffmpeg.exe.
+        </li>
+        <li>Do the same for FFprobe.</li>
+        <li>Done! You should now be able to export your work as a video. If not, double check the path to the executables!</li>
+    </ul>
+</body>
+</html>
