@@ -36,7 +36,8 @@ async function InitSettings() {
     LoadSettings();
 
     if (settings.ffmpeg.ffmpeg_path === "" || settings.ffmpeg.ffprobe_path === "") {
-        MessageDialog("warn","FFmpeg and/or FFprobe is/are missing. Wav2BAr can't export videos without these libraries. Packages can be found on ffmpeg.org. Be sure to define the path to these libraries in the settings!");
+        MessageDialog("warn","FFmpeg and/or FFprobe is/are missing. Wav2BAr can't export videos without these libraries! Packages can be found on ffmpeg.org. Be sure to define the path to these libraries in the settings!");
+        ipcRenderer.invoke("open-local-html", "./html/install_ffmpeg.html");
     }
 
     CustomLog("info","settings loaded:");
