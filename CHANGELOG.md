@@ -11,5 +11,8 @@ on how to install FFmpeg and FFprobe with Wav2Bar.
 - Replaced "open recommended folder" button for FFmpeg in the settings by a "open help" button
 that gives instructions on how to install FFmpeg and FFprobe for Wav2Bar.
 
+### Fixed
+- Particle speed smoothing is now applied at export as well.
+
 ## 0.1.0 Beta (2021/04/13)
 - Initial public release.

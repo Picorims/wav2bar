@@ -206,7 +206,8 @@ function PrepareRendering() {//define important variables
     //FPS PREPARATION
     frame_count = 0;
     fps = current_save.fps;
-    export_array = [0, duration];//from when to when in seconds to export, based on audio length.
+    //export_array = [0, duration];//from when to when in seconds to export, based on audio length.
+    export_array = [0,60];
     //interval type: [x,y[
 
     //SPECTRUM STORAGE USED BY THE OBJECTS
@@ -276,7 +277,7 @@ async function Render() {//render every frame into an image
             //Draw the new frame now that the previous finished exporting .
             //render frame, recall loop
             CustomLog("info",`audio time: ${current_time}`);
-            RenderFrame();
+            DrawFrame();
             frames_rendered++;
             document.dispatchEvent(event.render_loop);
 
@@ -308,41 +309,5 @@ async function Render() {//render every frame into an image
         document.dispatchEvent(event.render_loop);
     }
 
-
-}
-
-
-
-
-
-
-function RenderFrame() {//render one frame
-
-    //#################
-    //AUDIO CALCULATION
-    //#################
-
-    //time update
-    current_time = frames_rendered/fps;
-    audio_duration = duration;
-
-    //volume update
-    volume = 0;
-    var sum = 0;
-    for (var i=0; i<frequency_array.length-100; i++) {
-        sum += frequency_array[i];
-    }
-    volume = sum/(frequency_array.length-100); //0 to 120 most of the time
-
-
-    //update all objects
-    objects_callback = [];
-    for (var i=0; i<objects.length; i++) {
-        objects_callback[i] = false;
-        objects_callback[i] = objects[i].update();
-    }
-
-
-    //end of a frame
 
 }

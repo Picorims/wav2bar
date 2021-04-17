@@ -274,13 +274,22 @@ function DrawFrame() {//update and draw the screen
     //#################
 
 
-    //collect frequency data
-    analyser.getByteFrequencyData(ctx_frequency_array);
-    frequency_array = LinearToLog(ctx_frequency_array);
+    
+    if (export_mode) {
+        //time update
+        current_time = frames_rendered/fps;
+        audio_duration = duration;
+    } else {
+        //collect frequency data
+        analyser.getByteFrequencyData(ctx_frequency_array);
+        frequency_array = LinearToLog(ctx_frequency_array);  
 
-    //time update
-    current_time = audio.currentTime;
-    audio_duration = audio.duration;
+        //time update
+        current_time = audio.currentTime;
+        audio_duration = audio.duration;
+    }
+
+    
 
     //smoothing
     vol_frequency_array = frequency_array;
