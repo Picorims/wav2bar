@@ -1,7 +1,7 @@
 # Changelogs
 This document is based on Keep a Changelog 1.0.0
 
-## 0.1.1 Beta (2021-04-17)
+## 0.1.1 Beta (2021-04-18)
 
 ### Added
 - A user with no configured paths for FFmpeg and/or FFprobe are now prompted with an additional tutorial
