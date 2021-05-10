@@ -1,5 +1,10 @@
 # Wav2Bar
-A tool to make custom audio visualization and export production videos for the audio/music industry.
+A tool to make custom audio visualization and export production videos for the audio/music industry. Learn more at https://picorims.github.io/wav2bar-website/
+
+# Important
+There are currently issues with GitHub's Git LFS Bandwidth that may lead to some files not being accessible until the next month. **If you want to download the current version as source code, please use the releases section and pick the zip file here!**.
+
+I will eventually try to get rid of Git LFS use as GitHub handles it very badly. This means the node_modules folder will be removed from the repository (as well as FFmpeg that was untracked but not deleted).
 
 ## Important Notes
 - **This tool is usable at this point, but is still in early development! Your work is subject to bugs, backup your saves!**
