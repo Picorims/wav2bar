@@ -1,5 +1,8 @@
 # Wav2Bar
-A tool to make custom audio visualization and export production videos for the audio/music industry. Learn more at https://picorims.github.io/wav2bar-website/
+A tool to make custom audio visualization and export production videos for the audio/music industry.
+- **Website:** https://picorims.github.io/wav2bar-website/
+- **Blog:** https://picorims.github.io/wav2bar-blog/
+- **Discord Server:** https://discord.gg/EVGzfdP
 
 # Important
 There are currently issues with GitHub's Git LFS Bandwidth that may lead to some files not being accessible until the next month. **If you want to download the current version as source code, please use the releases section and pick the zip file here!**.
@@ -49,9 +52,6 @@ See https://www.electronforge.io/config/makers/rpm.
 #### .pkg packages
 Although there is no support for MacOS, the application may run just fine as Electron supports MacOS. If you would like to make a .pkg package for MacOS instead or running from source, you may look at https://www.electronforge.io/config/makers/pkg.
 
-
-## Website (WIP)
-- https://picorims.github.io/wav2bar-website
 
 ## License
 This tool is MIT licensed.
