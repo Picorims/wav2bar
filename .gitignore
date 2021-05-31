@@ -14,3 +14,4 @@ user/settings/user_settings.json
 
 #else
 ffmpeg/
+node_modules/
