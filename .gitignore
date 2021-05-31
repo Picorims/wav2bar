@@ -11,3 +11,6 @@ logs/
 
 #user settings
 user/settings/user_settings.json
+
+#else
+ffmpeg/
