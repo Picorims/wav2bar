@@ -4,13 +4,9 @@ A tool to make custom audio visualization and export production videos for the a
 - **Blog:** https://picorims.github.io/wav2bar-blog/
 - **Discord Server:** https://discord.gg/EVGzfdP
 
-# Important
-There are currently issues with GitHub's Git LFS Bandwidth that may lead to some files not being accessible until the next month. **If you want to download the current version as source code, please use the releases section and pick the zip file here!**.
-
-I will eventually try to get rid of Git LFS use as GitHub handles it very badly. This means the node_modules folder will be removed from the repository (as well as FFmpeg that was untracked but not deleted).
-
 ## Important Notes
 - **This tool is usable at this point, but is still in early development! Your work is subject to bugs, backup your saves!**
+- Git LFS used to be used for node_modules and FFMpeg, but is no longer used. Both of these folders have been removed from the repository, but not its history. You do not need to clone them. Git LFS files are no longer included in archive downloads. **If you want a full release source code archive, go to the releases section. This will include node_modules, but not FFmpeg** (that can be downloaded from their website).
 
 ## Hacking
 - NodeJS must be installed (It will install npm too).
