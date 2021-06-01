@@ -57,6 +57,7 @@ function createWindow () {
         backgroundColor: "#000000",
         webPreferences: {
             nodeIntegration: true,
+            contextIsolation: false,
         },
     })
     //win.webContents.id = 1; READONLY
@@ -65,7 +66,7 @@ function createWindow () {
     win.loadFile('index.html');
 
     // Open the DevTools.
-    //win.webContents.openDevTools();
+    win.webContents.openDevTools();
 
     //Hide menu bar
     win.setMenuBarVisibility(false);
@@ -129,6 +130,7 @@ function createExportWin() {
         enableLargerThanScreen: true,
         webPreferences: {
             nodeIntegration: true,
+            contextIsolation: false,
             nativeWindowOpen: true,
         },
     })
