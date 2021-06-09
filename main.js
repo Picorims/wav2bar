@@ -33,7 +33,9 @@ var ffprobe_path = "";
 
 //set process directory to the position of main.js (i.e root of the app)
 process.chdir(__dirname);
-
+//folder to write temp data and user data
+let working_dir;
+let cant_write_to_root = false;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -43,7 +45,6 @@ exports.win = win;
 exports.export_win = export_win;
 
 function createWindow () {
-    Init();
     main_log.info(`creating main renderer...`);
 
     // Create the browser window.
@@ -86,7 +87,9 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+    PreInit();
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -95,7 +98,7 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         main_log.info("quitting...");
         try {
-            fsExtra.emptyDirSync("./temp"); //clear cache
+            fsExtra.emptyDirSync(path.resolve(working_dir, "./temp")); //clear cache
         }
         catch (error) {
             main_log.error("Couldn't clear all the cache because some files are still busy.");
@@ -219,38 +222,55 @@ function CreateHTMLDisplayWin(link) {
 //===================================================================================
 //===================================================================================
 
+//find working directory to write user and temp data before starting initialization
+function PreInit() {
+    working_dir = __dirname;
+    //https://stackoverflow.com/questions/30110814/whats-the-most-portable-way-to-test-if-a-directory-is-writable-in-nodejs
+    //fs.constants.W_OK => File can be written by the calling process
+    fs.promises.access(__dirname, fs.constants.W_OK)
+    .then(() => {Init();})
+    .catch(err => {
+        cant_write_to_root = true;
+        working_dir = path.resolve(app.getPath("appData"), "/Wav2Bar");
+        if (!fs.existsSync(working_dir)) fs.mkdirSync(working_dir);
+
+        Init();
+    });
+}
 
 function Init() {//main initialization
+    let path_temp = path.resolve(working_dir, "./temp");
+    let path_temp_render = path.resolve(working_dir, "./temp/render");
+    let path_temp_current_save = path.resolve(working_dir, "./temp/current_save");
+    let path_user = path.resolve(working_dir, "./user");
+    let path_user_settings = path.resolve(working_dir, "./user/settings");
+    let path_logs = path.resolve(working_dir, "./logs");
 
     //create temp directory
-    if (!fs.existsSync("./temp")) fs.mkdirSync("./temp");
+    if (!fs.existsSync(path_temp)) fs.mkdirSync(path_temp);
     //clear existing cache if files remains from the last execution
-    fsExtra.emptyDirSync("./temp");
+    fsExtra.emptyDirSync(path_temp);
     //recreate the temp hierarchy
-    if (!fs.existsSync("./temp/render")) fs.mkdirSync("./temp/render");
-    if(!fs.existsSync("./temp/current_save")) fs.mkdirSync("./temp/current_save");
+    if (!fs.existsSync(path_temp_render)) fs.mkdirSync(path_temp_render);
+    if(!fs.existsSync(path_temp_current_save)) fs.mkdirSync(path_temp_current_save);
 
     //create user directory
-    if(!fs.existsSync("./user")) fs.mkdirSync("./user");
-    if(!fs.existsSync("./user/settings")) fs.mkdirSync("./user/settings");
+    if(!fs.existsSync(path_user)) fs.mkdirSync(path_user);
+    if(!fs.existsSync(path_user_settings)) fs.mkdirSync(path_user_settings);
 
     //create logs directory
-    if(!fs.existsSync("./logs")) fs.mkdirSync("./logs");
+    if(!fs.existsSync(path_logs)) fs.mkdirSync(path_logs);
 
 
 
     //Setup log
     let date = new Date();
-
-    // if(!fs.existsSync("./logs")) {
-    //     fs.mkdirSync("./logs");
-    // }
-
     let log_name = date.toJSON().split(":").join("-");//replace : with -
+    let log_path = path.resolve(path_logs, `${log_name}.log`)
 
     log4js.configure({
         appenders: {
-            file: {type: "file", filename: `./logs/${log_name}.log`},
+            file: {type: "file", filename: log_path},
             console: {type: "console"},
         },
         categories: {
@@ -266,7 +286,11 @@ function Init() {//main initialization
     export_log = log4js.getLogger('export');
 
     main_log.info(`Running Wav2Bar v${software_version} ${software_status}`);
+    if (cant_write_to_root) main_log.warn("Can't write in app's root folder. Writing in app data folder provided by the OS.");
+    main_log.info(`Working directory: ${working_dir}`);
 
+    //open main window
+    createWindow();
 }
 
 
@@ -312,6 +336,16 @@ ipcMain.handle('log', (event, type, log) => {
 });
 
 
+
+
+
+ipcMain.handle('get-working-dir', async () => {
+    return working_dir;
+});
+
+ipcMain.handle('get-app-root', async () => {
+    return __dirname;
+});
 
 
 
@@ -485,24 +519,24 @@ ipcMain.handle("empty-dir", async (event, path) => {
 
 
 
-//exports Int8Array object to file in ./temp
+//exports Int8Array object to file in temp folder
 ipcMain.handle('write-audio-to-temp', async (event, arrayBuffer, type) => {
     main_log.debug(`writing file of type ${type} in temp directory...`);
     switch (type) {
         case "audio/x-wav":
         case "audio/wav":
-            await fs.promises.writeFile("./temp/temp.wav", arrayBuffer);
+            await fs.promises.writeFile(path.resolve(working_dir ,"./temp/temp.wav"), arrayBuffer);
             break;
 
 
         case "audio/mpeg":
         case "audio/mp3":
-            await fs.promises.writeFile("./temp/temp.mp3", arrayBuffer);
+            await fs.promises.writeFile(path.resolve(working_dir ,"./temp/temp.mp3"), arrayBuffer);
             break;
 
 
         case "application/ogg":
-            await fs.promises.writeFile("./temp/temp.ogg", arrayBuffer);
+            await fs.promises.writeFile(path.resolve(working_dir ,"./temp/temp.ogg"), arrayBuffer);
             break;
 
 
@@ -554,7 +588,7 @@ ipcMain.handle('export-screen', async (event, screen_data, name) => {
             main_log.info("captured! Writing file...");
 
             //create the file
-            await fs.promises.writeFile(`./temp/render/${name}.png`, image.toPNG());
+            await fs.promises.writeFile(path.resolve(working_dir, `./temp/render/${name}.png`), image.toPNG());
             main_log.info("image of the screen created!");
             resolve();
         } catch (error) {
@@ -620,7 +654,7 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
 
         //command
         var command = ffmpeg()
-            .addInput("./temp/render/frame%d.png")
+            .addInput(path.resolve(working_dir, "./temp/render/frame%d.png"))
             .inputFPS(fps)
             .addInput(audio_file_path)
             .size(`${screen.width}x${screen.height}`)
@@ -668,15 +702,18 @@ ipcMain.handle("cache-save-file", async (event, save_path) => {
         throw "missing .w2bzip extension!";
     }
 
+    let path_save_to_load = path.resolve(working_dir, "./temp/save_to_load.zip")
+    let path_current_save = path.resolve(working_dir, "./temp/current_save")
+
     //copy file in temp and rename it to zip
-    await fs.promises.copyFile(save_path, "./temp/save_to_load.zip");
+    await fs.promises.copyFile(save_path, path_save_to_load);
 
     //cache save
-    fsExtra.emptyDirSync("./temp/current_save");
-    await zipper.unzip("./temp/save_to_load.zip", function (error, unzipped) {
+    fsExtra.emptyDirSync(path_current_save);
+    await zipper.unzip(path_save_to_load, function (error, unzipped) {
         if (!error) {
             // extract to the current working directory
-            unzipped.save("./temp/current_save", function() {
+            unzipped.save(path_current_save, function() {
                 sender.webContents.send("finished-caching-save");
             });
         } else {
@@ -702,7 +739,7 @@ ipcMain.handle("create-save-file", async (event, save_path) => {
 
     //zip current save
     var save_path_zip = save_path.replace(".w2bzip",".zip");
-    zipper.zip("./temp/current_save", function(error, zipped) {
+    zipper.zip(path.resolve(working_dir, "./temp/current_save"), function(error, zipped) {
 
         if (!error) {
             zipped.compress(); // compress before exporting

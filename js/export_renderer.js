@@ -49,6 +49,10 @@ function InitRender() {//render initialization
 async function InitExport(data) {//prepare video export
     if (!IsAnObject(data)) throw "InitExport: invalid data provided!";
 
+    working_dir = await ipcRenderer.invoke('get-working-dir');
+    os = await ipcRenderer.invoke('get-os');
+    root_dir = await ipcRenderer.invoke('get-app-root');
+
     //SCREEN SETUP
     screen.width = data.screen.width;
     screen.height = data.screen.height;
@@ -78,18 +82,18 @@ async function InitExport(data) {//prepare video export
     // switch (data.audio_file_type) {
     //     case "audio/mp3":
     //     case "audio/mpeg":
-    //         audio_file_path = path.join(__dirname, "../temp/temp.mp3");//.. because __dirname goes in /html.
+    //         audio_file_path = path.join(working_dir, "/temp/temp.mp3");//.. because __dirname goes in /html.
     //         break;
 
 
     //     case "audio/wav":
     //     case "audio/x-wav":
-    //         audio_file_path = path.join(__dirname, "../temp/temp.wav");
+    //         audio_file_path = path.join(working_dir, "/temp/temp.wav");
     //         break;
 
 
     //     case "application/ogg":
-    //         audio_file_path = path.join(__dirname, "../temp/temp.ogg");
+    //         audio_file_path = path.join(working_dir, "/temp/temp.ogg");
     //         break;
 
     //     default:
@@ -100,7 +104,7 @@ async function InitExport(data) {//prepare video export
     
     
     //LOAD AUDIO FROM TEMP FILE
-    audio_file_path = path.join(__dirname, `../temp/temp.${data.audio_file_extension}`);
+    audio_file_path = path.join(working_dir, `/temp/temp.${data.audio_file_extension}`);
     CustomLog("debug",`using audio: ${audio_file_path}`);
 
 

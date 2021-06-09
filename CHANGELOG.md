@@ -1,10 +1,14 @@
 # Changelogs
 This document is based on Keep a Changelog 1.0.0
 
-# 0.1.2-beta (?)
+## 0.1.2-beta (?)
+
+### Changed
+- When Wa2Bar installation's root directory is not writable, use app data folder provided by the OS.
 
 ### Security
 - Updated Electron from v9 to v12.
+- Updated some dependencies.
 
 ## 0.1.1 Beta (2021-04-18)
 

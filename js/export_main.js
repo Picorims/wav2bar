@@ -47,7 +47,7 @@ function Export(path) {//Launch the rendering process which will export the vide
         }
 
         //cache audio for rendering in a separate file.
-        await ipcRenderer.invoke("copy-file", `./temp/current_save/assets/audio/${filename}`, `./temp/temp.${extension}`);
+        await ipcRenderer.invoke("copy-file", `${working_dir}/temp/current_save/assets/audio/${filename}`, `${working_dir}/temp/temp.${extension}`);
         
         //send data to the export window renderer
         await ipcRenderer.invoke("send-event-to-export-win", "data-sent", data);

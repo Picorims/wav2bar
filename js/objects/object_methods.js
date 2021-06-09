@@ -44,5 +44,30 @@ var object_method = {
         while (!this.validID(id));
 
         return id;
+    },
+
+    //transforms an absolute path into a CSS path given the working directory
+    //This might be a big gas engine, option to test: using absolute path that starts with /.
+    fullPathToCSSPath: function(working_dir, absolute_path) {
+        //setup working directory information
+        working_dir = working_dir.replace(/^.*\/$/, "").replace(/^.*\\$/, ""); //remove last (anti)slash
+        let splitter = (os === "win32") ? "\\" : "\/";
+        
+        //find the number of upper levels from the working directory.
+        //-1 because we don't want to count what is before the root slash
+        //(either empty or drive letter)
+        let number_of_upper_levels = working_dir.split(splitter).count - 1;
+
+        //build relative path
+        let relative_path = "";
+        //apply upper jumps
+        for (let i = 0; i < number_of_upper_levels; i++) relative_path += "../";
+        //format absolute path to be appended by using only / and removing the root part
+        if (os === "win32") absolute_path = absolute_path.split("\\").join("\/");
+        //remove everything until the first occurence of a /
+        absolute_path = absolute_path.replace(/[^\/]*/, "");
+
+        relative_path += absolute_path;
+        return relative_path;
     }
 };

@@ -1141,7 +1141,7 @@ function AddParameter(args, callback) {
             param_container.appendChild(img_disp);
             img_disp.classList.add("panel_img_display");
             if (args.settings.default_image !== "") {
-                img_disp.style.backgroundImage = `url(./temp/current_save/assets/${args.object_id}/background/${args.settings.default_image})`;
+                img_disp.style.backgroundImage = `url(${working_dir}/temp/current_save/assets/${args.object_id}/background/${args.settings.default_image})`;
             }
 
             //image picker
@@ -1158,7 +1158,7 @@ function AddParameter(args, callback) {
                 }, async (result) => {
                     //copying file
                     let filename = result.replace(/^.*[\\\/]/, '');
-                    let new_path = `./temp/current_save/assets/${args.object_id}/background/`;
+                    let new_path = `${working_dir}/temp/current_save/assets/${args.object_id}/background/`;
                     
                     //is an image file already imported ?
                     let path_exists = await ipcRenderer.invoke("path-exists", new_path);

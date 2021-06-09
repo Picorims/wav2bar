@@ -37,7 +37,7 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
     if (!IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
 
     CustomLog("info", "Backing up currently opened save...");
-    ExportSave("./temp/before_new_save_open.w2bzip", true);
+    ExportSave(`${working_dir}/temp/before_new_save_open.w2bzip`, true);
     await CloseAudio();
 
     CustomLog("info","Loading the save...");
@@ -66,7 +66,7 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
         //read data cached in ./temp/current_save
         CustomLog("info","reading the save...");
 
-        const JSON_data = await ipcRenderer.invoke("read-json-file","./temp/current_save/data.json");
+        const JSON_data = await ipcRenderer.invoke("read-json-file",`${working_dir}/temp/current_save/data.json`);
         current_save = JSON.parse(JSON.stringify(JSON_data)); //copy data
 
         //check version
@@ -87,7 +87,7 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
                         ApplyLoadedSave();
                     } else {
                         CustomLog("info", "Save load aborted, loading back the project in it's old state.");
-                        LoadSave("./temp/before_new_save_open.w2bzip");
+                        LoadSave(`${working_dir}/temp/before_new_save_open.w2bzip`);
                     }
                     lock_save_sync = false;
                 });
@@ -255,7 +255,7 @@ function ApplyLoadedSave() {//read and apply a loaded user save
 
     //apply audio
     if (current_save.audio_filename !== "") {
-        ipcRenderer.invoke("get-full-path", `./temp/current_save/assets/audio/${current_save.audio_filename}`).then((result => {
+        ipcRenderer.invoke("get-full-path", `${working_dir}/temp/current_save/assets/audio/${current_save.audio_filename}`).then((result => {
             LoadAudio(result, "url");
             document.getElementById("opened_audio").innerHTML = current_save.audio_filename;
         }));
@@ -354,7 +354,7 @@ function ExportSave(save_path, no_dialog = false) {
 
     //update JSON data in temp save
     var save_data = JSON.stringify(current_save);
-    ipcRenderer.invoke("write-json-file", "./temp/current_save/data.json", save_data);
+    ipcRenderer.invoke("write-json-file", `${working_dir}/temp/current_save/data.json`, save_data);
 
     //package file
     ipcRenderer.invoke("create-save-file", save_path);

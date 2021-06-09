@@ -8,10 +8,10 @@ var current_settings_version = 1;
 //settings initialization. Go reading the .json save.
 async function InitSettings() {
     CustomLog("info","initializing settings...");
-    let default_settings_path = "./user/settings/default_settings.json";
-    let user_settings_path = "./user/settings/user_settings.json";
+    let default_settings_path = `${working_dir}/user/settings/default_settings.json`;
+    let user_settings_path = `${working_dir}/user/settings/user_settings.json`;
 
-    if (!await ipcRenderer.invoke("path-exists", "./user/settings/user_settings.json")) {
+    if (!await ipcRenderer.invoke("path-exists", user_settings_path)) {
         //no user settings found, loading default settings
         CustomLog("warn","No user settings found. Loading default settings.");
         settings = await ipcRenderer.invoke("read-json-file", default_settings_path);
@@ -100,7 +100,7 @@ function LoadSettings() {
 //save settings into a .json file
 async function SaveSettings() {
     CustomLog("info", "saving settings...");
-    await ipcRenderer.invoke("write-json-file", "./user/settings/user_settings.json", JSON.stringify(settings));
+    await ipcRenderer.invoke("write-json-file", `${working_dir}/user/settings/user_settings.json`, JSON.stringify(settings));
     CustomLog("info", "settings saved!");
 }
 

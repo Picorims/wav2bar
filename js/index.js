@@ -5,6 +5,9 @@ const { Logger } = require("log4js");
 
 const software_version = '0.1.2'; //current build version
 const software_status = 'Beta';
+let working_dir; //working directory for user, temp, logs...
+let root_dir; //root of the app (where main.js is located, and html/css folders)
+let os; //operating system
 
 var can_close_window_safely = false;//set to true when the user confirmed exit
 
@@ -32,10 +35,26 @@ GLOBAL INITIALIZATION AND AUDIO IMPORT
 ######################################
 */
 
-window.onload = function() {InitPage();};
+window.onload = function() {GetWorkingDir();};
 window.onbeforeunload = function(event) {PrepareWindowClose(event);};
 
+//get the main process working directory for user, temp, log, etc.
+//before initializing the page.
+function GetWorkingDir() {
+    ipcRenderer.invoke('get-working-dir').then(dir => {
+        working_dir = dir;
+        return ipcRenderer.invoke('get-os');
+    }).then(operating_system => {
+        os = operating_system;
+        return ipcRenderer.invoke('get-app-root');
+    }).then(root => {
+        root_dir = root;
+        InitPage();
+    });
+}
+
 function InitPage() {//page initialization
+    console.log("a");
 
     //PREPARE SAVE
     InitSave();
@@ -83,7 +102,7 @@ async function SaveAudio(path) {
     await CloseAudio();
 
     let filename = path.replace(/^.*[\\\/]/, '');
-    let new_path = `./temp/current_save/assets/audio/`;
+    let new_path = `${working_dir}/temp/current_save/assets/audio/`;
 
     //is an audio file already imported ?
     let path_exists = await ipcRenderer.invoke("path-exists", new_path);

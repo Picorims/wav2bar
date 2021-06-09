@@ -244,8 +244,11 @@ function Image(glob_data) {
                     this.element.style.background = "";
                     this.element.style.backgroundColor = "";
                     if (this.data.background.last_image !== "") {
-                        if (export_mode) this.element.style.backgroundImage = `url("../temp/current_save/assets/${this.data.id}/background/${this.data.background.last_image}")`;
-                        else this.element.style.backgroundImage = `url("./temp/current_save/assets/${this.data.id}/background/${this.data.background.last_image}")`;
+                        let url;
+                        let full_path = `${working_dir}/temp/current_save/assets/${this.data.id}/background/${this.data.background.last_image}`
+                        if (export_mode) url = object_method.fullPathToCSSPath(`${root_dir}/html`, full_path);
+                        else url = object_method.fullPathToCSSPath(`${root_dir}`, full_path);
+                        this.element.style.backgroundImage = `url("${url}")`;
                     } else {
                         this.element.style.backgroundImage = "";
                         this.element.style.backgroundColor = "#000000";
