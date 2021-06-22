@@ -3,6 +3,9 @@ This document is based on Keep a Changelog 1.0.0
 
 ## 0.1.2-beta (?)
 
+### Added
+- Added support for Windows .msi installer.
+
 ### Changed
 - When Wa2Bar installation's root directory is not writable, use app data folder provided by the OS.
 

@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
+    "exe-icon-extractor": "^1.0.8",
     "fluent-ffmpeg": "^2.1.2",
     "fourier-transform": "^1.1.2",
     "fs-extra": "^10.0.0",
