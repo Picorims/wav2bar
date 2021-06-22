@@ -67,7 +67,7 @@
             "name": "Wav2Bar",
             "shortcutFolderName": "Wav2Bar",
             "manufacturer": "Picorims",
-            "version": "0.1.0",
+            "version": "0.1.2",
             "iconPath": "D:/wav2bar_wix_imgs_U/wav2bar_square_logo.ico",
             "ui": {
               "chooseDirectory": true,
@@ -91,8 +91,8 @@
               "homepage": "https://picorims.github.io/wav2bar-website",
               "icon": "assets/icons/wav2bar_square_logo.png",
               "maintainer": "Picorims",
-              "revision": "0.1.0",
-              "version": "0.1.0"
+              "revision": "0.1.2",
+              "version": "0.1.2"
             }
           }
         },
@@ -110,7 +110,7 @@
               "homepage": "https://picorims.github.io/wav2bar-website",
               "icon": "assets/icons/wav2bar_square_logo.png",
               "license": "MIT",
-              "version": "0.1.0"
+              "version": "0.1.2"
             }
           }
         }

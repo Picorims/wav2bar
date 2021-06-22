@@ -225,10 +225,12 @@ function CreateHTMLDisplayWin(link) {
 //find working directory to write user and temp data before starting initialization
 function PreInit() {
     working_dir = __dirname;
-    //https://stackoverflow.com/questions/30110814/whats-the-most-portable-way-to-test-if-a-directory-is-writable-in-nodejs
-    //fs.constants.W_OK => File can be written by the calling process
-    fs.promises.access(__dirname, fs.constants.W_OK)
-    .then(() => {Init();})
+    let test_path = `${__dirname}/test.txt`;
+    fs.promises.writeFile(test_path, "can write : OK")
+    .then(() => {
+        fsExtra.removeSync(test_path);
+        Init();
+    })
     .catch(err => {
         cant_write_to_root = true;
         working_dir = path.resolve(app.getPath("appData"), "/Wav2Bar");
@@ -622,18 +624,18 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
         switch (audio_format) {
             case "audio/mp3":
             case "audio/mpeg":
-                audio_file_path = path.join(__dirname, "/temp/temp.mp3");//.. because __dirname goes in /html.
+                audio_file_path = path.resolve(working_dir, "./temp/temp.mp3");
                 break;
 
 
             case "audio/wav":
             case "audio/x-wav":
-                audio_file_path = path.join(__dirname, "/temp/temp.wav");
+                audio_file_path = path.resolve(working_dir, "./temp/temp.wav");
                 break;
 
 
             case "application/ogg":
-                audio_file_path = path.join(__dirname, "/temp/temp.ogg");
+                audio_file_path = path.resolve(working_dir, "./temp/temp.ogg");
                 break;
 
             default:

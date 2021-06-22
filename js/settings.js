@@ -8,7 +8,7 @@ var current_settings_version = 1;
 //settings initialization. Go reading the .json save.
 async function InitSettings() {
     CustomLog("info","initializing settings...");
-    let default_settings_path = `${working_dir}/user/settings/default_settings.json`;
+    let default_settings_path = "./user/settings/default_settings.json";
     let user_settings_path = `${working_dir}/user/settings/user_settings.json`;
 
     if (!await ipcRenderer.invoke("path-exists", user_settings_path)) {
