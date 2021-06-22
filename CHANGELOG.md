@@ -1,7 +1,7 @@
 # Changelogs
 This document is based on Keep a Changelog 1.0.0
 
-## 0.1.2-beta (?)
+## 0.1.2-beta (2021-06-22)
 
 ### Added
 - Added support for Windows .msi installer.
@@ -13,7 +13,7 @@ This document is based on Keep a Changelog 1.0.0
 - Updated Electron from v9 to v12.
 - Updated some dependencies.
 
-## 0.1.1 Beta (2021-04-18)
+## 0.1.1-beta (2021-04-18)
 
 ### Added
 - A user with no configured paths for FFmpeg and/or FFprobe are now prompted with an additional tutorial
@@ -29,5 +29,5 @@ that gives instructions on how to install FFmpeg and FFprobe for Wav2Bar.
 ### Fixed
 - Particle speed smoothing is now applied at export as well.
 
-## 0.1.0 Beta (2021-04-13)
+## 0.1.0-beta (2021-04-13)
 - Initial public release.
