@@ -135,6 +135,7 @@ function createExportWin() {
             nodeIntegration: true,
             contextIsolation: false,
             nativeWindowOpen: true,
+            backgroundThrottling: false,
         },
     })
     //win.webContents.id = 2; READONLY
