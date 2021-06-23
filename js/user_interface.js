@@ -384,8 +384,8 @@ function HideAnyTab() {
 
 //show the tab given in parameter
 function ShowTab(tab, tab_label) {
-    if (!IsAnElement(tab)) throw "ShowTab: tab isn't a DOM element.";
-    if (!IsAnElement(tab_label)) throw "ShowTab: tab_label isn't a DOM element.";
+    if (!imports.utils.IsAnElement(tab)) throw "ShowTab: tab isn't a DOM element.";
+    if (!imports.utils.IsAnElement(tab_label)) throw "ShowTab: tab_label isn't a DOM element.";
 
     tab.style.left = 0;
     tab.style.display = "inline-block";
@@ -405,8 +405,8 @@ SCREEN
 */
 
 function SetScreenTo(width, height) {//changes the screen size to the given values
-    if(!IsAnInt(width)) throw `SetScreenTo: ${width} is not an integer.`;
-    if(!IsAnInt(height)) throw `SetScreenTo: ${width} is not an integer.`;
+    if(!imports.utils.IsAnInt(width)) throw `SetScreenTo: ${width} is not an integer.`;
+    if(!imports.utils.IsAnInt(height)) throw `SetScreenTo: ${width} is not an integer.`;
 
     //update screen
     screen.width = width;
@@ -434,7 +434,7 @@ function SetScreenTo(width, height) {//changes the screen size to the given valu
 
 function ChangeFPSTo(new_fps) {//changes the FPS used by restarting the animation with the right FPS
     //error check
-    if (!IsAnInt(new_fps)) throw `ChangeFPSto: ${new_fps} is not an integer or a valid FPS value.`;
+    if (!imports.utils.IsAnInt(new_fps)) throw `ChangeFPSto: ${new_fps} is not an integer or a valid FPS value.`;
 
     //trigger update
     fps = new_fps;
@@ -518,7 +518,7 @@ function KillZoomMenu() {
 
 //function that apply to the screen the zoom given in the control_panel.
 function ApplyZoom(zoom_value) {
-    if (!IsANumber(zoom_value)) throw `ApplyZoom: ${zoom_value} is not a valid zoom value.`;
+    if (!imports.utils.IsANumber(zoom_value)) throw `ApplyZoom: ${zoom_value} is not a valid zoom value.`;
 
     zoom = zoom_value;
     screen.style.transformOrigin = "0 0";
@@ -709,8 +709,8 @@ OBJECT CREATION
 //function that creates an object using the given parameters
 function CreateObject(name, type) {
 
-    if (IsUndefined(name) || !IsAString(name)) throw new Error("CreateObject: invalid name.");
-    if (IsUndefined(type)) throw new Error("CreateObject: type must be specified.");
+    if (imports.utils.IsUndefined(name) || !imports.utils.IsAString(name)) throw new Error("CreateObject: invalid name.");
+    if (imports.utils.IsUndefined(type)) throw new Error("CreateObject: type must be specified.");
 
     //create object
     switch (type) {
@@ -785,7 +785,7 @@ OBJECTS PARAMETER CONTAINERS
 
 //function that creates an object container with no parameters, ready for an object with the given ID.
 function CreateObjectContainer(object_id) {
-    if (!IsAString(object_id)) throw `CreateObjectContainer: ${object_id} is not a valid ID.`;
+    if (!imports.utils.IsAString(object_id)) throw `CreateObjectContainer: ${object_id} is not a valid ID.`;
 
     //CREATE ELEMENT
     var container = document.createElement("div");
@@ -899,7 +899,7 @@ function CreateObjectContainer(object_id) {
 
 //function that opens or closes an object container
 function ToggleOpen(DOM_container) {
-    if (!IsAnElement(DOM_container)) throw "ToggleOpen: the argument is not a DOM element.";
+    if (!imports.utils.IsAnElement(DOM_container)) throw "ToggleOpen: the argument is not a DOM element.";
 
     var closed = DOM_container.getAttribute("data-closed");
 
@@ -925,14 +925,14 @@ function ToggleOpen(DOM_container) {
  * }
  */
 function AddParameter(args, callback) {
-    if (!IsAString(args.object_id)) throw `AddParameter: ${args.object_id} is not a valid ID.`;
+    if (!imports.utils.IsAString(args.object_id)) throw `AddParameter: ${args.object_id} is not a valid ID.`;
 
     if ( (args.type!=="string") && (args.type!=="value") && (args.type!=="value-xy") && (args.type!=="choice") && (args.type!=="checkbox") && (args.type!=="background-picker") ) {
         throw `AddParameter: ${args.type} is not a valid parameter type.`;
     }
-    if (!IsAnObject(args.settings))    throw "AddParameter: The parameters provided aren't of type object.";
-    if (!IsAString(args.title))          throw "AddParameter: The title must be a string!";
-    if (IsUndefined(callback))      throw "AddParameter: Callback missing.";
+    if (!imports.utils.IsAnObject(args.settings))    throw "AddParameter: The parameters provided aren't of type object.";
+    if (!imports.utils.IsAString(args.title))          throw "AddParameter: The title must be a string!";
+    if (imports.utils.IsUndefined(callback))      throw "AddParameter: Callback missing.";
 
 
     //CREATE ELEMENT
@@ -984,9 +984,9 @@ function AddParameter(args, callback) {
             input.classList.add("panel_input", "panel_input");
             input.type = "number";
             input.value = args.settings.default;
-            if ( !IsUndefined(args.settings.min) ) input.min = args.settings.min;
-            if ( !IsUndefined(args.settings.max) ) input.max = args.settings.max;
-            if ( !IsUndefined(args.settings.step) ) input.step = args.settings.step;
+            if ( !imports.utils.IsUndefined(args.settings.min) ) input.min = args.settings.min;
+            if ( !imports.utils.IsUndefined(args.settings.max) ) input.max = args.settings.max;
+            if ( !imports.utils.IsUndefined(args.settings.step) ) input.step = args.settings.step;
 
             //function
             input.oninput = function() {
@@ -1014,18 +1014,18 @@ function AddParameter(args, callback) {
             input1.classList.add("panel_input", "panel_input");
             input1.type = "number";
             input1.value = args.settings.default_x;
-            if ( !IsUndefined(args.settings.min) ) input1.min = args.settings.min;
-            if ( !IsUndefined(args.settings.max) ) input1.max = args.settings.max;
-            if ( !IsUndefined(args.settings.step) ) input1.step = args.settings.step;
+            if ( !imports.utils.IsUndefined(args.settings.min) ) input1.min = args.settings.min;
+            if ( !imports.utils.IsUndefined(args.settings.max) ) input1.max = args.settings.max;
+            if ( !imports.utils.IsUndefined(args.settings.step) ) input1.step = args.settings.step;
 
             var input2 = document.createElement("input");
             input_container.appendChild(input2);
             input2.classList.add("panel_input", "panel_input");
             input2.type = "number";
             input2.value = args.settings.default_y;
-            if ( !IsUndefined(args.settings.min) ) input2.min = args.settings.min;
-            if ( !IsUndefined(args.settings.max) ) input2.max = args.settings.max;
-            if ( !IsUndefined(args.settings.step) ) input2.step = args.settings.step;
+            if ( !imports.utils.IsUndefined(args.settings.min) ) input2.min = args.settings.min;
+            if ( !imports.utils.IsUndefined(args.settings.max) ) input2.max = args.settings.max;
+            if ( !imports.utils.IsUndefined(args.settings.step) ) input2.step = args.settings.step;
 
             //functions
             input1.oninput = function() {
@@ -1230,9 +1230,9 @@ function AddParameter(args, callback) {
             bgnd_size_input_1.classList.add("panel_input", "panel_input");
             bgnd_size_input_1.type = "number";
             bgnd_size_input_1.value = args.settings.default_size_x;
-            if ( !IsUndefined(args.settings.size_min) ) bgnd_size_input_1.min = args.settings.size_min;
-            if ( !IsUndefined(args.settings.size_max) ) bgnd_size_input_1.max = args.settings.size_max;
-            if ( !IsUndefined(args.settings.size_step) ) bgnd_size_input_1.step = args.settings.size_step;
+            if ( !imports.utils.IsUndefined(args.settings.size_min) ) bgnd_size_input_1.min = args.settings.size_min;
+            if ( !imports.utils.IsUndefined(args.settings.size_max) ) bgnd_size_input_1.max = args.settings.size_max;
+            if ( !imports.utils.IsUndefined(args.settings.size_step) ) bgnd_size_input_1.step = args.settings.size_step;
             bgnd_size_input_1.oninput = function() {
                 args.settings.default_size_x = this.value;
                 //update background
@@ -1252,9 +1252,9 @@ function AddParameter(args, callback) {
             bgnd_size_input_2.classList.add("panel_input", "panel_input");
             bgnd_size_input_2.type = "number";
             bgnd_size_input_2.value = args.settings.default_size_y;
-            if ( !IsUndefined(args.settings.size_min) ) bgnd_size_input_2.min = args.settings.size_min;
-            if ( !IsUndefined(args.settings.size_max) ) bgnd_size_input_2.max = args.settings.size_max;
-            if ( !IsUndefined(args.settings.size_step) ) bgnd_size_input_2.step = args.settings.size_step;
+            if ( !imports.utils.IsUndefined(args.settings.size_min) ) bgnd_size_input_2.min = args.settings.size_min;
+            if ( !imports.utils.IsUndefined(args.settings.size_max) ) bgnd_size_input_2.max = args.settings.size_max;
+            if ( !imports.utils.IsUndefined(args.settings.size_step) ) bgnd_size_input_2.step = args.settings.size_step;
             bgnd_size_input_2.oninput = function() {
                 args.settings.default_size_y = this.value;
                 //update background
@@ -1407,8 +1407,8 @@ HELP HOVER BUTTONS
 //The path is indicated by the data-help attribute.
 function AppendHelp(DOM_elt, help_string) {
 
-    if( !IsAnElement(DOM_elt) ) throw `AppendHelp: ${DOM_elt} is not a DOM element.`;
-    if (!IsAString(help_string) ) throw `AppendHelp: ${help_string} is not a string.`;
+    if( !imports.utils.IsAnElement(DOM_elt) ) throw `AppendHelp: ${DOM_elt} is not a DOM element.`;
+    if (!imports.utils.IsAString(help_string) ) throw `AppendHelp: ${help_string} is not a string.`;
 
     //create help hover button
     var question_mark = document.createElement("div");
@@ -1441,7 +1441,7 @@ function AppendHelp(DOM_elt, help_string) {
 //Display the help message linked to a question mark element of a parameter.
 function DisplayHelpMsg(question_mark) {//display a help message at the given coordinates
 
-    if( !IsAnElement(question_mark) ) throw `DisplayHelpMsg: ${question_mark} is not a DOM element.`;
+    if( !imports.utils.IsAnElement(question_mark) ) throw `DisplayHelpMsg: ${question_mark} is not a DOM element.`;
 
     //only display if the pointer is on the question_mark
     if (question_mark.getAttribute("data-hover") === "true") {
@@ -1484,8 +1484,8 @@ DIALOGS
 //args allows for passing arguments to the callback.
 function InputDialog(message, callback, args) {
 
-    if ( !IsAString(message) ) throw `InputDialog: ${message} is not a string.`;
-    if (IsUndefined(callback)) throw `InputDialog: callback missing!`;
+    if ( !imports.utils.IsAString(message) ) throw `InputDialog: ${message} is not a string.`;
+    if (imports.utils.IsUndefined(callback)) throw `InputDialog: callback missing!`;
 
     //create elements
     var background_container = document.createElement("div");
@@ -1536,10 +1536,10 @@ function InputDialog(message, callback, args) {
 //args allows for passing arguments to the callback.
 function MessageDialog(type, message, callback, args) {
 
-    if ( !IsAString(type)    ) throw `MessageDialog: ${message} must be a string`;
+    if ( !imports.utils.IsAString(type)    ) throw `MessageDialog: ${message} must be a string`;
     else if (type!=="info" && type!=="warn" && type!=="error" && type!=="confirm") throw `MessageDialog: ${message} must be "info", "warn" or "error"`;
-    if ( !IsAString(message) ) throw `MessageDialog: ${message} is not a string.`;
-    if (IsUndefined(callback) && type==="confirm") throw `MessageDialog: callback missing!`;
+    if ( !imports.utils.IsAString(message) ) throw `MessageDialog: ${message} is not a string.`;
+    if (imports.utils.IsUndefined(callback) && type==="confirm") throw `MessageDialog: callback missing!`;
 
     //create elements
     var background_container = document.createElement("div");
@@ -1646,31 +1646,31 @@ FILE BROWSER
     show_disabled_files: true|false;
 }*/
 async function FileBrowserDialog(settings, callback, args) {
-    if ( !IsAnObject(settings) ) throw `FileBrowserDialog: ${settings} is not an object.`;
-    if (IsUndefined(callback)) throw `FileBrowserDialog: callback missing!`;
+    if ( !imports.utils.IsAnObject(settings) ) throw `FileBrowserDialog: ${settings} is not an object.`;
+    if (imports.utils.IsUndefined(callback)) throw `FileBrowserDialog: callback missing!`;
 
     //SETTINGS VERIFICATION
 
     //is undefined
-    if (IsUndefined(settings.type)) throw `FileBrowserDialog: Dialog type required!`;
-    if (IsUndefined(settings.allowed_extensions)) settings.allowed_extensions = ["#any"];
-    if (IsUndefined(settings.display_hidden_files)) settings.display_hidden_files = false;
-    if (IsUndefined(settings.show_disabled_files)) settings.show_disabled_files = false;
+    if (imports.utils.IsUndefined(settings.type)) throw `FileBrowserDialog: Dialog type required!`;
+    if (imports.utils.IsUndefined(settings.allowed_extensions)) settings.allowed_extensions = ["#any"];
+    if (imports.utils.IsUndefined(settings.display_hidden_files)) settings.display_hidden_files = false;
+    if (imports.utils.IsUndefined(settings.show_disabled_files)) settings.show_disabled_files = false;
 
     //is invalid
-    if (!IsUndefined(settings.type) && settings.type !== "get_file" && settings.type !== "get_directory" && settings.type !== "save_file") {
+    if (!imports.utils.IsUndefined(settings.type) && settings.type !== "get_file" && settings.type !== "get_directory" && settings.type !== "save_file") {
         throw `FileBrowserDialog: ${settings.type} dialog type is invalid! It must be get_file, get_directory, or save_file.`;
     }
-    if (!IsUndefined(settings.allowed_extensions) && !IsAnArray(settings.allowed_extensions)) {
+    if (!imports.utils.IsUndefined(settings.allowed_extensions) && !imports.utils.IsAnArray(settings.allowed_extensions)) {
         throw `FileBrowserDialog: displayed extentions must be expressed as an array of strings, or ["#none"] or ["#any"].`;
     }
     for (let i=0; i<settings.allowed_extensions.length; i++) {
-        if (!IsAString(settings.allowed_extensions[i])) throw `FileBrowserDialog: displayed extentions must be expressed as an array of strings, or ["#none"] or ["#any"].`;
+        if (!imports.utils.IsAString(settings.allowed_extensions[i])) throw `FileBrowserDialog: displayed extentions must be expressed as an array of strings, or ["#none"] or ["#any"].`;
     }
-    if (!IsUndefined(settings.display_hidden_files) && !IsABoolean(settings.display_hidden_files)) {
+    if (!imports.utils.IsUndefined(settings.display_hidden_files) && !imports.utils.IsABoolean(settings.display_hidden_files)) {
         throw `FileBrowserDialog: display_hidden_files with value ${settings.display_hidden_files} must be a boolean value.`;
     }
-    if (!IsUndefined(settings.show_disabled_files) && !IsABoolean(settings.show_disabled_files)) {
+    if (!imports.utils.IsUndefined(settings.show_disabled_files) && !imports.utils.IsABoolean(settings.show_disabled_files)) {
         throw `FileBrowserDialog: show_disabled_files with value ${settings.show_disabled_files} must be a boolean value.`;
     }
 
@@ -2043,12 +2043,12 @@ async function FillTree(path, container, path_input, name_input, settings) {
 //function that tests if the provided file name matches the list of extensions. It returns false if none of the extensions matches.
 //The dot mustn't be included!
 function HasValidExtension(file_name, extensions_list) {
-    if (!IsAString(file_name)) throw `HasValidExtension: the file name must be a string!`;
-    if (!IsAnArray(extensions_list)) {
+    if (!imports.utils.IsAString(file_name)) throw `HasValidExtension: the file name must be a string!`;
+    if (!imports.utils.IsAnArray(extensions_list)) {
         throw `HasValidExtension: the extensions list must be an array!`;
     } else {
         for (let i=0; i<extensions_list; i++) {
-            if (!IsAString(extensions_list[i])) throw `HasValidExtension: The extensions list must only be made of strings!`;
+            if (!imports.utils.IsAString(extensions_list[i])) throw `HasValidExtension: The extensions list must only be made of strings!`;
         }
     }
 

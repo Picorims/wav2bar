@@ -24,7 +24,7 @@
 }*/
 
 function ParticleFlow(glob_data) {
-    if (IsUndefined(glob_data)) throw "ParticleFlow: data missing!";
+    if (imports.utils.IsUndefined(glob_data)) throw "ParticleFlow: data missing!";
 
     this.data = glob_data;//collect data
     this.data.object_type = "particle_flow";
@@ -60,105 +60,105 @@ function ParticleFlow(glob_data) {
     //(invalid data is still overwritten)
 
     this.verifyData = function(data, ignore_undefined) {
-        if (IsUndefined(data)) throw "ParticleFlow.verifyData: data missing!";
-        if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "ParticleFlow.verifyData: IGNORE_UNDEFINED is the only valid node.";
+        if (imports.utils.IsUndefined(data)) throw "ParticleFlow.verifyData: data missing!";
+        if ( !imports.utils.IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "ParticleFlow.verifyData: IGNORE_UNDEFINED is the only valid node.";
 
 
-        if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
+        if ( imports.utils.IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
-        if ( IsUndefined(data.id) || !IsAString(data.id) || !object_method.validID(data.id, this) ) {
+        if ( imports.utils.IsUndefined(data.id) || !imports.utils.IsAString(data.id) || !object_method.validID(data.id, this) ) {
             CustomLog("error","Particle Flow object: received an object with an unspecified/invalid ID! A random ID is given.");
             data.id = object_method.generateID();
         }
 
         //name
-        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = this.DEFAULTS.NAME;}
-        if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
+        if ( imports.utils.IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = this.DEFAULTS.NAME;}
+        if ( !imports.utils.IsUndefined(data.name) && !imports.utils.IsAString(data.name) || data.name === "" ) {
             CustomLog("warn",`Particle Flow object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
             data.name = this.DEFAULTS.NAME;
         }
 
         //layer
-        if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = this.DEFAULTS.LAYER;}
-        if ( !IsUndefined(data.layer) && (!IsAnInt(data.layer) || (data.layer <= -1)) ) {
+        if ( imports.utils.IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = this.DEFAULTS.LAYER;}
+        if ( !imports.utils.IsUndefined(data.layer) && (!imports.utils.IsAnInt(data.layer) || (data.layer <= -1)) ) {
             CustomLog("warn",`Particle Flow object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
             data.layer = this.DEFAULTS.LAYER;
         }
 
         //x
-        if ( IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = this.DEFAULTS.X;}
-        if ( !IsUndefined(data.x) && !IsAnInt(data.x) ) {
+        if ( imports.utils.IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = this.DEFAULTS.X;}
+        if ( !imports.utils.IsUndefined(data.x) && !imports.utils.IsAnInt(data.x) ) {
             CustomLog("warn",`Particle Flow object: Invalid x coordinate! Set to ${this.DEFAULTS.X}.`);
             data.x = this.DEFAULTS.X;
         }
 
         //y
-        if ( IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = this.DEFAULTS.Y;}
-        if ( !IsUndefined(data.y) && !IsAnInt(data.y) ) {
+        if ( imports.utils.IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = this.DEFAULTS.Y;}
+        if ( !imports.utils.IsUndefined(data.y) && !imports.utils.IsAnInt(data.y) ) {
             CustomLog("warn",`Particle Flow object: Invalid y coordinate! Set to ${this.DEFAULTS.Y}.`);
             data.y = this.DEFAULTS.Y;
         }
 
         //width
-        if ( IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = this.DEFAULTS.WIDTH;}
-        if ( !IsUndefined(data.width) && (!IsAnInt(data.width) || (data.width < 0)) ) {
+        if ( imports.utils.IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = this.DEFAULTS.WIDTH;}
+        if ( !imports.utils.IsUndefined(data.width) && (!imports.utils.IsAnInt(data.width) || (data.width < 0)) ) {
             CustomLog("warn",`Particle Flow object: Invalid width! Set to ${this.DEFAULTS.WIDTH}.`);
             data.width = this.DEFAULTS.WIDTH;
         }
 
         //height
-        if ( IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = this.DEFAULTS.HEIGHT;}
-        if ( !IsUndefined(data.height) && (!IsAnInt(data.height) || (data.height < 0)) ) {
+        if ( imports.utils.IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = this.DEFAULTS.HEIGHT;}
+        if ( !imports.utils.IsUndefined(data.height) && (!imports.utils.IsAnInt(data.height) || (data.height < 0)) ) {
             CustomLog("warn",`Particle Flow object: Invalid height! Set to ${this.DEFAULTS.HEIGHT}.`);
             data.height = this.DEFAULTS.HEIGHT;
         }
 
         //particle_radius_range
-        if ( IsUndefined(data.particle_radius_range) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.particle_radius_range = this.DEFAULTS.PARTICLE_RADIUS_RANGE;}
-        if ( !IsUndefined(data.particle_radius_range) && (!IsAnArray(data.particle_radius_range) || (data.particle_radius_range.length !== 2) || !IsAnInt(data.particle_radius_range[0]) || !IsAnInt(data.particle_radius_range[1])) ) {
+        if ( imports.utils.IsUndefined(data.particle_radius_range) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.particle_radius_range = this.DEFAULTS.PARTICLE_RADIUS_RANGE;}
+        if ( !imports.utils.IsUndefined(data.particle_radius_range) && (!imports.utils.IsAnArray(data.particle_radius_range) || (data.particle_radius_range.length !== 2) || !imports.utils.IsAnInt(data.particle_radius_range[0]) || !imports.utils.IsAnInt(data.particle_radius_range[1])) ) {
             CustomLog("warn",`Particle Flow object: Invalid particle radius range! Set to [${this.DEFAULTS.PARTICLE_RADIUS_RANGE[0]},${this.DEFAULTS.PARTICLE_RADIUS_RANGE[1]}].`);
             data.particle_radius_range = this.DEFAULTS.PARTICLE_RADIUS_RANGE;
         }
 
         //type
-        if ( IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = this.DEFAULTS.TYPE;}
-        if ( !IsUndefined(data.type) && (!IsAString(data.type) || ( (data.type !== "radial") && (data.type !== "directional") )) ) {
+        if ( imports.utils.IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = this.DEFAULTS.TYPE;}
+        if ( !imports.utils.IsUndefined(data.type) && (!imports.utils.IsAString(data.type) || ( (data.type !== "radial") && (data.type !== "directional") )) ) {
             CustomLog("warn",`Particle Flow object: Invalid type! Set to ${this.DEFAULTS.TYPE}.`);
             data.type = this.DEFAULTS.TYPE;
         }
 
         //center
-        if ( IsUndefined(data.center) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.center = {x:this.DEFAULTS.CENTER.X, y:this.DEFAULTS.CENTER.Y};}
-        if ( !IsUndefined(data.center) && (!IsAnObject(data.center) || !IsAnInt(data.center.x) || !IsAnInt(data.center.y)) ) {
+        if ( imports.utils.IsUndefined(data.center) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.center = {x:this.DEFAULTS.CENTER.X, y:this.DEFAULTS.CENTER.Y};}
+        if ( !imports.utils.IsUndefined(data.center) && (!imports.utils.IsAnObject(data.center) || !imports.utils.IsAnInt(data.center.x) || !imports.utils.IsAnInt(data.center.y)) ) {
             CustomLog("warn",`Particle Flow object: Invalid center coordinates! Set to (${this.DEFAULTS.CENTER.X},${this.DEFAULTS.CENTER.Y}).`);
             data.center = {x:this.DEFAULTS.CENTER.X, y:this.DEFAULTS.CENTER.Y};
         }
 
         //particle direction
-        if ( IsUndefined(data.particle_direction) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.particle_direction = this.DEFAULTS.PARTICLE_DIRECTION;}
-        if ( !IsUndefined(data.particle_direction) && (!IsANumber(data.particle_direction) || (data.particle_direction < 0) || (data.particle_direction > 2*Math.PI)) ) {
+        if ( imports.utils.IsUndefined(data.particle_direction) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.particle_direction = this.DEFAULTS.PARTICLE_DIRECTION;}
+        if ( !imports.utils.IsUndefined(data.particle_direction) && (!imports.utils.IsANumber(data.particle_direction) || (data.particle_direction < 0) || (data.particle_direction > 2*Math.PI)) ) {
             CustomLog("warn",`Particle Flow object: Invalid particle direction! Set to ${this.DEFAULTS.PARTICLE_DIRECTION}.`);
             data.particle_direction = this.DEFAULTS.PARTICLE_DIRECTION;
         }
 
         //spawn probability
-        if ( IsUndefined(data.spawn_probability) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.spawn_probability = this.DEFAULTS.SPAWN_PROBABILITY;}
-        if ( !IsUndefined(data.spawn_probability) && (!IsANumber(data.spawn_probability) || (data.spawn_probability < 0) || (data.spawn_probability > 1)) ) {
+        if ( imports.utils.IsUndefined(data.spawn_probability) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.spawn_probability = this.DEFAULTS.SPAWN_PROBABILITY;}
+        if ( !imports.utils.IsUndefined(data.spawn_probability) && (!imports.utils.IsANumber(data.spawn_probability) || (data.spawn_probability < 0) || (data.spawn_probability > 1)) ) {
             CustomLog("warn",`Particle Flow object: Invalid spawn probability! Set to ${this.DEFAULTS.SPAWN_PROBABILITY}.`);
             data.spawn_probability = this.DEFAULTS.SPAWN_PROBABILITY;
         }
 
         //spawn tests
-        if ( IsUndefined(data.spawn_tests) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.spawn_tests = this.DEFAULTS.SPAWN_TESTS;}
-        if ( !IsUndefined(data.spawn_tests) && (!IsAnInt(data.spawn_tests) || (data.spawn_tests < 1)) ) {
+        if ( imports.utils.IsUndefined(data.spawn_tests) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.spawn_tests = this.DEFAULTS.SPAWN_TESTS;}
+        if ( !imports.utils.IsUndefined(data.spawn_tests) && (!imports.utils.IsAnInt(data.spawn_tests) || (data.spawn_tests < 1)) ) {
             CustomLog("warn",`Particle Flow object: Invalid number of spawn tests! Set to ${this.DEFAULTS.SPAWN_TESTS}.`);
             data.spawn_probability = this.DEFAULTS.SPAWN_TESTS;
         }
 
         //color
-        if ( IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = this.DEFAULTS.COLOR;}
-        if ( !IsUndefined(data.color) && !IsAString(data.color) ) {
+        if ( imports.utils.IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = this.DEFAULTS.COLOR;}
+        if ( !imports.utils.IsUndefined(data.color) && !imports.utils.IsAString(data.color) ) {
             CustomLog("warn",`Particle Flow object: Invalid color! Set to ${this.DEFAULTS.COLOR}.`); //do not detect css errors!
             data.color = this.DEFAULTS.COLOR;
         }
@@ -183,10 +183,10 @@ function ParticleFlow(glob_data) {
     //###########################################
 
     this.updateData = function(data) {
-        if (IsUndefined(data)) throw "ParticleFlow.updateData: data missing!";
+        if (imports.utils.IsUndefined(data)) throw "ParticleFlow.updateData: data missing!";
         //NOTE: it is NOT possible to change the particle flow type (data.type) and id (data.id). A new particle flow must be created in such case!
 
-        if ( IsUndefined(data.id) ) {
+        if ( imports.utils.IsUndefined(data.id) ) {
             CustomLog("error","Particle Flow object: No ID specified!");
             return;
         }
@@ -557,7 +557,7 @@ function ParticleFlow(glob_data) {
     //####################################
 
     this.remove = function(id) {
-        if (!IsAString(id)) throw `ParticleFlow.remove: ${id} is not a valid ID.`;
+        if (!imports.utils.IsAString(id)) throw `ParticleFlow.remove: ${id} is not a valid ID.`;
 
         if (this.data.id === id) {//if he is the targeted element (remove executes for all objects!)
             //remove index
@@ -584,8 +584,8 @@ function ParticleFlow(glob_data) {
 
 
 function Particle(data, canvas) {//control each particle's behavior with an independant process.
-    if (IsUndefined(data)) throw "Particle: data missing!";
-    if (!IsAnElement(canvas)) throw "Particle: No valid canvas!";
+    if (imports.utils.IsUndefined(data)) throw "Particle: data missing!";
+    if (!imports.utils.IsAnElement(canvas)) throw "Particle: No valid canvas!";
 
     this.data = data;//main process data transfer
 
@@ -593,7 +593,7 @@ function Particle(data, canvas) {//control each particle's behavior with an inde
     var ctx = canvas.getContext("2d");
 
     //PARAMETERS
-    this.radius = RandomInt(this.data.particle_radius_range[0], this.data.particle_radius_range[1]);
+    this.radius = imports.utils.RandomInt(this.data.particle_radius_range[0], this.data.particle_radius_range[1]);
     this.speed = 0;
 
     //direction
@@ -616,18 +616,18 @@ function Particle(data, canvas) {//control each particle's behavior with an inde
         var y_max = canvas.height + this.radius;
         this.leftSpawn = function() {
             this.x = x_min;
-            this.y = RandomInt(y_min, y_max);
+            this.y = imports.utils.RandomInt(y_min, y_max);
         }
         this.rightSpawn = function() {
             this.x = x_max;
-            this.y = RandomInt(y_min, y_max);
+            this.y = imports.utils.RandomInt(y_min, y_max);
         }
         this.topSpawn = function() {
-            this.x = RandomInt(x_min, x_max);
+            this.x = imports.utils.RandomInt(x_min, x_max);
             this.y = y_min;
         }
         this.bottomSpawn = function() {
-            this.x = RandomInt(x_min, x_max);
+            this.x = imports.utils.RandomInt(x_min, x_max);
             this.y = y_max;
         }
 
@@ -648,15 +648,15 @@ function Particle(data, canvas) {//control each particle's behavior with an inde
             default: axis_direction = false;
         }
         //other cases
-        if      (InInterval(this.data.particle_direction, [0       , PI/2    ], "excluded")) {this.spawn_type = "top-left"}
-        else if (InInterval(this.data.particle_direction, [PI/2    , PI      ], "excluded")) {this.spawn_type = "top-right"}
-        else if (InInterval(this.data.particle_direction, [PI      , (3*PI)/2], "excluded")) {this.spawn_type = "bottom-right"}
-        else if (InInterval(this.data.particle_direction, [(3*PI)/2, 2*PI    ], "excluded")) {this.spawn_type = "bottom-left"}
+        if      (imports.utils.InInterval(this.data.particle_direction, [0       , PI/2    ], "excluded")) {this.spawn_type = "top-left"}
+        else if (imports.utils.InInterval(this.data.particle_direction, [PI/2    , PI      ], "excluded")) {this.spawn_type = "top-right"}
+        else if (imports.utils.InInterval(this.data.particle_direction, [PI      , (3*PI)/2], "excluded")) {this.spawn_type = "bottom-right"}
+        else if (imports.utils.InInterval(this.data.particle_direction, [(3*PI)/2, 2*PI    ], "excluded")) {this.spawn_type = "bottom-left"}
         else if (!axis_direction) throw `Particle: ${this.data.particle_direction} is not a valid particle direction. It must be a radian value between 0 and 2PI!`
 
 
         //APPLY THE SPAWN TYPE
-        var random = RandomInt(0,1);
+        var random = imports.utils.RandomInt(0,1);
 
         switch (this.spawn_type) {
             //====================================================

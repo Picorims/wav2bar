@@ -51,7 +51,18 @@ function GetWorkingDir() {
         return ipcRenderer.invoke('get-app-root');
     }).then(root => {
         root_dir = root;
+        LoadModules();
+    });
+}
+
+//load ES modules required
+function LoadModules() {
+    import("./utils/utils.js").then(module => {
+        imports.utils = module;
+    }).then(() => {
         InitPage();
+    }).catch(error => {
+        CustomLog("error", `couldn't load modules: ${error}`);
     });
 }
 
@@ -132,7 +143,7 @@ async function SaveAudio(path) {
 
 
 function LoadAudio(file_data, type) {//load an audio file into the app. type: "file" || "url"
-    if (IsUndefined(file_data)) throw "LoadAudio: No file data provided, couldn't load the audio file.";
+    if (imports.utils.IsUndefined(file_data)) throw "LoadAudio: No file data provided, couldn't load the audio file.";
     if ( (type!=="file") && (type!=="url") ) throw `LoadAudio: ${type} is not a valid audio file type!`;
 
     CustomLog("info","loading audio...");
@@ -189,7 +200,7 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
 
 function CloseAudio() {
     CustomLog("info","Closing audio context if any...");
-    if (!IsUndefined(context)) context.close();
+    if (!imports.utils.IsUndefined(context)) context.close();
     if (!export_mode) document.getElementById("opened_audio").innerHTML = current_save.audio_filename;
     CustomLog("info","Audio context closed.");
 }
@@ -220,7 +231,7 @@ ANIMATION
 
 function StartAnimating(fps) {//prepare fps animation
     // initialize the timer variables and start the animation
-    if (!IsANumber(fps)) throw `StartAnimating: ${fps} is not a valid fps value, start aborted.`;
+    if (!imports.utils.IsANumber(fps)) throw `StartAnimating: ${fps} is not a valid fps value, start aborted.`;
 
     stop_animating = false;
     animating = true;
@@ -302,7 +313,7 @@ function DrawFrame() {//update and draw the screen
     } else {
         //collect frequency data
         analyser.getByteFrequencyData(ctx_frequency_array);
-        frequency_array = LinearToLog(ctx_frequency_array);  
+        frequency_array = imports.utils.LinearToLog(ctx_frequency_array);  
 
         //time update
         current_time = audio.currentTime;
@@ -313,7 +324,7 @@ function DrawFrame() {//update and draw the screen
 
     //smoothing
     vol_frequency_array = frequency_array;
-    if (IsUndefined(vol_prev_frequency_array)) vol_prev_frequency_array = vol_frequency_array;
+    if (imports.utils.IsUndefined(vol_prev_frequency_array)) vol_prev_frequency_array = vol_frequency_array;
 
     //This is very similar to the smoothing system used by the Web Audio API.
     //The formula is the following (|x|: absolute value of x):

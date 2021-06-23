@@ -6,7 +6,7 @@ var object_method = {
     //function that returns the last object in the object list with the matching id
     //(considering an ID is unique, it always match the right object)
     getByID: function(id) {
-        if (!IsAString(id)) throw `object_method.getByID: ${object_id} is not a valid ID.`;
+        if (!imports.utils.IsAString(id)) throw `object_method.getByID: ${object_id} is not a valid ID.`;
 
         var object;
         for (var obj of objects) {
@@ -19,7 +19,7 @@ var object_method = {
 
     //function that returns if an ID is valid (unique uuid v4)
     validID: function(id, corresponding_object) {
-        if (!IsAString(id)) throw `object_method.validateID: ${IDBCursor} is not a string.`;
+        if (!imports.utils.IsAString(id)) throw `object_method.validateID: ${IDBCursor} is not a string.`;
 
         var valid = true;
         if (id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i) == null) {
@@ -39,7 +39,7 @@ var object_method = {
     generateID: function() {
         var id;
         do {
-            id = uuidv4();
+            id = imports.utils.uuidv4();
         }
         while (!this.validID(id));
 
@@ -72,11 +72,11 @@ var object_method = {
     },
 
     mergeData: function(data_to_add, data_receiver) {
-        if (IsUndefined(data_to_add)) throw "object_method.mergeData: data missing!";
-        if (IsUndefined(data_receiver)) throw "object_method.mergeData: destination data missing!";
+        if (imports.utils.IsUndefined(data_to_add)) throw "object_method.mergeData: data missing!";
+        if (imports.utils.IsUndefined(data_receiver)) throw "object_method.mergeData: destination data missing!";
 
         for (key of Object.keys(data_to_add)) { //only update the changed nodes in data_to_add
-            if (IsAnObject(data_to_add[key]) && !IsAnArray(data_to_add[key])) {
+            if (imports.utils.IsAnObject(data_to_add[key]) && !imports.utils.IsAnArray(data_to_add[key])) {
                 //there are multiple sub keys in this key, they must be considered independently.
                 object_method.mergeData(data_to_add[key], data_receiver[key]);
             } else {

@@ -27,7 +27,7 @@ function Export(path) {//Launch the rendering process which will export the vide
         //data to send to the renderer process (the project, so it can be recreated into the new window)
         let filename = current_save.audio_filename;
         let extension = filename.replace(/^.*\./,"");
-        if (IsUndefined(audio_file_type)) {
+        if (imports.utils.IsUndefined(audio_file_type)) {
             switch (extension.toLowerCase()) {
                 case 'mp3': audio_file_type = 'audio/mp3'; break;
                 case 'wav': audio_file_type = 'audio/wav'; break;

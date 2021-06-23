@@ -34,7 +34,7 @@ function DefaultSave() {//set the save data to default values
 
 
 async function LoadSave(save_file_path) {//load a user save or a preset (JSON format)
-    if (!IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
+    if (!imports.utils.IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
 
     CustomLog("info", "Backing up currently opened save...");
     ExportSave(`${working_dir}/temp/before_new_save_open.w2bzip`, true);
@@ -345,8 +345,8 @@ function ExportSaveAsJSON() {//export the current save to JSON format.
  * /
  */
 function ExportSave(save_path, no_dialog = false) {
-    if (!IsAString(save_path)) throw `ExportSave: ${save_path} is an invalid save path (not a string).`;
-    if (!IsABoolean(no_dialog)) throw `ExportSave: ${no_dialog} must be a boolean for no_dialog value!`;
+    if (!imports.utils.IsAString(save_path)) throw `ExportSave: ${save_path} is an invalid save path (not a string).`;
+    if (!imports.utils.IsABoolean(no_dialog)) throw `ExportSave: ${no_dialog} must be a boolean for no_dialog value!`;
 
     CustomLog("info","generating save file...");
     //update the current save

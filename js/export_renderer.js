@@ -47,7 +47,7 @@ function InitRender() {//render initialization
 
 
 async function InitExport(data) {//prepare video export
-    if (!IsAnObject(data)) throw "InitExport: invalid data provided!";
+    if (!imports.utils.IsAnObject(data)) throw "InitExport: invalid data provided!";
 
     working_dir = await ipcRenderer.invoke('get-working-dir');
     os = await ipcRenderer.invoke('get-os');
@@ -164,7 +164,7 @@ function GetAudioData() {//Transform the audio temp file into PCM data, use FFT 
 
 
 function GetAudioBuffer(callback) {//get the buffer array from the audio file
-    if (IsUndefined(callback)) throw `GetAudioBuffer: Please provide a callback.`
+    if (imports.utils.IsUndefined(callback)) throw `GetAudioBuffer: Please provide a callback.`
 
     //setup
     var context = new AudioContext();
@@ -227,7 +227,7 @@ function PrepareRendering() {//define important variables
 
 function StartRendering(fps) {//prepare rendering
     // initialize the timer variables and start the animation
-    if (!IsANumber(fps)) throw `StartRendering: ${fps} is not a valid fps value, rendering aborted.`;
+    if (!imports.utils.IsANumber(fps)) throw `StartRendering: ${fps} is not a valid fps value, rendering aborted.`;
 
     frames_to_render = Math.floor((export_array[1] - export_array[0]) * fps);
     frames_rendered = 0;
@@ -273,8 +273,8 @@ async function Render() {//render every frame into an image
             for (var i=0; i<spectrum.length; i++) {
                 frequency_array.push( (1 - Math.exp(-32*spectrum[i])) * 255 );//(amplification with ceiling) * (scale to 0-255)
             }
-            frequency_array = MappedArray(frequency_array, 1024, 0, 1023); //TEMP FIX FOR EXPORT VISUALIZATION. Ideally, visualization should work no matter the array size.
-            frequency_array = LinearToLog(frequency_array);
+            frequency_array = imports.utils.MappedArray(frequency_array, 1024, 0, 1023); //TEMP FIX FOR EXPORT VISUALIZATION. Ideally, visualization should work no matter the array size.
+            frequency_array = imports.utils.LinearToLog(frequency_array);
             //console.log(frequency_array);
 
             //Draw the new frame now that the previous finished exporting .

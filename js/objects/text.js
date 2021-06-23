@@ -26,7 +26,7 @@
 }*/
 
 function Text(glob_data) {
-    if (IsUndefined(glob_data)) throw "Text: data missing!";
+    if (imports.utils.IsUndefined(glob_data)) throw "Text: data missing!";
 
     this.data = glob_data;//collect data
     this.data.object_type = "text";
@@ -63,139 +63,139 @@ function Text(glob_data) {
     //(invalid data is still overwritten)
 
     this.verifyData = function(data, ignore_undefined) {
-        if (IsUndefined(data)) throw "Text.verifyData: data missing!";
-        if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "Text.verifyData: IGNORE_UNDEFINED is the only valid node.";
+        if (imports.utils.IsUndefined(data)) throw "Text.verifyData: data missing!";
+        if ( !imports.utils.IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "Text.verifyData: IGNORE_UNDEFINED is the only valid node.";
 
-        if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
+        if ( imports.utils.IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
-        if ( IsUndefined(data.id) || !IsAString(data.id) || !object_method.validID(data.id, this) ) {
+        if ( imports.utils.IsUndefined(data.id) || !imports.utils.IsAString(data.id) || !object_method.validID(data.id, this) ) {
             CustomLog("error","Text object: received an object with an unspecified/invalid ID! A random ID is given.");
             data.id = object_method.generateID();
         }
 
         //name
-        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = this.DEFAULTS.NAME;}
-        if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
+        if ( imports.utils.IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = this.DEFAULTS.NAME;}
+        if ( !imports.utils.IsUndefined(data.name) && !imports.utils.IsAString(data.name) || data.name === "" ) {
             CustomLog("warn",`Text object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
             data.name = this.DEFAULTS.NAME;
         }
 
         //layer
-        if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = this.DEFAULTS.LAYER;}
-        if ( !IsUndefined(data.layer) && (!IsAnInt(data.layer) || (data.layer <= -1)) ) {
+        if ( imports.utils.IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = this.DEFAULTS.LAYER;}
+        if ( !imports.utils.IsUndefined(data.layer) && (!imports.utils.IsAnInt(data.layer) || (data.layer <= -1)) ) {
             CustomLog("warn",`Text object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
             data.layer = this.DEFAULTS.LAYER;
         }
 
         //x
-        if ( IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = this.DEFAULTS.X;}
-        if ( !IsUndefined(data.x) && !IsAnInt(data.x) ) {
+        if ( imports.utils.IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = this.DEFAULTS.X;}
+        if ( !imports.utils.IsUndefined(data.x) && !imports.utils.IsAnInt(data.x) ) {
             CustomLog("warn",`Text object: Invalid x coordinate! Set to ${this.DEFAULTS.X}.`);
             data.x = this.DEFAULTS.X;
         }
 
         //y
-        if ( IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = this.DEFAULTS.Y;}
-        if ( !IsUndefined(data.y) && !IsAnInt(data.y) ) {
+        if ( imports.utils.IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = this.DEFAULTS.Y;}
+        if ( !imports.utils.IsUndefined(data.y) && !imports.utils.IsAnInt(data.y) ) {
             CustomLog("warn",`Text object: Invalid y coordinate! Set to ${this.DEFAULTS.Y}.`);
             data.y = this.DEFAULTS.Y;
         }
 
         //width
-        if ( IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = this.DEFAULTS.WIDTH;}
-        if ( !IsUndefined(data.width) && (!IsAnInt(data.width) || (data.width < 0)) ) {
+        if ( imports.utils.IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = this.DEFAULTS.WIDTH;}
+        if ( !imports.utils.IsUndefined(data.width) && (!imports.utils.IsAnInt(data.width) || (data.width < 0)) ) {
             CustomLog("warn",`Text object: Invalid width! Set to ${this.DEFAULTS.WIDTH}.`);
             data.width = this.DEFAULTS.WIDTH;
         }
 
         //height
-        if ( IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = this.DEFAULTS.HEIGHT;}
-        if ( !IsUndefined(data.height) && (!IsAnInt(data.height) || (data.height < 0)) ) {
+        if ( imports.utils.IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = this.DEFAULTS.HEIGHT;}
+        if ( !imports.utils.IsUndefined(data.height) && (!imports.utils.IsAnInt(data.height) || (data.height < 0)) ) {
             CustomLog("warn",`Text object: Invalid height! Set to ${this.DEFAULTS.HEIGHT}.`);
             data.height = this.DEFAULTS.HEIGHT;
         }
 
         //rotation
-        if ( IsUndefined(data.rotation) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.rotation = this.DEFAULTS.ROTATION;}
-        if ( !IsUndefined(data.rotation) && !IsAnInt(data.rotation) ) {
+        if ( imports.utils.IsUndefined(data.rotation) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.rotation = this.DEFAULTS.ROTATION;}
+        if ( !imports.utils.IsUndefined(data.rotation) && !imports.utils.IsAnInt(data.rotation) ) {
             CustomLog("warn",`Text object: Invalid rotation! Set to ${this.DEFAULTS.ROTATION}.`);
             data.rotation = this.DEFAULTS.ROTATION;
         }
 
         //type
-        if ( IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = this.DEFAULTS.TYPE;}
-        if ( !IsUndefined(data.type) && (!IsAString(data.type) || ( (data.type !== "any") && (data.type !== "time") )) ) {
+        if ( imports.utils.IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = this.DEFAULTS.TYPE;}
+        if ( !imports.utils.IsUndefined(data.type) && (!imports.utils.IsAString(data.type) || ( (data.type !== "any") && (data.type !== "time") )) ) {
             CustomLog("warn",`Text object: Invalid type! Set to ${this.DEFAULTS.TYPE}.`);
             data.type = this.DEFAULTS.TYPE;
         }
 
         //text
-        if ( IsUndefined(data.text) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.text = this.DEFAULTS.TEXT;}
-        if ( !IsUndefined(data.text) && (!IsAString(data.text) || (data.text.indexOf("\\") > -1)) ) {
+        if ( imports.utils.IsUndefined(data.text) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.text = this.DEFAULTS.TEXT;}
+        if ( !imports.utils.IsUndefined(data.text) && (!imports.utils.IsAString(data.text) || (data.text.indexOf("\\") > -1)) ) {
             CustomLog("warn",`Text object: Invalid text! Set to "${this.DEFAULTS.TEXT}". (backslashes '\\' are not allowed)`);
             data.text = this.DEFAULTS.TEXT;
         }
 
         //font size
-        if ( IsUndefined(data.font_size) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.font_size = this.DEFAULTS.FONT_SIZE;}
-        if ( !IsUndefined(data.font_size) && (!IsAnInt(data.font_size) || (data.font_size < 0)) ) {
+        if ( imports.utils.IsUndefined(data.font_size) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.font_size = this.DEFAULTS.FONT_SIZE;}
+        if ( !imports.utils.IsUndefined(data.font_size) && (!imports.utils.IsAnInt(data.font_size) || (data.font_size < 0)) ) {
             CustomLog("warn",`Text object: Invalid font size! Set to ${this.DEFAULTS.FONT_SIZE}.`); //do not detect css errors!
             data.font_size = this.DEFAULTS.FONT_SIZE;
         }
 
         //color
-        if ( IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = this.DEFAULTS.COLOR;}
-        if ( !IsUndefined(data.color) && !IsAString(data.color) ) {
+        if ( imports.utils.IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = this.DEFAULTS.COLOR;}
+        if ( !imports.utils.IsUndefined(data.color) && !imports.utils.IsAString(data.color) ) {
             CustomLog("warn",`Text object: Invalid color! Set to ${this.DEFAULTS.COLOR}.`); //do not detect css errors!
             data.color = this.DEFAULTS.COLOR;
         }
 
         //italic
-        if ( IsUndefined(data.italic) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.italic = this.DEFAULTS.ITALIC;}
-        if ( !IsUndefined(data.italic) && !IsABoolean(data.italic) ) {
+        if ( imports.utils.IsUndefined(data.italic) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.italic = this.DEFAULTS.ITALIC;}
+        if ( !imports.utils.IsUndefined(data.italic) && !imports.utils.IsABoolean(data.italic) ) {
             CustomLog("warn",`Text object: Invalid status for italic! Set to ${this.DEFAULTS.ITALIC}.`);
             data.italic = this.DEFAULTS.ITALIC;
         }
 
         //bold
-        if ( IsUndefined(data.bold) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.bold = this.DEFAULTS.BOLD;}
-        if ( !IsUndefined(data.bold) && !IsABoolean(data.bold) ) {
+        if ( imports.utils.IsUndefined(data.bold) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.bold = this.DEFAULTS.BOLD;}
+        if ( !imports.utils.IsUndefined(data.bold) && !imports.utils.IsABoolean(data.bold) ) {
             CustomLog("warn",`Text object: Invalid status for bold! Set to ${this.DEFAULTS.BOLD}.`);
             data.bold = this.DEFAULTS.BOLD;
         }
 
         //underline
-        if ( IsUndefined(data.underline) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.underline = this.DEFAULTS.UNDERLINE;}
-        if ( !IsUndefined(data.underline) && !IsABoolean(data.underline) ) {
+        if ( imports.utils.IsUndefined(data.underline) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.underline = this.DEFAULTS.UNDERLINE;}
+        if ( !imports.utils.IsUndefined(data.underline) && !imports.utils.IsABoolean(data.underline) ) {
             CustomLog("warn",`Text object: Invalid status for underline! Set to ${this.DEFAULTS.UNDERLINE}.`);
             data.underline = this.DEFAULTS.UNDERLINE;
         }
 
         //overline
-        if ( IsUndefined(data.overline) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.overline = this.DEFAULTS.OVERLINE;}
-        if ( !IsUndefined(data.overline) && !IsABoolean(data.overline) ) {
+        if ( imports.utils.IsUndefined(data.overline) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.overline = this.DEFAULTS.OVERLINE;}
+        if ( !imports.utils.IsUndefined(data.overline) && !imports.utils.IsABoolean(data.overline) ) {
             CustomLog("warn",`Text object: Invalid status for overline! Set to ${this.DEFAULTS.OVERLINE}.`);
             data.overline = this.DEFAULTS.OVERLINE;
         }
 
         //line-through
-        if ( IsUndefined(data.line_through) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.line_through = this.DEFAULTS.LINE_THROUGH;}
-        if ( !IsUndefined(data.line_through) && !IsABoolean(data.line_through) ) {
+        if ( imports.utils.IsUndefined(data.line_through) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.line_through = this.DEFAULTS.LINE_THROUGH;}
+        if ( !imports.utils.IsUndefined(data.line_through) && !imports.utils.IsABoolean(data.line_through) ) {
             CustomLog("warn",`Text object: Invalid status for line-through! Set to ${this.DEFAULTS.LINE_THROUGH}.`);
             data.line_through = this.DEFAULTS.LINE_THROUGH;
         }
 
         //text align
-        if ( IsUndefined(data.text_align) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.text_align = this.DEFAULTS.TEXT_ALIGN;}
-        if ( !IsUndefined(data.text_align) && (!IsAString(data.text_align) || ( (data.text_align !== "left") && (data.text_align !== "center") && (data.text_align !== "right") )) ) {
+        if ( imports.utils.IsUndefined(data.text_align) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.text_align = this.DEFAULTS.TEXT_ALIGN;}
+        if ( !imports.utils.IsUndefined(data.text_align) && (!imports.utils.IsAString(data.text_align) || ( (data.text_align !== "left") && (data.text_align !== "center") && (data.text_align !== "right") )) ) {
             CustomLog("warn",`Text object: Invalid text align! Set to ${this.DEFAULTS.TEXT_ALIGN}.`);
             data.text_align = this.DEFAULTS.TEXT_ALIGN;
         }
 
         //text shadow
-        if ( IsUndefined(data.text_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.text_shadow = this.DEFAULTS.TEXT_SHADOW;}
-        if ( !IsUndefined(data.text_shadow) && !IsAString(data.text_shadow) ) {
+        if ( imports.utils.IsUndefined(data.text_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.text_shadow = this.DEFAULTS.TEXT_SHADOW;}
+        if ( !imports.utils.IsUndefined(data.text_shadow) && !imports.utils.IsAString(data.text_shadow) ) {
             CustomLog("warn",`Text object: Invalid text-shadow! Set to ${this.DEFAULTS.TEXT_SHADOW}.`); //do not detect css errors!
             data.text_shadow = this.DEFAULTS.TEXT_SHADOW;
         }
@@ -216,11 +216,11 @@ function Text(glob_data) {
     //##################################
 
     this.updateData = function(data) {
-        if (IsUndefined(data)) throw "Text.updateData: data missing!";
+        if (imports.utils.IsUndefined(data)) throw "Text.updateData: data missing!";
 
         //NOTE: it is NOT possible to change the text id (data.id). A new text must be created in such case!
 
-        if ( IsUndefined(data.id) ) {
+        if ( imports.utils.IsUndefined(data.id) ) {
             CustomLog("error","Text object: No ID specified!");
             return;
         }
@@ -679,7 +679,7 @@ function Text(glob_data) {
     //###########################
 
     this.remove = function(id) {
-        if (!IsAString(id)) throw `Text.remove: ${id} is not a valid ID.`;
+        if (!imports.utils.IsAString(id)) throw `Text.remove: ${id} is not a valid ID.`;
 
         if (this.data.id === id) {//if he is the targeted element (remove executes for all objects!)
             //remove index

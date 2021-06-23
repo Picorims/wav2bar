@@ -21,7 +21,7 @@
 }*/
 
 function Timer(glob_data) {
-    if (IsUndefined(glob_data)) throw "Timer: data missing!";
+    if (imports.utils.IsUndefined(glob_data)) throw "Timer: data missing!";
 
     this.data = glob_data;//collect data
     this.data.object_type = "timer";
@@ -53,105 +53,105 @@ function Timer(glob_data) {
     //(invalid data is still overwritten)
 
     this.verifyData = function(data, ignore_undefined) {
-        if (IsUndefined(data)) throw "Timer.verifyData: data missing!";
-        if ( !IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "Timer.verifyData: IGNORE_UNDEFINED is the only valid node.";
+        if (imports.utils.IsUndefined(data)) throw "Timer.verifyData: data missing!";
+        if ( !imports.utils.IsUndefined(ignore_undefined) && !(ignore_undefined === "IGNORE_UNDEFINED") ) throw "Timer.verifyData: IGNORE_UNDEFINED is the only valid node.";
 
 
-        if ( IsUndefined(ignore_undefined) ) ignore_undefined = "";
+        if ( imports.utils.IsUndefined(ignore_undefined) ) ignore_undefined = "";
 
         //ID
-        if ( IsUndefined(data.id) || !IsAString(data.id) || !object_method.validID(data.id, this) ) {
+        if ( imports.utils.IsUndefined(data.id) || !imports.utils.IsAString(data.id) || !object_method.validID(data.id, this) ) {
             CustomLog("error","Timer object: received an object with an unspecified/invalid ID! A random ID is given.");
             data.id = object_method.generateID();
         }
 
         //name
-        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = this.DEFAULTS.NAME;}
-        if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
+        if ( imports.utils.IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = this.DEFAULTS.NAME;}
+        if ( !imports.utils.IsUndefined(data.name) && !imports.utils.IsAString(data.name) || data.name === "" ) {
             CustomLog("warn",`Timer object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
             data.name = this.DEFAULTS.NAME;
         }
 
         //layer
-        if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = this.DEFAULTS.LAYER;}
-        if ( !IsUndefined(data.layer) && (!IsAnInt(data.layer) || (data.layer <= -1)) ) {
+        if ( imports.utils.IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = this.DEFAULTS.LAYER;}
+        if ( !imports.utils.IsUndefined(data.layer) && (!imports.utils.IsAnInt(data.layer) || (data.layer <= -1)) ) {
             CustomLog("warn",`Timer object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
             data.layer = this.DEFAULTS.LAYER;
         }
 
         //x
-        if ( IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = this.DEFAULTS.X;}
-        if ( !IsUndefined(data.x) && !IsAnInt(data.x) ) {
+        if ( imports.utils.IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = this.DEFAULTS.X;}
+        if ( !imports.utils.IsUndefined(data.x) && !imports.utils.IsAnInt(data.x) ) {
             CustomLog("warn",`Timer object: Invalid x coordinate! Set to ${this.DEFAULTS.X}.`);
             data.x = this.DEFAULTS.X;
         }
 
         //y
-        if ( IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = this.DEFAULTS.Y;}
-        if ( !IsUndefined(data.y) && !IsAnInt(data.y) ) {
+        if ( imports.utils.IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = this.DEFAULTS.Y;}
+        if ( !imports.utils.IsUndefined(data.y) && !imports.utils.IsAnInt(data.y) ) {
             CustomLog("warn",`Timer object: Invalid y coordinate! Set to ${this.DEFAULTS.Y}.`);
             data.y = this.DEFAULTS.Y;
         }
 
         //width
-        if ( IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = this.DEFAULTS.WIDTH;}
-        if ( !IsUndefined(data.width) && (!IsAnInt(data.width) || (data.width < 0)) ) {
+        if ( imports.utils.IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = this.DEFAULTS.WIDTH;}
+        if ( !imports.utils.IsUndefined(data.width) && (!imports.utils.IsAnInt(data.width) || (data.width < 0)) ) {
             CustomLog("warn",`Timer object: Invalid width! Set to ${this.DEFAULTS.WIDTH}.`);
             data.width = this.DEFAULTS.WIDTH;
         }
 
         //height
-        if ( IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = this.DEFAULTS.HEIGHT;}
-        if ( !IsUndefined(data.height) && (!IsAnInt(data.height) || (data.height < 0)) ) {
+        if ( imports.utils.IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = this.DEFAULTS.HEIGHT;}
+        if ( !imports.utils.IsUndefined(data.height) && (!imports.utils.IsAnInt(data.height) || (data.height < 0)) ) {
             CustomLog("warn",`Timer object: Invalid height! Set to ${this.DEFAULTS.HEIGHT}.`);
             data.height = this.DEFAULTS.HEIGHT;
         }
 
         //rotation
-        if ( IsUndefined(data.rotation) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.rotation = this.DEFAULTS.ROTATION;}
-        if ( !IsUndefined(data.rotation) && !IsAnInt(data.rotation) ) {
+        if ( imports.utils.IsUndefined(data.rotation) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.rotation = this.DEFAULTS.ROTATION;}
+        if ( !imports.utils.IsUndefined(data.rotation) && !imports.utils.IsAnInt(data.rotation) ) {
             CustomLog("warn",`Timer object: Invalid rotation! Set to ${this.DEFAULTS.ROTATION}.`);
             data.rotation = this.DEFAULTS.ROTATION;
         }
 
         //type
-        if ( IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = this.DEFAULTS.TYPE;}
-        if ( !IsUndefined(data.type) && (!IsAString(data.type) || ( (data.type !== "bar") && (data.type !== "point") )) ) {
+        if ( imports.utils.IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = this.DEFAULTS.TYPE;}
+        if ( !imports.utils.IsUndefined(data.type) && (!imports.utils.IsAString(data.type) || ( (data.type !== "bar") && (data.type !== "point") )) ) {
             CustomLog("warn",`Timer object: Invalid type! Set to ${this.DEFAULTS.TYPE}.`);
             data.type = this.DEFAULTS.TYPE;
         }
 
         //color
-        if ( IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = this.DEFAULTS.COLOR;}
-        if ( !IsUndefined(data.color) && !IsAString(data.color) ) {
+        if ( imports.utils.IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = this.DEFAULTS.COLOR;}
+        if ( !imports.utils.IsUndefined(data.color) && !imports.utils.IsAString(data.color) ) {
             CustomLog("warn",`Timer object: Invalid color! Set to ${this.DEFAULTS.COLOR}.`); //do not detect css errors!
             data.color = this.DEFAULTS.COLOR;
         }
 
         //border to bar space
-        if ( IsUndefined(data.border_to_bar_space) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_to_bar_space = this.DEFAULTS.BORDER_TO_BAR_SPACE;}
-        if ( !IsUndefined(data.border_to_bar_space) && (!IsAnInt(data.border_to_bar_space) || (data.border_to_bar_space < 0)) ) {
+        if ( imports.utils.IsUndefined(data.border_to_bar_space) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_to_bar_space = this.DEFAULTS.BORDER_TO_BAR_SPACE;}
+        if ( !imports.utils.IsUndefined(data.border_to_bar_space) && (!imports.utils.IsAnInt(data.border_to_bar_space) || (data.border_to_bar_space < 0)) ) {
             CustomLog("warn",`Timer object: Invalid border to bar space! Set to ${this.DEFAULTS.BORDER_TO_BAR_SPACE}.`);
             data.border_to_bar_space = this.DEFAULTS.BORDER_TO_BAR_SPACE;
         }
 
         //border thickness
-        if ( IsUndefined(data.border_thickness) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_thickness = this.DEFAULTS.BORDER_THICKNESS;}
-        if ( !IsUndefined(data.border_thickness) && (!IsAnInt(data.border_thickness) || (data.border_thickness < 0)) ) {
+        if ( imports.utils.IsUndefined(data.border_thickness) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_thickness = this.DEFAULTS.BORDER_THICKNESS;}
+        if ( !imports.utils.IsUndefined(data.border_thickness) && (!imports.utils.IsAnInt(data.border_thickness) || (data.border_thickness < 0)) ) {
             CustomLog("warn",`Timer object: Invalid border thickness! Set to ${this.DEFAULTS.BORDER_THICKNESS}.`);
             data.border_thickness = this.DEFAULTS.BORDER_THICKNESS;
         }
 
         //border-radius
-        if ( IsUndefined(data.border_radius) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_radius = this.DEFAULTS.BORDER_RADIUS;}
-        if ( !IsUndefined(data.border_radius) && !IsAString(data.border_radius) ) {
+        if ( imports.utils.IsUndefined(data.border_radius) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_radius = this.DEFAULTS.BORDER_RADIUS;}
+        if ( !imports.utils.IsUndefined(data.border_radius) && !imports.utils.IsAString(data.border_radius) ) {
             CustomLog("warn",`Timer object: Invalid border-radius! Set to "${this.DEFAULTS.BORDER_RADIUS}".`); //do not detect css errors!
             data.border_radius = this.DEFAULTS.BORDER_RADIUS;
         }
 
         //box-shadow
-        if ( IsUndefined(data.box_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.box_shadow = this.DEFAULTS.BOX_SHADOW;}
-        if ( !IsUndefined(data.box_shadow) && !IsAString(data.box_shadow) ) {
+        if ( imports.utils.IsUndefined(data.box_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.box_shadow = this.DEFAULTS.BOX_SHADOW;}
+        if ( !imports.utils.IsUndefined(data.box_shadow) && !imports.utils.IsAString(data.box_shadow) ) {
             CustomLog("warn",`Timer object: Invalid box-shadow! Set to "${this.DEFAULTS.BOX_SHADOW}".`); //do not detect css errors!
             data.box_shadow = this.DEFAULTS.BOX_SHADOW;
         }
@@ -174,10 +174,10 @@ function Timer(glob_data) {
     //###################################
 
     this.updateData = function(data) {
-        if (IsUndefined(data)) throw "Timer.updateData: data missing!";
+        if (imports.utils.IsUndefined(data)) throw "Timer.updateData: data missing!";
         //NOTE: it is NOT possible to change the timer type (data.type) and id (data.id). A new timer must be created in such case!
 
-        if ( IsUndefined(data.id) ) {
+        if ( imports.utils.IsUndefined(data.id) ) {
             CustomLog("error","Timer object: No ID specified!");
             return;
         }
@@ -510,7 +510,7 @@ function Timer(glob_data) {
     //###########################
 
     this.remove = function(id) {
-        if (!IsAString(id)) throw `Timer.remove: ${id} is not a valid ID.`;
+        if (!imports.utils.IsAString(id)) throw `Timer.remove: ${id} is not a valid ID.`;
 
         if (this.data.id === id) {//if he is the targeted element (remove executes for all objects!)
             //remove index

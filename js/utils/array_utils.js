@@ -1,47 +1,22 @@
 //MIT License - Copyright (c) 2020-2021 Picorims
 
-//USEFUL METHODS USED IN THE PROGRAM. THIS SHOULD ONLY CONTAIN GENERAL NON SPECIFIC METHODS, MANIPULATING ALL SORT OF DATA.
+import * as Type from "./type_checking.js";
 
+//array related utilities
 
-//Random values
-//=============
-
-function RandomInt(min, max) {//give a random integer between min and max.
-    if (!IsANumber(min)) throw `RandomInt: ${min} is not a valid min value.`;
-    if (!IsANumber(max)) throw `RandomInt: ${max} is not a valid max value.`;
-
-    return Math.floor(Math.random() * (max - min + 1) ) + min;
-}
-
-//taken from https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid
-//This should only be used in non sensitive contexts!
-function uuidv4() {//uuid v4 generator.
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
-
-
-
-
-
-//Arrays
-//======
-
-function MappedArray(array, new_length, min, max) {//function that remaps an array, within the given min and max, to a new length.
+export function MappedArray(array, new_length, min, max) {//function that remaps an array, within the given min and max, to a new length.
 
     //CHECK VARIABLES
-    if ( !IsAnArray(array) )                    throw `MappedArray: ${array} is not an array!`;
-    if ( !IsANumber(new_length) )               throw `MappedArray: ${new_length} is not a number!`;
-    if ( !IsUndefined(min) && !IsANumber(min) ) throw `MappedArray: ${min} is not a number!`; //min and max are optional and undefined shouldn't
-    if ( !IsUndefined(max) && !IsANumber(max) ) throw `MappedArray: ${max} is not a number!`; //trigger any error.
+    if ( !Type.IsAnArray(array) )                    throw `MappedArray: ${array} is not an array!`;
+    if ( !Type.IsANumber(new_length) )               throw `MappedArray: ${new_length} is not a number!`;
+    if ( !Type.IsUndefined(min) && !Type.IsANumber(min) ) throw `MappedArray: ${min} is not a number!`; //min and max are optional and undefined shouldn't
+    if ( !Type.IsUndefined(max) && !Type.IsANumber(max) ) throw `MappedArray: ${max} is not a number!`; //trigger any error.
     for (var i=0; i< array.length; i++) {
-        if ( IsUndefined(array[i]) ) throw `MappedArray: the value ${i} of the array is undefined or null!`
+        if ( Type.IsUndefined(array[i]) ) throw `MappedArray: the value ${i} of the array is undefined or null!`
     }
 
     //DEFINITIONS
-    if ( IsUndefined(min) || IsUndefined(max) ) {//if min or max not specified.
+    if ( Type.IsUndefined(min) || Type.IsUndefined(max) ) {//if min or max not specified.
         min = 0;
         max = array.length-1;
     }
@@ -74,8 +49,8 @@ function MappedArray(array, new_length, min, max) {//function that remaps an arr
 }
 
 
-function LinearToLog(array) {//redistributes the indexes in a logarithmic base 10 scale
-    if (!IsAnArray(array)) throw `LinearToLog: ${array} is not a valid array.`;
+export function LinearToLog(array) {//redistributes the indexes in a logarithmic base 10 scale
+    if (!Type.IsAnArray(array)) throw `LinearToLog: ${array} is not a valid array.`;
 
     var length = array.length;
     var base_l = 1/Math.log(length); //so the new index without scaling is always between 0 and 1
@@ -84,12 +59,12 @@ function LinearToLog(array) {//redistributes the indexes in a logarithmic base 1
 
     //re-index
     for (var i=0; i<length; i++) {
-        log_index = Math.floor( Math.log(i+1)*base_l * length ); //pos * scale
+        let log_index = Math.floor( Math.log(i+1)*base_l * length ); //pos * scale
         log_array[log_index] = array[i];
         
         //flag non empty indexes at the same time.
         //it can be done here as log_index grow faster than i.
-        if (!IsUndefined(log_array[i])) non_empty_indexes.push(i);
+        if (!Type.IsUndefined(log_array[i])) non_empty_indexes.push(i);
     }
 
     //interpolate empty indexes
@@ -98,7 +73,7 @@ function LinearToLog(array) {//redistributes the indexes in a logarithmic base 1
     //If "i" was starting to 0 an unecessary increment would be performed, as the loop would think there was an
     //interpolation done before index 0.
     for (var i=1; i<length; i++) {
-        if (IsUndefined(log_array[i])) {
+        if (Type.IsUndefined(log_array[i])) {
             //change of area when the right boundary is bypassed.
             //if (i >= non_empty_indexes[j+1]) j++;
 
@@ -137,11 +112,11 @@ function LinearToLog(array) {//redistributes the indexes in a logarithmic base 1
 }
 
 
-function InInterval(value, interval, type) {//returns if the given value is in the interval [min,max] included or excluded;
-    if (!IsANumber(value)) throw `InInterval: ${value} is not a number`;
-    if (!IsAnArray(interval)) throw `InInterval: ${interval} is not a valid array`;
-    if (!IsUndefined(interval) && interval[0] > interval[1]) throw `InInterval: ${interval} has values in the wrong order. It must be [min,max], min<max`;
-    if (IsUndefined(type) || (type !== "included" && type !== "excluded")) throw `InInterval: ${type} is not a valid type. It must be "included" or "excluded"!`;
+export function InInterval(value, interval, type) {//returns if the given value is in the interval [min,max] included or excluded;
+    if (!Type.IsANumber(value)) throw `InInterval: ${value} is not a number`;
+    if (!Type.IsAnArray(interval)) throw `InInterval: ${interval} is not a valid array`;
+    if (!Type.IsUndefined(interval) && interval[0] > interval[1]) throw `InInterval: ${interval} has values in the wrong order. It must be [min,max], min<max`;
+    if (Type.IsUndefined(type) || (type !== "included" && type !== "excluded")) throw `InInterval: ${type} is not a valid type. It must be "included" or "excluded"!`;
 
     switch (type) {
         case "included":
@@ -151,49 +126,4 @@ function InInterval(value, interval, type) {//returns if the given value is in t
         default:
             throw `InInterval: ${type} is not a valid interval type! (included or excluded)`
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-//Variable type tests
-//===================
-
-function IsANumber(value) {//returns true if the given variable is a number.
-    return (typeof value === "number" && !isNaN(value));
-}
-
-function IsAnInt(value) {//returns true if the given variable is an integer. (IsANumber() included in it)
-    return( (typeof value === "number") && Number.isInteger(value) );
-}
-
-function IsAString(value) {//returns true if the given variable is a string.
-    return (typeof value === "string");
-}
-
-function IsABoolean(value) {//returns true if the given variable is a boolean. (true or false)
-    return ( (value === true) || (value === false) )
-}
-
-function IsAnArray(value) {//returns true if the given variable is an array.
-    return (  (typeof value === "object")    &&    ( (value instanceof Array) || (value instanceof Uint8Array) )  );
-}
-
-function IsAnObject(value) {//returns true if the given variable is an Object of any kind.
-    return ( (typeof value === 'object') && (value !== null) )
-}
-
-function IsUndefined(value) {//returns true if the given variable is either undefined or null.
-    return (  (value===undefined) || (value===null)  );
-}
-
-function IsAnElement(value) {//returns true if the given variable is an HTML DOM element.
-    return value instanceof HTMLElement;
 }
