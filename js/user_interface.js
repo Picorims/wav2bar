@@ -152,7 +152,12 @@ async function InitUI() {
     //OBJECTS TAB
     //create object
     document.getElementById("create_object_button").onclick = function() {
-        CreateObject();
+        //get name
+        var name = document.getElementById("create_object_input").value;
+
+        //get type
+        var type = document.getElementById("create_object_select").value;
+        CreateObject(name, type);
     }
 
 
@@ -700,13 +705,10 @@ OBJECT CREATION
 */
 
 //function that creates an object using the given parameters
-function CreateObject() {
+function CreateObject(name, type) {
 
-    //get name
-    var name = document.getElementById("create_object_input").value;
-
-    //get type
-    var type = document.getElementById("create_object_select").value;
+    if (IsUndefined(name) || !IsAString(name)) throw new Error("CreateObject: invalid name.");
+    if (IsUndefined(type)) throw new Error("CreateObject: type must be specified.");
 
     //create object
     switch (type) {
@@ -754,8 +756,7 @@ function CreateObject() {
             break;
 
         default:
-            throw `CreateObject: ${type} is an unknown object type!`;
-
+            throw new Error(`CreateObject: ${type} is an unknown object type!`);
     }
 
 }
