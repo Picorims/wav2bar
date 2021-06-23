@@ -27,6 +27,8 @@ INITIALIZATION
 
 //user interface initialization
 async function InitUI() {
+    //IMPORTS
+    imports.ui_components = await import("./ui_components/ui_components.js");
 
     //DISPLAY VERSION
     document.title = document.title + " " + software_version;
