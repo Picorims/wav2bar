@@ -69,5 +69,22 @@ var object_method = {
 
         relative_path += absolute_path;
         return relative_path;
-    }
+    },
+
+    mergeData: function(data_to_add, data_receiver) {
+        if (IsUndefined(data_to_add)) throw "object_method.mergeData: data missing!";
+        if (IsUndefined(data_receiver)) throw "object_method.mergeData: destination data missing!";
+
+        for (key of Object.keys(data_to_add)) { //only update the changed nodes in data_to_add
+            if (IsAnObject(data_to_add[key]) && !IsAnArray(data_to_add[key])) {
+                //there are multiple sub keys in this key, they must be considered independently.
+                object_method.mergeData(data_to_add[key], data_receiver[key]);
+            } else {
+                //The key is a simple value, it can be processed directly
+                data_receiver[key] = data_to_add[key];
+            }
+        }
+
+        return data_receiver;
+    },
 };

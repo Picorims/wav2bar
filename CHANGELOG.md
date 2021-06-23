@@ -1,6 +1,11 @@
 # Changelogs
 This document is based on Keep a Changelog 1.0.0
 
+## 0.2.0-beta (?)
+
+### Changed
+- Internal refactoring around objects
+
 ## 0.1.2-beta (2021-06-22)
 
 ### Added

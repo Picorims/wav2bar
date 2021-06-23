@@ -27,8 +27,22 @@ function Timer(glob_data) {
     this.data.object_type = "timer";
     objects.push(this);//add the object to the list
 
-
-
+    //default values
+    this.DEFAULTS = {
+        NAME: this.data.object_type,
+        LAYER: 0,
+        X: 0,
+        Y: 0,
+        WIDTH: 100,
+        HEIGHT: 10,
+        ROTATION: 0,
+        TYPE: "bar",
+        COLOR: "#ffffff",
+        BORDER_TO_BAR_SPACE: 2,
+        BORDER_THICKNESS: 2,
+        BORDER_RADIUS: "",
+        BOX_SHADOW: "",
+    };
 
 
     //########################################
@@ -52,94 +66,94 @@ function Timer(glob_data) {
         }
 
         //name
-        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";}
+        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = this.DEFAULTS.NAME;}
         if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
-            CustomLog("warn","Timer object: Invalid name! Set to 'timer'.");
-            data.name = "timer";
+            CustomLog("warn",`Timer object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
+            data.name = this.DEFAULTS.NAME;
         }
 
         //layer
-        if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = 0;}
+        if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = this.DEFAULTS.LAYER;}
         if ( !IsUndefined(data.layer) && (!IsAnInt(data.layer) || (data.layer <= -1)) ) {
-            CustomLog("warn","Timer object: Invalid layer! Set to 0.");
-            data.layer = 0;
+            CustomLog("warn",`Timer object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
+            data.layer = this.DEFAULTS.LAYER;
         }
 
         //x
-        if ( IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = 0;}
+        if ( IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = this.DEFAULTS.X;}
         if ( !IsUndefined(data.x) && !IsAnInt(data.x) ) {
-            CustomLog("warn","Timer object: Invalid x coordinate! Set to 0.");
-            data.x = 0;
+            CustomLog("warn",`Timer object: Invalid x coordinate! Set to ${this.DEFAULTS.X}.`);
+            data.x = this.DEFAULTS.X;
         }
 
         //y
-        if ( IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = 0;}
+        if ( IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = this.DEFAULTS.Y;}
         if ( !IsUndefined(data.y) && !IsAnInt(data.y) ) {
-            CustomLog("warn","Timer object: Invalid y coordinate! Set to 0.");
-            data.y = 0;
+            CustomLog("warn",`Timer object: Invalid y coordinate! Set to ${this.DEFAULTS.Y}.`);
+            data.y = this.DEFAULTS.Y;
         }
 
         //width
-        if ( IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = 100;}
+        if ( IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = this.DEFAULTS.WIDTH;}
         if ( !IsUndefined(data.width) && (!IsAnInt(data.width) || (data.width < 0)) ) {
-            CustomLog("warn","Timer object: Invalid width! Set to 100.");
-            data.width = 100;
+            CustomLog("warn",`Timer object: Invalid width! Set to ${this.DEFAULTS.WIDTH}.`);
+            data.width = this.DEFAULTS.WIDTH;
         }
 
         //height
-        if ( IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = 10;}
+        if ( IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = this.DEFAULTS.HEIGHT;}
         if ( !IsUndefined(data.height) && (!IsAnInt(data.height) || (data.height < 0)) ) {
-            CustomLog("warn","Timer object: Invalid height! Set to 10.");
-            data.height = 10;
+            CustomLog("warn",`Timer object: Invalid height! Set to ${this.DEFAULTS.HEIGHT}.`);
+            data.height = this.DEFAULTS.HEIGHT;
         }
 
         //rotation
-        if ( IsUndefined(data.rotation) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.rotation = 0;}
+        if ( IsUndefined(data.rotation) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.rotation = this.DEFAULTS.ROTATION;}
         if ( !IsUndefined(data.rotation) && !IsAnInt(data.rotation) ) {
-            CustomLog("warn","Timer object: Invalid rotation! Set to 0.");
-            data.rotation = 0;
+            CustomLog("warn",`Timer object: Invalid rotation! Set to ${this.DEFAULTS.ROTATION}.`);
+            data.rotation = this.DEFAULTS.ROTATION;
         }
 
         //type
-        if ( IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = "bar";}
+        if ( IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = this.DEFAULTS.TYPE;}
         if ( !IsUndefined(data.type) && (!IsAString(data.type) || ( (data.type !== "bar") && (data.type !== "point") )) ) {
-            CustomLog("warn","Timer object: Invalid type! Set to bar.");
-            data.type = "bar";
+            CustomLog("warn",`Timer object: Invalid type! Set to ${this.DEFAULTS.TYPE}.`);
+            data.type = this.DEFAULTS.TYPE;
         }
 
         //color
-        if ( IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = "#fff";}
+        if ( IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = this.DEFAULTS.COLOR;}
         if ( !IsUndefined(data.color) && !IsAString(data.color) ) {
-            CustomLog("warn","Timer object: Invalid color! White color is applied."); //do not detect css errors!
-            data.color = "#fff";
+            CustomLog("warn",`Timer object: Invalid color! Set to ${this.DEFAULTS.COLOR}.`); //do not detect css errors!
+            data.color = this.DEFAULTS.COLOR;
         }
 
         //border to bar space
-        if ( IsUndefined(data.border_to_bar_space) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_to_bar_space = 2;}
+        if ( IsUndefined(data.border_to_bar_space) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_to_bar_space = this.DEFAULTS.BORDER_TO_BAR_SPACE;}
         if ( !IsUndefined(data.border_to_bar_space) && (!IsAnInt(data.border_to_bar_space) || (data.border_to_bar_space < 0)) ) {
-            CustomLog("warn","Timer object: Invalid border to bar space! Set to 2.");
-            data.border_to_bar_space = 2;
+            CustomLog("warn",`Timer object: Invalid border to bar space! Set to ${this.DEFAULTS.BORDER_TO_BAR_SPACE}.`);
+            data.border_to_bar_space = this.DEFAULTS.BORDER_TO_BAR_SPACE;
         }
 
         //border thickness
-        if ( IsUndefined(data.border_thickness) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_thickness = 2;}
+        if ( IsUndefined(data.border_thickness) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_thickness = this.DEFAULTS.BORDER_THICKNESS;}
         if ( !IsUndefined(data.border_thickness) && (!IsAnInt(data.border_thickness) || (data.border_thickness < 0)) ) {
-            CustomLog("warn","Timer object: Invalid border thickness! Set to 2.");
-            data.border_thickness = 2;
+            CustomLog("warn",`Timer object: Invalid border thickness! Set to ${this.DEFAULTS.BORDER_THICKNESS}.`);
+            data.border_thickness = this.DEFAULTS.BORDER_THICKNESS;
         }
 
         //border-radius
-        if ( IsUndefined(data.border_radius) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_radius = "";}
+        if ( IsUndefined(data.border_radius) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_radius = this.DEFAULTS.BORDER_RADIUS;}
         if ( !IsUndefined(data.border_radius) && !IsAString(data.border_radius) ) {
-            CustomLog("warn","Timer object: Invalid border-radius! No border-radius is applied."); //do not detect css errors!
-            data.border_radius = "";
+            CustomLog("warn",`Timer object: Invalid border-radius! Set to "${this.DEFAULTS.BORDER_RADIUS}".`); //do not detect css errors!
+            data.border_radius = this.DEFAULTS.BORDER_RADIUS;
         }
 
         //box-shadow
-        if ( IsUndefined(data.box_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.box_shadow = "";}
+        if ( IsUndefined(data.box_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.box_shadow = this.DEFAULTS.BOX_SHADOW;}
         if ( !IsUndefined(data.box_shadow) && !IsAString(data.box_shadow) ) {
-            CustomLog("warn","Timer object: Invalid box-shadow! No box-shadow is applied."); //do not detect css errors!
-            data.box_shadow = "";
+            CustomLog("warn",`Timer object: Invalid box-shadow! Set to "${this.DEFAULTS.BOX_SHADOW}".`); //do not detect css errors!
+            data.box_shadow = this.DEFAULTS.BOX_SHADOW;
         }
 
         return data;
@@ -151,26 +165,7 @@ function Timer(glob_data) {
 
 
 
-    //##################################
-    //FUNCTION TO MERGE TWO DATA OBJECTS
-    //##################################
-
-    this.mergeData = function(data_to_add, data_receiver) {
-        if (IsUndefined(data_to_add)) throw "Timer.mergeData: data missing!";
-        if (IsUndefined(data_receiver)) throw "Timer.mergeData: data_destination missing!";
-
-        for (key of Object.keys(data_to_add)) { //only update the changed nodes in data_to_add
-            if (IsAnObject(data_to_add[key]) && !IsAnArray(data_to_add[key])) {
-                //there are multiple sub keys in this key, they must be considered independently.
-                this.mergeData(data_to_add[key], data_receiver[key]);
-            } else {
-                //The key is a simple value, it can be processed directly
-                data_receiver[key] = data_to_add[key];
-            }
-        }
-
-        return data_receiver;
-    }
+    
 
 
 
@@ -197,7 +192,7 @@ function Timer(glob_data) {
             this.data = this.verifyData(this.data, "IGNORE_UNDEFINED");
 
             //APPLY DATA
-            this.data = this.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
+            this.data = object_method.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
             this.element.style.zIndex = this.data.layer;//layer
             this.element.style.width = this.data.width+"px";//width
             if (this.data.type === "bar") this.element.style.height = this.data.height+"px";//height

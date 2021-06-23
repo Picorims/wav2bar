@@ -24,7 +24,19 @@ function Background(glob_data) {
     this.data.object_type = "background";
     objects.push(this);//add the object to the list
 
-
+    //default values
+    this.DEFAULTS = {
+        NAME: this.data.object_type,
+        LAYER: 0,
+        BACKGROUND: {
+            TYPE: "color",
+            LAST_COLOR: "#ffffff",
+            LAST_GRADIENT: "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%)",
+            LAST_IMAGE: "",
+            SIZE: "",
+            REPEAT: "no-repeat",
+        },
+    };
 
 
     //########################################
@@ -47,17 +59,17 @@ function Background(glob_data) {
         }
 
         //name
-        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = "";}
+        if ( IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = this.DEFAULTS.NAME;}
         if ( !IsUndefined(data.name) && !IsAString(data.name) || data.name === "" ) {
-            CustomLog("warn","Background object: Invalid name! Set to 'background'.");
-            data.name = "background";
+            CustomLog("warn",`Background object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
+            data.name = this.DEFAULTS.NAME;
         }
 
         //layer
-        if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = 0;}
+        if ( IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = this.DEFAULTS.LAYER;}
         if ( !IsUndefined(data.layer) && (!IsAnInt(data.layer) || (data.layer <= -1)) ) {
-            CustomLog("warn","Background object: Invalid layer! Set to 0.");
-            data.layer = 0;
+            CustomLog("warn",`Background object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
+            data.layer = this.DEFAULTS.LAYER;
         }
 
         //background
@@ -66,45 +78,45 @@ function Background(glob_data) {
         if (!IsUndefined(data.background)) {//it is undefined if it has not been set before in the data argument and IGNORE_UNDEFINED is active
 
             //type
-            if ( IsUndefined(data.background.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.type = "color";}
+            if ( IsUndefined(data.background.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.type = this.DEFAULTS.BACKGROUND.TYPE;}
             if ( !IsUndefined(data.background.type) && (!IsAString(data.background.type) || ( (data.background.type !== "color") && (data.background.type !== "gradient") && (data.background.type !== "image") )) ) {
-                CustomLog("warn","Background object: Invalid background type! Set to color.");
-                data.background.type = "color";
+                CustomLog("warn",`Background object: Invalid background type! Set to ${this.DEFAULTS.BACKGROUND.TYPE}.`);
+                data.background.type = this.DEFAULTS.BACKGROUND.TYPE;
             }
 
             //last color
-            if ( IsUndefined(data.background.last_color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_color = "#ffffff";}
+            if ( IsUndefined(data.background.last_color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_color = this.DEFAULTS.BACKGROUND.LAST_COLOR;}
             if ( !IsUndefined(data.background.last_color) && !IsAString(data.background.last_color) ) {
-                CustomLog("warn","Background object: Invalid background color! Set to #ffffff."); //do not detect css errors!
-                data.background.last_color = "#ffffff";
+                CustomLog("warn",`Background object: Invalid background color! Set to ${this.DEFAULTS.BACKGROUND.LAST_COLOR}.`); //do not detect css errors!
+                data.background.last_color = this.DEFAULTS.BACKGROUND.LAST_COLOR;
             }
 
             //last gradient
-            if ( IsUndefined(data.background.last_gradient) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_gradient = "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%)";}
+            if ( IsUndefined(data.background.last_gradient) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_gradient = this.DEFAULTS.BACKGROUND.LAST_GRADIENT;}
             if ( !IsUndefined(data.background.last_gradient) && !IsAString(data.background.last_gradient) ) {
-                CustomLog("warn","Background object: Invalid background gradient! Set to a basic gradient."); //do not detect css errors!
-                data.background.last_gradient = "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%)";
+                CustomLog("warn",`Background object: Invalid background gradient! Set to ${this.DEFAULTS.BACKGROUND.LAST_GRADIENT}.`); //do not detect css errors!
+                data.background.last_gradient = this.DEFAULTS.BACKGROUND.LAST_GRADIENT;
             }
 
             //last image
-            if ( IsUndefined(data.background.last_image) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_image = "";}
+            if ( IsUndefined(data.background.last_image) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_image = this.DEFAULTS.BACKGROUND.LAST_IMAGE;}
             if ( !IsUndefined(data.background.last_image) && !IsAString(data.background.last_image) ) {
                 CustomLog("warn","Background object: Invalid background image! Value ignored."); //do not detect css errors!
-                data.background.last_image = "";
+                data.background.last_image = this.DEFAULTS.BACKGROUND.LAST_IMAGE;
             }
 
             //size
-            if ( IsUndefined(data.background.size) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.size = "";}
+            if ( IsUndefined(data.background.size) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.size = this.DEFAULTS.BACKGROUND.SIZE;}
             if ( !IsUndefined(data.background.size) && !IsAString(data.background.size) ) {
-                CustomLog("warn","Background object: Invalid size! No css size is applied."); //do not detect css errors!
-                data.background.size = "";
+                CustomLog("warn",`Background object: Invalid size! Set to "${this.DEFAULTS.BACKGROUND.SIZE}".`); //do not detect css errors!
+                data.background.size = this.DEFAULTS.BACKGROUND.SIZE;
             }
 
             //repeat
-            if ( IsUndefined(data.background.repeat) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.repeat = "no-repeat";}
+            if ( IsUndefined(data.background.repeat) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.repeat = this.DEFAULTS.BACKGROUND.REPEAT;}
             if ( !IsUndefined(data.background.repeat) && (!IsAString(data.background.repeat) || ( (data.background.repeat !== "no-repeat") && (data.background.repeat !== "repeat") && (data.background.repeat !== "repeat-x") && (data.background.repeat !== "repeat-y") )) ) {
-                CustomLog("warn","Background object: Invalid repeat type! Set to no-repeat.");
-                data.background.repeat = "no-repeat";
+                CustomLog("warn",`Background object: Invalid repeat type! Set to "${this.DEFAULTS.BACKGROUND.REPEAT}".`);
+                data.background.repeat = this.DEFAULTS.BACKGROUND.REPEAT;
             }
 
         }
@@ -118,26 +130,7 @@ function Background(glob_data) {
 
 
 
-    //##################################
-    //FUNCTION TO MERGE TWO DATA OBJECTS
-    //##################################
-
-    this.mergeData = function(data_to_add, data_receiver) {
-        if (IsUndefined(data_to_add)) throw "Background.mergeData: data missing!";
-        if (IsUndefined(data_receiver)) throw "Background.mergeData: data_destination missing!";
-
-        for (key of Object.keys(data_to_add)) { //only update the changed nodes in data_to_add
-            if (IsAnObject(data_to_add[key]) && !IsAnArray(data_to_add[key])) {
-                //there are multiple sub keys in this key, they must be considered independently.
-                this.mergeData(data_to_add[key], data_receiver[key]);
-            } else {
-                //The key is a simple value, it can be processed directly
-                data_receiver[key] = data_to_add[key];
-            }
-        }
-
-        return data_receiver;
-    }
+    
 
 
 
@@ -166,7 +159,7 @@ function Background(glob_data) {
             this.data = this.verifyData(this.data, "IGNORE_UNDEFINED");
 
             //APPLY DATA
-            this.data = this.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
+            this.data = object_method.mergeData(this.data, this.data_backup); //simple assignement would overwrite existing data
             this.element.style.zIndex = this.data.layer;//layer
             switch (this.data.background.type) {//background
                 case "color":
