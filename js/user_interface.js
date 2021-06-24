@@ -956,15 +956,26 @@ function AddParameter(args, callback) {
              * default: value,
              */
 
+            // //element
+            // var input = document.createElement("input");
+            // param_container.appendChild(input);
+            // input.classList.add("panel_input", "panel_input_string");
+            // input.value = args.settings.default;
+
+            // //function
+            // input.oninput = function() {
+            //     callback(args.object_id, input.value);
+            // }
+
             //element
-            var input = document.createElement("input");
-            param_container.appendChild(input);
-            input.classList.add("panel_input", "panel_input_string");
-            input.value = args.settings.default;
+            let string_input = new imports.ui_components.UIStringInput("", args.settings.default);
+            param_container.appendChild(string_input.DOM_container);
+            string_input.input_class_list = ["panel_input", "panel_input_string"];
 
             //function
-            input.oninput = function() {
-                callback(args.object_id, input.value);
+            string_input.oninput = function() {
+                console.log("g");
+                callback(args.object_id, string_input.value);
             }
         break;
 

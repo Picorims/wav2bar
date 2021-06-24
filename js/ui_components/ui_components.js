@@ -102,10 +102,86 @@ export class UINumberInput extends UIComponent {
         this._input.className = "";
         this._input.classList.add(...class_list);
     }
+
     set oninput(function_callback) {
         this._input.oninput = function() {
-            console.log(this.value);
-            if (!utils.IsUndefined(this.value) && this.value !== "") function_callback();
+            let no_value = utils.IsUndefined(this.value) || this.value === "";
+            let valid = false;
+            if (!no_value) {
+                let value = parseFloat(this.value);
+                let min = parseFloat(this.min);
+                let max = parseFloat(this.max);
+                valid = (isNaN(min) || value >= min) && (isNaN(max) || value <= max);
+            }
+
+            //the callback is only called if the value is defined and valid.
+            if (!no_value && valid) {
+                this.classList.remove("input_invalid");
+                function_callback();
+            } else {
+                this.classList.add("input_invalid");
+            }
+        };
+    }
+}
+
+
+
+//string input that supports regular expression checking.
+export class UIStringInput extends UIComponent {
+    constructor(title, default_value) {
+        super();
+        this._default_value = default_value;
+        this._pattern = "^.*$"; //everything
+
+        //create elements
+        this._DOM_container.style.display = "flex";
+        this._DOM_container.style.alignItems = "center";
+        this._DOM_container.style.justifyContent = "space-between";
+
+        if (title !== "") {
+            this._label = document.createElement("span");
+            this._DOM_container.appendChild(this._label);
+            this._label.innerHTML = this._title;
+            this._label.style.textAlign = "left";
+            this._label.style.width = "50%";
+            this._label.style.marginRight = "10px";
+        }
+
+        this._input = document.createElement("input");
+        this._DOM_container.appendChild(this._input);
+        this._input.value = this._default_value;
+        this._input.type = "text";
+        this._input.style.width = (title === "")? "100%" : "45%";
+        this._input.pattern = this._pattern;
+    }
+
+    get value() {return this._input.value}
+
+    set pattern(pattern) {
+        if (typeof pattern === "object") pattern = pattern.toString();
+        this._pattern = pattern;
+        this._input.pattern = pattern.replace(/^\//,"").replace(/\/$/,""); //remove the // around the regexp.
+    }
+    set input_class_list(class_list) {
+        if (!utils.IsAnArray(class_list)) throw new Error("UINumberInput: array required.");
+        this._input.className = "";
+        this._input.classList.add(...class_list);
+    }
+
+    set oninput(function_callback) {
+        this._input.oninput = function() {
+            let regexp = new RegExp(this.pattern);
+            let valid = regexp.test(this.value);
+            console.log(this.pattern, regexp, this.value, valid);
+            if (valid) {
+                console.log("yes");
+                this.classList.remove("input_invalid");
+                function_callback();
+            } else {
+                console.log("no");
+                this.classList.add("input_invalid");
+            }
         };
     }
 }
