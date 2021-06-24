@@ -978,19 +978,32 @@ function AddParameter(args, callback) {
              * step: value, (optional)
              */
 
+            // //element
+            // var input = document.createElement("input");
+            // param_container.appendChild(input);
+            // input.classList.add("panel_input", "panel_input");
+            // input.type = "number";
+            // input.value = args.settings.default;
+            // if ( !imports.utils.IsUndefined(args.settings.min) ) input.min = args.settings.min;
+            // if ( !imports.utils.IsUndefined(args.settings.max) ) input.max = args.settings.max;
+            // if ( !imports.utils.IsUndefined(args.settings.step) ) input.step = args.settings.step;
+
+            // //function
+            // input.oninput = function() {
+            //     callback(args.object_id, parseFloat(input.value) );
+            // }
+
             //element
-            var input = document.createElement("input");
-            param_container.appendChild(input);
-            input.classList.add("panel_input", "panel_input");
-            input.type = "number";
-            input.value = args.settings.default;
-            if ( !imports.utils.IsUndefined(args.settings.min) ) input.min = args.settings.min;
-            if ( !imports.utils.IsUndefined(args.settings.max) ) input.max = args.settings.max;
-            if ( !imports.utils.IsUndefined(args.settings.step) ) input.step = args.settings.step;
+            let number_input = new imports.ui_components.UINumberInput("", "", args.settings.default);
+            param_container.appendChild(number_input.DOM_container);
+            number_input.input_class_list = ["panel_input"];
+            if ( !imports.utils.IsUndefined(args.settings.min) ) number_input.min = args.settings.min;
+            if ( !imports.utils.IsUndefined(args.settings.max) ) number_input.max = args.settings.max;
+            if ( !imports.utils.IsUndefined(args.settings.step) ) number_input.step = args.settings.step;
 
             //function
-            input.oninput = function() {
-                callback(args.object_id, parseFloat(input.value) );
+            number_input.oninput = function() {
+                callback(args.object_id, parseFloat(number_input.value) );
             }
         break;
 
@@ -1005,35 +1018,59 @@ function AddParameter(args, callback) {
              * step: value, (optional)
              */
 
-            //elements
-            var input_container = document.createElement("div");
-            param_container.appendChild(input_container);
+            // //elements
+            // var input_container = document.createElement("div");
+            // param_container.appendChild(input_container);
 
-            var input1 = document.createElement("input");
-            input_container.appendChild(input1);
-            input1.classList.add("panel_input", "panel_input");
-            input1.type = "number";
-            input1.value = args.settings.default_x;
-            if ( !imports.utils.IsUndefined(args.settings.min) ) input1.min = args.settings.min;
-            if ( !imports.utils.IsUndefined(args.settings.max) ) input1.max = args.settings.max;
-            if ( !imports.utils.IsUndefined(args.settings.step) ) input1.step = args.settings.step;
+            // var input1 = document.createElement("input");
+            // input_container.appendChild(input1);
+            // input1.classList.add("panel_input", "panel_input");
+            // input1.type = "number";
+            // input1.value = args.settings.default_x;
+            // if ( !imports.utils.IsUndefined(args.settings.min) ) input1.min = args.settings.min;
+            // if ( !imports.utils.IsUndefined(args.settings.max) ) input1.max = args.settings.max;
+            // if ( !imports.utils.IsUndefined(args.settings.step) ) input1.step = args.settings.step;
 
-            var input2 = document.createElement("input");
-            input_container.appendChild(input2);
-            input2.classList.add("panel_input", "panel_input");
-            input2.type = "number";
-            input2.value = args.settings.default_y;
-            if ( !imports.utils.IsUndefined(args.settings.min) ) input2.min = args.settings.min;
-            if ( !imports.utils.IsUndefined(args.settings.max) ) input2.max = args.settings.max;
-            if ( !imports.utils.IsUndefined(args.settings.step) ) input2.step = args.settings.step;
+            // var input2 = document.createElement("input");
+            // input_container.appendChild(input2);
+            // input2.classList.add("panel_input", "panel_input");
+            // input2.type = "number";
+            // input2.value = args.settings.default_y;
+            // if ( !imports.utils.IsUndefined(args.settings.min) ) input2.min = args.settings.min;
+            // if ( !imports.utils.IsUndefined(args.settings.max) ) input2.max = args.settings.max;
+            // if ( !imports.utils.IsUndefined(args.settings.step) ) input2.step = args.settings.step;
+
+            // //functions
+            // input1.oninput = function() {
+            //     callback(args.object_id, parseFloat(input1.value), parseFloat(input2.value) );
+            // }
+            // input2.oninput = function() {
+            //     callback(args.object_id, parseFloat(input1.value), parseFloat(input2.value) );
+            // }
+
+            //inputs
+            let number_input1 = new imports.ui_components.UINumberInput("","", args.settings.default_x);
+            param_container.appendChild(number_input1.DOM_container);
+            number_input1.input_class_list = ["panel_input"];
+            if ( !imports.utils.IsUndefined(args.settings.min) ) number_input1.min = args.settings.min;
+            if ( !imports.utils.IsUndefined(args.settings.max) ) number_input1.max = args.settings.max;
+            if ( !imports.utils.IsUndefined(args.settings.step) ) number_input1.step = args.settings.step;
+
+            let number_input2 = new imports.ui_components.UINumberInput("","", args.settings.default_y);
+            param_container.appendChild(number_input2.DOM_container);
+            number_input2.input_class_list = ["panel_input"];
+            if ( !imports.utils.IsUndefined(args.settings.min) ) number_input2.min = args.settings.min;
+            if ( !imports.utils.IsUndefined(args.settings.max) ) number_input2.max = args.settings.max;
+            if ( !imports.utils.IsUndefined(args.settings.step) ) number_input2.step = args.settings.step;
 
             //functions
-            input1.oninput = function() {
-                callback(args.object_id, parseFloat(input1.value), parseFloat(input2.value) );
+            number_input1.oninput = function() {
+                callback(args.object_id, parseFloat(number_input1.value), parseFloat(number_input2.value) );
             }
-            input2.oninput = function() {
-                callback(args.object_id, parseFloat(input1.value), parseFloat(input2.value) );
+            number_input2.oninput = function() {
+                callback(args.object_id, parseFloat(number_input1.value), parseFloat(number_input2.value) );
             }
+
         break;
 
 

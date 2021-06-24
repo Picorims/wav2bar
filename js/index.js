@@ -13,7 +13,11 @@ var can_close_window_safely = false;//set to true when the user confirmed exit
 
 //MAIN PROCESS, PAGE INITIALIZATION
 
-let imports = {}; //stores es module imports (loaded through promises as this is not a module and thus, "import" can't be used)
+//stores es module imports (loaded through promises as this is not a module and thus, "import" can't be used)
+let imports = {
+    utils: null,
+    ui_components: null,
+};
 
 var fps, stop_animating, animating, frame_count, fps_interval, time; //fps related variables
 var fps_array, fps_array_max_length; //fps display
