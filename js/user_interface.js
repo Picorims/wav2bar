@@ -1092,25 +1092,35 @@ function AddParameter(args, callback) {
              * list:[option1, option2, ...] (strings)
              */
 
-            //element
-            var list = document.createElement("select");
-            param_container.appendChild(list);
-            list.classList.add("panel_input", "panel_input_list");
+            // //element
+            // var list = document.createElement("select");
+            // param_container.appendChild(list);
+            // list.classList.add("panel_input", "panel_input_list");
 
-            //options
-            for (var i=0; i< args.settings.list.length; i++) {
-                var option = document.createElement("option");
-                list.appendChild(option);
-                option.innerHTML = args.settings.list[i];
-                option.value = args.settings.list[i];
-            }
-            list.value = args.settings.default;
+            // //options
+            // for (var i=0; i< args.settings.list.length; i++) {
+            //     var option = document.createElement("option");
+            //     list.appendChild(option);
+            //     option.innerHTML = args.settings.list[i];
+            //     option.value = args.settings.list[i];
+            // }
+            // list.value = args.settings.default;
+
+            // //function
+            // list.oninput = function() {
+            //     callback(args.object_id, list.value);
+            // }
+
+            //element
+            let choice_list = new imports.ui_components.UIChoiceList("", args.settings.list, args.settings.default);
+            param_container.appendChild(choice_list.DOM_container);
+            choice_list.input_class_list = ["panel_input", "panel_input_list"];
 
             //function
-            list.oninput = function() {
-                callback(args.object_id, list.value);
+            choice_list.oninput = function() {
+                callback(args.object_id, choice_list.value);
             }
-        break;
+            break;
 
 
 
@@ -1119,17 +1129,28 @@ function AddParameter(args, callback) {
              * default: boolean;
              */
 
+            // //element
+            // var input = document.createElement("input");
+            // param_container.appendChild(input);
+            // input.classList.add("panel_input", "panel_input_checkbox");
+            // input.type = "checkbox";
+            // input.checked = args.settings.default;
+
+            // //function
+            // input.oninput = function() {
+            //     callback(args.object_id, input.checked);
+            // }
+
             //element
-            var input = document.createElement("input");
-            param_container.appendChild(input);
-            input.classList.add("panel_input", "panel_input_checkbox");
-            input.type = "checkbox";
-            input.checked = args.settings.default;
+            let checkbox = new imports.ui_components.UICheckBox("", args.settings.default);
+            param_container.appendChild(checkbox.DOM_container);
+            checkbox.input_class_list = ["panel_input", "panel_input_checkbox"];
 
             //function
-            input.oninput = function() {
-                callback(args.object_id, input.checked);
+            checkbox.oninput = function() {
+                callback(args.object_id, checkbox.checked);
             }
+
         break;
 
 

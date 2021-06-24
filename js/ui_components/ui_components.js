@@ -131,6 +131,7 @@ export class UINumberInput extends UIComponent {
 export class UIStringInput extends UIComponent {
     constructor(title, default_value) {
         super();
+        this._title = title;
         this._default_value = default_value;
         this._pattern = "^.*$"; //everything
 
@@ -184,4 +185,99 @@ export class UIStringInput extends UIComponent {
             }
         };
     }
+}
+
+
+
+//choice between a list of values
+export class UIChoiceList extends UIComponent {
+    constructor(title, options_list, default_value) {
+        super();
+        this._title = title;
+        this._options_list = options_list;
+        this._default_value = default_value;
+
+        //create elements
+        this._DOM_container.style.display = "flex";
+        this._DOM_container.style.alignItems = "center";
+        this._DOM_container.style.justifyContent = "space-between";
+
+        if (title !== "") {
+            this._label = document.createElement("span");
+            this._DOM_container.appendChild(this._label);
+            this._label.innerHTML = this._title;
+            this._label.style.textAlign = "left";
+            this._label.style.width = "50%";
+            this._label.style.marginRight = "10px";
+        }
+
+        this._input = document.createElement("select");
+        this._DOM_container.appendChild(this._input);
+
+        //options
+        for (let i = 0; i < this._options_list.length; i++) {
+            let option = document.createElement("option");
+            this._input.appendChild(option);
+            option.innerHTML = this._options_list[i];
+            option.value = this._options_list[i];
+        }
+        this._input.value = this._default_value;
+        
+        this._input.value = this._default_value;
+        this._input.style.width = (title === "")? "100%" : "45%";
+    }
+
+    get value() {return this._input.value}
+
+    set input_class_list(class_list) {
+        if (!utils.IsAnArray(class_list)) throw new Error("UINumberInput: array required.");
+        this._input.className = "";
+        this._input.classList.add(...class_list);
+    }
+
+    set oninput(function_callback) {
+        this._input.oninput = function_callback;
+    }
+}
+
+
+
+//checkbox
+export class UICheckBox extends UIComponent {
+    constructor(title, default_value) {
+        super();
+        this._title = title;
+        this._default_value = default_value;
+
+        //create elements
+        this._DOM_container.style.display = "flex";
+        this._DOM_container.style.alignItems = "center";
+        this._DOM_container.style.justifyContent = "space-between";
+
+        if (title !== "") {
+            this._label = document.createElement("span");
+            this._DOM_container.appendChild(this._label);
+            this._label.innerHTML = this._title;
+            this._label.style.textAlign = "left";
+            this._label.style.marginRight = "10px";
+        }
+
+        this._input = document.createElement("input");
+        this._DOM_container.appendChild(this._input);
+        this._input.type = "checkbox";
+        this._input.checked = this._default_value;        
+    }
+
+    get checked() {return this._input.checked}
+
+    set input_class_list(class_list) {
+        if (!utils.IsAnArray(class_list)) throw new Error("UINumberInput: array required.");
+        this._input.className = "";
+        this._input.classList.add(...class_list);
+    }
+
+    set oninput(function_callback) {
+        this._input.oninput = function_callback;
+    }
+
 }
