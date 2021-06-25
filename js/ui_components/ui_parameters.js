@@ -41,7 +41,8 @@ export class UIParameterString extends UIParameter {
         this._default_value = default_value;
 
         //element
-        this._string_input = new ui.UIStringInput(this._title, this._default_value);
+        this._string_input = new ui.UIStringInput(this._title + ": ", this._default_value);
+        this._string_input.DOM_container.style.width = "100%";
         this._container.appendChild(this._string_input.DOM_container);
         this._string_input.input_class_list = ["panel_input", "panel_input_string"];
 
@@ -68,6 +69,7 @@ export class UIParameterNumInputList extends UIParameter {
 
         for (let i = 0; i < this._input_definition_list.length; i++) {
             let input = new ui.UINumberInput(list[i].title, list[i].unit, list[i].default_value);
+            input.DOM_container.style.width = "100%";
             this._inputs.push(input);
             this._container.appendChild(input.DOM_container);
             input.input_class_list = ["panel_input"];
@@ -99,6 +101,7 @@ export class UIParameterChoice extends UIParameter {
 
         //create element
         this._list = new ui.UIChoiceList(this._title, this._options_list, this._default_value);
+        this._list.DOM_container.style.width = "100%";
         this._container.appendChild(this._list.DOM_container);
         this._list.input_class_list = ["panel_input", "panel_input_list"];
 
@@ -119,6 +122,7 @@ export class UIParameterCheckBox extends UIParameter {
         
         //create checkbox
         this._checkbox = new ui.UICheckBox(this._title, this._default_value);
+        this._checkbox.DOM_container.style.width = "100%";
         this._container.appendChild(this._checkbox.DOM_container);
         this._checkbox.input_class_list = ["panel_input", "panel_input_checkbox"];
 
@@ -162,6 +166,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
 
         //mode picker
         this._list = new ui.UIChoiceList("type", ["color","gradient","image"], this._defaults.type);
+        this._list.DOM_container.style.width = "100%";
         this._container.appendChild(this._list.DOM_container);
         this._list.input_class_list = ["panel_input", "panel_input_list"];
     
@@ -173,6 +178,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
             case "image": default_value = ""; break;
         }
         this._input = new ui.UIStringInput("", default_value);
+        this._input.DOM_container.style.width = "100%";
         this._container.appendChild(this._input.DOM_container);
         this._input.input_class_list = ["panel_input", "panel_input_string"];
 
@@ -191,6 +197,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
 
         //image picker
         this._img_picker = document.createElement("button");
+        this._img_picker.style.width = "100%";
         this._container.appendChild(this._img_picker);
         this._img_picker.classList.add("panel_button");
         this._img_picker.innerHTML = "BROWSE";
@@ -204,6 +211,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
 
         //size mode picker
         this._size_mode_picker = new ui.UIChoiceList("Background size: ", ["contain","cover","scale_size_control","width_height_size_control"], this._defaults.size_type);
+        this._size_mode_picker.DOM_container.style.width = "100%";
         this._container.appendChild(this._size_mode_picker.DOM_container);
         this._size_mode_picker.input_class_list = ["panel_input", "panel_input_list"];
         
@@ -213,6 +221,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
 
         //first input
         this._bgnd_size_input1 = new ui.UINumberInput("", "%", this._defaults.size_x);
+        this._bgnd_size_input1.DOM_container.style.width = "100%";
         this._bgnd_size_inputs.appendChild(this._bgnd_size_input1.DOM_container);
         this._bgnd_size_input1.DOM_container.style.display = (this._defaults.size_type === "scale_size_control" || this._defaults.size_type === "width_height_size_control")? "initial":"none";
         this._bgnd_size_input1.input_class_list = ["panel_input"];
@@ -224,6 +233,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
 
         //second input
         this._bgnd_size_input2 = new ui.UINumberInput("", "%", this._defaults.size_y);
+        this._bgnd_size_input2.DOM_container.style.width = "100%";
         this._bgnd_size_inputs.appendChild(this._bgnd_size_input2.DOM_container);
         this._bgnd_size_input2.DOM_container.style.display = (this._defaults.size_type === "width_height_size_control")? "initial":"none";
         this._bgnd_size_input2.input_class_list = ["panel_input"];
@@ -238,10 +248,12 @@ export class UIParameterBackgroundPicker extends UIParameter {
 
         //BACKGROUND REPEAT UI
         this._repeat_x_input = new ui.UICheckBox("Background repeat X: ", this._defaults.repeat_x);
+        this._repeat_x_input.DOM_container.style.width = "100%";
         this._container.appendChild(this._repeat_x_input.DOM_container);
         this._repeat_x_input.input_class_list = ["panel_input", "panel_input_checkbox"];
         
         this._repeat_y_input = new ui.UICheckBox("Background repeat Y: ", this._defaults.repeat_y);
+        this._repeat_y_input.DOM_container.style.width = "100%";
         this._container.appendChild(this._repeat_y_input.DOM_container);
         this._repeat_y_input.input_class_list = ["panel_input", "panel_input_checkbox"];
 
@@ -262,19 +274,19 @@ export class UIParameterBackgroundPicker extends UIParameter {
             //update UI
             switch (this._list.value) {
                 case "color":
-                    this._input.DOM_container.style.display = "initial";
+                    this._input.DOM_container.style.display = "flex";
                     this._input.value = this._defaults.color;
                     image_UI.forEach(element => element.style.display = "none");
                 break;
                 case "gradient":
-                    this._input.DOM_container.style.display = "initial";
+                    this._input.DOM_container.style.display = "flex";
                     this._input.value = this._defaults.gradient;
                     image_UI.forEach(element => element.style.display = "none");
                 break;
                 case "image":
                     this._input.DOM_container.style.display = "none";
                     this._input.value = "";
-                    image_UI.forEach(element => element.style.display = "initial");
+                    image_UI.forEach(element => element.style.display = (element.tagName === "BUTTON")? "initial":"flex");
                 break;
             }
 
@@ -291,12 +303,12 @@ export class UIParameterBackgroundPicker extends UIParameter {
                     this._bgnd_size_input2.DOM_container.style.display = "none";
                 break;
                 case "scale_size_control":
-                    this._bgnd_size_input1.DOM_container.style.display = "initial";
+                    this._bgnd_size_input1.DOM_container.style.display = "flex";
                     this._bgnd_size_input2.DOM_container.style.display = "none";
                 break;
                 case "width_height_size_control":
-                    this._bgnd_size_input1.DOM_container.style.display = "initial";
-                    this._bgnd_size_input2.DOM_container.style.display = "initial";
+                    this._bgnd_size_input1.DOM_container.style.display = "flex";
+                    this._bgnd_size_input2.DOM_container.style.display = "flex";
                 break;
             }
 

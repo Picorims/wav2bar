@@ -1640,7 +1640,6 @@ function AppendHelp(DOM_elt, help_string) {
             msgs[i].remove();
         }
     }
-    DOM_elt.style.backgroundColor = "#048";
 }
 
 
