@@ -6,10 +6,27 @@ import * as utils from "../utils/utils.js";
 export class UIComponent {
     constructor() {
         this._DOM_container = document.createElement("div");
+        this._DOM_parent = null;
+        this._display = null;
     }
     // Getters
     get DOM_container() {
         return this._DOM_container;
+    }
+
+    //getters and setters for parent container
+    get DOM_parent() {return this._DOM_parent;}
+    set DOM_parent(parent) {
+        if (this._DOM_parent !== null) this._DOM_parent.removeChild(this._DOM_container);
+        this._DOM_parent = parent;
+        parent.appendChild(this._DOM_container);
+    }
+
+    //getters and setters for changing display
+    get display() {return this._display;}
+    set display(display) {
+        this._display = display;
+        this._DOM_container.style.display = display;
     }
 }
 
