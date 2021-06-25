@@ -7,6 +7,7 @@ This document is based on Keep a Changelog 1.0.0
 - Made a lot of internal refactoring
     - Object parameters user interface has been refactored for more flexibility
 - Invalid numbers and strings are shown visually instead of being silently ignored in object parameters.
+- Made spacing between inputs more compact.
 
 ### Removed
 - Image preview is no longer available in background picking user interface.
