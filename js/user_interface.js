@@ -1153,7 +1153,7 @@ function AddParameter(args, callback) {
 
 
     //APPEND HELP TO THE END
-    let help_ui = new imports.ui_components.UIHelp(param_container, args.help);
+    parameter.help_string = args.help;
 
 }
 

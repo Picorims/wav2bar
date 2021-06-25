@@ -317,7 +317,8 @@ Tabs content
 }
 
 .panel_param_container {
-    padding: 5px 15px;
+    padding: 5px;
+    padding-left: 15px;
 
     border-top: 4px solid var(--main-gray);
     border-bottom: 4px solid var(--main-gray);
@@ -330,9 +331,14 @@ Tabs content
 
     overflow: hidden;
 }
+.panel_param_subcontainer {
+    width: calc(100% - 30px); /*size of question_mark + margin*/
+}
 
-.panel_param_container > span {
+.panel_param_subcontainer > span {
     text-align: left;
+    display: inline-block;
+    width: 100%;
 }
 
 .panel_param_container > .panel_input_file,

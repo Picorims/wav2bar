@@ -13,11 +13,16 @@ export class UIParameter extends ui.UIComponent {
         this._parent = parent;
         this._title = title;
         this._parent_title_visible = parent_title_visible;
+        this._help_string = "";
 
-        //container
-        this._container = this._DOM_container;
-        this._parent.appendChild(this._container);
-        this._container.classList.add("panel_param_container");
+        //setup element
+        this.DOM_parent = this._parent;
+        this._DOM_container.classList.add("panel_param_container");
+
+        //container for everything
+        this._container = document.createElement("div");
+        this._DOM_container.appendChild(this._container);
+        this._container.classList.add("panel_param_subcontainer");
 
         //name
         if (parent_title_visible) {
@@ -25,11 +30,19 @@ export class UIParameter extends ui.UIComponent {
             this._container.appendChild(this._label);
             this._label.innerHTML = `${title}: `;    
         }
+
+        //help on the side of the UI.
+        this._help = new help.UIHelp(this._DOM_container, this._help_string);
     }
 
     set class_list(class_list) {
         if (!utils.IsAnArray(class_list)) throw new Error("UINumberInput: array required.");
         this._input.className = class_list.join(" ");
+    }
+
+    set help_string(string) {
+        this._help_string = string;
+        this._help.help_msg = string;
     }
 }
 
