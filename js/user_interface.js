@@ -284,15 +284,16 @@ async function InitUI() {
     for (var i=0; i<elements.length; i++) {
         var help_node = elements[i].getAttribute("data-help");
 
+        let help_ui;
         switch (help_node) {
-            case "fps":                 imports.ui_components.AppendHelp(elements[i], help.parameter.screen.fps); break;
-            case "screen_size":         imports.ui_components.AppendHelp(elements[i], help.parameter.screen.size); break;
-            case "audio":               imports.ui_components.AppendHelp(elements[i], help.audio.import); break;
-            case "save_import":         imports.ui_components.AppendHelp(elements[i], help.save.import); break;
-            case "save_export":         imports.ui_components.AppendHelp(elements[i], help.save.export); break;
-            case "new_object":          imports.ui_components.AppendHelp(elements[i], help.parameter.object.general.creation); break;
-            case "export_video_path":   imports.ui_components.AppendHelp(elements[i], help.export.video_path); break;
-            case "export":              imports.ui_components.AppendHelp(elements[i], help.export.action); break;
+            case "fps":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.fps); break;
+            case "screen_size":         help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.size); break;
+            case "audio":               help_ui = new imports.ui_components.UIHelp(elements[i], help.audio.import); break;
+            case "save_import":         help_ui = new imports.ui_components.UIHelp(elements[i], help.save.import); break;
+            case "save_export":         help_ui = new imports.ui_components.UIHelp(elements[i], help.save.export); break;
+            case "new_object":          help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.object.general.creation); break;
+            case "export_video_path":   help_ui = new imports.ui_components.UIHelp(elements[i], help.export.video_path); break;
+            case "export":              help_ui = new imports.ui_components.UIHelp(elements[i], help.export.action); break;
             default: break;
         }
     }
@@ -1152,7 +1153,7 @@ function AddParameter(args, callback) {
 
 
     //APPEND HELP TO THE END
-    imports.ui_components.AppendHelp(param_container, args.help);
+    let help_ui = new imports.ui_components.UIHelp(param_container, args.help);
 
 }
 

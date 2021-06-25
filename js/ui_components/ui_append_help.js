@@ -1,41 +1,51 @@
 //MIT License - Copyright (c) 2020-2021 Picorims
 
+import * as ui from "./ui_base_components.js";
+import * as utils from "../utils/utils.js";
+
 /*
 ##################
 HELP HOVER BUTTONS
 ##################
 */
 
-//Append to a DOM element with the class ".panel_param_container" a question mark displaying the help.
-//The path is indicated by the data-help attribute.
-export function AppendHelp(DOM_elt, help_string) {
+//question mark you can hover to display a help message
+export class UIHelp extends ui.UIComponent {
+    constructor(parent, help_string) {
+        super();
+        if( !utils.IsAnElement(parent) ) throw new Error(`AppendHelp: ${parent} is not a DOM element.`);
+        if (!utils.IsAString(help_string) ) throw new Error(`AppendHelp: ${help_string} is not a string.`);
 
-    if( !imports.utils.IsAnElement(DOM_elt) ) throw `AppendHelp: ${DOM_elt} is not a DOM element.`;
-    if (!imports.utils.IsAString(help_string) ) throw `AppendHelp: ${help_string} is not a string.`;
+        this.DOM_parent = parent;
+        this._help_string = help_string;
 
-    //create help hover button
-    var question_mark = document.createElement("div");
-    DOM_elt.appendChild(question_mark);
-    question_mark.className = "question_mark";
-    question_mark.innerHTML = "<i class='ri-question-line'></i>";
+        //setup element
+        this._DOM_container.className = "question_mark";
+        this._DOM_container.innerHTML = "<i class='ri-question-line'></i>";
 
-    //help display
-    question_mark.setAttribute("data-content", help_string);
-
-    question_mark.onpointerenter = function() {
-        this.setAttribute("data-hover", "true");
-
-        //display delay
-        setTimeout(DisplayHelpMsg(this), 1000);
-    }
-
-    question_mark.onpointerleave = function() {
-        this.setAttribute("data-hover", "false");
-        var msgs = document.getElementsByClassName("help_msg");
-
-        for (var i=msgs.length-1; i>=0; i--) {
-            msgs[i].remove();
+        //help display
+        this._DOM_container.setAttribute("data-content", this._help_string);
+    
+        this._DOM_container.onpointerenter = function() {
+            this.setAttribute("data-hover", "true");
+    
+            //display delay
+            setTimeout(DisplayHelpMsg(this), 1000);
         }
+    
+        this._DOM_container.onpointerleave = function() {
+            this.setAttribute("data-hover", "false");
+            var msgs = document.getElementsByClassName("help_msg");
+    
+            for (var i=msgs.length-1; i>=0; i--) {
+                msgs[i].remove();
+            }
+        }
+    }
+    get help_msg() {return this._help_string}
+    set help_msg(string) {
+        this._help_string = string;
+        this._DOM_container.setAttribute("data-content", this._help_string);
     }
 }
 

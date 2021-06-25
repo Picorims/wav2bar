@@ -2,6 +2,7 @@
 
 import * as utils from "../utils/utils.js";
 import * as ui from "./ui_base_components.js";
+import * as help from "./ui_append_help.js";
 
 //parameters UI used in the control panel. Each class is a template.
 
