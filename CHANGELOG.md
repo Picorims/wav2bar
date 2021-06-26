@@ -4,8 +4,8 @@ This document is based on Keep a Changelog 1.0.0
 ## 0.2.0-beta (?)
 
 ### Changed
-- Made a lot of internal refactoring
-    - Object parameters user interface has been refactored for more flexibility
+- Made a lot of internal refactoring:
+    - Object parameters user interface and object openable containers have been internally refactored for more flexibility.
 - Invalid numbers and strings are shown visually instead of being silently ignored in object parameters.
 - Made spacing between inputs more compact.
 
