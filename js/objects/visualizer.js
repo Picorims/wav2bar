@@ -343,7 +343,18 @@ function Visualizer(glob_data) {
     if (!export_mode) {
 
         //create category
-        CreateObjectContainer(this.data.id);
+        this.parameter_container = new imports.ui_components.UIParameterRack(tab.objects, `UI-${this.data.id}`, this.data.name, '<i class="ri-rhythm-line"></i>', {
+            default_closed: true,
+        });
+        this.parameter_container.delete_callback = () => {
+            this.remove(this.data.id);
+        }
+        this.parameter_container.rename_callback = () => {
+            InputDialog("Enter a new name for the object:", (result) => {
+                this.updateData({id: this.data.id, name: result});
+                this.parameter_container.rename(result);
+            });
+        }
 
         //layer
         AddParameter(
@@ -891,9 +902,6 @@ function Visualizer(glob_data) {
             //remove index
             var index = objects.indexOf(this);
             objects.splice(index, 1);
-
-            //remove UI
-            document.getElementById(`UI-${id}`).remove();
 
             //remove element
             this.element.remove();

@@ -410,23 +410,19 @@ export class UIParameterRack extends ui.UIComponent {
         this._DEFAULT_DEFAULT_CLOSED = false;
         this._DEFAULT_USER_CAN_EDIT_NAME = true;
         this._DEFAULT_USER_CAN_DELETE = true;
-        this._DEFAULT_DELETE_CALLBACK = function() {};
-        this._DEFAULT_RENAME_CALLBACK = function() {return null};
         if (utils.IsUndefined(settings)) {
             this._settings = {
                 default_closed: this._DEFAULT_DEFAULT_CLOSED,
                 user_can_edit_name: this._DEFAULT_USER_CAN_EDIT_NAME,
                 user_can_delete: this._DEFAULT_USER_CAN_DELETE,
-                delete_callback: this._DEFAULT_DELETE_CALLBACK,
-                rename_callback: this._DEFAULT_RENAME_CALLBACK,
             };
         }
         if (utils.IsUndefined(this._settings.default_closed)) this._settings.default_closed = this._DEFAULT_DEFAULT_CLOSED;
         if (utils.IsUndefined(this._settings.user_can_edit_name)) this._settings.user_can_edit_name = this._DEFAULT_USER_CAN_EDIT_NAME;
         if (utils.IsUndefined(this._settings.user_can_delete)) this._settings.user_can_delete = this._DEFAULT_USER_CAN_DELETE;
-        if (utils.IsUndefined(this._settings.delete_callback)) this._settings.delete_callback = this._DEFAULT_DELETE_CALLBACK;
-        if (utils.IsUndefined(this._settings.rename_callback)) this._settings.rename_callback = this._DEFAULT_RENAME_CALLBACK;
 
+        this._delete_callback = function() {};
+        this._rename_callback = function() {};
         this._closed = false;
 
         //CREATE ELEMENT
@@ -487,7 +483,7 @@ export class UIParameterRack extends ui.UIComponent {
 
             //object renaming
             this._edit_button.onclick = () => {
-                this.rename(null);
+                this._rename_callback(); //The user call itself the rename() function in its function
             }
         }
 
@@ -505,6 +501,9 @@ export class UIParameterRack extends ui.UIComponent {
     get closed() {return this._closed;}
     set closed(closed) {if (closed !== this._closed) this.toggleOpen();}
 
+    set delete_callback(callback) {this._delete_callback = callback;}
+    set rename_callback(callback) {this._rename_callback = callback;}
+
     //function that opens or closes an object container
     toggleOpen() {
         if (this._closed) {
@@ -518,13 +517,11 @@ export class UIParameterRack extends ui.UIComponent {
     }
 
     delete() {
-        this._settings.delete_callback();
+        this._delete_callback(); //user action on remove
         this._DOM_container.remove();
     }
 
     rename(name) {
-        let callback_name = this._settings.rename_callback();
-        if (callback_name !== null || name === null) name = callback_name;
         this._title_span.innerHTML = name;
     }
 }
