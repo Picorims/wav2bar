@@ -380,3 +380,151 @@ export class UIParameterBackgroundPicker extends UIParameter {
         this._bgnd_size_input2.step = step;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//toggleable container that can be opened/close, and contains a list of child elements
+export class UIParameterRack extends ui.UIComponent {
+    constructor(parent, id, title, icon, settings) {
+        super();
+        this._parent = parent;
+        this._id = id;
+        this._title = title;
+        this._icon = icon;
+        this._settings = settings;
+
+        //setup optional arguments
+        this._DEFAULT_DEFAULT_CLOSED = false;
+        this._DEFAULT_USER_CAN_EDIT_NAME = true;
+        this._DEFAULT_USER_CAN_DELETE = true;
+        this._DEFAULT_DELETE_CALLBACK = function() {};
+        this._DEFAULT_RENAME_CALLBACK = function() {return null};
+        if (utils.IsUndefined(settings)) {
+            this._settings = {
+                default_closed: this._DEFAULT_DEFAULT_CLOSED,
+                user_can_edit_name: this._DEFAULT_USER_CAN_EDIT_NAME,
+                user_can_delete: this._DEFAULT_USER_CAN_DELETE,
+                delete_callback: this._DEFAULT_DELETE_CALLBACK,
+                rename_callback: this._DEFAULT_RENAME_CALLBACK,
+            };
+        }
+        if (utils.IsUndefined(this._settings.default_closed)) this._settings.default_closed = this._DEFAULT_DEFAULT_CLOSED;
+        if (utils.IsUndefined(this._settings.user_can_edit_name)) this._settings.user_can_edit_name = this._DEFAULT_USER_CAN_EDIT_NAME;
+        if (utils.IsUndefined(this._settings.user_can_delete)) this._settings.user_can_delete = this._DEFAULT_USER_CAN_DELETE;
+        if (utils.IsUndefined(this._settings.delete_callback)) this._settings.delete_callback = this._DEFAULT_DELETE_CALLBACK;
+        if (utils.IsUndefined(this._settings.rename_callback)) this._settings.rename_callback = this._DEFAULT_RENAME_CALLBACK;
+
+        this._closed = false;
+
+        //CREATE ELEMENT
+        this.DOM_parent = parent;
+
+        //CONFIGURE ELEMENT
+        this.DOM_container.id = id;
+        this.DOM_container.classList.add("object_param_container");
+
+        //ADD SUB ELEMENTS
+        //banner
+        this._banner = document.createElement("div");
+        this._DOM_container.appendChild(this._banner);
+        this._banner.classList.add("object_param_banner");
+
+        //title container
+        this._title_container = document.createElement("div");
+        this._banner.appendChild(this._title_container);
+        this._title_container.classList.add("object_param_title");
+
+        //name of the title_container
+        this._title_span = document.createElement("span");
+        this._title_container.appendChild(this._title_span);
+        this._title_span.innerHTML = this._title;
+
+        //icon in the title_container
+        this._icon_container = document.createElement("div");
+        this._banner.appendChild(this._icon_container);
+        this._icon_container.classList.add("object_param_icon", "object_param_type");
+        this._icon_container.innerHTML = this._icon;
+
+        //arrow
+        this._arrow = document.createElement("div");
+        this._banner.appendChild(this._arrow);
+        this._arrow.innerHTML = '<i class="ri-arrow-right-s-line"></i>';
+        this._arrow.classList.add("object_param_icon", "object_param_arrow");
+
+        //deletion cross
+        if (this._settings.user_can_delete) {
+            this._cross_button = document.createElement("div");
+            this._banner.appendChild(this._cross_button);
+            this._cross_button.innerHTML = '<i class="ri-close-circle-fill"></i>';
+            this._cross_button.classList.add("object_param_icon", "object_param_cross");
+
+            //object deletion
+            this._cross_button.onclick = () => {
+                this.delete();
+            }
+
+        }
+
+        //edit button
+        if (this._settings.user_can_edit_name) {
+            this._edit_button = document.createElement("div");
+            this._banner.appendChild(this._edit_button);
+            this._edit_button.innerHTML = '<i class="ri-pencil-fill"></i>';
+            this._edit_button.classList.add("object_param_icon", "object_param_edit");
+
+            //object renaming
+            this._edit_button.onclick = () => {
+                this.rename(null);
+            }
+        }
+
+
+        //ability to open and close the object parameters' container
+        this._title_container.onclick = this._arrow.onclick = () => {
+            this.toggleOpen();
+        }
+        //default
+        if (this._settings.default_closed) this.toggleOpen();
+
+        
+    }
+
+    get closed() {return this._closed;}
+    set closed(closed) {if (closed !== this._closed) this.toggleOpen();}
+
+    //function that opens or closes an object container
+    toggleOpen() {
+        if (this._closed) {
+            this._DOM_container.classList.remove("object_param_closed");
+            this._closed = false;
+        }
+        else {
+            this._DOM_container.classList.add("object_param_closed");
+            this._closed = true;
+        }
+    }
+
+    delete() {
+        this._settings.delete_callback();
+        this._DOM_container.remove();
+    }
+
+    rename(name) {
+        let callback_name = this._settings.rename_callback();
+        if (callback_name !== null || name === null) name = callback_name;
+        this._title_span.innerHTML = name;
+    }
+}

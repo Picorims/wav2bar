@@ -788,131 +788,181 @@ OBJECTS PARAMETER CONTAINERS
 function CreateObjectContainer(object_id) {
     if (!imports.utils.IsAString(object_id)) throw `CreateObjectContainer: ${object_id} is not a valid ID.`;
 
-    //CREATE ELEMENT
-    var container = document.createElement("div");
-    tab.objects.appendChild(container);
-
-    //CONFIGURE ELEMENT
-    container.id = `UI-${object_id}`;
-    container.classList.add("object_param_container");
-    container.setAttribute("data-closed", "false");//custom attribute to know if the object container is closed
-
     //GET OBJECT
-    var obj_data = object_method.getByID(object_id).data;
+    let obj_data = object_method.getByID(object_id).data;
 
-    //ADD SUB ELEMENTS
-    //banner
-    var banner = document.createElement("div");
-    container.appendChild(banner);
-    banner.classList.add("object_param_banner");
-
-    //title container
-    var title_container = document.createElement("div");
-    banner.appendChild(title_container);
-    title_container.classList.add("object_param_title");
-
-    //name of the title_container
-    var title = document.createElement("span");
-    title_container.appendChild(title);
-    title.innerHTML = obj_data.name;
-
-    //icon in the title_container
-    var icon = document.createElement("div");
-    banner.appendChild(icon);
-    icon.classList.add("object_param_icon", "object_param_type");
-
-    //assign icon related to object type
+    //GET ICON RELATED TO OBJECT TYPE
+    let icon;
     switch (obj_data.object_type) {
         case "background":
-            icon.innerHTML = '<i class="ri-landscape-fill"></i>';
+            icon = '<i class="ri-landscape-fill"></i>';
             break;
 
         case "image":
-            icon.innerHTML = '<i class="ri-image-fill"></i>';
+            icon = '<i class="ri-image-fill"></i>';
             break;
 
         case "particle_flow":
-            icon.innerHTML = '<i class="ri-loader-line"></i>';
+            icon = '<i class="ri-loader-line"></i>';
             break;
 
         case "text":
-            icon.innerHTML = '<i class="ri-text"></i>';
+            icon = '<i class="ri-text"></i>';
             break;
 
         case "timer":
-            icon.innerHTML = '<i class="ri-timer-2-line"></i>';
+            icon = '<i class="ri-timer-2-line"></i>';
             break;
 
         case "visualizer":
-            icon.innerHTML = '<i class="ri-rhythm-line"></i>';
+            icon = '<i class="ri-rhythm-line"></i>';
             break;
 
         default:
             throw `CreateObjectContainer: ${obj_data.object_type} is an unknown object type!`;
     }
 
-    //arrow
-    var arrow = document.createElement("div");
-    banner.appendChild(arrow);
-    arrow.innerHTML = '<i class="ri-arrow-right-s-line"></i>';
-    arrow.classList.add("object_param_icon", "object_param_arrow");
+    let container = new imports.ui_components.UIParameterRack(tab.objects, `UI-${object_id}`, obj_data.name, icon, {
+        default_closed: true,
+        delete_callback: () => {
+            object_method.getByID(object_id).remove(object_id);
+        },
+        rename_callback: function() {
+            return "foo";
+            // InputDialog("Enter a new name for the object:", function(result, args) {
 
-    //deletion cross
-    var cross = document.createElement("div");
-    banner.appendChild(cross);
-    cross.innerHTML = '<i class="ri-close-circle-fill"></i>';
-    cross.classList.add("object_param_icon", "object_param_cross");
+            //     object_method.getByID(args[0]).updateData({id: args[0], name: result});
+            //     args[1].innerHTML = result;
 
-    //edit button
-    var edit = document.createElement("div");
-    banner.appendChild(edit);
-    edit.innerHTML = '<i class="ri-pencil-fill"></i>';
-    edit.classList.add("object_param_icon", "object_param_edit");
+            // }, [object_id, title]); //passed arguments
+        }
+    });
+
+    // //CREATE ELEMENT
+    // var container = document.createElement("div");
+    // tab.objects.appendChild(container);
+
+    // //CONFIGURE ELEMENT
+    // container.id = `UI-${object_id}`;
+    // container.classList.add("object_param_container");
+    // container.setAttribute("data-closed", "false");//custom attribute to know if the object container is closed
+
+    // //GET OBJECT
+    // var obj_data = object_method.getByID(object_id).data;
+
+    // //ADD SUB ELEMENTS
+    // //banner
+    // var banner = document.createElement("div");
+    // container.appendChild(banner);
+    // banner.classList.add("object_param_banner");
+
+    // //title container
+    // var title_container = document.createElement("div");
+    // banner.appendChild(title_container);
+    // title_container.classList.add("object_param_title");
+
+    // //name of the title_container
+    // var title = document.createElement("span");
+    // title_container.appendChild(title);
+    // title.innerHTML = obj_data.name;
+
+    // //icon in the title_container
+    // var icon = document.createElement("div");
+    // banner.appendChild(icon);
+    // icon.classList.add("object_param_icon", "object_param_type");
+
+    // //assign icon related to object type
+    // switch (obj_data.object_type) {
+    //     case "background":
+    //         icon.innerHTML = '<i class="ri-landscape-fill"></i>';
+    //         break;
+
+    //     case "image":
+    //         icon.innerHTML = '<i class="ri-image-fill"></i>';
+    //         break;
+
+    //     case "particle_flow":
+    //         icon.innerHTML = '<i class="ri-loader-line"></i>';
+    //         break;
+
+    //     case "text":
+    //         icon.innerHTML = '<i class="ri-text"></i>';
+    //         break;
+
+    //     case "timer":
+    //         icon.innerHTML = '<i class="ri-timer-2-line"></i>';
+    //         break;
+
+    //     case "visualizer":
+    //         icon.innerHTML = '<i class="ri-rhythm-line"></i>';
+    //         break;
+
+    //     default:
+    //         throw `CreateObjectContainer: ${obj_data.object_type} is an unknown object type!`;
+    // }
+
+    // //arrow
+    // var arrow = document.createElement("div");
+    // banner.appendChild(arrow);
+    // arrow.innerHTML = '<i class="ri-arrow-right-s-line"></i>';
+    // arrow.classList.add("object_param_icon", "object_param_arrow");
+
+    // //deletion cross
+    // var cross = document.createElement("div");
+    // banner.appendChild(cross);
+    // cross.innerHTML = '<i class="ri-close-circle-fill"></i>';
+    // cross.classList.add("object_param_icon", "object_param_cross");
+
+    // //edit button
+    // var edit = document.createElement("div");
+    // banner.appendChild(edit);
+    // edit.innerHTML = '<i class="ri-pencil-fill"></i>';
+    // edit.classList.add("object_param_icon", "object_param_edit");
 
 
-    //ability to open and close the object parameters' container
-    title_container.onclick = function() {
-        ToggleOpen(container);
-    }
-    arrow.onclick = function() {
-        ToggleOpen(container);
-    }
-    //defaults to closed
-    ToggleOpen(container);
+    // //ability to open and close the object parameters' container
+    // title_container.onclick = function() {
+    //     ToggleOpen(container);
+    // }
+    // arrow.onclick = function() {
+    //     ToggleOpen(container);
+    // }
+    // //defaults to closed
+    // ToggleOpen(container);
 
-    //object deletion
-    cross.onclick = function() {
-        object_method.getByID(object_id).remove(object_id);
-        //NOTE: this also deletes this container.
-    }
+    // //object deletion
+    // cross.onclick = function() {
+    //     object_method.getByID(object_id).remove(object_id);
+    //     //NOTE: this also deletes this container.
+    // }
 
-    //object renaming
-    edit.onclick = function() {
-        InputDialog("Enter a new name for the object:", function(result, args) {
+    // //object renaming
+    // edit.onclick = function() {
+    //     InputDialog("Enter a new name for the object:", function(result, args) {
 
-            object_method.getByID(args[0]).updateData({id: args[0], name: result});
-            args[1].innerHTML = result;
+    //         object_method.getByID(args[0]).updateData({id: args[0], name: result});
+    //         args[1].innerHTML = result;
 
-        }, [object_id, title]); //passed arguments
-    }
+    //     }, [object_id, title]); //passed arguments
+    // }
 }
 
 
-//function that opens or closes an object container
-function ToggleOpen(DOM_container) {
-    if (!imports.utils.IsAnElement(DOM_container)) throw "ToggleOpen: the argument is not a DOM element.";
+// //function that opens or closes an object container
+// function ToggleOpen(DOM_container) {
+//     if (!imports.utils.IsAnElement(DOM_container)) throw "ToggleOpen: the argument is not a DOM element.";
 
-    var closed = DOM_container.getAttribute("data-closed");
+//     var closed = DOM_container.getAttribute("data-closed");
 
-    if (closed === "true") {
-        DOM_container.classList.remove("object_param_closed");
-        DOM_container.setAttribute("data-closed", "false");
-    }
-    else {
-        DOM_container.classList.add("object_param_closed");
-        DOM_container.setAttribute("data-closed", "true");
-    }
-}
+//     if (closed === "true") {
+//         DOM_container.classList.remove("object_param_closed");
+//         DOM_container.setAttribute("data-closed", "false");
+//     }
+//     else {
+//         DOM_container.classList.add("object_param_closed");
+//         DOM_container.setAttribute("data-closed", "true");
+//     }
+// }
 
 
 
