@@ -7,6 +7,7 @@ export class UIComponent {
     constructor() {
         this._DOM_container = document.createElement("div");
         this._DOM_parent = null;
+        this._UI_parent = null;
         this._display = null;
     }
     // Getters
@@ -20,6 +21,13 @@ export class UIComponent {
         if (this._DOM_parent !== null) this._DOM_parent.removeChild(this._DOM_container);
         this._DOM_parent = parent;
         parent.appendChild(this._DOM_container);
+    }
+
+    //getters and setters for parent container that is a UIComponent
+    get UI_parent() {return this._UI_parent;}
+    set UI_parent(parent) {
+        this.DOM_parent = parent.DOM_container; //using the setter!
+        this._UI_parent = parent;
     }
 
     //getters and setters for changing display
