@@ -506,6 +506,30 @@ Tabs content
 }
 
 
+.button_grid {
+    overflow: hidden;
+}
+.button_grid_button {
+    margin: 2px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    border: 3px solid var(--main-gray);
+}
+.button_grid_button:hover {
+    box-shadow: 0px 0px 4px var(--main-darker-color);
+    border: 3px solid var(--main-darker-color);
+}
+.button_grid_button.toggled {
+    box-shadow: 0px 0px 4px var(--main-darker-color);
+    border: 3px solid var(--main-darker-color);
+}
+
+
 .panel_input {
     width: 70px;
     height: 20px;

@@ -33,3 +33,7 @@ export function IsUndefined(value) {//returns true if the given variable is eith
 export function IsAnElement(value) {//returns true if the given variable is an HTML DOM element.
     return value instanceof HTMLElement;
 }
+
+export function IsAFunction(value) {
+    return (typeof value === "function");
+}

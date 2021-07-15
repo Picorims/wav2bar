@@ -42,23 +42,70 @@ export class UIComponent {
 
 //grid of buttons to interact with
 export class UIButtonGrid extends UIComponent {
-    constructor(rows, columns) {
+    constructor(rows, columns, button_definitions, togglable) {
         super();
+
+        //error checking
+        if (!utils.IsAnInt(rows)) throw new SyntaxError("rows count must be an integer.");
+        if (!utils.IsAnInt(columns)) throw new SyntaxError("columns count must be an integer.");
+        if (!utils.IsAnArray(button_definitions)) throw new SyntaxError("button_definitions must be an array");
+        else {
+            for (let i=0; i<button_definitions.length; i++) {
+                if (!utils.IsAnArray(button_definitions[i])) throw new SyntaxError("button_definitions must be a list of arrays");
+                else {
+                    for (let j=0; j<button_definitions[i].length; j++) {
+                        if (!utils.IsAnObject(button_definitions[i][j])) throw new SyntaxError(`button definition ${i}, ${j} is not an object.`);
+                    }
+                }
+            }
+        }
+        if (!utils.IsABoolean(togglable)) throw new SyntaxError("togglable must be a boolean");
+        
+        //attributes
         this._rows = rows;
         this._columns = columns;
+        this._button_definitions = button_definitions;
+        this._togglable = togglable;
+        if (togglable) {
+            this._toggles = [];
+            for (let i = 0; i < this._rows; i++) {
+                this._toggles[i] = [];
+                for (let j = 0; j < this._columns; j++) {
+                    this._toggles[i][j] = false;
+                }
+            }
+        }
 
         //Setup grid
         this._buttons = [];
+        this._DOM_container.classList.add("button_grid");
         this._DOM_container.style.display = "grid";
         this._DOM_container.style.gridTemplateRows = `repeat(${this._rows}, 1fr)`; //1fr = proportionally
         this._DOM_container.style.gridTemplateColumns = `repeat(${this._columns}, 1fr)`; //1fr = proportionally
 
+        //create buttons
         for (let i = 0; i < this._rows; i++) {
             let row = [];
             //create the row
             for (let j = 0; j < this._columns; j++) {
+                //setup button
                 let button = document.createElement("button");
                 this._DOM_container.appendChild(button);
+                button.classList.add("button_grid_button", "panel_button");
+                button.innerHTML = this._button_definitions[i][j].innerHTML;
+
+                //callback
+                button.onclick = () => {
+                    if (this._togglable) {
+                        //toggle the boolean and return the new value.
+                        this._toggles[i][j] = !this._toggles[i][j];
+                        button.classList.toggle("toggled");
+                        this._button_definitions[i][j].callback(this._toggles[i][j]);
+                    } else {
+                        //no toggle mode, only callback
+                        this._button_definitions[i][j].callback();
+                    }
+                }
                 row.push(button);
             }
             //add the row to the list of rows
@@ -68,6 +115,11 @@ export class UIButtonGrid extends UIComponent {
     get rows() {return this._rows;}
     get columns() {return this._columns;}
     getButton(row, column) {return this._buttons[row][column]}
+    toggle(i, j) {//row, column
+        if (!this._togglable) throw new Error("toggle() only works in togglable mode!");
+        this._toggles[i][j] = !this._toggles[i][j];
+        this._buttons[i][j].classList.toggle("toggled");
+    }
 }
 
 

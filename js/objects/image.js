@@ -341,6 +341,28 @@ function Image(glob_data) {
         );
         this.parameters.layer.help_string = help.parameter.object.general.layer;
 
+        // let thing = new imports.ui_components.UIButtonGrid(2 , 2, [
+        //     [
+        //         {
+        //             innerHTML: '<i class="ri-file-edit-line"></i></i>',
+        //             callback: (b) => {console.log("a" + b)}
+        //         }, {
+        //             innerHTML: '<i class="ri-file-edit-line"></i></i>',
+        //             callback: (b) => {console.log("b" + b)}
+        //         }
+        //     ],[
+        //         {
+        //             innerHTML: '<i class="ri-file-edit-line"></i></i>',
+        //             callback: (b) => {console.log("c" + b)}
+        //         }, {
+        //             innerHTML: '<i class="ri-file-edit-line"></i></i>',
+        //             callback: (b) => {console.log("d" + b)}
+        //         }
+        //     ]
+        // ], true);
+        // thing.toggle(1,1);
+        // thing.UI_parent = this.parameters.layer;
+
         //x and y
         this.parameters.coordinates = new imports.ui_components.UIParameterNumInputList(
             this.parameter_container,
