@@ -34,7 +34,7 @@
             "text": {
                 "type": "Sets the text type. The text may be automatically generated depending of the setting.",
                 "text_content": "Sets the text to display, when allowed.",
-                "font_size": "Sets the text size, using the 'font-size' CSS property syntax. The most common use is '<value>px'.",
+                "font_size": "Sets the font size in pixels.",
                 "italic": "Sets the text in italics.",
                 "bold": "Sets the text in bold.",
                 "underline": "Underlines the text.",
