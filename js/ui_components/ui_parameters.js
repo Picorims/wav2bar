@@ -180,7 +180,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
         //MAIN UI
 
         //mode picker
-        this._list = new ui.UIChoiceList("type", ["color","gradient","image"], this._defaults.type);
+        this._list = new ui.UIChoiceList("Type :", ["color","gradient","image"], this._defaults.type);
         this._list.DOM_container.style.width = "100%";
         this._list.DOM_parent = this._container;
         this._list.input_class_list = ["panel_input", "panel_input_list"];

@@ -21,7 +21,7 @@ Compilation is done through electron-forge v6's `make` command. No matter the pl
 
 Compilation settings are detailed in package.JSON at the "config" node. You can add additional configurations to export in other formats, but you need to have access to the targetted platform/OS and install required dependencies. The list of available makers is available at https://www.electronforge.io/config/makers.
 
-FFMpeg should be installed independently and not compiled in the application.
+FFmpeg should be installed independently and not compiled in the application.
 
 #### ZIP
 Zip maker is available for all platforms, without any dependencies required. On Windows, it will produce an executable (.exe) to run the app from anywhere on a Windows machine, without any installation process.
