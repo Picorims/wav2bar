@@ -838,6 +838,7 @@ function AddParameter(args, callback) {
             parameter = new imports.ui_components.UIParameterNumInputList(
                 parent,
                 args.title,
+                true,
                 [
                     {
                         title: "",
@@ -849,8 +850,8 @@ function AddParameter(args, callback) {
                         callback: function() {
                             callback(args.object_id, parseFloat(parameter.value(0)) );
                         }
-                    },
-                ],
+                    }
+                ]
             );
             param_container = parameter.DOM_container;
         break;
@@ -869,6 +870,7 @@ function AddParameter(args, callback) {
             parameter = new imports.ui_components.UIParameterNumInputList(
                 parent,
                 args.title,
+                true,
                 [
                     {
                         title: "",
@@ -891,8 +893,8 @@ function AddParameter(args, callback) {
                         callback: function() {
                             callback(args.object_id, parseFloat(parameter.value(0)), parseFloat(parameter.value(1)) );
                         }
-                    },
-                ],
+                    }
+                ]
             );
             param_container = parameter.DOM_container;
 

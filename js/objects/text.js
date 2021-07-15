@@ -307,350 +307,317 @@ function Text(glob_data) {
             });
         }
 
-        //layer
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value",
-                settings: {
-                    default: this.data.layer,
-                    min: 0,
-                    step: 1,
-                },
-                title: "Layer",
-                help: help.parameter.object.general.layer,
-            },
-            function(id, value) {   //id, type, parameters, name, callback with id
-                                                                                                    //and returned value by the input
-                var this_object = object_method.getByID(id);
+        this.parameters = {
+            layer: null,
+            coordinates: null,
+            size: null,
+            rotation: null,
+            type: null,
+            font_size: null,
+            color: null,
+            italic: null,
+            bold: null,
+            underline: null,
+            overline: null,
+            line_through: null,
+            text_align: null,
+            text_shadow: null,
+        };
 
-                this_object.updateData({
-                    id: id,
-                    layer: value,
-                });
-            }
+        //layer
+        this.parameters.layer = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Layer :",
+                unit: "",
+                default_value: this.data.layer,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        layer: parseInt(this.parameters.layer.value(0))
+                    });
+                }
+            }]
         );
+        this.parameters.layer.help_string = help.parameter.object.general.layer;
 
         //x and y
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value-xy",
-                settings: {
-                    default_x: this.data.x,
-                    default_y: this.data.y,
-                    step: 1,
-                },
-                title: "Coordinates",
-                help: help.parameter.object.general.pos,
+        this.parameters.coordinates = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "X :",
+                unit: "px",
+                default_value: this.data.x,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        x: parseInt(this.parameters.coordinates.value(0))
+                    });
+                }
             },
-            function(id, value1, value2) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    x: value1,
-                    y: value2,
-                });
-            }
+            {
+                title: "Y :",
+                unit: "px",
+                default_value: this.data.y,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        y: parseInt(this.parameters.coordinates.value(1))
+                    });
+                }
+            }]
         );
+        this.parameters.coordinates.help_string = help.parameter.object.general.pos;
 
         //width and height
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value-xy",
-                settings: {
-                    default_x: this.data.width,
-                    default_y: this.data.height,
-                    min: 0,
-                    step: 1,
-                },
-                title: "Width and Height",
-                help: help.parameter.object.general.size,
+        this.parameters.size = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Width :",
+                unit: "px",
+                default_value: this.data.width,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        width: parseInt(this.parameters.size.value(0))
+                    });
+                }
             },
-            function(id, value1, value2) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    width: value1,
-                    height: value2,
-                });
-            }
+            {
+                title: "Height :",
+                unit: "px",
+                default_value: this.data.height,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        height: parseInt(this.parameters.size.value(1))
+                    });
+                }
+            }]
         );
+        this.parameters.size.help_string = help.parameter.object.general.size;
 
         //rotation
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value",
-                settings: {
-                    default: this.data.rotation,
-                    min: 0,
-                    step: 1,
-                },
-                title: "Rotation (degrees)",
-                help: help.parameter.object.general.rotation,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    rotation: value,
-                });
-            }
+        this.parameters.rotation = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Rotation (degrees) :",
+                unit: "°",
+                default_value: this.data.rotation,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        rotation: parseInt(this.parameters.rotation.value(0))
+                    });
+                }
+            }]
         );
+        this.parameters.rotation.help_string = help.parameter.object.general.rotation;
 
         //type
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "choice",
-                settings: {
-                    default: this.data.type,
-                    list:["any", "time"],
-                },
-                title: "Text type",
-                help: help.parameter.object.text.type,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    type: value,
+        this.parameters.type = new imports.ui_components.UIParameterChoice(
+            this.parameter_container,
+            "Text type",
+            ["any","time"],
+            this.data.type,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    type: this.parameters.type.value,
                 });
             }
         );
+        this.parameters.type.help_string = help.parameter.object.text.type;
 
         //text
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "string",
-                settings: {
-                    default: this.data.text,
-                },
-                title: "Text",
-                help: help.parameter.object.text.text_content,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    text: value,
+        this.parameters.text = new imports.ui_components.UIParameterString(
+            this.parameter_container,
+            "Displayed text",
+            this.data.text,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    text: this.parameters.text.value,
                 });
             }
         );
+        this.parameters.text.help_string = help.parameter.object.text.text_content;
 
-        //font size
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value",
-                settings: {
-                    default: this.data.font_size,
-                    min: 0,
-                    step: 1,
-                },
-                title: "Font size",
-                help: help.parameter.object.text.font_size,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    font_size: value,
-                });
-            }
+        //font_size
+        this.parameters.font_size = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Font size :",
+                unit: "px",
+                default_value: this.data.font_size,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        font_size: parseInt(this.parameters.font_size.value(0))
+                    });
+                }
+            }]
         );
+        this.parameters.font_size.help_string = help.parameter.object.text.font_size;
 
         //color
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "string",
-                settings: {
-                    default: this.data.color,
-                },
-                title: "Color",
-                help: help.parameter.object.general.color,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    color: value,
+        this.parameters.color = new imports.ui_components.UIParameterString(
+            this.parameter_container,
+            "Color (hex, rgb, rgba)",
+            this.data.color,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    color: this.parameters.color.value,
                 });
             }
         );
+        this.parameters.color.help_string = help.parameter.object.general.color;
 
         //italic
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "checkbox",
-                settings: {
-                    default: this.data.italic,
-                },
-                title: "Italic",
-                help: help.parameter.object.text.italic,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    italic: value,
+        this.parameters.italic = new imports.ui_components.UIParameterCheckBox(
+            this.parameter_container,
+            "Italic",
+            this.data.italic,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    italic: this.parameters.italic.checked,
                 });
             }
         );
+        this.parameters.italic.help_string = help.parameter.object.text.italic;
 
         //bold
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "checkbox",
-                settings: {
-                    default: this.data.bold,
-                },
-                title: "Bold",
-                help: help.parameter.object.text.bold,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    bold: value,
+        this.parameters.bold = new imports.ui_components.UIParameterCheckBox(
+            this.parameter_container,
+            "Bold",
+            this.data.bold,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    bold: this.parameters.bold.checked,
                 });
             }
         );
+        this.parameters.bold.help_string = help.parameter.object.text.bold;
 
         //underline
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "checkbox",
-                settings: {
-                    default: this.data.underline,
-                },
-                title: "Underline",
-                help: help.parameter.object.text.underline,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    underline: value,
+        this.parameters.underline = new imports.ui_components.UIParameterCheckBox(
+            this.parameter_container,
+            "Underline",
+            this.data.underline,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    underline: this.parameters.underline.checked,
                 });
             }
         );
+        this.parameters.underline.help_string = help.parameter.object.text.underline;
 
         //overline
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "checkbox",
-                settings: {
-                    default: this.data.overline,
-                },
-                title :"Overline",
-                help: help.parameter.object.text.overline,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    overline: value,
+        this.parameters.overline = new imports.ui_components.UIParameterCheckBox(
+            this.parameter_container,
+            "Overline",
+            this.data.overline,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    overline: this.parameters.overline.checked,
                 });
             }
         );
+        this.parameters.overline.help_string = help.parameter.object.text.overline;
 
         //line through
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "checkbox",
-                settings: {
-                    default: this.data.line_through,
-                },
-                title :"Line through",
-                help: help.parameter.object.text.line_through,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    line_through: value,
+        this.parameters.line_through = new imports.ui_components.UIParameterCheckBox(
+            this.parameter_container,
+            "Line through",
+            this.data.line_through,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    line_through: this.parameters.line_through.checked,
                 });
             }
         );
+        this.parameters.line_through.help_string = help.parameter.object.text.line_through;
+
+        // //text align
+        // AddParameter(
+        //     {
+        //         object_id: this.data.id,
+        //         type: "choice",
+        //         settings: {
+        //             default: this.data.text_align,
+        //             list:["left", "center", "right"],
+        //         },
+        //         title: "Text align",
+        //         help: help.parameter.object.text.text_align,
+        //     },
+        //     function(id, value) {
+
+        //         var this_object = object_method.getByID(id);
+
+        //         this_object.updateData({
+        //             id: id,
+        //             text_align: value,
+        //         });
+        //     }
+        // );
 
         //text align
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "choice",
-                settings: {
-                    default: this.data.text_align,
-                    list:["left", "center", "right"],
-                },
-                title: "Text align",
-                help: help.parameter.object.text.text_align,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    text_align: value,
+        this.parameters.text_align = new imports.ui_components.UIParameterChoice(
+            this.parameter_container,
+            "Text align",
+            ["left","center","right"],
+            this.data.text_align,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    text_align: this.parameters.text_align.value,
                 });
             }
         );
+        this.parameters.text_align.help_string = help.parameter.object.text.text_align;
 
         //text-shadow
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "string",
-                settings: {
-                    default: this.data.text_shadow,
-                },
-                title: "Text Shadow",
-                help: help.parameter.object.general.shadow,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    text_shadow: value,
+        this.parameters.text_shadow = new imports.ui_components.UIParameterString(
+            this.parameter_container,
+            "Box Shadow (CSS)",
+            this.data.text_shadow,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    text_shadow: this.parameters.text_shadow.value,
                 });
             }
         );
+        this.parameters.text_shadow.help_string = help.parameter.object.general.shadow;
+        
     }
 
 

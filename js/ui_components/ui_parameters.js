@@ -16,7 +16,8 @@ export class UIParameter extends ui.UIComponent {
         this._help_string = "";
 
         //setup element
-        this.DOM_parent = this._parent;
+        if (parent instanceof ui.UIComponent) this.UI_parent = this._parent;
+            else this.DOM_parent = this._parent;
         this._DOM_container.classList.add("panel_param_container");
 
         //container for everything
@@ -71,8 +72,8 @@ export class UIParameterString extends UIParameter {
 
 //parameter with a list of numeric inputs
 export class UIParameterNumInputList extends UIParameter {
-    constructor(parent, title, input_definition_list) {
-        super(parent, title, true);
+    constructor(parent, title, parent_title_visible, input_definition_list) {
+        super(parent, title, parent_title_visible);
         this._input_definition_list = input_definition_list;
         let template = "{title: string, unit: string, default_value: number, callback: function, min (optional): value, max (optional): value, step (optional): value}"
         if (!utils.IsAnArray(this._input_definition_list)) throw new Error(`UIParameterNumInputList: The input definition list must be an array of ${template}`);

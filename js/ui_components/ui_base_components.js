@@ -106,6 +106,8 @@ export class UINumberInput extends UIComponent {
         this._DOM_container.appendChild(this._label_unit);
         this._label_unit.innerHTML = this._unit;
         this._label_unit.style.width = "15%";
+        this._label_unit.style.textAlign = "left";
+        this._label_unit.style.marginLeft = "2px";
     }
 
     get value() {return this._input.value}

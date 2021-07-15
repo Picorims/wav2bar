@@ -281,218 +281,210 @@ function Timer(glob_data) {
             });
         }
 
-        //layer
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value",
-                settings: {
-                    default: this.data.layer,
-                    min: 0,
-                    step: 1,
-                },
-                title: "Layer",
-                help: help.parameter.object.general.layer,
-            },
-            function(id, value) {   //id, type, parameters, name, callback with id
-                                                                                                    //and returned value by the input
-                var this_object = object_method.getByID(id);
+        this.parameters = {
+            layer: null,
+            coordinates: null,
+            size: null,
+            rotation: null,
+            color: null,
+            border_to_bar_space: null,
+            border_thickness: null,
+            border_radius: null,
+            box_shadow: null,
+        };
 
-                this_object.updateData({
-                    id: id,
-                    layer: value,
-                });
-            }
+        //layer
+        this.parameters.layer = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Layer :",
+                unit: "",
+                default_value: this.data.layer,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        layer: parseInt(this.parameters.layer.value(0))
+                    });
+                }
+            }]
         );
+        this.parameters.layer.help_string = help.parameter.object.general.layer;
 
         //x and y
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value-xy",
-                settings: {
-                    default_x: this.data.x,
-                    default_y: this.data.y,
-                    step: 1,
-                },
-                title: "Coordinates",
-                help: help.parameter.object.general.pos,
+        this.parameters.coordinates = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "X :",
+                unit: "px",
+                default_value: this.data.x,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        x: parseInt(this.parameters.coordinates.value(0))
+                    });
+                }
             },
-            function(id, value1, value2) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    x: value1,
-                    y: value2,
-                });
-            }
+            {
+                title: "Y :",
+                unit: "px",
+                default_value: this.data.y,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        y: parseInt(this.parameters.coordinates.value(1))
+                    });
+                }
+            }]
         );
+        this.parameters.coordinates.help_string = help.parameter.object.general.pos;
 
         //width and height
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value-xy",
-                settings: {
-                    default_x: this.data.width,
-                    default_y: this.data.height,
-                    min: 0,
-                    step: 1,
-                },
-                title: "Width and Height",
-                help: help.parameter.object.general.size,
+        this.parameters.size = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Width :",
+                unit: "px",
+                default_value: this.data.width,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        width: parseInt(this.parameters.size.value(0))
+                    });
+                }
             },
-            function(id, value1, value2) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    width: value1,
-                    height: value2,
-                });
-            }
+            {
+                title: "Height :",
+                unit: "px",
+                default_value: this.data.height,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        height: parseInt(this.parameters.size.value(1))
+                    });
+                }
+            }]
         );
+        this.parameters.size.help_string = help.parameter.object.general.size;
 
         //rotation
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value",
-                settings: {
-                    default: this.data.rotation,
-                    min: 0,
-                    step: 1,
-                },
-                title: "Rotation (degrees)",
-                help: help.parameter.object.general.rotation,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    rotation: value,
-                });
-            }
+        this.parameters.rotation = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Rotation (degrees) :",
+                unit: "°",
+                default_value: this.data.rotation,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        rotation: parseInt(this.parameters.rotation.value(0))
+                    });
+                }
+            }]
         );
+        this.parameters.rotation.help_string = help.parameter.object.general.rotation;
 
         //color
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "string",
-                settings: {
-                    default: this.data.color,
-                },
-                title: "Color",
-                help: help.parameter.object.general.color,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    color: value,
+        this.parameters.color = new imports.ui_components.UIParameterString(
+            this.parameter_container,
+            "Color (hex, rgb, rgba)",
+            this.data.color,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    color: this.parameters.color.value,
                 });
             }
         );
+        this.parameters.color.help_string = help.parameter.object.general.color;
 
         //border to bar space
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value",
-                settings: {
-                    default: this.data.border_to_bar_space,
-                    min: 0,
-                    step: 1,
-                },
-                title: "Space between the border and the bar",
-                help: help.parameter.object.timer.space_between,
-            },
-            function(id, value) {
+        this.parameters.border_to_bar_space = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Bar timer inner spacing :",
+                unit: "px",
+                default_value: this.data.border_to_bar_space,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        border_to_bar_space: parseInt(this.parameters.border_to_bar_space.value(0))
+                    });
+                }
+            }]
+        );
+        this.parameters.border_to_bar_space.help_string = help.parameter.object.timer.space_between;
 
-                var this_object = object_method.getByID(id);
+        this.parameters.border_thickness = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Border thickness :",
+                unit: "px",
+                default_value: this.data.border_thickness,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        border_thickness: parseInt(this.parameters.border_thickness.value(0))
+                    });
+                }
+            }]
+        );
+        this.parameters.border_thickness.help_string = help.parameter.object.timer.border_thickness;
 
-                this_object.updateData({
-                    id: id,
-                    border_to_bar_space: value,
+
+        //border radius
+        this.parameters.border_radius = new imports.ui_components.UIParameterString(
+            this.parameter_container,
+            "Border radius (CSS)",
+            this.data.border_radius,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    border_radius: this.parameters.border_radius.value,
                 });
             }
         );
-
-        //border thickness
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value",
-                settings: {
-                    default: this.data.border_to_bar_space,
-                    min: 0,
-                    step: 1,
-                },
-                title: "Border thickness",
-                help: help.parameter.object.timer.border_thickness,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    border_thickness: value,
-                });
-            }
-        );
-
-        //border-radius
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "string",
-                settings: {
-                    default: this.data.border_radius,
-                },
-                title: "Border Radius",
-                help: help.parameter.object.general.border_radius,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    border_radius: value,
-                });
-            }
-        );
+        this.parameters.border_radius.help_string = help.parameter.object.general.border_radius;
 
         //box-shadow
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "string",
-                settings: {
-                    default: this.data.box_shadow,
-                },
-                title: "Box Shadow",
-                help: help.parameter.object.general.shadow,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    box_shadow: value,
+        this.parameters.box_shadow = new imports.ui_components.UIParameterString(
+            this.parameter_container,
+            "Box Shadow (CSS)",
+            this.data.box_shadow,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    box_shadow: this.parameters.box_shadow.value,
                 });
             }
         );
+        this.parameters.box_shadow.help_string = help.parameter.object.general.shadow;
+
     }
 
 

@@ -246,29 +246,30 @@ function Background(glob_data) {
             });
         }
 
-        //layer
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value",
-                settings: {
-                    default: this.data.layer,
-                    min: 0,
-                    step: 1,
-                },
-                title: "Layer",
-                help: help.parameter.object.general.layer,
-            },
-            function(id, value) {  //id, type, parameters, name, callback with id
-                                                                                //and returned value by the input
-                var this_object = object_method.getByID(id);
+        this.parameters = {
+            layer: null,
+        };
 
-                this_object.updateData({
-                    id: id,
-                    layer: value,
-                });
-            }
+        //layer
+        this.parameters.layer = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Layer :",
+                unit: "",
+                default_value: this.data.layer,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        layer: parseInt(this.parameters.layer.value(0))
+                    });
+                }
+            }]
         );
+        this.parameters.layer.help_string = help.parameter.object.general.layer;
 
         //background
         let bgnd_size_array = this.data.background.size.split(" ");

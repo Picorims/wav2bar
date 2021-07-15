@@ -268,252 +268,271 @@ function ParticleFlow(glob_data) {
             });
         }
 
-        //layer
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value",
-                settings: {
-                    default: this.data.layer,
-                    min: 0,
-                    step: 1,
-                },
-                title: "Layer",
-                help: help.parameter.object.general.layer,
-            },
-            function(id, value) {  //id, type, parameters, name, callback with id
-                                                                                    //and returned value by the input
-                var this_object = object_method.getByID(id);
+        this.parameters = {
+            layer: null,
+            coordinates: null,
+            size: null,
+            particle_radius_range: null,
+            type: null,
+            center: null,
+            direction: null,
+            spawn_probability: null,
+            spawn_tests: null,
+            color: null,
+        };
 
-                this_object.updateData({
-                    id: id,
-                    layer: value,
-                });
-            }
+        //layer
+        this.parameters.layer = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Layer :",
+                unit: "",
+                default_value: this.data.layer,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        layer: parseInt(this.parameters.layer.value(0))
+                    });
+                }
+            }]
         );
+        this.parameters.layer.help_string = help.parameter.object.general.layer;
 
         //x and y
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value-xy",
-                settings: {
-                    default_x: this.data.x,
-                    default_y: this.data.y,
-                    step: 1,
-                },
-                title: "Coordinates",
-                help: help.parameter.object.general.pos,
+        this.parameters.coordinates = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "X :",
+                unit: "px",
+                default_value: this.data.x,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        x: parseInt(this.parameters.coordinates.value(0))
+                    });
+                }
             },
-            function(id, value1, value2) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    x: value1,
-                    y: value2,
-                });
-            }
+            {
+                title: "Y :",
+                unit: "px",
+                default_value: this.data.y,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        y: parseInt(this.parameters.coordinates.value(1))
+                    });
+                }
+            }]
         );
+        this.parameters.coordinates.help_string = help.parameter.object.general.pos;        
 
         //width and height
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value-xy",
-                settings: {
-                    default_x: this.data.width,
-                    default_y: this.data.height,
-                    min: 0,
-                    step: 1,
-                },
-                title: "Width and Height",
-                help: help.parameter.object.general.size,
+        this.parameters.size = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Width :",
+                unit: "px",
+                default_value: this.data.width,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        width: parseInt(this.parameters.size.value(0))
+                    });
+                }
             },
-            function(id, value1, value2) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    width: value1,
-                    height: value2,
-                });
-            }
+            {
+                title: "Height :",
+                unit: "px",
+                default_value: this.data.height,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        height: parseInt(this.parameters.size.value(1))
+                    });
+                }
+            }]
         );
+        this.parameters.size.help_string = help.parameter.object.general.size;
 
         //particle_radius_range
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value-xy",
-                settings: {
-                    default_x: this.data.particle_radius_range[0],
-                    default_y: this.data.particle_radius_range[1],
-                    min: 1,
-                    step: 1,
-                },
-                title: "Particle size range",
-                help: help.parameter.object.particles.ptcl_size,
+        this.parameters.particle_radius_range = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "Particle size range",
+            true,
+            [{
+                title: "Min :",
+                unit: "px",
+                default_value: this.data.particle_radius_range[0],
+                min: 1,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        particle_radius_range: [parseInt(this.parameters.particle_radius_range.value(0)), parseInt(this.parameters.particle_radius_range.value(1))],
+                    });
+                }
             },
-            function(id, value1, value2) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    particle_radius_range: [value1, value2],
-                });
-            }
+            {
+                title: "Max :",
+                unit: "px",
+                default_value: this.data.particle_radius_range[1],
+                min: 1,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        particle_radius_range: [parseInt(this.parameters.particle_radius_range.value(0)), parseInt(this.parameters.particle_radius_range.value(1))],
+                    });
+                }
+            }]
         );
+        this.parameters.particle_radius_range.help_string = help.parameter.object.particles.ptcl_size;
 
         //type
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "choice",
-                settings: {
-                    default: this.data.type,
-                    list:["radial", "directional"],
-                },
-                title: "Movement type",
-                help: help.parameter.object.particles.mvmt_type,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    type: value,
+        this.parameters.type = new imports.ui_components.UIParameterChoice(
+            this.parameter_container,
+            "Type",
+            ["radial","directional"],
+            this.data.type,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    type: this.parameters.type.value,
                 });
             }
         );
 
         //center
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value-xy",
-                settings: {
-                    default_x: this.data.center.x,
-                    default_y: this.data.center.y,
-                    step: 1,
-                },
-                title: "Center position (radial)",
-                help: help.parameter.object.particles.center_pos,
+        this.parameters.center = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "Center position (radial)",
+            true,
+            [{
+                title: "X :",
+                unit: "px",
+                default_value: this.data.center.x,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        center: {
+                            x: parseInt(this.parameters.center.value(0)),
+                            y: parseInt(this.parameters.center.value(1)),
+                        },
+                    });
+                }
             },
-            function(id, value1, value2) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    center: {
-                        x: value1,
-                        y: value2,
-                    },
-                });
-            }
+            {
+                title: "Y :",
+                unit: "px",
+                default_value: this.data.center.y,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        center: {
+                            x: parseInt(this.parameters.center.value(0)),
+                            y: parseInt(this.parameters.center.value(1)),
+                        },
+                    });
+                }
+            }]
         );
+        this.parameters.center.help_string = help.parameter.object.particles.center_pos;
 
         //direction
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value",
-                settings: {
-                    default: this.data.direction,
-                    min: 0,
-                    max: 360,
-                    step: 1,
-                },
-                title: "Direction (directional)",
-                help: help.parameter.object.particles.direction,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-                value = value * (2*Math.PI / 360);//conversion in radians
-
-                this_object.updateData({
-                    id: id,
-                    particle_direction: value,
-                });
-            }
+        this.parameters.direction = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Direction (directional) :",
+                unit: "°",
+                default_value: this.data.particle_direction * (360 / 2*Math.PI),//convert to degrees
+                min: 0,
+                max: 360,
+                step: 1,
+                callback: () => {
+                    let value = parseInt(this.parameters.direction.value(0)) * (2*Math.PI / 360);//conversion in radians
+                    this.updateData({
+                        id: this.data.id,
+                        particle_direction: value,
+                    });
+                }
+            }]
         );
+        this.parameters.direction.help_string = help.parameter.object.particles.direction;
 
         //spawn probability
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value",
-                settings: {
-                    default: this.data.spawn_probability,
-                    min: 0,
-                    max: 1,
-                    step: 0.01,
-                },
-                title: "Spawn probability",
-                help: help.parameter.object.particles.spawn_probability,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    spawn_probability: value,
-                });
-            }
+        this.parameters.spawn_probability = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Spawn probability :",
+                unit: "",
+                default_value: this.data.spawn_probability,
+                min: 0,
+                max: 1,
+                step: 0.01,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        spawn_probability: parseFloat(this.parameters.spawn_probability.value(0))
+                    });
+                }
+            }]
         );
+        this.parameters.spawn_probability.help_string = help.parameter.object.particles.spawn_probability;
 
         //spawn tests
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "value",
-                settings: {
-                    default: this.data.spawn_tests,
-                    min: 1,
-                    step: 1,
-                },
-                title: "Spawn tests per frame",
-                help: help.parameter.object.particles.spawn_tests,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    spawn_tests: value,
-                });
-            }
+        this.parameters.spawn_tests = new imports.ui_components.UIParameterNumInputList(
+            this.parameter_container,
+            "",
+            false,
+            [{
+                title: "Spawn tests per frame :",
+                unit: "",
+                default_value: this.data.spawn_tests,
+                min: 1,
+                step: 1,
+                callback: () => {
+                    this.updateData({
+                        id: this.data.id,
+                        spawn_tests: parseInt(this.parameters.spawn_tests.value(0))
+                    });
+                }
+            }]
         );
+        this.parameters.spawn_tests.help_string = help.parameter.object.particles.spawn_tests;
 
         //color
-        AddParameter(
-            {
-                object_id: this.data.id,
-                type: "string",
-                settings: {
-                    default: this.data.color,
-                },
-                title: "Color",
-                help: help.parameter.object.particles.ptcl_color,
-            },
-            function(id, value) {
-
-                var this_object = object_method.getByID(id);
-
-                this_object.updateData({
-                    id: id,
-                    color: value,
+        this.parameters.color = new imports.ui_components.UIParameterString(
+            this.parameter_container,
+            "Color (hex, rgb, rgba)",
+            this.data.color,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    color: this.parameters.color.value,
                 });
             }
         );
+        this.parameters.color.help_string = help.parameter.object.particles.ptcl_color;
     }
 
 
