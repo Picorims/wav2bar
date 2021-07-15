@@ -613,30 +613,6 @@ function Visualizer(glob_data) {
         );
         this.parameters.color.help_string = help.parameter.object.general.color;
 
-        // //bar thickness
-        // AddParameter(
-        //     {
-        //         object_id: this.data.id,
-        //         type: "value",
-        //         settings: {
-        //             default: this.data.bar_thickness,
-        //             min: 0,
-        //             step: 1,
-        //         },
-        //         title: "Bar thickness",
-        //         help: help.parameter.object.visualizer.bar_kind.bar_thickness,
-        //     },
-        //     function(id, value) {
-
-        //         var this_object = object_method.getByID(id);
-
-        //         this_object.updateData({
-        //             id: id,
-        //             bar_thickness: value,
-        //         });
-        //     }
-        // );
-
         //bar thickness
         this.parameters.bar_thickness = new imports.ui_components.UIParameterNumInputList(
             this.parameter_container,

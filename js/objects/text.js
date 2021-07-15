@@ -566,29 +566,6 @@ function Text(glob_data) {
         );
         this.parameters.line_through.help_string = help.parameter.object.text.line_through;
 
-        // //text align
-        // AddParameter(
-        //     {
-        //         object_id: this.data.id,
-        //         type: "choice",
-        //         settings: {
-        //             default: this.data.text_align,
-        //             list:["left", "center", "right"],
-        //         },
-        //         title: "Text align",
-        //         help: help.parameter.object.text.text_align,
-        //     },
-        //     function(id, value) {
-
-        //         var this_object = object_method.getByID(id);
-
-        //         this_object.updateData({
-        //             id: id,
-        //             text_align: value,
-        //         });
-        //     }
-        // );
-
         //text align
         this.parameters.text_align = new imports.ui_components.UIParameterChoice(
             this.parameter_container,
