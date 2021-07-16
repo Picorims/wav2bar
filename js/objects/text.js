@@ -315,6 +315,7 @@ function Text(glob_data) {
             type: null,
             font_size: null,
             color: null,
+            decoration: null,
             italic: null,
             bold: null,
             underline: null,
@@ -496,75 +497,129 @@ function Text(glob_data) {
         );
         this.parameters.color.help_string = help.parameter.object.general.color;
 
-        //italic
-        this.parameters.italic = new imports.ui_components.UIParameterCheckBox(
+        this.parameters.decoration = new imports.ui_components.UIParameterButtonGrid(
             this.parameter_container,
-            "Italic",
-            this.data.italic,
-            () => {
-                this.updateData({
-                    id: this.data.id,
-                    italic: this.parameters.italic.checked,
-                });
-            }
-        );
-        this.parameters.italic.help_string = help.parameter.object.text.italic;
+            "Text decoration",
+            1, 5,
+            [[
+                {
+                    innerHTML: '<i class="ri-italic"></i>',
+                    callback: (bool) => {
+                        this.updateData({
+                            id: this.data.id,
+                            italic: bool,
+                        });
+                    }
+                }, {
+                    innerHTML: '<i class="ri-bold"></i>',
+                    callback: (bool) => {
+                        this.updateData({
+                            id: this.data.id,
+                            bold: bool,
+                        });
+                    }
+                }, {
+                    innerHTML: '<i class="ri-underline"></i>',
+                    callback: (bool) => {
+                        this.updateData({
+                            id: this.data.id,
+                            underline: bool,
+                        });
+                    }
+                }, {
+                    innerHTML: '<span style="text-decoration: overline">O</span>',
+                    callback: (bool) => {
+                        this.updateData({
+                            id: this.data.id,
+                            overline: bool,
+                        });
+                    }
+                }, {
+                    innerHTML: '<i class="ri-strikethrough"></i>',
+                    callback: (bool) => {
+                        this.updateData({
+                            id: this.data.id,
+                            line_through: bool,
+                        });
+                    }
+                }
+            ]], true);
+        if (this.data.italic) this.parameters.decoration.toggle(1,1);
+        if (this.data.bold) this.parameters.decoration.toggle(1,2);
+        if (this.data.underline) this.parameters.decoration.toggle(1,3);
+        if (this.data.overline) this.parameters.decoration.toggle(1,4);
+        if (this.data.line_through) this.parameters.decoration.toggle(1,5);
+        this.parameters.decoration.help_string = help.parameter.object.text.decoration;
 
-        //bold
-        this.parameters.bold = new imports.ui_components.UIParameterCheckBox(
-            this.parameter_container,
-            "Bold",
-            this.data.bold,
-            () => {
-                this.updateData({
-                    id: this.data.id,
-                    bold: this.parameters.bold.checked,
-                });
-            }
-        );
-        this.parameters.bold.help_string = help.parameter.object.text.bold;
+        // //italic
+        // this.parameters.italic = new imports.ui_components.UIParameterCheckBox(
+        //     this.parameter_container,
+        //     "Italic",
+        //     this.data.italic,
+        //     () => {
+        //         this.updateData({
+        //             id: this.data.id,
+        //             italic: this.parameters.italic.checked,
+        //         });
+        //     }
+        // );
+        // this.parameters.italic.help_string = help.parameter.object.text.italic;
 
-        //underline
-        this.parameters.underline = new imports.ui_components.UIParameterCheckBox(
-            this.parameter_container,
-            "Underline",
-            this.data.underline,
-            () => {
-                this.updateData({
-                    id: this.data.id,
-                    underline: this.parameters.underline.checked,
-                });
-            }
-        );
-        this.parameters.underline.help_string = help.parameter.object.text.underline;
+        // //bold
+        // this.parameters.bold = new imports.ui_components.UIParameterCheckBox(
+        //     this.parameter_container,
+        //     "Bold",
+        //     this.data.bold,
+        //     () => {
+        //         this.updateData({
+        //             id: this.data.id,
+        //             bold: this.parameters.bold.checked,
+        //         });
+        //     }
+        // );
+        // this.parameters.bold.help_string = help.parameter.object.text.bold;
 
-        //overline
-        this.parameters.overline = new imports.ui_components.UIParameterCheckBox(
-            this.parameter_container,
-            "Overline",
-            this.data.overline,
-            () => {
-                this.updateData({
-                    id: this.data.id,
-                    overline: this.parameters.overline.checked,
-                });
-            }
-        );
-        this.parameters.overline.help_string = help.parameter.object.text.overline;
+        // //underline
+        // this.parameters.underline = new imports.ui_components.UIParameterCheckBox(
+        //     this.parameter_container,
+        //     "Underline",
+        //     this.data.underline,
+        //     () => {
+        //         this.updateData({
+        //             id: this.data.id,
+        //             underline: this.parameters.underline.checked,
+        //         });
+        //     }
+        // );
+        // this.parameters.underline.help_string = help.parameter.object.text.underline;
 
-        //line through
-        this.parameters.line_through = new imports.ui_components.UIParameterCheckBox(
-            this.parameter_container,
-            "Line through",
-            this.data.line_through,
-            () => {
-                this.updateData({
-                    id: this.data.id,
-                    line_through: this.parameters.line_through.checked,
-                });
-            }
-        );
-        this.parameters.line_through.help_string = help.parameter.object.text.line_through;
+        // //overline
+        // this.parameters.overline = new imports.ui_components.UIParameterCheckBox(
+        //     this.parameter_container,
+        //     "Overline",
+        //     this.data.overline,
+        //     () => {
+        //         this.updateData({
+        //             id: this.data.id,
+        //             overline: this.parameters.overline.checked,
+        //         });
+        //     }
+        // );
+        // this.parameters.overline.help_string = help.parameter.object.text.overline;
+
+        // //line through
+        // this.parameters.line_through = new imports.ui_components.UIParameterCheckBox(
+        //     this.parameter_container,
+        //     "Line through",
+        //     this.data.line_through,
+        //     () => {
+        //         this.updateData({
+        //             id: this.data.id,
+        //             line_through: this.parameters.line_through.checked,
+        //         });
+        //     }
+        // );
+        // this.parameters.line_through.help_string = help.parameter.object.text.line_through;
 
         //text align
         this.parameters.text_align = new imports.ui_components.UIParameterChoice(

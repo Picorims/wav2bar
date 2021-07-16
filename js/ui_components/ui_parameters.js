@@ -150,6 +150,24 @@ export class UIParameterCheckBox extends UIParameter {
 
 
 
+//parameter for making a grid of buttons to interact with
+export class UIParameterButtonGrid extends UIParameter {
+    constructor(parent, title, rows, columns, button_definitions, togglable) {
+        super(parent, title, true);
+        this._rows = rows
+        this._columns = columns;
+        this._button_definitions = button_definitions;
+        this._togglable = togglable;
+
+        this._button_grid = new ui.UIButtonGrid(this._rows, this._columns, this._button_definitions, this._togglable);
+        this._button_grid.DOM_container.style.margin = "0 auto";
+        this._button_grid.DOM_parent = this._container;
+    }
+    toggle(i, j) {this._button_grid.toggle(i, j)}
+}
+
+
+
 //parameter for background picking
 export class UIParameterBackgroundPicker extends UIParameter {
     constructor(parent, title, defaults, object_id) {

@@ -35,11 +35,7 @@
                 "type": "Sets the text type. The text may be automatically generated depending of the setting.",
                 "text_content": "Sets the text to display, when allowed.",
                 "font_size": "Sets the font size in pixels.",
-                "italic": "Sets the text in italics.",
-                "bold": "Sets the text in bold.",
-                "underline": "Underlines the text.",
-                "overline": "Overlines the text.",
-                "line_through": "Draws a line on the text.",
+                "decoration": "Respectively toggle italic, bold, underline, overline, and line through on the text.",
                 "text_align": "Sets how the text should aligns itself in the container."
             },
             "timer": {
