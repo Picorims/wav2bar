@@ -31,7 +31,7 @@ async function InitUI() {
     imports.ui_components = await import("./ui_components/ui_components.js");
 
     //DISPLAY VERSION
-    document.title = document.title + " " + software_version;
+    document.title = "Wav2Bar - " + software_status + " " + software_version;
     document.getElementById("software_version").innerHTML = `${software_version} ${software_status}`;
 
     //HTML DEFINITIONS
