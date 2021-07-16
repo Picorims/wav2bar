@@ -3,14 +3,23 @@ This document is based on Keep a Changelog 1.0.0
 
 ## 0.2.0-beta (?)
 
+### Added
+- Added shortcuts for easy positioning of objects based on the screen.
+- Added shortcuts for easy sizing of objects to screen size.
+- Added a color picker.
+
 ### Changed
 - Made a lot of internal refactoring:
     - Object parameters user interface and object openable containers have been internally refactored for more flexibility.
-- Invalid numbers and strings are shown visually instead of being silently ignored in object parameters.
-- Made spacing between inputs more compact.
+- Some invalid values are shown visually instead of being silently ignored in object parameters.
+- Made control panel display more compact.
 
 ### Removed
 - Image preview is no longer available in background picking user interface.
+
+### Fixed
+- Fixed a syntax error in FFmpeg not present warning.
+- Updated the font size help bubble, that was outdated.
 
 ## 0.1.2-beta (2021-06-22)
 
