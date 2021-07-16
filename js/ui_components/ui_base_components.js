@@ -162,6 +162,12 @@ export class UINumberInput extends UIComponent {
         this._label_unit.style.width = "15%";
         this._label_unit.style.textAlign = "left";
         this._label_unit.style.marginLeft = "2px";
+
+        //event trigger
+        this._input_event = new Event('input', {
+            bubbles: true,
+            cancelable: true,
+        });
     }
 
     get value() {return this._input.value}
@@ -205,6 +211,8 @@ export class UINumberInput extends UIComponent {
             }
         };
     }
+
+    trigger() {this._input.dispatchEvent(this._input_event);}
 }
 
 

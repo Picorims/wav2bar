@@ -303,7 +303,7 @@ function ParticleFlow(glob_data) {
         this.parameters.layer.help_string = help.parameter.object.general.layer;
 
         //x and y
-        this.parameters.coordinates = new imports.ui_components.UIParameterNumInputList(
+        this.parameters.coordinates = new imports.ui_components.UIParameterInputsAndButtonGrid(
             this.parameter_container,
             "",
             false,
@@ -330,9 +330,50 @@ function ParticleFlow(glob_data) {
                         y: parseInt(this.parameters.coordinates.value(1))
                     });
                 }
-            }]
+            }],
+            2, 3, [
+                [
+                    {
+                        innerHTML: '<i class="ri-align-left"></i>',
+                        callback: () => {
+                            this.parameters.coordinates.forceValue(0, 0, true);
+                        }
+                    },{
+                        innerHTML: '<i class="ri-align-center"></i>',
+                        callback: () => {
+                            let pos = current_save.screen.width/2 - this.data.width/2;
+                            this.parameters.coordinates.forceValue(0, pos, true);
+                        }
+                    },{
+                        innerHTML: '<i class="ri-align-right"></i>',
+                        callback: () => {
+                            let pos = current_save.screen.width - this.data.width;
+                            this.parameters.coordinates.forceValue(0, pos, true);
+                        }
+                    }
+                ],[
+                    {
+                        innerHTML: '<i class="ri-align-top"></i>',
+                        callback: () => {
+                            this.parameters.coordinates.forceValue(1, 0, true);
+                        }
+                    },{
+                        innerHTML: '<i class="ri-align-vertically"></i>',
+                        callback: () => {
+                            let pos = current_save.screen.height/2 - this.data.height/2;
+                            this.parameters.coordinates.forceValue(1, pos, true);
+                        }
+                    },{
+                        innerHTML: '<i class="ri-align-bottom"></i>',
+                        callback: () => {
+                            let pos = current_save.screen.height - this.data.height;
+                            this.parameters.coordinates.forceValue(1, pos, true);
+                        }
+                    }
+                ]
+            ], false
         );
-        this.parameters.coordinates.help_string = help.parameter.object.general.pos;        
+        this.parameters.coordinates.help_string = help.parameter.object.general.pos;
 
         //width and height
         this.parameters.size = new imports.ui_components.UIParameterNumInputList(

@@ -107,6 +107,32 @@ export class UIParameterNumInputList extends UIParameter {
 
 
 
+//parameter for positioning something, comes with shortcuts
+export class UIParameterInputsAndButtonGrid extends UIParameterNumInputList {
+    constructor(parent, title, parent_title_visible, input_definition_list, rows, columns, button_definitions, togglable) {
+        super(parent, title, parent_title_visible, input_definition_list);
+
+        if (input_definition_list.length !== 2) throw new SyntaxError("UIParameterPosition: exactly 2 inputs are required.");
+
+        this._rows = rows
+        this._columns = columns;
+        this._button_definitions = button_definitions;
+        this._togglable = togglable;
+
+        this._button_grid = new ui.UIButtonGrid(this._rows, this._columns, this._button_definitions, this._togglable);
+        this._button_grid.DOM_container.style.margin = "0 auto";
+        this._button_grid.DOM_parent = this._container;
+    }
+
+    toggle(i, j) {this._button_grid.toggle(i, j)}
+    forceValue(i, value, dispatch_event) {
+        this._inputs[i].value = value;
+        if (dispatch_event) this._inputs[i].trigger();
+    }
+}
+
+
+
 //parameter with a list of choices
 export class UIParameterChoice extends UIParameter {
     constructor(parent, title, options_list, default_value, callback) {
