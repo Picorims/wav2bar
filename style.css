@@ -515,10 +515,10 @@ Tabs content
     display: flex;
     align-items: center;
     justify-content: center;
-    border: none;
     box-shadow: none;
     box-sizing: border-box;
     border: 3px solid var(--main-gray);
+    font-size: 20px;
 }
 .button_grid_button:hover {
     box-shadow: 0px 0px 4px var(--main-darker-color);

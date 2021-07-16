@@ -415,7 +415,7 @@ function Text(glob_data) {
         this.parameters.coordinates.help_string = help.parameter.object.general.pos;
 
         //width and height
-        this.parameters.size = new imports.ui_components.UIParameterNumInputList(
+        this.parameters.size = new imports.ui_components.UIParameterInputsAndButtonGrid(
             this.parameter_container,
             "",
             false,
@@ -444,7 +444,28 @@ function Text(glob_data) {
                         height: parseInt(this.parameters.size.value(1))
                     });
                 }
-            }]
+            }],
+            1, 3, [
+                [
+                    {
+                        innerHTML: '&#11020;',
+                        callback: () => {
+                            this.parameters.size.forceValue(0, current_save.screen.width, true);
+                        }
+                    },{
+                        innerHTML: '&#11021;',
+                        callback: () => {
+                            this.parameters.size.forceValue(1, current_save.screen.height, true);
+                        }
+                    },{
+                        innerHTML: '<i class="ri-fullscreen-line"></i>',
+                        callback: () => {
+                            this.parameters.size.forceValue(0, current_save.screen.width, true);
+                            this.parameters.size.forceValue(1, current_save.screen.height, true);
+                        }
+                    }
+                ]
+            ], false
         );
         this.parameters.size.help_string = help.parameter.object.general.size;
 
