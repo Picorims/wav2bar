@@ -146,6 +146,8 @@ export class UINumberInput extends UIComponent {
             this._label.innerHTML = this._title;
             this._label.style.width = "50%";
             this._label.style.textAlign = "left";
+            this._label.style.paddingRight = "5px";
+            this._label.style.boxSizing = "border-box";
         }
 
         this._input = document.createElement("input");
@@ -226,14 +228,15 @@ export class UIStringInput extends UIComponent {
             this._label.innerHTML = this._title;
             this._label.style.textAlign = "left";
             this._label.style.width = "50%";
-            this._label.style.marginRight = "10px";
+            this._label.style.paddingRight = "5px";
+            this._label.style.boxSizing = "border-box";
         }
 
         this._input = document.createElement("input");
         this._DOM_container.appendChild(this._input);
         this._input.value = this._default_value;
         this._input.type = "text";
-        this._input.style.width = (title === "")? "100%" : "45%";
+        this._input.style.width = (title === "")? "100%" : "50%";
         this._input.pattern = this._pattern;
     }
 
@@ -295,7 +298,8 @@ export class UIChoiceList extends UIComponent {
             this._label.innerHTML = this._title;
             this._label.style.textAlign = "left";
             this._label.style.width = "50%";
-            this._label.style.marginRight = "10px";
+            this._label.style.paddingRight = "5px";
+            this._label.style.boxSizing = "border-box";
         }
 
         this._input = document.createElement("select");
@@ -310,7 +314,7 @@ export class UIChoiceList extends UIComponent {
         }
         this._input.value = this._default_value;
         
-        this._input.style.width = (title === "")? "100%" : "45%";
+        this._input.style.width = (title === "")? "100%" : "50%";
     }
 
     get value() {return this._input.value}
