@@ -248,6 +248,8 @@ export class UIStringInput extends UIComponent {
         this._input.pattern = this._pattern;
     }
 
+    get input() {return this._input;}
+
     get value() {return this._input.value}
     set value(value) {this._input.value = value;}
 
@@ -282,6 +284,32 @@ export class UIStringInput extends UIComponent {
             bubbles: true,
             cancelable: true,
         }));
+    }
+}
+
+
+
+export class UIColorPicker extends UIComponent {
+    constructor(string_input) {
+        super();
+        if (!string_input instanceof UIStringInput) throw new SyntaxError("string_input must be a UIStringInput");
+        this._string_input = string_input;
+
+        //HTML color picker
+        this._color_picker = document.createElement("input");
+        this._color_picker.type = "color";
+        this._DOM_container.appendChild(this._color_picker);
+        this._color_picker.classList.add("panel_input","panel_input_color");
+        
+        //data-binding
+        this._color_picker.oninput = () => {
+            this._string_input.value = this._color_picker.value;
+            this._string_input.triggerOninput();
+        }
+        this._string_input.input.addEventListener("input", (e) => {
+            this._color_picker.value = this._string_input.value;
+        });
+        this._color_picker.value = this._string_input.value;
     }
 }
 

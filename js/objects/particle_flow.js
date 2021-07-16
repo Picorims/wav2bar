@@ -583,7 +583,7 @@ function ParticleFlow(glob_data) {
         this.parameters.spawn_tests.help_string = help.parameter.object.particles.spawn_tests;
 
         //color
-        this.parameters.color = new imports.ui_components.UIParameterString(
+        this.parameters.color = new imports.ui_components.UIParameterColor(
             this.parameter_container,
             "Color (hex, rgb, rgba)",
             this.data.color,

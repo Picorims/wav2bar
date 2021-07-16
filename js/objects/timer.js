@@ -464,7 +464,7 @@ function Timer(glob_data) {
         this.parameters.rotation.help_string = help.parameter.object.general.rotation;
 
         //color
-        this.parameters.color = new imports.ui_components.UIParameterString(
+        this.parameters.color = new imports.ui_components.UIParameterColor(
             this.parameter_container,
             "Color (hex, rgb, rgba)",
             this.data.color,

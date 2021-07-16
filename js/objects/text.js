@@ -541,7 +541,7 @@ function Text(glob_data) {
         this.parameters.font_size.help_string = help.parameter.object.text.font_size;
 
         //color
-        this.parameters.color = new imports.ui_components.UIParameterString(
+        this.parameters.color = new imports.ui_components.UIParameterColor(
             this.parameter_container,
             "Color (hex, rgb, rgba)",
             this.data.color,

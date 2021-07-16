@@ -70,6 +70,17 @@ export class UIParameterString extends UIParameter {
 
 
 
+export class UIParameterColor extends UIParameterString {
+    constructor(parent, title, default_value, callback) {
+        super(parent, title, default_value, callback);
+
+        this._color_picker = new ui.UIColorPicker(this._string_input);
+        this._container.appendChild(this._color_picker.DOM_container);
+    }
+}
+
+
+
 //parameter with a list of numeric inputs
 export class UIParameterNumInputList extends UIParameter {
     constructor(parent, title, parent_title_visible, input_definition_list) {

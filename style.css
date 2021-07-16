@@ -548,7 +548,7 @@ Tabs content
 
     transition: 0.2s;
 }
-.panel_input:focus {
+.panel_input:focus, .panel_input_color:hover {
     box-shadow: 0px 0px 20px var(--main-darker-color);
     border: 3px solid var(--main-darker-color);
 
@@ -571,6 +571,10 @@ Tabs content
 
 .panel_input_checkbox {
     width: 20px;
+}
+
+.panel_input_color:hover {
+    cursor: pointer;
 }
 
 
