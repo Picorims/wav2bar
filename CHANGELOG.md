@@ -18,6 +18,7 @@ This document is based on Keep a Changelog 1.0.0
 - Image preview is no longer available in background picking user interface.
 
 ### Fixed
+- Text overline was not showing properly.
 - Fixed a syntax error in FFmpeg not present warning.
 - Updated the font size help bubble, that was outdated.
 
