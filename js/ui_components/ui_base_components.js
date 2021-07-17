@@ -311,6 +311,7 @@ export class UIColorPicker extends UIComponent {
         });
         this._color_picker.value = this._string_input.value;
     }
+    set value(value) {this._color_picker.value = value}
 }
 
 

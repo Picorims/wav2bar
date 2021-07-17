@@ -252,6 +252,11 @@ export class UIParameterBackgroundPicker extends UIParameter {
         this._input.DOM_parent = this._container;
         this._input.input_class_list = ["panel_input", "panel_input_string"];
 
+        //color picker
+        this._color_picker = new ui.UIColorPicker(this._input);
+        this._color_picker.DOM_parent = this._container;
+        this._color_picker.value = this._defaults.color;
+
         //image display
         //using a div make more sense, so it matches the behaviour of the screen,
         //that also uses a div to handle colors and gradients.
@@ -346,16 +351,19 @@ export class UIParameterBackgroundPicker extends UIParameter {
                 case "color":
                     this._input.display = "flex";
                     this._input.value = this._defaults.color;
+                    this._color_picker.DOM_container.style.display = "initial";
                     image_UI.forEach(element => element.style.display = "none");
                 break;
                 case "gradient":
                     this._input.display = "flex";
                     this._input.value = this._defaults.gradient;
+                    this._color_picker.DOM_container.style.display = "none";
                     image_UI.forEach(element => element.style.display = "none");
                 break;
                 case "image":
                     this._input.display = "flex";
                     this._input.value = "";
+                    this._color_picker.DOM_container.style.display = "none";
                     image_UI.forEach(element => element.style.display = (element.tagName === "BUTTON")? "initial":"flex");
                 break;
             }
