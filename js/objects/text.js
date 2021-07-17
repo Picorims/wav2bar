@@ -275,7 +275,6 @@ function Text(glob_data) {
     screen.appendChild(this.element);
     this.element.style.position = "absolute";
     this.element.style.display = "inline-block";
-    this.element.style.overflow = "hidden";
     this.element.style.overflowWrap = "break-word";
 
 
