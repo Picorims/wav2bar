@@ -70,6 +70,7 @@
     },
     "export": {
         "video_path": "Sets the video output path and name",
-        "action": "Exports the project into a video file in .mp4 format, to the length of the audio file."
+        "action": "Exports the project into a video file in .mp4 format, to the length of the audio file.",
+        "experimental_jpeg_export": "Use JPEG (quality 100) instead of PNG for intermediate screenshots. Experimental feature, video quality shouldn't be impacted, and export should be faster."
     }
 }

@@ -259,7 +259,7 @@ async function Render() {//render every frame into an image
         if (frames_rendered < frames_to_render) {
 
             //the previous frame is rendered only now because the render of this one is now finished (UpdateFinished = true). it wasn't the case before
-            await ipcRenderer.invoke('export-screen', {width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`);
+            await ipcRenderer.invoke('export-screen', {width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
 
             //get waveform data
             var length = 8192;//output is length/2
@@ -296,13 +296,13 @@ async function Render() {//render every frame into an image
         }//if all frames have been rendered and this is the last frame to export, stop the loop and export the last frame
         else {
 
-            await ipcRenderer.invoke('export-screen', {width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`);
+            await ipcRenderer.invoke('export-screen', {width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
 
             document.removeEventListener("render-loop", Render);
             ipcRenderer.sendTo(1, "frames-rendered");
             var data = received_data;
             var export_duration = export_array[1] - export_array[0];
-            ipcRenderer.invoke("create-video", data.screen, data.audio_file_type, fps, export_duration, data.output_path)
+            ipcRenderer.invoke("create-video", data.screen, data.audio_file_type, fps, export_duration, data.output_path, received_data.use_jpeg)
             .then( () => {
                 CustomLog("info","shutting down the renderer...");
                 window.close();

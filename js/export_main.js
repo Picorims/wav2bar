@@ -44,6 +44,7 @@ function Export(path) {//Launch the rendering process which will export the vide
             audio_file_type: audio_file_type,
             audio_file_extension: extension,
             output_path: path,
+            use_jpeg: document.getElementById("experimental_export_input").checked,
         }
 
         //cache audio for rendering in a separate file.

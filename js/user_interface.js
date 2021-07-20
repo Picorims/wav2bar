@@ -294,6 +294,7 @@ async function InitUI() {
             case "new_object":          help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.object.general.creation); break;
             case "export_video_path":   help_ui = new imports.ui_components.UIHelp(elements[i], help.export.video_path); break;
             case "export":              help_ui = new imports.ui_components.UIHelp(elements[i], help.export.action); break;
+            case "experimental_jpeg_export": help_ui = new imports.ui_components.UIHelp(elements[i], help.export.experimental_jpeg_export); break;
             default: break;
         }
     }

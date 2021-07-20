@@ -8,6 +8,7 @@ This document is based on Keep a Changelog 1.0.0
 - Added shortcuts for easy positioning of objects based on the screen.
 - Added shortcuts for easy sizing of objects to screen size.
 - Added a color picker.
+- Added experimental JPEG export (quality 100) instead of PNG, the quality should not be impacted and the export faster.
 
 ### Changed
 - Made a lot of internal refactoring:

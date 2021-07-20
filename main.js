@@ -579,7 +579,7 @@ ipcMain.handle('pcm-to-spectrum', async (event, waveform) => {
 
 
 //exports the app's rendering screen as an image
-ipcMain.handle('export-screen', async (event, screen_data, name) => {
+ipcMain.handle('export-screen', async (event, screen_data, name, use_jpeg) => {
     return new Promise( async (resolve, reject) => {
 
         main_log.info(`Capture requested.`);
@@ -591,7 +591,8 @@ ipcMain.handle('export-screen', async (event, screen_data, name) => {
             main_log.info("captured! Writing file...");
 
             //create the file
-            await fs.promises.writeFile(path.resolve(working_dir, `./temp/render/${name}.png`), image.toPNG());
+            if (use_jpeg) await fs.promises.writeFile(path.resolve(working_dir, `./temp/render/${name}.jpeg`), image.toJPEG(100));
+                else await fs.promises.writeFile(path.resolve(working_dir, `./temp/render/${name}.png`), image.toPNG());
             main_log.info("image of the screen created!");
             resolve();
         } catch (error) {
@@ -616,7 +617,7 @@ ipcMain.handle('set-ffprobe-path', async (event, path) => {
 
 
 //creates a video using ffmpeg from a set of frames and an audio file
-ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration, output_path) => {
+ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration, output_path, use_jpeg) => {
     return new Promise( (resolve, reject) => {
         main_log.info(`creating video: ${screen.width}x${screen.height}, ${audio_format}, ${fps}fps, duration: ${duration}s, at ${output_path}`);
 
@@ -656,8 +657,9 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
         // });
 
         //command
+        let frames_input = (use_jpeg)? "./temp/render/frame%d.jpeg" : "./temp/render/frame%d.png";
         var command = ffmpeg()
-            .addInput(path.resolve(working_dir, "./temp/render/frame%d.png"))
+            .addInput(path.resolve(working_dir, frames_input))
             .inputFPS(fps)
             .addInput(audio_file_path)
             .size(`${screen.width}x${screen.height}`)
