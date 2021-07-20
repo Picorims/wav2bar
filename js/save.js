@@ -5,7 +5,7 @@
 //all data of the project that can be saved is in this variable.
 //It is used for saving and exporting data, never for getting data in a process.
 var current_save;
-const current_save_version = 2;
+const current_save_version = 3;
 var lock_save_sync = false;
 
 
@@ -19,7 +19,8 @@ function InitSave() {
 function DefaultSave() {//set the save data to default values
     current_save = {
         //1 -> Wav2Bar 0.1.0 indev before save revamp (image embedding, music embedding)
-        //2 -> Wav2Bar 0.1.0 Beta and after
+        //2 -> Wav2Bar 0.1.0 Beta to 0.1.2 Beta
+        //3 -> Wav2Bar 0.2.0 Beta and after
         save_version: current_save_version,
         software_version_used: `${software_version} ${software_status}`,
         screen: {width: 1280, height: 720},
@@ -178,6 +179,12 @@ function ConvertSave(log_array = []) {
 
                 //create audio node
                 current_save.audio_filename = "";
+            break;
+
+
+
+            case 2:
+                //nothing to do, "svg_filters" property is automatically created by objects.
             break;
 
 

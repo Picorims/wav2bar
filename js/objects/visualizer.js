@@ -24,6 +24,7 @@
     bar_thickness: ?, (px)
     border_radius: ?, (css border-radius, string)
     box_shadow: ?, (css box-shadow, string)
+    svg_filters: ?, (string, list of <filter> tag)
 }*/
 
 function Visualizer(glob_data) {
@@ -55,6 +56,7 @@ function Visualizer(glob_data) {
         BAR_THICKNESS: 2,
         BORDER_RADIUS: "",
         BOX_SHADOW: "",
+        SVG_FILTERS: "",
     }
 
 
@@ -191,15 +193,22 @@ function Visualizer(glob_data) {
         //border-radius
         if ( imports.utils.IsUndefined(data.border_radius) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_radius = this.DEFAULTS.BORDER_RADIUS;}
         if ( !imports.utils.IsUndefined(data.border_radius) && !imports.utils.IsAString(data.border_radius) ) {
-            CustomLog("warn",`Visualizer object: Invalid border-radius! Set to ${this.DEFAULTS.BORDER_RADIUS}.`); //do not detect css errors!
+            CustomLog("warn",`Visualizer object: Invalid border-radius! Set to "${this.DEFAULTS.BORDER_RADIUS}".`); //do not detect css errors!
             data.border_radius = this.DEFAULTS.BORDER_RADIUS;
         }
 
         //box-shadow
         if ( imports.utils.IsUndefined(data.box_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.box_shadow = this.DEFAULTS.BOX_SHADOW;}
         if ( !imports.utils.IsUndefined(data.box_shadow) && !imports.utils.IsAString(data.box_shadow) ) {
-            CustomLog("warn",`Visualizer object: Invalid box-shadow! Set to ${this.DEFAULTS.BOX_SHADOW}.`); //do not detect css errors!
+            CustomLog("warn",`Visualizer object: Invalid box-shadow! Set to "${this.DEFAULTS.BOX_SHADOW}".`); //do not detect css errors!
             data.box_shadow = this.DEFAULTS.BOX_SHADOW;
+        }
+
+        //svg filter
+        if ( imports.utils.IsUndefined(data.svg_filters) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.svg_filters = this.DEFAULTS.SVG_FILTERS;}
+        if ( !imports.utils.IsUndefined(data.svg_filters) && data.svg_filters !== "" && (!imports.utils.IsAString(data.svg_filters) || data.svg_filters.includes("<script>") || !data.svg_filters.includes("<filter") || !data.svg_filters.includes("</filter>")) ) {
+            CustomLog("warn",`Visualizer object: Invalid svg filters! Set to "${this.DEFAULTS.SVG_FILTERS}".`); //do not detect html errors!
+            data.svg_filters = this.DEFAULTS.SVG_FILTERS;
         }
 
         return data;
@@ -249,6 +258,25 @@ function Visualizer(glob_data) {
                 this.element.height = this.data.height;//height
             }
             this.element.style.transform = `rotate(${this.data.rotation}deg)`;//rotation
+            //svg filters
+            if (this.data.svg_filters !== "") {
+                this.svg_filter_div.children[0].children[0].innerHTML = "";
+                let str = "";
+                let filters = this.data.svg_filters.split("[#]");
+                for (let i = 0; i < filters.length; i++) {
+                    let id = `${this.data.id}-FILTER-${i}`;
+                    //load filter
+                    filters[i] = filters[i].replace(/id=".*?"/,"").replace("<filter",`<filter id="${id}"`);
+                    this.svg_filter_div.children[0].children[0].innerHTML += filters[i];
+                    //add in css
+                    let strToAdd = `url('#${id}')`;
+                    str += strToAdd;
+                    //spacing
+                    if (i < filters.length-1) str += " ";
+                }
+                this.element.style.filter = str;
+                console.log(str);
+            }
 
 
             //UPDATE BARS (points_count)
@@ -324,6 +352,12 @@ function Visualizer(glob_data) {
         this.element.style.alignItems = "flex-end";
     }
 
+    //svg filters
+    this.svg_filter_div = document.createElement("div");
+    document.body.appendChild(this.svg_filter_div);
+    this.svg_filter_div.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' version='1.1'><defs></defs></svg>";
+
+
 
 
 
@@ -370,6 +404,7 @@ function Visualizer(glob_data) {
             bar_thickness: null,
             border_radius: null,
             box_shadow: null,
+            svg_filters: null,
         };
 
         //layer
@@ -723,6 +758,20 @@ function Visualizer(glob_data) {
             }
         );
         this.parameters.box_shadow.help_string = help.parameter.object.general.shadow;
+
+        //svg filter
+        this.parameters.svg_filters = new imports.ui_components.UIParameterString(
+            this.parameter_container,
+            "SVG Filters (advanced, read help)",
+            this.data.svg_filters,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    svg_filters: this.parameters.svg_filters.value,
+                });
+            }
+        );
+        this.parameters.svg_filters.help_string = help.parameter.object.general.svg_filters;
 
     }
 

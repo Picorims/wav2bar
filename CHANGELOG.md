@@ -4,6 +4,7 @@ This document is based on Keep a Changelog 1.0.0
 ## 0.2.0-beta (?)
 
 ### Added
+- Added SVG filters support to all objects.
 - Added shortcuts for easy positioning of objects based on the screen.
 - Added shortcuts for easy sizing of objects to screen size.
 - Added a color picker.

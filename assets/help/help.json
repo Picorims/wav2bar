@@ -14,7 +14,8 @@
                 "bgnd_size": "In the case of an image, specify how it should fit the background, using the 'background-size' CSS property.",
                 "border_radius": "It has no effect when left blank. This specifies how the corners of the element(s) should be rounded. It uses the 'border-radius' CSS property syntax. Circle arcs will be achieved with pixel values, whereas ellipsoid shapes will be done using percentage values. Combinations of both can be made, see the CSS syntax for advanced use.",
                 "shadow": "Sets the shadow of an object using the 'box-shadow' CSS property syntax. Multiple shadows can be specified by separating them with a comma. For box shadows, the transparency is not taken into account, only the real object boundaries.",
-                "color": "Sets the object's color."
+                "color": "Sets the object's color.",
+                "svg_filters": "Apply SVG filters to the object. This must be a list of &lt;filter&gt;...&lt;/filter&gt; tags separated by '[#]'. Example: &lt;filter&gt;...&lt;/filter&gt;[#]&lt;filter&gt;...&lt;/filter&gt;[#]...<br/>Useful resources:<br/>- https://svgfilters.com/ (put the result in &lt;filter&gt;...&lt;/filter&gt;)<br/>- https://speckyboy.com/svg-filter-tutorials/<br/>- https://maketext.io/ (inspiration).<br/>- https://riptutorial.com/svg/topic/3262/filters"
             },
             "background": {
                 "bgnd": "Sets the background, using the CSS syntax. It can be a color, a gradient, an image..."

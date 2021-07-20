@@ -23,6 +23,7 @@
     line_through: true/false, (bool)
     text_align: ("left"||"center"||"right"),
     text_shadow: ?, (string, css text-shadow)
+    svg_filters: ?, (string, list of <filter> tag)
 }*/
 
 function Text(glob_data) {
@@ -52,6 +53,7 @@ function Text(glob_data) {
         LINE_THROUGH: false,
         TEXT_ALIGN: "center",
         TEXT_SHADOW: "",
+        SVG_FILTERS: "",
     };
 
 
@@ -200,6 +202,13 @@ function Text(glob_data) {
             data.text_shadow = this.DEFAULTS.TEXT_SHADOW;
         }
 
+        //svg filter
+        if ( imports.utils.IsUndefined(data.svg_filters) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.svg_filters = this.DEFAULTS.SVG_FILTERS;}
+        if ( !imports.utils.IsUndefined(data.svg_filters) && data.svg_filters !== "" && (!imports.utils.IsAString(data.svg_filters) || data.svg_filters.includes("<script>") || !data.svg_filters.includes("<filter") || !data.svg_filters.includes("</filter>")) ) {
+            CustomLog("warn",`Visualizer object: Invalid svg filters! Set to "${this.DEFAULTS.SVG_FILTERS}".`); //do not detect html errors!
+            data.svg_filters = this.DEFAULTS.SVG_FILTERS;
+        }
+
         return data;
 
     }
@@ -255,6 +264,25 @@ function Text(glob_data) {
             if (!this.data.underline && !this.data.overline && !this.data.line_through) this.element.style.textDecoration = ""; //fixes css not updating
             this.element.style.textAlign = this.data.text_align;//text align
             this.element.style.textShadow = this.data.text_shadow;//text shadow
+            //svg filters
+            if (this.data.svg_filters !== "") {
+                this.svg_filter_div.children[0].children[0].innerHTML = "";
+                let str = "";
+                let filters = this.data.svg_filters.split("[#]");
+                for (let i = 0; i < filters.length; i++) {
+                    let id = `${this.data.id}-FILTER-${i}`;
+                    //load filter
+                    filters[i] = filters[i].replace(/id=".*?"/,"").replace("<filter",`<filter id="${id}"`);
+                    this.svg_filter_div.children[0].children[0].innerHTML += filters[i];
+                    //add in css
+                    let strToAdd = `url('#${id}')`;
+                    str += strToAdd;
+                    //spacing
+                    if (i < filters.length-1) str += " ";
+                }
+                this.element.style.filter = str;
+                console.log(str);
+            }
         }
 
 
@@ -276,6 +304,11 @@ function Text(glob_data) {
     this.element.style.position = "absolute";
     this.element.style.display = "inline-block";
     this.element.style.overflowWrap = "break-word";
+
+    //svg filters
+    this.svg_filter_div = document.createElement("div");
+    document.body.appendChild(this.svg_filter_div);
+    this.svg_filter_div.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' version='1.1'><defs></defs></svg>";
 
 
 
@@ -317,6 +350,7 @@ function Text(glob_data) {
             decoration: null,
             text_align: null,
             text_shadow: null,
+            svg_filters: null,
         };
 
         //layer
@@ -637,6 +671,20 @@ function Text(glob_data) {
         );
         this.parameters.text_shadow.help_string = help.parameter.object.general.shadow;
         
+        //svg filter
+        this.parameters.svg_filters = new imports.ui_components.UIParameterString(
+            this.parameter_container,
+            "SVG Filters (advanced, read help)",
+            this.data.svg_filters,
+            () => {
+                this.updateData({
+                    id: this.data.id,
+                    svg_filters: this.parameters.svg_filters.value,
+                });
+            }
+        );
+        this.parameters.svg_filters.help_string = help.parameter.object.general.svg_filters;
+
     }
 
 
