@@ -47,6 +47,7 @@ window.onbeforeunload = function(event) {PrepareWindowClose(event);};
 //get the main process working directory for user, temp, log, etc.
 //before initializing the page.
 function GetWorkingDir() {
+    CustomLog("debug","Getting main config...");
     ipcRenderer.invoke('get-working-dir').then(dir => {
         working_dir = dir;
         return ipcRenderer.invoke('get-os');
@@ -55,15 +56,18 @@ function GetWorkingDir() {
         return ipcRenderer.invoke('get-app-root');
     }).then(root => {
         root_dir = root;
+        CustomLog("debug","Getting main config done.");
         LoadModules();
     });
 }
 
 //load ES modules required
 function LoadModules() {
+    CustomLog("debug","Loading modules...");
     import("./utils/utils.js").then(module => {
         imports.utils = module;
     }).then(() => {
+        CustomLog("debug","Loading modules done.");
         InitPage();
     }).catch(error => {
         CustomLog("error", `couldn't load modules: ${error}`);
@@ -82,12 +86,12 @@ function InitPage() {//page initialization
     fps_array = [];
     fps = current_save.fps;
     animating = false;
-    setInterval(UpdateFPSDisplay, 1000);
+    if (!export_mode) setInterval(UpdateFPSDisplay, 1000);
 
 
 
     //UI INITIALIZATION
-    InitUI();
+    if (!export_mode) InitUI();
 }
 
 
