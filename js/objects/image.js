@@ -530,21 +530,21 @@ function Image(glob_data) {
         let val_percent_regex = new RegExp(/[0-9]+%/);//no g flag so it doesn't keep track of last index
         if (bgnd_size_array[0] === "contain") {
             def_size_type = "contain";
-            def_size_x = def_size_y = "";
+            def_size_x = def_size_y = "100";
         } else if (bgnd_size_array[0] === "cover") {
             def_size_type = "cover";
-            def_size_x = def_size_y = "";
+            def_size_x = def_size_y = "100";
         } else if ( bgnd_size_array.length === 1 && val_percent_regex.test(bgnd_size_array[0]) ) {
             def_size_type = "scale_size_control";
             def_size_x = bgnd_size_array[0].replace("%","");
-            def_size_y = "";
+            def_size_y = "100";
         } else if ( bgnd_size_array.length === 2 && val_percent_regex.test(bgnd_size_array[0]) && val_percent_regex.test(bgnd_size_array[1]) ) {
             def_size_type = "width_height_size_control";
             def_size_x = bgnd_size_array[0].replace("%","");
             def_size_y = bgnd_size_array[1].replace("%","");
         } else {
             def_size_type = "cover";
-            def_size_x = def_size_y = "";
+            def_size_x = def_size_y = "100";
         }
         let repeat_x_bool, repeat_y_bool;
         switch (this.data.background.repeat) {
@@ -574,8 +574,8 @@ function Image(glob_data) {
                     default_gradient: this.data.background.last_gradient,
                     default_image: this.data.background.last_image,
                     default_size_type: def_size_type,
-                    default_size_x: def_size_x,
-                    default_size_y: def_size_y,
+                    default_size_x: parseFloat(def_size_x),
+                    default_size_y: parseFloat(def_size_y),
                     default_repeat_x: repeat_x_bool,
                     default_repeat_y: repeat_y_bool,
                     size_step: 1,

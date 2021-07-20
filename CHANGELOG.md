@@ -21,6 +21,7 @@ This document is based on Keep a Changelog 1.0.0
 ### Fixed
 - Changing the points count of a visualizer no longer breaks its display.
 - Text overline was not showing properly.
+- Background size didn't have a default value shown.
 - Fixed a syntax error in FFmpeg not present warning.
 - Updated the font size help bubble, that was outdated.
 - Removed "audio not saved" from the saving option title, this was only accurate in pre 0.1.0-beta releases.
