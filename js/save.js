@@ -97,6 +97,7 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
             ApplyLoadedSave();
             lock_save_sync = false;
         }
+        if (!export_mode) document.getElementById("opened_save").innerHTML = save_file_path;
     });
     await ipcRenderer.invoke("cache-save-file", save_file_path);
 
