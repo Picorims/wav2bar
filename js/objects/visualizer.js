@@ -614,6 +614,7 @@ function Visualizer(glob_data) {
                         id: this.data.id,
                         points_count: parseInt(this.parameters.points_count.value(0))
                     });
+                    this.reset_visualization_smoothing = true;
                 }
             }]
         );
@@ -783,12 +784,14 @@ function Visualizer(glob_data) {
     //##################################
     //FUNCTION TO ANIMATE THE VISUALIZER
     //##################################
+    this.reset_visualization_smoothing = true;
     this.update = function() {
         //collect audio data
         var visualizer_frequency_array = imports.utils.MappedArray(frequency_array, this.data.points_count, this.data.analyser_range[0], this.data.analyser_range[1]);
 
         //apply visualization smoothing
-        if (imports.utils.IsUndefined(this.previous_visualizer_frequency_array)) this.previous_visualizer_frequency_array = visualizer_frequency_array;
+        if (imports.utils.IsUndefined(this.previous_visualizer_frequency_array) || this.reset_visualization_smoothing) this.previous_visualizer_frequency_array = visualizer_frequency_array;
+        this.reset_visualization_smoothing;
         var smooth_type = this.data.visualization_smoothing.type;
         var smooth_factor = this.data.visualization_smoothing.factor;
 
