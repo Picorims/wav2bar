@@ -256,6 +256,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
         this._color_picker = new ui.UIColorPicker(this._input);
         this._color_picker.DOM_parent = this._container;
         this._color_picker.value = this._defaults.color;
+        this._color_picker.DOM_container.style.display = (this._defaults.type === "color")? "initial" : "none";
 
         //image display
         //using a div make more sense, so it matches the behaviour of the screen,
@@ -343,7 +344,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
 
         //option choice
         let image_UI = [/*this._img_disp,*/ this._img_picker, this._size_mode_picker.DOM_container, this._bgnd_size_inputs, this._repeat_x_input.DOM_container, this._repeat_y_input.DOM_container];
-        if (this._defaults.type === "image") image_UI.forEach(element => element.style.display = "initial");
+        if (this._defaults.type === "image") image_UI.forEach(element => element.style.display = (element.tagName === "BUTTON")? "initial":"flex");
             else image_UI.forEach(element => element.style.display = "none");
         this._list.oninput = () => {
             //update UI
