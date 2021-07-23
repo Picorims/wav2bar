@@ -21,6 +21,7 @@ require('./node_modules/log4js/lib/appenders/stdout');
 require('./node_modules/log4js/lib/appenders/console');
 const log4js = require("log4js");
 let main_log, main_renderer_log, export_log;
+const colors = require("colors");
 
 //software version
 const software_version = require("./package.json").version;
@@ -36,6 +37,63 @@ process.chdir(__dirname);
 //folder to write temp data and user data
 let working_dir;
 let cant_write_to_root = false;
+
+
+
+/*
+#####################
+COMMAND LINE ARGUMENT
+#####################
+*/
+
+const argv = require("yargs")(process.argv.slice(2))
+    .scriptName("wav2bar")
+    .command("load <savefile>", "Loads Wav2Bar with a save file.", (yargs) => {
+        yargs.positional("savefile", {
+            describe: "save file to load",
+            type: "string",
+        })
+    }, (argv) => {
+        let regexp = new RegExp(/\.w2bzip$/,"g");
+        if (!regexp.test(argv.savefile)) {
+            console.log("Missing .w2bzip extension.".red);
+            app.quit();
+        }
+    })
+    .command("export", "exports a project as a video file.", (yargs) => {
+        yargs.option("input", {
+            alias: "i",
+            describe: "The path of the save file to export.",
+            demandOption: "The input save file is required.",
+            type: "string",
+            nargs: 1
+        }).option("output", {
+            alias: "o",
+            describe: "The path of the exported video.",
+            demandOption: "The output video path is required.",
+            type: "string",
+            nargs: 1
+        }).option("jpeg", {
+            alias: "j",
+            describe: "Use experimental jpeg export.",
+            type: "boolean",
+        });
+    }, (argv) => {
+        let regexpI = new RegExp(/\.w2bzip$/,"g");
+        let regexpO = new RegExp(/\.mp4$/,"g");
+        if (!regexpI.test(argv.input)) {
+            console.log("Missing .w2bzip extension.".red);
+            app.quit();
+        }
+        if (!regexpO.test(argv.output)) {
+            console.log("Missing .mp4 extension.".red);
+            app.quit();
+        }
+    })
+    .help()
+    .strict()
+    .argv
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -67,7 +125,7 @@ function createWindow () {
     win.loadFile('index.html');
 
     // Open the DevTools.
-    //win.webContents.openDevTools();
+    win.webContents.openDevTools();
 
     //Hide menu bar
     win.setMenuBarVisibility(false);
@@ -297,6 +355,11 @@ function Init() {//main initialization
 }
 
 
+
+
+ipcMain.handle("argv", (event) => {
+    return argv;
+});
 
 
 

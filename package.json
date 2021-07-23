@@ -28,6 +28,7 @@
     "electron": "^12.0.9"
   },
   "dependencies": {
+    "colors": "^1.4.0",
     "electron-squirrel-startup": "^1.0.0",
     "exe-icon-extractor": "^1.0.8",
     "fluent-ffmpeg": "^2.1.2",

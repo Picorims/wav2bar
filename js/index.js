@@ -8,6 +8,7 @@ const software_status = 'Indev';
 let working_dir; //working directory for user, temp, logs...
 let root_dir; //root of the app (where main.js is located, and html/css folders)
 let os; //operating system
+let argv;
 
 var can_close_window_safely = false;//set to true when the user confirmed exit
 
@@ -41,12 +42,12 @@ GLOBAL INITIALIZATION AND AUDIO IMPORT
 ######################################
 */
 
-window.onload = function() {GetWorkingDir();};
+window.onload = function() {PreSetup();};
 window.onbeforeunload = function(event) {PrepareWindowClose(event);};
 
 //get the main process working directory for user, temp, log, etc.
 //before initializing the page.
-function GetWorkingDir() {
+function PreSetup() {
     CustomLog("debug","Getting main config...");
     ipcRenderer.invoke('get-working-dir').then(dir => {
         working_dir = dir;
@@ -56,6 +57,9 @@ function GetWorkingDir() {
         return ipcRenderer.invoke('get-app-root');
     }).then(root => {
         root_dir = root;
+        return ipcRenderer.invoke('argv');
+    }).then((args) => {
+        argv = args;
         CustomLog("debug","Getting main config done.");
         LoadModules();
     });
@@ -92,6 +96,21 @@ function InitPage() {//page initialization
 
     //UI INITIALIZATION
     if (!export_mode) InitUI();
+
+    //CLI
+    console.log(argv);
+
+    //load save passed through CLI if any.
+    if (argv._[0] === "load") LoadSave(argv.savefile);
+    if (argv._[0] === "export") LoadSave(argv.input);
+
+    //enable experimental jpeg from CLI
+    if (argv._[0] === "export" && argv.jpeg) document.getElementById("experimental_export_input").checked = argv.jpeg;
+
+    //launch export if any
+    if (argv._[0] === "export") setTimeout(() => {
+        Export(argv.output);
+    }, 5000);
 }
 
 

@@ -19,7 +19,7 @@ var progress_window;//progress bar
 //callback to the main window that the renderer windows exists
 function ConfirmCreation() {
     CustomLog("debug","renderer created");
-    GetWorkingDir();//trigger main init of index.js
+    PreSetup();//trigger main init of index.js
 
     //confirm that the window exists when it is ready
     ipcRenderer.sendTo(1, "renderer-exists");
@@ -216,8 +216,8 @@ function PrepareRendering() {//define important variables
     //FPS PREPARATION
     frame_count = 0;
     fps = current_save.fps;
-    export_array = [0, duration];//from when to when in seconds to export, based on audio length.
-    //export_array = [0,10];
+    //export_array = [0, duration];//from when to when in seconds to export, based on audio length.
+    export_array = [0,10];
     //interval type: [x,y[
 
     //SPECTRUM STORAGE USED BY THE OBJECTS
