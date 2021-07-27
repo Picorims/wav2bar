@@ -49,6 +49,11 @@ See https://www.electronforge.io/config/makers/rpm.
 Although there is no support for MacOS, the application may run just fine as Electron supports MacOS. If you would like to make a .pkg package for MacOS instead or running from source, you may look at https://www.electronforge.io/config/makers/pkg.
 
 
+## Using the Command Line Interface (CLI)
+
+See docs/cli.md for more details.
+
+
 ## License
 This tool is MIT licensed.
 
