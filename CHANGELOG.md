@@ -1,7 +1,13 @@
 # Changelogs
 This document is based on Keep a Changelog 1.0.0
 
-## 0.2.1-beta (?)
+## 0.2.1-beta (2021-07-28)
+
+### Added
+- Added a Command Line Interface (CLI)
+    - Added subcommand `load` to load a save file.
+    - Added subcommand `export` to export a save file into a video.
+    - Use `--help` flag to receive help.
 
 ## 0.2.0-beta (2021-07-21)
 

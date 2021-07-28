@@ -25,7 +25,7 @@ const colors = require("colors");
 
 //software version
 const software_version = require("./package.json").version;
-const software_status = 'Indev';
+const software_status = 'Beta';
 
 //fluent-ffmpeg dependencies
 const ffmpeg = require("fluent-ffmpeg");
@@ -125,7 +125,7 @@ function createWindow () {
     win.loadFile('index.html');
 
     // Open the DevTools.
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
 
     //Hide menu bar
     win.setMenuBarVisibility(false);
