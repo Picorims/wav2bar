@@ -3,8 +3,8 @@
 const { ipcRenderer } = require("electron");
 const { Logger } = require("log4js");
 
-const software_version = '0.3.0'; //current build version
-const software_status = 'Indev';
+const software_version = '0.2.2'; //current build version
+const software_status = 'Beta';
 let working_dir; //working directory for user, temp, logs...
 let root_dir; //root of the app (where main.js is located, and html/css folders)
 let os; //operating system

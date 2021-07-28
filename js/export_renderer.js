@@ -216,8 +216,8 @@ function PrepareRendering() {//define important variables
     //FPS PREPARATION
     frame_count = 0;
     fps = current_save.fps;
-    //export_array = [0, duration];//from when to when in seconds to export, based on audio length.
-    export_array = [0,10];
+    export_array = [0, duration];//from when to when in seconds to export, based on audio length.
+    //export_array = [0,10];
     //interval type: [x,y[
 
     //SPECTRUM STORAGE USED BY THE OBJECTS
