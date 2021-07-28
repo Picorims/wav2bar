@@ -18,6 +18,7 @@ If you are on Windows:
 
 `.` is `<executable_path>`.
 An invalid command won't launch the app and throw an error.
+Relative paths only works if the root is the source code root directory, or the locales/app/ directory on compiled sources.
 
 ### no sub-command
 
