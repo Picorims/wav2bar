@@ -12,7 +12,7 @@
 
 If you are on Windows:
 
-`start \wait <executable_path> [args]`.
+`start /wait <executable_path> [args]`.
 
 ## Commands
 
