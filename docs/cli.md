@@ -8,11 +8,11 @@
 
 ### Compiled source
 
-`<executable_path> [args]`
+`<executable_path> -- [args]`
 
 If you are on Windows:
 
-`start /wait <executable_path> [args]`.
+`start /wait <executable_path> -- [args]`.
 
 ## Commands
 
