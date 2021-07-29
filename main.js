@@ -25,7 +25,7 @@ const colors = require("colors");
 
 //software version
 const software_version = require("./package.json").version;
-const software_status = 'Beta';
+const software_status = 'Indev';
 
 //fluent-ffmpeg dependencies
 const ffmpeg = require("fluent-ffmpeg");
