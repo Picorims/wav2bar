@@ -69,7 +69,7 @@ export class UIParameterString extends UIParameter {
 }
 
 
-
+// Color picker parameter with an associated string input
 export class UIParameterColor extends UIParameterString {
     constructor(parent, title, default_value, callback) {
         super(parent, title, default_value, callback);
@@ -93,7 +93,7 @@ export class UIParameterNumInputList extends UIParameter {
         this._inputs = [];
         let list = this._input_definition_list
 
-        for (let i = 0; i < this._input_definition_list.length; i++) {
+        for (let i = 0; i < list.length; i++) {
             let input = new ui.UINumberInput(list[i].title, list[i].unit, list[i].default_value);
             input.DOM_container.style.width = "100%";
             this._inputs.push(input);

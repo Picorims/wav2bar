@@ -1,6 +1,6 @@
 # temp files
 temp/
-out/
+/out/
 logs/
 
 #vscode

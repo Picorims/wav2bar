@@ -1,0 +1,25 @@
+'MIT License - Copyright (c) 2020-2021 Picorims
+
+@startuml ui_append_help
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+' skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package "ui_base_components" {
+    class UIComponent {}
+}
+
+package "ui_append_help" {
+    class UIHelp {
+        - _help_string: string
+        --
+        + UIHelp(parent: HTMLDivElement, help_string: string): UIHelp
+        ..get, set..
+        + get help_msg() {return this._help_string}
+        + set help_msg(string: string): void
+    }
+    UIComponent <|-- UIHelp
+}
+
+@enduml

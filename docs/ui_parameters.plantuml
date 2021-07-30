@@ -1,0 +1,230 @@
+'MIT License - Copyright (c) 2020-2021 Picorims
+
+@startuml ui_parameters
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+' skinparam groupInheritance 2
+skinparam PackageStyle frame
+skinparam linetype ortho
+
+package "ui_base_components" {
+    class UIComponent {}
+
+    class UIButtonGrid {}
+    UIComponent <|-- UIButtonGrid
+
+    class UINumberInput {}
+    UIComponent <|-- UINumberInput
+
+    class UIStringInput {}
+    UIComponent <|-- UIStringInput
+
+    class UIColorPicker {}
+    UIComponent <|-- UIColorPicker
+
+    class UIChoiceList {}
+    UIComponent <|-- UIChoiceList
+
+    class UICheckBox {}
+    UIComponent <|-- UICheckBox
+}
+
+package "ui_parameters" {
+    class UIParameter {
+        - _parent: HTMLDivElement|UIComponent
+        - _title: string
+        - _parent_title_visible: bool
+        - _help_string: string
+        - _container: HTMLDivElement
+        - _label: HTMLSpanElement
+        - _help: UIHelp
+        --
+        + UIParameter(parent: HTMLDivElement|UIComponent,
+        title: string, parent_title_visible: bool): UIParameter
+        ..get, set..
+        + set class_list(class_list: array[string]): void
+        + set help_string(string: string): void
+    }
+    UIComponent <|-- UIParameter
+
+    class UIParameterString {
+        - _default_value: string
+        - _string_input: UIStringInput
+        --
+        + UIParameterString(parent: HTMLDivElement|UIComponent,
+        title: string, default_value: string, callback: function): UIParameterString
+        ..get, set..
+        + get value(): string
+    }
+    UIParameter <|-- UIParameterString
+    UIParameterString *.. "1" UIStringInput
+
+    class UIParameterColor {
+        - _color_picker: UIColorPicker
+        --
+        + constructor(parent: HTMLDivElement|UIComponent,
+        title: string, default_value: string, callback: function): UIParameterColor
+    }
+    UIParameterString <|-- UIParameterColor
+    UIParameterColor *.. "1" UIColorPicker
+
+    class UIParameterNumInputList {
+        - _input_definition_list: array[object]
+        - _inputs: array[UINumberInput]
+        --
+        + UIParameterNumInputList(parent: HTMLDivElement|UIComponent,
+        title: string, parent_title_visible: bool,
+        input_definition_list: array[object]): UIParameterNumInputList
+        ..
+        + value(index: number): number
+    }
+    UIParameter <|-- UIParameterNumInputList
+    UIParameterNumInputList *.. "n" UINumberInput
+
+    class UIParameterInputsAndButtonGrid {
+        - _rows: int
+        - _columns: int
+        - _button_definitions: array[array[object]]
+        - _togglable: bool
+        - _button_grid: UIButtonGrid
+        --
+        + UIParameterInputsAndButtonGrid(parent: HTMLDivElement|UIComponent,
+        title: string, parent_title_visible: bool,
+        input_definition_list: array[object], rows: int, columns: int,
+        button_definitions: array[array[object]], togglable: bool): UIParameterInputsAndButtonGrid
+        ..
+        + toggle(i: int, j: int): void
+        + forceValue(i: int, value: number, dispatch_event: bool): void
+    }
+    UIParameterNumInputList <|-- UIParameterInputsAndButtonGrid
+    UIParameterInputsAndButtonGrid *.. "1" UIButtonGrid
+
+    class UIParameterChoice {
+        - _options_list: array[string]
+        - _default_value: string
+        - _list: UIChoiceList
+        --
+        + UIParameterChoice(parent: HTMLDivElement|UIComponent,
+        title: string, options_list: array[string],
+        default_value: string, callback: function): UIParameterChoice
+        ..get, set..
+        + get value(): string
+    }
+    UIParameter <|-- UIParameterChoice
+    UIParameterChoice *.. "1" UIChoiceList
+
+    class UIParameterCheckBox {
+        - _default_value: bool
+        - _checkbox: UICheckBox
+        --
+        + UIParameterCheckBox(parent: HTMLDivElement|UIComponent,
+        title: string, default_value: bool,
+        callback: function): UIParameterCheckBox
+        ..get, set..
+        + get checked(): bool
+    }
+    UIParameter <|-- UIParameterCheckBox
+    UIParameterCheckBox *.. "1" UICheckBox
+
+    class UIParameterButtonGrid {
+        - _rows: int
+        - _columns: int
+        - _button_definitions: array[array[object]]
+        - _togglable: bool
+        - _button_grid: UIButtonGrid
+        --
+        + UIParameterButtonGrid(parent: HTMLDivElement|UIComponent,
+        title: string, rows: int, columns: int,
+        button_definitions: array[array[object]],
+        togglable: bool): UIParameterButtonGrid
+        ..
+        + toggle(i: int, j: int): void
+    }
+    UIParameter <|-- UIParameterButtonGrid
+    UIParameterButtonGrid *.. "1" UIButtonGrid
+
+    class UIParameterBackgroundPicker {
+        - _defaults: object
+        - _object_id: string
+        - _input_image_callback: function
+        - _input_else_callback: function
+
+        - _input_event: Event
+
+        - _list: UIChoiceList
+        - _input: UIStringInput
+
+        - _color_picker: UIColorPicker
+
+        - _img_disp: HTMLDivElement
+        - _img_picker: HTMLButtonElement
+
+        - _size_mode_picker: UIChoiceList
+        
+        - _bgnd_size_inputs: HTMLDivElement
+        - _bgnd_size_input1: UINumberInput
+        - _bgnd_size_input2: UINumberInput
+        
+        - _repeat_x_input: UICheckBox
+        - _repeat_y_input: UICheckBox
+        --
+        + UIParameterBackgroundPicker(parent: HTMLDivElement|UIComponent,
+        title: string, defaults: object, object_id: string): UIParameterBackgroundPicker
+        ..get, set..
+        + get list_value(): string
+        + set img_disp_background_image(background: string): void
+        + set img_picker_onclick(callback: function): void
+        + set input_image_callback(callback: function): void
+        + set input_else_callback(callback: function): void
+        + set default_image(value: string): void
+        + set size_min(min: number): void
+        + set size_max(max: number): void
+        + set size_step(step: number): void
+    }
+    UIParameter <|-- UIParameterBackgroundPicker
+    UIParameterBackgroundPicker *.. "2" UIChoiceList
+    UIParameterBackgroundPicker *.. "1" UIStringInput
+    UIParameterBackgroundPicker *.. "1" UIColorPicker
+    UIParameterBackgroundPicker *.. "2" UINumberInput
+    UIParameterBackgroundPicker *.. "2" UICheckBox
+
+    class UIParameterRack {
+        - _parent: HTMLDivElement
+        - _id: string
+        - _title: string
+        - _icon: string
+        - _settings: object
+
+        - _DEFAULT_DEFAULT_CLOSED: bool = false
+        - _DEFAULT_USER_CAN_EDIT_NAME: bool = true
+        - _DEFAULT_USER_CAN_DELETE: bool = true
+
+        - _delete_callback: function
+        - _rename_callback: function
+        - _closed: bool
+
+        - _banner: HTMLDivElement
+        - _title_container: HTMLDivElement
+        - _title_span: HTMLSpanElement
+        - _icon_container: HTMLDivElement
+
+        - _arrow: HTMLDivElement
+        - _cross_button: HTMLDivElement
+        - _edit_button: HTMLDivElement
+        --
+        + UIParameterRack(parent: HTMLDivElement, id: string,
+        title: string, icon: string, settings: object): UIParameterRack
+        ..get, set..
+        + get closed() {return this._closed;}
+        + set closed(closed) {if (closed !== this._closed) this.toggleOpen();}
+        + set delete_callback(callback) {this._delete_callback = callback;}
+        + set rename_callback(callback) {this._rename_callback = callback;}
+        ..
+        + toggleOpen(): void
+        + delete(): void
+        + rename(name: string): void
+    }
+    UIComponent <|-- UIParameterRack
+}
+
+@enduml

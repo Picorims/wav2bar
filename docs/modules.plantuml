@@ -1,0 +1,44 @@
+'MIT License - Copyright (c) 2020-2021 Picorims
+
+@startuml "modules
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+skinparam PackageStyle frame
+
+'package: dotted = export, otherwise = import
+
+package "global_context" {}
+global_context ..> utils
+global_context ..> ui_components
+
+package "ui_components" {}
+ui_components <.[dotted]. ui_base_components
+ui_components <.[dotted]. ui_parameters
+ui_components <.[dotted]. ui_append_help
+
+package "ui_base_components" {}
+ui_base_components ..> utils
+
+package "ui_parameters" {}
+ui_parameters ..> utils
+ui_parameters ..> ui_base_components
+ui_parameters ..> ui_append_help
+
+package "ui_append_help" {}
+ui_append_help ..> utils
+ui_append_help ..> ui_base_components
+
+package "utils" {}
+utils <.[dotted]. type_checking
+utils <.[dotted]. randomizers
+utils <.[dotted]. array_utils
+
+package "array_utils" {}
+array_utils ..> type_checking
+
+package "randomizers" {}
+randomizers ..> type_checking
+
+package "type_checking" {}
+
+@enduml

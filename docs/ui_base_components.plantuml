@@ -1,0 +1,135 @@
+'MIT License - Copyright (c) 2020-2021 Picorims
+
+@startuml ui_base_components
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+' skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package "ui_base_components" {
+    class UIComponent {
+        - _DOM_container: HTMLDivElement
+        - _DOM_parent: HTMLDivElement
+        - _UI_parent: UIComponent
+        - _display: string
+        --
+        + UIComponent() : UIComponent
+        ..get, set..
+        + get DOM_container(): HTMLDivElement
+        + get DOM_parent(): HTMLDivElement
+        + set DOM_parent(parent: HTMLDivElement): void
+        + get UI_parent(): UIComponent
+        + set UI_parent(parent: UIComponent): void
+        + get display(): string
+        + set display(display: string): void
+    }
+
+    class UIButtonGrid {
+        - _rows: int
+        - _columns: int
+        - _button_definitions: array[array[object]]
+        - _togglable: bool
+        - _buttons: array[array[HTMLButtonElement]]
+        --
+        + UIButtonGrid(rows: int, columns: int,
+        button_definitions: array[array[object]], togglable: bool): UIButtonGrid
+        ..get, set..
+        + get rows() : int
+        + get columns() : int
+        ..
+        + getButton(row: int, column: int) : HTMLButtonElement
+        + toggle(i: int, j: int): void
+    }
+    UIComponent <|-- UIButtonGrid
+
+    class UINumberInput {
+        - _title: string
+        - _unit: string
+        - _default_value: number
+        - _min: number
+        - _max: number
+        - _step: number
+        - _label: HTMLSpanElement
+        - _input: HTMLInputElement
+        - _label_unit: HTMLSpanElement
+        - _input_event: Event
+        --
+        + UINumberInput(title: string, unit: string,
+        default_value: number): UINumberInput
+        ..get, set..
+        + get value(): number
+        + set value(value: number): void
+        + set min(min: number): void
+        + set max(max: number): void
+        + set step(step: number): void
+        + set input_class_list(class_list: array[string]): void
+        + set oninput(function_callback: function): void
+        ..
+        + trigger(): void
+    }
+    UIComponent <|-- UINumberInput
+
+    class UIStringInput {
+        - _title: string
+        - _default_value: string
+        - _pattern: regexp
+        - _label: HTMLSpanElement
+        - _input: HTMLInputElement
+        --
+        + UIStringInput(title: string, default_value: string): UIStringInput
+        ..get, set..
+        + get input(): HTMLInputElement
+        + get value(): string
+        + set value(value: string): void
+        + set pattern(pattern: regexp): void
+        + set input_class_list(class_list: array[string]): void
+        + set oninput(function_callback: function): void
+        ..
+        + triggerOninput(): void
+    }
+    UIComponent <|-- UIStringInput
+
+    class UIColorPicker {
+        - _string_input: HTMLInputElement
+        - _color_picker: HTMLInputElement
+        --
+        + UIColorPicker(string_input: string): UIColorPicker
+        ..get, set..
+        + set value(value: string): void
+    }
+    UIComponent <|-- UIColorPicker
+
+    class UIChoiceList {
+        - _title: string
+        - _options_list: array[string]
+        - _default_value: string
+        - _label: HTMLSpanElement
+        - _input: HTMLInputElement
+        --
+        + UIChoiceList(title: string, options_list: array[string],
+        default_value: string): UIChoiceList
+        ..get, set..
+        + get value(): string
+        + set value(value: string): void
+        + set input_class_list(class_list: array[string]): void
+        + set oninput(function_callback: function): void
+    }
+    UIComponent <|-- UIChoiceList
+
+    class UICheckBox {
+        - _title: string
+        - _default_value: bool
+        - _label: HTMLSpanElement
+        - _input: HTMLInputElement
+        --
+        + UICheckBox(title: string, default_value: bool): UICheckBox
+        ..get, set..
+        + get checked(): bool
+        + set checked(checked: bool): void
+        + set input_class_list(class_list: array[string]): void
+        + set oninput(function_callback: function): void
+    }
+    UIComponent <|-- UICheckBox
+}
+
+@enduml
