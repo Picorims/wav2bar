@@ -10,6 +10,9 @@ skinparam PackageStyle frame
 package "global_context" {}
 global_context ..> utils
 global_context ..> ui_components
+global_context ..> ipc_renderer
+
+package "ipc_renderer" {}
 
 package "ui_components" {}
 ui_components <.[dotted]. ui_base_components

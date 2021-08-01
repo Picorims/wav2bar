@@ -1,7 +1,8 @@
 //MIT License - Copyright (c) 2020-2021 Picorims
 
-const { ipcRenderer } = require("electron");
-const { Logger } = require("log4js");
+//const { ipcRenderer } = require("electron");
+let ipcRenderer;
+//const { Logger } = require("log4js");
 
 const software_version = '0.3.0'; //current build version
 const software_status = 'Indev';
@@ -18,6 +19,7 @@ var can_close_window_safely = false;//set to true when the user confirmed exit
 let imports = {
     utils: null,
     ui_components: null,
+    ipc_renderer: null,
 };
 
 var fps, stop_animating, animating, frame_count, fps_interval, time; //fps related variables
@@ -42,7 +44,7 @@ GLOBAL INITIALIZATION AND AUDIO IMPORT
 ######################################
 */
 
-window.onload = function() {PreSetup();};
+window.onload = function() {LoadModules();};
 window.onbeforeunload = function(event) {PrepareWindowClose(event);};
 
 //get the main process working directory for user, temp, log, etc.
@@ -61,18 +63,21 @@ function PreSetup() {
     }).then((args) => {
         argv = args;
         CustomLog("debug","Getting main config done.");
-        LoadModules();
+        InitPage();
     });
 }
 
 //load ES modules required
 function LoadModules() {
-    CustomLog("debug","Loading modules...");
-    import("./utils/utils.js").then(module => {
+    //CustomLog("debug","Loading modules...");
+    import("./ipc_renderer.js").then(module => {
+        imports.ipc_renderer = module;
+        ipcRenderer = module;
+        return import("./utils/utils.js")
+    }).then(module => {
         imports.utils = module;
-    }).then(() => {
         CustomLog("debug","Loading modules done.");
-        InitPage();
+        PreSetup();
     }).catch(error => {
         CustomLog("error", `couldn't load modules: ${error}`);
     });

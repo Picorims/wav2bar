@@ -19,7 +19,7 @@ var progress_window;//progress bar
 //callback to the main window that the renderer windows exists
 function ConfirmCreation() {
     CustomLog("debug","renderer created");
-    PreSetup();//trigger main init of index.js
+    LoadModules();//trigger main init of index.js
 
     //confirm that the window exists when it is ready
     ipcRenderer.sendTo(1, "renderer-exists");
