@@ -12,7 +12,7 @@ var lock_save_sync = false;
 //save initialization
 function InitSave() {
     DefaultSave();
-    CustomLog("debug",'syncing save object every 500ms, starting from now.');
+    imports.utils.CustomLog("debug",'syncing save object every 500ms, starting from now.');
     setInterval(SyncSave, 500);
 }
 
@@ -28,7 +28,7 @@ function DefaultSave() {//set the save data to default values
         audio_filename: "",
         objects: [],
     }
-    CustomLog('info','loaded default save.');
+    imports.utils.CustomLog('info','loaded default save.');
 }
 
 
@@ -37,11 +37,11 @@ function DefaultSave() {//set the save data to default values
 async function LoadSave(save_file_path) {//load a user save or a preset (JSON format)
     if (!imports.utils.IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
 
-    CustomLog("info", "Backing up currently opened save...");
+    imports.utils.CustomLog("info", "Backing up currently opened save...");
     ExportSave(`${working_dir}/temp/before_new_save_open.w2bzip`, true);
     await CloseAudio();
 
-    CustomLog("info","Loading the save...");
+    imports.utils.CustomLog("info","Loading the save...");
     lock_save_sync = true;
 
     //ERASE CURRENT DATA
@@ -65,7 +65,7 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
     //the data must be extracted from the file in order to be able to read it.
     ipcRenderer.once("finished-caching-save", async (event) => {
         //read data cached in ./temp/current_save
-        CustomLog("info","reading the save...");
+        imports.utils.CustomLog("info","reading the save...");
 
         const JSON_data = await ipcRenderer.invoke("read-json-file",`${working_dir}/temp/current_save/data.json`);
         current_save = JSON.parse(JSON.stringify(JSON_data)); //copy data
@@ -74,20 +74,20 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
         if (current_save.save_version > current_save_version) {
             //newer version
 
-            CustomLog("error",`The save can't be opened because its version (${current_save.save_version}) is greater than the supported version (${current_save_version})`);
+            imports.utils.CustomLog("error",`The save can't be opened because its version (${current_save.save_version}) is greater than the supported version (${current_save_version})`);
             MessageDialog("error", `This project has been created in a newer version of Wav2Bar (${current_save.software_version_used}). To be able to open this project, please upgrade your installed version.`);
             lock_save_sync = false;
         } else if (current_save.save_version < current_save_version) {
             //older version
 
-            CustomLog("warning",`The supported save version is ${current_save_version} but the provided save is of version ${current_save.save_version}`);
+            imports.utils.CustomLog("warning",`The supported save version is ${current_save_version} but the provided save is of version ${current_save.save_version}`);
             MessageDialog("confirm",`This project has been created in an older version of Wav2Bar (${current_save.software_version_used}). Do you want to upgrade it ? (Always backup your project before converting it!)`,
                 function(confirmed) {
                     if (confirmed) {
                         ConvertSave();
                         ApplyLoadedSave();
                     } else {
-                        CustomLog("info", "Save load aborted, loading back the project in it's old state.");
+                        imports.utils.CustomLog("info", "Save load aborted, loading back the project in it's old state.");
                         LoadSave(`${working_dir}/temp/before_new_save_open.w2bzip`);
                     }
                     lock_save_sync = false;
@@ -124,12 +124,12 @@ async function LoadSave(save_file_path) {//load a user save or a preset (JSON fo
 //versions are documented in [root]/docs/save.md.
 function ConvertSave(log_array = []) {
     //something's wrong ?
-    CustomLog("debug", JSON.stringify(current_save));
+    imports.utils.CustomLog("debug", JSON.stringify(current_save));
     if (current_save.save_version > current_save_version) throw `Can't convert the save: the save version (${current_save.save_version}) is greater than the supported version (${current_save_version})!`;
 
     //Does it still needs to be converted ?
     else if (current_save.save_version < current_save_version) {
-        CustomLog("info",`Converting the save from version ${current_save.save_version} to ${current_save.save_version + 1}. The goal is ${current_save_version}.`);
+        imports.utils.CustomLog("info",`Converting the save from version ${current_save.save_version} to ${current_save.save_version + 1}. The goal is ${current_save_version}.`);
 
         switch (current_save.save_version) {
             case 1:
@@ -191,14 +191,14 @@ function ConvertSave(log_array = []) {
 
 
             default:
-                CustomLog("error",`A save of version ${current_save.save_version} can't be converted!`);
+                imports.utils.CustomLog("error",`A save of version ${current_save.save_version} can't be converted!`);
         }
         current_save.save_version++;
-        CustomLog("info", `Save converted to version ${current_save.save_version}!`);
+        imports.utils.CustomLog("info", `Save converted to version ${current_save.save_version}!`);
         ConvertSave(log_array);
     } else {
         //finished conversion.
-        CustomLog("info", `Conversion done!`);
+        imports.utils.CustomLog("info", `Conversion done!`);
 
         //conversion logs
         if (log_array.length > 0) {
@@ -206,7 +206,7 @@ function ConvertSave(log_array = []) {
             for (msg of log_array) {
                 log_string += "- " + msg + '\n';
             }
-            CustomLog("info", log_string);
+            imports.utils.CustomLog("info", log_string);
             MessageDialog("info", log_string.split("\n").join("<br>"));
         }
     }
@@ -218,7 +218,7 @@ function ConvertSave(log_array = []) {
 
 
 function ApplyLoadedSave() {//read and apply a loaded user save
-    CustomLog('info','applying save...');
+    imports.utils.CustomLog('info','applying save...');
     //CREATE OBJECTS
 
     //because objects are created in current_data.objects during the for loop,
@@ -249,7 +249,7 @@ function ApplyLoadedSave() {//read and apply a loaded user save
         else if (type === "visualizer")     {new Visualizer(object_data)}
         else {throw `LoadSave: ${type} is not a valid object type. Is the save corrupted ?`}
 
-        CustomLog("info",`Added ${type}.`);
+        imports.utils.CustomLog("info",`Added ${type}.`);
 
     }
 
@@ -270,7 +270,7 @@ function ApplyLoadedSave() {//read and apply a loaded user save
     }
 
 
-    CustomLog("info","Save loaded!");
+    imports.utils.CustomLog("info","Save loaded!");
 
 }
 
@@ -296,7 +296,7 @@ function SyncSave() { //function that updates the current save with latest data
             current_save.objects.push(objects[i].data);
         }
     } else {
-        CustomLog("debug","Save syncing locked, didn't synchronize data.");
+        imports.utils.CustomLog("debug","Save syncing locked, didn't synchronize data.");
     }
 }
 
@@ -315,7 +315,7 @@ function SyncSave() { //function that updates the current save with latest data
 //legacy save export
 function ExportSaveAsJSON() {//export the current save to JSON format.
 
-    CustomLog("info","generating download file for the save...");
+    imports.utils.CustomLog("info","generating download file for the save...");
 
     //update current save
     SyncSave();
@@ -337,7 +337,7 @@ function ExportSaveAsJSON() {//export the current save to JSON format.
     //remove downloader element
     downloader.remove();
 
-    CustomLog("info","save file provided for download.");
+    imports.utils.CustomLog("info","save file provided for download.");
 }
 
 
@@ -356,7 +356,7 @@ function ExportSave(save_path, no_dialog = false) {
     if (!imports.utils.IsAString(save_path)) throw `ExportSave: ${save_path} is an invalid save path (not a string).`;
     if (!imports.utils.IsABoolean(no_dialog)) throw `ExportSave: ${no_dialog} must be a boolean for no_dialog value!`;
 
-    CustomLog("info","generating save file...");
+    imports.utils.CustomLog("info","generating save file...");
     //update the current save
     SyncSave();
 
@@ -368,5 +368,5 @@ function ExportSave(save_path, no_dialog = false) {
     ipcRenderer.invoke("create-save-file", save_path);
 
     if (!no_dialog) MessageDialog("info","The save has been created!");
-    CustomLog("info","save file generated!");
+    imports.utils.CustomLog("info","save file generated!");
 }

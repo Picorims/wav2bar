@@ -75,84 +75,84 @@ function Visualizer(glob_data) {
 
         //ID
         if ( imports.utils.IsUndefined(data.id) || !imports.utils.IsAString(data.id) || !object_method.validID(data.id, this) ) {
-            CustomLog("error","Visualizer object: received an object with an unspecified/invalid ID! A random ID is given.");
+            imports.utils.CustomLog("error","Visualizer object: received an object with an unspecified/invalid ID! A random ID is given.");
             data.id = object_method.generateID();
         }
 
         //name
         if ( imports.utils.IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = this.DEFAULTS.NAME;}
         if ( !imports.utils.IsUndefined(data.name) && !imports.utils.IsAString(data.name) || data.name === "" ) {
-            CustomLog("warn",`Visualizer object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
             data.name = this.DEFAULTS.NAME;
         }
 
         //layer
         if ( imports.utils.IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = this.DEFAULTS.LAYER;}
         if ( !imports.utils.IsUndefined(data.layer) && (!imports.utils.IsAnInt(data.layer) || (data.layer <= -1)) ) {
-            CustomLog("warn",`Visualizer object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
             data.layer = this.DEFAULTS.LAYER;
         }
 
         //x
         if ( imports.utils.IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = this.DEFAULTS.X;}
         if ( !imports.utils.IsUndefined(data.x) && !imports.utils.IsAnInt(data.x) ) {
-            CustomLog("warn",`Visualizer object: Invalid x coordinate! Set to ${this.DEFAULTS.X}.`);
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid x coordinate! Set to ${this.DEFAULTS.X}.`);
             data.x = this.DEFAULTS.X;
         }
 
         //y
         if ( imports.utils.IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = this.DEFAULTS.Y;}
         if ( !imports.utils.IsUndefined(data.y) && !imports.utils.IsAnInt(data.y) ) {
-            CustomLog("warn",`Visualizer object: Invalid y coordinate! Set to ${this.DEFAULTS.Y}.`);
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid y coordinate! Set to ${this.DEFAULTS.Y}.`);
             data.y = this.DEFAULTS.Y;
         }
 
         //width
         if ( imports.utils.IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = this.DEFAULTS.WIDTH;}
         if ( !imports.utils.IsUndefined(data.width) && (!imports.utils.IsAnInt(data.width) || (data.width < 0)) ) {
-            CustomLog("warn",`Visualizer object: Invalid width! Set to ${this.DEFAULTS.WIDTH}.`);
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid width! Set to ${this.DEFAULTS.WIDTH}.`);
             data.width = this.DEFAULTS.WIDTH;
         }
 
         //height
         if ( imports.utils.IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = this.DEFAULTS.HEIGHT;}
         if ( !imports.utils.IsUndefined(data.height) && (!imports.utils.IsAnInt(data.height) || (data.height < 0)) ) {
-            CustomLog("warn",`Visualizer object: Invalid height! Set to ${this.DEFAULTS.HEIGHT}.`);
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid height! Set to ${this.DEFAULTS.HEIGHT}.`);
             data.height = this.DEFAULTS.HEIGHT;
         }
 
         //rotation
         if ( imports.utils.IsUndefined(data.rotation) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.rotation = this.DEFAULTS.ROTATION;}
         if ( !imports.utils.IsUndefined(data.rotation) && !imports.utils.IsAnInt(data.rotation) ) {
-            CustomLog("warn",`Visualizer object: Invalid rotation! Set to ${this.DEFAULTS.ROTATION}.`);
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid rotation! Set to ${this.DEFAULTS.ROTATION}.`);
             data.rotation = this.DEFAULTS.ROTATION;
         }
 
         //radius
         if ( imports.utils.IsUndefined(data.radius) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.radius = this.DEFAULTS.RADIUS;}
         if ( !imports.utils.IsUndefined(data.radius) && (!imports.utils.IsAnInt(data.radius) || (data.radius < 0)) ) {
-            CustomLog("warn",`Visualizer object: Invalid radius! Set to ${this.DEFAULTS.RADIUS}.`);
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid radius! Set to ${this.DEFAULTS.RADIUS}.`);
             data.radius = this.DEFAULTS.RADIUS;
         }
 
         //type
         if ( imports.utils.IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = this.DEFAULTS.TYPE;}
         if ( !imports.utils.IsUndefined(data.type) && (!imports.utils.IsAString(data.type) || ( (data.type !== "straight") && (data.type !== "straight-wave") && (data.type !== "circular") )) ) {
-            CustomLog("warn",`Visualizer object: Invalid type! Set to ${this.DEFAULTS.TYPE}.`);
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid type! Set to ${this.DEFAULTS.TYPE}.`);
             data.type = this.DEFAULTS.TYPE;
         }
 
         //points count
         if ( imports.utils.IsUndefined(data.points_count) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.points_count = this.DEFAULTS.POINTS_COUNT;}
         if ( !imports.utils.IsUndefined(data.points_count) && (!imports.utils.IsAnInt(data.points_count) || (data.points_count < 0)) ) {
-            CustomLog("warn",`Visualizer object: Invalid points count! Set to ${this.DEFAULTS.POINTS_COUNT}.`);
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid points count! Set to ${this.DEFAULTS.POINTS_COUNT}.`);
             data.points_count = this.DEFAULTS.POINTS_COUNT;
         }
 
         //analyser range
         if ( imports.utils.IsUndefined(data.analyser_range) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.analyser_range = this.DEFAULTS.ANALYSER_RANGE;}
         if ( !imports.utils.IsUndefined(data.analyser_range) && (!imports.utils.IsAnArray(data.analyser_range) || (data.analyser_range.length !== 2) || !imports.utils.IsAnInt(data.analyser_range[0]) || !imports.utils.IsAnInt(data.analyser_range[1]) || (data.analyser_range[0] < 0) || (data.analyser_range[0] > 1023) || (data.analyser_range[1] < 0) || (data.analyser_range[1] > 1023)) ) {
-            CustomLog("warn",`Visualizer object: Invalid analyser range! Set to [${this.DEFAULTS.ANALYSER_RANGE[0]},${this.DEFAULTS.ANALYSER_RANGE[1]}].`);
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid analyser range! Set to [${this.DEFAULTS.ANALYSER_RANGE[0]},${this.DEFAULTS.ANALYSER_RANGE[1]}].`);
             data.analyser_range = this.DEFAULTS.ANALYSER_RANGE;
         }
 
@@ -164,14 +164,14 @@ function Visualizer(glob_data) {
             //visualization smoothing type
             if ( imports.utils.IsUndefined(data.visualization_smoothing.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing.type = this.DEFAULTS.VISUALIZATION_SMOOTHING.TYPE;}
             if ( !imports.utils.IsUndefined(data.visualization_smoothing.type) && (!imports.utils.IsAString(data.visualization_smoothing.type) || ( (data.visualization_smoothing.type !== "proportional_decrease") && (data.visualization_smoothing.type !== "constant_decay")  && (data.visualization_smoothing.type !== "average") )) ) {
-                CustomLog("warn",`Visualizer object: Invalid visualization smoothing type! Set to ${this.DEFAULTS.VISUALIZATION_SMOOTHING.TYPE}.`);
+                imports.utils.CustomLog("warn",`Visualizer object: Invalid visualization smoothing type! Set to ${this.DEFAULTS.VISUALIZATION_SMOOTHING.TYPE}.`);
                 data.visualization_smoothing.type = this.DEFAULTS.VISUALIZATION_SMOOTHING.TYPE;
             }
 
             //visualization smoothing factor
             if ( imports.utils.IsUndefined(data.visualization_smoothing.factor) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.visualization_smoothing.factor = this.DEFAULTS.VISUALIZATION_SMOOTHING.FACTOR;}
             if ( !imports.utils.IsUndefined(data.visualization_smoothing.factor) && (!imports.utils.IsANumber(data.visualization_smoothing.factor) || (data.visualization_smoothing.factor < 0)) ) {
-                CustomLog("warn",`Visualizer object: Invalid visualization smoothing factor! Set to ${this.DEFAULTS.VISUALIZATION_SMOOTHING.FACTOR}.`);
+                imports.utils.CustomLog("warn",`Visualizer object: Invalid visualization smoothing factor! Set to ${this.DEFAULTS.VISUALIZATION_SMOOTHING.FACTOR}.`);
                 data.visualization_smoothing.factor = this.DEFAULTS.VISUALIZATION_SMOOTHING.FACTOR;
             }
         }
@@ -179,35 +179,35 @@ function Visualizer(glob_data) {
         //color
         if ( imports.utils.IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = this.DEFAULTS.COLOR;}
         if ( !imports.utils.IsUndefined(data.color) && !imports.utils.IsAString(data.color) ) {
-            CustomLog("warn",`Visualizer object: Invalid color! Set to ${this.DEFAULTS.COLOR}.`); //do not detect css errors!
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid color! Set to ${this.DEFAULTS.COLOR}.`); //do not detect css errors!
             data.color = this.DEFAULTS.COLOR;
         }
 
         //bar thickness
         if ( imports.utils.IsUndefined(data.bar_thickness) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.bar_thickness = this.DEFAULTS.BAR_THICKNESS;}
         if ( !imports.utils.IsUndefined(data.bar_thickness) && (!imports.utils.IsAnInt(data.bar_thickness) || (data.bar_thickness < 0)) ) {
-            CustomLog("warn",`Visualizer object: Invalid bar thickness! Set to ${this.DEFAULTS.BAR_THICKNESS}.`);
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid bar thickness! Set to ${this.DEFAULTS.BAR_THICKNESS}.`);
             data.bar_thickness = this.DEFAULTS.BAR_THICKNESS;
         }
 
         //border-radius
         if ( imports.utils.IsUndefined(data.border_radius) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_radius = this.DEFAULTS.BORDER_RADIUS;}
         if ( !imports.utils.IsUndefined(data.border_radius) && !imports.utils.IsAString(data.border_radius) ) {
-            CustomLog("warn",`Visualizer object: Invalid border-radius! Set to "${this.DEFAULTS.BORDER_RADIUS}".`); //do not detect css errors!
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid border-radius! Set to "${this.DEFAULTS.BORDER_RADIUS}".`); //do not detect css errors!
             data.border_radius = this.DEFAULTS.BORDER_RADIUS;
         }
 
         //box-shadow
         if ( imports.utils.IsUndefined(data.box_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.box_shadow = this.DEFAULTS.BOX_SHADOW;}
         if ( !imports.utils.IsUndefined(data.box_shadow) && !imports.utils.IsAString(data.box_shadow) ) {
-            CustomLog("warn",`Visualizer object: Invalid box-shadow! Set to "${this.DEFAULTS.BOX_SHADOW}".`); //do not detect css errors!
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid box-shadow! Set to "${this.DEFAULTS.BOX_SHADOW}".`); //do not detect css errors!
             data.box_shadow = this.DEFAULTS.BOX_SHADOW;
         }
 
         //svg filter
         if ( imports.utils.IsUndefined(data.svg_filters) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.svg_filters = this.DEFAULTS.SVG_FILTERS;}
         if ( !imports.utils.IsUndefined(data.svg_filters) && data.svg_filters !== "" && (!imports.utils.IsAString(data.svg_filters) || data.svg_filters.includes("<script>") || !data.svg_filters.includes("<filter") || !data.svg_filters.includes("</filter>")) ) {
-            CustomLog("warn",`Visualizer object: Invalid svg filters! Set to "${this.DEFAULTS.SVG_FILTERS}".`); //do not detect html errors!
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid svg filters! Set to "${this.DEFAULTS.SVG_FILTERS}".`); //do not detect html errors!
             data.svg_filters = this.DEFAULTS.SVG_FILTERS;
         }
 
@@ -233,7 +233,7 @@ function Visualizer(glob_data) {
         //NOTE: it is NOT possible to change the visualizer type (data.type) and id (data.id). A new visualizer must be created in such case!
 
         if ( imports.utils.IsUndefined(data.id) ) {
-            CustomLog("error","Visualizer object: No ID specified!");
+            imports.utils.CustomLog("error","Visualizer object: No ID specified!");
             return;
         }
 

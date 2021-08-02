@@ -56,21 +56,21 @@ function Background(glob_data) {
 
         //ID
         if ( imports.utils.IsUndefined(data.id) || !imports.utils.IsAString(data.id) || !object_method.validID(data.id, this) ) {
-            CustomLog("error","Background object: received an object with an unspecified/invalid ID! A random ID is given.");
+            imports.utils.CustomLog("error","Background object: received an object with an unspecified/invalid ID! A random ID is given.");
             data.id = object_method.generateID();
         }
 
         //name
         if ( imports.utils.IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = this.DEFAULTS.NAME;}
         if ( !imports.utils.IsUndefined(data.name) && !imports.utils.IsAString(data.name) || data.name === "" ) {
-            CustomLog("warn",`Background object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
+            imports.utils.CustomLog("warn",`Background object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
             data.name = this.DEFAULTS.NAME;
         }
 
         //layer
         if ( imports.utils.IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = this.DEFAULTS.LAYER;}
         if ( !imports.utils.IsUndefined(data.layer) && (!imports.utils.IsAnInt(data.layer) || (data.layer <= -1)) ) {
-            CustomLog("warn",`Background object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
+            imports.utils.CustomLog("warn",`Background object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
             data.layer = this.DEFAULTS.LAYER;
         }
 
@@ -82,42 +82,42 @@ function Background(glob_data) {
             //type
             if ( imports.utils.IsUndefined(data.background.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.type = this.DEFAULTS.BACKGROUND.TYPE;}
             if ( !imports.utils.IsUndefined(data.background.type) && (!imports.utils.IsAString(data.background.type) || ( (data.background.type !== "color") && (data.background.type !== "gradient") && (data.background.type !== "image") )) ) {
-                CustomLog("warn",`Background object: Invalid background type! Set to ${this.DEFAULTS.BACKGROUND.TYPE}.`);
+                imports.utils.CustomLog("warn",`Background object: Invalid background type! Set to ${this.DEFAULTS.BACKGROUND.TYPE}.`);
                 data.background.type = this.DEFAULTS.BACKGROUND.TYPE;
             }
 
             //last color
             if ( imports.utils.IsUndefined(data.background.last_color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_color = this.DEFAULTS.BACKGROUND.LAST_COLOR;}
             if ( !imports.utils.IsUndefined(data.background.last_color) && !imports.utils.IsAString(data.background.last_color) ) {
-                CustomLog("warn",`Background object: Invalid background color! Set to ${this.DEFAULTS.BACKGROUND.LAST_COLOR}.`); //do not detect css errors!
+                imports.utils.CustomLog("warn",`Background object: Invalid background color! Set to ${this.DEFAULTS.BACKGROUND.LAST_COLOR}.`); //do not detect css errors!
                 data.background.last_color = this.DEFAULTS.BACKGROUND.LAST_COLOR;
             }
 
             //last gradient
             if ( imports.utils.IsUndefined(data.background.last_gradient) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_gradient = this.DEFAULTS.BACKGROUND.LAST_GRADIENT;}
             if ( !imports.utils.IsUndefined(data.background.last_gradient) && !imports.utils.IsAString(data.background.last_gradient) ) {
-                CustomLog("warn",`Background object: Invalid background gradient! Set to ${this.DEFAULTS.BACKGROUND.LAST_GRADIENT}.`); //do not detect css errors!
+                imports.utils.CustomLog("warn",`Background object: Invalid background gradient! Set to ${this.DEFAULTS.BACKGROUND.LAST_GRADIENT}.`); //do not detect css errors!
                 data.background.last_gradient = this.DEFAULTS.BACKGROUND.LAST_GRADIENT;
             }
 
             //last image
             if ( imports.utils.IsUndefined(data.background.last_image) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_image = this.DEFAULTS.BACKGROUND.LAST_IMAGE;}
             if ( !imports.utils.IsUndefined(data.background.last_image) && !imports.utils.IsAString(data.background.last_image) ) {
-                CustomLog("warn","Background object: Invalid background image! Value ignored."); //do not detect css errors!
+                imports.utils.CustomLog("warn","Background object: Invalid background image! Value ignored."); //do not detect css errors!
                 data.background.last_image = this.DEFAULTS.BACKGROUND.LAST_IMAGE;
             }
 
             //size
             if ( imports.utils.IsUndefined(data.background.size) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.size = this.DEFAULTS.BACKGROUND.SIZE;}
             if ( !imports.utils.IsUndefined(data.background.size) && !imports.utils.IsAString(data.background.size) ) {
-                CustomLog("warn",`Background object: Invalid size! Set to "${this.DEFAULTS.BACKGROUND.SIZE}".`); //do not detect css errors!
+                imports.utils.CustomLog("warn",`Background object: Invalid size! Set to "${this.DEFAULTS.BACKGROUND.SIZE}".`); //do not detect css errors!
                 data.background.size = this.DEFAULTS.BACKGROUND.SIZE;
             }
 
             //repeat
             if ( imports.utils.IsUndefined(data.background.repeat) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.repeat = this.DEFAULTS.BACKGROUND.REPEAT;}
             if ( !imports.utils.IsUndefined(data.background.repeat) && (!imports.utils.IsAString(data.background.repeat) || ( (data.background.repeat !== "no-repeat") && (data.background.repeat !== "repeat") && (data.background.repeat !== "repeat-x") && (data.background.repeat !== "repeat-y") )) ) {
-                CustomLog("warn",`Background object: Invalid repeat type! Set to "${this.DEFAULTS.BACKGROUND.REPEAT}".`);
+                imports.utils.CustomLog("warn",`Background object: Invalid repeat type! Set to "${this.DEFAULTS.BACKGROUND.REPEAT}".`);
                 data.background.repeat = this.DEFAULTS.BACKGROUND.REPEAT;
             }
 
@@ -126,7 +126,7 @@ function Background(glob_data) {
         //svg filter
         if ( imports.utils.IsUndefined(data.svg_filters) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.svg_filters = this.DEFAULTS.SVG_FILTERS;}
         if ( !imports.utils.IsUndefined(data.svg_filters) && data.svg_filters !== "" && (!imports.utils.IsAString(data.svg_filters) || data.svg_filters.includes("<script>") || !data.svg_filters.includes("<filter") || !data.svg_filters.includes("</filter>")) ) {
-            CustomLog("warn",`Visualizer object: Invalid svg filters! Set to "${this.DEFAULTS.SVG_FILTERS}".`); //do not detect html errors!
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid svg filters! Set to "${this.DEFAULTS.SVG_FILTERS}".`); //do not detect html errors!
             data.svg_filters = this.DEFAULTS.SVG_FILTERS;
         }
 
@@ -154,7 +154,7 @@ function Background(glob_data) {
         //NOTE: it is NOT possible to change the background id (data.id). A new background must be created in such case!
 
         if ( imports.utils.IsUndefined(data.id) ) {
-            CustomLog("error","Background object: No ID specified!");
+            imports.utils.CustomLog("error","Background object: No ID specified!");
             return;
         }
 

@@ -72,140 +72,140 @@ function Text(glob_data) {
 
         //ID
         if ( imports.utils.IsUndefined(data.id) || !imports.utils.IsAString(data.id) || !object_method.validID(data.id, this) ) {
-            CustomLog("error","Text object: received an object with an unspecified/invalid ID! A random ID is given.");
+            imports.utils.CustomLog("error","Text object: received an object with an unspecified/invalid ID! A random ID is given.");
             data.id = object_method.generateID();
         }
 
         //name
         if ( imports.utils.IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = this.DEFAULTS.NAME;}
         if ( !imports.utils.IsUndefined(data.name) && !imports.utils.IsAString(data.name) || data.name === "" ) {
-            CustomLog("warn",`Text object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
             data.name = this.DEFAULTS.NAME;
         }
 
         //layer
         if ( imports.utils.IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = this.DEFAULTS.LAYER;}
         if ( !imports.utils.IsUndefined(data.layer) && (!imports.utils.IsAnInt(data.layer) || (data.layer <= -1)) ) {
-            CustomLog("warn",`Text object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
             data.layer = this.DEFAULTS.LAYER;
         }
 
         //x
         if ( imports.utils.IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = this.DEFAULTS.X;}
         if ( !imports.utils.IsUndefined(data.x) && !imports.utils.IsAnInt(data.x) ) {
-            CustomLog("warn",`Text object: Invalid x coordinate! Set to ${this.DEFAULTS.X}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid x coordinate! Set to ${this.DEFAULTS.X}.`);
             data.x = this.DEFAULTS.X;
         }
 
         //y
         if ( imports.utils.IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = this.DEFAULTS.Y;}
         if ( !imports.utils.IsUndefined(data.y) && !imports.utils.IsAnInt(data.y) ) {
-            CustomLog("warn",`Text object: Invalid y coordinate! Set to ${this.DEFAULTS.Y}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid y coordinate! Set to ${this.DEFAULTS.Y}.`);
             data.y = this.DEFAULTS.Y;
         }
 
         //width
         if ( imports.utils.IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = this.DEFAULTS.WIDTH;}
         if ( !imports.utils.IsUndefined(data.width) && (!imports.utils.IsAnInt(data.width) || (data.width < 0)) ) {
-            CustomLog("warn",`Text object: Invalid width! Set to ${this.DEFAULTS.WIDTH}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid width! Set to ${this.DEFAULTS.WIDTH}.`);
             data.width = this.DEFAULTS.WIDTH;
         }
 
         //height
         if ( imports.utils.IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = this.DEFAULTS.HEIGHT;}
         if ( !imports.utils.IsUndefined(data.height) && (!imports.utils.IsAnInt(data.height) || (data.height < 0)) ) {
-            CustomLog("warn",`Text object: Invalid height! Set to ${this.DEFAULTS.HEIGHT}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid height! Set to ${this.DEFAULTS.HEIGHT}.`);
             data.height = this.DEFAULTS.HEIGHT;
         }
 
         //rotation
         if ( imports.utils.IsUndefined(data.rotation) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.rotation = this.DEFAULTS.ROTATION;}
         if ( !imports.utils.IsUndefined(data.rotation) && !imports.utils.IsAnInt(data.rotation) ) {
-            CustomLog("warn",`Text object: Invalid rotation! Set to ${this.DEFAULTS.ROTATION}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid rotation! Set to ${this.DEFAULTS.ROTATION}.`);
             data.rotation = this.DEFAULTS.ROTATION;
         }
 
         //type
         if ( imports.utils.IsUndefined(data.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.type = this.DEFAULTS.TYPE;}
         if ( !imports.utils.IsUndefined(data.type) && (!imports.utils.IsAString(data.type) || ( (data.type !== "any") && (data.type !== "time") )) ) {
-            CustomLog("warn",`Text object: Invalid type! Set to ${this.DEFAULTS.TYPE}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid type! Set to ${this.DEFAULTS.TYPE}.`);
             data.type = this.DEFAULTS.TYPE;
         }
 
         //text
         if ( imports.utils.IsUndefined(data.text) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.text = this.DEFAULTS.TEXT;}
         if ( !imports.utils.IsUndefined(data.text) && (!imports.utils.IsAString(data.text) || (data.text.indexOf("\\") > -1)) ) {
-            CustomLog("warn",`Text object: Invalid text! Set to "${this.DEFAULTS.TEXT}". (backslashes '\\' are not allowed)`);
+            imports.utils.CustomLog("warn",`Text object: Invalid text! Set to "${this.DEFAULTS.TEXT}". (backslashes '\\' are not allowed)`);
             data.text = this.DEFAULTS.TEXT;
         }
 
         //font size
         if ( imports.utils.IsUndefined(data.font_size) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.font_size = this.DEFAULTS.FONT_SIZE;}
         if ( !imports.utils.IsUndefined(data.font_size) && (!imports.utils.IsAnInt(data.font_size) || (data.font_size < 0)) ) {
-            CustomLog("warn",`Text object: Invalid font size! Set to ${this.DEFAULTS.FONT_SIZE}.`); //do not detect css errors!
+            imports.utils.CustomLog("warn",`Text object: Invalid font size! Set to ${this.DEFAULTS.FONT_SIZE}.`); //do not detect css errors!
             data.font_size = this.DEFAULTS.FONT_SIZE;
         }
 
         //color
         if ( imports.utils.IsUndefined(data.color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.color = this.DEFAULTS.COLOR;}
         if ( !imports.utils.IsUndefined(data.color) && !imports.utils.IsAString(data.color) ) {
-            CustomLog("warn",`Text object: Invalid color! Set to ${this.DEFAULTS.COLOR}.`); //do not detect css errors!
+            imports.utils.CustomLog("warn",`Text object: Invalid color! Set to ${this.DEFAULTS.COLOR}.`); //do not detect css errors!
             data.color = this.DEFAULTS.COLOR;
         }
 
         //italic
         if ( imports.utils.IsUndefined(data.italic) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.italic = this.DEFAULTS.ITALIC;}
         if ( !imports.utils.IsUndefined(data.italic) && !imports.utils.IsABoolean(data.italic) ) {
-            CustomLog("warn",`Text object: Invalid status for italic! Set to ${this.DEFAULTS.ITALIC}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid status for italic! Set to ${this.DEFAULTS.ITALIC}.`);
             data.italic = this.DEFAULTS.ITALIC;
         }
 
         //bold
         if ( imports.utils.IsUndefined(data.bold) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.bold = this.DEFAULTS.BOLD;}
         if ( !imports.utils.IsUndefined(data.bold) && !imports.utils.IsABoolean(data.bold) ) {
-            CustomLog("warn",`Text object: Invalid status for bold! Set to ${this.DEFAULTS.BOLD}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid status for bold! Set to ${this.DEFAULTS.BOLD}.`);
             data.bold = this.DEFAULTS.BOLD;
         }
 
         //underline
         if ( imports.utils.IsUndefined(data.underline) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.underline = this.DEFAULTS.UNDERLINE;}
         if ( !imports.utils.IsUndefined(data.underline) && !imports.utils.IsABoolean(data.underline) ) {
-            CustomLog("warn",`Text object: Invalid status for underline! Set to ${this.DEFAULTS.UNDERLINE}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid status for underline! Set to ${this.DEFAULTS.UNDERLINE}.`);
             data.underline = this.DEFAULTS.UNDERLINE;
         }
 
         //overline
         if ( imports.utils.IsUndefined(data.overline) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.overline = this.DEFAULTS.OVERLINE;}
         if ( !imports.utils.IsUndefined(data.overline) && !imports.utils.IsABoolean(data.overline) ) {
-            CustomLog("warn",`Text object: Invalid status for overline! Set to ${this.DEFAULTS.OVERLINE}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid status for overline! Set to ${this.DEFAULTS.OVERLINE}.`);
             data.overline = this.DEFAULTS.OVERLINE;
         }
 
         //line-through
         if ( imports.utils.IsUndefined(data.line_through) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.line_through = this.DEFAULTS.LINE_THROUGH;}
         if ( !imports.utils.IsUndefined(data.line_through) && !imports.utils.IsABoolean(data.line_through) ) {
-            CustomLog("warn",`Text object: Invalid status for line-through! Set to ${this.DEFAULTS.LINE_THROUGH}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid status for line-through! Set to ${this.DEFAULTS.LINE_THROUGH}.`);
             data.line_through = this.DEFAULTS.LINE_THROUGH;
         }
 
         //text align
         if ( imports.utils.IsUndefined(data.text_align) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.text_align = this.DEFAULTS.TEXT_ALIGN;}
         if ( !imports.utils.IsUndefined(data.text_align) && (!imports.utils.IsAString(data.text_align) || ( (data.text_align !== "left") && (data.text_align !== "center") && (data.text_align !== "right") )) ) {
-            CustomLog("warn",`Text object: Invalid text align! Set to ${this.DEFAULTS.TEXT_ALIGN}.`);
+            imports.utils.CustomLog("warn",`Text object: Invalid text align! Set to ${this.DEFAULTS.TEXT_ALIGN}.`);
             data.text_align = this.DEFAULTS.TEXT_ALIGN;
         }
 
         //text shadow
         if ( imports.utils.IsUndefined(data.text_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.text_shadow = this.DEFAULTS.TEXT_SHADOW;}
         if ( !imports.utils.IsUndefined(data.text_shadow) && !imports.utils.IsAString(data.text_shadow) ) {
-            CustomLog("warn",`Text object: Invalid text-shadow! Set to ${this.DEFAULTS.TEXT_SHADOW}.`); //do not detect css errors!
+            imports.utils.CustomLog("warn",`Text object: Invalid text-shadow! Set to ${this.DEFAULTS.TEXT_SHADOW}.`); //do not detect css errors!
             data.text_shadow = this.DEFAULTS.TEXT_SHADOW;
         }
 
         //svg filter
         if ( imports.utils.IsUndefined(data.svg_filters) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.svg_filters = this.DEFAULTS.SVG_FILTERS;}
         if ( !imports.utils.IsUndefined(data.svg_filters) && data.svg_filters !== "" && (!imports.utils.IsAString(data.svg_filters) || data.svg_filters.includes("<script>") || !data.svg_filters.includes("<filter") || !data.svg_filters.includes("</filter>")) ) {
-            CustomLog("warn",`Visualizer object: Invalid svg filters! Set to "${this.DEFAULTS.SVG_FILTERS}".`); //do not detect html errors!
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid svg filters! Set to "${this.DEFAULTS.SVG_FILTERS}".`); //do not detect html errors!
             data.svg_filters = this.DEFAULTS.SVG_FILTERS;
         }
 
@@ -230,7 +230,7 @@ function Text(glob_data) {
         //NOTE: it is NOT possible to change the text id (data.id). A new text must be created in such case!
 
         if ( imports.utils.IsUndefined(data.id) ) {
-            CustomLog("error","Text object: No ID specified!");
+            imports.utils.CustomLog("error","Text object: No ID specified!");
             return;
         }
 

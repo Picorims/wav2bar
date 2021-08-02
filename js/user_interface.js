@@ -429,7 +429,7 @@ function SetScreenTo(width, height) {//changes the screen size to the given valu
         document.getElementById("screen_height_input").value = screen.height;
     }
 
-    CustomLog("info",`screen set to ${width}x${height}`);
+    imports.utils.CustomLog("info",`screen set to ${width}x${height}`);
 }
 
 
@@ -446,7 +446,7 @@ function ChangeFPSTo(new_fps) {//changes the FPS used by restarting the animatio
     //update UI
     if (!export_mode) document.getElementById("fps_input").value = fps;
 
-    CustomLog("info",`FPS set to ${new_fps}`);
+    imports.utils.CustomLog("info",`FPS set to ${new_fps}`);
 }
 
 
@@ -526,7 +526,7 @@ function ApplyZoom(zoom_value) {
     screen.style.transformOrigin = "0 0";
     screen.style.transform = `scale(${zoom})`;
 
-    CustomLog("info",`Zoom changed to ${zoom_value}`);
+    imports.utils.CustomLog("info",`Zoom changed to ${zoom_value}`);
 }
 
 
@@ -1297,7 +1297,7 @@ async function FileBrowserDialog(settings, callback, args) {
             last_valid_path = path_input.value;
             last_path_worked = true;
         } catch (error) {
-            CustomLog("error",`${path_input.value} do not exists: ${error}`);
+            imports.utils.CustomLog("error",`${path_input.value} do not exists: ${error}`);
             last_path_worked = false;
         }
     }
@@ -1482,7 +1482,7 @@ async function GoBackPrevDirectory(file_browser, path_input, name_input, setting
         else path = path_input.value.replace(/\/[^\/]*\/?$/,"\/");
         await FillTree(path, file_browser, path_input, name_input, settings);
     } catch (error) {
-        CustomLog("error",`${path_input.value} do not exists: ${error}`);
+        imports.utils.CustomLog("error",`${path_input.value} do not exists: ${error}`);
     }
 }
 

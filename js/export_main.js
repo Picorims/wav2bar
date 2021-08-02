@@ -11,7 +11,7 @@ function Export(path) {//Launch the rendering process which will export the vide
         return;
     }
 
-    CustomLog("info","Exporting...");
+    imports.utils.CustomLog("info","Exporting...");
     StopAnimating();//this avoids useless background process in the main window
 
     //create renderer window
@@ -21,7 +21,7 @@ function Export(path) {//Launch the rendering process which will export the vide
     ipcRenderer.once("renderer-exists", async (event) => {//once avoid the listener to be persistent (if it was,
                                                     //on window re-open, a new listener would stack upon this
                                                     //one, making multiple process stacking on forever.
-        CustomLog("debug","renderer created, sending data...");
+        imports.utils.CustomLog("debug","renderer created, sending data...");
 
 
         //data to send to the renderer process (the project, so it can be recreated into the new window)
@@ -59,7 +59,7 @@ function Export(path) {//Launch the rendering process which will export the vide
         // new Response(audio_file).arrayBuffer().then(async result => {
         //     audio_buffer = result;
 
-        //     CustomLog("info",`file type: ${audio_file.type}`)
+        //     imports.utils.CustomLog("info",`file type: ${audio_file.type}`)
         //     //requesting file write
         //     await ipcRenderer.invoke("write-audio-to-temp", new Uint8Array(audio_buffer), audio_file_type);
 
@@ -140,7 +140,7 @@ function Export(path) {//Launch the rendering process which will export the vide
                 secs = (secs<10)? "0"+secs : secs;
 
                 MessageDialog("info",`The video has been successfully created in ${hours}:${mins}:${secs} !`);
-                CustomLog('info',`The video has been successfully created in ${hours}:${mins}:${secs} !`);
+                imports.utils.CustomLog('info',`The video has been successfully created in ${hours}:${mins}:${secs} !`);
             }
             else MessageDialog("error","An error occurred during the encoding process. For more information, see the logs.");
         });

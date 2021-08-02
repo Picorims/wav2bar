@@ -71,56 +71,56 @@ function Image(glob_data) {
 
         //ID
         if ( imports.utils.IsUndefined(data.id) || !imports.utils.IsAString(data.id) || !object_method.validID(data.id, this) ) {
-            CustomLog("error","Image object: received an object with an unspecified/invalid ID! A random ID is given.");
+            imports.utils.CustomLog("error","Image object: received an object with an unspecified/invalid ID! A random ID is given.");
             data.id = object_method.generateID();
         }
 
         //name
         if ( imports.utils.IsUndefined(data.name) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.name = this.DEFAULTS.NAME;}
         if ( !imports.utils.IsUndefined(data.name) && !imports.utils.IsAString(data.name) || data.name === "" ) {
-            CustomLog("warn",`Image object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
+            imports.utils.CustomLog("warn",`Image object: Invalid name! Set to '${this.DEFAULTS.NAME}'.`);
             data.name = this.DEFAULTS.NAME;
         }
 
         //layer
         if ( imports.utils.IsUndefined(data.layer) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.layer = this.DEFAULTS.LAYER;}
         if ( !imports.utils.IsUndefined(data.layer) && (!imports.utils.IsAnInt(data.layer) || (data.layer <= -1)) ) {
-            CustomLog("warn",`Image object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
+            imports.utils.CustomLog("warn",`Image object: Invalid layer! Set to ${this.DEFAULTS.LAYER}.`);
             data.layer = this.DEFAULTS.LAYER;
         }
 
         //x
         if ( imports.utils.IsUndefined(data.x) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.x = this.DEFAULTS.X;}
         if ( !imports.utils.IsUndefined(data.x) && !imports.utils.IsAnInt(data.x) ) {
-            CustomLog("warn",`Image object: Invalid x coordinate! Set to ${this.DEFAULTS.X}.`);
+            imports.utils.CustomLog("warn",`Image object: Invalid x coordinate! Set to ${this.DEFAULTS.X}.`);
             data.x = this.DEFAULTS.X;
         }
 
         //y
         if ( imports.utils.IsUndefined(data.y) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.y = this.DEFAULTS.Y;}
         if ( !imports.utils.IsUndefined(data.y) && !imports.utils.IsAnInt(data.y) ) {
-            CustomLog("warn",`Image object: Invalid y coordinate! Set to ${this.DEFAULTS.Y}.`);
+            imports.utils.CustomLog("warn",`Image object: Invalid y coordinate! Set to ${this.DEFAULTS.Y}.`);
             data.y = this.DEFAULTS.Y;
         }
 
         //width
         if ( imports.utils.IsUndefined(data.width) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.width = this.DEFAULTS.WIDTH;}
         if ( !imports.utils.IsUndefined(data.width) && (!imports.utils.IsAnInt(data.width) || (data.width < 0)) ) {
-            CustomLog("warn",`Image object: Invalid width! Set to ${this.DEFAULTS.WIDTH}.`);
+            imports.utils.CustomLog("warn",`Image object: Invalid width! Set to ${this.DEFAULTS.WIDTH}.`);
             data.width = this.DEFAULTS.WIDTH;
         }
 
         //height
         if ( imports.utils.IsUndefined(data.height) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.height = this.DEFAULTS.HEIGHT;}
         if ( !imports.utils.IsUndefined(data.height) && (!imports.utils.IsAnInt(data.height) || (data.height < 0)) ) {
-            CustomLog("warn",`Image object: Invalid height! Set to ${this.DEFAULTS.HEIGHT}.`);
+            imports.utils.CustomLog("warn",`Image object: Invalid height! Set to ${this.DEFAULTS.HEIGHT}.`);
             data.height = this.DEFAULTS.HEIGHT;
         }
 
         //rotation
         if ( imports.utils.IsUndefined(data.rotation) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.rotation = this.DEFAULTS.ROTATION;}
         if ( !imports.utils.IsUndefined(data.rotation) && !imports.utils.IsAnInt(data.rotation) ) {
-            CustomLog("warn",`Image object: Invalid rotation! Set to ${this.DEFAULTS.ROTATION}.`);
+            imports.utils.CustomLog("warn",`Image object: Invalid rotation! Set to ${this.DEFAULTS.ROTATION}.`);
             data.rotation = this.DEFAULTS.ROTATION;
         }
 
@@ -132,42 +132,42 @@ function Image(glob_data) {
             //type
             if ( imports.utils.IsUndefined(data.background.type) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.type = this.DEFAULTS.BACKGROUND.TYPE;}
             if ( !imports.utils.IsUndefined(data.background.type) && (!imports.utils.IsAString(data.background.type) || ( (data.background.type !== "color") && (data.background.type !== "gradient") && (data.background.type !== "image") )) ) {
-                CustomLog("warn",`Image object: Invalid background type! Set to ${this.DEFAULTS.BACKGROUND.TYPE}.`);
+                imports.utils.CustomLog("warn",`Image object: Invalid background type! Set to ${this.DEFAULTS.BACKGROUND.TYPE}.`);
                 data.background.type = this.DEFAULTS.BACKGROUND.TYPE;
             }
 
             //last color
             if ( imports.utils.IsUndefined(data.background.last_color) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_color = this.DEFAULTS.BACKGROUND.LAST_COLOR;}
             if ( !imports.utils.IsUndefined(data.background.last_color) && !imports.utils.IsAString(data.background.last_color) ) {
-                CustomLog("warn",`Image object: Invalid background color! Set to ${this.DEFAULTS.BACKGROUND.LAST_COLOR}.`); //do not detect css errors!
+                imports.utils.CustomLog("warn",`Image object: Invalid background color! Set to ${this.DEFAULTS.BACKGROUND.LAST_COLOR}.`); //do not detect css errors!
                 data.background.last_color = this.DEFAULTS.BACKGROUND.LAST_COLOR;
             }
 
             //last gradient
             if ( imports.utils.IsUndefined(data.background.last_gradient) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_gradient = this.DEFAULTS.BACKGROUND.LAST_GRADIENT;}
             if ( !imports.utils.IsUndefined(data.background.last_gradient) && !imports.utils.IsAString(data.background.last_gradient) ) {
-                CustomLog("warn",`Image object: Invalid background gradient! Set to ${this.DEFAULTS.BACKGROUND.LAST_GRADIENT}.`); //do not detect css errors!
+                imports.utils.CustomLog("warn",`Image object: Invalid background gradient! Set to ${this.DEFAULTS.BACKGROUND.LAST_GRADIENT}.`); //do not detect css errors!
                 data.background.last_gradient = this.DEFAULTS.BACKGROUND.LAST_GRADIENT;
             }
 
             //last image
             if ( imports.utils.IsUndefined(data.background.last_image) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.last_image = this.DEFAULTS.BACKGROUND.LAST_IMAGE;}
             if ( !imports.utils.IsUndefined(data.background.last_image) && !imports.utils.IsAString(data.background.last_image) ) {
-                CustomLog("warn","Image object: Invalid background image! Value ignored."); //do not detect css errors!
+                imports.utils.CustomLog("warn","Image object: Invalid background image! Value ignored."); //do not detect css errors!
                 data.background.last_image = this.DEFAULTS.BACKGROUND.LAST_IMAGE;
             }
 
             //size
             if ( imports.utils.IsUndefined(data.background.size) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.size = this.DEFAULTS.BACKGROUND.SIZE;}
             if ( !imports.utils.IsUndefined(data.background.size) && !imports.utils.IsAString(data.background.size) ) {
-                CustomLog("warn",`Image object: Invalid size! Set to "${this.DEFAULTS.BACKGROUND.SIZE}".`); //do not detect css errors!
+                imports.utils.CustomLog("warn",`Image object: Invalid size! Set to "${this.DEFAULTS.BACKGROUND.SIZE}".`); //do not detect css errors!
                 data.background.size = this.DEFAULTS.BACKGROUND.SIZE;
             }
 
             //repeat
             if ( imports.utils.IsUndefined(data.background.repeat) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.background.repeat = this.DEFAULTS.BACKGROUND.REPEAT;}
             if ( !imports.utils.IsUndefined(data.background.repeat) && (!imports.utils.IsAString(data.background.repeat) || ( (data.background.repeat !== "no-repeat") && (data.background.repeat !== "repeat") && (data.background.repeat !== "repeat-x") && (data.background.repeat !== "repeat-y") )) ) {
-                CustomLog("warn",`Image object: Invalid repeat type! Set to '${this.DEFAULTS.BACKGROUND.REPEAT}'.`);
+                imports.utils.CustomLog("warn",`Image object: Invalid repeat type! Set to '${this.DEFAULTS.BACKGROUND.REPEAT}'.`);
                 data.background.repeat = this.DEFAULTS.BACKGROUND.REPEAT;
             }
 
@@ -176,21 +176,21 @@ function Image(glob_data) {
         //border-radius
         if ( imports.utils.IsUndefined(data.border_radius) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.border_radius = this.DEFAULTS.BORDER_RADIUS;}
         if ( !imports.utils.IsUndefined(data.border_radius) && !imports.utils.IsAString(data.border_radius) ) {
-            CustomLog("warn",`Image object: Invalid border-radius! Set to "${this.DEFAULTS.BORDER_RADIUS}".`); //do not detect css errors!
+            imports.utils.CustomLog("warn",`Image object: Invalid border-radius! Set to "${this.DEFAULTS.BORDER_RADIUS}".`); //do not detect css errors!
             data.border_radius = this.DEFAULTS.BORDER_RADIUS;
         }
 
         //box-shadow
         if ( imports.utils.IsUndefined(data.box_shadow) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.box_shadow = this.DEFAULTS.BOX_SHADOW;}
         if ( !imports.utils.IsUndefined(data.box_shadow) && !imports.utils.IsAString(data.box_shadow) ) {
-            CustomLog("warn",`Image object: Invalid box-shadow! Set to "${this.DEFAULTS.BOX_SHADOW}".`); //do not detect css errors!
+            imports.utils.CustomLog("warn",`Image object: Invalid box-shadow! Set to "${this.DEFAULTS.BOX_SHADOW}".`); //do not detect css errors!
             data.box_shadow = this.DEFAULTS.BOX_SHADOW;
         }
 
         //svg filter
         if ( imports.utils.IsUndefined(data.svg_filters) && !(ignore_undefined === "IGNORE_UNDEFINED") ) {data.svg_filters = this.DEFAULTS.SVG_FILTERS;}
         if ( !imports.utils.IsUndefined(data.svg_filters) && data.svg_filters !== "" && (!imports.utils.IsAString(data.svg_filters) || data.svg_filters.includes("<script>") || !data.svg_filters.includes("<filter") || !data.svg_filters.includes("</filter>")) ) {
-            CustomLog("warn",`Visualizer object: Invalid svg filters! Set to "${this.DEFAULTS.SVG_FILTERS}".`); //do not detect html errors!
+            imports.utils.CustomLog("warn",`Visualizer object: Invalid svg filters! Set to "${this.DEFAULTS.SVG_FILTERS}".`); //do not detect html errors!
             data.svg_filters = this.DEFAULTS.SVG_FILTERS;
         }
 
@@ -217,7 +217,7 @@ function Image(glob_data) {
         //NOTE: it is NOT possible to change the image id (data.id). A new image must be created in such case!
 
         if ( imports.utils.IsUndefined(data.id) ) {
-            CustomLog("error","Image object: No ID specified!");
+            imports.utils.CustomLog("error","Image object: No ID specified!");
             return;
         }
 

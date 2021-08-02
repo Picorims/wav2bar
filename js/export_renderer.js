@@ -18,7 +18,7 @@ var progress_window;//progress bar
 
 //callback to the main window that the renderer windows exists
 function ConfirmCreation() {
-    CustomLog("debug","renderer created");
+    imports.utils.CustomLog("debug","renderer created");
     LoadModules();//trigger main init of index.js
 
     //confirm that the window exists when it is ready
@@ -29,14 +29,14 @@ function ConfirmCreation() {
 
 function InitRender() {//render initialization
 
-    CustomLog("debug","initialization of the renderer.");
+    imports.utils.CustomLog("debug","initialization of the renderer.");
     screen = document.getElementById("screen");
 
     //collecting needed data
     ipcRenderer.once("data-sent", (event, data) => {//once avoid the listener to be persistent (if it was,
                                                     //on window re-open, a new listener would stack upon this
                                                     //one, making multiple process stacking on forever.
-        CustomLog("debug","received data of the main renderer.");
+        imports.utils.CustomLog("debug","received data of the main renderer.");
         received_data = data;
         InitExport(data);
 
@@ -49,7 +49,7 @@ function InitRender() {//render initialization
 
 async function InitExport(data) {//prepare video export
     if (imports.utils === null) { //wait for modules to load.
-        CustomLog("debug","Waiting for modules to load...");
+        imports.utils.CustomLog("debug","Waiting for modules to load...");
         setTimeout(() => InitExport(data), 500);
         return;
     }
@@ -77,7 +77,7 @@ async function InitExport(data) {//prepare video export
     //LOAD SAVE
     current_save = data.save;
     ApplyLoadedSave();
-    CustomLog("debug","save loaded into the renderer");
+    imports.utils.CustomLog("debug","save loaded into the renderer");
 
 
 
@@ -105,13 +105,13 @@ async function InitExport(data) {//prepare video export
     //     default:
     //         throw `InitExport: ${type} is not a valid audio type!`;
     // }
-    // CustomLog("debug",`locating audio: ${audio_file_path}`);
+    // imports.utils.CustomLog("debug",`locating audio: ${audio_file_path}`);
 
     
     
     //LOAD AUDIO FROM TEMP FILE
     audio_file_path = path.join(working_dir, `/temp/temp.${data.audio_file_extension}`);
-    CustomLog("debug",`using audio: ${audio_file_path}`);
+    imports.utils.CustomLog("debug",`using audio: ${audio_file_path}`);
 
 
 
@@ -127,7 +127,7 @@ async function InitExport(data) {//prepare video export
 
 
     //PROCESS AUDIO
-    CustomLog("debug","processing audio...");
+    imports.utils.CustomLog("debug","processing audio...");
     GetAudioData();
 }
 
@@ -160,7 +160,7 @@ function GetAudioData() {//Transform the audio temp file into PCM data, use FFT 
 
         PCM_data = interleaved;
 
-        CustomLog("debug","audio processed. Preparing to render...");
+        imports.utils.CustomLog("debug","audio processed. Preparing to render...");
         PrepareRendering(duration);
     });
 
@@ -177,7 +177,7 @@ function GetAudioBuffer(callback) {//get the buffer array from the audio file
 
     //file url
     var url = audio_file_path.replace(/\\/g,"/");
-    CustomLog("debug", `audio source: ${url}`);
+    imports.utils.CustomLog("debug", `audio source: ${url}`);
 
     //get buffer
     fetch(url)
@@ -223,7 +223,7 @@ function PrepareRendering() {//define important variables
     //SPECTRUM STORAGE USED BY THE OBJECTS
     frequency_array = [];
 
-    CustomLog("info","renderer ready, starting...");
+    imports.utils.CustomLog("info","renderer ready, starting...");
 
     StartRendering(fps);
 }
@@ -252,7 +252,7 @@ async function Render() {//render every frame into an image
     if ( UpdateFinished() ) {
 
         //update progress display
-        CustomLog("info",`rendered: ${frames_rendered}/${frames_to_render}`);
+        imports.utils.CustomLog("info",`rendered: ${frames_rendered}/${frames_to_render}`);
         ipcRenderer.sendTo(1, "export-progress", frames_to_render, frames_rendered);
 
         //if there is still frames to draw
@@ -286,7 +286,7 @@ async function Render() {//render every frame into an image
 
             //Draw the new frame now that the previous finished exporting .
             //render frame, recall loop
-            CustomLog("info",`audio time: ${current_time}`);
+            imports.utils.CustomLog("info",`audio time: ${current_time}`);
             DrawFrame();
             frames_rendered++;
             document.dispatchEvent(event.render_loop);
@@ -304,11 +304,11 @@ async function Render() {//render every frame into an image
             var export_duration = export_array[1] - export_array[0];
             ipcRenderer.invoke("create-video", data.screen, data.audio_file_type, fps, export_duration, data.output_path, received_data.use_jpeg)
             .then( () => {
-                CustomLog("info","shutting down the renderer...");
+                imports.utils.CustomLog("info","shutting down the renderer...");
                 window.close();
             })
             .catch( (error) => {
-                CustomLog("error",`The video encoding failed: ${error}`);
+                imports.utils.CustomLog("error",`The video encoding failed: ${error}`);
                 alert(`The video encoding failed. For more information, see the logs.\n\n${error}`);
                 window.close();
             });

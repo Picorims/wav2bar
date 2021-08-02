@@ -1,8 +1,6 @@
 //MIT License - Copyright (c) 2020-2021 Picorims
 
-//const { ipcRenderer } = require("electron");
-let ipcRenderer;
-//const { Logger } = require("log4js");
+const {ipcRenderer} = require("electron");
 
 const software_version = '0.3.0'; //current build version
 const software_status = 'Indev';
@@ -19,7 +17,7 @@ var can_close_window_safely = false;//set to true when the user confirmed exit
 let imports = {
     utils: null,
     ui_components: null,
-    ipc_renderer: null,
+    system: null,
 };
 
 var fps, stop_animating, animating, frame_count, fps_interval, time; //fps related variables
@@ -49,38 +47,41 @@ window.onbeforeunload = function(event) {PrepareWindowClose(event);};
 
 //get the main process working directory for user, temp, log, etc.
 //before initializing the page.
-function PreSetup() {
-    CustomLog("debug","Getting main config...");
-    ipcRenderer.invoke('get-working-dir').then(dir => {
-        working_dir = dir;
-        return ipcRenderer.invoke('get-os');
-    }).then(operating_system => {
-        os = operating_system;
-        return ipcRenderer.invoke('get-app-root');
-    }).then(root => {
-        root_dir = root;
-        return ipcRenderer.invoke('argv');
-    }).then((args) => {
-        argv = args;
-        CustomLog("debug","Getting main config done.");
-        InitPage();
-    });
-}
+// function PreSetup() {
+//     imports.utils.CustomLog("debug","Getting main config...");
+//     ipcRenderer.invoke('get-working-dir').then(dir => {
+//         working_dir = dir;
+//         return ipcRenderer.invoke('get-os');
+//     }).then(operating_system => {
+//         os = operating_system;
+//         return ipcRenderer.invoke('get-app-root');
+//     }).then(root => {
+//         root_dir = root;
+//         return ipcRenderer.invoke('argv');
+//     }).then((args) => {
+//         argv = args;
+//         imports.utils.CustomLog("debug","Getting main config done.");
+//         InitPage();
+//     });
+// }
 
 //load ES modules required
 function LoadModules() {
-    //CustomLog("debug","Loading modules...");
-    import("./ipc_renderer.js").then(module => {
-        imports.ipc_renderer = module;
-        ipcRenderer = module;
+    import("./system/system.js").then(module => {
+        imports.system = module;
+        working_dir = module.working_dir;
+        root_dir = module.root_dir;
+        os = module.os;
+        argv = module.argv;
         return import("./utils/utils.js")
     }).then(module => {
         imports.utils = module;
-        CustomLog("debug","Loading modules done.");
-        PreSetup();
-    }).catch(error => {
-        CustomLog("error", `couldn't load modules: ${error}`);
-    });
+        imports.utils.CustomLog("debug","Loading modules done.");
+        //PreSetup();
+        InitPage();
+    })/*.catch(error => {
+        console.log("could not load modules: " + error);
+    });*/
 }
 
 function InitPage() {//page initialization
@@ -122,7 +123,7 @@ function InitPage() {//page initialization
 
 
 function PrepareWindowClose(event) {
-    CustomLog("info", "The window will be closed.");
+    imports.utils.CustomLog("info", "The window will be closed.");
 
     if (!can_close_window_safely && !export_mode) {
         event.returnValue = false;
@@ -178,7 +179,7 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
     if (imports.utils.IsUndefined(file_data)) throw "LoadAudio: No file data provided, couldn't load the audio file.";
     if ( (type!=="file") && (type!=="url") ) throw `LoadAudio: ${type} is not a valid audio file type!`;
 
-    CustomLog("info","loading audio...");
+    imports.utils.CustomLog("info","loading audio...");
 
     //stop current audio
     if (typeof audio !== "undefined") {
@@ -227,14 +228,14 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
     //prepare data collection
     ctx_frequency_array = new Uint8Array(analyser.frequencyBinCount);//0 to 1023 => length=1024.
 
-    CustomLog("info","audio loaded successfully.");
+    imports.utils.CustomLog("info","audio loaded successfully.");
 }
 
 function CloseAudio() {
-    CustomLog("info","Closing audio context if any...");
+    imports.utils.CustomLog("info","Closing audio context if any...");
     if (!imports.utils.IsUndefined(context)) context.close();
     if (!export_mode) document.getElementById("opened_audio").innerHTML = current_save.audio_filename;
-    CustomLog("info","Audio context closed.");
+    imports.utils.CustomLog("info","Audio context closed.");
 }
 
 
@@ -273,14 +274,14 @@ function StartAnimating(fps) {//prepare fps animation
     time.start = time.then;
 
     Animate();
-    CustomLog('info','animation started.');
+    imports.utils.CustomLog('info','animation started.');
 }
 
 
 function StopAnimating() {//stop the fps animation loop
     stop_animating = true;
     animating = false;
-    CustomLog('info','animation stopped.');
+    imports.utils.CustomLog('info','animation stopped.');
 }
 
 // the animation loop calculates time elapsed since the last loop
@@ -454,35 +455,8 @@ function UpdateFPSDisplay() {//display FPS regularly
 //LOGGING
 //#######
 
-function CustomLog(type, log) {
-    switch (type) {
-        case 'trace':
-            console.log('[TRACE] ',log);
-            break;
-        case 'debug':
-            console.debug(log);
-            break;
-        case 'info':
-            console.info(log);
-            break;
-        case 'log':
-            console.log(log);
-            break;
-        case 'warn':
-            console.warn(log);
-            break;
-        case 'error':
-            console.error(log);
-            break;
-        case 'fatal':
-            console.error('[FATAL] ',log);
-            break;
-    }
-    ipcRenderer.invoke('log', type, log);
-}
-
 //catch all window error (throws...)
 window.onerror = function GlobalErrorHandler(error_msg, url, line_number) {
-    CustomLog("error",`${error_msg}\nsource: ${url}\n line: ${line_number}`);
+    imports.utils.CustomLog("error",`${error_msg}\nsource: ${url}\n line: ${line_number}`);
     return false;
 }

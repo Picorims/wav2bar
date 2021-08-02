@@ -10,9 +10,16 @@ skinparam PackageStyle frame
 package "global_context" {}
 global_context ..> utils
 global_context ..> ui_components
-global_context ..> ipc_renderer
+global_context ..> system
+global_context ..> electron_ipcRenderer
 
-package "ipc_renderer" {}
+package "system" {}
+system <.[dotted]. system_info
+
+package "electron_ipcRenderer" {}
+
+package "system_info" {}
+system_info ..> electron_ipcRenderer
 
 package "ui_components" {}
 ui_components <.[dotted]. ui_base_components
@@ -35,6 +42,7 @@ package "utils" {}
 utils <.[dotted]. type_checking
 utils <.[dotted]. randomizers
 utils <.[dotted]. array_utils
+utils <.[dotted]. log
 
 package "array_utils" {}
 array_utils ..> type_checking
@@ -43,5 +51,8 @@ package "randomizers" {}
 randomizers ..> type_checking
 
 package "type_checking" {}
+
+package "log" {}
+log ..> electron_ipcRenderer
 
 @enduml
