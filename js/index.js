@@ -18,6 +18,7 @@ let imports = {
     utils: null,
     ui_components: null,
     system: null,
+    save: null,
 };
 
 var fps, stop_animating, animating, frame_count, fps_interval, time; //fps related variables
@@ -73,15 +74,15 @@ function LoadModules() {
         root_dir = module.root_dir;
         os = module.os;
         argv = module.argv;
-        return import("./utils/utils.js")
+        return import("./utils/utils.js");
     }).then(module => {
         imports.utils = module;
         imports.utils.CustomLog("debug","Loading modules done.");
         //PreSetup();
         InitPage();
-    })/*.catch(error => {
+    }).catch(error => {
         console.log("could not load modules: " + error);
-    });*/
+    });
 }
 
 function InitPage() {//page initialization
