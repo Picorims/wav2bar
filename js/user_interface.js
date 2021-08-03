@@ -134,7 +134,7 @@ async function InitUI() {
             type: "get_file",
             allowed_extensions:["w2bzip"],
         }, function(result) {
-            LoadSave(result);
+            save_handler.loadSave(result);
         });
     }
 
@@ -144,7 +144,7 @@ async function InitUI() {
             type: 'save_file',
             allowed_extensions:["w2bzip"],
         }, function(result) {
-            ExportSave(result);
+            save_handler.exportSave(result);
         });
     }
 
@@ -558,7 +558,7 @@ function SetupAudioUI() {
     var loop_audio = document.getElementById("loop_audio");
 
     //DISPLAY TITLE OF LOADED AUDIO
-    document.getElementById("opened_audio").innerHTML = current_save.audio_filename;
+    document.getElementById("opened_audio").innerHTML = save_handler.save_data.audio_filename;
 
     //PLAY
     play_audio.onclick = function() {

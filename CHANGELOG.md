@@ -3,7 +3,8 @@ This document is based on Keep a Changelog 1.0.0
 
 ## 0.3.0-beta (?)
 
-
+### Changed
+- Changed how saves are handled internally.
 
 ## 0.2.2-beta (2021-07-28)
 

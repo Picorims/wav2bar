@@ -30,6 +30,7 @@ var frequency_array; //spectrum array
 var vol_prev_frequency_array, vol_frequency_array; //for volume smoothing
 var audio_position_string;// ??:?? | ??:??
 
+let save_handler = null;
 var objects = [];//all objects inside the screen
 var objects_callback = [];
 var volume;//audio average volume
@@ -37,34 +38,390 @@ var volume;//audio average volume
 
 
 
+
+
+
+
 /*
-######################################
-GLOBAL INITIALIZATION AND AUDIO IMPORT
-######################################
+###############
+SAVE MANAGEMENT
+###############
+*/
+
+//handles everything related to save: import, export, data access.
+class SaveHandler {
+    constructor() {
+        this._CURRENT_SAVE_VERSION = 3;
+
+        this._save_data = {};
+        this._lock_save_sync = false;
+
+        this.loadDefaultSave();
+        imports.utils.CustomLog("debug",'syncing save object every 500ms, starting from now.');
+        setInterval(() => {this.syncSave()}, 500);    
+    }
+
+    get save_data() {
+        return this._save_data;
+    }
+    set save_data(save_data) {
+        this._save_data = save_data;
+    }
+
+    //set the save data to default values
+    loadDefaultSave() {
+        this._save_data = {
+            //1 -> Wav2Bar 0.1.0 indev before save revamp (image embedding, music embedding)
+            //2 -> Wav2Bar 0.1.0 Beta to 0.1.2 Beta
+            //3 -> Wav2Bar 0.2.0 Beta and after
+            save_version: this._CURRENT_SAVE_VERSION,
+            software_version_used: `${software_version} ${software_status}`,
+            screen: {width: 1280, height: 720},
+            fps: 60,
+            audio_filename: "",
+            objects: [],
+        }
+        imports.utils.CustomLog('info','loaded default save.');
+    }
+
+    async loadSave(save_file_path) {//load a user save or a preset (JSON format)
+        if (!imports.utils.IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
+    
+        imports.utils.CustomLog("info", "Backing up currently opened save...");
+        this.exportSave(`${working_dir}/temp/before_new_save_open.w2bzip`, true);
+        await CloseAudio();
+    
+        imports.utils.CustomLog("info","Loading the save...");
+        this._lock_save_sync = true;
+    
+        //ERASE CURRENT DATA
+    
+        //because objects are removed from the array trough splice() during the for loop,
+        //indexes are constantly changed and the loop ends up not going trough all indexes.
+        //So the array and it's length are separately saved, and this list is kept intact
+        //to iterate trough every object.
+        var objects_list = objects.slice();
+    
+        for (var i=0; i<objects_list.length; i++) {
+            var object = objects_list[i];
+    
+            object.remove(object.data.id);
+        }
+    
+    
+    
+    
+        //LOAD NEW DATA
+        //the data must be extracted from the file in order to be able to read it.
+        ipcRenderer.once("finished-caching-save", async (event) => {
+            //read data cached in ./temp/current_save
+            imports.utils.CustomLog("info","reading the save...");
+    
+            const JSON_data = await ipcRenderer.invoke("read-json-file",`${working_dir}/temp/current_save/data.json`);
+            this._save_data = JSON.parse(JSON.stringify(JSON_data)); //copy data
+    
+            //check version
+            if (this._save_data.save_version > this._CURRENT_SAVE_VERSION) {
+                //newer version
+    
+                imports.utils.CustomLog("error",`The save can't be opened because its version (${this._save_data.save_version}) is greater than the supported version (${this._CURRENT_SAVE_VERSION})`);
+                MessageDialog("error", `This project has been created in a newer version of Wav2Bar (${this._save_data.software_version_used}). To be able to open this project, please upgrade your installed version.`);
+                this._lock_save_sync = false;
+            } else if (this._save_data.save_version < this._CURRENT_SAVE_VERSION) {
+                //older version
+    
+                imports.utils.CustomLog("warning",`The supported save version is ${this._CURRENT_SAVE_VERSION} but the provided save is of version ${this._save_data.save_version}`);
+                MessageDialog("confirm",`This project has been created in an older version of Wav2Bar (${this._save_data.software_version_used}). Do you want to upgrade it ? (Always backup your project before converting it!)`,
+                    (confirmed) => {
+                        if (confirmed) {
+                            this.convertSave();
+                            this.applyLoadedSave();
+                        } else {
+                            imports.utils.CustomLog("info", "Save load aborted, loading back the project in it's old state.");
+                            this.loadSave(`${working_dir}/temp/before_new_save_open.w2bzip`);
+                        }
+                        this._lock_save_sync = false;
+                    });
+            } else {
+                //same version
+                this.applyLoadedSave();
+                this._lock_save_sync = false;
+            }
+            if (!export_mode) document.getElementById("opened_save").innerHTML = save_file_path;
+        });
+        await ipcRenderer.invoke("cache-save-file", save_file_path);
+    }
+
+
+
+
+
+    //upgrade an older save file to the current version.
+    //versions are documented in [root]/docs/save.md.
+    convertSave(log_array = []) {
+        //something's wrong ?
+        imports.utils.CustomLog("debug", JSON.stringify(this._save_data));
+        if (this._save_data.save_version > this._CURRENT_SAVE_VERSION) throw `Can't convert the save: the save version (${this._save_data.save_version}) is greater than the supported version (${this._CURRENT_SAVE_VERSION})!`;
+
+        //Does it still needs to be converted ?
+        else if (this._save_data.save_version < this._CURRENT_SAVE_VERSION) {
+            imports.utils.CustomLog("info",`Converting the save from version ${this._save_data.save_version} to ${this._save_data.save_version + 1}. The goal is ${this._CURRENT_SAVE_VERSION}.`);
+
+            switch (this._save_data.save_version) {
+                case 1:
+                    //convert objects
+                    for (obj of this._save_data.objects) {
+                        if (obj.object_type === "background" || obj.object_type === "image") {
+                            //cache legacy data
+                            let legacy_bgnd = obj.background;
+                            let legacy_size = obj.size;
+
+                            //delete useless keys
+                            delete obj.size;
+
+                            //CONVERT DATA
+                            obj.background = {};
+                            obj.background.size = legacy_size;
+
+                            //process legacy_bgnd
+                            //NOTE: images, repeat scheme, and other color schemes are lost in the process.
+                            //NOTE: validity of the data isn't verified (number ranges, syntax...).
+
+                            // hex or rgb or rgba
+                            let color_regexp = new RegExp(/^#[0-9a-fA-F]{3,8}$|^rgb\(\d{1,3},\d{1,3},\d{1,3}\)$|^rgba\(\d{1,3},\d{1,3},\d{1,3},[01]\.?\d*\)$/);
+                            //recognize css gradient functions.
+                            let gradient_regexp = new RegExp(/gradient\(/);
+                            //remove misleading spaces
+                            legacy_bgnd = legacy_bgnd.split(" ").join("");
+                            if (color_regexp.test(legacy_bgnd)) {
+                                obj.background.type = "color";
+                                obj.background.last_color = legacy_bgnd;
+                                obj.background.last_gradient = "";
+                            } else if (gradient_regexp.test(legacy_bgnd)) {
+                                obj.background.type = "gradient";
+                                obj.background.last_color = "";
+                                obj.background.last_gradient = legacy_bgnd;
+                            } else {
+                                obj.background.type = "color";
+                                obj.background.last_color = "#fff";
+                                obj.background.last_gradient = "";
+                                log_array.push(`[1 -> 2] Couldn't convert background for ${obj.name}, assigned a default value.`);
+                            }
+
+                            //other missing nodes
+                            obj.background.last_image = "";
+                            obj.background.repeat = "no-repeat";
+                        }
+                    }
+
+                    //create audio node
+                    this._save_data.audio_filename = "";
+                break;
+
+
+
+                case 2:
+                    //nothing to do, "svg_filters" property is automatically created by objects.
+                break;
+
+
+
+                default:
+                    imports.utils.CustomLog("error",`A save of version ${this._save_data.save_version} can't be converted!`);
+            }
+            this._save_data.save_version++;
+            imports.utils.CustomLog("info", `Save converted to version ${this._save_data.save_version}!`);
+            this.convertSave(log_array);
+        } else {
+            //finished conversion.
+            imports.utils.CustomLog("info", `Conversion done!`);
+
+            //conversion logs
+            if (log_array.length > 0) {
+                let log_string = "Conversion details:\n";
+                for (msg of log_array) {
+                    log_string += "- " + msg + '\n';
+                }
+                imports.utils.CustomLog("info", log_string);
+                MessageDialog("info", log_string.split("\n").join("<br>"));
+            }
+        }
+    }
+
+
+
+
+
+
+    applyLoadedSave() {//read and apply a loaded user save
+        imports.utils.CustomLog('info','applying save...');
+        //CREATE OBJECTS
+
+        //because objects are created in current_data.objects during the for loop,
+        //objects are constantly added in it, and using it as a reference for length make
+        //the loop to never end.
+        //So the array and it's length are separately saved.
+        var objects_data_list = this._save_data.objects.slice();
+
+
+        //create all objects
+        for (var i=0; i<objects_data_list.length; i++) {
+
+            //get data
+            var object_data = objects_data_list[i];
+
+            //avoid overflow
+            if (i>255) {
+                throw `LoadSave: Maximum object count reached (${i-1})`;
+            }
+
+            //create relevant object
+            var type = object_data.object_type;
+            if (type === "background")          {new Background(object_data)}
+            else if (type === "image")          {new Image(object_data)}
+            else if (type === "particle_flow")  {new ParticleFlow(object_data)}
+            else if (type === "text")           {new Text(object_data)}
+            else if (type === "timer")          {new Timer(object_data)}
+            else if (type === "visualizer")     {new Visualizer(object_data)}
+            else {throw `LoadSave: ${type} is not a valid object type. Is the save corrupted ?`}
+
+            imports.utils.CustomLog("info",`Added ${type}.`);
+
+        }
+
+
+
+        //apply FPS
+        ChangeFPSTo(this._save_data.fps);
+
+        //apply screen size
+        SetScreenTo(this._save_data.screen.width, this._save_data.screen.height);
+
+        //apply audio
+        if (this._save_data.audio_filename !== "") {
+            ipcRenderer.invoke("get-full-path", `${working_dir}/temp/current_save/assets/audio/${this._save_data.audio_filename}`).then((result => {
+                LoadAudio(result, "url");
+                if (!export_mode) document.getElementById("opened_audio").innerHTML = this._save_data.audio_filename;
+            }));
+        }
+
+
+        imports.utils.CustomLog("info","Save loaded!");
+
+    }
+
+
+
+
+
+
+
+
+
+
+    syncSave() { //function that updates the current save with latest data
+        if (!this._lock_save_sync) {
+            this._save_data.software_version_used = `${software_version} ${software_status}`;
+            this._save_data.screen.width = screen.width;
+            this._save_data.screen.height = screen.height;
+            this._save_data.fps = fps;
+            //audio_filename not needed to sync
+            this._save_data.objects = [];
+
+            for (var i=0; i < objects.length; i++) {
+                this._save_data.objects.push(objects[i].data);
+            }
+        } else {
+            imports.utils.CustomLog("debug","Save syncing locked, didn't synchronize data.");
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //legacy save export
+    exportSaveAsJSON() {//export the current save to JSON format.
+
+        imports.utils.CustomLog("info","generating download file for the save...");
+
+        //update current save
+        this.syncSave();
+
+
+        //prepare data for export
+        var exported_save = JSON.stringify(this._save_data);
+        var data_string = "data:text/json; charset=utf-8," + encodeURIComponent(exported_save);
+
+        //create downloader element
+        var downloader = document.createElement('a');
+        downloader.href = data_string;
+        downloader.download = "save.json";
+        document.body.appendChild(downloader); // required for firefox
+
+        //trigger download
+        downloader.click();
+
+        //remove downloader element
+        downloader.remove();
+
+        imports.utils.CustomLog("info","save file provided for download.");
+    }
+
+
+
+    //save project to file
+    /**
+     * structure:
+     * project_name.w2bzip (renamed .zip file)
+     * |- data.json
+     * |- assets
+     * |    |- (audio, images, etc...)
+     * |    /
+     * /
+     */
+    exportSave(save_path, no_dialog = false) {
+        if (!imports.utils.IsAString(save_path)) throw `ExportSave: ${save_path} is an invalid save path (not a string).`;
+        if (!imports.utils.IsABoolean(no_dialog)) throw `ExportSave: ${no_dialog} must be a boolean for no_dialog value!`;
+
+        imports.utils.CustomLog("info","generating save file...");
+        //update the current save
+        this.syncSave();
+
+        //update JSON data in temp save
+        var save_data = JSON.stringify(this._save_data);
+        ipcRenderer.invoke("write-json-file", `${working_dir}/temp/current_save/data.json`, save_data);
+
+        //package file
+        ipcRenderer.invoke("create-save-file", save_path);
+
+        if (!no_dialog) MessageDialog("info","The save has been created!");
+        imports.utils.CustomLog("info","save file generated!");
+    }
+}
+
+
+
+
+
+
+
+/*
+#####################
+GLOBAL INITIALIZATION
+#####################
 */
 
 window.onload = function() {LoadModules();};
 window.onbeforeunload = function(event) {PrepareWindowClose(event);};
-
-//get the main process working directory for user, temp, log, etc.
-//before initializing the page.
-// function PreSetup() {
-//     imports.utils.CustomLog("debug","Getting main config...");
-//     ipcRenderer.invoke('get-working-dir').then(dir => {
-//         working_dir = dir;
-//         return ipcRenderer.invoke('get-os');
-//     }).then(operating_system => {
-//         os = operating_system;
-//         return ipcRenderer.invoke('get-app-root');
-//     }).then(root => {
-//         root_dir = root;
-//         return ipcRenderer.invoke('argv');
-//     }).then((args) => {
-//         argv = args;
-//         imports.utils.CustomLog("debug","Getting main config done.");
-//         InitPage();
-//     });
-// }
 
 //load ES modules required
 function LoadModules() {
@@ -88,14 +445,14 @@ function LoadModules() {
 function InitPage() {//page initialization
 
     //PREPARE SAVE
-    InitSave();
+    save_handler = new SaveHandler();
 
 
     //FPS PREPARATION
     stop_animating = false;
     frame_count = 0;
     fps_array = [];
-    fps = current_save.fps;
+    fps = save_handler.save_data.fps;
     animating = false;
     if (!export_mode) setInterval(UpdateFPSDisplay, 1000);
 
@@ -144,6 +501,34 @@ function PrepareWindowClose(event) {
 
 
 
+
+
+
+
+
+//#######
+//LOGGING
+//#######
+
+//catch all window error (throws...)
+window.onerror = function GlobalErrorHandler(error_msg, url, line_number) {
+    imports.utils.CustomLog("error",`${error_msg}\nsource: ${url}\n line: ${line_number}`);
+    return false;
+}
+
+
+
+
+
+
+/*
+#####
+AUDIO
+#####
+*/
+
+
+
 async function SaveAudio(path) {
     await CloseAudio();
 
@@ -166,7 +551,7 @@ async function SaveAudio(path) {
     await ipcRenderer.invoke("copy-file", path, `${new_path}${filename}`);
 
     //keep new audio name in memory;
-    current_save.audio_filename = filename;
+    save_handler.save_data.audio_filename = filename;
 
     //load audio
     let audio_path = await ipcRenderer.invoke("get-full-path", `${new_path}${filename}`);
@@ -235,7 +620,7 @@ function LoadAudio(file_data, type) {//load an audio file into the app. type: "f
 function CloseAudio() {
     imports.utils.CustomLog("info","Closing audio context if any...");
     if (!imports.utils.IsUndefined(context)) context.close();
-    if (!export_mode) document.getElementById("opened_audio").innerHTML = current_save.audio_filename;
+    if (!export_mode) document.getElementById("opened_audio").innerHTML = save_handler.save_data.audio_filename;
     imports.utils.CustomLog("info","Audio context closed.");
 }
 
@@ -429,35 +814,4 @@ function UpdateFPSDisplay() {//display FPS regularly
 
     //display fps
     document.getElementById("fps").innerHTML = `${average_fps}FPS`;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//#######
-//LOGGING
-//#######
-
-//catch all window error (throws...)
-window.onerror = function GlobalErrorHandler(error_msg, url, line_number) {
-    imports.utils.CustomLog("error",`${error_msg}\nsource: ${url}\n line: ${line_number}`);
-    return false;
 }

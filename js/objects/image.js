@@ -257,6 +257,7 @@ function Image(glob_data) {
                         let full_path = `${working_dir}/temp/current_save/assets/${this.data.id}/background/${this.data.background.last_image}`
                         if (export_mode) url = object_method.fullPathToCSSPath(`${root_dir}/html`, full_path);
                         else url = object_method.fullPathToCSSPath(`${root_dir}`, full_path);
+                        console.log(url);
                         this.element.style.backgroundImage = `url("${url}")`;
                     } else {
                         this.element.style.backgroundImage = "";
@@ -414,13 +415,13 @@ function Image(glob_data) {
                     },{
                         innerHTML: '<i class="ri-align-center"></i>',
                         callback: () => {
-                            let pos = current_save.screen.width/2 - this.data.width/2;
+                            let pos = save_handler.save_data.screen.width/2 - this.data.width/2;
                             this.parameters.coordinates.forceValue(0, pos, true);
                         }
                     },{
                         innerHTML: '<i class="ri-align-right"></i>',
                         callback: () => {
-                            let pos = current_save.screen.width - this.data.width;
+                            let pos = save_handler.save_data.screen.width - this.data.width;
                             this.parameters.coordinates.forceValue(0, pos, true);
                         }
                     }
@@ -433,13 +434,13 @@ function Image(glob_data) {
                     },{
                         innerHTML: '<i class="ri-align-vertically"></i>',
                         callback: () => {
-                            let pos = current_save.screen.height/2 - this.data.height/2;
+                            let pos = save_handler.save_data.screen.height/2 - this.data.height/2;
                             this.parameters.coordinates.forceValue(1, pos, true);
                         }
                     },{
                         innerHTML: '<i class="ri-align-bottom"></i>',
                         callback: () => {
-                            let pos = current_save.screen.height - this.data.height;
+                            let pos = save_handler.save_data.screen.height - this.data.height;
                             this.parameters.coordinates.forceValue(1, pos, true);
                         }
                     }
@@ -484,18 +485,18 @@ function Image(glob_data) {
                     {
                         innerHTML: '&#11020;',
                         callback: () => {
-                            this.parameters.size.forceValue(0, current_save.screen.width, true);
+                            this.parameters.size.forceValue(0, save_handler.save_data.screen.width, true);
                         }
                     },{
                         innerHTML: '&#11021;',
                         callback: () => {
-                            this.parameters.size.forceValue(1, current_save.screen.height, true);
+                            this.parameters.size.forceValue(1, save_handler.save_data.screen.height, true);
                         }
                     },{
                         innerHTML: '<i class="ri-fullscreen-line"></i>',
                         callback: () => {
-                            this.parameters.size.forceValue(0, current_save.screen.width, true);
-                            this.parameters.size.forceValue(1, current_save.screen.height, true);
+                            this.parameters.size.forceValue(0, save_handler.save_data.screen.width, true);
+                            this.parameters.size.forceValue(1, save_handler.save_data.screen.height, true);
                         }
                     }
                 ]

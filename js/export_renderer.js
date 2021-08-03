@@ -75,8 +75,8 @@ async function InitExport(data) {//prepare video export
 
 
     //LOAD SAVE
-    current_save = data.save;
-    ApplyLoadedSave();
+    save_handler.save_data = data.save;
+    save_handler.applyLoadedSave();
     imports.utils.CustomLog("debug","save loaded into the renderer");
 
 
@@ -215,7 +215,7 @@ function PrepareRendering() {//define important variables
 
     //FPS PREPARATION
     frame_count = 0;
-    fps = current_save.fps;
+    fps = save_handler.save_data.fps;
     export_array = [0, duration];//from when to when in seconds to export, based on audio length.
     //export_array = [0,10];
     //interval type: [x,y[

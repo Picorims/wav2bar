@@ -68,6 +68,7 @@ var object_method = {
         absolute_path = absolute_path.replace(/[^\/]*/, "");
 
         relative_path += absolute_path;
+        console.log(absolute_path);
         return relative_path;
     },
 
