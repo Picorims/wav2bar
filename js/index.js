@@ -73,6 +73,10 @@ class SaveHandler {
         this._save_data.screen = screen;
     }
 
+    rewriteSoftwareInfo() {
+        this._save_data.software_version_used = `${software_version} ${software_status}`;
+    }
+
     //set the save data to default values
     loadDefaultSave() {
         this._save_data = {
@@ -310,6 +314,7 @@ class SaveHandler {
             }));
         }
 
+        rewriteSoftwareInfo();
 
         imports.utils.CustomLog("info","Save loaded!");
 
@@ -326,7 +331,6 @@ class SaveHandler {
 
     syncSave() { //function that updates the current save with latest data
         if (!this._lock_save_sync) {
-            this._save_data.software_version_used = `${software_version} ${software_status}`;
             this._save_data.fps = fps;
             //audio_filename not needed to sync
             this._save_data.objects = [];
