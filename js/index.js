@@ -68,6 +68,11 @@ class SaveHandler {
         this._save_data = save_data;
     }
 
+    set screen(screen) {
+        if (imports.utils.IsUndefined(screen.width) || imports.utils.IsUndefined(screen.height)) throw new SyntaxError("screen must be like {width: value, height: value}.");
+        this._save_data.screen = screen;
+    }
+
     //set the save data to default values
     loadDefaultSave() {
         this._save_data = {
@@ -322,8 +327,6 @@ class SaveHandler {
     syncSave() { //function that updates the current save with latest data
         if (!this._lock_save_sync) {
             this._save_data.software_version_used = `${software_version} ${software_status}`;
-            this._save_data.screen.width = screen.width;
-            this._save_data.screen.height = screen.height;
             this._save_data.fps = fps;
             //audio_filename not needed to sync
             this._save_data.objects = [];

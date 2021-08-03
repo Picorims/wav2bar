@@ -36,10 +36,6 @@ function Export(path) {//Launch the rendering process which will export the vide
             }
         }
         var data = {
-            screen: {
-                width: screen.width,
-                height: screen.height,
-            },
             save: save_handler.save_data,
             audio_file_type: audio_file_type,
             audio_file_extension: extension,

@@ -60,16 +60,11 @@ async function InitExport(data) {//prepare video export
     root_dir = await ipcRenderer.invoke('get-app-root');
 
     //SCREEN SETUP
-    screen.width = data.screen.width;
-    screen.height = data.screen.height;
-    screen.style.width = screen.width + "px";
-    screen.style.height = screen.height + "px";
+    screen.style.width = save_handler.save_data.screen.width + "px";
+    screen.style.height = save_handler.save_data.screen.height + "px";
 
-    //adapt window size to screen (if the screen is bigger than the user screen resolution,
-    //the window will take the size of the user screen. Multiple screenshots will then be
-    //required to render an entire frame)
-    //remote.getCurrentWindow().setSize(screen.width, screen.height);
-    await ipcRenderer.invoke('resize-export-window', screen.width, screen.height);
+    //adapt window size to screen
+    await ipcRenderer.invoke('resize-export-window', save_handler.save_data.screen.width, save_handler.save_data.screen.height);
 
 
 
@@ -259,7 +254,7 @@ async function Render() {//render every frame into an image
         if (frames_rendered < frames_to_render) {
 
             //the previous frame is rendered only now because the render of this one is now finished (UpdateFinished = true). it wasn't the case before
-            await ipcRenderer.invoke('export-screen', {width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
+            await ipcRenderer.invoke('export-screen', {width: save_handler.save_data.screen.width, height: save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
 
             //get waveform data
             var length = 8192;//output is length/2
@@ -296,13 +291,13 @@ async function Render() {//render every frame into an image
         }//if all frames have been rendered and this is the last frame to export, stop the loop and export the last frame
         else {
 
-            await ipcRenderer.invoke('export-screen', {width: screen.width, height: screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
+            await ipcRenderer.invoke('export-screen', {width: save_handler.save_data.screen.width, height: save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
 
             document.removeEventListener("render-loop", Render);
             ipcRenderer.sendTo(1, "frames-rendered");
             var data = received_data;
             var export_duration = export_array[1] - export_array[0];
-            ipcRenderer.invoke("create-video", data.screen, data.audio_file_type, fps, export_duration, data.output_path, received_data.use_jpeg)
+            ipcRenderer.invoke("create-video", save_handler.save_data.screen, data.audio_file_type, fps, export_duration, data.output_path, received_data.use_jpeg)
             .then( () => {
                 imports.utils.CustomLog("info","shutting down the renderer...");
                 window.close();

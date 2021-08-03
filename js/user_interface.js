@@ -40,12 +40,7 @@ async function InitUI() {
     screen = document.getElementById("screen");
 
     //SCREEN SIZE
-    //short syntax for the program
-    screen.width = 1280;
-    screen.height = 720;
-    //apply it
-    screen.style.width = screen.width+"px";
-    screen.style.height = screen.height+"px";
+    SetScreenTo(1280, 720);
 
     //TABS
     tab = {
@@ -106,16 +101,16 @@ async function InitUI() {
     }
 
     //screen width
-    document.getElementById("screen_width_input").value = screen.width;
+    document.getElementById("screen_width_input").value = save_handler.save_data.screen.width;
     document.getElementById("screen_width_input").oninput = function() {
-        SetScreenTo(parseInt(this.value), screen.height);
+        SetScreenTo(parseInt(this.value), save_handler.save_data.screen.height);
 
     }
 
     //screen height
-    document.getElementById("screen_height_input").value = screen.height;
+    document.getElementById("screen_height_input").value = save_handler.save_data.screen.height;
     document.getElementById("screen_height_input").oninput = function() {
-        SetScreenTo(screen.width, parseInt(this.value));
+        SetScreenTo(save_handler.save_data.screen.width, parseInt(this.value));
     }
 
     //import audio
@@ -344,8 +339,8 @@ function LoopUI() {//UI responsive update
     //fix the inner space of the interface containing the screen
     var extra_space = 100;
     var screen_border = parseInt( window.getComputedStyle(screen).getPropertyValue("border-width").replace("px","") );
-    var screen_width  = (screen.width + screen_border*2)  * zoom;
-    var screen_height = (screen.height + screen_border*2) * zoom;
+    var screen_width  = (save_handler.save_data.screen.width + screen_border*2)  * zoom;
+    var screen_height = (save_handler.save_data.screen.height + screen_border*2) * zoom;
 
     var inner_spacing_width  = screen_width  + (2*extra_space);
     var inner_spacing_height = screen_height + (2*extra_space)
@@ -411,10 +406,12 @@ function SetScreenTo(width, height) {//changes the screen size to the given valu
     if(!imports.utils.IsAnInt(height)) throw `SetScreenTo: ${width} is not an integer.`;
 
     //update screen
-    screen.width = width;
-    screen.height = height;
     screen.style.width = width+"px";
     screen.style.height = height+"px";
+    save_handler.screen = {
+        width: width,
+        height: height,
+    }
 
     //update background size
     for (var i=0; i<objects.length; i++) {
@@ -425,8 +422,8 @@ function SetScreenTo(width, height) {//changes the screen size to the given valu
 
     //update UI
     if (!export_mode) {
-        document.getElementById("screen_width_input").value = screen.width;
-        document.getElementById("screen_height_input").value = screen.height;
+        document.getElementById("screen_width_input").value = width;
+        document.getElementById("screen_height_input").value = height;
     }
 
     imports.utils.CustomLog("info",`screen set to ${width}x${height}`);

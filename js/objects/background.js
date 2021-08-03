@@ -219,8 +219,8 @@ function Background(glob_data) {
             }
 
             //SET BACKGROUND TO SCREEN SIZE
-            this.element.style.width = screen.width + "px";
-            this.element.style.height = screen.height + "px";
+            this.element.style.width = save_handler.save_data.screen.width + "px";
+            this.element.style.height = save_handler.save_data.screen.height + "px";
         }
 
 
@@ -428,8 +428,8 @@ function Background(glob_data) {
     //##################################
 
     this.update = function() {
-        this.element.style.width = screen.width+"px";
-        this.element.style.height = screen.height+"px";
+        this.element.style.width = save_handler.save_data.screen.width+"px";
+        this.element.style.height = save_handler.save_data.screen.height+"px";
 
         //finished updating
         return true;
