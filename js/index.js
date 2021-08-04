@@ -51,6 +51,11 @@ SAVE MANAGEMENT
 //handles everything related to save: import, export, data access.
 class SaveHandler {
     constructor() {
+        Object.assign(SaveHandler.prototype, imports.utils.EventMixin);
+        this.setupEventMixin([
+            "test",
+        ]);    
+
         this._CURRENT_SAVE_VERSION = 3;
 
         this._save_data = {};
@@ -408,7 +413,7 @@ class SaveHandler {
         this.syncSave();
 
         //update JSON data in temp save
-        var save_data = JSON.stringify(this._save_data);
+        let save_data = JSON.stringify(this._save_data);
         ipcRenderer.invoke("write-json-file", `${working_dir}/temp/current_save/data.json`, save_data);
 
         //package file
@@ -448,9 +453,9 @@ function LoadModules() {
         imports.utils.CustomLog("debug","Loading modules done.");
         //PreSetup();
         InitPage();
-    }).catch(error => {
+    })/*.catch(error => {
         console.log("could not load modules: " + error);
-    });
+    });*/
 }
 
 function InitPage() {//page initialization

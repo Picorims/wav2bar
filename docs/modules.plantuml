@@ -43,6 +43,7 @@ utils <.[dotted]. type_checking
 utils <.[dotted]. randomizers
 utils <.[dotted]. array_utils
 utils <.[dotted]. log
+utils <.[dotted]. event_mixin
 
 package "array_utils" {}
 array_utils ..> type_checking
@@ -54,5 +55,7 @@ package "type_checking" {}
 
 package "log" {}
 log ..> electron_ipcRenderer
+
+package "event_mixin" {}
 
 @enduml
