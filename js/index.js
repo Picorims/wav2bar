@@ -21,7 +21,7 @@ let imports = {
     save: null,
 };
 
-var fps, stop_animating, animating, frame_count, fps_interval, time; //fps related variables
+var stop_animating, animating, frame_count, fps_interval, time; //fps related variables
 var fps_array, fps_array_max_length; //fps display
 
 var audio_file, audio_file_type , current_time, audio_duration; //audio file related
@@ -71,6 +71,11 @@ class SaveHandler {
     set screen(screen) {
         if (imports.utils.IsUndefined(screen.width) || imports.utils.IsUndefined(screen.height)) throw new SyntaxError("screen must be like {width: value, height: value}.");
         this._save_data.screen = screen;
+    }
+
+    set fps(fps) {
+        if (!imports.utils.IsAnInt(fps)) throw new SyntaxError("fps must be an integer.");
+        this._save_data.fps = fps;
     }
 
     rewriteSoftwareInfo() {
@@ -314,7 +319,7 @@ class SaveHandler {
             }));
         }
 
-        rewriteSoftwareInfo();
+        this.rewriteSoftwareInfo();
 
         imports.utils.CustomLog("info","Save loaded!");
 
@@ -331,7 +336,6 @@ class SaveHandler {
 
     syncSave() { //function that updates the current save with latest data
         if (!this._lock_save_sync) {
-            this._save_data.fps = fps;
             //audio_filename not needed to sync
             this._save_data.objects = [];
 
@@ -459,7 +463,6 @@ function InitPage() {//page initialization
     stop_animating = false;
     frame_count = 0;
     fps_array = [];
-    fps = save_handler.save_data.fps;
     animating = false;
     if (!export_mode) setInterval(UpdateFPSDisplay, 1000);
 
@@ -734,7 +737,7 @@ function DrawFrame() {//update and draw the screen
     
     if (export_mode) {
         //time update
-        current_time = frames_rendered/fps;
+        current_time = frames_rendered/save_handler.save_data.fps;
         audio_duration = duration;
     } else {
         //collect frequency data

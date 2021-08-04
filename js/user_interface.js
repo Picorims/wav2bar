@@ -95,7 +95,7 @@ async function InitUI() {
 
     //PROJECT TAB
     //fps selection
-    document.getElementById("fps_input").value = fps;
+    document.getElementById("fps_input").value = save_handler.save_data.fps;
     document.getElementById("fps_input").oninput = function() {
         ChangeFPSTo(parseInt(this.value));
     }
@@ -436,12 +436,12 @@ function ChangeFPSTo(new_fps) {//changes the FPS used by restarting the animatio
     if (!imports.utils.IsAnInt(new_fps)) throw `ChangeFPSto: ${new_fps} is not an integer or a valid FPS value.`;
 
     //trigger update
-    fps = new_fps;
+    save_handler.fps = new_fps;
     StopAnimating();
     if (audio && !audio.paused) StartAnimating(new_fps);
 
     //update UI
-    if (!export_mode) document.getElementById("fps_input").value = fps;
+    if (!export_mode) document.getElementById("fps_input").value = save_handler.save_data.fps;
 
     imports.utils.CustomLog("info",`FPS set to ${new_fps}`);
 }
@@ -559,7 +559,7 @@ function SetupAudioUI() {
 
     //PLAY
     play_audio.onclick = function() {
-        if (!animating) StartAnimating(fps);
+        if (!animating) StartAnimating(save_handler.save_data.fps);
         audio.play();
 
         //update visuals

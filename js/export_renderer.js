@@ -210,7 +210,6 @@ function PrepareRendering() {//define important variables
 
     //FPS PREPARATION
     frame_count = 0;
-    fps = save_handler.save_data.fps;
     export_array = [0, duration];//from when to when in seconds to export, based on audio length.
     //export_array = [0,10];
     //interval type: [x,y[
@@ -220,7 +219,7 @@ function PrepareRendering() {//define important variables
 
     imports.utils.CustomLog("info","renderer ready, starting...");
 
-    StartRendering(fps);
+    StartRendering(save_handler.save_data.fps);
 }
 
 
@@ -259,7 +258,7 @@ async function Render() {//render every frame into an image
             //get waveform data
             var length = 8192;//output is length/2
             var waveform = new Float32Array(length);
-            var current_time = frames_rendered/fps;
+            var current_time = frames_rendered/save_handler.save_data.fps;
             var center_point = Math.floor(current_time*sample_rate*2); //2 channels in PCM_data, pos in seconds -> pos in samples
 
             //take a portion of the PCM data
@@ -297,7 +296,7 @@ async function Render() {//render every frame into an image
             ipcRenderer.sendTo(1, "frames-rendered");
             var data = received_data;
             var export_duration = export_array[1] - export_array[0];
-            ipcRenderer.invoke("create-video", save_handler.save_data.screen, data.audio_file_type, fps, export_duration, data.output_path, received_data.use_jpeg)
+            ipcRenderer.invoke("create-video", save_handler.save_data.screen, data.audio_file_type, save_handler.save_data.fps, export_duration, data.output_path, received_data.use_jpeg)
             .then( () => {
                 imports.utils.CustomLog("info","shutting down the renderer...");
                 window.close();
