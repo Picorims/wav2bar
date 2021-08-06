@@ -13,13 +13,19 @@ global_context ..> ui_components
 global_context ..> system
 global_context ..> electron_ipcRenderer
 
-package "system" {}
-system <.[dotted]. system_info
+
 
 package "electron_ipcRenderer" {}
 
+
+
+package "system" {}
+system <.[dotted]. system_info
+
 package "system_info" {}
 system_info ..> electron_ipcRenderer
+
+
 
 package "ui_components" {}
 ui_components <.[dotted]. ui_base_components
@@ -37,6 +43,8 @@ ui_parameters ..> ui_append_help
 package "ui_append_help" {}
 ui_append_help ..> utils
 ui_append_help ..> ui_base_components
+
+
 
 package "utils" {}
 utils <.[dotted]. type_checking
@@ -57,5 +65,12 @@ package "log" {}
 log ..> electron_ipcRenderer
 
 package "event_mixin" {}
+
+
+
+package "visual_objects" {}
+visual_objects <.[dotted]. visual_object
+
+package "visual_object" {}
 
 @enduml

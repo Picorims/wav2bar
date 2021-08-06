@@ -19,6 +19,7 @@ let imports = {
     ui_components: null,
     system: null,
     save: null,
+    visual_objects: null,
 };
 
 var stop_animating, animating, frame_count, fps_interval, time; //fps related variables
@@ -31,7 +32,7 @@ var vol_prev_frequency_array, vol_frequency_array; //for volume smoothing
 var audio_position_string;// ??:?? | ??:??
 
 let save_handler = null;
-var objects = [];//all objects inside the screen
+//var objects = [];//all objects inside the screen
 var objects_callback = [];
 var volume;//audio average volume
 
@@ -56,14 +57,14 @@ class SaveHandler {
             "test",
         ]);    
 
-        this._CURRENT_SAVE_VERSION = 3;
+        this._CURRENT_SAVE_VERSION = 4;
 
         this._save_data = {};
         this._lock_save_sync = false;
+        this._objects = {};
 
         this.loadDefaultSave();
         imports.utils.CustomLog("debug",'syncing save object every 500ms, starting from now.');
-        setInterval(() => {this.syncSave()}, 500);    
     }
 
     get save_data() {
@@ -92,13 +93,14 @@ class SaveHandler {
         this._save_data = {
             //1 -> Wav2Bar 0.1.0 indev before save revamp (image embedding, music embedding)
             //2 -> Wav2Bar 0.1.0 Beta to 0.1.2 Beta
-            //3 -> Wav2Bar 0.2.0 Beta and after
+            //3 -> Wav2Bar 0.2.0 Beta to 0.2.2 Beta
+            //4 -> Wav2Bar 0.3.0 Indev and after
             save_version: this._CURRENT_SAVE_VERSION,
             software_version_used: `${software_version} ${software_status}`,
             screen: {width: 1280, height: 720},
             fps: 60,
             audio_filename: "",
-            objects: [],
+            objects: {},
         }
         imports.utils.CustomLog('info','loaded default save.');
     }
@@ -339,28 +341,6 @@ class SaveHandler {
 
 
 
-    syncSave() { //function that updates the current save with latest data
-        if (!this._lock_save_sync) {
-            //audio_filename not needed to sync
-            this._save_data.objects = [];
-
-            for (var i=0; i < objects.length; i++) {
-                this._save_data.objects.push(objects[i].data);
-            }
-        } else {
-            imports.utils.CustomLog("debug","Save syncing locked, didn't synchronize data.");
-        }
-    }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -368,10 +348,6 @@ class SaveHandler {
     exportSaveAsJSON() {//export the current save to JSON format.
 
         imports.utils.CustomLog("info","generating download file for the save...");
-
-        //update current save
-        this.syncSave();
-
 
         //prepare data for export
         var exported_save = JSON.stringify(this._save_data);
@@ -409,8 +385,6 @@ class SaveHandler {
         if (!imports.utils.IsABoolean(no_dialog)) throw `ExportSave: ${no_dialog} must be a boolean for no_dialog value!`;
 
         imports.utils.CustomLog("info","generating save file...");
-        //update the current save
-        this.syncSave();
 
         //update JSON data in temp save
         let save_data = JSON.stringify(this._save_data);
@@ -421,6 +395,41 @@ class SaveHandler {
 
         if (!no_dialog) MessageDialog("info","The save has been created!");
         imports.utils.CustomLog("info","save file generated!");
+    }
+
+
+
+
+
+    //add a visual object to the existing list of visual object
+    //(class instances, objects register themselves in the save.)
+    addVisualObject(object) {
+        if (object.id === "") {
+            object.generateID(); //generate id
+            this._save_data.objects[object.id] = {};//register in save data
+        }
+        else if (!object.getThisData()) {
+            throw new SyntaxError(`providing an ID for a VisualObject implies that it is registered in the save, but it is not! ("${id}"). If you want to create an object, leave this empty.`);
+        }
+        this._objects[object.id] = object; //keep a reference.
+    }
+
+    //remove a visual object from the save based on its id.
+    deleteVisualObject(id) {
+        this._objects[id].destroy();
+        delete this._objects[id];
+        delete this._save_data.objects[id];
+    }
+
+    //get the object's data in a manipulable way.
+    getVisualObjectData(id) {
+        return this._save_data.objects[id];
+    }
+
+    getVisualObjectIDs() {
+        let ids = [];
+        for (let key in this._save_data.objects) ids.push(key);
+        return ids;
     }
 }
 
@@ -450,6 +459,9 @@ function LoadModules() {
         return import("./utils/utils.js");
     }).then(module => {
         imports.utils = module;
+        return import("./visual_objects/visual_objects.js");
+    }).then(module => {
+        imports.visual_objects = module;
         imports.utils.CustomLog("debug","Loading modules done.");
         //PreSetup();
         InitPage();

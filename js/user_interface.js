@@ -414,11 +414,11 @@ function SetScreenTo(width, height) {//changes the screen size to the given valu
     }
 
     //update background size
-    for (var i=0; i<objects.length; i++) {
-        if (objects[i].data.object_type === "background") {
-            objects[i].update();
-        }
-    }
+    // for (var i=0; i<objects.length; i++) {
+    //     if (objects[i].data.object_type === "background") {
+    //         objects[i].update();
+    //     }
+    // }
 
     //update UI
     if (!export_mode) {
