@@ -40,6 +40,8 @@ export class VisualObject {
     }
 
     get id() {return this._id;}
+    get parameter_rack() {return this._parameter_rack;}
+
     getThisData() {return this._save_handler.save_data.objects[this._id]}
 
     //generate a UUID for the object
