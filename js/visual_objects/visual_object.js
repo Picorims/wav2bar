@@ -38,6 +38,15 @@ export class VisualObject {
         this._parameter_rack.delete_callback = () => {
             this._save_handler.deleteVisualObject(this._id);
         }
+
+
+
+
+
+        //shared properties
+        this._properties["name"] = new property.VPName(this._save_handler, this);
+        this._properties["layer"] = new property.VPLayer(this._save_handler, this);
+        this._properties["coordinates"] = new property.VPCoordinates(this._save_handler, this);
     }
 
     get id() {return this._id;}
@@ -92,12 +101,10 @@ export class VText extends VisualObject {
         this._save_handler.mergeVisualObjectData(this._id, {type: "text"});
         this._parameter_rack.icon = '<i class="ri-text"></i>';
 
-        //##########
-        //PROPERTIES
-        //##########
+        //#################
+        //UNIQUE PROPERTIES
+        //#################
 
-        this._properties["name"] = new property.VPName(this._save_handler, this);
-        this._properties["layer"] = new property.VPLayer(this._save_handler, this);
 
 
 

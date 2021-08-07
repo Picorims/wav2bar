@@ -10,7 +10,9 @@ export function mergeData(data_to_add, data_receiver) {
     for (let key of Object.keys(data_to_add)) { //only update the changed nodes in data_to_add
         if (type.IsAnObject(data_to_add[key]) && !type.IsAnArray(data_to_add[key])) {
             //there are multiple sub keys in this key, they must be considered independently.
-            object_method.mergeData(data_to_add[key], data_receiver[key]);
+            //if the receiver doesn't have a corresponding object, create it.
+            if (!type.IsAnObject(data_receiver[key])) data_receiver[key] = {};
+            mergeData(data_to_add[key], data_receiver[key]);
         } else {
             //The key is a simple value, it can be processed directly
             data_receiver[key] = data_to_add[key];

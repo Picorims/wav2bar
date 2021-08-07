@@ -6,6 +6,7 @@ import * as ui_components from "../ui_components/ui_components.js";
 
 const DEFAULTS = {
     LAYER: 0,
+    COORDINATES: {x: 0, y: 0},
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -130,5 +131,99 @@ export class VPLayer extends VisualObjectProperty {
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
+    }
+}
+
+
+
+//coordinates property, defines an object's position.
+//the button grid needs a VPSize to exist on the object in order to work properly.
+export class VPCoordinates extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "coordinates", JSON.parse(JSON.stringify(DEFAULTS.COORDINATES)));
+
+        //create associated ui
+        this._ui_parameter = new ui_components.UIParameterInputsAndButtonGrid(
+            this._visual_object.parameter_rack,
+            "",
+            false,
+            [{
+                title: "X :",
+                unit: "px",
+                default_value: this.getCurrentValue().x,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe({
+                        x: parseInt(this._ui_parameter.value(0)),
+                        y: this.getCurrentValue().y,
+                    });
+                }
+            },
+            {
+                title: "Y :",
+                unit: "px",
+                default_value: this.getCurrentValue().y,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe({
+                        x: this.getCurrentValue().x,
+                        y: parseInt(this._ui_parameter.value(1)),
+                    });
+                }
+            }],
+            2, 3, [
+                [
+                    {
+                        innerHTML: '<i class="ri-align-left"></i>',
+                        callback: () => {
+                            this._ui_parameter.forceValue(0, 0, true);
+                        }
+                    },{
+                        innerHTML: '<i class="ri-align-center"></i>',
+                        callback: () => {
+                            let obj_width = this._save_handler.getVisualObjectData(this._visual_object.id).size.width;
+                            let pos = this._save_handler.save_data.screen.width/2 - obj_width/2;
+                            this._ui_parameter.forceValue(0, pos, true);
+                        }
+                    },{
+                        innerHTML: '<i class="ri-align-right"></i>',
+                        callback: () => {
+                            let obj_width = this._save_handler.getVisualObjectData(this._visual_object.id).size.width;
+                            let pos = this._save_handler.save_data.screen.width - obj_width;
+                            this._ui_parameter.forceValue(0, pos, true);
+                        }
+                    }
+                ],[
+                    {
+                        innerHTML: '<i class="ri-align-top"></i>',
+                        callback: () => {
+                            this._ui_parameter.forceValue(1, 0, true);
+                        }
+                    },{
+                        innerHTML: '<i class="ri-align-vertically"></i>',
+                        callback: () => {
+                            let obj_height = this._save_handler.getVisualObjectData(this._visual_object.id).size.height;
+                            let pos = this._save_handler.save_data.screen.height/2 - obj_height/2;
+                            this._ui_parameter.forceValue(1, pos, true);
+                        }
+                    },{
+                        innerHTML: '<i class="ri-align-bottom"></i>',
+                        callback: () => {
+                            let obj_height = this._save_handler.getVisualObjectData(this._visual_object.id).size.height;
+                            let pos = this._save_handler.save_data.screen.height - obj_height;
+                            this._ui_parameter.forceValue(1, pos, true);
+                        }
+                    }
+                ]
+            ], false
+        );
+        //this.parameters.coordinates.help_string = help.parameter.object.general.pos;
+    }
+
+    /**
+     * @ovveride
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value.x) && !utils.IsUndefined(value.y) && utils.IsAnInt(value.x) && utils.IsAnInt(value.y));
     }
 }
