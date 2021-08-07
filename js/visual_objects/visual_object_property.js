@@ -24,15 +24,50 @@ export class VisualObjectProperty {
         if (!utils.IsAString(this._property_name)) throw new SyntaxError("Property name must be a string.");
         if (utils.IsUndefined(this._default_value)) throw new SyntaxError("Missing default value for the property.");
 
-        //register property in save
+        //register property in save if it doesn't exist, or verify it otherwise.
+        if (utils.IsUndefined(this.getCurrentValue())) {
+            this.setSave(this._default_value);
+        } else {
+            this.verify();
+        }
+    }
+
+    //get the current stored value in save
+    getCurrentValue() {
+        return this._save_handler.getVisualObjectData(this._visual_object.id)[this._property_name];
+    }
+
+    //register or change value in save
+    setSave(value) {
         let data = {};
-        data[this._property_name] = this._default_value;
+        data[this._property_name] = value;
         this._save_handler.mergeVisualObjectData(this._visual_object.id, data);
+    }
+
+    //verify the value and overwrite it if it is not.
+    verify() {
+        if (utils.IsUndefined(this.getCurrentValue())) throw new Error("Can't verify a value if it doesn't exist!");
+        if (!this.hasValidValue(this.getCurrentValue())) {
+            utils.CustomLog("warn", `${this._visual_object.constructor.name} ${this._visual_object.id}, ${this.constructor.name} (property "${this._property_name}"): Invalid value! Set to ${this._default_value}.`);
+            this.setSave(this._default_value);
+        }
+    }
+
+    //returns if a value is valid (number: match ranges, string: match regexp, etc.)
+    hasValidValue(value) {
+        throw new Error("hasValidValue must be implemented in a VisualObject.");
     }
 }
 
 export class VPLayer extends VisualObjectProperty {
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "layer", DEFAULTS.LAYER);
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
     }
 }
