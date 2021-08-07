@@ -426,6 +426,12 @@ class SaveHandler {
         return this._save_data.objects[id];
     }
 
+    //overwrite existing data of an object with new data,
+    //for all mentioned properties.
+    mergeVisualObjectData(id, data) {
+        this._save_data.objects[id] = imports.utils.mergeData(data, this._save_data.objects[id]);
+    }
+
     getVisualObjectIDs() {
         let ids = [];
         for (let key in this._save_data.objects) ids.push(key);

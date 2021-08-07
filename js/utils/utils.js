@@ -5,3 +5,4 @@ export * from "./randomizers.js";
 export * from "./array_utils.js";
 export * from "./log.js";
 export * from "./event_mixin.js";
+export * from "./object_utils.js";
