@@ -7,6 +7,7 @@ import * as ui_components from "../ui_components/ui_components.js";
 const DEFAULTS = {
     LAYER: 0,
     COORDINATES: {x: 0, y: 0},
+    SIZE: {width: 0, height: 0},
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -225,5 +226,76 @@ export class VPCoordinates extends VisualObjectProperty {
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value.x) && !utils.IsUndefined(value.y) && utils.IsAnInt(value.x) && utils.IsAnInt(value.y));
+    }
+}
+
+
+
+//size property, defines an object's size.
+export class VPSize extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "size", JSON.parse(JSON.stringify(DEFAULTS.SIZE)));
+    
+        //create associated ui
+        this._ui_parameter = new imports.ui_components.UIParameterInputsAndButtonGrid(
+            this._visual_object.parameter_rack,
+            "",
+            false,
+            [{
+                title: "Width :",
+                unit: "px",
+                default_value: this.getCurrentValue().width,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe({
+                        width: parseInt(this._ui_parameter.value(0)),
+                        height: this.getCurrentValue().height,
+                    });
+                }
+            },
+            {
+                title: "Height :",
+                unit: "px",
+                default_value: this.getCurrentValue().height,
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe({
+                        width: this.getCurrentValue().width,
+                        height: parseInt(this._ui_parameter.value(1)),
+                    });
+                }
+            }],
+            1, 3, [
+                [
+                    {
+                        innerHTML: '&#11020;',
+                        callback: () => {
+                            this._ui_parameter.forceValue(0, this._save_handler.save_data.screen.width, true);
+                        }
+                    },{
+                        innerHTML: '&#11021;',
+                        callback: () => {
+                            this._ui_parameter.forceValue(1, this._save_handler.save_data.screen.height, true);
+                        }
+                    },{
+                        innerHTML: '<i class="ri-fullscreen-line"></i>',
+                        callback: () => {
+                            this._ui_parameter.forceValue(0, this._save_handler.save_data.screen.width, true);
+                            this._ui_parameter.forceValue(1, this._save_handler.save_data.screen.height, true);
+                        }
+                    }
+                ]
+            ], false
+        );
+        //this.parameters.size.help_string = help.parameter.object.general.size;
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value.width) && !utils.IsUndefined(value.height) && utils.IsAnInt(value.width) && utils.IsAnInt(value.height) && value.width >= 0 && value.height >= 0);
     }
 }
