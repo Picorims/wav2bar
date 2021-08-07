@@ -407,9 +407,11 @@ class SaveHandler {
         if (object.id === "") {
             object.generateID(); //generate id
             this._save_data.objects[object.id] = {};//register in save data
-        }
-        else if (!object.getThisData()) {
+        
+        } else if (!object.getThisData()) {
             throw new SyntaxError(`providing an ID for a VisualObject implies that it is registered in the save, but it is not! ("${id}"). If you want to create an object, leave this empty.`);
+        } else if (this._save_data.objects[object.id]) {
+            throw new Error("There is already an object inspecting " + object.id);
         }
         this._objects[object.id] = object; //keep a reference.
     }
