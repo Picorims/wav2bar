@@ -8,6 +8,7 @@ const DEFAULTS = {
     LAYER: 0,
     COORDINATES: {x: 0, y: 0},
     SIZE: {width: 0, height: 0},
+    ROTATION: 0,
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -297,5 +298,39 @@ export class VPSize extends VisualObjectProperty {
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value.width) && !utils.IsUndefined(value.height) && utils.IsAnInt(value.width) && utils.IsAnInt(value.height) && value.width >= 0 && value.height >= 0);
+    }
+}
+
+
+
+//rotation property, sets the rotation of the object
+export class VPRotation extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "rotation", DEFAULTS.ROTATION);
+        
+        //create associated UI
+        this._ui_parameter = new imports.ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "",
+            false,
+            [{
+                title: "Rotation (degrees) :",
+                unit: "°",
+                default_value: this.getCurrentValue(),
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                }
+            }]
+        );
+        //this.parameters.rotation.help_string = help.parameter.object.general.rotation;
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAnInt(value));
     }
 }
