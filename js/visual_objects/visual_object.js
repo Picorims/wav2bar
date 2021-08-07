@@ -13,7 +13,7 @@ export class VisualObject {
 
         this._save_handler = save_handler;
         this._rack_parent = rack_parent;
-        this._properties = [];
+        this._properties = {};
         this._element = null;
         this._id = id;
 
@@ -28,7 +28,7 @@ export class VisualObject {
         this._parameter_rack = new ui_components.UIParameterRack(
             this._rack_parent,
             `UI-${this._id}`,
-            `object${utils.RandomInt(0, 999999)}`,
+            "",
             {
                 default_closed: true,
             }
@@ -95,7 +95,8 @@ export class VText extends VisualObject {
         //PROPERTIES
         //##########
 
-        this._properties.push(new property.VPLayer(this._save_handler, this));
+        this._properties["name"] = new property.VPName(this._save_handler, this);
+        this._properties["layer"] = new property.VPLayer(this._save_handler, this);
 
 
 

@@ -46,6 +46,16 @@ export class VisualObjectProperty {
         this._save_handler.mergeVisualObjectData(this._visual_object.id, data);
     }
 
+    //register or change value in save, after verifying it, designed
+    //for UI interaction.
+    setSaveUISafe(value) {
+        if (!this.hasValidValue(value)) {
+            utils.CustomLog("warn", `${this.constructor.name}: Ignored invalid value from user interface (${value}).`);
+        } else {
+            this.setSave(value);
+        }
+    }
+
     //verify the value and overwrite it if it is not valid.
     verify() {
         if (utils.IsUndefined(this.getCurrentValue())) throw new Error("Can't verify a value if it doesn't exist!");
@@ -61,11 +71,42 @@ export class VisualObjectProperty {
     }
 }
 
+
+
+//name property, define object's display name.
+export class VPName extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "name", `object${utils.RandomInt(0, 999999)}`);
+
+        //create associated ui
+        this._ui_parameter = new ui_components.UIParameterString(
+            this._visual_object.parameter_rack,
+            "Name: ",
+            this.getCurrentValue(),
+            () => {
+                this.setSaveUISafe(this._ui_parameter.value);
+                this._visual_object.parameter_rack.rename(this.getCurrentValue());
+            }
+        );
+        this._visual_object.parameter_rack.rename(this.getCurrentValue());
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAString(value));
+    }
+}
+
+
+
+//layer property, defines the order of display of objects.
 export class VPLayer extends VisualObjectProperty {
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "layer", DEFAULTS.LAYER);
 
-        //create associated ui.
+        //create associated ui
         this._ui_parameter = new ui_components.UIParameterNumInputList(
             this._visual_object.parameter_rack,
             "",
@@ -73,16 +114,11 @@ export class VPLayer extends VisualObjectProperty {
             [{
                 title: "Layer :",
                 unit: "",
-                default_value: this._default_value,
+                default_value: this.getCurrentValue(),
                 min: 0,
                 step: 1,
                 callback: () => {
-                    let value = parseInt(this._ui_parameter.value(0));
-                    if (!this.hasValidValue(value)) {
-                        utils.CustomLog("warn", `${this.constructor.name}: Ignored invalid value from user interface (${value}).`);
-                    } else {
-                        this.setSave(value);
-                    }
+                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
                 }
             }]
         );
