@@ -463,12 +463,12 @@ export class UIParameterBackgroundPicker extends UIParameter {
 
 //toggleable container that can be opened/close, and contains a list of child elements
 export class UIParameterRack extends ui.UIComponent {
-    constructor(parent, id, title, icon, settings) {
+    constructor(parent, id, title, settings) {
         super();
         this._parent = parent;
         this._id = id;
         this._title = title;
-        this._icon = icon;
+        this._icon = "";
         this._settings = settings;
 
         //setup optional arguments
@@ -568,6 +568,11 @@ export class UIParameterRack extends ui.UIComponent {
 
     set delete_callback(callback) {this._delete_callback = callback;}
     set rename_callback(callback) {this._rename_callback = callback;}
+
+    set icon(icon) {
+        this._icon = icon;
+        this._icon_container.innerHTML = icon;
+    }
 
     //function that opens or closes an object container
     toggleOpen() {

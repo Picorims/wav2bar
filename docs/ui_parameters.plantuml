@@ -213,12 +213,13 @@ package "ui_parameters" {
         - _edit_button: HTMLDivElement
         --
         + UIParameterRack(parent: HTMLDivElement, id: string,
-        title: string, icon: string, settings: object): UIParameterRack
+        title: string, settings: object): UIParameterRack
         ..get, set..
-        + get closed() {return this._closed;}
-        + set closed(closed) {if (closed !== this._closed) this.toggleOpen();}
-        + set delete_callback(callback) {this._delete_callback = callback;}
-        + set rename_callback(callback) {this._rename_callback = callback;}
+        + get closed(): bool
+        + set closed(closed: bool): void
+        + set delete_callback(callback): void
+        + set rename_callback(callback): void
+        + set icon(icon: string): void
         ..
         + toggleOpen(): void
         + delete(): void

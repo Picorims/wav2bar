@@ -2,14 +2,17 @@
 
 import * as utils from "../utils/utils.js";
 import * as property from "./visual_object_property.js";
+import * as ui_components from "../ui_components/ui_components.js";
 
 //base class for visual objects
 export class VisualObject {
-    constructor(save_handler, id = "") {
+    constructor(save_handler, rack_parent, id = "") {
         if (this.constructor === VisualObject) throw new SyntaxError("VisualObjectProperty is an abstract class.");
         if (utils.IsUndefined(save_handler)) throw new SyntaxError("SaveHandler required as an argument for a VisualObject.");
+        if (!utils.IsAnElement(rack_parent)) throw new SyntaxError("rack_parent must be a DOM parent for the rack.");
 
         this._save_handler = save_handler;
+        this._rack_parent = rack_parent;
         this._properties = [];
         this._element = null;
         this._id = id;
@@ -17,6 +20,23 @@ export class VisualObject {
         //register object in save
         //generates an id if none is provided
         this._save_handler.addVisualObject(this);
+
+
+
+
+        //create category
+        this._parameter_rack = new ui_components.UIParameterRack(
+            this._rack_parent,
+            `UI-${this._id}`,
+            `object${utils.RandomInt(0, 999999)}`,
+            {
+                default_closed: true,
+            }
+        );
+        //kill button action
+        this._parameter_rack.delete_callback = () => {
+            this._save_handler.deleteVisualObject(this._id);
+        }
     }
 
     get id() {return this._id;}
@@ -64,9 +84,10 @@ export class VisualObject {
 
 
 export class VText extends VisualObject {
-    constructor(save_handler) {
-        super(save_handler);
-        this.getThisData().type = "text";
+    constructor(save_handler, rack_parent, id = "") {
+        super(save_handler, rack_parent, id);
+        this._save_handler.mergeVisualObjectData(this._id, {type: "text"});
+        this._parameter_rack.icon = '<i class="ri-text"></i>';
 
         //##########
         //PROPERTIES
