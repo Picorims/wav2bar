@@ -9,6 +9,7 @@ const DEFAULTS = {
     COORDINATES: {x: 0, y: 0},
     SIZE: {width: 0, height: 0},
     ROTATION: 0,
+    TEXT_TYPE: "any",
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -238,7 +239,7 @@ export class VPSize extends VisualObjectProperty {
         super(save_handler, visual_object, "size", JSON.parse(JSON.stringify(DEFAULTS.SIZE)));
     
         //create associated ui
-        this._ui_parameter = new imports.ui_components.UIParameterInputsAndButtonGrid(
+        this._ui_parameter = new ui_components.UIParameterInputsAndButtonGrid(
             this._visual_object.parameter_rack,
             "",
             false,
@@ -309,7 +310,7 @@ export class VPRotation extends VisualObjectProperty {
         super(save_handler, visual_object, "rotation", DEFAULTS.ROTATION);
         
         //create associated UI
-        this._ui_parameter = new imports.ui_components.UIParameterNumInputList(
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
             this._visual_object.parameter_rack,
             "",
             false,
@@ -332,5 +333,35 @@ export class VPRotation extends VisualObjectProperty {
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value));
+    }
+}
+
+
+
+//text type property, sets if the object uses user text or time generated text.
+export class VPTextType extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "text_type", DEFAULTS.TEXT_TYPE);
+    
+        this._allowed_values = ["any","time"];
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterChoice(
+            this._visual_object.parameter_rack,
+            "Text type",
+            this._allowed_values,
+            this.getCurrentValue(),
+            () => {
+                this.setSaveUISafe(this._ui_parameter.value);
+            }
+        );
+        //this.parameters.type.help_string = help.parameter.object.text.type;
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAString(value) && this._allowed_values.includes(value));
     }
 }

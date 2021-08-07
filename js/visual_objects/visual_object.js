@@ -107,7 +107,7 @@ export class VText extends VisualObject {
         //UNIQUE PROPERTIES
         //#################
 
-
+        this._properties["text_type"] = new property.VPTextType(this._save_handler, this);
 
 
 
