@@ -31,6 +31,7 @@ export class VisualObject {
             "",
             {
                 default_closed: true,
+                user_can_edit_name: false,
             }
         );
         //kill button action

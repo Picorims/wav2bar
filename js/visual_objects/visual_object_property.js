@@ -95,7 +95,7 @@ export class VPName extends VisualObjectProperty {
      * @override
      */
     hasValidValue(value) {
-        return (!utils.IsUndefined(value) && utils.IsAString(value));
+        return (!utils.IsUndefined(value) && utils.IsAString(value) && value !== "");
     }
 }
 
