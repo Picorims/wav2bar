@@ -10,6 +10,7 @@ const DEFAULTS = {
     SIZE: {width: 0, height: 0},
     ROTATION: 0,
     TEXT_TYPE: "any",
+    TEXT_CONTENT: ""
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -363,5 +364,33 @@ export class VPTextType extends VisualObjectProperty {
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAString(value) && this._allowed_values.includes(value));
+    }
+}
+
+
+
+// text content property, text to be displayed for the object.
+export class VPTextContent extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "text_content", DEFAULTS.TEXT_CONTENT);
+        
+        // create associated UI
+        
+        this.ui_parameter = new imports.ui_components.UIParameterString(
+            this._visual_object.parameter_rack,
+            "Displayed text",
+            this.getCurrentValue(),
+            () => {
+                this.setSaveUISafe(this.ui_parameter.value);
+            }
+        );
+        // this.parameters.text.help_string = help.parameter.object.text.text_content;
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAString(value) && !(value.indexOf("\\") > -1));
     }
 }
