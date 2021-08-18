@@ -19,6 +19,10 @@ const DEFAULTS = {
         underline: false,
         overline: false,
         line_through: false,
+    },
+    TEXT_ALIGN: {
+        horizontal: "center",
+        vertical: "top",
     }
 }
 
@@ -566,4 +570,39 @@ export class VPTextDecoration extends VisualObjectProperty {
         let valid_value = all_defined && all_valid && (count = 5);
         return valid_value;
     }
-} 
+}
+
+
+
+// visual property for positioning text in its container
+export class VPTextAlign extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "text_align", DEFAULTS.TEXT_ALIGN);
+
+        this._allowed_values = ["left","center","right"];
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterChoice(
+            this._visual_object.parameter_rack,
+            "Text align",
+            this._allowed_values,
+            this.getCurrentValue().horizontal,
+            () => {
+                this.setSaveUISafe({
+                    horizontal: this._ui_parameter.value,
+                    vertical: this.getCurrentValue().vertical,
+                });
+            }
+        );
+        // this.parameters.text_align.help_string = help.parameter.object.text.text_align;
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        if (utils.IsUndefined(value) || !utils.IsAnObject(value)) return false;
+
+        return (utils.IsAString(value.horizontal) && this._allowed_values.includes(value.horizontal));
+    }
+}
