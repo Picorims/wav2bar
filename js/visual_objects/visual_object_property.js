@@ -13,6 +13,13 @@ const DEFAULTS = {
     TEXT_CONTENT: "",
     FONT_SIZE: 20,
     COLOR: "#ffffff",
+    TEXT_DECORATION: {
+        italic: false,
+        bold: false,
+        underline: false,
+        overline: false,
+        line_through: false,
+    }
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -433,13 +440,13 @@ export class VPFontSize extends VisualObjectProperty {
 
 
 
-// 
+// Visual property for changing the overall color of an object.
 export class VPColor extends VisualObjectProperty {
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "color", DEFAULTS.COLOR);
 
         //create associated UI
-        this._ui_parameter = new imports.ui_components.UIParameterColor(
+        this._ui_parameter = new ui_components.UIParameterColor(
             this._visual_object.parameter_rack,
             "Color (hex, rgb, rgba)",
             this.getCurrentValue(),
@@ -457,3 +464,106 @@ export class VPColor extends VisualObjectProperty {
         return (!utils.IsUndefined(value) && utils.IsAString(value));
     }
 }
+
+
+
+// Visual property for changing text formatting and decoration,
+// like bold, italic or underline.
+export class VPTextDecoration extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "text_decoration", DEFAULTS.TEXT_DECORATION);
+    
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterButtonGrid(
+            this._visual_object.parameter_rack,
+            "Text decoration",
+            1, 5,
+            [[
+                {
+                    innerHTML: '<i class="ri-italic"></i>',
+                    callback: (bool) => {
+                        this.setSaveUISafe({
+                            italic: bool,
+                            bold: this.getCurrentValue().bold,
+                            underline: this.getCurrentValue().underline,
+                            overline: this.getCurrentValue().overline,
+                            line_through: this.getCurrentValue().line_through,
+                        });
+                    }
+                }, {
+                    innerHTML: '<i class="ri-bold"></i>',
+                    callback: (bool) => {
+                        this.setSaveUISafe({
+                            italic: this.getCurrentValue().italic,
+                            bold: bool,
+                            underline: this.getCurrentValue().underline,
+                            overline: this.getCurrentValue().overline,
+                            line_through: this.getCurrentValue().line_through,
+                        });
+                    }
+                }, {
+                    innerHTML: '<i class="ri-underline"></i>',
+                    callback: (bool) => {
+                        this.setSaveUISafe({
+                            italic: this.getCurrentValue().italic,
+                            bold: this.getCurrentValue().bold,
+                            underline: bool,
+                            overline: this.getCurrentValue().overline,
+                            line_through: this.getCurrentValue().line_through,
+                        });
+                    }
+                }, {
+                    innerHTML: '<span style="text-decoration: overline">O</span>',
+                    callback: (bool) => {
+                        this.setSaveUISafe({
+                            italic: this.getCurrentValue().italic,
+                            bold: this.getCurrentValue().bold,
+                            underline: this.getCurrentValue().underline,
+                            overline: bool,
+                            line_through: this.getCurrentValue().line_through,
+                        });
+                    }
+                }, {
+                    innerHTML: '<i class="ri-strikethrough"></i>',
+                    callback: (bool) => {
+                        this.setSaveUISafe({
+                            italic: this.getCurrentValue().italic,
+                            bold: this.getCurrentValue().bold,
+                            underline: this.getCurrentValue().underline,
+                            overline: this.getCurrentValue().overline,
+                            line_through: bool,
+                        });
+                    }
+                }
+            ]], true);
+        if (this.getCurrentValue().italic) this._ui_parameter.toggle(0,0);
+        if (this.getCurrentValue().bold) this._ui_parameter.toggle(0,1);
+        if (this.getCurrentValue().underline) this._ui_parameter.toggle(0,2);
+        if (this.getCurrentValue().overline) this._ui_parameter.toggle(0,3);
+        if (this.getCurrentValue().line_through) this._ui_parameter.toggle(0,4);
+        // this.parameters.decoration.help_string = help.parameter.object.text.decoration;
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        if (utils.IsUndefined(value) || !utils.IsAnObject(value)) return false;
+
+        let all_defined = true;
+        let all_valid = true;
+        let count = 0;
+
+        //test values, count them
+        for (const bool in value) {
+            if (Object.hasOwnProperty.call(value, bool)) {
+                const bool_value = value[bool];
+                if (utils.IsUndefined(bool_value)) all_defined = false;
+                if (!utils.IsABoolean(bool_value)) all_valid = false;
+                count++;    
+            }
+        }
+        let valid_value = all_defined && all_valid && (count = 5);
+        return valid_value;
+    }
+} 
