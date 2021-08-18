@@ -10,7 +10,8 @@ const DEFAULTS = {
     SIZE: {width: 0, height: 0},
     ROTATION: 0,
     TEXT_TYPE: "any",
-    TEXT_CONTENT: ""
+    TEXT_CONTENT: "",
+    FONT_SIZE: 20,
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -376,12 +377,12 @@ export class VPTextContent extends VisualObjectProperty {
         
         // create associated UI
         
-        this.ui_parameter = new imports.ui_components.UIParameterString(
+        this._ui_parameter = new imports.ui_components.UIParameterString(
             this._visual_object.parameter_rack,
             "Displayed text",
             this.getCurrentValue(),
             () => {
-                this.setSaveUISafe(this.ui_parameter.value);
+                this.setSaveUISafe(this._ui_parameter.value);
             }
         );
         // this.parameters.text.help_string = help.parameter.object.text.text_content;
@@ -392,5 +393,38 @@ export class VPTextContent extends VisualObjectProperty {
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAString(value) && !(value.indexOf("\\") > -1));
+    }
+}
+
+
+
+export class VPFontSize extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "font_size", DEFAULTS.FONT_SIZE);
+
+        //Create associated UI
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "",
+            false,
+            [{
+                title: "Font size :",
+                unit: "px",
+                default_value: this.getCurrentValue(),
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                }
+            }]
+        );
+        // this.parameters.font_size.help_string = help.parameter.object.text.font_size;
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
     }
 }
