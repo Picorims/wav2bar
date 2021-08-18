@@ -110,6 +110,7 @@ export class VText extends VisualObject {
         this._properties["text_type"] = new property.VPTextType(this._save_handler, this);
         this._properties["text_content"] = new property.VPTextContent(this._save_handler, this);
         this._properties["font_size"] = new property.VPFontSize(this._save_handler, this);
+        this._properties["color"] = new property.VPColor(this._save_handler, this);
 
 
         //###################

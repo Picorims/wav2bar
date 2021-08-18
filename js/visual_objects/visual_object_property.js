@@ -12,6 +12,7 @@ const DEFAULTS = {
     TEXT_TYPE: "any",
     TEXT_CONTENT: "",
     FONT_SIZE: 20,
+    COLOR: "#ffffff",
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -398,6 +399,7 @@ export class VPTextContent extends VisualObjectProperty {
 
 
 
+// Visual property to set the font size of a text based object
 export class VPFontSize extends VisualObjectProperty {
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "font_size", DEFAULTS.FONT_SIZE);
@@ -426,5 +428,32 @@ export class VPFontSize extends VisualObjectProperty {
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
+    }
+}
+
+
+
+// 
+export class VPColor extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "color", DEFAULTS.COLOR);
+
+        //create associated UI
+        this._ui_parameter = new imports.ui_components.UIParameterColor(
+            this._visual_object.parameter_rack,
+            "Color (hex, rgb, rgba)",
+            this.getCurrentValue(),
+            () => {
+                this.setSaveUISafe(this._ui_parameter.value);
+            }
+        );
+        // this.parameters.color.help_string = help.parameter.object.general.color;
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAString(value));
     }
 }
