@@ -25,6 +25,7 @@ const DEFAULTS = {
         vertical: "top",
     },
     TEXT_SHADOW: "",
+    SVG_FILTER: "",
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -85,6 +86,9 @@ export class VisualObjectProperty {
     }
 
     //returns if a value is valid (number: match ranges, string: match regexp, etc.)
+    /**
+     * @abstract
+     */
     hasValidValue(value) {
         throw new Error("hasValidValue must be implemented in a VisualObject.");
     }
@@ -632,5 +636,35 @@ export class VPTextShadow extends VisualObjectProperty {
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAString(value));
+    }
+}
+
+
+
+// Visual property for defining an svg filter applied on an object
+export class VPSVGFilter extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "svg_filter", DEFAULTS.SVG_FILTER);
+
+        // create associated UI
+        this._ui_parameter = new ui_components.UIParameterString(
+            this._visual_object.parameter_rack,
+            "SVG Filters (advanced, read help)",
+            this.getCurrentValue(),
+            () => {
+                this.setSaveUISafe(this._ui_parameter.value);
+            }
+        );
+        // this.parameters.svg_filters.help_string = help.parameter.object.general.svg_filters;
+
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        let no_script = !value.includes("<script>");
+        let valid_tag = (value.includes("<filter") && value.includes("</filter>"));
+        return (!utils.IsUndefined(value) && utils.IsAString(value) && valid_tag && no_script);
     }
 }

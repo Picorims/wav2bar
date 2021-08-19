@@ -49,6 +49,7 @@ export class VisualObject {
         this._properties["coordinates"] = new property.VPCoordinates(this._save_handler, this);
         this._properties["size"] = new property.VPSize(this._save_handler, this);
         this._properties["rotation"] = new property.VPRotation(this._save_handler, this);
+        this._properties["svg_filter"] = new property.VPSVGFilter(this._save_handler, this);
     }
 
     get id() {return this._id;}
