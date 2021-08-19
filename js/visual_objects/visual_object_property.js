@@ -23,7 +23,8 @@ const DEFAULTS = {
     TEXT_ALIGN: {
         horizontal: "center",
         vertical: "top",
-    }
+    },
+    TEXT_SHADOW: "",
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -604,5 +605,32 @@ export class VPTextAlign extends VisualObjectProperty {
         if (utils.IsUndefined(value) || !utils.IsAnObject(value)) return false;
 
         return (utils.IsAString(value.horizontal) && this._allowed_values.includes(value.horizontal));
+    }
+}
+
+
+
+// Visual property for manipulating css text-shadow
+export class VPTextShadow extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "text_shadow", DEFAULTS.TEXT_SHADOW);
+        
+        // create associated UI
+        this._ui_parameter = new ui_components.UIParameterString(
+            this._visual_object.parameter_rack,
+            "Text Shadow (CSS)",
+            this.getCurrentValue(),
+            () => {
+                this.setSaveUISafe(this._ui_parameter.value);
+            }
+        );
+        // this.parameters.text_shadow.help_string = help.parameter.object.general.shadow;
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAString(value));
     }
 }

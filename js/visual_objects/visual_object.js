@@ -113,6 +113,7 @@ export class VText extends VisualObject {
         this._properties["color"] = new property.VPColor(this._save_handler, this);
         this._properties["text_decoration"] = new property.VPTextDecoration(this._save_handler, this);
         this._properties["text_align"] = new property.VPTextAlign(this._save_handler, this);
+        this._properties["text_shadow"] = new property.VPTextShadow(this._save_handler, this);
 
 
         //###################
