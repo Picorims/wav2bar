@@ -1,6 +1,6 @@
 'MIT License - Copyright (c) 2020-2021 Picorims
 
-@startuml "modules
+@startuml modules
 !theme cyborg-outline
 skinparam BackgroundColor #222222
 skinparam PackageStyle frame
@@ -12,6 +12,7 @@ global_context ..> utils
 global_context ..> ui_components
 global_context ..> system
 global_context ..> electron_ipcRenderer
+global_context ..> visual_objects
 
 
 
@@ -74,7 +75,16 @@ object_utils ..> type_checking
 
 package "visual_objects" {}
 visual_objects <.[dotted]. visual_object
+visual_objects <.[dotted]. visual_object_property
 
 package "visual_object" {}
+visual_object ..> ui_components
+visual_object ..> utils
+visual_object ..> visual_object_property
+
+package "visual_object_property" {}
+visual_object_property ..> visual_object
+visual_object_property ..> utils
+visual_object_property ..> ui_components
 
 @enduml
