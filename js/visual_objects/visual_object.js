@@ -14,6 +14,7 @@ export class VisualObject {
         this._save_handler = save_handler;
         this._rack_parent = rack_parent;
         this._properties = {};
+        /**@type {HTMLElement} */
         this._element = null;
         this._id = id;
 
@@ -50,6 +51,62 @@ export class VisualObject {
         this._properties["size"] = new property.VPSize(this._save_handler, this);
         this._properties["rotation"] = new property.VPRotation(this._save_handler, this);
         this._properties["svg_filter"] = new property.VPSVGFilter(this._save_handler, this);
+    
+        
+
+        //svg filters
+        this._svg_filter_div = document.createElement("div");
+        document.body.appendChild(this._svg_filter_div);
+        this._svg_filter_div.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' version='1.1'><defs></defs></svg>";        
+
+
+
+        //shared data updates
+        this._properties["layer"].subscribeToEvent("value_changed", (value) => {
+            this._element.style.zIndex = value;
+        });
+
+        this._properties["coordinates"].subscribeToEvent("value_changed", (value) => {
+            this._element.style.left = value.x + "px";
+            this._element.style.top = value.y + "px";
+        });
+
+        this._properties["size"].subscribeToEvent("value_changed", (value) => {
+            this._element.style.width = value.width + "px";
+            this._element.style.height = value.height + "px";
+        });
+
+        this._properties["rotation"].subscribeToEvent("value_changed", (value) => {
+            this._element.style.transform = `rotate(${value}deg)`;
+        });
+
+        this._properties["svg_filter"].subscribeToEvent("value_changed", (value) => {
+            if (value !== "") {
+                this._svg_filter_div.children[0].children[0].innerHTML = ""; //clear content
+
+                let str = "";
+                let filters = value.split("[#]");
+                
+                //load filters in DOM
+                for (let i = 0; i < filters.length; i++) {
+                    let id = `${this._id}-FILTER-${i}`;
+
+                    //load filter
+                    filters[i] = filters[i].replace(/id=".*?"/,"").replace("<filter",`<filter id="${id}"`);
+                    this._svg_filter_div.children[0].children[0].innerHTML += filters[i];
+                    
+                    //add in css
+                    let strToAdd = `url('#${id}')`;
+                    str += strToAdd;
+                    
+                    //spacing
+                    if (i < filters.length-1) str += " ";
+                }
+
+                //apply CSS
+                this._element.style.filter = str;
+            }
+        });
     }
 
     get id() {return this._id;}
@@ -90,6 +147,16 @@ export class VisualObject {
     }
 
 
+    // trigger object data update, by triggering all visual properties.
+    triggerUpdateData() {
+        for (const key in this._properties) {
+            if (Object.hasOwnProperty.call(this._properties, key)) {
+                const property = this._properties[key];
+                property.triggerEvent("value_changed", property.getCurrentValue());
+            }
+        }
+    }
+
     //destroy VisualObject
     destroy() {
         if (this._element) this._element.remove();
@@ -129,10 +196,46 @@ export class VText extends VisualObject {
         this._element.style.position = "absolute";
         this._element.style.display = "inline-block";
         this._element.style.overflowWrap = "break-word";
+        
 
-        //svg filters
-        this._svg_filter_div = document.createElement("div");
-        document.body.appendChild(this._svg_filter_div);
-        this._svg_filter_div.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' version='1.1'><defs></defs></svg>";
+        //###########
+        //UPDATE DATA
+        //###########
+        this._properties["text_content"].subscribeToEvent("value_changed", (value) => {
+            this._element.innerHTML = value;
+        });
+
+        this._properties["font_size"].subscribeToEvent("value_changed", (value) => {
+            this._element.style.fontSize = value + "px";
+        });
+
+        this._properties["color"].subscribeToEvent("value_changed", (value) => {
+            this._element.style.color = value;
+        });
+
+        this._properties["text_decoration"].subscribeToEvent("value_changed", (value) => {
+            //italic
+            this._element.style.fontStyle = (value.italic)? "italic":"";
+            //bold
+            this._element.style.fontWeight = (value.bold)? "bold":"";
+            //underline, overline, line-trough
+            let underline = (value.underline)? "underline":"";
+            let overline = (value.overline)? "overline":"";
+            let line_through = (value.line_through)? "line-through":"";
+            this._element.style.textDecoration = ` ${underline} ${overline} ${line_through}`;
+            //fixes css not updating
+            if (!value.underline && !value.overline && !value.line_through) this._element.style.textDecoration = "";
+        });
+
+        this._properties["text_align"].subscribeToEvent("value_changed", (value) => {
+            this._element.style.textAlign = value.horizontal;
+        });
+
+        this._properties["text_shadow"].subscribeToEvent("value_changed", (value) => {
+            this._element.style.textShadow = value;
+        });
+
+        //mandatory for initialization
+        this.triggerUpdateData();
     }
 }

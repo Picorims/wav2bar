@@ -7,7 +7,7 @@ import * as ui_components from "../ui_components/ui_components.js";
 const DEFAULTS = {
     LAYER: 0,
     COORDINATES: {x: 0, y: 0},
-    SIZE: {width: 0, height: 0},
+    SIZE: {width: 300, height: 300},
     ROTATION: 0,
     TEXT_TYPE: "any",
     TEXT_CONTENT: "",
@@ -30,9 +30,19 @@ const DEFAULTS = {
 
 //abstract class to manipulate a property of a VisualObject
 //stored in the save at the root of the object.
+/**
+ * @abstract
+ * @borrows utils.EventMixin
+ */
 export class VisualObjectProperty {
     constructor(save_handler, visual_object, property_name, default_value) {
         if (this.constructor === VisualObjectProperty) throw new SyntaxError("VisualObjectProperty is an abstract class.");
+
+        //implements mixin
+        Object.assign(VisualObjectProperty.prototype, utils.EventMixin);
+        this.setupEventMixin([
+            "value_changed",
+        ]);
 
         this._save_handler = save_handler;
         /** @type {object.VisualObject} */
@@ -64,6 +74,7 @@ export class VisualObjectProperty {
         let data = {};
         data[this._property_name] = value;
         this._save_handler.mergeVisualObjectData(this._visual_object.id, data);
+        this.triggerEvent("value_changed", value);
     }
 
     //register or change value in save, after verifying it, designed
