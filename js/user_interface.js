@@ -95,22 +95,22 @@ async function InitUI() {
 
     //PROJECT TAB
     //fps selection
-    document.getElementById("fps_input").value = save_handler.save_data.fps;
+    document.getElementById("fps_input").value = project.save_handler.save_data.fps;
     document.getElementById("fps_input").oninput = function() {
         ChangeFPSTo(parseInt(this.value));
     }
 
     //screen width
-    document.getElementById("screen_width_input").value = save_handler.save_data.screen.width;
+    document.getElementById("screen_width_input").value = project.save_handler.save_data.screen.width;
     document.getElementById("screen_width_input").oninput = function() {
-        SetScreenTo(parseInt(this.value), save_handler.save_data.screen.height);
+        SetScreenTo(parseInt(this.value), project.save_handler.save_data.screen.height);
 
     }
 
     //screen height
-    document.getElementById("screen_height_input").value = save_handler.save_data.screen.height;
+    document.getElementById("screen_height_input").value = project.save_handler.save_data.screen.height;
     document.getElementById("screen_height_input").oninput = function() {
-        SetScreenTo(save_handler.save_data.screen.width, parseInt(this.value));
+        SetScreenTo(project.save_handler.save_data.screen.width, parseInt(this.value));
     }
 
     //import audio
@@ -119,7 +119,7 @@ async function InitUI() {
             type: "get_file",
             allowed_extensions: ["wav","mp3","ogg"],
         }, function(result) {
-            SaveAudio(result);
+            project.save_handler.saveAudio(result);
         });
     }
 
@@ -129,7 +129,7 @@ async function InitUI() {
             type: "get_file",
             allowed_extensions:["w2bzip"],
         }, function(result) {
-            save_handler.loadSave(result);
+            project.save_handler.loadSave(result);
         });
     }
 
@@ -139,7 +139,7 @@ async function InitUI() {
             type: 'save_file',
             allowed_extensions:["w2bzip"],
         }, function(result) {
-            save_handler.exportSave(result);
+            project.save_handler.exportSave(result);
         });
     }
 
@@ -339,8 +339,8 @@ function LoopUI() {//UI responsive update
     //fix the inner space of the interface containing the screen
     var extra_space = 100;
     var screen_border = parseInt( window.getComputedStyle(screen).getPropertyValue("border-width").replace("px","") );
-    var screen_width  = (save_handler.save_data.screen.width + screen_border*2)  * zoom;
-    var screen_height = (save_handler.save_data.screen.height + screen_border*2) * zoom;
+    var screen_width  = (project.save_handler.save_data.screen.width + screen_border*2)  * zoom;
+    var screen_height = (project.save_handler.save_data.screen.height + screen_border*2) * zoom;
 
     var inner_spacing_width  = screen_width  + (2*extra_space);
     var inner_spacing_height = screen_height + (2*extra_space)
@@ -408,7 +408,7 @@ function SetScreenTo(width, height) {//changes the screen size to the given valu
     //update screen
     screen.style.width = width+"px";
     screen.style.height = height+"px";
-    save_handler.screen = {
+    project.save_handler.screen = {
         width: width,
         height: height,
     }
@@ -436,12 +436,12 @@ function ChangeFPSTo(new_fps) {//changes the FPS used by restarting the animatio
     if (!imports.utils.IsAnInt(new_fps)) throw `ChangeFPSto: ${new_fps} is not an integer or a valid FPS value.`;
 
     //trigger update
-    save_handler.fps = new_fps;
+    project.save_handler.fps = new_fps;
     StopAnimating();
     if (audio && !audio.paused) StartAnimating(new_fps);
 
     //update UI
-    if (!export_mode) document.getElementById("fps_input").value = save_handler.save_data.fps;
+    if (!export_mode) document.getElementById("fps_input").value = project.save_handler.save_data.fps;
 
     imports.utils.CustomLog("info",`FPS set to ${new_fps}`);
 }
@@ -555,11 +555,11 @@ function SetupAudioUI() {
     var loop_audio = document.getElementById("loop_audio");
 
     //DISPLAY TITLE OF LOADED AUDIO
-    document.getElementById("opened_audio").innerHTML = save_handler.save_data.audio_filename;
+    document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
 
     //PLAY
     play_audio.onclick = function() {
-        if (!animating) StartAnimating(save_handler.save_data.fps);
+        if (!animating) StartAnimating(project.save_handler.save_data.fps);
         audio.play();
 
         //update visuals

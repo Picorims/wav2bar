@@ -22,19 +22,20 @@ let imports = {
     visual_objects: null,
 };
 
-var stop_animating, animating, frame_count, fps_interval, time; //fps related variables
-var fps_array, fps_array_max_length; //fps display
+//var /*stop_animating,*/ /*animating,*/ /*frame_count,*/ /*fps_interval,*/ time; //fps related variables
+//var /*fps_array,*/ fps_array_max_length; //fps display
 
-var audio_file, audio_file_type , current_time, audio_duration; //audio file related
-var audio, source, context, analyzer, ctx_frequency_array; //Web Audio API related
-var frequency_array; //spectrum array
-var vol_prev_frequency_array, vol_frequency_array; //for volume smoothing
-var audio_position_string;// ??:?? | ??:??
+//var audio_file, audio_file_type /*, current_time*//*, audio_duration*/; //audio file related
+//var audio, source, context, analyzer, ctx_frequency_array; //Web Audio API related
+//var frequency_array; //spectrum array
+//var vol_prev_frequency_array, vol_frequency_array; //for volume smoothing
+//var audio_position_string;// ??:?? | ??:??
 
-let save_handler = null;
+/**@type {Project} */
+let project = null;
 //var objects = [];//all objects inside the screen
-var objects_callback = [];
-var volume;//audio average volume
+//var objects_callback = [];
+//var volume;//audio average volume
 
 
 
@@ -52,10 +53,12 @@ SAVE MANAGEMENT
 //handles everything related to save: import, export, data access.
 class SaveHandler {
     constructor() {
-        Object.assign(SaveHandler.prototype, imports.utils.EventMixin);
-        this.setupEventMixin([
-            "test",
-        ]);    
+        // Object.assign(SaveHandler.prototype, imports.utils.EventMixin);
+        // this.setupEventMixin([
+        //     "test",
+        // ]);
+
+        this._owner_project = null;
 
         this._CURRENT_SAVE_VERSION = 4;
 
@@ -66,6 +69,8 @@ class SaveHandler {
         this.loadDefaultSave();
         imports.utils.CustomLog("debug",'syncing save object every 500ms, starting from now.');
     }
+
+    set owner_project(owner_project) {this._owner_project = owner_project;}
 
     get save_data() {
         return this._save_data;
@@ -439,9 +444,342 @@ class SaveHandler {
         for (let key in this._save_data.objects) ids.push(key);
         return ids;
     }
+
+
+
+
+    /*
+    #####
+    AUDIO
+    #####
+    */
+
+
+
+    async saveAudio(path) {
+        await this._owner_project.closeAudio();
+
+        let filename = path.replace(/^.*[\\\/]/, '');
+        let new_path = `${working_dir}/temp/current_save/assets/audio/`;
+
+        //is an audio file already imported ?
+        let path_exists = await ipcRenderer.invoke("path-exists", new_path);
+        let audio_exists;
+        if (path_exists) {
+            let audio_dir_content = await ipcRenderer.invoke("read-dir", new_path);
+            audio_exists = (audio_dir_content.length !== 0);
+        } else {
+            audio_exists = false;
+        }
+
+        //cache audio in current save.
+        if (audio_exists) await ipcRenderer.invoke("empty-dir", new_path);
+            else await ipcRenderer.invoke("make-dir", new_path)
+        await ipcRenderer.invoke("copy-file", path, `${new_path}${filename}`);
+
+        //keep new audio name in memory;
+        this._save_data.audio_filename = filename;
+
+        //load audio
+        let audio_path = await ipcRenderer.invoke("get-full-path", `${new_path}${filename}`);
+        this._owner_project.loadAudio(audio_path, 'url');
+    }
+
+
 }
 
 
+
+
+
+
+/*
+##################
+PROJECT MANAGEMENT
+##################
+*/
+
+class Project {
+    constructor() {
+        /**@type {SaveHandler} */
+        this._save_handler = null;
+
+        //ANIMATION PREPARATION
+        this._stop_animating = false;
+        this._animating = false;
+
+        this._frame_count = 0;
+        this._fps_array = [];
+        this._fps_interval = null;
+        this._FPS_ARRAY_MAX_LENGTH = 10;
+
+        //render loop
+        this._time = {
+            start: null,
+            now: null,
+            then: null,
+            elapsed: null,
+        }
+
+        //frame info
+        this._current_time = null;
+        this._audio_duration = null;
+        this._frequency_array = null;
+        this._vol_frequency_array = null;
+        this._vol_prev_frequency_array = null;
+        this._volume = 0; /*audio average volume, get info, not set*/
+    
+        this._objects_callback = [];
+
+        //audio
+        this._audio = undefined;
+        this._audio_file_type = null;
+        this._audio_file = null;
+        this._source = null;
+        this._context = null;
+        this._analyser = null;
+        this._ctx_frequency_array = null;
+    }
+
+    get save_handler() {return this._save_handler}
+    set save_handler(save_handler) {
+        this._save_handler = save_handler;
+        this._save_handler.owner_project = this;
+    }
+
+    /*
+    #########
+    ANIMATION
+    #########
+    */
+
+    //prepare fps animation
+    startAnimating(fps) {
+        // initialize the timer variables and start the animation
+        if (!imports.utils.IsANumber(fps)) throw `StartAnimating: ${fps} is not a valid fps value, start aborted.`;
+
+        this._stop_animating = false;
+        this._animating = true;
+        this._fps_interval = 1000 / fps; //in ms
+        this._time.then = performance.now();
+        this._time.start = this._time.then;
+
+        this.animate();
+        imports.utils.CustomLog('info','animation started.');
+    }
+
+    //stop the fps animation loop
+    stopAnimating() {
+        this._stop_animating = true;
+        this._animating = false;
+        imports.utils.CustomLog('info','animation stopped.');
+    }
+
+    // the animation loop calculates time elapsed since the last loop
+    // and only draws if the specified fps interval is achieved
+    animate() {
+
+        //stop animating if requested
+        if (this._stop_animating) return;
+
+        // request another frame
+        requestAnimationFrame(this.animate);
+
+        // calc elapsed time since last loop
+        this._time.now = performance.now();
+        this._time.elapsed = this._time.now - this._time.then;
+
+        // if enough time has elapsed and all objects finished rendering, draw the next frame
+        if ( (this._time.elapsed > this._fps_interval) && (this.updateFinished()) ) {
+
+            //add this frame duration to the frame array
+            this._fps_array.push(parseInt(1000 / (this._time.now - this._time.then)));
+
+            // Get ready for next frame by setting then=now, but also adjust for your
+            // specified fps_interval not being a multiple of user screen RAF's interval
+            //(16.7ms for 60fps for example).
+            this._time.then = this._time.now - (this._time.elapsed % this._fps_interval);
+
+            //Draw the frame
+            this.updateTimeDisplay();
+            this.drawFrame();
+        }
+    }
+
+
+    //returns if all the objects have finished updating.
+    updateFinished() {
+        let finished_render = true;
+        //if one object didn't finish rendering, returns false
+        for (let i = 0; i < this._objects_callback.length; i++) {
+            if (!this._objects_callback[i]) finished_render = false;
+        }
+
+        return finished_render;
+    }
+
+
+
+    //update and draw the screen
+    drawFrame() {
+
+
+        //#################
+        //AUDIO CALCULATION
+        //#################
+
+
+        
+        if (export_mode) {
+            //time update
+            this._current_time = frames_rendered/project.save_handler.save_data.fps;
+            this._audio_duration = duration;
+        } else {
+            //collect frequency data
+            this._analyser.getByteFrequencyData(this._ctx_frequency_array);
+            this._frequency_array = imports.utils.LinearToLog(this._ctx_frequency_array);  
+
+            //time update
+            this._current_time = this._audio.currentTime;
+            this._audio_duration = this._audio.duration;
+        }
+
+        
+
+        //smoothing
+        this._vol_frequency_array = this._frequency_array;
+        if (imports.utils.IsUndefined(this._vol_prev_frequency_array)) this._vol_prev_frequency_array = this._vol_frequency_array;
+
+        //This is very similar to the smoothing system used by the Web Audio API.
+        //The formula is the following (|x|: absolute value of x):
+        //new[i] = factor * previous[i] + (1-factor) * |current[i]|
+
+        //factor = 0 disables the smoothing. factor = 1 freezes everything and keep previous[i] forever.
+        //factor not belonging to [0,1] creates uncontrolled behaviour.
+        let smooth_factor = 0.7;
+        for (let i = 0; i < this._vol_frequency_array.length; i++) {
+            this._vol_frequency_array[i] = smooth_factor * this._vol_prev_frequency_array[i] + (1-smooth_factor) * Math.abs(this._vol_frequency_array[i]);
+        }
+        this._vol_prev_frequency_array = this._vol_frequency_array; // for next iteration
+
+        //volume update
+        this._volume = 0;
+        let sum = 0;
+        for (let i = 0; i < this._vol_frequency_array.length - 100; i++) {
+            sum += this._vol_frequency_array[i];
+        }
+        this._volume = sum / (this._vol_frequency_array.length - 100); //0 to 120 most of the time
+
+        //update all objects
+        this._objects_callback = [];
+        for (let i = 0; i < this._save_handler._objects.length; i++) {
+            this._objects_callback[i] = false;//reset all callbacks to false
+            this._objects_callback[i] = this._save_handler._objects[i].update();//set to true once update is finished
+        }
+
+
+        //end of a frame
+    }
+
+
+
+    /*
+    #####
+    AUDIO
+    #####
+    */
+
+
+    loadAudio(file_data, type) {//load an audio file into the app. type: "file" || "url"
+        if (imports.utils.IsUndefined(file_data)) throw "LoadAudio: No file data provided, couldn't load the audio file.";
+        if ( (type!=="file") && (type!=="url") ) throw `LoadAudio: ${type} is not a valid audio file type!`;
+    
+        imports.utils.CustomLog("info","loading audio...");
+    
+        //stop current audio
+        if (typeof this._audio !== "undefined") {
+            this._audio.pause();
+            this._audio.currentTime = 0;
+        }
+    
+    
+        //store audio
+        //clone the audio file so it can still be used even if the file is moved or renamed. Otherwise it
+        //would fail.
+        if (type==="file") {
+            console.log(file_data.type);
+    
+            let cloned_file = new File([file_data], {type: file_data.type});
+            this._audio_file_type = file_data.type;
+    
+            file_data = cloned_file;
+            this._audio_file = cloned_file;
+        }
+    
+    
+        //LOAD
+    
+        //modules
+        this._audio = new Audio();
+        this._context = new window.AudioContext();
+        this._analyser = this._context.createAnalyser();
+        //disable the Web Audio API visualization smoothing, as each visualizer
+        //implements it's own smoothing system.
+        this._analyser.smoothingTimeConstant = 0;
+    
+        //audio source
+        this._audio.src = (type==="url")? file_data : window.URL.createObjectURL(file_data); //"url" -> file_data is an url || "file" -> generate url from file
+        this._source = this._context.createMediaElementSource(this._audio);
+    
+    
+    
+    
+        //setup
+        this._source.connect(this._analyser);
+        this._analyser.connect(this._context.destination);
+        if (!export_mode) SetupAudioUI(); //no need for UI in export mode.
+    
+    
+        //prepare data collection
+        this._ctx_frequency_array = new Uint8Array(this._analyser.frequencyBinCount);//0 to 1023 => length=1024.
+    
+        imports.utils.CustomLog("info","audio loaded successfully.");
+    }
+    
+    closeAudio() {
+        imports.utils.CustomLog("info","Closing audio context if any...");
+        if (!imports.utils.IsUndefined(this._context)) this._context.close();
+        if (!export_mode) document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
+        imports.utils.CustomLog("info","Audio context closed.");
+    }
+    
+
+
+
+
+    //###
+    //FPS
+    //###
+
+    updateFPSDisplay() {//display FPS regularly
+        //maintain the max length of the array
+        if (this._fps_array.length > this._FPS_ARRAY_MAX_LENGTH) {
+
+            var overflow = this._fps_array.length - this._FPS_ARRAY_MAX_LENGTH;
+            this._fps_array.splice(0, overflow);
+        }
+
+        //calculates average FPS from the fps array
+        var sum = 0;
+        for (var index of this._fps_array) {
+            sum += index;
+        }
+        var average_fps = sum / this._FPS_ARRAY_MAX_LENGTH;
+
+        //display fps
+        document.getElementById("fps").innerHTML = `${average_fps}FPS`;
+    }
+}
 
 
 
@@ -481,20 +819,16 @@ function LoadModules() {
 function InitPage() {//page initialization
 
     //PREPARE SAVE
-    save_handler = new SaveHandler();
-
-
-    //FPS PREPARATION
-    stop_animating = false;
-    frame_count = 0;
-    fps_array = [];
-    animating = false;
-    if (!export_mode) setInterval(UpdateFPSDisplay, 1000);
+    project = new Project();
+    project.save_handler = new SaveHandler();
 
 
 
     //UI INITIALIZATION
-    if (!export_mode) InitUI();
+    if (!export_mode) {
+        InitUI();
+        setInterval(project.updateFPSDisplay(), 1000);
+    }
 
     //CLI
     console.log(argv);
@@ -556,297 +890,3 @@ window.onerror = function GlobalErrorHandler(error_msg, url, line_number) {
 
 
 
-/*
-#####
-AUDIO
-#####
-*/
-
-
-
-async function SaveAudio(path) {
-    await CloseAudio();
-
-    let filename = path.replace(/^.*[\\\/]/, '');
-    let new_path = `${working_dir}/temp/current_save/assets/audio/`;
-
-    //is an audio file already imported ?
-    let path_exists = await ipcRenderer.invoke("path-exists", new_path);
-    let audio_exists;
-    if (path_exists) {
-        let audio_dir_content = await ipcRenderer.invoke("read-dir", new_path);
-        audio_exists = (audio_dir_content.length !== 0);
-    } else {
-        audio_exists = false;
-    }
-
-    //cache audio in current save.
-    if (audio_exists) await ipcRenderer.invoke("empty-dir", new_path);
-        else await ipcRenderer.invoke("make-dir", new_path)
-    await ipcRenderer.invoke("copy-file", path, `${new_path}${filename}`);
-
-    //keep new audio name in memory;
-    save_handler.save_data.audio_filename = filename;
-
-    //load audio
-    let audio_path = await ipcRenderer.invoke("get-full-path", `${new_path}${filename}`);
-    LoadAudio(audio_path, 'url');
-}
-
-
-
-
-function LoadAudio(file_data, type) {//load an audio file into the app. type: "file" || "url"
-    if (imports.utils.IsUndefined(file_data)) throw "LoadAudio: No file data provided, couldn't load the audio file.";
-    if ( (type!=="file") && (type!=="url") ) throw `LoadAudio: ${type} is not a valid audio file type!`;
-
-    imports.utils.CustomLog("info","loading audio...");
-
-    //stop current audio
-    if (typeof audio !== "undefined") {
-        audio.pause();
-        audio.currentTime = 0;
-    }
-
-
-    //store audio
-    //clone the audio file so it can still be used even if the file is moved or renamed. Otherwise it
-    //would fail.
-    if (type==="file") {
-        console.log(file_data.type);
-
-        var cloned_file = new File([file_data], {type: file_data.type});
-        audio_file_type = file_data.type;
-
-        file_data = cloned_file;
-        audio_file = cloned_file;
-    }
-
-
-    //LOAD
-
-    //modules
-    audio = new Audio();
-    context = new window.AudioContext();
-    analyser = context.createAnalyser();
-    //disable the Web Audio API visualization smoothing, as each visualizer
-    //implements it's own smoothing system.
-    analyser.smoothingTimeConstant = 0;
-
-    //audio source
-    audio.src = (type==="url")? file_data : window.URL.createObjectURL(file_data); //"url" -> file_data is an url || "file" -> generate url from file
-    source = context.createMediaElementSource(audio);
-
-
-
-
-    //setup
-    source.connect(analyser);
-    analyser.connect(context.destination);
-    if (!export_mode) SetupAudioUI(); //no need for UI in export mode.
-
-
-    //prepare data collection
-    ctx_frequency_array = new Uint8Array(analyser.frequencyBinCount);//0 to 1023 => length=1024.
-
-    imports.utils.CustomLog("info","audio loaded successfully.");
-}
-
-function CloseAudio() {
-    imports.utils.CustomLog("info","Closing audio context if any...");
-    if (!imports.utils.IsUndefined(context)) context.close();
-    if (!export_mode) document.getElementById("opened_audio").innerHTML = save_handler.save_data.audio_filename;
-    imports.utils.CustomLog("info","Audio context closed.");
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-#########
-ANIMATION
-#########
-*/
-
-
-function StartAnimating(fps) {//prepare fps animation
-    // initialize the timer variables and start the animation
-    if (!imports.utils.IsANumber(fps)) throw `StartAnimating: ${fps} is not a valid fps value, start aborted.`;
-
-    stop_animating = false;
-    animating = true;
-    fps_interval = 1000 / fps; //in ms
-    time = {};//object
-    time.then = performance.now();
-    time.start = time.then;
-
-    Animate();
-    imports.utils.CustomLog('info','animation started.');
-}
-
-
-function StopAnimating() {//stop the fps animation loop
-    stop_animating = true;
-    animating = false;
-    imports.utils.CustomLog('info','animation stopped.');
-}
-
-// the animation loop calculates time elapsed since the last loop
-// and only draws if the specified fps interval is achieved
-function Animate() {
-
-    //stop animating if requested
-    if (stop_animating) return;
-
-    // request another frame
-    requestAnimationFrame(Animate);
-
-    // calc elapsed time since last loop
-    time.now = performance.now();
-    time.elapsed = time.now - time.then;
-
-    // if enough time has elapsed and all objects finished rendering, draw the next frame
-    if ( (time.elapsed > fps_interval) && (UpdateFinished()) ) {
-
-        //add this frame duration to the frame array
-        fps_array.push(   parseInt(1000/ (time.now - time.then) )  );
-
-        // Get ready for next frame by setting then=now, but also adjust for your
-        // specified fps_interval not being a multiple of user screen RAF's interval
-        //(16.7ms for 60fps for example).
-        time.then = time.now - (time.elapsed % fps_interval);
-
-        //Draw the frame
-        UpdateTimeDisplay();
-        DrawFrame();
-    }
-}
-
-
-
-function UpdateFinished() {//returns if all the objects have finished updating.
-    var finished_render = true;
-    //if one object didn't finish rendering, returns false
-    for (var i=0; i<objects_callback.length; i++) {
-        if (!objects_callback[i]) finished_render = false;
-    }
-
-    return finished_render;
-}
-
-
-
-
-function DrawFrame() {//update and draw the screen
-
-
-    //#################
-    //AUDIO CALCULATION
-    //#################
-
-
-    
-    if (export_mode) {
-        //time update
-        current_time = frames_rendered/save_handler.save_data.fps;
-        audio_duration = duration;
-    } else {
-        //collect frequency data
-        analyser.getByteFrequencyData(ctx_frequency_array);
-        frequency_array = imports.utils.LinearToLog(ctx_frequency_array);  
-
-        //time update
-        current_time = audio.currentTime;
-        audio_duration = audio.duration;
-    }
-
-    
-
-    //smoothing
-    vol_frequency_array = frequency_array;
-    if (imports.utils.IsUndefined(vol_prev_frequency_array)) vol_prev_frequency_array = vol_frequency_array;
-
-    //This is very similar to the smoothing system used by the Web Audio API.
-    //The formula is the following (|x|: absolute value of x):
-    //new[i] = factor * previous[i] + (1-factor) * |current[i]|
-
-    //factor = 0 disables the smoothing. factor = 1 freezes everything and keep previous[i] forever.
-    //factor not belonging to [0,1] creates uncontrolled behaviour.
-    var smooth_factor = 0.7;
-    for (let i=0; i<vol_frequency_array.length; i++) {
-        vol_frequency_array[i] = smooth_factor * vol_prev_frequency_array[i] + (1-smooth_factor) * Math.abs(vol_frequency_array[i]);
-    }
-    vol_prev_frequency_array = vol_frequency_array; // for next iteration
-
-    //volume update
-    volume = 0;
-    var sum = 0;
-    for (var i=0; i<vol_frequency_array.length-100; i++) {
-        sum += vol_frequency_array[i];
-    }
-    volume = sum/(vol_frequency_array.length-100); //0 to 120 most of the time
-
-    //update all objects
-    objects_callback = [];
-    for (var i=0; i<objects.length; i++) {
-        objects_callback[i] = false;//reset all callbacks to false
-        objects_callback[i] = objects[i].update();//set to true once update is finished
-    }
-
-
-    //end of a frame
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//###
-//FPS
-//###
-
-function UpdateFPSDisplay() {//display FPS regularly
-    fps_array_max_length = 10;
-
-    //maintain the max length of the array
-    if (fps_array.length > fps_array_max_length) {
-
-        var overflow = fps_array.length - fps_array_max_length;
-        fps_array.splice(0, overflow);
-    }
-
-    //calculates average FPS from the fps array
-    var sum = 0;
-    for (var index of fps_array) {
-        sum += index;
-    }
-    var average_fps = sum / fps_array_max_length;
-
-    //display fps
-    document.getElementById("fps").innerHTML = `${average_fps}FPS`;
-}
