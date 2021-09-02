@@ -941,7 +941,7 @@ function PrepareWindowClose(event) {
             }
         });
     } else {
-        CloseAudio();
+        project.closeAudio();
     }
 }
 
