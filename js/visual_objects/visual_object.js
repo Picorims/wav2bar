@@ -12,6 +12,7 @@ export class VisualObject {
         if (!utils.IsAnElement(rack_parent)) throw new SyntaxError("rack_parent must be a DOM parent for the rack.");
 
         this._save_handler = save_handler;
+        this._owner_project = this._save_handler.owner_project;
         this._rack_parent = rack_parent;
         this._properties = {};
         /**@type {HTMLElement} */
@@ -157,6 +158,12 @@ export class VisualObject {
         }
     }
 
+    //update object display
+    /**@abstract */
+    update() {
+        throw new SyntaxError("VisualObject: update() must be implemented.");
+    }
+
     //destroy VisualObject
     destroy() {
         if (this._element) this._element.remove();
@@ -237,5 +244,31 @@ export class VText extends VisualObject {
 
         //mandatory for initialization
         this.triggerUpdateData();
+    }
+
+    /**@override */
+    update() {
+        if (this.getThisData().text_type === "time") {
+            //update time
+            let current_time = this._owner_project.getAudioCurrentTime();
+            let audio_duration = this._owner_project.getAudioDuration();
+
+            //find elapsed time
+            let time_pos_sec = Math.floor(current_time)%60;
+            if (time_pos_sec < 10) time_pos_sec = "0"+time_pos_sec;
+            let time_pos_min = Math.floor(current_time/60);
+
+            //find total time
+            let time_length_sec = Math.floor(audio_duration)%60;
+            if (time_length_sec < 10) time_length_sec = "0"+time_length_sec;
+            let time_length_min = Math.floor(audio_duration/60);
+
+            //apply time
+            this._element.innerHTML = `${time_pos_min}:${time_pos_sec} | ${time_length_min}:${time_length_sec}`;
+
+        }
+
+        //finished updating
+        return true;
     }
 }

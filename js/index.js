@@ -58,6 +58,7 @@ class SaveHandler {
         //     "test",
         // ]);
 
+        /** @type {Project} */
         this._owner_project = null;
 
         this._CURRENT_SAVE_VERSION = 4;
@@ -71,6 +72,7 @@ class SaveHandler {
     }
 
     set owner_project(owner_project) {this._owner_project = owner_project;}
+    get owner_project() {return this._owner_project;}
 
     get save_data() {
         return this._save_data;
@@ -78,6 +80,8 @@ class SaveHandler {
     set save_data(save_data) {
         this._save_data = save_data;
     }
+
+    get objects() {return this._objects;}
 
     set screen(screen) {
         if (imports.utils.IsUndefined(screen.width) || imports.utils.IsUndefined(screen.height)) throw new SyntaxError("screen must be like {width: value, height: value}.");
@@ -602,7 +606,7 @@ class Project {
         if (this._stop_animating) return;
 
         // request another frame
-        requestAnimationFrame(this.animate);
+        requestAnimationFrame(() => {this.animate();});
 
         // calc elapsed time since last loop
         this._time.now = performance.now();
@@ -620,7 +624,6 @@ class Project {
             this._time.then = this._time.now - (this._time.elapsed % this._fps_interval);
 
             //Draw the frame
-            this.updateTimeDisplay();
             this.drawFrame();
         }
     }
@@ -691,9 +694,12 @@ class Project {
 
         //update all objects
         this._objects_callback = [];
-        for (let i = 0; i < this._save_handler._objects.length; i++) {
-            this._objects_callback[i] = false;//reset all callbacks to false
-            this._objects_callback[i] = this._save_handler._objects[i].update();//set to true once update is finished
+        for (const obj in this._save_handler.objects) {
+            if (Object.hasOwnProperty.call(this._save_handler.objects, obj)) {
+                const element = this._save_handler.objects[obj];
+                this._objects_callback[i] = false;//reset all callbacks to false
+                this._objects_callback[i] = element.update();//set to true once update is finished    
+            }
         }
 
 

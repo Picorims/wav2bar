@@ -10,7 +10,7 @@ const DEFAULTS = {
     SIZE: {width: 300, height: 300},
     ROTATION: 0,
     TEXT_TYPE: "any",
-    TEXT_CONTENT: "",
+    TEXT_CONTENT: "text",
     FONT_SIZE: 20,
     COLOR: "#ffffff",
     TEXT_DECORATION: {
