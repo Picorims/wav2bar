@@ -125,23 +125,6 @@ class SaveHandler {
         imports.utils.CustomLog("info","Loading the save...");
         this._lock_save_sync = true;
     
-        //ERASE CURRENT DATA
-    
-        //because objects are removed from the array trough splice() during the for loop,
-        //indexes are constantly changed and the loop ends up not going trough all indexes.
-        //So the array and it's length are separately saved, and this list is kept intact
-        //to iterate trough every object.
-        var objects_list = objects.slice();
-    
-        for (var i=0; i<objects_list.length; i++) {
-            var object = objects_list[i];
-    
-            object.remove(object.data.id);
-        }
-    
-    
-    
-    
         //LOAD NEW DATA
         //the data must be extracted from the file in order to be able to read it.
         ipcRenderer.once("finished-caching-save", async (event) => {
@@ -296,29 +279,26 @@ class SaveHandler {
 
 
         //create all objects
-        for (var i=0; i<objects_data_list.length; i++) {
+        this.deleteAllVisualObjects();
+        let i=0;
+        for (const id in this._save_data.objects) {
+            if (Object.hasOwnProperty.call(this._save_data.objects, id)) {
+                const object_data = this._save_data.objects[id];
+                
+                //avoid overflow
+                if (i>255) {
+                    throw `LoadSave: Maximum object count reached (${i-1})`;
+                }
 
-            //get data
-            var object_data = objects_data_list[i];
+                //create relevant object
+                let type = object_data.visual_object_type;
+                this.createVisualObject(type, null, id);
+                imports.utils.CustomLog("info",`Added ${type}.`);
 
-            //avoid overflow
-            if (i>255) {
-                throw `LoadSave: Maximum object count reached (${i-1})`;
+                i++;
             }
-
-            //create relevant object
-            var type = object_data.object_type;
-            if (type === "background")          {new Background(object_data)}
-            else if (type === "image")          {new Image(object_data)}
-            else if (type === "particle_flow")  {new ParticleFlow(object_data)}
-            else if (type === "text")           {new Text(object_data)}
-            else if (type === "timer")          {new Timer(object_data)}
-            else if (type === "visualizer")     {new Visualizer(object_data)}
-            else {throw `LoadSave: ${type} is not a valid object type. Is the save corrupted ?`}
-
-            imports.utils.CustomLog("info",`Added ${type}.`);
-
         }
+
 
 
 
@@ -410,9 +390,26 @@ class SaveHandler {
 
 
 
+    //create a VisualObject for new or existing data.
+    //usage: data load, new object creation from UI
+    //empty ID generates a random new ID.
+    createVisualObject(type, name = null, obj_id = "") {
+        let obj;
+        switch (type) {
+            case "background":      console.log("to implement"); break;
+            case "image":           console.log("to implement"); break;
+            case "particle_flow":   console.log("to implement"); break;
+            case "text":            obj = new imports.visual_objects.VText(this, tab.objects, obj_id); break;
+            case "timer":           console.log("to implement"); break;
+            case "visualizer":      console.log("to implement"); break;
+            default: throw new SyntaxError(`LoadSave: ${type} is not a valid object type. Is the save corrupted ?`);
+        }
+        if (name) obj.setName(name);
+    }
 
     //add a visual object to the existing list of visual object
-    //(class instances, objects register themselves in the save.)
+    //(object = VisualObject instance,
+    //VisualObjects register themselves in the save with this function.)
     addVisualObject(object) {
         if (object.id === "") {
             object.generateID(); //generate id
@@ -433,6 +430,14 @@ class SaveHandler {
         delete this._save_data.objects[id];
     }
 
+    //remove all visual objects saved
+    deleteAllVisualObjects() {
+        let ids = this.getVisualObjectIDs();
+        for (let i=0; i<ids.length; i++) {
+            this.deleteVisualObject(ids[i]);
+        }
+    }
+
     //get the object's data in a manipulable way.
     getVisualObjectData(id) {
         return this._save_data.objects[id];
@@ -444,11 +449,14 @@ class SaveHandler {
         this._save_data.objects[id] = imports.utils.mergeData(data, this._save_data.objects[id]);
     }
 
+    //get an array of all objects IDs
     getVisualObjectIDs() {
         let ids = [];
         for (let key in this._save_data.objects) ids.push(key);
         return ids;
     }
+
+
 
 
 

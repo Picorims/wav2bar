@@ -707,55 +707,7 @@ function CreateObject(name, type) {
     if (imports.utils.IsUndefined(name) || !imports.utils.IsAString(name)) throw new Error("CreateObject: invalid name.");
     if (imports.utils.IsUndefined(type)) throw new Error("CreateObject: type must be specified.");
 
-    //create object
-    switch (type) {
-        case "background":
-            new Background({name: name});
-            break;
-
-        case "image":
-            new Image({name: name});
-            break;
-
-        case "particle_flow":
-            new ParticleFlow({name: name});
-            break;
-
-        case "text":
-            new Text({name: name});
-            break;
-
-
-
-
-        case "timer_bar":
-            new Timer({name: name, type:"bar"});
-            break;
-
-        case "timer_point":
-            new Timer({name: name, type:"point"});
-            break;
-
-
-
-
-
-        case "visualizer_straight":
-            new Visualizer({name: name, type:"straight"});
-            break;
-
-        case "visualizer_straight_wave":
-            new Visualizer({name: name, type:"straight-wave"});
-            break;
-
-        case "visualizer_circular":
-            new Visualizer({name: name, type:"circular"});
-            break;
-
-        default:
-            throw new Error(`CreateObject: ${type} is an unknown object type!`);
-    }
-
+    project.save_handler.createVisualObject(type, name);
 }
 
 

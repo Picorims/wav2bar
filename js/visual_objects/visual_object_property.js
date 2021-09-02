@@ -118,8 +118,7 @@ export class VPName extends VisualObjectProperty {
             "Name: ",
             this.getCurrentValue(),
             () => {
-                this.setSaveUISafe(this._ui_parameter.value);
-                this._visual_object.parameter_rack.rename(this.getCurrentValue());
+                this.rename(this._ui_parameter.value);
             }
         );
         this._visual_object.parameter_rack.rename(this.getCurrentValue());
@@ -131,6 +130,11 @@ export class VPName extends VisualObjectProperty {
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAString(value) && value !== "");
     }
+
+    rename(name) {
+        this.setSaveUISafe(name);
+        this._visual_object.parameter_rack.rename(name);
+    };
 }
 
 

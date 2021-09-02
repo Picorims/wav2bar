@@ -4,7 +4,9 @@ import * as utils from "../utils/utils.js";
 import * as property from "./visual_object_property.js";
 import * as ui_components from "../ui_components/ui_components.js";
 
-//base class for visual objects
+//base class for visual objects. They base themselves on their data from a SaveHandler
+//to get and store data. If an id is provided, it inspects an existing data set.
+//Otherwuse the data set is created.
 export class VisualObject {
     constructor(save_handler, rack_parent, id = "") {
         if (this.constructor === VisualObject) throw new SyntaxError("VisualObjectProperty is an abstract class.");
@@ -147,6 +149,16 @@ export class VisualObject {
         return valid;
     }
 
+    //sets the name of an object from the exterior
+    setName(name) {
+        this._properties["name"].rename(name);
+    }
+
+    //used by visual object constructors to defined their type as a string in save data
+    setType(type) {
+        if (this.getThisData().visual_object_type) throw new SyntaxError("Object type already set, no modification allowed.");
+        this._save_handler.mergeVisualObjectData(this._id, {visual_object_type: type});
+    }
 
     // trigger object data update, by triggering all visual properties.
     triggerUpdateData() {
@@ -175,7 +187,9 @@ export class VisualObject {
 export class VText extends VisualObject {
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
-        this._save_handler.mergeVisualObjectData(this._id, {type: "text"});
+        this._TYPE = "text";
+        if (!this.getThisData().visual_object_type) this.setType(this._TYPE);
+        if (this.getThisData().visual_object_type !== this._TYPE) throw new Error(`Trying to access data from a non ${this._TYPE} object! Aborting initialization.`);
         this._parameter_rack.icon = '<i class="ri-text"></i>';
 
         //#################
