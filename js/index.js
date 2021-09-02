@@ -120,7 +120,12 @@ class SaveHandler {
     
         imports.utils.CustomLog("info", "Backing up currently opened save...");
         this.exportSave(`${working_dir}/temp/before_new_save_open.w2bzip`, true);
-        await CloseAudio();
+        await this._owner_project.closeAudio();
+
+        //necessary because once new data is injected in the SaveHandler,
+        //old IDs are lost. Thus their VisualObject would still be around if we don't
+        //remove them here.
+        this.deleteAllVisualObjects();
     
         imports.utils.CustomLog("info","Loading the save...");
         this._lock_save_sync = true;
@@ -269,17 +274,8 @@ class SaveHandler {
 
     applyLoadedSave() {//read and apply a loaded user save
         imports.utils.CustomLog('info','applying save...');
+
         //CREATE OBJECTS
-
-        //because objects are created in current_data.objects during the for loop,
-        //objects are constantly added in it, and using it as a reference for length make
-        //the loop to never end.
-        //So the array and it's length are separately saved.
-        var objects_data_list = this._save_data.objects.slice();
-
-
-        //create all objects
-        this.deleteAllVisualObjects();
         let i=0;
         for (const id in this._save_data.objects) {
             if (Object.hasOwnProperty.call(this._save_data.objects, id)) {
@@ -298,9 +294,6 @@ class SaveHandler {
                 i++;
             }
         }
-
-
-
 
         //apply FPS
         ChangeFPSTo(this._save_data.fps);
@@ -417,7 +410,7 @@ class SaveHandler {
         
         } else if (!object.getThisData()) {
             throw new SyntaxError(`providing an ID for a VisualObject implies that it is registered in the save, but it is not! ("${id}"). If you want to create an object, leave this empty.`);
-        } else if (this._save_data.objects[object.id]) {
+        } else if (this._objects[object.id]) {
             throw new Error("There is already an object inspecting " + object.id);
         }
         this._objects[object.id] = object; //keep a reference.

@@ -50,6 +50,7 @@ export class VisualObjectProperty {
         //name in the save, name used by the object for data access.
         this._property_name = property_name;
         this._default_value = default_value;
+        this._allowed_values = []; //used by some properties with a defined list of values.
         this._ui_parameter = null;
 
         if (!this._visual_object instanceof object.VisualObject) throw new SyntaxError("visual object must be a VisualObject.");
@@ -378,6 +379,7 @@ export class VPTextType extends VisualObjectProperty {
         super(save_handler, visual_object, "text_type", DEFAULTS.TEXT_TYPE);
     
         this._allowed_values = ["any","time"];
+        this.verify(); //reverify as the first verification ignored the line below.
 
         //create associated UI
         this._ui_parameter = new ui_components.UIParameterChoice(
@@ -600,6 +602,7 @@ export class VPTextAlign extends VisualObjectProperty {
         super(save_handler, visual_object, "text_align", DEFAULTS.TEXT_ALIGN);
 
         this._allowed_values = ["left","center","right"];
+        this.verify(); //reverify as the first verification ignored the line below.
 
         //create associated UI
         this._ui_parameter = new ui_components.UIParameterChoice(
