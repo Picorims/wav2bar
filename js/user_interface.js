@@ -149,12 +149,9 @@ async function InitUI() {
     //OBJECTS TAB
     //create object
     document.getElementById("create_object_button").onclick = function() {
-        //get name
-        var name = document.getElementById("create_object_input").value;
-
         //get type
-        var type = document.getElementById("create_object_select").value;
-        CreateObject(name, type);
+        let type = document.getElementById("create_object_select").value;
+        project.save_handler.createVisualObject(type);
     }
 
 
@@ -684,31 +681,6 @@ function UpdateTimeDisplay() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-/*
-###############
-OBJECT CREATION
-###############
-*/
-
-//function that creates an object using the given parameters
-function CreateObject(name, type) {
-
-    if (imports.utils.IsUndefined(name) || !imports.utils.IsAString(name)) throw new Error("CreateObject: invalid name.");
-    if (imports.utils.IsUndefined(type)) throw new Error("CreateObject: type must be specified.");
-
-    project.save_handler.createVisualObject(type, name);
-}
 
 
 
