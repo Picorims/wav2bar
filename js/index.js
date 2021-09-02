@@ -84,6 +84,7 @@ class SaveHandler {
         this._save_data.screen = screen;
     }
 
+    get fps() {return this._save_data.fps;}
     set fps(fps) {
         if (!imports.utils.IsAnInt(fps)) throw new SyntaxError("fps must be an integer.");
         this._save_data.fps = fps;
@@ -553,6 +554,24 @@ class Project {
     #########
     */
 
+    //start screen visuals by starting audio and animation
+    playVisuals() {
+        if (!this._animating) this.startAnimating(this._save_handler.fps);
+        this._audio.play();
+    }
+
+    //pause audio and animation
+    pauseVisuals() {
+        if (this._animating) this.stopAnimating();
+        this._audio.pause();
+    }
+
+    //stop animation and reset audio position
+    stopVisuals() {
+        this.pauseVisuals();
+        this._audio.currentTime = 0;
+    }
+
     //prepare fps animation
     startAnimating(fps) {
         // initialize the timer variables and start the animation
@@ -721,6 +740,7 @@ class Project {
     
         //modules
         this._audio = new Audio();
+        this._audio.loop = false;
         this._context = new window.AudioContext();
         this._analyser = this._context.createAnalyser();
         //disable the Web Audio API visualization smoothing, as each visualizer
@@ -752,7 +772,44 @@ class Project {
         if (!export_mode) document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
         imports.utils.CustomLog("info","Audio context closed.");
     }
+
+    //returns if the audio is in state 4, so it can be manipulated.
+    audioReady() {
+        return this._audio.readyState === 4;
+    }
+
+    //get the duration of audio object
+    getAudioDuration() {
+        return this._audio.duration;
+    }
+
+    //set audio playing time to start.
+    audioToStart() {
+        this._audio.currentTime = 0;
+    }
     
+    //set audio playing time to end.
+    audioToEnd() {
+        this._audio.currentTime = this._audio.duration;
+    }
+
+    //sets audio object current time in seconds
+    setAudioCurrentTime(currentTime) {
+        this._audio.currentTime = currentTime;
+    }
+
+    //gzts audio object current time in seconds
+    getAudioCurrentTime() {return this._audio.currentTime;}
+
+    //toggle if the audio should be played forever in loop mode.
+    audioLoopToggle() {
+        this._audio.loop = (this._audio.loop) ?  false : true;
+    }
+
+    //returns if the audio object is in loop mode.
+    getAudioIsLooping() {
+        return this._audio.loop;
+    }
 
 
 
@@ -778,6 +835,13 @@ class Project {
 
         //display fps
         document.getElementById("fps").innerHTML = `${average_fps}FPS`;
+    }
+
+    //change the project fps, taking into account a potential ongoing animation process
+    setFPS(fps) {
+        this._save_handler.fps = fps;
+        this.stopAnimating();
+        if (this._audio && !this._audio.paused) this.startAnimating(fps);
     }
 }
 

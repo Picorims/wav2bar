@@ -436,9 +436,7 @@ function ChangeFPSTo(new_fps) {//changes the FPS used by restarting the animatio
     if (!imports.utils.IsAnInt(new_fps)) throw `ChangeFPSto: ${new_fps} is not an integer or a valid FPS value.`;
 
     //trigger update
-    project.save_handler.fps = new_fps;
-    StopAnimating();
-    if (audio && !audio.paused) StartAnimating(new_fps);
+    project.setFPS(new_fps);
 
     //update UI
     if (!export_mode) document.getElementById("fps_input").value = project.save_handler.save_data.fps;
@@ -559,8 +557,7 @@ function SetupAudioUI() {
 
     //PLAY
     play_audio.onclick = function() {
-        if (!animating) StartAnimating(project.save_handler.save_data.fps);
-        audio.play();
+        project.playVisuals();
 
         //update visuals
         play_audio.classList.add("activated");
@@ -571,8 +568,7 @@ function SetupAudioUI() {
 
     //PAUSE
     pause_audio.onclick = function() {
-        if (animating) StopAnimating();
-        audio.pause();
+        project.pauseVisuals();
 
         //update visuals
         play_audio.classList.remove("activated");
@@ -583,9 +579,7 @@ function SetupAudioUI() {
 
     //STOP
     stop_audio.onclick = function() {
-        if (animating) StopAnimating();
-        audio.pause();
-        audio.currentTime = 0;
+        project.stopVisuals();
 
         //update visuals
         play_audio.classList.remove("activated");
@@ -596,20 +590,20 @@ function SetupAudioUI() {
 
     //TO START
     audio_to_start.onclick = function() {
-        audio.currentTime = 0;
+        project.audioToStart();
     }
 
 
     //TO END
     audio_to_end.onclick = function() {
-        audio.currentTime = audio.duration;
+        project.audioToEnd();
     }
 
 
     //LOOP
-    audio.loop = false;
+    loop_audio.classList.remove("activated");
     loop_audio.onclick = function() {
-        audio.loop = (audio.loop) ?  false : true;
+        project.audioLoopToggle();
 
         //update visuals
         loop_audio.classList.toggle("activated");
@@ -618,11 +612,11 @@ function SetupAudioUI() {
 
     //RANGE
     //init
-    var audio_range = document.getElementById("audio_range");
+    let audio_range = document.getElementById("audio_range");
     audio_range.min = 0;
-    var wait_for_audio_ready = setInterval(function() {//seek required to not get a NaN value
-        if (audio.readyState === 4) {
-            audio_range.max = audio.duration;
+    let wait_for_audio_ready = setInterval(function() {//seek required to not get a NaN value
+        if (project.audioReady()) {
+            audio_range.max = project.getAudioDuration();
             clearInterval(wait_for_audio_ready);
         }
     }, 10);
@@ -642,7 +636,7 @@ function SetupAudioUI() {
 
     //ability to change audio_position
     audio_range.oninput = function() {
-        audio.currentTime = audio_range.value;
+        project.setAudioCurrentTime(audio_range.value);
     }
 
 
@@ -656,30 +650,32 @@ function SetupAudioUI() {
 //updates the cursor position of the audio range input to match the audio position
 function UpdateAudioRange() {
     if (!audio_range_used) {
-        var audio_range = document.getElementById("audio_range");
-        audio_range.value = audio.currentTime;
+        let audio_range = document.getElementById("audio_range");
+        audio_range.value = project.getAudioCurrentTime();
     }
 }
 
 //update the string indicating the time position
 function UpdateTimeDisplay() {
+    let current_time = project.getAudioCurrentTime();
+    let duration = project.getAudioDuration();
 
     //find elapsed time
-    var time_pos_sec = Math.floor(audio.currentTime)%60;
+    let time_pos_sec = Math.floor(current_time)%60;
     if (time_pos_sec < 10) time_pos_sec = "0"+time_pos_sec;
-    var time_pos_min = Math.floor(audio.currentTime/60);
+    let time_pos_min = Math.floor(current_time/60);
 
     //find total time
-    var time_length_sec = Math.floor(audio.duration)%60;
+    let time_length_sec = Math.floor(duration)%60;
     if (time_length_sec < 10) time_length_sec = "0"+time_length_sec;
-    var time_length_min = Math.floor(audio.duration/60);
+    let time_length_min = Math.floor(duration/60);
 
     //apply time
     document.getElementById("time_display").innerHTML = `${time_pos_min}:${time_pos_sec} | ${time_length_min}:${time_length_sec}`;
 
 
     //if both are equal, update display to indicates it's not playing anymore (if not loop mode)
-    if ( (audio.currentTime === audio.duration) && !audio.loop ) {
+    if ( (current_time === duration) && !project.getAudioIsLooping() ) {
         document.getElementById("play_audio").classList.remove("activated");
         document.getElementById("pause_audio").classList.add("activated");
     }
