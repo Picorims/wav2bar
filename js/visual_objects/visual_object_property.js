@@ -7,12 +7,17 @@ import * as ui_components from "../ui_components/ui_components.js";
 const DEFAULTS = {
     LAYER: 0,
     COORDINATES: {x: 0, y: 0},
-    SIZE: {width: 300, height: 300},
+    SIZE: {width: 400, height: 100},
     ROTATION: 0,
+    SVG_FILTER: "",
+
+    COLOR: "#ffffff",
+    BORDER_RADIUS: "",
+    BOX_SHADOW: "",
+
     TEXT_TYPE: "any",
     TEXT_CONTENT: "text",
     FONT_SIZE: 20,
-    COLOR: "#ffffff",
     TEXT_DECORATION: {
         italic: false,
         bold: false,
@@ -25,7 +30,9 @@ const DEFAULTS = {
         vertical: "top",
     },
     TEXT_SHADOW: "",
-    SVG_FILTER: "",
+
+    TIMER_INNER_SPACING: 2,
+    BORDER_THICKNESS: 2,
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -106,6 +113,22 @@ export class VisualObjectProperty {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//#################################
+// SHARED PROPERTIES (all objects)
+//#################################
 
 
 //name property, define object's display name.
@@ -373,6 +396,140 @@ export class VPRotation extends VisualObjectProperty {
 
 
 
+// Visual property for defining an svg filter applied on an object
+export class VPSVGFilter extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "svg_filter", DEFAULTS.SVG_FILTER);
+
+        // create associated UI
+        this._ui_parameter = new ui_components.UIParameterString(
+            this._visual_object.parameter_rack,
+            "SVG Filters (advanced, read help)",
+            this.getCurrentValue(),
+            () => {
+                this.setSaveUISafe(this._ui_parameter.value);
+            }
+        );
+        // this.parameters.svg_filters.help_string = help.parameter.object.general.svg_filters;
+
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        let no_script = !value.includes("<script>");
+        let valid_tag = (value.includes("<filter") && value.includes("</filter>"));
+        return (!utils.IsUndefined(value) && utils.IsAString(value) && valid_tag && no_script);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+//###################
+// COMMON PROPERTIES
+//###################
+
+// Visual property for changing the overall color of an object.
+export class VPColor extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "color", DEFAULTS.COLOR);
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterColor(
+            this._visual_object.parameter_rack,
+            "Color (hex, rgb, rgba)",
+            this.getCurrentValue(),
+            () => {
+                this.setSaveUISafe(this._ui_parameter.value);
+            }
+        );
+        // this.parameters.color.help_string = help.parameter.object.general.color;
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAString(value));
+    }
+}
+
+
+
+//property to control border radius of any HTML object using the CSS syntax
+export class VPBorderRadius extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "border_radius", DEFAULTS.BORDER_RADIUS);
+
+        //create associated UI
+        this._ui_parameter = new imports.ui_components.UIParameterString(
+            this._visual_object.parameter_rack,
+            "Border radius (CSS)",
+            this.getCurrentValue(),
+            () => {
+                this.setSaveUISafe(this._ui_parameter.value)
+            }
+        );
+        // this.parameters.border_radius.help_string = help.parameter.object.general.border_radius;
+    }
+
+    /**
+    * @override
+    */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAString(value));
+    }    
+}
+
+
+
+//property to control box shadow of any HTML object using the CSS syntax
+export class VPBoxShadow extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "box_shadow", DEFAULTS.BOX_SHADOW);
+
+        //create associated UI
+        this._ui_parameter = new imports.ui_components.UIParameterString(
+            this._visual_object.parameter_rack,
+            "Box Shadow (CSS)",
+            this.getCurrentValue(),
+            () => {
+                this.setSaveUISafe(this._ui_parameter.value)
+            }
+        );
+        // this.parameters.box_shadow.help_string = help.parameter.object.general.shadow;
+    }
+
+    /**
+    * @override
+    */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAString(value));
+    }    
+}
+
+
+
+
+
+
+
+
+
+
+//#################
+// TEXT PROPERTIES
+//#################
+
+
 //text type property, sets if the object uses user text or time generated text.
 export class VPTextType extends VisualObjectProperty {
     constructor(save_handler, visual_object) {
@@ -461,33 +618,6 @@ export class VPFontSize extends VisualObjectProperty {
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
-    }
-}
-
-
-
-// Visual property for changing the overall color of an object.
-export class VPColor extends VisualObjectProperty {
-    constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "color", DEFAULTS.COLOR);
-
-        //create associated UI
-        this._ui_parameter = new ui_components.UIParameterColor(
-            this._visual_object.parameter_rack,
-            "Color (hex, rgb, rgba)",
-            this.getCurrentValue(),
-            () => {
-                this.setSaveUISafe(this._ui_parameter.value);
-            }
-        );
-        // this.parameters.color.help_string = help.parameter.object.general.color;
-    }
-
-    /**
-     * @override
-     */
-    hasValidValue(value) {
-        return (!utils.IsUndefined(value) && utils.IsAString(value));
     }
 }
 
@@ -659,30 +789,80 @@ export class VPTextShadow extends VisualObjectProperty {
 
 
 
-// Visual property for defining an svg filter applied on an object
-export class VPSVGFilter extends VisualObjectProperty {
+
+
+
+
+
+
+
+
+//##################
+// TIMER PROPERTIES
+//##################
+
+//Visual property to define spacing between the timer content and its border.
+export class VPTimerInnerSpacing extends VisualObjectProperty {
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "svg_filter", DEFAULTS.SVG_FILTER);
+        super(save_handler, visual_object, "timer_inner_spacing", DEFAULTS.TIMER_INNER_SPACING);
 
-        // create associated UI
-        this._ui_parameter = new ui_components.UIParameterString(
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
             this._visual_object.parameter_rack,
-            "SVG Filters (advanced, read help)",
-            this.getCurrentValue(),
-            () => {
-                this.setSaveUISafe(this._ui_parameter.value);
-            }
+            "",
+            false,
+            [{
+                title: "Timer inner spacing :",
+                unit: "px",
+                default_value: this.getCurrentValue(),
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                }
+            }]
         );
-        // this.parameters.svg_filters.help_string = help.parameter.object.general.svg_filters;
-
+        // this.parameters.border_to_bar_space.help_string = help.parameter.object.timer.space_between;
     }
 
     /**
      * @override
      */
     hasValidValue(value) {
-        let no_script = !value.includes("<script>");
-        let valid_tag = (value.includes("<filter") && value.includes("</filter>"));
-        return (!utils.IsUndefined(value) && utils.IsAString(value) && valid_tag && no_script);
+        return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
+    }    
+}
+
+
+
+//visual property to define the thickness of the border of a timer, or of the line of the timer
+export class VPBorderThickness extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "border_thickness", DEFAULTS.BORDER_THICKNESS);
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "",
+            false,
+            [{
+                title: "Border thickness :",
+                unit: "px",
+                default_value: this.getCurrentValue(),
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)))
+                }
+            }]
+        );
+        // this.parameters.border_thickness.help_string = help.parameter.object.timer.border_thickness;
+    }
+
+    /**
+     * @override
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
     }
 }

@@ -4,8 +4,10 @@ This document is based on Keep a Changelog 1.0.0
 ## 0.3.0-beta (?)
 
 ### Changed
-- Changing an object's name is now done using a dedicated field in the rack.
-- Changed how saves are handled internally.
+- Changed how saves and objects are handled internally.
+- Changing an object's name is now done using a dedicated field in the rack (less clicks!).
+- Changed rules for timers positioning. (The converter should reajust timers when opening a project from an older versions.)
+- Irrelevant options (i.e that have no effect) in some objects are no longer available (timers, visualizers). In consequence they are no longer stored as well with these objects (as they are useless).
 
 ## 0.2.2-beta (2021-07-28)
 

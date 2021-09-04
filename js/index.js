@@ -389,12 +389,13 @@ class SaveHandler {
     createVisualObject(type, name = null, obj_id = "") {
         let obj;
         switch (type) {
-            case "background":      console.log("to implement"); break;
-            case "image":           console.log("to implement"); break;
-            case "particle_flow":   console.log("to implement"); break;
-            case "text":            obj = new imports.visual_objects.VText(this, tab.objects, obj_id); break;
-            case "timer":           console.log("to implement"); break;
-            case "visualizer":      console.log("to implement"); break;
+            case "background":                  console.log("to implement"); break;
+            case "image":                       console.log("to implement"); break;
+            case "particle_flow":               console.log("to implement"); break;
+            case "text":                        obj = new imports.visual_objects.VText(this, tab.objects, obj_id); break;
+            case "timer_straight_bar":          obj = new imports.visual_objects.VTimerStraightBar(this, tab.objects, obj_id); break;
+            case "timer_straight_line_point":   obj = new imports.visual_objects.VTimerStraightLinePoint(this, tab.objects, obj_id); break;
+            case "visualizer":                  console.log("to implement"); break;
             default: throw new SyntaxError(`LoadSave: ${type} is not a valid object type. Is the save corrupted ?`);
         }
         if (name) obj.setName(name);
