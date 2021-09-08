@@ -3,8 +3,12 @@ This document is based on Keep a Changelog 1.0.0
 
 ## 0.3.0-beta (?)
 
+### Added
+- Particle flow's containers can now be rotated.
+
 ### Changed
 - Changed how saves and objects are handled internally.
+- Improved particle flows performances when using a big amount of particles.
 - Changing an object's name is now done using a dedicated field in the rack (less clicks!).
 - Changed rules for timers positioning. (The converter should reajust timers when opening a project from an older versions.)
 - Irrelevant options (i.e that have no effect) in some objects are no longer available (timers, visualizers). In consequence they are no longer stored as well with these objects (as they are useless).

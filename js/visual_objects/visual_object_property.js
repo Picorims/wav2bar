@@ -33,6 +33,13 @@ const DEFAULTS = {
 
     TIMER_INNER_SPACING: 2,
     BORDER_THICKNESS: 2,
+
+    PARTICLE_RADIUS_RANGE: [1,2],
+    FLOW_TYPE: "radial",
+    FLOW_CENTER: {x: 0, y: 0},
+    FLOW_DIRECTION: 0,
+    PARTICLE_SPAWN_PROBABILITY: 0.75,
+    PARTICLE_SPAWN_TESTS: 1,
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -864,5 +871,238 @@ export class VPBorderThickness extends VisualObjectProperty {
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+//##########################
+// PARTICLE FLOW PROPERTIES
+//##########################
+
+//property to define the range in which to pick a radius for a particle, using an array of 2 values.
+export class VPParticleRadiusRange extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "particle_radius_range", DEFAULTS.PARTICLE_RADIUS_RANGE);
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "Particle size range",
+            true,
+            [{
+                title: "Min :",
+                unit: "px",
+                default_value: this.getCurrentValue()[0],
+                min: 1,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe([
+                        parseInt(this._ui_parameter.value(0)),
+                        parseInt(this._ui_parameter.value(1))
+                    ]);
+                }
+            },
+            {
+                title: "Max :",
+                unit: "px",
+                default_value: this.getCurrentValue()[1],
+                min: 1,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe([
+                        parseInt(this._ui_parameter.value(0)),
+                        parseInt(this._ui_parameter.value(1))
+                    ]);
+                }
+            }]
+        );
+        // this.parameters.particle_radius_range.help_string = help.parameter.object.particles.ptcl_size;
+    }
+
+    /**@override */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAnArray(value) && value.length === 2 && utils.IsAnInt(value[0]) && utils.IsAnInt(value[1]));
+    }
+}
+
+
+
+//property to set the global flow type (behaviour)
+export class VPFlowType extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "flow_type", DEFAULTS.FLOW_TYPE);
+
+        this._allowed_values = ["radial","directional"];
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterChoice(
+            this._visual_object.parameter_rack,
+            "Type",
+            this._allowed_values,
+            this.getCurrentValue(),
+            () => {
+                this.setSaveUISafe(this._ui_parameter.value);
+            }
+        );
+        //HELP TODO
+    }
+
+    /**@override */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAString(value) && this._allowed_values.includes(value));
+    }
+}
+
+
+
+//property to set the coordinates of spawning for radial particle flows
+export class VPFlowCenter extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "flow_center", DEFAULTS.FLOW_CENTER);
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "Center position (radial)",
+            true,
+            [{
+                title: "X :",
+                unit: "px",
+                default_value: this.getCurrentValue().x,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe({
+                        x: parseInt(this._ui_parameter.value(0)),
+                        y: parseInt(this._ui_parameter.value(1)),
+                    });
+                }
+            },
+            {
+                title: "Y :",
+                unit: "px",
+                default_value: this.getCurrentValue().y,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe({
+                        x: parseInt(this._ui_parameter.value(0)),
+                        y: parseInt(this._ui_parameter.value(1)),
+                    });
+                }
+            }]
+        );
+        // this.parameters.center.help_string = help.parameter.object.particles.center_pos;
+    }
+
+    /**@override */
+    hasValidValue(value) {
+        let keys_defined = !utils.IsUndefined(value.x) && !utils.IsUndefined(value.y);
+        let keys_are_int = utils.IsAnInt(value.x) && utils.IsAnInt(value.y);
+        return (!utils.IsUndefined(value) && utils.IsAnObject(value) && keys_defined && keys_are_int);
+    }
+}
+
+
+
+// property to define in which direction particles go
+export class VPFlowDirection extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "flow_direction", DEFAULTS.FLOW_DIRECTION);
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "",
+            false,
+            [{
+                title: "Direction (directional) :",
+                unit: "°",
+                default_value: this.getCurrentValue(),
+                min: 0,
+                max: 360,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                }
+            }]
+        );
+        // this.parameters.direction.help_string = help.parameter.object.particles.direction;
+    }
+
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0 && value <= 360);
+    }
+}
+
+
+
+// Visual property for defining the spawn probability of a particle
+export class VPParticleSpawnProbability extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "particle_spawn_probability", DEFAULTS.PARTICLE_SPAWN_PROBABILITY);
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "",
+            false,
+            [{
+                title: "Spawn probability :",
+                unit: "",
+                default_value: this.getCurrentValue(),
+                min: 0,
+                max: 1,
+                step: 0.01,
+                callback: () => {
+                    this.setSaveUISafe(parseFloat(this._ui_parameter.value(0)));
+                }
+            }]
+        );
+        // this.parameters.spawn_probability.help_string = help.parameter.object.particles.spawn_probability;
+    }
+
+    /**@override */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsANumber(value) && value >= 0 && value <= 1)
+    }
+}
+
+
+
+//Property that defines the spawn tests: how much time the probability is tested.
+export class VPParticleSpawnTests extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "particle_spawn_tests", DEFAULTS.PARTICLE_SPAWN_TESTS);
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "",
+            false,
+            [{
+                title: "Spawn tests per frame :",
+                unit: "",
+                default_value: this.getCurrentValue(),
+                min: 1,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                }
+            }]
+        );
+        // this.parameters.spawn_tests.help_string = help.parameter.object.particles.spawn_tests;
+    }
+
+    /**@override */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 1);
     }
 }

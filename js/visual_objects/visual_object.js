@@ -133,14 +133,14 @@ export class VisualObject {
 
     //validate an id to be an UUID.
     validID(id) {
-        if (!imports.utils.IsAString(id)) throw `${id} is not a string.`;
+        if (!utils.IsAString(id)) throw `${id} is not a string.`;
         
         return id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i) !== null;
     }
 
     //verify if the id exists in the save.
     uniqueID(id) {
-        if (!imports.utils.IsAString(id)) throw `${id} is not a string.`;
+        if (!utils.IsAString(id)) throw `${id} is not a string.`;
         
         let valid = true;
         let ids = this._save_handler.getVisualObjectIDs();
@@ -340,6 +340,7 @@ export class VTimer extends VisualObject {
 
 
 
+//Straight timer with a growing bar and a border.
 export class VTimerStraightBar extends VTimer {
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
@@ -419,6 +420,7 @@ export class VTimerStraightBar extends VTimer {
 
 
 
+//Straight timer with a line and a cursor moving on it.
 export class VTimerStraightLinePoint extends VTimer {
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
@@ -495,4 +497,263 @@ export class VTimerStraightLinePoint extends VTimer {
         //finished updating
         return true;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//Visual object displaying a flow of particles in a container, based on volume.
+export class VParticleFlow extends VisualObject {
+    constructor(save_handler, rack_parent, id = "") {
+        super(save_handler, rack_parent, id);
+        this._TYPE = "particle_flow";
+        this.assertType();
+        this._parameter_rack.icon = '<i class="ri-loader-line"></i>';
+
+        this._particles = [];
+
+        //#################
+        //UNIQUE PROPERTIES
+        //#################
+
+        this._properties["particle_radius_range"] = new property.VPParticleRadiusRange(this._save_handler, this);
+        this._properties["flow_type"] = new property.VPFlowType(this._save_handler, this);
+        this._properties["flow_center"] = new property.VPFlowCenter(this._save_handler, this);
+        this._properties["flow_direction"] = new property.VPFlowDirection(this._save_handler, this);
+        this._properties["particle_spawn_probability"] = new property.VPParticleSpawnProbability(this._save_handler, this);
+        this._properties["particle_spawn_tests"] = new property.VPParticleSpawnTests(this._save_handler, this);
+        this._properties["color"] = new property.VPColor(this._save_handler, this);
+        
+
+        //###################
+        //CREATE HTML ELEMENT
+        //###################
+
+        //canvas creation
+        this._element = document.createElement("canvas");
+        screen.appendChild(this._element);
+
+        //basic parameters
+        this._element.style.position = "absolute";
+        this._element.style.display = "inline-block";
+        this._element.style.overflow = "hidden";
+
+
+        //###########
+        //UPDATE DATA
+        //###########
+
+        this._properties["size"].subscribeToEvent("value_changed", (value) => {
+            this._element.width = value.width;
+            this._element.height = value.height;
+        });
+
+        //mandatory for initialization
+        this.triggerUpdateData();
+    }
+
+    get canvas() {return this._element;}
+    get ctx() {return this._element.getContext("2d");}
+    get properties() {return this._properties;}
+    get volume() {return this._owner_project.volume}
+
+    /**@override */
+    update() {
+        let canvas = this._element;
+        let ctx = canvas.getContext("2d");
+
+
+        //IF AUDIO IS PLAYING
+        let current_time = this._owner_project.getAudioCurrentTime();
+        let audio_duration = this._owner_project.getAudioDuration();
+        let audio_progress = current_time / audio_duration;
+
+        if (audio_progress !== 0 && audio_progress !== 1) {
+
+            //clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = this._properties["color"].getCurrentValue();
+            ctx.fillStyle = "#ffffff";
+
+            //probability to spawn a new particle
+            let spawn_tests = this._properties["particle_spawn_tests"].getCurrentValue();
+            let spawn_probability = this._properties["particle_spawn_probability"].getCurrentValue();
+            for (let i = 0; i < spawn_tests; i++) {
+                if (Math.random() < spawn_probability) {
+                    this._particles.push(new Particle(this));
+                }
+            }
+
+            //update all particles
+            ctx.beginPath();
+            for (let i = this._particles.length-1; i >= 0; i--) {
+                this._particles[i].update();
+                //display if it hasn't been deleted
+                if (this._particles[i]) this._particles[i].display();
+            }
+            ctx.fill();
+
+        }
+
+        //finished updating
+        return true;
+    }
+
+    //remove a particle from the list of particles. It stops drawing it and kill it.
+    killParticle(particle) {
+        //remove the particle
+        let index = this._particles.indexOf(particle);//find it in the list,
+        this._particles.splice(index, 1);// and delete it.
+    }
+}
+
+
+
+//particle of a particle flow visual object
+class Particle {
+    constructor(parent) {
+        if (!parent) throw new SyntaxError("particle parent visual object required.");
+        /**@type {VParticleFlow} */
+        this._parent = parent;
+
+        //radius and speed
+        let radius_range = this._parent.properties["particle_radius_range"].getCurrentValue();
+        this._radius = utils.RandomInt(radius_range[0], radius_range[1]);
+        this._speed = 0;
+        this._direction = 0;
+
+        //coordinates
+        this._x = 0;
+        this._y = 0;
+        this._x_min = -this._radius;
+        this._x_max = this._parent.canvas.width + this._radius;
+        this._y_min = -this._radius;
+        this._y_max = this._parent.canvas.height + this._radius;
+        this._x_velocity = 0;
+        this._y_velocity = 0;
+
+        //flow type based properties
+        let type = this._parent.properties["flow_type"].getCurrentValue();
+
+        //RADIAL
+        if (type === "radial") {
+            this._direction = Math.random() * 2*Math.PI;
+
+            //spawn to the center
+            let center = this._parent.properties["flow_center"].getCurrentValue();
+            this._x = center.x;
+            this._y = center.y;            
+        }
+
+        //DIRECTIONAL
+        if (type === "directional") {
+            this._direction = this._parent.properties["flow_direction"].getCurrentValue() * (2*Math.PI / 360);
+        
+            //DEFINE THE SPAWN TYPE
+            this._spawn_type;//on which sides of the screen particles can spawn;
+            //left || bottom-left || bottom || bottom-right || right || top-right || top || top-left;
+    
+            let PI = Math.PI;
+            let axis_direction = true;
+            //cases with a direction aligned with an axis
+            switch (this._direction) {
+                case 2*PI:
+                case 0:             this._spawn_type = "left"; break;
+                case PI/2:          this._spawn_type = "top"; break;
+                case PI:            this._spawn_type = "right"; break;
+                case (3*PI)/2:      this._spawn_type = "bottom"; break;
+                default: axis_direction = false;
+            }
+            //other cases
+            if      (utils.InInterval(this._direction, [0       , PI/2    ], "excluded")) {this._spawn_type = "top-left"}
+            else if (utils.InInterval(this._direction, [PI/2    , PI      ], "excluded")) {this._spawn_type = "top-right"}
+            else if (utils.InInterval(this._direction, [PI      , (3*PI)/2], "excluded")) {this._spawn_type = "bottom-right"}
+            else if (utils.InInterval(this._direction, [(3*PI)/2, 2*PI    ], "excluded")) {this._spawn_type = "bottom-left"}
+            else if (!axis_direction)
+                throw new Error(`Particle: ${this._direction} is not a valid particle direction. It must be a radian value between 0 and 2PI!`);
+    
+    
+            //APPLY THE SPAWN TYPE
+            let random = utils.RandomInt(0,1);
+    
+            switch (this._spawn_type) {
+                //====================================================
+                case "left": this.leftSpawn(); break;
+                //====================================================
+                case "bottom-left":
+                    if (random === 0) this.bottomSpawn();
+                        else this.leftSpawn(); break;
+                //====================================================
+                case "bottom": this.bottomSpawn(); break;
+                //====================================================
+                case "bottom-right":
+                    if (random === 0) this.bottomSpawn();
+                        else this.rightSpawn(); break;
+                //====================================================
+                case "right": this.rightSpawn(); break;
+                 //====================================================
+                case "top-right":
+                    if (random === 0) this.topSpawn();
+                        else this.rightSpawn(); break;
+                //====================================================
+                case "top": this.topSpawn(); break;
+                //====================================================
+                case "top-left":
+                    if (random === 0) this.topSpawn();
+                        else this.leftSpawn(); break;
+                //====================================================
+                default: throw new Error(`Particle: ${this._spawn_type} is not a valid spawn type!`);
+            }
+        }
+    }
+
+    //SPAWN METHODS
+    //spawn the particle arround the screen, depending of the direction.
+    //set spawn within the allowed boundaries of the screen
+    leftSpawn() {
+        this._x = this._x_min;
+        this._y = utils.RandomInt(this._y_min, this._y_max);
+    }
+    rightSpawn() {
+        this._x = this._x_max;
+        this._y = utils.RandomInt(this._y_min, this._y_max);
+    }
+    topSpawn() {
+        this._x = utils.RandomInt(this._x_min, this._x_max);
+        this._y = this._y_min;
+    }
+    bottomSpawn() {
+        this._x = utils.RandomInt(this._x_min, this._x_max);
+        this._y = this._y_max;
+    }
+
+
+    update() {
+        //compute speed
+        this._speed = this._parent.volume/20;
+        this._x_velocity = Math.cos(this._direction) * this._speed;
+        this._y_velocity = Math.sin(this._direction) * this._speed;
+
+        //apply speed
+        this._x += this._x_velocity;
+        this._y += this._y_velocity;
+
+        //kill particle being out or range (left the screen)
+        if (this._x > this._x_max || this._x < this._x_min || this._y > this._y_max || this._y < this._y_min ) {
+            this._parent.killParticle(this);
+        }
+    };
+    display() {
+        let ctx = this._parent.ctx;
+        ctx.moveTo(this._x, this._y);
+        ctx.arc(this._x, this._y, this._radius, 0, 2*Math.PI);
+    };
 }
