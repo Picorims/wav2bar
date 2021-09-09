@@ -23,6 +23,7 @@ package "ui_base_components" {
         + get display(): string
         + set display(display: string): void
     }
+    UIComponent "1 parent" -- "0..n child" UIComponent
 
     class UIButtonGrid {
         - _rows: int
