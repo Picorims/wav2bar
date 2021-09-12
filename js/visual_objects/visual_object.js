@@ -10,7 +10,7 @@ import * as ui_components from "../ui_components/ui_components.js";
 /**@abstract */
 export class VisualObject {
     constructor(save_handler, rack_parent, id = "") {
-        if (this.constructor === VisualObject) throw new SyntaxError("VisualObjectProperty is an abstract class.");
+        if (this.constructor === VisualObject) throw new SyntaxError("VisualObject is an abstract class.");
         if (utils.IsUndefined(save_handler)) throw new SyntaxError("SaveHandler required as an argument for a VisualObject.");
         if (!utils.IsAnElement(rack_parent)) throw new SyntaxError("rack_parent must be a DOM parent for the rack.");
 
@@ -324,6 +324,7 @@ export class VText extends VisualObject {
 /**@abstract */
 export class VTimer extends VisualObject {
     constructor(save_handler, rack_parent, id = "") {
+        if (this.constructor === VTimer) throw new SyntaxError("VTimer is an abstract class.");
         super(save_handler, rack_parent, id);
         this._parameter_rack.icon = '<i class="ri-timer-2-line"></i>';
     
@@ -756,4 +757,503 @@ class Particle {
         ctx.moveTo(this._x, this._y);
         ctx.arc(this._x, this._y, this._radius, 0, 2*Math.PI);
     };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Foundation for all visualizer Visual Objects.
+/**@abstract */
+export class VVisualizer extends VisualObject {
+    constructor(save_handler, rack_parent, id = "") {
+        super(save_handler, rack_parent, id);
+        if (this.constructor === VVisualizer) throw new SyntaxError("VVisualizer is an abstract class.");
+        this._parameter_rack.icon = '<i class="ri-rhythm-line"></i>';
+
+        //visualization frequency array used for drawing
+        this._freq_array = null;
+        this._prev_freq_array = null;
+        this._reset_visualization_smoothing = true;
+    
+        //#################
+        //UNIQUE PROPERTIES
+        //#################
+
+        this._properties["visualizer_points_count"] = new property.VPVisualizerPointsCount(this._save_handler, this);
+        this._properties["visualizer_analyser_range"] = new property.VPVisualizerAnalyserRange(this._save_handler, this);
+        this._properties["visualization_smoothing_type"] = new property.VPVisualizationSmoothingType(this._save_handler, this);
+        this._properties["visualization_smoothing_factor"] = new property.VPVisualizationSmoothingFactor(this._save_handler, this);
+        this._properties["color"] = new property.VPColor(this._save_handler, this);
+
+
+        //###################
+        //CREATE HTML ELEMENT
+        //###################
+
+
+
+        //###########
+        //UPDATE DATA
+        //###########
+
+        this._properties["visualizer_points_count"].subscribeToEvent("value_changed", value => {
+            this._reset_visualization_smoothing = true;
+        });
+        this._properties["visualizer_analyser_range"].subscribeToEvent("value_changed", value => {
+            this._reset_visualization_smoothing = true;
+        });
+        this._properties["visualization_smoothing_type"].subscribeToEvent("value_changed", value => {
+            this._reset_visualization_smoothing = true;
+        });
+        this._properties["visualization_smoothing_factor"].subscribeToEvent("value_changed", value => {
+            this._reset_visualization_smoothing = true;
+        });
+    }
+
+    /**@override */
+    update() {
+        //collect audio data
+        let points_count = this._properties["visualizer_points_count"].getCurrentValue();
+        let analyser_range = this._properties["visualizer_analyser_range"].getCurrentValue();
+        let original_freq_array = this._owner_project.getFrequencyArray();
+        this._freq_array = utils.MappedArray(original_freq_array, points_count, analyser_range[0], analyser_range[1]);
+
+        //apply visualization smoothing
+        if (utils.IsUndefined(this._prev_freq_array) || this._reset_visualization_smoothing) {
+            this._prev_freq_array = this._freq_array;
+            this._reset_visualization_smoothing = false;
+        }
+        var smooth_type = this._properties["visualization_smoothing_type"].getCurrentValue();
+        var smooth_factor = this._properties["visualization_smoothing_factor"].getCurrentValue();
+
+        for (let i = 0; i < this._freq_array.length; i++) {
+
+            if (smooth_type === "linear_decrease") {
+                //The new value can't decrease more than the factor value between current[i] and previous[i].
+                //The decrease is linear as long as the new value is below the old value minus the factor.
+                //This factor defines how quick the decay is.
+
+                //factor = 0 prevents from decreasing. factor > (maximum possible value for current[i]) disables the smoothing.
+                let scaled_smooth_factor = smooth_factor * 255; //0 to 1 -> 0 to max array value (255 with Int8Array)
+                let max_decay_limit = this._prev_freq_array[i] - scaled_smooth_factor;
+                if (this._freq_array[i] < max_decay_limit ) {
+                    this._freq_array[i] = max_decay_limit;
+                }
+
+            } else if (smooth_type === "proportional_decrease") {
+                //The new value can't decrease more than the previous[i]*factor.
+                //The higher current[i] is, the more impacted it is, making low smoothing for high values,
+                //but high smoothing for low values.
+                //The decrease is proportional as long as the new value is below the old value multiplicated by the factor.
+
+                //factor = 1 prevents from decreasing. factor > 1 indefinitely increase quicker and quicker previous[i].
+                //factor = 0 disables the smoothing
+                let max_proportional_decay_limit = this._prev_freq_array[i] * smooth_factor;
+                if (this._freq_array[i] < max_proportional_decay_limit) {
+                    this._freq_array[i] = max_proportional_decay_limit;
+                }
+
+            } else if (smooth_type === "average") {
+                //This is very similar to the smoothing system used by the Web Audio API.
+                //The formula is the following (|x|: absolute value of x):
+                //new[i] = factor * previous[i] + (1-factor) * |current[i]|
+
+                //factor = 0 disables the smoothing. factor = 1 freezes everything and keep previous[i] forever.
+                //factor not belonging to [0,1] creates uncontrolled behaviour.
+                this._freq_array[i] = smooth_factor * this._prev_freq_array[i] + (1-smooth_factor) * Math.abs(this._freq_array[i]);
+            }
+
+        }
+
+        this._prev_freq_array = this._freq_array;        
+    }
+}
+
+
+
+//Abstart Visual Object for all bar visualizers
+/**@abstract */
+export class VVisualizerBar extends VVisualizer {
+    constructor(save_handler, rack_parent, id = "") {
+        super(save_handler, rack_parent, id);
+        if (this.constructor === VVisualizerBar) throw new SyntaxError("VVisualizerBar is an abstract class.");
+        
+        this._bars = [];
+        this._exclude_bar_count_update = false;
+
+        //#################
+        //UNIQUE PROPERTIES
+        //#################
+
+        this._properties["border_radius"] = new property.VPBorderRadius(this._save_handler, this);
+        this._properties["box_shadow"] = new property.VPBoxShadow(this._save_handler, this);
+        this._properties["visualizer_bar_thickness"] = new property.VPVisualizerBarThickness(this._save_handler, this);
+
+
+        //###################
+        //CREATE HTML ELEMENT
+        //###################
+
+        this._element = document.createElement("div");
+        screen.appendChild(this._element);
+        this._element.style.position = "absolute";
+        this._element.style.display = "inline-block";
+        this._element.style.overflow = "hidden";
+
+
+        //###########
+        //UPDATE DATA
+        //###########
+
+        this._properties["color"].subscribeToEvent("value_changed", value => {
+            for (let i = 0; i < this._bars.length; i++) {
+                const bar = this._bars[i];
+                bar.style.backgroundColor = value;
+            }
+        });
+        this._properties["border_radius"].subscribeToEvent("value_changed", value => {
+            for (let i = 0; i < this._bars.length; i++) {
+                const bar = this._bars[i];
+                bar.style.borderRadius = value;
+            }
+        });
+        this._properties["box_shadow"].subscribeToEvent("value_changed", value => {
+            for (let i = 0; i < this._bars.length; i++) {
+                const bar = this._bars[i];
+                bar.style.boxShadow = value;
+            }
+        });
+        this._properties["visualizer_bar_thickness"].subscribeToEvent("value_changed", value => {
+            for (let i = 0; i < this._bars.length; i++) {
+                const bar = this._bars[i];
+                bar.style.width = value + "px";
+                bar.style.minHeight = value + "px";
+            }
+        });
+        this._properties["visualizer_points_count"].subscribeToEvent("value_changed", value => {
+            this.updateBars();
+        });
+    }
+
+    //update all the bars of the visualizer on all of its characteristics.
+    //Remove or add bars if needed to match points count.
+    updateBars() {
+        if (!this._exclude_bar_count_update) {
+
+            //update bar count
+            let points_count = this._properties["visualizer_points_count"].getCurrentValue();
+            let initial_length = this._bars.length;
+
+            if (initial_length < points_count) {
+                //add missing bars
+                for (let i = 0; i < points_count - initial_length; i++) {
+                    let bar = document.createElement("div");
+                    this._element.appendChild(bar);
+                    bar.style.zIndex = "inherit";
+                    this._bars.push(bar);
+                }
+            } else if (initial_length > points_count) {
+                //remove excessive bars
+                for (let i = initial_length - 1; i >= points_count; i--) {
+                    let bar = this._bars[i];
+                    bar.remove();
+                    this._bars.pop();
+                }
+            }
+
+            //update bar visual object properties without triggering this function again.
+            this._exclude_bar_count_update = true;
+            this.triggerUpdateData();
+            this._exclude_bar_count_update = false;
+        }
+    }
+
+    update() {
+        super.update();
+        let height = this._properties["size"].getCurrentValue().height;
+
+        for (let i = 0; i < this._bars.length; i++) {
+            //proportionality to adapt to the full height. (max volume = 256)
+            this._bars[i].style.height = (this._freq_array[i] / 256 * height) + "px";
+        }
+    }
+}
+
+
+
+//Visualizer that is made of parallel straight lines on a straight line path.
+export class VVisualizerStraightBar extends VVisualizerBar {
+    constructor(save_handler, rack_parent, id = "") {
+        super(save_handler, rack_parent, id);
+        this._TYPE = "visualizer_straight_bar";
+        this.assertType();
+
+        //###################
+        //CREATE HTML ELEMENT
+        //###################
+
+        this._element.style.display = "flex";
+        this._element.style.flexWrap = "nowrap";
+        this._element.style.justifyContent = "space-between";
+        this._element.style.alignItems = "flex-end";
+
+
+        //###########
+        //UPDATE DATA
+        //###########
+
+        //mandatory for initialization
+        this.triggerUpdateData();
+
+    }
+
+    update() {
+        super.update();
+
+        //finished updating
+        return true;
+    }
+}
+
+
+
+//Visualizer that is made of straight bar organized around a circle like rays.
+export class VVisualizerCircularBar extends VVisualizerBar {
+    constructor(save_handler, rack_parent, id = "") {
+        super(save_handler, rack_parent, id);
+        this._TYPE = "visualizer_circular_bar";
+        this.assertType();
+
+        //#################
+        //UNIQUE PROPERTIES
+        //#################
+
+        this._properties["visualizer_radius"] = new property.VPVisualizerRadius(this._save_handler, this);
+
+
+        //###########
+        //UPDATE DATA
+        //###########
+
+        this._properties["visualizer_radius"].subscribeToEvent("value_changed", value => {
+            this.updateBars();
+        });
+
+        //mandatory for initialization
+        this.triggerUpdateData();
+
+    }
+
+    updateBars() {
+        super.updateBars();
+        this.updateBarsRotation();
+    }
+
+    //reposition all the bars accordingly in a circular way based on radius.
+    updateBarsRotation() {
+        let points_count = this._properties["visualizer_points_count"].getCurrentValue();
+        let radius = this._properties["visualizer_radius"].getCurrentValue();
+        let rot_step = 2*Math.PI / points_count;
+        let rot_pos = 0;
+
+        for (let i = 0; i < this._bars.length; i++) {
+            const bar = this._bars[i];
+            
+            //centering
+            bar.style.position = "absolute";
+            let center_x = (this._element.offsetWidth / 2) - (bar.offsetWidth / 2);
+            let center_y = (this._element.offsetHeight / 2);
+            bar.style.left = (center_x + Math.cos(rot_pos) * radius) + "px";
+            bar.style.top = (center_y + Math.sin(rot_pos) * radius) + "px";
+
+            //transform
+            bar.style.transformOrigin = "center top";
+            bar.style.transform = `scale(-1,-1) rotate( ${rot_pos + Math.PI / 2}rad )`;
+
+            //iterate
+            rot_pos += rot_step;                
+        }
+    }
+
+    update() {
+        super.update();
+        let height = this._properties["size"].getCurrentValue().height;
+        let radius = this._properties["visualizer_radius"].getCurrentValue();
+
+        for (let i = 0; i < this._bars.length; i++) {
+            //proportionality to adapt to the full height. (max volume = 256)
+            this._bars[i].style.height = (this._freq_array[i] / 256 * (height/2 - radius)) + "px";        
+        }
+
+        //fix rotation;
+        this.updateBarsRotation();
+
+        //finished updating
+        return true;
+    }
+}
+
+
+
+//Visualizer that represent the spectrum as waves, on a linear base
+export class VVisualizerStraightWave extends VVisualizer {
+    constructor(save_handler, rack_parent, id = "") {
+        super(save_handler, rack_parent, id);
+        this._TYPE = "visualizer_straight_wave";
+        this.assertType();
+
+        this._debug = false;
+
+        //###################
+        //CREATE HTML ELEMENT
+        //###################
+
+        this._element = document.createElement("canvas");
+        screen.appendChild(this._element);
+        this._element.style.position = "absolute";
+        this._element.style.display = "inline-block";
+        this._element.style.overflow = "hidden";
+
+
+        //###########
+        //UPDATE DATA
+        //###########
+
+        this._properties["size"].subscribeToEvent("value_changed", (value) => {
+            this._element.width = value.width;
+            this._element.height = value.height;
+        });
+
+        //mandatory for initialization
+        this.triggerUpdateData();
+
+    }
+
+    update() {
+        super.update();
+
+        let points_count = this._properties["visualizer_points_count"].getCurrentValue();
+        let height = this._properties["size"].getCurrentValue().height;
+        let color = this._properties["color"].getCurrentValue();
+
+        let visualizer_cvs = this._element;
+        //canvas context
+        let vis_ctx = visualizer_cvs.getContext("2d");
+
+        //divide the canvas into equal parts
+        let wave_step = visualizer_cvs.width / (points_count-1);//create steps
+        let wave_step_pos = 0;
+
+        //clear
+        vis_ctx.clearRect(0, 0, visualizer_cvs.width, visualizer_cvs.height);
+
+
+
+        //CREATE THE WAVE
+        vis_ctx.beginPath();
+        vis_ctx.moveTo(this._freq_array[i] / 256 * height, visualizer_cvs.height);
+
+        let x, y, ctrl_point_1_x, ctrl_point_1_y, ctrl_point_2_x, ctrl_point_2_y;
+
+        //make all wave points
+        for (let i = 0; i < points_count; i++) {
+            //place a new bezier point
+
+            // => parameters
+            x = wave_step_pos;
+            //proportionality to adapt to the full height. (max volume = 256)
+            y = visualizer_cvs.height - (this._freq_array[i] / 256 * height);
+            //the first point creates a bezier with a width 2 times smaller, so it has to be taken in count!
+            ctrl_point_1_x = (i === 0) ? x-(wave_step/4) : x-(wave_step/2);
+            //1_y at the same height of the previous point, if that one exists.
+            ctrl_point_1_y = (visualizer_cvs.height - (this._freq_array[i-1] / 256 * height)) || visualizer_cvs.height;
+            ctrl_point_2_x = ctrl_point_1_x;
+            ctrl_point_2_y = y;
+
+            // => canvas draw
+            vis_ctx.bezierCurveTo(ctrl_point_1_x, ctrl_point_1_y, ctrl_point_2_x, ctrl_point_2_y, x, y);
+            wave_step_pos += wave_step;
+        }
+        // //END THE WAVE
+        vis_ctx.lineTo(visualizer_cvs.width, visualizer_cvs.height);
+
+        //DRAW THE WAVE ON THE CANVAS
+        vis_ctx.fillStyle = color;
+        vis_ctx.fill();
+
+
+
+        //DEBUG vvvv#########################################################################################################
+
+        if (this._debug) {
+            let wave_step_pos = 0;
+            let color_strength = 180;
+    
+            for (let i = 0; i < points_count; i++) {
+                vis_ctx.beginPath();
+                x = wave_step_pos;
+                //proportionality to adapt to the full height. (max volume = 256)
+                y = visualizer_cvs.height - (this._freq_array[i] / 256 * height);
+                vis_ctx.arc(x, y, 3, 0, 2*Math.PI);
+                vis_ctx.fillStyle = `rgb(${color_strength},0,0)`;
+                vis_ctx.fill();
+    
+                vis_ctx.beginPath();
+                ctrl_point_1_x = (i === 0) ? x-(wave_step/4) : x-(wave_step/2);
+                //at the same height of the previous point, if that one exists.
+                ctrl_point_1_y = (visualizer_cvs.height - (this._freq_array[i-1] / 256 * height) ) || visualizer_cvs.height;
+                vis_ctx.arc(ctrl_point_1_x, ctrl_point_1_y, 3, 0, 2*Math.PI);
+                vis_ctx.fillStyle = `rgb(0,${color_strength},0)`;
+                vis_ctx.fill();
+    
+                vis_ctx.beginPath();
+                ctrl_point_2_x = ctrl_point_1_x;
+                ctrl_point_2_y = y;
+                vis_ctx.arc(ctrl_point_2_x, ctrl_point_2_y, 3, 0, 2*Math.PI);
+                vis_ctx.fillStyle = `rgb(0,0,${color_strength})`;
+                vis_ctx.fill();
+    
+    
+                wave_step_pos += wave_step;
+                color_strength += 20;
+            }
+            vis_ctx.beginPath();
+            x = visualizer_cvs.width;
+            y = visualizer_cvs.height;
+            vis_ctx.arc(x, y, 3, 0, 2*Math.PI);
+            vis_ctx.fillStyle = `rgb(${color_strength},0,0)`;
+            vis_ctx.fill();
+    
+            vis_ctx.beginPath();
+            ctrl_point_1_x = x - (wave_step/4);
+            ctrl_point_1_y = visualizer_cvs.height - (this._freq_array[points_count-1] / 256 * height);//last bar height.
+            vis_ctx.arc(ctrl_point_1_x, ctrl_point_1_y, 3, 0, 2*Math.PI);
+            vis_ctx.fillStyle = `rgb(0,${color_strength},0)`;
+            vis_ctx.fill();
+    
+            vis_ctx.beginPath();
+            ctrl_point_2_x = ctrl_point_1_x;
+            ctrl_point_2_y = y;
+            vis_ctx.arc(ctrl_point_2_x, ctrl_point_2_y, 3, 0, 2*Math.PI);
+            vis_ctx.fillStyle = `rgb(0,0,${color_strength})`;
+            vis_ctx.fill();    
+        }
+
+        //DEBUG ^^^^###########################################################################################
+
+        //END OF STRAIGHT WAVE
+
+        //finished updating
+        return true;
+    }
 }

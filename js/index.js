@@ -395,7 +395,9 @@ class SaveHandler {
             case "text":                        obj = new imports.visual_objects.VText(this, tab.objects, obj_id); break;
             case "timer_straight_bar":          obj = new imports.visual_objects.VTimerStraightBar(this, tab.objects, obj_id); break;
             case "timer_straight_line_point":   obj = new imports.visual_objects.VTimerStraightLinePoint(this, tab.objects, obj_id); break;
-            case "visualizer":                  console.log("to implement"); break;
+            case "visualizer_straight_bar":     obj = new imports.visual_objects.VVisualizerStraightBar(this, tab.objects, obj_id); break;
+            case "visualizer_circular_bar":     obj = new imports.visual_objects.VVisualizerCircularBar(this, tab.objects, obj_id); break;
+            case "visualizer_straight_wave":    obj = new imports.visual_objects.VVisualizerStraightWave(this, tab.objects, obj_id); break;
             default: throw new SyntaxError(`LoadSave: ${type} is not a valid object type. Is the save corrupted ?`);
         }
         if (name) obj.setName(name);
@@ -819,6 +821,10 @@ class Project {
     //returns if the audio object is in loop mode.
     getAudioIsLooping() {
         return this._audio.loop;
+    }
+
+    getFrequencyArray() {
+        return this._frequency_array;
     }
 
 

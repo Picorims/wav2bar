@@ -40,6 +40,13 @@ const DEFAULTS = {
     FLOW_DIRECTION: 0,
     PARTICLE_SPAWN_PROBABILITY: 0.75,
     PARTICLE_SPAWN_TESTS: 1,
+
+    VISUALIZER_RADIUS: 30,
+    VISUALIZER_POINTS_COUNT: 50,
+    VISUALIZER_ANALYZER_RANGE: [0, 750],
+    VISUALIZATION_SMOOTHING_TYPE: "average",
+    VISUALIZATION_SMOOTHING_FACTOR: 0.7,
+    VISUALIZER_BAR_THICKNESS: 2,
 }
 
 //abstract class to manipulate a property of a VisualObject
@@ -1104,5 +1111,228 @@ export class VPParticleSpawnTests extends VisualObjectProperty {
     /**@override */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 1);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//#######################
+// VISUALIZER PROPERTIES
+//#######################
+
+//property that handle the inner radius of a circular visualizer
+export class VPVisualizerRadius extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "visualizer-radius", DEFAULTS.VISUALIZER_RADIUS);
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "",
+            false,
+            [{
+                title: "Radius (circular visualizer) :",
+                unit: "px",
+                default_value: this.getCurrentValue(),
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                }
+            }]
+        );
+        // this.parameters.radius.help_string = help.parameter.object.visualizer.circular_kind.radius;
+    }
+
+    /**@override */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
+    }
+}
+
+
+
+//property that defines the number of points used to draw a visualizer (its precision in other words)
+export class VPVisualizerPointsCount extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "visualizer_points_count", DEFAULTS.VISUALIZER_POINTS_COUNT);
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "",
+            false,
+            [{
+                title: "Points count :",
+                unit: "px",
+                default_value: this.getCurrentValue(),
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                }
+            }]
+        );
+        // this.parameters.points_count.help_string = help.parameter.object.visualizer.general.points_count;
+    }
+
+    /**@override */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
+    }
+}
+
+
+
+export class VPVisualizerAnalyserRange extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "visualizer_analyzer_range", DEFAULTS.VISUALIZER_ANALYZER_RANGE);
+    
+        // create associated UI
+        this._ui_parameter = new imports.ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "Analyser Range",
+            true,
+            [{
+                title: "Min :",
+                unit: "",
+                default_value: this.getCurrentValue()[0],
+                min: 0,
+                max: 1023,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe([parseInt(this._ui_parameter.value(0)), parseInt(this._ui_parameter.value(1))]);
+                }
+            },
+            {
+                title: "Max :",
+                unit: "",
+                default_value: this.getCurrentValue()[1],
+                min: 0,
+                max: 1023,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe([parseInt(this._ui_parameter.value(0)), parseInt(this._ui_parameter.value(1))]);
+                }
+            }]
+        );
+        // this.parameters.analyser_range.help_string = help.parameter.object.visualizer.general.analyser_range;
+    }
+
+    /**@override */
+    hasValidValue(value) {
+        let is_array = !utils.IsUndefined(value) && utils.IsAnArray(value) && value.length === 2;
+        if (!is_array) return false;
+        else {
+            let are_integers = utils.IsAnInt(value[0]) && utils.IsAnInt(value[1]);
+            if (!are_integers) return false;
+                else return (value[0] >= 0 && value[0] <= 1023 && value[1] >= 0 && value[1] <= 1023);
+        }
+    }
+}
+
+
+
+//property to choose the visualization smoothing type from one frame to another
+export class VPVisualizationSmoothingType extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "visualization_smoothing_type", DEFAULTS.VISUALIZATION_SMOOTHING_TYPE);
+
+        this._allowed_values = ["proportional_decrease","linear_decrease","average"];
+
+        //create associated UI
+        this._ui_parameter = new ui_components.UIParameterChoice(
+            this._visual_object.parameter_rack,
+            "Visualization smoothing type",
+            this._allowed_values,
+            this.getCurrentValue(),
+            () => {
+                this.setSaveUISafe(this._ui_parameter.value);
+            }
+        );
+        // this.parameters.visualization_smoothing_type.help_string = help.parameter.object.visualizer.general.visualization_smoothing.type;
+    }
+
+    /**@override */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAString(value) && this._allowed_values.includes(value));
+    }
+}
+
+
+
+//property to choose the factor of visualization smoothing, the value influences the mathematical behaviour.
+export class VPVisualizationSmoothingFactor extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "visualization_smoothing_factor", DEFAULTS.VISUALIZATION_SMOOTHING_FACTOR);
+    
+        // create associated UI
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "",
+            false,
+            [{
+                title: "Visualization smoothing factor :",
+                unit: "",
+                default_value: this.getCurrentValue(),
+                min: 0,
+                max: 1,
+                step: 0.01,
+                callback: () => {
+                    this.setSaveUISafe(parseFloat(this._ui_parameter.value(0)));
+                }
+            }]
+        );
+        // this.parameters.visualization_smoothing_factor.help_string = help.parameter.object.visualizer.general.visualization_smoothing.factor;
+    }
+
+    /**@override */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsANumber(value) && value >= 0);
+    }
+}
+
+
+
+//property to define the thickness of bars of a bar visualizer (how large a bar is).
+export class VPVisualizerBarThickness extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "visualizer_bar_thickness", DEFAULTS.VISUALIZER_BAR_THICKNESS);
+         
+        // create associated UI
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
+            this._visual_object.parameter_rack,
+            "",
+            false,
+            [{
+                title: "Bar thickness :",
+                unit: "",
+                default_value: this.getCurrentValue(),
+                min: 0,
+                step: 1,
+                callback: () => {
+                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                }
+            }]
+        );
+        // this.parameters.bar_thickness.help_string = help.parameter.object.visualizer.bar_kind.bar_thickness;
+    }
+
+    /**@override */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
     }
 }
