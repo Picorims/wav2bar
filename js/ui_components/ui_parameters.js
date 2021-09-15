@@ -444,6 +444,11 @@ export class UIParameterBackgroundPicker extends UIParameter {
         this._bgnd_size_input1.step = step;
         this._bgnd_size_input2.step = step;
     }
+
+    //triggers the main string input event
+    triggerOnInput() {
+        this._input.triggerOninput();
+    }
 }
 
 

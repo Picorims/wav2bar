@@ -180,6 +180,7 @@ package "ui_parameters" {
         + set size_min(min: number): void
         + set size_max(max: number): void
         + set size_step(step: number): void
+        + triggerOnInput(): void
     }
     UIParameter <|-- UIParameterBackgroundPicker
     UIParameterBackgroundPicker *.. "2" UIChoiceList

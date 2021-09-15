@@ -389,8 +389,7 @@ class SaveHandler {
     createVisualObject(type, name = null, obj_id = "") {
         let obj;
         switch (type) {
-            case "background":                  console.log("to implement"); break;
-            case "image":                       console.log("to implement"); break;
+            case "image":                       obj = new imports.visual_objects.VShape(this, tab.objects, obj_id); break;
             case "particle_flow":               obj = new imports.visual_objects.VParticleFlow(this, tab.objects, obj_id); break;
             case "text":                        obj = new imports.visual_objects.VText(this, tab.objects, obj_id); break;
             case "timer_straight_bar":          obj = new imports.visual_objects.VTimerStraightBar(this, tab.objects, obj_id); break;
@@ -450,6 +449,34 @@ class SaveHandler {
         let ids = [];
         for (let key in this._save_data.objects) ids.push(key);
         return ids;
+    }
+
+    //copy an image from the given path and save it in the current save, then returns
+    //the file name and the new path of the saved image.
+    async saveObjectBackgroundImage(path, obj_id) {
+        //copying file
+        let filename = path.replace(/^.*[\\\/]/, '');
+        let new_path = `${working_dir}/temp/current_save/assets/${obj_id}/background/`;
+        
+        //is an image file already imported ?
+        let path_exists = await ipcRenderer.invoke("path-exists", new_path);
+        let image_exists;
+        if (path_exists) {
+            let image_dir_content = await ipcRenderer.invoke("read-dir", new_path);
+            image_exists = (image_dir_content.length !== 0);
+        } else {
+            image_exists = false;
+        }
+
+        //cache image in current save
+        if (image_exists) await ipcRenderer.invoke("empty-dir", new_path);
+            else await ipcRenderer.invoke("make-dir", new_path)
+        await ipcRenderer.invoke("copy-file", path, `${new_path}${filename}`);
+        
+        return {
+            filename: filename,
+            new_path: new_path,
+        }
     }
 
 
@@ -512,6 +539,12 @@ class Project {
     constructor() {
         /**@type {SaveHandler} */
         this._save_handler = null;
+        this._user_interface = null;
+
+        this._working_dir = working_dir;
+        this._root_dir = root_dir;
+        this._os = os;
+        this._export_mode = export_mode;
 
         //ANIMATION PREPARATION
         this._stop_animating = false;
@@ -555,6 +588,14 @@ class Project {
         this._save_handler = save_handler;
         this._save_handler.owner_project = this;
     }
+
+    get user_interface() {return this._user_interface;}
+    set user_interface(user_interface) {this._user_interface = user_interface;}
+
+    get working_dir() {return this._working_dir;}
+    get root_dir() {return this._root_dir;}
+    get export_mode() {return this._export_mode;}
+    get os() {return this._os;}
 
     get volume() {return this._volume;}
 
@@ -865,6 +906,25 @@ class Project {
 
 
 
+
+//bridge class to interact with global context user interface
+class UserInterface {
+    constructor() {
+        
+    }
+
+    //bridge to interact with user_interface.js file browser dialog
+    async FileBrowserDialog(settings, callback, args) {
+        await FileBrowserDialog(settings, callback, args);
+    }
+}
+
+
+
+
+
+
+
 /*
 #####################
 GLOBAL INITIALIZATION
@@ -898,10 +958,10 @@ function LoadModules() {
 
 function InitPage() {//page initialization
 
-    //PREPARE SAVE
+    //SETUP PROJECT AND PREPARE SAVE
     project = new Project();
     project.save_handler = new SaveHandler();
-
+    project.user_interface = new UserInterface();
 
 
     //UI INITIALIZATION

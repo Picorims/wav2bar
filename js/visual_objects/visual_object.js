@@ -1257,3 +1257,138 @@ export class VVisualizerStraightWave extends VVisualizer {
         return true;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Visual object to represent a basic shape, like a square or ellipse.
+//This object supports multiple background options.
+export class VShape extends VisualObject {
+    constructor(save_handler, rack_parent, id = "") {
+        super(save_handler, rack_parent, id);
+        this._TYPE = "shape";
+        this.assertType();
+        this._parameter_rack.icon = '<i class="ri-image-fill"></i>';
+
+        //#################
+        //UNIQUE PROPERTIES
+        //#################
+
+        this._properties["border_radius"] = new property.VPBorderRadius(this._save_handler, this);
+        this._properties["box_shadow"] = new property.VPBoxShadow(this._save_handler, this);
+        this._properties["background"] = new property.VPBackground(this._save_handler, this);
+
+        //###################
+        //CREATE HTML ELEMENT
+        //###################
+
+        //canvas or div depending of the context
+        this._element = document.createElement("div");
+
+        //basic parameters
+        screen.appendChild(this._element);
+        this._element.style.position = "absolute";
+        this._element.style.display = "inline-block";
+        this._element.style.overflow = "hidden";
+
+
+        //###########
+        //UPDATE DATA
+        //###########
+
+        this._properties["border_radius"].subscribeToEvent("value_changed", (value) => {
+            this._element.style.borderRadius = value;
+        });
+
+        this._properties["box_shadow"].subscribeToEvent("value_changed", (value) => {
+            this._element.style.boxShadow = value;
+        });
+
+        this._properties["background"].subscribeToEvent("value_changed", (value) => {
+            switch (value.type) {//background
+                case "color":
+                    this._element.style.background = "";
+                    this._element.style.backgroundColor = value.last_color;
+                    this._element.style.backgroundImage = "";
+                    break;
+                case "gradient":
+                    this._element.style.backgroundImage = "";
+                    this._element.style.background = value.last_gradient;
+                    this._element.style.backgroundColor = "";
+                    break;
+                case "image":
+                    this._element.style.background = "";
+                    this._element.style.backgroundColor = "";
+                    if (value.last_image !== "") {
+                        let url;
+                        let full_path = `${this._owner_project.working_dir}/temp/current_save/assets/${this._id}/background/${value.last_image}`;
+                        
+                        //set url to use for css
+                        if (this._owner_project.export_mode) {
+                            url = this.fullPathToCSSPath(`${this._owner_project.root_dir}/html`, full_path);
+                        } else {
+                            url = this.fullPathToCSSPath(`${this._owner_project.root_dir}`, full_path);
+                        }
+                        
+                        this._element.style.backgroundImage = `url("${url}")`;
+                    } else {
+                        this._element.style.backgroundImage = "";
+                        this._element.style.backgroundColor = "#000000";
+                    }
+                    this._element.style.backgroundRepeat = value.repeat;
+                    break;
+            }
+            this._element.style.backgroundSize = value.size;//background size
+        });
+
+
+        //mandatory for initialization
+        this.triggerUpdateData();
+    }
+
+    //transforms an absolute path into a CSS path given the working directory
+    //This might be a big gas engine, option to test: using absolute path that starts with /.
+    fullPathToCSSPath(working_dir, absolute_path) {
+        //setup working directory information
+        working_dir = working_dir.replace(/^.*\/$/, "").replace(/^.*\\$/, ""); //remove last (anti)slash
+        let splitter = (this._owner_project.os === "win32") ? "\\" : "\/";
+        
+        //find the number of upper levels from the working directory.
+        //-1 because we don't want to count what is before the root slash
+        //(either empty or drive letter)
+        let number_of_upper_levels = working_dir.split(splitter).count - 1;
+
+        //build relative path
+        let relative_path = "";
+        //apply upper jumps
+        for (let i = 0; i < number_of_upper_levels; i++) relative_path += "../";
+        //format absolute path to be appended by using only / and removing the root part
+        if (this._owner_project.os === "win32") absolute_path = absolute_path.split("\\").join("\/");
+        //remove everything until the first occurence of a /
+        absolute_path = absolute_path.replace(/[^\/]*/, "");
+
+        relative_path += absolute_path;
+
+        return relative_path;
+    }
+
+    /**@override */
+    update() {
+        //nothing but returning true.
+
+        //finished updating
+        return true;
+    }
+
+}

@@ -14,6 +14,14 @@ const DEFAULTS = {
     COLOR: "#ffffff",
     BORDER_RADIUS: "",
     BOX_SHADOW: "",
+    BACKGROUND: {
+        type: "color",
+        last_color: "#ffffff",
+        last_gradient: "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%)",
+        last_image: "",
+        size: "",
+        repeat: "no-repeat",
+    },
 
     TEXT_TYPE: "any",
     TEXT_CONTENT: "text",
@@ -528,6 +536,177 @@ export class VPBoxShadow extends VisualObjectProperty {
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAString(value));
     }    
+}
+
+
+
+//visual property to define a CSS based background. It supports color, gradients, and images.
+export class VPBackground extends VisualObjectProperty {
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "background", DEFAULTS.BACKGROUND);
+
+        //create associated UI
+        let parsed_size = this.parseBackgroundSize(this.getCurrentValue().size);
+        let parsed_repeat = this.parseBackgroundRepeat(this.getCurrentValue().repeat);
+        this._ui_parameter = new ui_components.UIParameterBackgroundPicker(
+            this._visual_object.parameter_rack,
+            "Background",
+            {//defaults
+                color: this.getCurrentValue().last_color,
+                gradient: this.getCurrentValue().last_gradient,
+                //line below doesn't work because not a relative path
+                image: (this.getCurrentValue().last_image !== "")? `url(${this._save_handler.owner_project.working_dir}/temp/current_save/assets/${this._visual_object.id}/background/${this.getCurrentValue().last_image})` : "",
+                type: this.getCurrentValue().type,
+                size_type: parsed_size.size_type,
+                size_x: parsed_size.size_x,
+                size_y: parsed_size.size_y,
+                repeat_x: parsed_repeat.repeat_x,
+                repeat_y: parsed_repeat.repeat_y,
+            },
+            this._visual_object.id,
+        );
+
+        this._ui_parameter.img_picker_onclick = async () => {
+            await this._save_handler.owner_project.user_interface.FileBrowserDialog({
+                type: "get_file",
+                allowed_extensions: ["avif","jpg","jpeg","jfif","pjpeg","pjp","png","svg","webp","bmp","ico","cur"],
+                //source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
+            }, async (result) => {
+                let file_info = await this._save_handler.saveObjectBackgroundImage(result, this._visual_object.id);
+
+                //update display and keep new name in memory;
+                this._ui_parameter.img_disp_background_image = `url("${file_info.new_path}${file_info.filename}")`; //doesn't work because not a relative path
+                this._ui_parameter.default_image = file_info.filename;
+            
+                //trigger callback to update the object and save
+                this._ui_parameter.triggerOnInput();
+            });
+        }
+        
+        this._ui_parameter.input_image_callback = this._ui_parameter.input_else_callback = (id, type, value, size_type, size_x, size_y, repeat_x, repeat_y) => {
+            this.setSaveUISafe({
+                type: type,
+                last_color: (type === "color")? value : this.getCurrentValue().last_color,
+                last_gradient: (type === "gradient")? value : this.getCurrentValue().last_gradient,
+                last_image: (type === "image")? value : this.getCurrentValue().last_image,
+                size: (type === "image")? this.stringifyBackgroundSize(size_type, size_x, size_y) : this.getCurrentValue().size,
+                repeat: (type === "image")? this.stringifyBackgroundRepeat(repeat_x, repeat_y) : this.getCurrentValue().repeat,        
+            });
+        };
+        this._ui_parameter.size_step = 1;
+        //HELP TODO
+    }
+
+    //parse a background size CSS property into an object with separate values.
+    parseBackgroundSize(bgnd_size) {
+        let bgnd_size_array = bgnd_size.split(" ");
+        let def_size_type, def_size_x, def_size_y;
+        let val_percent_regex = new RegExp(/[0-9]+%/);//no g flag so it doesn't keep track of last index
+        if (bgnd_size_array[0] === "contain") {
+            def_size_type = "contain";
+            def_size_x = def_size_y = "100";
+
+        } else if (bgnd_size_array[0] === "cover") {
+            def_size_type = "cover";
+            def_size_x = def_size_y = "100";
+
+        } else if ( bgnd_size_array.length === 1 && val_percent_regex.test(bgnd_size_array[0]) ) {
+            def_size_type = "scale_size_control";
+            def_size_x = bgnd_size_array[0].replace("%","");
+            def_size_y = "100";
+
+        } else if ( bgnd_size_array.length === 2 && val_percent_regex.test(bgnd_size_array[0]) && val_percent_regex.test(bgnd_size_array[1]) ) {
+            def_size_type = "width_height_size_control";
+            def_size_x = bgnd_size_array[0].replace("%","");
+            def_size_y = bgnd_size_array[1].replace("%","");
+
+        } else {
+            def_size_type = "cover";
+            def_size_x = def_size_y = "100";
+        }
+
+        return {
+            size_type: def_size_type,
+            size_x: def_size_x,
+            size_y: def_size_y,
+        }
+    }
+
+    //craft a CSS background size property from given information.
+    stringifyBackgroundSize(size_type, size_x, size_y) {
+        switch (size_type) {
+            case "contain":
+            case "cover":
+                return size_type;
+            case "scale_size_control":
+                return size_x + "%";
+            case "width_height_size_control":
+                return `${size_x}% ${size_y}%`;
+        }
+    }
+
+    //parse a background repeat CSS property into separated values.
+    parseBackgroundRepeat(bgnd_repeat) {
+        let repeat_x_bool, repeat_y_bool;
+        switch (bgnd_repeat) {
+            case "repeat":
+                repeat_x_bool = repeat_y_bool = true;
+                break;
+            case "repeat-x":
+                repeat_x_bool = true;
+                repeat_y_bool = false;
+                break;
+            case "repeat-y":
+                repeat_x_bool = false;
+                repeat_y_bool = true;
+                break;
+            case "no-repeat":
+            default:
+                repeat_x_bool = repeat_y_bool = false;
+                break;
+        }
+
+        return {
+            repeat_x: repeat_x_bool,
+            repeat_y: repeat_y_bool,
+        }
+    }
+
+    //Craft a background repeat property from given information.
+    stringifyBackgroundRepeat(repeat_x, repeat_y) {
+        if (repeat_x && repeat_y) return "repeat";
+        else if (repeat_x && !repeat_y) return "repeat-x";
+        else if (!repeat_x && repeat_y) return "repeat-y";
+        else if (!repeat_x && !repeat_y) return "no-repeat";
+    }
+
+    /**@override */
+    hasValidValue(value) {
+        if (utils.IsUndefined(value)) return false;
+        if (!utils.IsAnObject(value)) return false;
+
+        if (utils.IsUndefined(value.type)
+            || utils.IsUndefined(value.last_color)
+            || utils.IsUndefined(value.last_gradient)
+            || utils.IsUndefined(value.last_image)
+            || utils.IsUndefined(value.size)
+            || utils.IsUndefined(value.repeat))
+            return false;
+        
+        //values exist
+        let valid_types = ["color","gradient","image"]
+        let valid_type = utils.IsAString(value.type) && valid_types.includes(value.type);
+        
+        let valid_color = utils.IsAString(value.last_color);
+        let valid_gradient = utils.IsAString(value.last_gradient);
+        let valid_image = utils.IsAString(value.last_image);
+        let valid_size = utils.IsAString(value.size);
+        
+        let valid_repeat_values = ["no-repeat","repeat","repeat-x","repeat-y"];
+        let valid_repeat = utils.IsAString(value.repeat) && valid_repeat_values.includes(value.repeat);
+
+        return valid_type && valid_color && valid_gradient && valid_image && valid_size && valid_repeat;
+    }
 }
 
 
