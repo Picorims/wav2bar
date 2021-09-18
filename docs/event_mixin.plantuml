@@ -7,5 +7,10 @@ skinparam BackgroundColor #222222
 skinparam PackageStyle frame
 
 package "event_mixin" {
-    
+    class EventMixin <<mixin>> {
+        + setupEventMixin(events_list: Array[String]): void
+        + subscribeToEvent(event: String, function_handler: Function): void
+        + unsubscribeToEvent(event: String, function_handler: Function): void
+        + triggerEvent(event: String, ...args: any): void
+    }
 }

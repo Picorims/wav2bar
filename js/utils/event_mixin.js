@@ -23,7 +23,7 @@ export let EventMixin = {
 
         let handlers = this._event_handlers[event];
         for (let i = handlers.length-1; i >= 0; i--) {
-            if (handlers[i] === handler) {
+            if (handlers[i] === function_handler) {
                 handlers.splice(i, 1);
             }
         }
