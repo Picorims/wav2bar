@@ -1,0 +1,142 @@
+'MIT License - Copyright (c) 2020-2021 Picorims
+
+@startuml index
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+' skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package visual_objects {
+    class VisualObject {}
+}
+
+package "index" {
+    class SaveHandler {
+        - _owner_project: Project
+        - _CURRENT_SAVE_VERSION: Integer
+        - _save_data: Object
+        - _lock_save_sync: Boolean
+        - _objects: Object{VisualObject}
+        --
+        + SaveHandler(): SaveHandler
+        ..get, set..
+        + set owner_project(owner_project: Project): void
+        + get owner_project(): Project
+        + get save_data(): Object
+        + set save_data(save_data: Object): void
+        + get objects(): Object
+        + set screen(screen: Object): void
+        + get fps(): Integer
+        + set fps(fps: Integer): void
+        ..
+        + rewriteSoftwareInfo(): void
+        + loadDefaultSave(): void
+        + async loadSave(save_file_path: string): void
+        + convertSave(log_array: Array = []): void
+        + applyLoadedSave(): void
+        + exportSaveAsJSON(): void
+        + exportSave(save_path: String, no_dialog: Boolean = false): void
+        
+        + createVisualObject(type: String, name: String = null, obj_id: String = ""): void
+        + addVisualObject(object: VisualObject): void
+        + deleteVisualObject(id: String): void
+        + deleteAllVisualObjects(): void
+        + getVisualObjectData(id: String): void
+        + mergeVisualObjectData(id: String, data: Object): void
+        + getVisualObjectIDs(): Array[String]
+        + async saveObjectBackgroundImage(path: String, obj_id: String): Object
+
+        + async saveAudio(path: String): void
+    }
+    SaveHandler "1 _save_handler" -- "1 _owner_project" Project
+    SaveHandler "1 _save_handler" -up- "n _objects" VisualObject
+
+    class Project {
+        - _save_handler: SaveHandler
+        - _user_interface: UserInterface
+
+        - _working_dir: String
+        - _root_dir: String
+        - _os: String
+        - _export_mode: Boolean
+
+        - _stop_animating: Boolean
+        - _animating: Boolean
+
+        - _frame_count: Integer
+        - _fps_array: Array
+        - _fps_interval: Float
+        - _FPS_ARRAY_MAX_LENGTH: Integer
+
+        - _time: Object
+
+        - _current_time: Float
+        - _audio_duration: Float
+        - _frequency_array: Array[Float]
+        - _vol_frequency_array: Array[Float]
+        - _vol_prev_frequency_array: Array[Float]
+        - _volume: Float
+    
+        - _objects_callback: Array[Boolean]
+
+        - _audio: HTMLAudioElement
+        - _audio_file_type: String
+        - _audio_file: File
+        - _source: MediaElementAudioSourceNode
+        - _context: AudioContext
+        - _analyser: AnalyserNode
+        - _ctx_frequency_array: Uint8Array
+        --
+        + Project(): Project
+        ..get, set..
+        + get save_handler(): SaveHandler
+        + set save_handler(save_handler: SaveHandler): void
+        + get user_interface(): UserInterface
+        + set user_interface(user_interface: UserInterface): void
+
+        + get working_dir(): String
+        + get root_dir(): String
+        + get export_mode(): Boolean
+        + get os(): String
+
+        + get volume(): Float
+        + get screen(): HTMLDivElement
+        ..
+        + playVisuals(): void
+        + pauseVisuals(): void
+        + stopVisuals(): void
+        + startAnimating(fps: Integer): void
+        + stopAnimating(): void
+        + animate(): void
+        + updateFinished(): Boolean
+        + drawFrame(): void
+
+        + loadAudio(file_data: any, type: String): void
+        + closeAudio(): void
+        + audioReady(): Boolean
+        + getAudioDuration(): Float
+        + audioToStart(): void
+        + audioToEnd(): void
+        + setAudioCurrentTime(currentTime: Float): void
+        + getAudioCurrentTime(): Float
+        + audioLoopToggle(): void
+        + getAudioIsLooping(): Boolean
+        + getFrequencyArray(): Array[Float]
+
+        + updateFPSDisplay(): void
+        + setFPS(fps: Integer): void
+    }
+
+    class UserInterface {
+        - _screen: HTMLDivElement
+        - _owner_project: Project
+        --
+        + UserInterface(owner_project: Project): UserInterface
+        ..get, set..
+        + get screen(): HTMLDivElement
+        + set owner_project(owner_project: Project): void
+        ..
+        + async FileBrowserDialog(settings: Object, callback: Function, args: any): void
+    }
+    UserInterface "1 _user_interface" -- "1 _owner_project" Project
+}

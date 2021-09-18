@@ -844,7 +844,7 @@ class Project {
         this._audio.currentTime = currentTime;
     }
 
-    //gzts audio object current time in seconds
+    //gets audio object current time in seconds
     getAudioCurrentTime() {return this._audio.currentTime;}
 
     //toggle if the audio should be played forever in loop mode.
@@ -902,11 +902,13 @@ class Project {
 
 //bridge class to interact with global context user interface
 class UserInterface {
-    constructor() {
-        this._screen = document.getElementById("screen");;
+    constructor(owner_project) {
+        this._screen = document.getElementById("screen");
+        this._owner_project = owner_project;
     }
 
     get screen() {return this._screen;}
+    set owner_project(owner_project) {this._owner_project = owner_project}
 
     //bridge to interact with user_interface.js file browser dialog
     async FileBrowserDialog(settings, callback, args) {
@@ -946,9 +948,9 @@ function LoadModules() {
         imports.utils.CustomLog("debug","Loading modules done.");
         //PreSetup();
         InitPage();
-    })/*.catch(error => {
+    }).catch(error => {
         console.log("could not load modules: " + error);
-    });*/
+    });
 }
 
 function InitPage() {//page initialization
