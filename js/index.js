@@ -22,20 +22,8 @@ let imports = {
     visual_objects: null,
 };
 
-//var /*stop_animating,*/ /*animating,*/ /*frame_count,*/ /*fps_interval,*/ time; //fps related variables
-//var /*fps_array,*/ fps_array_max_length; //fps display
-
-//var audio_file, audio_file_type /*, current_time*//*, audio_duration*/; //audio file related
-//var audio, source, context, analyzer, ctx_frequency_array; //Web Audio API related
-//var frequency_array; //spectrum array
-//var vol_prev_frequency_array, vol_frequency_array; //for volume smoothing
-//var audio_position_string;// ??:?? | ??:??
-
 /**@type {Project} */
 let project = null;
-//var objects = [];//all objects inside the screen
-//var objects_callback = [];
-//var volume;//audio average volume
 
 
 
@@ -539,6 +527,7 @@ class Project {
     constructor() {
         /**@type {SaveHandler} */
         this._save_handler = null;
+        /**@type {UserInterface} */
         this._user_interface = null;
 
         this._working_dir = working_dir;
@@ -598,6 +587,8 @@ class Project {
     get os() {return this._os;}
 
     get volume() {return this._volume;}
+
+    get screen() {return this._user_interface.screen;}
 
     /*
     #########
@@ -910,8 +901,10 @@ class Project {
 //bridge class to interact with global context user interface
 class UserInterface {
     constructor() {
-        
+        this._screen = document.getElementById("screen");;
     }
+
+    get screen() {return this._screen;}
 
     //bridge to interact with user_interface.js file browser dialog
     async FileBrowserDialog(settings, callback, args) {

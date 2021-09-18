@@ -16,6 +16,7 @@ export class VisualObject {
 
         this._save_handler = save_handler;
         this._owner_project = this._save_handler.owner_project;
+        this._screen = this._owner_project.screen;
         this._rack_parent = rack_parent;
         /**@type {Object.<property.VisualObjectProperty>} */
         this._properties = {};
@@ -237,7 +238,7 @@ export class VText extends VisualObject {
         this._element = document.createElement("div");
 
         //basic parameters
-        screen.appendChild(this._element);
+        this._screen.appendChild(this._element);
         this._element.style.position = "absolute";
         this._element.style.display = "inline-block";
         this._element.style.overflowWrap = "break-word";
@@ -361,7 +362,7 @@ export class VTimerStraightBar extends VTimer {
 
         //parent
         this._element = document.createElement("div");
-        screen.appendChild(this._element);
+        this._screen.appendChild(this._element);
         this._element.style.position = "absolute";
         this._element.style.display = "inline-block";
         this._element.style.border = "0px solid black";
@@ -434,7 +435,7 @@ export class VTimerStraightLinePoint extends VTimer {
 
         //parent
         this._element = document.createElement("div");
-        screen.appendChild(this._element);
+        this._screen.appendChild(this._element);
         this._element.style.position = "absolute";
         this._element.style.display = "inline-flex";
         this._element.style.alignItems = "center";
@@ -540,7 +541,7 @@ export class VParticleFlow extends VisualObject {
 
         //canvas creation
         this._element = document.createElement("canvas");
-        screen.appendChild(this._element);
+        this._screen.appendChild(this._element);
 
         //basic parameters
         this._element.style.position = "absolute";
@@ -905,7 +906,7 @@ export class VVisualizerBar extends VVisualizer {
         //###################
 
         this._element = document.createElement("div");
-        screen.appendChild(this._element);
+        this._screen.appendChild(this._element);
         this._element.style.position = "absolute";
         this._element.style.display = "inline-block";
         this._element.style.overflow = "hidden";
@@ -1119,7 +1120,7 @@ export class VVisualizerStraightWave extends VVisualizer {
         //###################
 
         this._element = document.createElement("canvas");
-        screen.appendChild(this._element);
+        this._screen.appendChild(this._element);
         this._element.style.position = "absolute";
         this._element.style.display = "inline-block";
         this._element.style.overflow = "hidden";
@@ -1297,7 +1298,7 @@ export class VShape extends VisualObject {
         this._element = document.createElement("div");
 
         //basic parameters
-        screen.appendChild(this._element);
+        this._screen.appendChild(this._element);
         this._element.style.position = "absolute";
         this._element.style.display = "inline-block";
         this._element.style.overflow = "hidden";
