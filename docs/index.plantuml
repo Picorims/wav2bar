@@ -49,7 +49,7 @@ package "index" {
         + async saveAudio(path: String): void
     }
     SaveHandler "1 _save_handler" -- "1 _owner_project" Project
-    SaveHandler "1 _save_handler" -up- "n _objects" VisualObject
+    SaveHandler "1 _save_handler" -up- "0..n _objects" VisualObject
 
     class Project {
         - _save_handler: SaveHandler

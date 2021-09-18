@@ -1,0 +1,11 @@
+'MIT License - Copyright (c) 2020-2021 Picorims
+
+@startuml index
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+' skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package "event_mixin" {
+    
+}
