@@ -95,6 +95,7 @@ class SaveHandler {
             //4 -> Wav2Bar 0.3.0 Indev and after
             save_version: this._CURRENT_SAVE_VERSION,
             software_version_used: `${software_version} ${software_status}`,
+            software_version_first_created: `${software_version} ${software_status}`, //to never change!
             screen: {width: 1280, height: 720},
             fps: 60,
             audio_filename: "",
@@ -297,6 +298,7 @@ class SaveHandler {
             }));
         }
 
+        //update version in which the save was used and edited.
         this.rewriteSoftwareInfo();
 
         imports.utils.CustomLog("info","Save loaded!");
