@@ -325,8 +325,8 @@ export class VText extends VisualObject {
 /**@abstract */
 export class VTimer extends VisualObject {
     constructor(save_handler, rack_parent, id = "") {
-        if (this.constructor === VTimer) throw new SyntaxError("VTimer is an abstract class.");
         super(save_handler, rack_parent, id);
+        if (this.constructor === VTimer) throw new SyntaxError("VTimer is an abstract class.");
         this._parameter_rack.icon = '<i class="ri-timer-2-line"></i>';
     
         //#################
