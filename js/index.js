@@ -41,7 +41,7 @@ SAVE MANAGEMENT
 //handles everything related to save: import, export, data access.
 class SaveHandler {
     constructor() {
-        // Object.assign(SaveHandler.prototype, imports.utils.EventMixin);
+        Object.assign(SaveHandler.prototype, imports.utils.EventMixin);
         // this.setupEventMixin([
         //     "test",
         // ]);

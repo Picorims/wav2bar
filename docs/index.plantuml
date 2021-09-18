@@ -6,8 +6,12 @@ skinparam BackgroundColor #222222
 ' skinparam groupInheritance 2
 skinparam PackageStyle frame
 
-package visual_objects {
+package "visual_objects" {
     class VisualObject {}
+}
+
+package "event_mixin" {
+    class EventMixin <<mixin>> {}
 }
 
 package "index" {
@@ -50,6 +54,7 @@ package "index" {
     }
     SaveHandler "1 _save_handler" -- "1 _owner_project" Project
     SaveHandler "1 _save_handler" -up- "0..n _objects" VisualObject
+    SaveHandler .right. EventMixin: with
 
     class Project {
         - _save_handler: SaveHandler
