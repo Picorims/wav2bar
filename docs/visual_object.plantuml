@@ -1,0 +1,198 @@
+'MIT License - Copyright (c) 2020-2021 Picorims
+
+@startuml index
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+' skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package "index" {
+    class SaveHandler {}
+    class Project {}
+}
+
+package "ui_components" {
+    class UIParameterRack {}
+}
+
+package "visual_object_property" {
+    abstract class VisualObjectProperty {}
+}
+
+package "visual_object" {
+    abstract class VisualObject {
+        - _save_handler: SaveHandler
+        - _owner_project: Project
+        - _screen: HtmlDivElement
+        - _rack_parent: UiParameterRack
+        - _properties: Object{VisualObjectProperty}
+        - _element: HTMLElement
+        - _id: String
+        - _TYPE: String
+        - _svg_filter_div: HTMLDivElement
+        --
+        + VisualObject(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VisualObject
+        ..get, set..
+        + get id(): String
+        ..
+        + getThisData(): Object
+        + generateId(): void
+        + validId(id: String): String
+        + uniqueId(id: String): Boolean
+        + setName(name: String): void
+        + setType(type: String): void
+        + assertType(): void
+        + triggerUpdateData(): void
+        {abstract} + update(): Boolean
+        + destroy(): void
+    }
+    VisualObject "0..n _objects" -up-o "1 _save_handler" SaveHandler
+    VisualObject " " -up- "1 _owner_project" Project
+    VisualObject " " o-up- "1 _parameter_rack" UIParameterRack
+    VisualObject "1 _visual_object" *-up- "0..n _properties" VisualObjectProperty
+
+    class VText {
+        + VText(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VText
+        ..
+        + update(): Boolean
+    }
+    VisualObject <|-- VText
+
+    abstract class VTimer {
+        + VTimer(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VTimer
+    }
+    VisualObject <|-- VTimer
+
+    class VTimerStraightBar {
+        - _element_child: HTMLDivElement
+        --
+        + VTimerStraightBar(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VTimerStraightBar
+        ..
+        + update(): Boolean
+    }
+    VTimer <|-- VTimerStraightBar
+    
+    class VTimerStraightLinePoint {
+        - _element_line: HTMLDivElement
+        - _element_cursor: HTMLDivElement
+        --
+        + VTimerStraightLinePoint(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VTimerStraightLinePoint
+        ..
+        + update(): Boolean
+    }
+    VTimer <|-- VTimerStraightLinePoint
+
+    class VParticleFlow {
+        - _particles: Array[Particle]
+        --
+        + VParticleFlow(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VParticleFlow
+        ..get, set..
+        + get canvas(): HTMLCanvasElement
+        + get ctx(): CanvasRenderingContext2D
+        + get properties(): Object{VisualObjectProperty}
+        + get volume(): Float
+        ..
+        + update(): Boolean
+        + killParticle(particle: Particle): void
+    }
+    VisualObject <|-- VParticleFlow
+
+    class Particle {
+        - _parent: VParticleFlow
+
+        - _radius: Integer
+        - _speed: Float
+        - _direction: Float
+
+        - _x: Float
+        - _y: Float
+        - _x_min: Float
+        - _x_max: Float
+        - _y_min: Float
+        - _y_max: Float
+        - _x_velocity: Float
+        - _y_velocity: Float
+
+        - _spawn_type: String
+        --
+        + Particle(parent: VParticleFlow): Particle
+        ..
+        + leftSpawn(): void
+        + rightSpawn(): void
+        + topSpawn(): void
+        + bottomSpawn(): void
+        + update(): void
+        + display(): void
+    }
+    Particle "0..n _particles" -- "1 _parent" VParticleFlow
+
+    abstract class VVisualizer {
+        - _freq_array: Array[Float]
+        - _prev_freq_array: Array[Float]
+        - _reset_visualization_smoothing: Boolean
+        --
+        + VVisualizer(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizer
+        ..
+        + update(): void
+    }
+    VisualObject <|-- VVisualizer
+
+    abstract class VVisualizerBar {
+        - _bars: Array[HTMLDivElement]
+        - _exclude_bar_count_update: Boolean
+        --
+        + VVisualizerBar(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizerBar
+        ..
+        + updateBars(): void
+        + update(): void
+
+    }
+    VVisualizer <|-- VVisualizerBar
+
+    class VVisualizerStraightBar {
+        + VVisualizerStraightBar(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizerStraightBar
+        ..
+        + update(): Boolean
+    }
+    VVisualizerBar <|-- VVisualizerStraightBar
+    
+    class VVisualizerCircularBar {
+        + VVisualizerCircularBar(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizerCircularBar
+        ..
+        + updateBars(): void
+        + updateBarsRotation(): void
+        + update(): Boolean
+    }
+    VVisualizerBar <|-- VVisualizerCircularBar
+
+    class VVisualizerStraightWave {
+        - _debug: Boolean
+        --
+        + VVisualizerStraightWave(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizerStraightWave
+        ..
+        + update(): Boolean
+    }
+    VVisualizer <|-- VVisualizerStraightWave
+
+    class VShape {
+        + VShape(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VShape
+        ..
+        + fullPathToCSSPath(working_dir: String, absolute_path: String): String
+        + update(): Boolean
+    }
+    VisualObject <|-- VShape
+}
+
+@enduml
