@@ -1,0 +1,368 @@
+'MIT License - Copyright (c) 2020-2021 Picorims
+
+@startuml index
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package "visual_objects" {
+    class VisualObject {}
+}
+
+package "event_mixin" {
+    class EventMixin <<mixin>> {}
+}
+
+package "index" {
+    class SaveHandler {}
+}
+
+package "ui_components" {
+    class UIParameter {}
+}
+
+package "visual_update_property" {
+    abstract class VisualObjectProperty {
+        - _save_handler: SaveHandler
+        - _visual_object: VisualObject
+        - _property_name: String
+        - _default_value: JSONValidValue
+        - _allowed_values: Array[String]
+        - _ui_parameter: UIParameter
+        --
+        + VisualObjectProperty(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VisualObjectProperty
+        ..
+        + getCurrentValue(): JSONValidValue
+        + setSave(value: JSONValidValue): void
+        + setSaveUISafe(value: JSONValidValue): void
+        + verify(): void
+        + {abstract} hasValidValue(): Boolean
+    }
+    VisualObjectProperty .up. EventMixin: with
+    VisualObjectProperty " " -up- "1 _save_handler" SaveHandler
+    VisualObjectProperty " " -up- "1 _visual_object" VisualObject
+    VisualObjectProperty " " -up- "1 _visual_object" UIParameter
+
+    'shared properties
+
+    class VPName {
+        --
+        + VPName(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPName
+        ..
+        + hasValidValue(): Boolean
+        + rename(name: String): void
+    }
+    VisualObjectProperty <|-- VPName
+
+    class VPLayer {
+        --
+        + VPLayer(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPLayer
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPLayer
+
+    class VPCoordinates {
+        --
+        + VPCoordinates(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPCoordinates
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPCoordinates
+
+    class VPSize {
+        --
+        + VPSize(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPSize
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPSize
+
+    class VPRotation {
+        --
+        + VPRotation(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPRotation
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPRotation
+
+    class VPSVGFilter {
+        --
+        + VPSVGFilter(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPSVGFilter
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPSVGFilter
+
+    'common properties
+
+    
+    class VPColor {
+        --
+        + VPColor(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPColor
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPColor
+    
+    class VPBorderRadius {
+        --
+        + VPBorderRadius(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPBorderRadius
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPBorderRadius
+    
+    class VPBoxShadow {
+        --
+        + VPBoxShadow(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPBoxShadow
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPBoxShadow
+    
+    class VPBackground {
+        --
+        + VPBackground(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPBackground
+        ..
+        + hasValidValue(): Boolean
+        + parseBackgroundSize(bgnd_size: String): Object
+        + stringifyBackgroundSize(size_type: String,
+        size_x: String, size_y: String): String
+        + parseBackgroundRepeat(bgnd_repeat: String): Object
+        + stringifyBackgroundRepeat(repeat_x: Boolean,
+        repeat_y: Boolean): String
+    }
+    VisualObjectProperty <|-- VPBackground
+
+    'text properties
+    
+    class VPTextType {
+        --
+        + VPTextType(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextType
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPTextType
+    
+    class VPTextContent {
+        --
+        + VPTextContent(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextContent
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPTextContent
+    
+    class VPFontSize {
+        --
+        + VPFontSize(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPFontSize
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPFontSize
+    
+    class VPTextDecoration {
+        --
+        + VPTextDecoration(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextDecoration
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPTextDecoration
+    
+    class VPTextAlign {
+        --
+        + VPTextAlign(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextAlign
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPTextAlign
+    
+    class VPTextShadow {
+        --
+        + VPTextShadow(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextShadow
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPTextShadow
+
+    'timer properties
+        
+    class VPTimerInnerSpacing {
+        --
+        + VPTimerInnerSpacing(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTimerInnerSpacing
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPTimerInnerSpacing
+        
+    class VPBorderThickness {
+        --
+        + VPBorderThickness(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPBorderThickness
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPBorderThickness
+    
+    ' particle flow properties
+
+    class VPParticleRadiusRange {
+        --
+        + VPParticleRadiusRange(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPParticleRadiusRange
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPParticleRadiusRange
+
+    class VPFlowType {
+        --
+        + VPFlowType(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPFlowType
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPFlowType
+
+    class VPFlowCenter {
+        --
+        + VPFlowCenter(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPFlowCenter
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPFlowCenter
+
+    class VPFlowDirection {
+        --
+        + VPFlowDirection(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPFlowDirection
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPFlowDirection
+
+    class VPParticleSpawnProbability {
+        --
+        + VPParticleSpawnProbability(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPParticleSpawnProbability
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPParticleSpawnProbability
+
+    class VPParticleSpawnTests {
+        --
+        + VPParticleSpawnTests(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPParticleSpawnTests
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPParticleSpawnTests
+
+    'visualizer properties
+    
+    class VPVisualizerRadius {
+        --
+        + VPVisualizerRadius(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizerRadius
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPVisualizerRadius
+
+    class VPVisualizerPointsCount {
+        --
+        + VPVisualizerPointsCount(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizerPointsCount
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPVisualizerPointsCount
+
+    class VPVisualizerAnalyserRange {
+        --
+        + VPVisualizerAnalyserRange(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizerAnalyserRange
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPVisualizerAnalyserRange
+
+    class VPVisualizationSmoothingType {
+        --
+        + VPVisualizationSmoothingType(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizationSmoothingType
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPVisualizationSmoothingType
+
+    class VPVisualizationSmoothingFactor {
+        --
+        + VPVisualizationSmoothingFactor(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizationSmoothingFactor
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPVisualizationSmoothingFactor
+
+    class VPVisualizerBarThickness {
+        --
+        + VPVisualizerBarThickness(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizerBarThickness
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|-- VPVisualizerBarThickness
+}

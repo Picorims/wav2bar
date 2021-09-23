@@ -1128,6 +1128,7 @@ export class VPFlowType extends VisualObjectProperty {
         super(save_handler, visual_object, "flow_type", DEFAULTS.FLOW_TYPE);
 
         this._allowed_values = ["radial","directional"];
+        this.verify(); //reverify as the first verification ignored the line below.
 
         //create associated UI
         this._ui_parameter = new ui_components.UIParameterChoice(
@@ -1431,6 +1432,7 @@ export class VPVisualizationSmoothingType extends VisualObjectProperty {
         super(save_handler, visual_object, "visualization_smoothing_type", DEFAULTS.VISUALIZATION_SMOOTHING_TYPE);
 
         this._allowed_values = ["proportional_decrease","linear_decrease","average"];
+        this.verify(); //reverify as the first verification ignored the line below.
 
         //create associated UI
         this._ui_parameter = new ui_components.UIParameterChoice(
