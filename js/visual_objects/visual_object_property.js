@@ -492,7 +492,7 @@ export class VPBorderRadius extends VisualObjectProperty {
         super(save_handler, visual_object, "border_radius", DEFAULTS.BORDER_RADIUS);
 
         //create associated UI
-        this._ui_parameter = new imports.ui_components.UIParameterString(
+        this._ui_parameter = new ui_components.UIParameterString(
             this._visual_object.parameter_rack,
             "Border radius (CSS)",
             this.getCurrentValue(),
@@ -519,7 +519,7 @@ export class VPBoxShadow extends VisualObjectProperty {
         super(save_handler, visual_object, "box_shadow", DEFAULTS.BOX_SHADOW);
 
         //create associated UI
-        this._ui_parameter = new imports.ui_components.UIParameterString(
+        this._ui_parameter = new ui_components.UIParameterString(
             this._visual_object.parameter_rack,
             "Box Shadow (CSS)",
             this.getCurrentValue(),
@@ -761,7 +761,7 @@ export class VPTextContent extends VisualObjectProperty {
         
         // create associated UI
         
-        this._ui_parameter = new imports.ui_components.UIParameterString(
+        this._ui_parameter = new ui_components.UIParameterString(
             this._visual_object.parameter_rack,
             "Displayed text",
             this.getCurrentValue(),
@@ -1382,7 +1382,7 @@ export class VPVisualizerAnalyserRange extends VisualObjectProperty {
         super(save_handler, visual_object, "visualizer_analyzer_range", DEFAULTS.VISUALIZER_ANALYZER_RANGE);
     
         // create associated UI
-        this._ui_parameter = new imports.ui_components.UIParameterNumInputList(
+        this._ui_parameter = new ui_components.UIParameterNumInputList(
             this._visual_object.parameter_rack,
             "Analyser Range",
             true,
