@@ -3,6 +3,7 @@
 import * as object from "./visual_object.js";
 import * as utils from "../utils/utils.js";
 import * as ui_components from "../ui_components/ui_components.js";
+import help from "../../assets/help/help.json" assert {type: "json"}; //not an error, chromium only feature.
 
 const DEFAULTS = {
     LAYER: 0,
