@@ -6,15 +6,14 @@ A tool to make custom audio visualization and export production videos for the a
 
 ## Important Notes
 - **This tool is usable at this point, but is still in early development! Your work is subject to bugs, backup your saves!**
-- Git LFS used to be used for node_modules and FFMpeg, but is no longer used. Both of these folders have been removed from the repository, but not its history. You do not need to clone them. Git LFS files are no longer included in archive downloads. **If you want a full release source code archive, go to the releases section. This will include node_modules, but not FFmpeg** (that can be downloaded from their website).
+- Git LFS used to be used for node_modules and FFMpeg, but is no longer used. Both of these folders have been removed from the repository, but not its history. You do not need to clone them. Git LFS files are no longer included in archive downloads. **If you want a full release source code archive, go to the releases section. This will include node_modules, but not FFmpeg** (which can be downloaded from their official website compiled and packaged).
 
 ## Hacking
 - NodeJS must be installed (It will install npm too).
-- Clone the git repository (you can also use GitHub's download button *if you only need to perform tests*). Note that Git LFS is used too. Git LFS files should be packaged together with the archive download.
-- Mac/linux:
-    - Reinstall the same version of Electron, the repository contains a Windows 64bit version of it.
-- download FFmpeg for your operating system and configure it in the app settings (otherwise export won't work!).
+- Clone the git repository (you can also use GitHub's download button *if you only want to perform tests*). Note that Git LFS is no longer used. Git LFS files are not cloned and packaged anymore.
+- Install node modules and dependencies using `npm install`.
 - Open the repository folder in a prompt and run `npm start`.
+- If everything works, download FFmpeg for your operating system and configure it in the app settings (otherwise export won't work!).
 
 ## Compiling
 Compilation is done through electron-forge v6's `make` command. No matter the platform, you can compile by running `npm run make` which is an alias to electron-forge make. It will automatically package the app before, but you can also do it using `npm run package`. More info at https://www.electronforge.io/ and https://www.electronforge.io/configuration.
@@ -51,7 +50,7 @@ Although there is no support for MacOS, the application may run just fine as Ele
 
 ## Using the Command Line Interface (CLI)
 
-See docs/cli.md for more details.
+See `docs/cli.md` for more details.
 
 
 ## License
