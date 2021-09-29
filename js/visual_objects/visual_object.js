@@ -190,6 +190,7 @@ export class VisualObject {
     //destroy VisualObject
     destroy() {
         if (this._element) this._element.remove();
+        this._parameter_rack.removeSelf();
     }
 }
 

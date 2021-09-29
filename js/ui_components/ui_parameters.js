@@ -591,11 +591,18 @@ export class UIParameterRack extends ui.UIComponent {
         }
     }
 
+    //call the delete callback and remove itslef.
     delete() {
         this._delete_callback(); //user action on remove
+        this.removeSelf();
+    }
+
+    //remove itself from the document
+    removeSelf() {
         this._DOM_container.remove();
     }
 
+    //rename the title bar of the display
     rename(name) {
         this._title_span.innerHTML = name;
     }

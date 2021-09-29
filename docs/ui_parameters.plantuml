@@ -225,6 +225,7 @@ package "ui_parameters" {
         ..
         + toggleOpen(): void
         + delete(): void
+        + removeSelf(): void
         + rename(name: string): void
     }
     UIComponent <|-- UIParameterRack

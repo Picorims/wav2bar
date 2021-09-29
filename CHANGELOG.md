@@ -20,6 +20,7 @@ This document is based on Keep a Changelog 1.0.0
 
 ### Fixed
 - Particle flow's flow type parameter provides help again.
+- When opening a new save, existing user interface from old visual objects are now effectively removed.
 
 ### Security
 - Updated Electron from v12 to v15.
