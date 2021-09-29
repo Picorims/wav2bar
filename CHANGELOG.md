@@ -18,6 +18,9 @@ This document is based on Keep a Changelog 1.0.0
 ### Removed
 - Removed background visual object that duplicates image/shape visual object. Existing background visual objects in older saves will be converted to image visual objects.
 
+### Fixed
+- Particle flow's flow type parameter provides help again.
+
 ### Security
 - Updated Electron from v12 to v15.
 
