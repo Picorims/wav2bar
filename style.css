@@ -919,8 +919,8 @@ Top Naviguation UI
 #top_UI {
     position: fixed;
     max-width: calc(100% - 400px);
-    top: 20px;
-    left: 370px;
+    top: 5px;
+    left: 355px;
     z-index: 500;
 
     display: flex;
@@ -933,19 +933,22 @@ Top Naviguation UI
 
 /*group of tiles*/
 .top_UI_block {
-    display: block;
-    max-height: 50px;
-    margin-top: 20px;
+    display: flex;
+    margin: 5px;
 
     flex-shrink: 0;
 }
 
 /*default tile*/
-.top_UI {
-    width: 50px;
-    height: 50px;
+.top_UI_tile {
+    width: 40px;
+    height: 40px;
     padding: 0;
     margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     background-color: var(--main-white);
     border: 2px solid var(--main-darker-white);
@@ -957,7 +960,7 @@ Top Naviguation UI
 
     transition: 0.2s;
 }
-.top_UI:hover, .activated {
+.top_UI_tile:hover, .activated {
     color: var(--main-darker-black);
 
     cursor: pointer;
@@ -966,16 +969,15 @@ Top Naviguation UI
     border-color: var(--main-darker-color);
     box-shadow: inset 0px 0px 10px var(--main-darker-color);
 }
-div.top_UI {
-    height: 46px; /*div element's border increase the size, it has to be removed from main size*/
-    display: inline-block;
+div.top_UI_tile {
+    box-sizing: border-box;
 }
 
-.top_UI i {
+.top_UI_tile i {
     display: block;
     font-size: 24px;
 }
-.top_UI i.ri-zoom-in-line, .top_UI i.ri-zoom-out-line {
+.top_UI_tile i.ri-zoom-in-line, .top_UI_tile i.ri-zoom-out-line {
     font-size: 30px;
 }
 
@@ -987,8 +989,6 @@ div.top_UI {
 .right_round {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-
-    margin-right: 15px;
 }
 
 /*change tile size*/
@@ -1005,21 +1005,19 @@ div.top_UI {
 }
 .range_track {
     width: 270px;
-    position: relative;
-    margin-top: 25px;
-    top: -7px;
 }
 .range_track::-webkit-slider-runnable-track {
-    height: 10px;
+    height: 8px;
+    margin-top: 1px;
     
     background-color: var(--main-gray);
-    border-radius: 3px;
-    box-shadow: inset 0px 0px 5px black;
+    border-radius: 4px;
+    box-shadow: inset 0px 0px 2px black;
 }
 .range_track::-webkit-slider-thumb {
-    width: 20px;
+    width: 18px;
     height: 30px;
-    margin-top: -10px;
+    margin-top: -11px;
 
     background-color: var(--main-darker-white);
     border: 2px solid var(--main-gray);
@@ -1029,21 +1027,14 @@ div.top_UI {
 
 /*text tile*/
 .text {
-    display: inline-block;
-    margin-top: 15px;
     position: relative;
-    top: -5px;
-}
-#zoom_display {
-    top: -8px;
 }
 
 /*dropdown menu for a double sized tile*/
 .dropdown_option {
     position: fixed;
     width: 100px;
-    height: 30px;
-    padding-top: 5px;
+    height: 25px;
 
     background-color: var(--main-white);
     border: 1px solid var(--main-darker-white);

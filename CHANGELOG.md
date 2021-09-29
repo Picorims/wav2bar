@@ -14,6 +14,7 @@ This document is based on Keep a Changelog 1.0.0
 - Changed rules for timers positioning. (The converter should reajust timers when opening a project from an older versions.)
 - Changed some default values (it only affects newly created objects and new object parameters).
 - Irrelevant options (i.e that have no effect) in some objects are no longer available (timers, visualizers). In consequence they are no longer stored as well with these objects (as they are useless).
+- Made top user interface for audio and zoom control more compact.
 
 ### Removed
 - Removed background visual object that duplicates image/shape visual object. Existing background visual objects in older saves will be converted to image visual objects.
