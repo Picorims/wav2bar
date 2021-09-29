@@ -379,7 +379,7 @@ class SaveHandler {
     createVisualObject(type, name = null, obj_id = "") {
         let obj;
         switch (type) {
-            case "image":                       obj = new imports.visual_objects.VShape(this, tab.objects, obj_id); break;
+            case "shape":                       obj = new imports.visual_objects.VShape(this, tab.objects, obj_id); break;
             case "particle_flow":               obj = new imports.visual_objects.VParticleFlow(this, tab.objects, obj_id); break;
             case "text":                        obj = new imports.visual_objects.VText(this, tab.objects, obj_id); break;
             case "timer_straight_bar":          obj = new imports.visual_objects.VTimerStraightBar(this, tab.objects, obj_id); break;
