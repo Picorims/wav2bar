@@ -1,27 +1,25 @@
 <!--MIT License - Copyright (c) 2020-2021 Picorims-->
 
-<!--MIT License - Copyright (c) 2020-2021 Picorims-->
-
-<!--MIT License - Copyright (c) 2020-2021 Picorims-->
-
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="152.0833px" preserveAspectRatio="none" style="width:257px;height:152px;background:#222222;" version="1.1" viewBox="0 0 257 152" width="257.2917px" zoomAndPan="magnify"><defs/><g><!--MD5=[2630cc33df3bd9c60bf8b80b2592922e]
-cluster visual_object--><rect fill="#222222" height="138.5417" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="243.75" x="7.2917" y="7.2917"/><path d="M120.8333,7.2917 L120.8333,25.6083 L110.4167,36.025 L7.2917,36.025 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="92.7083" x="15.625" y="26.1088">visual_object</text><!--MD5=[a91f50bfee47489d1e6d2d80041782dc]
-class VisualObject--><rect codeLine="7" fill="#222222" height="77.034" id="VisualObject" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="209.375" x="24.4792" y="52.0833"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="209.375" x="24.4792" y="52.0833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="209.375" x="24.4792" y="83.9417"/><rect codeLine="7" fill="none" height="77.034" id="VisualObject" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="209.375" x="24.4792" y="52.0833"/><ellipse cx="79.1667" cy="70.0958" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M80.7129,67.1824 Q80.8268,67.0197 80.9652,66.9383 Q81.1035,66.8569 81.2663,66.8569 Q81.543,66.8569 81.7139,67.0522 Q81.8848,67.2475 81.8848,67.687 L81.8848,68.7612 Q81.8848,69.2006 81.7139,69.396 Q81.543,69.5913 81.2663,69.5913 Q81.0059,69.5913 80.8594,69.4448 Q80.7129,69.3146 80.6315,68.924 Q80.599,68.6635 80.4688,68.5333 Q80.2083,68.2566 79.7607,68.0939 Q79.3132,67.9311 78.8574,67.9311 Q78.304,67.9311 77.832,68.1753 Q77.36,68.4194 77.002,68.9646 Q76.6439,69.5099 76.6439,70.2749 L76.6439,71.0887 Q76.6439,71.9838 77.3031,72.5861 Q77.9622,73.1883 79.1178,73.1883 Q79.8177,73.1883 80.306,73.0092 Q80.5827,72.8953 80.8919,72.5698 Q81.0872,72.3745 81.2012,72.3175 Q81.3151,72.2605 81.4453,72.2605 Q81.7057,72.2605 81.8929,72.4477 Q82.0801,72.6349 82.0801,72.8953 Q82.0801,73.1557 81.8197,73.4487 Q81.4453,73.8719 80.8594,74.116 Q80.0781,74.4415 79.1341,74.4415 Q78.0111,74.4415 77.1322,73.9858 Q76.3997,73.6277 75.8952,72.8302 Q75.3906,72.0327 75.3906,71.1049 L75.3906,70.2586 Q75.3906,69.282 75.8464,68.4357 Q76.3021,67.5893 77.1077,67.1336 Q77.9134,66.6779 78.8086,66.6779 Q79.362,66.6779 79.834,66.7999 Q80.306,66.922 80.7129,67.1824 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="81.25" x="104.1667" y="75.0671">VisualObject</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="25.5208" x2="232.8125" y1="88.1083" y2="88.1083"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="32.8125" y="96.4417"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="172.9167" x="49.4792" y="109.0032">_save_handler: SaveHandler</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="25.5208" x2="232.8125" y1="120.784" y2="120.784"/><!--MD5=[7c2a4a637b701276572faef68fd14a7d]
-@startuml ui_base_components
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="251.0417px" preserveAspectRatio="none" style="width:490px;height:251px;background:#222222;" version="1.1" viewBox="0 0 490 251" width="490.625px" zoomAndPan="magnify"><defs/><g><!--MD5=[b33187c248a40138ad0b3413979d5dfd]
+cluster event_mixin--><rect fill="#222222" height="237.5" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="477.0833" x="7.2917" y="7.2917"/><path d="M113.5417,7.2917 L113.5417,25.6083 L103.125,36.025 L7.2917,36.025 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="85.4167" x="15.625" y="26.1088">event_mixin</text><!--MD5=[8c7ae7c48af0001487202e87675f85b8]
+class EventMixin--><rect codeLine="10" fill="#222222" height="175.6694" id="EventMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="443.75" x="23.9583" y="52.0833"/><rect fill="#227FAB" height="61.6333" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="443.75" x="23.9583" y="52.0833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="443.75" x="23.9583" y="109.55"/><rect codeLine="10" fill="none" height="175.6694" id="EventMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="443.75" x="23.9583" y="52.0833"/><ellipse cx="201.5625" cy="82.9" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M203.1087,79.9866 Q203.2227,79.8238 203.361,79.7424 Q203.4993,79.6611 203.6621,79.6611 Q203.9388,79.6611 204.1097,79.8564 Q204.2806,80.0517 204.2806,80.4911 L204.2806,81.5653 Q204.2806,82.0048 204.1097,82.2001 Q203.9388,82.3954 203.6621,82.3954 Q203.4017,82.3954 203.2552,82.2489 Q203.1087,82.1187 203.0273,81.7281 Q202.9948,81.4677 202.8646,81.3375 Q202.6042,81.0608 202.1566,80.898 Q201.709,80.7353 201.2533,80.7353 Q200.6999,80.7353 200.2279,80.9794 Q199.7559,81.2236 199.3978,81.7688 Q199.0397,82.314 199.0397,83.079 L199.0397,83.8928 Q199.0397,84.788 199.6989,85.3902 Q200.3581,85.9924 201.5137,85.9924 Q202.2135,85.9924 202.7018,85.8134 Q202.9785,85.6995 203.2878,85.3739 Q203.4831,85.1786 203.597,85.1217 Q203.7109,85.0647 203.8411,85.0647 Q204.1016,85.0647 204.2887,85.2519 Q204.4759,85.439 204.4759,85.6995 Q204.4759,85.9599 204.2155,86.2528 Q203.8411,86.676 203.2552,86.9202 Q202.474,87.2457 201.5299,87.2457 Q200.4069,87.2457 199.528,86.79 Q198.7956,86.4319 198.291,85.6344 Q197.7865,84.8368 197.7865,83.9091 L197.7865,83.0627 Q197.7865,82.0862 198.2422,81.2398 Q198.6979,80.3935 199.5036,79.9377 Q200.3092,79.482 201.2044,79.482 Q201.7578,79.482 202.2298,79.6041 Q202.7018,79.7262 203.1087,79.9866 Z " fill="#000000"/><text fill="#ADAFAE" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="51.0417" x="235.9375" y="75.0671">«mixin»</text><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="69.7917" x="226.5625" y="100.6755">EventMixin</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="25" x2="466.6667" y1="113.7166" y2="113.7166"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="25" x2="466.6667" y1="122.05" y2="122.05"/><ellipse cx="35.4167" cy="133.5083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="292.7083" x="48.9583" y="142.9448">setupEventMixin(events_list: Array[String]): void</text><ellipse cx="35.4167" cy="157.8506" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="392.7083" x="48.9583" y="167.2872">subscribeToEvent(event: String, function_handler: Function): void</text><ellipse cx="35.4167" cy="182.193" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="407.2917" x="48.9583" y="191.6295">unsubscribeToEvent(event: String, function_handler: Function): void</text><ellipse cx="35.4167" cy="206.5353" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="273.9583" x="48.9583" y="215.9719">triggerEvent(event: String, ...args: any): void</text><!--MD5=[90f603d36f73e66dbf537fe59fdb3114]
+@startuml index
 !theme cyborg-outline
 skinparam BackgroundColor #222222
 ' skinparam groupInheritance 2
 skinparam PackageStyle frame
 
-package "visual_object" {
-    class VisualObject {
-        - _save_handler: SaveHandler
+package "event_mixin" {
+    class EventMixin <<mixin>> {
+        + setupEventMixin(events_list: Array[String]): void
+        + subscribeToEvent(event: String, function_handler: Function): void
+        + unsubscribeToEvent(event: String, function_handler: Function): void
+        + triggerEvent(event: String, ...args: any): void
     }
 }
-
 @enduml
 
-@startuml ui_base_components
+@startuml index
 
 
 
@@ -348,12 +346,14 @@ skinparam file {
 skinparam BackgroundColor #222222
 skinparam PackageStyle frame
 
-package "visual_object" {
-    class VisualObject {
-        - _save_handler: SaveHandler
+package "event_mixin" {
+    class EventMixin <<mixin>> {
+        + setupEventMixin(events_list: Array[String]): void
+        + subscribeToEvent(event: String, function_handler: Function): void
+        + unsubscribeToEvent(event: String, function_handler: Function): void
+        + triggerEvent(event: String, ...args: any): void
     }
 }
-
 @enduml
 
 PlantUML version 1.2021.7(Sun May 23 14:40:07 CEST 2021)

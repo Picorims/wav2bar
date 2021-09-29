@@ -38,5 +38,9 @@ async function prefixSVG(rootPath, level) {
 
     }
 }
-  
-prefixSVG(process.argv[2], 0).catch(console.error);
+
+if (!process.argv[2] || process.argv[2] === "") {
+    console.log("Missing directory to explore argument.");
+} else {
+    prefixSVG(process.argv[2], 0).catch(console.error);
+}

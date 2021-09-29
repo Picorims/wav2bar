@@ -1,0 +1,763 @@
+<!--MIT License - Copyright (c) 2020-2021 Picorims-->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1740.625px" preserveAspectRatio="none" style="width:2071px;height:1740px;background:#222222;" version="1.1" viewBox="0 0 2071 1740" width="2071.875px" zoomAndPan="magnify"><defs/><g><!--MD5=[2265efe58f509802ec1fe9822d1e6e2b]
+cluster index--><rect fill="#222222" height="114.5833" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="282.2917" x="670.8333" y="7.2917"/><path d="M729.1667,7.2917 L729.1667,25.6083 L718.75,36.025 L670.8333,36.025 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="37.5" x="679.1667" y="26.1088">index</text><!--MD5=[02430d46d4d246becbecf302768ae4a3]
+cluster ui_components--><rect fill="#222222" height="114.5833" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="189.5833" x="978.125" y="7.2917"/><path d="M1103.125,7.2917 L1103.125,25.6083 L1092.7083,36.025 L978.125,36.025 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="104.1667" x="986.4583" y="26.1088">ui_components</text><!--MD5=[93f70f9bd51035fbabaabf4488b93480]
+cluster visual_object_property--><rect fill="#222222" height="114.5833" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="204.1667" x="1192.7083" y="7.2917"/><path d="M1375,7.2917 L1375,25.6083 L1364.5833,36.025 L1192.7083,36.025 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="161.4583" x="1201.0417" y="26.1088">visual_object_property</text><!--MD5=[2630cc33df3bd9c60bf8b80b2592922e]
+cluster visual_object--><rect fill="#222222" height="1587.5" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="2058.3333" x="7.2917" y="146.875"/><path d="M120.8333,146.875 L120.8333,165.1917 L110.4167,175.6083 L7.2917,175.6083 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="92.7083" x="15.625" y="165.6921">visual_object</text><!--MD5=[63e4f4b7c7497a0e53d6c89ce733691e]
+class SaveHandler--><rect codeLine="7" fill="#222222" height="52.6917" id="SaveHandler" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="125" x="687.5" y="52.0833"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="125" x="687.5" y="52.0833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="125" x="687.5" y="83.9417"/><rect codeLine="7" fill="none" height="52.6917" id="SaveHandler" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="125" x="687.5" y="52.0833"/><ellipse cx="702.0833" cy="70.0958" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M703.6296,67.1824 Q703.7435,67.0197 703.8818,66.9383 Q704.0202,66.8569 704.1829,66.8569 Q704.4596,66.8569 704.6305,67.0522 Q704.8014,67.2475 704.8014,67.687 L704.8014,68.7612 Q704.8014,69.2006 704.6305,69.396 Q704.4596,69.5913 704.1829,69.5913 Q703.9225,69.5913 703.776,69.4448 Q703.6296,69.3146 703.5482,68.924 Q703.5156,68.6635 703.3854,68.5333 Q703.125,68.2566 702.6774,68.0939 Q702.2298,67.9311 701.7741,67.9311 Q701.2207,67.9311 700.7487,68.1753 Q700.2767,68.4194 699.9186,68.9646 Q699.5605,69.5099 699.5605,70.2749 L699.5605,71.0887 Q699.5605,71.9838 700.2197,72.5861 Q700.8789,73.1883 702.0345,73.1883 Q702.7344,73.1883 703.2227,73.0092 Q703.4993,72.8953 703.8086,72.5698 Q704.0039,72.3745 704.1178,72.3175 Q704.2318,72.2605 704.362,72.2605 Q704.6224,72.2605 704.8096,72.4477 Q704.9967,72.6349 704.9967,72.8953 Q704.9967,73.1557 704.7363,73.4487 Q704.362,73.8719 703.776,74.116 Q702.9948,74.4415 702.0508,74.4415 Q700.9277,74.4415 700.0488,73.9858 Q699.3164,73.6277 698.8118,72.8302 Q698.3073,72.0327 698.3073,71.1049 L698.3073,70.2586 Q698.3073,69.282 698.763,68.4357 Q699.2188,67.5893 700.0244,67.1336 Q700.8301,66.6779 701.7253,66.6779 Q702.2786,66.6779 702.7507,66.7999 Q703.2227,66.922 703.6296,67.1824 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="83.3333" x="720.8333" y="75.0671">SaveHandler</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="688.5417" x2="811.4583" y1="88.1083" y2="88.1083"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="688.5417" x2="811.4583" y1="96.4417" y2="96.4417"/><!--MD5=[79d378210367c0c6ec62ef762ddfbd1b]
+class Project--><rect codeLine="8" fill="#222222" height="52.6917" id="Project" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="87.5" x="848.9583" y="52.0833"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="87.5" x="848.9583" y="52.0833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="87.5" x="848.9583" y="83.9417"/><rect codeLine="8" fill="none" height="52.6917" id="Project" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="87.5" x="848.9583" y="52.0833"/><ellipse cx="863.5417" cy="70.0958" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M865.0879,67.1824 Q865.2018,67.0197 865.3402,66.9383 Q865.4785,66.8569 865.6413,66.8569 Q865.918,66.8569 866.0889,67.0522 Q866.2598,67.2475 866.2598,67.687 L866.2598,68.7612 Q866.2598,69.2006 866.0889,69.396 Q865.918,69.5913 865.6413,69.5913 Q865.3809,69.5913 865.2344,69.4448 Q865.0879,69.3146 865.0065,68.924 Q864.974,68.6635 864.8438,68.5333 Q864.5833,68.2566 864.1357,68.0939 Q863.6882,67.9311 863.2324,67.9311 Q862.679,67.9311 862.207,68.1753 Q861.735,68.4194 861.377,68.9646 Q861.0189,69.5099 861.0189,70.2749 L861.0189,71.0887 Q861.0189,71.9838 861.6781,72.5861 Q862.3372,73.1883 863.4928,73.1883 Q864.1927,73.1883 864.681,73.0092 Q864.9577,72.8953 865.2669,72.5698 Q865.4622,72.3745 865.5762,72.3175 Q865.6901,72.2605 865.8203,72.2605 Q866.0807,72.2605 866.2679,72.4477 Q866.4551,72.6349 866.4551,72.8953 Q866.4551,73.1557 866.1947,73.4487 Q865.8203,73.8719 865.2344,74.116 Q864.4531,74.4415 863.5091,74.4415 Q862.3861,74.4415 861.5072,73.9858 Q860.7747,73.6277 860.2702,72.8302 Q859.7656,72.0327 859.7656,71.1049 L859.7656,70.2586 Q859.7656,69.282 860.2214,68.4357 Q860.6771,67.5893 861.4827,67.1336 Q862.2884,66.6779 863.1836,66.6779 Q863.737,66.6779 864.209,66.7999 Q864.681,66.922 865.0879,67.1824 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="45.8333" x="882.2917" y="75.0671">Project</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="850" x2="935.4167" y1="88.1083" y2="88.1083"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="850" x2="935.4167" y1="96.4417" y2="96.4417"/><!--MD5=[22294d98d2ecd49f3b5176a0dbe98e73]
+class UIParameterRack--><rect codeLine="12" fill="#222222" height="52.6917" id="UIParameterRack" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="155.2083" x="995.3125" y="52.0833"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="155.2083" x="995.3125" y="52.0833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="155.2083" x="995.3125" y="83.9417"/><rect codeLine="12" fill="none" height="52.6917" id="UIParameterRack" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="155.2083" x="995.3125" y="52.0833"/><ellipse cx="1009.8958" cy="70.0958" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M1011.4421,67.1824 Q1011.556,67.0197 1011.6943,66.9383 Q1011.8327,66.8569 1011.9954,66.8569 Q1012.2721,66.8569 1012.443,67.0522 Q1012.6139,67.2475 1012.6139,67.687 L1012.6139,68.7612 Q1012.6139,69.2006 1012.443,69.396 Q1012.2721,69.5913 1011.9954,69.5913 Q1011.735,69.5913 1011.5885,69.4448 Q1011.4421,69.3146 1011.3607,68.924 Q1011.3281,68.6635 1011.1979,68.5333 Q1010.9375,68.2566 1010.4899,68.0939 Q1010.0423,67.9311 1009.5866,67.9311 Q1009.0332,67.9311 1008.5612,68.1753 Q1008.0892,68.4194 1007.7311,68.9646 Q1007.373,69.5099 1007.373,70.2749 L1007.373,71.0887 Q1007.373,71.9838 1008.0322,72.5861 Q1008.6914,73.1883 1009.847,73.1883 Q1010.5469,73.1883 1011.0352,73.0092 Q1011.3118,72.8953 1011.6211,72.5698 Q1011.8164,72.3745 1011.9303,72.3175 Q1012.0443,72.2605 1012.1745,72.2605 Q1012.4349,72.2605 1012.6221,72.4477 Q1012.8092,72.6349 1012.8092,72.8953 Q1012.8092,73.1557 1012.5488,73.4487 Q1012.1745,73.8719 1011.5885,74.116 Q1010.8073,74.4415 1009.8633,74.4415 Q1008.7402,74.4415 1007.8613,73.9858 Q1007.1289,73.6277 1006.6243,72.8302 Q1006.1198,72.0327 1006.1198,71.1049 L1006.1198,70.2586 Q1006.1198,69.282 1006.5755,68.4357 Q1007.0313,67.5893 1007.8369,67.1336 Q1008.6426,66.6779 1009.5378,66.6779 Q1010.0911,66.6779 1010.5632,66.7999 Q1011.0352,66.922 1011.4421,67.1824 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="113.5417" x="1028.6458" y="75.0671">UIParameterRack</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="996.3542" x2="1149.4792" y1="88.1083" y2="88.1083"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="996.3542" x2="1149.4792" y1="96.4417" y2="96.4417"/><!--MD5=[0bb086c28b31075c9b5fa9bac10929b8]
+class VisualObjectProperty--><rect codeLine="16" fill="#222222" height="52.6917" id="VisualObjectProperty" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="170.8333" x="1209.375" y="52.0833"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="170.8333" x="1209.375" y="52.0833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="170.8333" x="1209.375" y="83.9417"/><rect codeLine="16" fill="none" height="52.6917" id="VisualObjectProperty" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="170.8333" x="1209.375" y="52.0833"/><ellipse cx="1223.9583" cy="70.0958" fill="#5F8F00" rx="10.4167" ry="10.4167" style="stroke:#92C233;stroke-width:1.0416666666666667;"/><path d="M1225.5859,72.2443 L1222.5586,72.2443 L1222.2493,73.0092 L1222.5586,73.0092 Q1222.998,73.0092 1223.1934,73.1801 Q1223.3887,73.351 1223.3887,73.644 Q1223.3887,73.9207 1223.1934,74.0916 Q1222.998,74.2625 1222.5586,74.2625 L1220.8659,74.2625 Q1220.4102,74.2625 1220.223,74.0916 Q1220.0358,73.9207 1220.0358,73.6277 Q1220.0358,73.351 1220.2393,73.172 Q1220.4427,72.993 1220.8984,73.0092 L1222.8678,68.1101 L1222.054,68.1101 Q1221.5983,68.1101 1221.403,67.9392 Q1221.2077,67.7684 1221.2077,67.4917 Q1221.2077,67.1987 1221.403,67.0278 Q1221.5983,66.8569 1222.054,66.8569 L1224.7559,66.8569 L1227.2461,73.0092 Q1227.6855,73.0092 1227.8158,73.1069 Q1228.1087,73.3022 1228.1087,73.644 Q1228.1087,73.9207 1227.9134,74.0916 Q1227.7181,74.2625 1227.2786,74.2625 L1225.5859,74.2625 Q1225.1302,74.2625 1224.943,74.0916 Q1224.7559,73.9207 1224.7559,73.6277 Q1224.7559,73.351 1224.943,73.1801 Q1225.1302,73.0092 1225.5859,73.0092 L1225.8952,73.0092 L1225.5859,72.2443 Z M1225.0814,70.991 L1224.0723,68.517 L1223.0469,70.991 L1225.0814,70.991 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="129.1667" x="1242.7083" y="75.0671">VisualObjectProperty</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1210.4167" x2="1379.1667" y1="88.1083" y2="88.1083"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1210.4167" x2="1379.1667" y1="96.4417" y2="96.4417"/><!--MD5=[a91f50bfee47489d1e6d2d80041782dc]
+class VisualObject--><rect codeLine="20" fill="#222222" height="625.0656" id="VisualObject" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="375" x="795.8333" y="191.6667"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="375" x="795.8333" y="191.6667"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="375" x="795.8333" y="223.525"/><rect codeLine="20" fill="none" height="625.0656" id="VisualObject" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="375" x="795.8333" y="191.6667"/><ellipse cx="935.4167" cy="209.6792" fill="#5F8F00" rx="10.4167" ry="10.4167" style="stroke:#92C233;stroke-width:1.0416666666666667;"/><path d="M937.0443,211.8276 L934.0169,211.8276 L933.7077,212.5926 L934.0169,212.5926 Q934.4564,212.5926 934.6517,212.7635 Q934.847,212.9344 934.847,213.2273 Q934.847,213.504 934.6517,213.6749 Q934.4564,213.8458 934.0169,213.8458 L932.3242,213.8458 Q931.8685,213.8458 931.6813,213.6749 Q931.4941,213.504 931.4941,213.2111 Q931.4941,212.9344 931.6976,212.7553 Q931.901,212.5763 932.3568,212.5926 L934.3262,207.6935 L933.5124,207.6935 Q933.0566,207.6935 932.8613,207.5226 Q932.666,207.3517 932.666,207.075 Q932.666,206.782 932.8613,206.6111 Q933.0566,206.4402 933.5124,206.4402 L936.2142,206.4402 L938.7044,212.5926 Q939.1439,212.5926 939.2741,212.6902 Q939.5671,212.8855 939.5671,213.2273 Q939.5671,213.504 939.3717,213.6749 Q939.1764,213.8458 938.737,213.8458 L937.0443,213.8458 Q936.5885,213.8458 936.4014,213.6749 Q936.2142,213.504 936.2142,213.2111 Q936.2142,212.9344 936.4014,212.7635 Q936.5885,212.5926 937.0443,212.5926 L937.3535,212.5926 L937.0443,211.8276 Z M936.5397,210.5743 L935.5306,208.1004 L934.5052,210.5743 L936.5397,210.5743 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="77.0833" x="960.4167" y="214.6505">VisualObject</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="796.875" x2="1169.7917" y1="227.6917" y2="227.6917"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="804.1667" y="236.025"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="172.9167" x="820.8333" y="248.5865">_save_handler: SaveHandler</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="804.1667" y="260.3673"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="143.75" x="820.8333" y="272.9289">_owner_project: Project</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="804.1667" y="284.7097"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="820.8333" y="297.2712">_screen: HtmlDivElement</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="804.1667" y="309.052"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="191.6667" x="820.8333" y="321.6136">_rack_parent: UiParameterRack</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="804.1667" y="333.3944"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="255.2083" x="820.8333" y="345.9559">_properties: Object{VisualObjectProperty}</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="804.1667" y="357.7367"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="143.75" x="820.8333" y="370.2983">_element: HTMLElement</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="804.1667" y="382.0791"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="62.5" x="820.8333" y="394.6406">_id: String</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="804.1667" y="406.4214"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="81.25" x="820.8333" y="418.983">_TYPE: String</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="804.1667" y="430.7638"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="195.8333" x="820.8333" y="443.3253">_svg_filter_div: HTMLDivElement</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="796.875" x2="1169.7917" y1="455.1061" y2="455.1061"/><ellipse cx="807.2917" cy="466.5644" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="248.9583" x="820.8333" y="476.001">VisualObject(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="338.5417" x="820.8333" y="500.3433">rack_parent: UIParameterRack, id: String): VisualObject</text><ellipse cx="807.2917" cy="543.7581" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="88.5417" x="820.8333" y="553.1947">get id(): String</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="796.875" x2="955.7292" y1="524.2953" y2="524.2953"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="44.7917" x="960.9375" y="528.3315">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1010.9375" x2="1169.7917" y1="524.2953" y2="524.2953"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="796.875" x2="1169.7917" y1="564.9755" y2="564.9755"/><ellipse cx="807.2917" cy="576.4338" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="129.1667" x="820.8333" y="585.8704">getThisData(): Object</text><ellipse cx="807.2917" cy="600.7762" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="110.4167" x="820.8333" y="610.2127">generateId(): void</text><ellipse cx="807.2917" cy="625.1185" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="820.8333" y="634.5551">validId(id: String): String</text><ellipse cx="807.2917" cy="649.4609" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="175" x="820.8333" y="658.8974">uniqueId(id: String): Boolean</text><ellipse cx="807.2917" cy="673.8032" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="175" x="820.8333" y="683.2397">setName(name: String): void</text><ellipse cx="807.2917" cy="698.1455" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="162.5" x="820.8333" y="707.5821">setType(type: String): void</text><ellipse cx="807.2917" cy="722.4879" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="110.4167" x="820.8333" y="731.9244">assertType(): void</text><ellipse cx="807.2917" cy="746.8302" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="154.1667" x="820.8333" y="756.2668">triggerUpdateData(): void</text><ellipse cx="807.2917" cy="771.1726" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" font-style="italic" lengthAdjust="spacing" textLength="108.3333" x="820.8333" y="780.6091">update(): Boolean</text><ellipse cx="807.2917" cy="795.5149" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="89.5833" x="820.8333" y="804.9515">destroy(): void</text><!--MD5=[8533d75b7402ef273579323ab653d46f]
+class VText--><rect codeLine="52" fill="#222222" height="125.7187" id="VText" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="335.4167" x="439.5833" y="970.3125"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="335.4167" x="439.5833" y="970.3125"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="335.4167" x="439.5833" y="1002.1708"/><rect codeLine="52" fill="none" height="125.7187" id="VText" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="335.4167" x="439.5833" y="970.3125"/><ellipse cx="579.6875" cy="988.325" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M581.2337,985.4116 Q581.3477,985.2488 581.486,985.1674 Q581.6243,985.0861 581.7871,985.0861 Q582.0638,985.0861 582.2347,985.2814 Q582.4056,985.4767 582.4056,985.9161 L582.4056,986.9904 Q582.4056,987.4298 582.2347,987.6251 Q582.0638,987.8204 581.7871,987.8204 Q581.5267,987.8204 581.3802,987.674 Q581.2337,987.5437 581.1523,987.1531 Q581.1198,986.8927 580.9896,986.7625 Q580.7292,986.4858 580.2816,986.323 Q579.834,986.1603 579.3783,986.1603 Q578.8249,986.1603 578.3529,986.4044 Q577.8809,986.6486 577.5228,987.1938 Q577.1647,987.7391 577.1647,988.504 L577.1647,989.3178 Q577.1647,990.213 577.8239,990.8152 Q578.4831,991.4174 579.6387,991.4174 Q580.3385,991.4174 580.8268,991.2384 Q581.1035,991.1245 581.4128,990.799 Q581.6081,990.6036 581.722,990.5467 Q581.8359,990.4897 581.9661,990.4897 Q582.2266,990.4897 582.4137,990.6769 Q582.6009,990.8641 582.6009,991.1245 Q582.6009,991.3849 582.3405,991.6779 Q581.9661,992.101 581.3802,992.3452 Q580.599,992.6707 579.6549,992.6707 Q578.5319,992.6707 577.653,992.215 Q576.9206,991.8569 576.416,991.0594 Q575.9115,990.2618 575.9115,989.3341 L575.9115,988.4878 Q575.9115,987.5112 576.3672,986.6648 Q576.8229,985.8185 577.6286,985.3628 Q578.4342,984.907 579.3294,984.907 Q579.8828,984.907 580.3548,985.0291 Q580.8268,985.1512 581.2337,985.4116 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="36.4583" x="604.6875" y="993.2963">VText</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="440.625" x2="773.9583" y1="1006.3375" y2="1006.3375"/><ellipse cx="451.0417" cy="1017.7958" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="209.375" x="464.5833" y="1027.2324">VText(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="298.9583" x="464.5833" y="1051.5747">rack_parent: UIParameterRack, id: String): VText</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="440.625" x2="773.9583" y1="1063.3555" y2="1063.3555"/><ellipse cx="451.0417" cy="1074.8138" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="108.3333" x="464.5833" y="1084.2504">update(): Boolean</text><!--MD5=[4c4f5bceea09a29eb08859ad1501b68e]
+class VTimer--><rect codeLine="60" fill="#222222" height="101.3763" id="VTimer" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="343.75" x="811.4583" y="982.8125"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="343.75" x="811.4583" y="982.8125"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="343.75" x="811.4583" y="1014.6708"/><rect codeLine="60" fill="none" height="101.3763" id="VTimer" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="343.75" x="811.4583" y="982.8125"/><ellipse cx="952.0833" cy="1000.825" fill="#5F8F00" rx="10.4167" ry="10.4167" style="stroke:#92C233;stroke-width:1.0416666666666667;"/><path d="M953.7109,1002.9734 L950.6836,1002.9734 L950.3743,1003.7384 L950.6836,1003.7384 Q951.123,1003.7384 951.3184,1003.9093 Q951.5137,1004.0802 951.5137,1004.3732 Q951.5137,1004.6499 951.3184,1004.8208 Q951.123,1004.9917 950.6836,1004.9917 L948.9909,1004.9917 Q948.5352,1004.9917 948.348,1004.8208 Q948.1608,1004.6499 948.1608,1004.3569 Q948.1608,1004.0802 948.3643,1003.9012 Q948.5677,1003.7221 949.0234,1003.7384 L950.9928,998.8393 L950.179,998.8393 Q949.7233,998.8393 949.528,998.6684 Q949.3327,998.4975 949.3327,998.2208 Q949.3327,997.9279 949.528,997.757 Q949.7233,997.5861 950.179,997.5861 L952.8809,997.5861 L955.3711,1003.7384 Q955.8105,1003.7384 955.9408,1003.8361 Q956.2337,1004.0314 956.2337,1004.3732 Q956.2337,1004.6499 956.0384,1004.8208 Q955.8431,1004.9917 955.4036,1004.9917 L953.7109,1004.9917 Q953.2552,1004.9917 953.068,1004.8208 Q952.8809,1004.6499 952.8809,1004.3569 Q952.8809,1004.0802 953.068,1003.9093 Q953.2552,1003.7384 953.7109,1003.7384 L954.0202,1003.7384 L953.7109,1002.9734 Z M953.2064,1001.7202 L952.1973,999.2462 L951.1719,1001.7202 L953.2064,1001.7202 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="43.75" x="977.0833" y="1005.7963">VTimer</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="812.5" x2="1154.1667" y1="1018.8375" y2="1018.8375"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="812.5" x2="1154.1667" y1="1027.1708" y2="1027.1708"/><ellipse cx="822.9167" cy="1038.6292" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="217.7083" x="836.4583" y="1048.0657">VTimer(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="307.2917" x="836.4583" y="1072.408">rack_parent: UIParameterRack, id: String): VTimer</text><!--MD5=[577e2fa1848e3ddb3742de6899514244]
+class VTimerStraightBar--><rect codeLine="66" fill="#222222" height="158.3944" id="VTimerStraightBar" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="411.4583" x="248.4375" y="1286.4583"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="411.4583" x="248.4375" y="1286.4583"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="411.4583" x="248.4375" y="1318.3167"/><rect codeLine="66" fill="none" height="158.3944" id="VTimerStraightBar" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="411.4583" x="248.4375" y="1286.4583"/><ellipse cx="385.9375" cy="1304.4708" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M387.4837,1301.5574 Q387.5977,1301.3947 387.736,1301.3133 Q387.8743,1301.2319 388.0371,1301.2319 Q388.3138,1301.2319 388.4847,1301.4272 Q388.6556,1301.6225 388.6556,1302.062 L388.6556,1303.1362 Q388.6556,1303.5756 388.4847,1303.771 Q388.3138,1303.9663 388.0371,1303.9663 Q387.7767,1303.9663 387.6302,1303.8198 Q387.4837,1303.6896 387.4023,1303.299 Q387.3698,1303.0385 387.2396,1302.9083 Q386.9792,1302.6316 386.5316,1302.4689 Q386.084,1302.3061 385.6283,1302.3061 Q385.0749,1302.3061 384.6029,1302.5503 Q384.1309,1302.7944 383.7728,1303.3396 Q383.4147,1303.8849 383.4147,1304.6499 L383.4147,1305.4637 Q383.4147,1306.3588 384.0739,1306.9611 Q384.7331,1307.5633 385.8887,1307.5633 Q386.5885,1307.5633 387.0768,1307.3842 Q387.3535,1307.2703 387.6628,1306.9448 Q387.8581,1306.7495 387.972,1306.6925 Q388.0859,1306.6355 388.2161,1306.6355 Q388.4766,1306.6355 388.6637,1306.8227 Q388.8509,1307.0099 388.8509,1307.2703 Q388.8509,1307.5307 388.5905,1307.8237 Q388.2161,1308.2469 387.6302,1308.491 Q386.849,1308.8165 385.9049,1308.8165 Q384.7819,1308.8165 383.903,1308.3608 Q383.1706,1308.0027 382.666,1307.2052 Q382.1615,1306.4077 382.1615,1305.4799 L382.1615,1304.6336 Q382.1615,1303.657 382.6172,1302.8107 Q383.0729,1301.9643 383.8786,1301.5086 Q384.6842,1301.0529 385.5794,1301.0529 Q386.1328,1301.0529 386.6048,1301.1749 Q387.0768,1301.297 387.4837,1301.5574 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="117.7083" x="410.9375" y="1309.4421">VTimerStraightBar</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="249.4792" x2="658.8542" y1="1322.4833" y2="1322.4833"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="256.7708" y="1330.8167"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="197.9167" x="273.4375" y="1343.3782">_element_child: HTMLDivElement</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="249.4792" x2="658.8542" y1="1355.159" y2="1355.159"/><ellipse cx="259.8958" cy="1366.6173" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="285.4167" x="273.4375" y="1376.0539">VTimerStraightBar(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="375" x="273.4375" y="1400.3962">rack_parent: UIParameterRack, id: String): VTimerStraightBar</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="249.4792" x2="658.8542" y1="1412.177" y2="1412.177"/><ellipse cx="259.8958" cy="1423.6354" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="108.3333" x="273.4375" y="1433.0719">update(): Boolean</text><!--MD5=[5cddf4c92f0e8a2c8206d0e63af29412]
+class VTimerStraightLinePoint--><rect codeLine="76" fill="#222222" height="182.7367" id="VTimerStraightLinePoint" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="443.75" x="696.875" y="1274.4792"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="443.75" x="696.875" y="1274.4792"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="443.75" x="696.875" y="1306.3375"/><rect codeLine="76" fill="none" height="182.7367" id="VTimerStraightLinePoint" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="443.75" x="696.875" y="1274.4792"/><ellipse cx="831.25" cy="1292.4917" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M832.7962,1289.5782 Q832.9102,1289.4155 833.0485,1289.3341 Q833.1868,1289.2527 833.3496,1289.2527 Q833.6263,1289.2527 833.7972,1289.448 Q833.9681,1289.6434 833.9681,1290.0828 L833.9681,1291.157 Q833.9681,1291.5965 833.7972,1291.7918 Q833.6263,1291.9871 833.3496,1291.9871 Q833.0892,1291.9871 832.9427,1291.8406 Q832.7962,1291.7104 832.7148,1291.3198 Q832.6823,1291.0594 832.5521,1290.9292 Q832.2917,1290.6525 831.8441,1290.4897 Q831.3965,1290.3269 830.9408,1290.3269 Q830.3874,1290.3269 829.9154,1290.5711 Q829.4434,1290.8152 829.0853,1291.3605 Q828.7272,1291.9057 828.7272,1292.6707 L828.7272,1293.4845 Q828.7272,1294.3797 829.3864,1294.9819 Q830.0456,1295.5841 831.2012,1295.5841 Q831.901,1295.5841 832.3893,1295.4051 Q832.666,1295.2911 832.9753,1294.9656 Q833.1706,1294.7703 833.2845,1294.7133 Q833.3984,1294.6564 833.5286,1294.6564 Q833.7891,1294.6564 833.9762,1294.8435 Q834.1634,1295.0307 834.1634,1295.2911 Q834.1634,1295.5516 833.903,1295.8445 Q833.5286,1296.2677 832.9427,1296.5118 Q832.1615,1296.8374 831.2174,1296.8374 Q830.0944,1296.8374 829.2155,1296.3816 Q828.4831,1296.0236 827.9785,1295.226 Q827.474,1294.4285 827.474,1293.5008 L827.474,1292.6544 Q827.474,1291.6779 827.9297,1290.8315 Q828.3854,1289.9851 829.1911,1289.5294 Q829.9967,1289.0737 830.8919,1289.0737 Q831.4453,1289.0737 831.9173,1289.1958 Q832.3893,1289.3178 832.7962,1289.5782 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="156.25" x="856.25" y="1297.463">VTimerStraightLinePoint</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="697.9167" x2="1139.5833" y1="1310.5042" y2="1310.5042"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="705.2083" y="1318.8375"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="191.6667" x="721.875" y="1331.399">_element_line: HTMLDivElement</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="705.2083" y="1343.1798"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="208.3333" x="721.875" y="1355.7414">_element_cursor: HTMLDivElement</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="697.9167" x2="1139.5833" y1="1367.5222" y2="1367.5222"/><ellipse cx="708.3333" cy="1378.9805" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="317.7083" x="721.875" y="1388.4171">VTimerStraightLinePoint(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="407.2917" x="721.875" y="1412.7594">rack_parent: UIParameterRack, id: String): VTimerStraightLinePoint</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="697.9167" x2="1139.5833" y1="1424.5402" y2="1424.5402"/><ellipse cx="708.3333" cy="1435.9985" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="108.3333" x="721.875" y="1445.4351">update(): Boolean</text><!--MD5=[6474e1096c3abea23d6a429795784c2b]
+class VParticleFlow--><rect codeLine="87" fill="#222222" height="308.6151" id="VParticleFlow" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="379.1667" x="23.9583" y="879.1667"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="379.1667" x="23.9583" y="879.1667"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="379.1667" x="23.9583" y="911.025"/><rect codeLine="87" fill="none" height="308.6151" id="VParticleFlow" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="379.1667" x="23.9583" y="879.1667"/><ellipse cx="160.9375" cy="897.1792" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M162.4837,894.2657 Q162.5977,894.103 162.736,894.0216 Q162.8743,893.9402 163.0371,893.9402 Q163.3138,893.9402 163.4847,894.1355 Q163.6556,894.3309 163.6556,894.7703 L163.6556,895.8445 Q163.6556,896.284 163.4847,896.4793 Q163.3138,896.6746 163.0371,896.6746 Q162.7767,896.6746 162.6302,896.5281 Q162.4837,896.3979 162.4023,896.0073 Q162.3698,895.7469 162.2396,895.6167 Q161.9792,895.34 161.5316,895.1772 Q161.084,895.0144 160.6283,895.0144 Q160.0749,895.0144 159.6029,895.2586 Q159.1309,895.5027 158.7728,896.048 Q158.4147,896.5932 158.4147,897.3582 L158.4147,898.172 Q158.4147,899.0672 159.0739,899.6694 Q159.7331,900.2716 160.8887,900.2716 Q161.5885,900.2716 162.0768,900.0926 Q162.3535,899.9786 162.6628,899.6531 Q162.8581,899.4578 162.972,899.4008 Q163.0859,899.3439 163.2161,899.3439 Q163.4766,899.3439 163.6637,899.531 Q163.8509,899.7182 163.8509,899.9786 Q163.8509,900.2391 163.5905,900.532 Q163.2161,900.9552 162.6302,901.1993 Q161.849,901.5249 160.9049,901.5249 Q159.7819,901.5249 158.903,901.0691 Q158.1706,900.7111 157.666,899.9135 Q157.1615,899.116 157.1615,898.1883 L157.1615,897.3419 Q157.1615,896.3654 157.6172,895.519 Q158.0729,894.6726 158.8786,894.2169 Q159.6842,893.7612 160.5794,893.7612 Q161.1328,893.7612 161.6048,893.8833 Q162.0768,894.0053 162.4837,894.2657 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="86.4583" x="185.9375" y="902.1505">VParticleFlow</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="25" x2="402.0833" y1="915.1917" y2="915.1917"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="32.2917" y="923.525"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="154.1667" x="48.9583" y="936.0865">_particles: Array[Particle]</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="25" x2="402.0833" y1="947.8673" y2="947.8673"/><ellipse cx="35.4167" cy="959.3257" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="253.125" x="48.9583" y="968.7622">VParticleFlow(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="342.7083" x="48.9583" y="993.1046">rack_parent: UIParameterRack, id: String): VParticleFlow</text><ellipse cx="35.4167" cy="1036.5194" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="208.3333" x="48.9583" y="1045.9559">get canvas(): HTMLCanvasElement</text><ellipse cx="35.4167" cy="1060.8617" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="229.1667" x="48.9583" y="1070.2983">get ctx(): CanvasRenderingContext2D</text><ellipse cx="35.4167" cy="1085.2041" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="281.25" x="48.9583" y="1094.6406">get properties(): Object{VisualObjectProperty}</text><ellipse cx="35.4167" cy="1109.5464" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="114.5833" x="48.9583" y="1118.983">get volume(): Float</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="25" x2="185.9375" y1="1017.0565" y2="1017.0565"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="44.7917" x="191.1458" y="1021.0927">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="241.1458" x2="402.0833" y1="1017.0565" y2="1017.0565"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="25" x2="402.0833" y1="1130.7638" y2="1130.7638"/><ellipse cx="35.4167" cy="1142.2221" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="108.3333" x="48.9583" y="1151.6586">update(): Boolean</text><ellipse cx="35.4167" cy="1166.5644" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="202.0833" x="48.9583" y="1176.001">killParticle(particle: Particle): void</text><!--MD5=[9a39ccbd4d35b899d18dc162d69b1d63]
+class Particle--><rect codeLine="103" fill="#222222" height="620.8989" id="Particle" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="269.7917" x="78.6458" y="193.75"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="269.7917" x="78.6458" y="193.75"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="269.7917" x="78.6458" y="225.6083"/><rect codeLine="103" fill="none" height="620.8989" id="Particle" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="269.7917" x="78.6458" y="193.75"/><ellipse cx="180.2083" cy="211.7625" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M181.7546,208.8491 Q181.8685,208.6863 182.0068,208.6049 Q182.1452,208.5236 182.3079,208.5236 Q182.5846,208.5236 182.7555,208.7189 Q182.9264,208.9142 182.9264,209.3536 L182.9264,210.4279 Q182.9264,210.8673 182.7555,211.0626 Q182.5846,211.2579 182.3079,211.2579 Q182.0475,211.2579 181.901,211.1115 Q181.7546,210.9812 181.6732,210.5906 Q181.6406,210.3302 181.5104,210.2 Q181.25,209.9233 180.8024,209.7605 Q180.3548,209.5978 179.8991,209.5978 Q179.3457,209.5978 178.8737,209.8419 Q178.4017,210.0861 178.0436,210.6313 Q177.6855,211.1766 177.6855,211.9415 L177.6855,212.7553 Q177.6855,213.6505 178.3447,214.2527 Q179.0039,214.8549 180.1595,214.8549 Q180.8594,214.8549 181.3477,214.6759 Q181.6243,214.562 181.9336,214.2365 Q182.1289,214.0411 182.2428,213.9842 Q182.3568,213.9272 182.487,213.9272 Q182.7474,213.9272 182.9346,214.1144 Q183.1217,214.3016 183.1217,214.562 Q183.1217,214.8224 182.8613,215.1154 Q182.487,215.5385 181.901,215.7827 Q181.1198,216.1082 180.1758,216.1082 Q179.0527,216.1082 178.1738,215.6525 Q177.4414,215.2944 176.9368,214.4969 Q176.4323,213.6993 176.4323,212.7716 L176.4323,211.9253 Q176.4323,210.9487 176.888,210.1023 Q177.3438,209.256 178.1494,208.8003 Q178.9551,208.3445 179.8503,208.3445 Q180.4036,208.3445 180.8757,208.4666 Q181.3477,208.5887 181.7546,208.8491 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="47.9167" x="205.2083" y="216.7338">Particle</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="79.6875" x2="347.3958" y1="229.775" y2="229.775"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="238.1083"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="133.3333" x="103.6458" y="250.6699">_parent: VParticleFlow</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="107.8125" y="275.0122"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="286.793"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="96.875" x="103.6458" y="299.3546">_radius: Integer</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="311.1354"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="80.2083" x="103.6458" y="323.6969">_speed: Float</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="335.4777"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="95.8333" x="103.6458" y="348.0392">_direction: Float</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="107.8125" y="372.3816"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="384.1624"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="52.0833" x="103.6458" y="396.7239">_x: Float</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="408.5047"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="52.0833" x="103.6458" y="421.0663">_y: Float</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="432.8471"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="81.25" x="103.6458" y="445.4086">_x_min: Float</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="457.1894"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="85.4167" x="103.6458" y="469.751">_x_max: Float</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="481.5318"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="81.25" x="103.6458" y="494.0933">_y_min: Float</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="505.8741"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="85.4167" x="103.6458" y="518.4357">_y_max: Float</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="530.2165"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="105.2083" x="103.6458" y="542.778">_x_velocity: Float</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="554.5588"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="105.2083" x="103.6458" y="567.1204">_y_velocity: Float</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="107.8125" y="591.4627"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="86.9792" y="603.2435"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="122.9167" x="103.6458" y="615.8051">_spawn_type: String</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="79.6875" x2="347.3958" y1="627.5859" y2="627.5859"/><ellipse cx="90.1042" cy="639.0442" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="233.3333" x="103.6458" y="648.4807">Particle(parent: VParticleFlow): Particle</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="79.6875" x2="347.3958" y1="660.2615" y2="660.2615"/><ellipse cx="90.1042" cy="671.7199" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="103.125" x="103.6458" y="681.1564">leftSpawn(): void</text><ellipse cx="90.1042" cy="696.0622" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="111.4583" x="103.6458" y="705.4988">rightSpawn(): void</text><ellipse cx="90.1042" cy="720.4046" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="103.125" x="103.6458" y="729.8411">topSpawn(): void</text><ellipse cx="90.1042" cy="744.7469" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="126.0417" x="103.6458" y="754.1835">bottomSpawn(): void</text><ellipse cx="90.1042" cy="769.0893" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="85.4167" x="103.6458" y="778.5258">update(): void</text><ellipse cx="90.1042" cy="793.4316" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="86.4583" x="103.6458" y="802.8681">display(): void</text><!--MD5=[90115f6c918e4ecbf8095700554e5017]
+class VVisualizer--><rect codeLine="132" fill="#222222" height="207.0791" id="VVisualizer" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="366.6667" x="1191.6667" y="929.6875"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="366.6667" x="1191.6667" y="929.6875"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="366.6667" x="1191.6667" y="961.5458"/><rect codeLine="132" fill="none" height="207.0791" id="VVisualizer" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="366.6667" x="1191.6667" y="929.6875"/><ellipse cx="1331.7708" cy="947.7" fill="#5F8F00" rx="10.4167" ry="10.4167" style="stroke:#92C233;stroke-width:1.0416666666666667;"/><path d="M1333.3984,949.8484 L1330.3711,949.8484 L1330.0618,950.6134 L1330.3711,950.6134 Q1330.8105,950.6134 1331.0059,950.7843 Q1331.2012,950.9552 1331.2012,951.2482 Q1331.2012,951.5249 1331.0059,951.6958 Q1330.8105,951.8667 1330.3711,951.8667 L1328.6784,951.8667 Q1328.2227,951.8667 1328.0355,951.6958 Q1327.8483,951.5249 1327.8483,951.2319 Q1327.8483,950.9552 1328.0518,950.7762 Q1328.2552,950.5971 1328.7109,950.6134 L1330.6803,945.7143 L1329.8665,945.7143 Q1329.4108,945.7143 1329.2155,945.5434 Q1329.0202,945.3725 1329.0202,945.0958 Q1329.0202,944.8029 1329.2155,944.632 Q1329.4108,944.4611 1329.8665,944.4611 L1332.5684,944.4611 L1335.0586,950.6134 Q1335.498,950.6134 1335.6283,950.7111 Q1335.9212,950.9064 1335.9212,951.2482 Q1335.9212,951.5249 1335.7259,951.6958 Q1335.5306,951.8667 1335.0911,951.8667 L1333.3984,951.8667 Q1332.9427,951.8667 1332.7555,951.6958 Q1332.5684,951.5249 1332.5684,951.2319 Q1332.5684,950.9552 1332.7555,950.7843 Q1332.9427,950.6134 1333.3984,950.6134 L1333.7077,950.6134 L1333.3984,949.8484 Z M1332.8939,948.5952 L1331.8848,946.1212 L1330.8594,948.5952 L1332.8939,948.5952 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="67.7083" x="1356.7708" y="952.6713">VVisualizer</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="1192.7083" x2="1557.2917" y1="965.7125" y2="965.7125"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="1200" y="974.0458"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="152.0833" x="1216.6667" y="986.6074">_freq_array: Array[Float]</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="1200" y="998.3882"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="186.4583" x="1216.6667" y="1010.9497">_prev_freq_array: Array[Float]</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="1200" y="1022.7305"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="243.75" x="1216.6667" y="1035.2921">_reset_visualization_smoothing: Boolean</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1192.7083" x2="1557.2917" y1="1047.0729" y2="1047.0729"/><ellipse cx="1203.125" cy="1058.5312" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="240.625" x="1216.6667" y="1067.9677">VVisualizer(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="330.2083" x="1216.6667" y="1092.3101">rack_parent: UIParameterRack, id: String): VVisualizer</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1192.7083" x2="1557.2917" y1="1104.0909" y2="1104.0909"/><ellipse cx="1203.125" cy="1115.5492" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="85.4167" x="1216.6667" y="1124.9858">update(): void</text><!--MD5=[88753ff18379dd1c46c920b6913c8d3e]
+class VVisualizerBar--><rect codeLine="144" fill="#222222" height="231.4214" id="VVisualizerBar" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="387.5" x="1177.0833" y="1250"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="387.5" x="1177.0833" y="1250"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="387.5" x="1177.0833" y="1281.8583"/><rect codeLine="144" fill="none" height="231.4214" id="VVisualizerBar" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="387.5" x="1177.0833" y="1250"/><ellipse cx="1317.1875" cy="1268.0125" fill="#5F8F00" rx="10.4167" ry="10.4167" style="stroke:#92C233;stroke-width:1.0416666666666667;"/><path d="M1318.8151,1270.1609 L1315.7878,1270.1609 L1315.4785,1270.9259 L1315.7878,1270.9259 Q1316.2272,1270.9259 1316.4225,1271.0968 Q1316.6178,1271.2677 1316.6178,1271.5607 Q1316.6178,1271.8374 1316.4225,1272.0083 Q1316.2272,1272.1792 1315.7878,1272.1792 L1314.0951,1272.1792 Q1313.6393,1272.1792 1313.4521,1272.0083 Q1313.265,1271.8374 1313.265,1271.5444 Q1313.265,1271.2677 1313.4684,1271.0887 Q1313.6719,1270.9096 1314.1276,1270.9259 L1316.097,1266.0268 L1315.2832,1266.0268 Q1314.8275,1266.0268 1314.6322,1265.8559 Q1314.4368,1265.685 1314.4368,1265.4083 Q1314.4368,1265.1154 1314.6322,1264.9445 Q1314.8275,1264.7736 1315.2832,1264.7736 L1317.985,1264.7736 L1320.4753,1270.9259 Q1320.9147,1270.9259 1321.0449,1271.0236 Q1321.3379,1271.2189 1321.3379,1271.5607 Q1321.3379,1271.8374 1321.1426,1272.0083 Q1320.9473,1272.1792 1320.5078,1272.1792 L1318.8151,1272.1792 Q1318.3594,1272.1792 1318.1722,1272.0083 Q1317.985,1271.8374 1317.985,1271.5444 Q1317.985,1271.2677 1318.1722,1271.0968 Q1318.3594,1270.9259 1318.8151,1270.9259 L1319.1243,1270.9259 L1318.8151,1270.1609 Z M1318.3105,1268.9077 L1317.3014,1266.4337 L1316.276,1268.9077 L1318.3105,1268.9077 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="88.5417" x="1342.1875" y="1272.9838">VVisualizerBar</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="1178.125" x2="1563.5417" y1="1286.025" y2="1286.025"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="1185.4167" y="1294.3583"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="185.4167" x="1202.0833" y="1306.9199">_bars: Array[HTMLDivElement]</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="1185.4167" y="1318.7007"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="225" x="1202.0833" y="1331.2622">_exclude_bar_count_update: Boolean</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1178.125" x2="1563.5417" y1="1343.043" y2="1343.043"/><ellipse cx="1188.5417" cy="1354.5013" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="261.4583" x="1202.0833" y="1363.9379">VVisualizerBar(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="351.0417" x="1202.0833" y="1388.2802">rack_parent: UIParameterRack, id: String): VVisualizerBar</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1178.125" x2="1563.5417" y1="1400.061" y2="1400.061"/><ellipse cx="1188.5417" cy="1411.5194" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="112.5" x="1202.0833" y="1420.9559">updateBars(): void</text><ellipse cx="1188.5417" cy="1435.8617" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="85.4167" x="1202.0833" y="1445.2983">update(): void</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="1206.25" y="1469.6406"/><!--MD5=[a4194676d8d44ba9ffe0a2a93086e9ed]
+class VVisualizerStraightBar--><rect codeLine="157" fill="#222222" height="125.7187" id="VVisualizerStraightBar" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="434.375" x="913.0208" y="1567.7083"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="434.375" x="913.0208" y="1567.7083"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="434.375" x="913.0208" y="1599.5667"/><rect codeLine="157" fill="none" height="125.7187" id="VVisualizerStraightBar" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="434.375" x="913.0208" y="1567.7083"/><ellipse cx="1048.4375" cy="1585.7208" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M1049.9837,1582.8074 Q1050.0977,1582.6447 1050.236,1582.5633 Q1050.3743,1582.4819 1050.5371,1582.4819 Q1050.8138,1582.4819 1050.9847,1582.6772 Q1051.1556,1582.8725 1051.1556,1583.312 L1051.1556,1584.3862 Q1051.1556,1584.8256 1050.9847,1585.021 Q1050.8138,1585.2163 1050.5371,1585.2163 Q1050.2767,1585.2163 1050.1302,1585.0698 Q1049.9837,1584.9396 1049.9023,1584.549 Q1049.8698,1584.2885 1049.7396,1584.1583 Q1049.4792,1583.8816 1049.0316,1583.7189 Q1048.584,1583.5561 1048.1283,1583.5561 Q1047.5749,1583.5561 1047.1029,1583.8003 Q1046.6309,1584.0444 1046.2728,1584.5896 Q1045.9147,1585.1349 1045.9147,1585.8999 L1045.9147,1586.7137 Q1045.9147,1587.6088 1046.5739,1588.2111 Q1047.2331,1588.8133 1048.3887,1588.8133 Q1049.0885,1588.8133 1049.5768,1588.6342 Q1049.8535,1588.5203 1050.1628,1588.1948 Q1050.3581,1587.9995 1050.472,1587.9425 Q1050.5859,1587.8855 1050.7161,1587.8855 Q1050.9766,1587.8855 1051.1637,1588.0727 Q1051.3509,1588.2599 1051.3509,1588.5203 Q1051.3509,1588.7807 1051.0905,1589.0737 Q1050.7161,1589.4969 1050.1302,1589.741 Q1049.349,1590.0665 1048.4049,1590.0665 Q1047.2819,1590.0665 1046.403,1589.6108 Q1045.6706,1589.2527 1045.166,1588.4552 Q1044.6615,1587.6577 1044.6615,1586.7299 L1044.6615,1585.8836 Q1044.6615,1584.907 1045.1172,1584.0607 Q1045.5729,1583.2143 1046.3786,1582.7586 Q1047.1842,1582.3029 1048.0794,1582.3029 Q1048.6328,1582.3029 1049.1048,1582.4249 Q1049.5768,1582.547 1049.9837,1582.8074 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="144.7917" x="1073.4375" y="1590.6921">VVisualizerStraightBar</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="914.0625" x2="1346.3542" y1="1603.7333" y2="1603.7333"/><ellipse cx="924.4792" cy="1615.1917" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="308.3333" x="938.0208" y="1624.6282">VVisualizerStraightBar(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="397.9167" x="938.0208" y="1648.9705">rack_parent: UIParameterRack, id: String): VVisualizerStraightBar</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="914.0625" x2="1346.3542" y1="1660.7513" y2="1660.7513"/><ellipse cx="924.4792" cy="1672.2097" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="108.3333" x="938.0208" y="1681.6462">update(): Boolean</text><!--MD5=[e6cbff189e0bc100b267e3039f10c1cc]
+class VVisualizerCircularBar--><rect codeLine="165" fill="#222222" height="174.4034" id="VVisualizerCircularBar" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="434.375" x="1383.8542" y="1543.75"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="434.375" x="1383.8542" y="1543.75"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="434.375" x="1383.8542" y="1575.6083"/><rect codeLine="165" fill="none" height="174.4034" id="VVisualizerCircularBar" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="434.375" x="1383.8542" y="1543.75"/><ellipse cx="1520.8333" cy="1561.7625" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M1522.3796,1558.8491 Q1522.4935,1558.6863 1522.6318,1558.6049 Q1522.7702,1558.5236 1522.9329,1558.5236 Q1523.2096,1558.5236 1523.3805,1558.7189 Q1523.5514,1558.9142 1523.5514,1559.3536 L1523.5514,1560.4279 Q1523.5514,1560.8673 1523.3805,1561.0626 Q1523.2096,1561.2579 1522.9329,1561.2579 Q1522.6725,1561.2579 1522.526,1561.1115 Q1522.3796,1560.9812 1522.2982,1560.5906 Q1522.2656,1560.3302 1522.1354,1560.2 Q1521.875,1559.9233 1521.4274,1559.7605 Q1520.9798,1559.5978 1520.5241,1559.5978 Q1519.9707,1559.5978 1519.4987,1559.8419 Q1519.0267,1560.0861 1518.6686,1560.6313 Q1518.3105,1561.1766 1518.3105,1561.9415 L1518.3105,1562.7553 Q1518.3105,1563.6505 1518.9697,1564.2527 Q1519.6289,1564.8549 1520.7845,1564.8549 Q1521.4844,1564.8549 1521.9727,1564.6759 Q1522.2493,1564.562 1522.5586,1564.2365 Q1522.7539,1564.0411 1522.8678,1563.9842 Q1522.9818,1563.9272 1523.112,1563.9272 Q1523.3724,1563.9272 1523.5596,1564.1144 Q1523.7467,1564.3016 1523.7467,1564.562 Q1523.7467,1564.8224 1523.4863,1565.1154 Q1523.112,1565.5385 1522.526,1565.7827 Q1521.7448,1566.1082 1520.8008,1566.1082 Q1519.6777,1566.1082 1518.7988,1565.6525 Q1518.0664,1565.2944 1517.5618,1564.4969 Q1517.0573,1563.6993 1517.0573,1562.7716 L1517.0573,1561.9253 Q1517.0573,1560.9487 1517.513,1560.1023 Q1517.9688,1559.256 1518.7744,1558.8003 Q1519.5801,1558.3445 1520.4753,1558.3445 Q1521.0286,1558.3445 1521.5007,1558.4666 Q1521.9727,1558.5887 1522.3796,1558.8491 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="141.6667" x="1545.8333" y="1566.7338">VVisualizerCircularBar</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="1384.8958" x2="1817.1875" y1="1579.775" y2="1579.775"/><ellipse cx="1395.3125" cy="1591.2333" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="308.3333" x="1408.8542" y="1600.6699">VVisualizerCircularBar(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="397.9167" x="1408.8542" y="1625.0122">rack_parent: UIParameterRack, id: String): VVisualizerCircularBar</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1384.8958" x2="1817.1875" y1="1636.793" y2="1636.793"/><ellipse cx="1395.3125" cy="1648.2513" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="112.5" x="1408.8542" y="1657.6879">updateBars(): void</text><ellipse cx="1395.3125" cy="1672.5937" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="161.4583" x="1408.8542" y="1682.0302">updateBarsRotation(): void</text><ellipse cx="1395.3125" cy="1696.936" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="108.3333" x="1408.8542" y="1706.3726">update(): Boolean</text><!--MD5=[8a46a2e2694e74367217f192ab3bcfb9]
+class VVisualizerStraightWave--><rect codeLine="175" fill="#222222" height="158.3944" id="VVisualizerStraightWave" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="446.875" x="1601.5625" y="1286.4583"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="446.875" x="1601.5625" y="1286.4583"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="446.875" x="1601.5625" y="1318.3167"/><rect codeLine="175" fill="none" height="158.3944" id="VVisualizerStraightWave" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="446.875" x="1601.5625" y="1286.4583"/><ellipse cx="1735.4167" cy="1304.4708" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M1736.9629,1301.5574 Q1737.0768,1301.3947 1737.2152,1301.3133 Q1737.3535,1301.2319 1737.5163,1301.2319 Q1737.793,1301.2319 1737.9639,1301.4272 Q1738.1348,1301.6225 1738.1348,1302.062 L1738.1348,1303.1362 Q1738.1348,1303.5756 1737.9639,1303.771 Q1737.793,1303.9663 1737.5163,1303.9663 Q1737.2559,1303.9663 1737.1094,1303.8198 Q1736.9629,1303.6896 1736.8815,1303.299 Q1736.849,1303.0385 1736.7188,1302.9083 Q1736.4583,1302.6316 1736.0107,1302.4689 Q1735.5632,1302.3061 1735.1074,1302.3061 Q1734.554,1302.3061 1734.082,1302.5503 Q1733.61,1302.7944 1733.252,1303.3396 Q1732.8939,1303.8849 1732.8939,1304.6499 L1732.8939,1305.4637 Q1732.8939,1306.3588 1733.5531,1306.9611 Q1734.2122,1307.5633 1735.3678,1307.5633 Q1736.0677,1307.5633 1736.556,1307.3842 Q1736.8327,1307.2703 1737.1419,1306.9448 Q1737.3372,1306.7495 1737.4512,1306.6925 Q1737.5651,1306.6355 1737.6953,1306.6355 Q1737.9557,1306.6355 1738.1429,1306.8227 Q1738.3301,1307.0099 1738.3301,1307.2703 Q1738.3301,1307.5307 1738.0697,1307.8237 Q1737.6953,1308.2469 1737.1094,1308.491 Q1736.3281,1308.8165 1735.3841,1308.8165 Q1734.2611,1308.8165 1733.3822,1308.3608 Q1732.6497,1308.0027 1732.1452,1307.2052 Q1731.6406,1306.4077 1731.6406,1305.4799 L1731.6406,1304.6336 Q1731.6406,1303.657 1732.0964,1302.8107 Q1732.5521,1301.9643 1733.3577,1301.5086 Q1734.1634,1301.0529 1735.0586,1301.0529 Q1735.612,1301.0529 1736.084,1301.1749 Q1736.556,1301.297 1736.9629,1301.5574 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="160.4167" x="1760.4167" y="1309.4421">VVisualizerStraightWave</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="1602.6042" x2="2047.3958" y1="1322.4833" y2="1322.4833"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="1609.8958" y="1330.8167"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="101.0417" x="1626.5625" y="1343.3782">_debug: Boolean</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1602.6042" x2="2047.3958" y1="1355.159" y2="1355.159"/><ellipse cx="1613.0208" cy="1366.6173" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="320.8333" x="1626.5625" y="1376.0539">VVisualizerStraightWave(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="410.4167" x="1626.5625" y="1400.3962">rack_parent: UIParameterRack, id: String): VVisualizerStraightWave</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1602.6042" x2="2047.3958" y1="1412.177" y2="1412.177"/><ellipse cx="1613.0208" cy="1423.6354" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="108.3333" x="1626.5625" y="1433.0719">update(): Boolean</text><!--MD5=[6e2780a6a5dddbbb1843056f62ec722f]
+class VShape--><rect codeLine="185" fill="#222222" height="150.061" id="VShape" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="453.125" x="1595.3125" y="958.3333"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="453.125" x="1595.3125" y="958.3333"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="453.125" x="1595.3125" y="990.1917"/><rect codeLine="185" fill="none" height="150.061" id="VShape" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="453.125" x="1595.3125" y="958.3333"/><ellipse cx="1787.5" cy="976.3458" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M1789.0462,973.4324 Q1789.1602,973.2697 1789.2985,973.1883 Q1789.4368,973.1069 1789.5996,973.1069 Q1789.8763,973.1069 1790.0472,973.3022 Q1790.2181,973.4975 1790.2181,973.937 L1790.2181,975.0112 Q1790.2181,975.4506 1790.0472,975.646 Q1789.8763,975.8413 1789.5996,975.8413 Q1789.3392,975.8413 1789.1927,975.6948 Q1789.0462,975.5646 1788.9648,975.174 Q1788.9323,974.9135 1788.8021,974.7833 Q1788.5417,974.5066 1788.0941,974.3439 Q1787.6465,974.1811 1787.1908,974.1811 Q1786.6374,974.1811 1786.1654,974.4253 Q1785.6934,974.6694 1785.3353,975.2146 Q1784.9772,975.7599 1784.9772,976.5249 L1784.9772,977.3387 Q1784.9772,978.2338 1785.6364,978.8361 Q1786.2956,979.4383 1787.4512,979.4383 Q1788.151,979.4383 1788.6393,979.2592 Q1788.916,979.1453 1789.2253,978.8198 Q1789.4206,978.6245 1789.5345,978.5675 Q1789.6484,978.5105 1789.7786,978.5105 Q1790.0391,978.5105 1790.2262,978.6977 Q1790.4134,978.8849 1790.4134,979.1453 Q1790.4134,979.4057 1790.153,979.6987 Q1789.7786,980.1219 1789.1927,980.366 Q1788.4115,980.6915 1787.4674,980.6915 Q1786.3444,980.6915 1785.4655,980.2358 Q1784.7331,979.8777 1784.2285,979.0802 Q1783.724,978.2827 1783.724,977.3549 L1783.724,976.5086 Q1783.724,975.532 1784.1797,974.6857 Q1784.6354,973.8393 1785.4411,973.3836 Q1786.2467,972.9279 1787.1419,972.9279 Q1787.6953,972.9279 1788.1673,973.0499 Q1788.6393,973.172 1789.0462,973.4324 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="50" x="1812.5" y="981.3171">VShape</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="1596.3542" x2="2047.3958" y1="994.3583" y2="994.3583"/><ellipse cx="1606.7708" cy="1005.8167" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="220.8333" x="1620.3125" y="1015.2532">VShape(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="1620.3125" y="1039.5955">rack_parent: UIParameterRack, id: String): VShape</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1596.3542" x2="2047.3958" y1="1051.3763" y2="1051.3763"/><ellipse cx="1606.7708" cy="1062.8347" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="416.6667" x="1620.3125" y="1072.2712">fullPathToCSSPath(working_dir: String, absolute_path: String): String</text><ellipse cx="1606.7708" cy="1087.177" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="108.3333" x="1620.3125" y="1096.6136">update(): Boolean</text><!--MD5=[e64d23db7cb37dbd5c9ff91d8be39d14]
+reverse link SaveHandler to VisualObject--><path codeLine="47" d="M770.6146,117.0938 C781.3646,136.6042 795.625,162.4792 811.6771,191.625 " fill="none" id="SaveHandler-backto-VisualObject" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="#222222" points="764.0729,105.2188,763.4387,112.7035,770.1038,116.1677,770.738,108.6829,764.0729,105.2188" style="stroke:#2A9FD6;stroke-width:3.125;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="110.4167" x="639.324" y="130.7892">1 _save_handler</text><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="85.4167" x="715.2197" y="175.7738">0..n _objects</text><!--MD5=[0efe56e0d05574a3cfeff63d11ef2507]
+link Project to VisualObject--><path codeLine="48" d="M898.1771,105.2188 C902.5,125.4271 909.0625,156.0937 916.6667,191.625 " fill="none" id="Project-VisualObject" style="stroke:#2A9FD6;stroke-width:3.125;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="116.6667" x="792.9" y="130.8633">1 _owner_project</text><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="0" x="909.4938" y="175.7738"/><!--MD5=[1f3f0138e01010f7bc9269cea5c3fc95]
+link UIParameterRack to VisualObject--><path codeLine="49" d="M1067.5104,105.2188 C1063.7917,122.8229 1058.3854,148.3646 1052.0833,178.1354 " fill="none" id="UIParameterRack-to-VisualObject" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="#222222" points="1049.2396,191.625,1054.608,186.3711,1051.823,179.3949,1046.4546,184.6488,1049.2396,191.625" style="stroke:#2A9FD6;stroke-width:3.125;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="125" x="945.2248" y="130.8161">1 _parameter_rack</text><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="0" x="1045.5882" y="175.7738"/><!--MD5=[5a48dd78a7ffde75576e9f143e29b0a1]
+link VisualObjectProperty to VisualObject--><path codeLine="50" d="M1276.0104,105.2188 C1255.1563,133.5729 1219.1458,182.5313 1179.3646,236.6146 " fill="none" id="VisualObjectProperty-to-VisualObject" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="#2A9FD6" points="1171.0938,247.8646,1178.1531,245.2977,1178.4989,237.7941,1171.4395,240.361,1171.0938,247.8646" style="stroke:#2A9FD6;stroke-width:3.125;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="105.2083" x="1150.5144" y="130.7892">0..n _properties</text><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="107.2917" x="1184.3941" y="231.8289">1 _visual_object</text><!--MD5=[ac841d682c57eec2543166ed72815204]
+reverse link VisualObject to VText--><path codeLine="58" d="M783.2917,785.6042 C733.6354,855.2083 685.0938,923.2396 651.6146,970.1667 " fill="none" id="VisualObject-backto-VText" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="777.5521,781.0938,795.5833,768.3646,789.4271,789.5625,777.5521,781.0938" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[65c8777484fb30b276e6a2e16051fe8a]
+reverse link VisualObject to VTimer--><path codeLine="64" d="M983.3333,837.8542 C983.3333,894.5833 983.3333,946.7188 983.3333,982.6979 " fill="none" id="VisualObject-backto-VTimer" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="976.0417,837.6042,983.3333,816.7708,990.625,837.6042,976.0417,837.6042" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[2921d57daaeb5fa4f94de16c7a0f052a]
+reverse link VTimer to VTimerStraightBar--><path codeLine="74" d="M911.7083,1097.8542 C877.2708,1126.8854 834.6563,1160.6979 793.75,1187.5 C775.7396,1199.3021 689.0625,1244.4688 607.7813,1286.2396 " fill="none" id="VTimer-backto-VTimerStraightBar" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="907.3333,1092,927.9167,1084.0313,916.7917,1103.1042,907.3333,1092" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[c1f87ede7b821a910490d444113cee14]
+reverse link VTimer to VTimerStraightLinePoint--><path codeLine="85" d="M969.5313,1104.9271 C959.8542,1154.4479 946.8125,1221.0833 936.375,1274.4479 " fill="none" id="VTimer-backto-VTimerStraightLinePoint" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="962.4375,1103.2188,973.5938,1084.1667,976.75,1106.0104,962.4375,1103.2188" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[a2e0cdbf1970a24da30df141722d5879]
+reverse link VisualObject to VParticleFlow--><path codeLine="101" d="M778.0521,638.6667 C671.0729,709.0313 538.5521,797.5 421.875,879.1667 C415.7188,883.4792 409.4688,887.8854 403.1771,892.3438 " fill="none" id="VisualObject-backto-VParticleFlow" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="774.2604,632.4271,795.6771,627.0833,782.2708,644.6146,774.2604,632.4271" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[664c6df976675fd566b8a6a2c593f66e]
+link Particle to VParticleFlow--><path codeLine="130" d="M213.5417,814.8646 C213.5417,836.9375 213.5417,858.5625 213.5417,879.0938 " fill="none" id="Particle-VParticleFlow" style="stroke:#2A9FD6;stroke-width:3.125;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="92.7083" x="114.2554" y="841.2322">0..n _particles</text><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="64.5833" x="141.6992" y="862.7596">1 _parent</text><!--MD5=[45b37dc6183f35cee4d748d187085c7f]
+reverse link VisualObject to VVisualizer--><path codeLine="142" d="M1183.3021,774.3125 C1224.375,829.5938 1265.2083,884.5313 1298.5625,929.4271 " fill="none" id="VisualObject-backto-VVisualizer" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="1177.4271,778.625,1170.8542,757.5625,1189.125,769.9271,1177.4271,778.625" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[386f7e9f5aa6828370e2539972bf1001]
+reverse link VVisualizer to VVisualizerBar--><path codeLine="155" d="M1373.4375,1158.0417 C1373.0625,1188.1458 1372.6563,1220.2188 1372.2813,1249.8958 " fill="none" id="VVisualizer-backto-VVisualizerBar" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="1366.1458,1157.7813,1373.7083,1137.0417,1380.7292,1157.9688,1366.1458,1157.7813" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[8ba88599a98eb0d594fbac5035040307]
+reverse link VVisualizerBar to VVisualizerStraightBar--><path codeLine="163" d="M1251.6354,1496.9583 C1229.125,1521.5625 1206.5729,1546.2188 1187.1146,1567.4896 " fill="none" id="VVisualizerBar-backto-VVisualizerStraightBar" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="1246.5521,1491.7188,1265.9896,1481.2708,1257.3125,1501.5625,1246.5521,1491.7188" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[65051c783772fb3bace2bb784e5359d9]
+reverse link VVisualizerBar to VVisualizerCircularBar--><path codeLine="173" d="M1484.9271,1497.0208 C1498.75,1512.8125 1512.5938,1528.625 1525.6563,1543.5521 " fill="none" id="VVisualizerBar-backto-VVisualizerCircularBar" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="1479.375,1501.75,1471.1354,1481.2708,1490.3438,1492.1458,1479.375,1501.75" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[e57a6329b8eda40a90a9f8e4b0e0c5e4]
+reverse link VVisualizer to VVisualizerStraightWave--><path codeLine="183" d="M1526.1146,1149.6042 C1543.25,1162.4583 1560.5104,1175.3021 1577.0833,1187.5 C1621.6042,1220.2604 1671.0833,1255.7813 1714.0625,1286.3542 " fill="none" id="VVisualizer-backto-VVisualizerStraightWave" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="1521.6667,1155.3854,1509.3958,1137.0417,1530.4271,1143.7292,1521.6667,1155.3854" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[6ebb7570d328120f3a64df5c3a95d5f9]
+reverse link VisualObject to VShape--><path codeLine="192" d="M1188.9479,634.4479 C1350.7813,736.1771 1570.5625,874.3229 1703.9896,958.1979 " fill="none" id="VisualObject-backto-VShape" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="1184.75,640.4271,1171,623.1667,1192.5104,628.0833,1184.75,640.4271" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[218543a811d3e8b78e1aa3b6cd3c3555]
+@startuml visual_object
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+' skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package "index" {
+    class SaveHandler {}
+    class Project {}
+}
+
+package "ui_components" {
+    class UIParameterRack {}
+}
+
+package "visual_object_property" {
+    abstract class VisualObjectProperty {}
+}
+
+package "visual_object" {
+    abstract class VisualObject {
+        - _save_handler: SaveHandler
+        - _owner_project: Project
+        - _screen: HtmlDivElement
+        - _rack_parent: UiParameterRack
+        - _properties: Object{VisualObjectProperty}
+        - _element: HTMLElement
+        - _id: String
+        - _TYPE: String
+        - _svg_filter_div: HTMLDivElement
+        - -
+        + VisualObject(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VisualObject
+        ..get, set..
+        + get id(): String
+        ..
+        + getThisData(): Object
+        + generateId(): void
+        + validId(id: String): String
+        + uniqueId(id: String): Boolean
+        + setName(name: String): void
+        + setType(type: String): void
+        + assertType(): void
+        + triggerUpdateData(): void
+        {abstract} + update(): Boolean
+        + destroy(): void
+    }
+    VisualObject "0..n _objects" -up-o "1 _save_handler" SaveHandler
+    VisualObject " " -up- "1 _owner_project" Project
+    VisualObject " " o-up- "1 _parameter_rack" UIParameterRack
+    VisualObject "1 _visual_object" *-up- "0..n _properties" VisualObjectProperty
+
+    class VText {
+        + VText(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VText
+        ..
+        + update(): Boolean
+    }
+    VisualObject <|- - VText
+
+    abstract class VTimer {
+        + VTimer(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VTimer
+    }
+    VisualObject <|- - VTimer
+
+    class VTimerStraightBar {
+        - _element_child: HTMLDivElement
+        - -
+        + VTimerStraightBar(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VTimerStraightBar
+        ..
+        + update(): Boolean
+    }
+    VTimer <|- - VTimerStraightBar
+    
+    class VTimerStraightLinePoint {
+        - _element_line: HTMLDivElement
+        - _element_cursor: HTMLDivElement
+        - -
+        + VTimerStraightLinePoint(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VTimerStraightLinePoint
+        ..
+        + update(): Boolean
+    }
+    VTimer <|- - VTimerStraightLinePoint
+
+    class VParticleFlow {
+        - _particles: Array[Particle]
+        - -
+        + VParticleFlow(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VParticleFlow
+        ..get, set..
+        + get canvas(): HTMLCanvasElement
+        + get ctx(): CanvasRenderingContext2D
+        + get properties(): Object{VisualObjectProperty}
+        + get volume(): Float
+        ..
+        + update(): Boolean
+        + killParticle(particle: Particle): void
+    }
+    VisualObject <|- - VParticleFlow
+
+    class Particle {
+        - _parent: VParticleFlow
+
+        - _radius: Integer
+        - _speed: Float
+        - _direction: Float
+
+        - _x: Float
+        - _y: Float
+        - _x_min: Float
+        - _x_max: Float
+        - _y_min: Float
+        - _y_max: Float
+        - _x_velocity: Float
+        - _y_velocity: Float
+
+        - _spawn_type: String
+        - -
+        + Particle(parent: VParticleFlow): Particle
+        ..
+        + leftSpawn(): void
+        + rightSpawn(): void
+        + topSpawn(): void
+        + bottomSpawn(): void
+        + update(): void
+        + display(): void
+    }
+    Particle "0..n _particles" - - "1 _parent" VParticleFlow
+
+    abstract class VVisualizer {
+        - _freq_array: Array[Float]
+        - _prev_freq_array: Array[Float]
+        - _reset_visualization_smoothing: Boolean
+        - -
+        + VVisualizer(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizer
+        ..
+        + update(): void
+    }
+    VisualObject <|- - VVisualizer
+
+    abstract class VVisualizerBar {
+        - _bars: Array[HTMLDivElement]
+        - _exclude_bar_count_update: Boolean
+        - -
+        + VVisualizerBar(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizerBar
+        ..
+        + updateBars(): void
+        + update(): void
+
+    }
+    VVisualizer <|- - VVisualizerBar
+
+    class VVisualizerStraightBar {
+        + VVisualizerStraightBar(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizerStraightBar
+        ..
+        + update(): Boolean
+    }
+    VVisualizerBar <|- - VVisualizerStraightBar
+    
+    class VVisualizerCircularBar {
+        + VVisualizerCircularBar(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizerCircularBar
+        ..
+        + updateBars(): void
+        + updateBarsRotation(): void
+        + update(): Boolean
+    }
+    VVisualizerBar <|- - VVisualizerCircularBar
+
+    class VVisualizerStraightWave {
+        - _debug: Boolean
+        - -
+        + VVisualizerStraightWave(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizerStraightWave
+        ..
+        + update(): Boolean
+    }
+    VVisualizer <|- - VVisualizerStraightWave
+
+    class VShape {
+        + VShape(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VShape
+        ..
+        + fullPathToCSSPath(working_dir: String, absolute_path: String): String
+        + update(): Boolean
+    }
+    VisualObject <|- - VShape
+}
+
+@enduml
+
+@startuml visual_object
+
+
+
+skinparam backgroundColor transparent
+skinparam useBetaStyle false
+
+
+
+
+
+
+
+skinparam defaultFontName       "Verdana"
+skinparam defaultFontSize       12
+skinparam dpi                   100
+skinparam shadowing             false
+skinparam roundcorner           8
+skinparam ParticipantPadding    40
+skinparam BoxPadding            40
+skinparam Padding               5
+skinparam ArrowColor            #ADAFAE
+skinparam stereotype {
+    CBackgroundColor #777777
+    CBorderColor #444444
+    ABackgroundColor #5F8F00
+    ABorderColor #92C233
+    IBackgroundColor #a30000
+    IBorderColor #D63333
+    EBackgroundColor #cc6d00
+    EBorderColor #FFA033
+    NBackgroundColor #7a29a3
+    NBorderColor #AD5CD6
+}
+skinparam title {
+	FontColor	                 #2A9FD6
+	BorderColor	                 #777777
+	FontSize	    	         20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor              transparent
+}
+
+skinparam legend {
+	BackgroundColor transparent
+	BorderColor #777777
+	FontColor #ADAFAE
+}
+
+skinparam swimlane {
+	BorderColor #9933CC
+	BorderThickness 2
+	TitleBackgroundColor  #444444-#555
+	TitleFontColor #2A9FD6
+}
+
+
+skinparam activity {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BarColor #77B300
+	StartColor #9933CC
+	EndColor #9933CC
+	DiamondBackgroundColor transparent
+  	DiamondBorderColor #777777
+  	DiamondFontColor #777777
+}
+
+
+skinparam participant {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	ParticipantBorderThickness 2
+}
+
+
+skinparam actor {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam arrow {
+	Thickness 3
+	Color #2A9FD6
+	FontColor #FFF
+}
+
+
+skinparam sequence {
+	BorderColor #2A9FD6
+	TitleFontColor #2A9FD6
+	BackgroundColor transparent
+	StartColor #2A9FD6
+	EndColor #2A9FD6
+	BoxBackgroundColor transparent
+	BoxBorderColor #ADAFAE
+	BoxFontColor $DARk
+	LifeLineBorderColor #555
+	LifeLineBorderThickness 2
+	LifeLineBackgroundColor transparent
+	GroupBorderColor #ADAFAE
+	GroupFontColor #ADAFAE
+	GroupHeaderFontColor #9933CC
+	GroupBackgroundColor transparent
+	GroupHeaderBackgroundColor transparent
+	DividerBackgroundColor transparent
+    DividerBorderColor #ADAFAE
+    DividerBorderThickness 2
+    DividerFontColor #ADAFAE
+	ReferenceBackgroundColor transparent
+	ReferenceBorderColor #ADAFAE
+	ReferenceFontColor #ADAFAE
+	ReferenceHeaderFontColor #9933CC
+	ReferenceHeaderBackgroundColor transparent
+}
+
+
+skinparam partition {
+	BorderColor #2A9FD6
+	FontColor #2A9FD6
+	BackgroundColor transparent
+}
+
+
+skinparam collections {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam control {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam entity {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam boundary {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam agent {
+	BackgroundColor transparent
+	BorderColor #cc6d00
+	FontColor #ADAFAE
+}
+
+
+skinparam note {
+	BorderThickness 1
+	BackgroundColor transparent
+	BorderColor #AD5CD6
+	FontColor #AD5CD6
+}
+
+
+skinparam artifact {
+	BackgroundColor transparent
+	BorderColor #BDBFBE
+	FontColor #BDBFBE
+}
+
+
+skinparam component {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam interface {
+	BackgroundColor  transparent
+	BorderColor  #CC0000
+	FontColor #ADAFAE
+}
+
+
+skinparam storage {
+	BackgroundColor transparent
+  	BorderColor #FFA033
+	FontColor #FF8800
+}
+
+
+skinparam node {
+	BackgroundColor  transparent
+	BorderColor #ADAFAE
+	FontColor #ADAFAE
+}
+
+
+skinparam cloud {
+	BackgroundColor transparent
+	BorderColor #F2FCFE
+	FontColor #ADAFAE
+}
+
+
+skinparam database {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+
+skinparam class {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+        FontColor #222
+	HeaderBackgroundColor #227FAB
+	StereotypeFontColor #ADAFAE
+	BorderThickness 1
+	AttributeFontColor #ADAFAE
+	AttributeFontSize 11
+}
+
+
+skinparam object {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	StereotypeFontColor #ADAFAE
+	BorderThickness 1
+	AttributeFontColor #777777
+	AttributeFontSize 11
+}
+
+
+skinparam usecase {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BorderThickness 2
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam rectangle {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BorderThickness 2
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam package {
+	BackgroundColor transparent
+  	BorderColor #2A9FD6
+	FontColor #2A9FD6
+	BorderThickness 2
+}
+
+
+skinparam folder {
+	BackgroundColor transparent
+  	BorderColor #FF8800
+	FontColor #FF8800
+	BorderThickness 2
+}
+
+
+skinparam frame {
+	BackgroundColor transparent
+  	BorderColor #9933CC
+	FontColor #9933CC
+	BorderThickness 2
+}
+
+
+skinparam state {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	StartColor #9933CC
+	EndColor #9933CC
+	AttributeFontColor #777777
+	AttributeFontSize 11
+}
+
+
+skinparam queue {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam card {
+	BackgroundColor transparent
+	BorderColor #9933CC
+	FontColor #9933CC
+}
+
+
+skinparam file {
+	BackgroundColor transparent
+	BorderColor #555
+	FontColor #555
+}
+
+
+skinparam BackgroundColor #222222
+skinparam PackageStyle frame
+
+package "index" {
+    class SaveHandler {}
+    class Project {}
+}
+
+package "ui_components" {
+    class UIParameterRack {}
+}
+
+package "visual_object_property" {
+    abstract class VisualObjectProperty {}
+}
+
+package "visual_object" {
+    abstract class VisualObject {
+        - _save_handler: SaveHandler
+        - _owner_project: Project
+        - _screen: HtmlDivElement
+        - _rack_parent: UiParameterRack
+        - _properties: Object{VisualObjectProperty}
+        - _element: HTMLElement
+        - _id: String
+        - _TYPE: String
+        - _svg_filter_div: HTMLDivElement
+        - -
+        + VisualObject(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VisualObject
+        ..get, set..
+        + get id(): String
+        ..
+        + getThisData(): Object
+        + generateId(): void
+        + validId(id: String): String
+        + uniqueId(id: String): Boolean
+        + setName(name: String): void
+        + setType(type: String): void
+        + assertType(): void
+        + triggerUpdateData(): void
+        {abstract} + update(): Boolean
+        + destroy(): void
+    }
+    VisualObject "0..n _objects" -up-o "1 _save_handler" SaveHandler
+    VisualObject " " -up- "1 _owner_project" Project
+    VisualObject " " o-up- "1 _parameter_rack" UIParameterRack
+    VisualObject "1 _visual_object" *-up- "0..n _properties" VisualObjectProperty
+
+    class VText {
+        + VText(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VText
+        ..
+        + update(): Boolean
+    }
+    VisualObject <|- - VText
+
+    abstract class VTimer {
+        + VTimer(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VTimer
+    }
+    VisualObject <|- - VTimer
+
+    class VTimerStraightBar {
+        - _element_child: HTMLDivElement
+        - -
+        + VTimerStraightBar(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VTimerStraightBar
+        ..
+        + update(): Boolean
+    }
+    VTimer <|- - VTimerStraightBar
+    
+    class VTimerStraightLinePoint {
+        - _element_line: HTMLDivElement
+        - _element_cursor: HTMLDivElement
+        - -
+        + VTimerStraightLinePoint(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VTimerStraightLinePoint
+        ..
+        + update(): Boolean
+    }
+    VTimer <|- - VTimerStraightLinePoint
+
+    class VParticleFlow {
+        - _particles: Array[Particle]
+        - -
+        + VParticleFlow(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VParticleFlow
+        ..get, set..
+        + get canvas(): HTMLCanvasElement
+        + get ctx(): CanvasRenderingContext2D
+        + get properties(): Object{VisualObjectProperty}
+        + get volume(): Float
+        ..
+        + update(): Boolean
+        + killParticle(particle: Particle): void
+    }
+    VisualObject <|- - VParticleFlow
+
+    class Particle {
+        - _parent: VParticleFlow
+
+        - _radius: Integer
+        - _speed: Float
+        - _direction: Float
+
+        - _x: Float
+        - _y: Float
+        - _x_min: Float
+        - _x_max: Float
+        - _y_min: Float
+        - _y_max: Float
+        - _x_velocity: Float
+        - _y_velocity: Float
+
+        - _spawn_type: String
+        - -
+        + Particle(parent: VParticleFlow): Particle
+        ..
+        + leftSpawn(): void
+        + rightSpawn(): void
+        + topSpawn(): void
+        + bottomSpawn(): void
+        + update(): void
+        + display(): void
+    }
+    Particle "0..n _particles" - - "1 _parent" VParticleFlow
+
+    abstract class VVisualizer {
+        - _freq_array: Array[Float]
+        - _prev_freq_array: Array[Float]
+        - _reset_visualization_smoothing: Boolean
+        - -
+        + VVisualizer(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizer
+        ..
+        + update(): void
+    }
+    VisualObject <|- - VVisualizer
+
+    abstract class VVisualizerBar {
+        - _bars: Array[HTMLDivElement]
+        - _exclude_bar_count_update: Boolean
+        - -
+        + VVisualizerBar(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizerBar
+        ..
+        + updateBars(): void
+        + update(): void
+
+    }
+    VVisualizer <|- - VVisualizerBar
+
+    class VVisualizerStraightBar {
+        + VVisualizerStraightBar(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizerStraightBar
+        ..
+        + update(): Boolean
+    }
+    VVisualizerBar <|- - VVisualizerStraightBar
+    
+    class VVisualizerCircularBar {
+        + VVisualizerCircularBar(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizerCircularBar
+        ..
+        + updateBars(): void
+        + updateBarsRotation(): void
+        + update(): Boolean
+    }
+    VVisualizerBar <|- - VVisualizerCircularBar
+
+    class VVisualizerStraightWave {
+        - _debug: Boolean
+        - -
+        + VVisualizerStraightWave(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VVisualizerStraightWave
+        ..
+        + update(): Boolean
+    }
+    VVisualizer <|- - VVisualizerStraightWave
+
+    class VShape {
+        + VShape(save_handler: SaveHandler,
+        rack_parent: UIParameterRack, id: String): VShape
+        ..
+        + fullPathToCSSPath(working_dir: String, absolute_path: String): String
+        + update(): Boolean
+    }
+    VisualObject <|- - VShape
+}
+
+@enduml
+
+PlantUML version 1.2021.7(Sun May 23 14:40:07 CEST 2021)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: Cp1252
+Language: fr
+Country: FR
+--></g></svg>

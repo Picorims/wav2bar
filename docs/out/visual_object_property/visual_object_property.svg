@@ -1,0 +1,1137 @@
+<!--MIT License - Copyright (c) 2020-2021 Picorims-->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1086.4583px" preserveAspectRatio="none" style="width:11906px;height:1086px;background:#222222;" version="1.1" viewBox="0 0 11906 1086" width="11906.25px" zoomAndPan="magnify"><defs/><g><!--MD5=[caec09aa8b1aae56fb92cfb12d3d663f]
+cluster visual_objects--><rect fill="#222222" height="114.5833" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="156.25" x="5427.0833" y="19.7917"/><path d="M5547.9167,19.7917 L5547.9167,38.1083 L5537.5,48.525 L5427.0833,48.525 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="100" x="5435.4167" y="38.6088">visual_objects</text><!--MD5=[b33187c248a40138ad0b3413979d5dfd]
+cluster event_mixin--><rect fill="#222222" height="139.5833" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="145.8333" x="5608.3333" y="7.2917"/><path d="M5714.5833,7.2917 L5714.5833,25.6083 L5704.1667,36.025 L5608.3333,36.025 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="85.4167" x="5616.6667" y="26.1088">event_mixin</text><!--MD5=[2265efe58f509802ec1fe9822d1e6e2b]
+cluster index--><rect fill="#222222" height="114.5833" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="158.3333" x="5779.1667" y="19.7917"/><path d="M5837.5,19.7917 L5837.5,38.1083 L5827.0833,48.525 L5779.1667,48.525 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="37.5" x="5787.5" y="38.6088">index</text><!--MD5=[02430d46d4d246becbecf302768ae4a3]
+cluster ui_components--><rect fill="#222222" height="114.5833" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="158.3333" x="5962.5" y="19.7917"/><path d="M6087.5,19.7917 L6087.5,38.1083 L6077.0833,48.525 L5962.5,48.525 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="104.1667" x="5970.8333" y="38.6088">ui_components</text><!--MD5=[05f25a9c0dd0d78ff17d3c792b355eb2]
+cluster visual_update_property--><rect fill="#222222" height="872.9167" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="11892.7083" x="7.2917" y="207.2917"/><path d="M193.75,207.2917 L193.75,225.6083 L183.3333,236.025 L7.2917,236.025 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="165.625" x="15.625" y="226.1088">visual_update_property</text><!--MD5=[a91f50bfee47489d1e6d2d80041782dc]
+class VisualObject--><rect codeLine="10" fill="#222222" height="52.6917" id="VisualObject" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="122.9167" x="5443.75" y="64.5833"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="122.9167" x="5443.75" y="64.5833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="122.9167" x="5443.75" y="96.4417"/><rect codeLine="10" fill="none" height="52.6917" id="VisualObject" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="122.9167" x="5443.75" y="64.5833"/><ellipse cx="5458.3333" cy="82.5958" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M5459.8796,79.6824 Q5459.9935,79.5197 5460.1318,79.4383 Q5460.2702,79.3569 5460.4329,79.3569 Q5460.7096,79.3569 5460.8805,79.5522 Q5461.0514,79.7475 5461.0514,80.187 L5461.0514,81.2612 Q5461.0514,81.7006 5460.8805,81.896 Q5460.7096,82.0913 5460.4329,82.0913 Q5460.1725,82.0913 5460.026,81.9448 Q5459.8796,81.8146 5459.7982,81.424 Q5459.7656,81.1635 5459.6354,81.0333 Q5459.375,80.7566 5458.9274,80.5939 Q5458.4798,80.4311 5458.0241,80.4311 Q5457.4707,80.4311 5456.9987,80.6753 Q5456.5267,80.9194 5456.1686,81.4646 Q5455.8105,82.0099 5455.8105,82.7749 L5455.8105,83.5887 Q5455.8105,84.4838 5456.4697,85.0861 Q5457.1289,85.6883 5458.2845,85.6883 Q5458.9844,85.6883 5459.4727,85.5092 Q5459.7493,85.3953 5460.0586,85.0698 Q5460.2539,84.8745 5460.3678,84.8175 Q5460.4818,84.7605 5460.612,84.7605 Q5460.8724,84.7605 5461.0596,84.9477 Q5461.2467,85.1349 5461.2467,85.3953 Q5461.2467,85.6557 5460.9863,85.9487 Q5460.612,86.3719 5460.026,86.616 Q5459.2448,86.9415 5458.3008,86.9415 Q5457.1777,86.9415 5456.2988,86.4858 Q5455.5664,86.1277 5455.0618,85.3302 Q5454.5573,84.5327 5454.5573,83.6049 L5454.5573,82.7586 Q5454.5573,81.782 5455.013,80.9357 Q5455.4688,80.0893 5456.2744,79.6336 Q5457.0801,79.1779 5457.9753,79.1779 Q5458.5286,79.1779 5459.0007,79.2999 Q5459.4727,79.422 5459.8796,79.6824 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="81.25" x="5477.0833" y="87.5671">VisualObject</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="5444.7917" x2="5565.625" y1="100.6083" y2="100.6083"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="5444.7917" x2="5565.625" y1="108.9417" y2="108.9417"/><!--MD5=[8c7ae7c48af0001487202e87675f85b8]
+class EventMixin--><rect codeLine="14" fill="#222222" height="78.3" id="EventMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="111.4583" x="5625.5208" y="52.0833"/><rect fill="#227FAB" height="61.6333" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="111.4583" x="5625.5208" y="52.0833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="111.4583" x="5625.5208" y="109.55"/><rect codeLine="14" fill="none" height="78.3" id="EventMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="111.4583" x="5625.5208" y="52.0833"/><ellipse cx="5640.1042" cy="82.9" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M5641.6504,79.9866 Q5641.7643,79.8238 5641.9027,79.7424 Q5642.041,79.6611 5642.2038,79.6611 Q5642.4805,79.6611 5642.6514,79.8564 Q5642.8223,80.0517 5642.8223,80.4911 L5642.8223,81.5653 Q5642.8223,82.0048 5642.6514,82.2001 Q5642.4805,82.3954 5642.2038,82.3954 Q5641.9434,82.3954 5641.7969,82.2489 Q5641.6504,82.1187 5641.569,81.7281 Q5641.5365,81.4677 5641.4063,81.3375 Q5641.1458,81.0608 5640.6982,80.898 Q5640.2507,80.7353 5639.7949,80.7353 Q5639.2415,80.7353 5638.7695,80.9794 Q5638.2975,81.2236 5637.9395,81.7688 Q5637.5814,82.314 5637.5814,83.079 L5637.5814,83.8928 Q5637.5814,84.788 5638.2406,85.3902 Q5638.8997,85.9924 5640.0553,85.9924 Q5640.7552,85.9924 5641.2435,85.8134 Q5641.5202,85.6995 5641.8294,85.3739 Q5642.0247,85.1786 5642.1387,85.1217 Q5642.2526,85.0647 5642.3828,85.0647 Q5642.6432,85.0647 5642.8304,85.2519 Q5643.0176,85.439 5643.0176,85.6995 Q5643.0176,85.9599 5642.7572,86.2528 Q5642.3828,86.676 5641.7969,86.9202 Q5641.0156,87.2457 5640.0716,87.2457 Q5638.9486,87.2457 5638.0697,86.79 Q5637.3372,86.4319 5636.8327,85.6344 Q5636.3281,84.8368 5636.3281,83.9091 L5636.3281,83.0627 Q5636.3281,82.0862 5636.7839,81.2398 Q5637.2396,80.3935 5638.0452,79.9377 Q5638.8509,79.482 5639.7461,79.482 Q5640.2995,79.482 5640.7715,79.6041 Q5641.2435,79.7262 5641.6504,79.9866 Z " fill="#000000"/><text fill="#ADAFAE" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="51.0417" x="5668.2292" y="75.0671">«mixin»</text><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="69.7917" x="5658.8542" y="100.6755">EventMixin</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="5626.5625" x2="5735.9375" y1="113.7166" y2="113.7166"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="5626.5625" x2="5735.9375" y1="122.05" y2="122.05"/><!--MD5=[63e4f4b7c7497a0e53d6c89ce733691e]
+class SaveHandler--><rect codeLine="18" fill="#222222" height="52.6917" id="SaveHandler" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="125" x="5795.8333" y="64.5833"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="125" x="5795.8333" y="64.5833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="125" x="5795.8333" y="96.4417"/><rect codeLine="18" fill="none" height="52.6917" id="SaveHandler" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="125" x="5795.8333" y="64.5833"/><ellipse cx="5810.4167" cy="82.5958" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M5811.9629,79.6824 Q5812.0768,79.5197 5812.2152,79.4383 Q5812.3535,79.3569 5812.5163,79.3569 Q5812.793,79.3569 5812.9639,79.5522 Q5813.1348,79.7475 5813.1348,80.187 L5813.1348,81.2612 Q5813.1348,81.7006 5812.9639,81.896 Q5812.793,82.0913 5812.5163,82.0913 Q5812.2559,82.0913 5812.1094,81.9448 Q5811.9629,81.8146 5811.8815,81.424 Q5811.849,81.1635 5811.7188,81.0333 Q5811.4583,80.7566 5811.0107,80.5939 Q5810.5632,80.4311 5810.1074,80.4311 Q5809.554,80.4311 5809.082,80.6753 Q5808.61,80.9194 5808.252,81.4646 Q5807.8939,82.0099 5807.8939,82.7749 L5807.8939,83.5887 Q5807.8939,84.4838 5808.5531,85.0861 Q5809.2122,85.6883 5810.3678,85.6883 Q5811.0677,85.6883 5811.556,85.5092 Q5811.8327,85.3953 5812.1419,85.0698 Q5812.3372,84.8745 5812.4512,84.8175 Q5812.5651,84.7605 5812.6953,84.7605 Q5812.9557,84.7605 5813.1429,84.9477 Q5813.3301,85.1349 5813.3301,85.3953 Q5813.3301,85.6557 5813.0697,85.9487 Q5812.6953,86.3719 5812.1094,86.616 Q5811.3281,86.9415 5810.3841,86.9415 Q5809.2611,86.9415 5808.3822,86.4858 Q5807.6497,86.1277 5807.1452,85.3302 Q5806.6406,84.5327 5806.6406,83.6049 L5806.6406,82.7586 Q5806.6406,81.782 5807.0964,80.9357 Q5807.5521,80.0893 5808.3577,79.6336 Q5809.1634,79.1779 5810.0586,79.1779 Q5810.612,79.1779 5811.084,79.2999 Q5811.556,79.422 5811.9629,79.6824 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="83.3333" x="5829.1667" y="87.5671">SaveHandler</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="5796.875" x2="5919.7917" y1="100.6083" y2="100.6083"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="5796.875" x2="5919.7917" y1="108.9417" y2="108.9417"/><!--MD5=[27ee53f31a777aa46b446bad0e196b92]
+class UIParameter--><rect codeLine="22" fill="#222222" height="52.6917" id="UIParameter" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="125" x="5979.1667" y="64.5833"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="125" x="5979.1667" y="64.5833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="125" x="5979.1667" y="96.4417"/><rect codeLine="22" fill="none" height="52.6917" id="UIParameter" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="125" x="5979.1667" y="64.5833"/><ellipse cx="5993.75" cy="82.5958" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M5995.2962,79.6824 Q5995.4102,79.5197 5995.5485,79.4383 Q5995.6868,79.3569 5995.8496,79.3569 Q5996.1263,79.3569 5996.2972,79.5522 Q5996.4681,79.7475 5996.4681,80.187 L5996.4681,81.2612 Q5996.4681,81.7006 5996.2972,81.896 Q5996.1263,82.0913 5995.8496,82.0913 Q5995.5892,82.0913 5995.4427,81.9448 Q5995.2962,81.8146 5995.2148,81.424 Q5995.1823,81.1635 5995.0521,81.0333 Q5994.7917,80.7566 5994.3441,80.5939 Q5993.8965,80.4311 5993.4408,80.4311 Q5992.8874,80.4311 5992.4154,80.6753 Q5991.9434,80.9194 5991.5853,81.4646 Q5991.2272,82.0099 5991.2272,82.7749 L5991.2272,83.5887 Q5991.2272,84.4838 5991.8864,85.0861 Q5992.5456,85.6883 5993.7012,85.6883 Q5994.401,85.6883 5994.8893,85.5092 Q5995.166,85.3953 5995.4753,85.0698 Q5995.6706,84.8745 5995.7845,84.8175 Q5995.8984,84.7605 5996.0286,84.7605 Q5996.2891,84.7605 5996.4762,84.9477 Q5996.6634,85.1349 5996.6634,85.3953 Q5996.6634,85.6557 5996.403,85.9487 Q5996.0286,86.3719 5995.4427,86.616 Q5994.6615,86.9415 5993.7174,86.9415 Q5992.5944,86.9415 5991.7155,86.4858 Q5990.9831,86.1277 5990.4785,85.3302 Q5989.974,84.5327 5989.974,83.6049 L5989.974,82.7586 Q5989.974,81.782 5990.4297,80.9357 Q5990.8854,80.0893 5991.6911,79.6336 Q5992.4967,79.1779 5993.3919,79.1779 Q5993.9453,79.1779 5994.4173,79.2999 Q5994.8893,79.422 5995.2962,79.6824 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="83.3333" x="6012.5" y="87.5671">UIParameter</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="5980.2083" x2="6103.125" y1="100.6083" y2="100.6083"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="5980.2083" x2="6103.125" y1="108.9417" y2="108.9417"/><!--MD5=[0bb086c28b31075c9b5fa9bac10929b8]
+class VisualObjectProperty--><rect codeLine="26" fill="#222222" height="401.8178" id="VisualObjectProperty" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="359.375" x="5590.1042" y="272.9167"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="359.375" x="5590.1042" y="272.9167"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="359.375" x="5590.1042" y="304.775"/><rect codeLine="26" fill="none" height="401.8178" id="VisualObjectProperty" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="359.375" x="5590.1042" y="272.9167"/><ellipse cx="5695.8333" cy="290.9292" fill="#5F8F00" rx="10.4167" ry="10.4167" style="stroke:#92C233;stroke-width:1.0416666666666667;"/><path d="M5697.4609,293.0776 L5694.4336,293.0776 L5694.1243,293.8426 L5694.4336,293.8426 Q5694.873,293.8426 5695.0684,294.0135 Q5695.2637,294.1844 5695.2637,294.4773 Q5695.2637,294.754 5695.0684,294.9249 Q5694.873,295.0958 5694.4336,295.0958 L5692.7409,295.0958 Q5692.2852,295.0958 5692.098,294.9249 Q5691.9108,294.754 5691.9108,294.4611 Q5691.9108,294.1844 5692.1143,294.0053 Q5692.3177,293.8263 5692.7734,293.8426 L5694.7428,288.9435 L5693.929,288.9435 Q5693.4733,288.9435 5693.278,288.7726 Q5693.0827,288.6017 5693.0827,288.325 Q5693.0827,288.032 5693.278,287.8611 Q5693.4733,287.6902 5693.929,287.6902 L5696.6309,287.6902 L5699.1211,293.8426 Q5699.5605,293.8426 5699.6908,293.9402 Q5699.9837,294.1355 5699.9837,294.4773 Q5699.9837,294.754 5699.7884,294.9249 Q5699.5931,295.0958 5699.1536,295.0958 L5697.4609,295.0958 Q5697.0052,295.0958 5696.818,294.9249 Q5696.6309,294.754 5696.6309,294.4611 Q5696.6309,294.1844 5696.818,294.0135 Q5697.0052,293.8426 5697.4609,293.8426 L5697.7702,293.8426 L5697.4609,293.0776 Z M5696.9564,291.8243 L5695.9473,289.3504 L5694.9219,291.8243 L5696.9564,291.8243 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="129.1667" x="5720.8333" y="295.9005">VisualObjectProperty</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="5591.1458" x2="5948.4375" y1="308.9417" y2="308.9417"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="5598.4375" y="317.275"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="172.9167" x="5615.1042" y="329.8365">_save_handler: SaveHandler</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="5598.4375" y="341.6173"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="168.75" x="5615.1042" y="354.1789">_visual_object: VisualObject</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="5598.4375" y="365.9597"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="143.75" x="5615.1042" y="378.5212">_property_name: String</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="5598.4375" y="390.302"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="190.625" x="5615.1042" y="402.8636">_default_value: JSONValidValue</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="5598.4375" y="414.6444"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="186.4583" x="5615.1042" y="427.2059">_allowed_values: Array[String]</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="5598.4375" y="438.9867"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="172.9167" x="5615.1042" y="451.5483">_ui_parameter: UIParameter</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="5591.1458" x2="5948.4375" y1="463.3291" y2="463.3291"/><ellipse cx="5601.5625" cy="474.7874" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="300" x="5615.1042" y="484.2239">VisualObjectProperty(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="5615.1042" y="508.5663">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="322.9167" x="5615.1042" y="532.9086">default_value: JSONValidValue): VisualObjectProperty</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="5591.1458" x2="5948.4375" y1="544.6894" y2="544.6894"/><ellipse cx="5601.5625" cy="556.1478" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="211.4583" x="5615.1042" y="565.5843">getCurrentValue(): JSONValidValue</text><ellipse cx="5601.5625" cy="580.4901" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="228.125" x="5615.1042" y="589.9267">setSave(value: JSONValidValue): void</text><ellipse cx="5601.5625" cy="604.8325" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="268.75" x="5615.1042" y="614.269">setSaveUISafe(value: JSONValidValue): void</text><ellipse cx="5601.5625" cy="629.1748" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="79.1667" x="5615.1042" y="638.6113">verify(): void</text><ellipse cx="5601.5625" cy="653.5172" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" font-style="italic" lengthAdjust="spacing" textLength="151.0417" x="5615.1042" y="662.9537">hasValidValue(): Boolean</text><polygon fill="none" points="5770.7299,674.7345,5778.1188,695.5336,5763.5356,695.6017" style="stroke:#2A9FD6;stroke-width:1.0416666666666667;"/><line style="stroke:#2A9FD6;stroke-width:1.0416666666666667;" x1="5770.8272" x2="5770.8333" y1="695.5676" y2="696.875"/><line style="stroke:#2A9FD6;stroke-width:1.0416666666666667;" x1="5723.2641" x2="5718.3646" y1="272.9167" y2="251.7604"/><line style="stroke:#2A9FD6;stroke-width:1.0416666666666667;" x1="5816.3258" x2="5821.2188" y1="272.9167" y2="251.7917"/><line style="stroke:#2A9FD6;stroke-width:1.0416666666666667;" x1="5630.7453" x2="5616.125" y1="272.9167" y2="251.7917"/><line style="stroke:#2A9FD6;stroke-width:1.0416666666666667;" x1="5912.6742" x2="5927.6979" y1="272.9167" y2="251.7917"/><!--MD5=[469f3d67c7efef881d736f9dbff09ebd]
+class VPName--><rect codeLine="51" fill="#222222" height="182.7367" id="VPName" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="24.4792" y="820.3125"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="24.4792" y="820.3125"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="24.4792" y="852.1708"/><rect codeLine="51" fill="none" height="182.7367" id="VPName" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="24.4792" y="820.3125"/><ellipse cx="161.4583" cy="838.325" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M163.0046,835.4116 Q163.1185,835.2488 163.2568,835.1674 Q163.3952,835.0861 163.5579,835.0861 Q163.8346,835.0861 164.0055,835.2814 Q164.1764,835.4767 164.1764,835.9161 L164.1764,836.9904 Q164.1764,837.4298 164.0055,837.6251 Q163.8346,837.8204 163.5579,837.8204 Q163.2975,837.8204 163.151,837.674 Q163.0046,837.5437 162.9232,837.1531 Q162.8906,836.8927 162.7604,836.7625 Q162.5,836.4858 162.0524,836.323 Q161.6048,836.1603 161.1491,836.1603 Q160.5957,836.1603 160.1237,836.4044 Q159.6517,836.6486 159.2936,837.1938 Q158.9355,837.7391 158.9355,838.504 L158.9355,839.3178 Q158.9355,840.213 159.5947,840.8152 Q160.2539,841.4174 161.4095,841.4174 Q162.1094,841.4174 162.5977,841.2384 Q162.8743,841.1245 163.1836,840.799 Q163.3789,840.6036 163.4928,840.5467 Q163.6068,840.4897 163.737,840.4897 Q163.9974,840.4897 164.1846,840.6769 Q164.3717,840.8641 164.3717,841.1245 Q164.3717,841.3849 164.1113,841.6779 Q163.737,842.101 163.151,842.3452 Q162.3698,842.6707 161.4258,842.6707 Q160.3027,842.6707 159.4238,842.215 Q158.6914,841.8569 158.1868,841.0594 Q157.6823,840.2618 157.6823,839.3341 L157.6823,838.4878 Q157.6823,837.5112 158.138,836.6648 Q158.5938,835.8185 159.3994,835.3628 Q160.2051,834.907 161.1003,834.907 Q161.6536,834.907 162.1257,835.0291 Q162.5977,835.1512 163.0046,835.4116 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="54.1667" x="186.4583" y="843.2963">VPName</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="25.5208" x2="370.3125" y1="856.3375" y2="856.3375"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="25.5208" x2="370.3125" y1="864.6708" y2="864.6708"/><ellipse cx="35.9375" cy="876.1292" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="225" x="49.4792" y="885.5657">VPName(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="49.4792" y="909.908">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="247.9167" x="49.4792" y="934.2504">default_value: JSONValidValue): VPName</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="25.5208" x2="370.3125" y1="946.0312" y2="946.0312"/><ellipse cx="35.9375" cy="957.4895" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="49.4792" y="966.9261">hasValidValue(): Boolean</text><ellipse cx="35.9375" cy="981.8319" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="168.75" x="49.4792" y="991.2684">rename(name: String): void</text><!--MD5=[f13f9477e1edaf7698f73ccb5fab1645]
+class VPLayer--><rect codeLine="62" fill="#222222" height="158.3944" id="VPLayer" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="407.8125" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="407.8125" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="407.8125" y="864.15"/><rect codeLine="62" fill="none" height="158.3944" id="VPLayer" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="407.8125" y="832.2917"/><ellipse cx="545.3125" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M546.8587,847.3907 Q546.9727,847.228 547.111,847.1466 Q547.2493,847.0652 547.4121,847.0652 Q547.6888,847.0652 547.8597,847.2605 Q548.0306,847.4559 548.0306,847.8953 L548.0306,848.9695 Q548.0306,849.409 547.8597,849.6043 Q547.6888,849.7996 547.4121,849.7996 Q547.1517,849.7996 547.0052,849.6531 Q546.8587,849.5229 546.7773,849.1323 Q546.7448,848.8719 546.6146,848.7417 Q546.3542,848.465 545.9066,848.3022 Q545.459,848.1394 545.0033,848.1394 Q544.4499,848.1394 543.9779,848.3836 Q543.5059,848.6277 543.1478,849.173 Q542.7897,849.7182 542.7897,850.4832 L542.7897,851.297 Q542.7897,852.1922 543.4489,852.7944 Q544.1081,853.3966 545.2637,853.3966 Q545.9635,853.3966 546.4518,853.2176 Q546.7285,853.1036 547.0378,852.7781 Q547.2331,852.5828 547.347,852.5258 Q547.4609,852.4689 547.5911,852.4689 Q547.8516,852.4689 548.0387,852.656 Q548.2259,852.8432 548.2259,853.1036 Q548.2259,853.3641 547.9655,853.657 Q547.5911,854.0802 547.0052,854.3243 Q546.224,854.6499 545.2799,854.6499 Q544.1569,854.6499 543.278,854.1941 Q542.5456,853.8361 542.041,853.0385 Q541.5365,852.241 541.5365,851.3133 L541.5365,850.4669 Q541.5365,849.4904 541.9922,848.644 Q542.4479,847.7976 543.2536,847.3419 Q544.0592,846.8862 544.9544,846.8862 Q545.5078,846.8862 545.9798,847.0083 Q546.4518,847.1303 546.8587,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="53.125" x="570.3125" y="855.2755">VPLayer</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="408.8542" x2="753.6458" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="408.8542" x2="753.6458" y1="876.65" y2="876.65"/><ellipse cx="419.2708" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="223.9583" x="432.8125" y="897.5449">VPLayer(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="432.8125" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="246.875" x="432.8125" y="946.2296">default_value: JSONValidValue): VPLayer</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="408.8542" x2="753.6458" y1="958.0104" y2="958.0104"/><ellipse cx="419.2708" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="432.8125" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[1923e0f241780deef5ff3e0d90c6a7df]
+class VPCoordinates--><rect codeLine="72" fill="#222222" height="158.3944" id="VPCoordinates" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="791.1458" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="791.1458" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="791.1458" y="864.15"/><rect codeLine="72" fill="none" height="158.3944" id="VPCoordinates" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="791.1458" y="832.2917"/><ellipse cx="906.7708" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M908.3171,847.3907 Q908.431,847.228 908.5693,847.1466 Q908.7077,847.0652 908.8704,847.0652 Q909.1471,847.0652 909.318,847.2605 Q909.4889,847.4559 909.4889,847.8953 L909.4889,848.9695 Q909.4889,849.409 909.318,849.6043 Q909.1471,849.7996 908.8704,849.7996 Q908.61,849.7996 908.4635,849.6531 Q908.3171,849.5229 908.2357,849.1323 Q908.2031,848.8719 908.0729,848.7417 Q907.8125,848.465 907.3649,848.3022 Q906.9173,848.1394 906.4616,848.1394 Q905.9082,848.1394 905.4362,848.3836 Q904.9642,848.6277 904.6061,849.173 Q904.248,849.7182 904.248,850.4832 L904.248,851.297 Q904.248,852.1922 904.9072,852.7944 Q905.5664,853.3966 906.722,853.3966 Q907.4219,853.3966 907.9102,853.2176 Q908.1868,853.1036 908.4961,852.7781 Q908.6914,852.5828 908.8053,852.5258 Q908.9193,852.4689 909.0495,852.4689 Q909.3099,852.4689 909.4971,852.656 Q909.6842,852.8432 909.6842,853.1036 Q909.6842,853.3641 909.4238,853.657 Q909.0495,854.0802 908.4635,854.3243 Q907.6823,854.6499 906.7383,854.6499 Q905.6152,854.6499 904.7363,854.1941 Q904.0039,853.8361 903.4993,853.0385 Q902.9948,852.241 902.9948,851.3133 L902.9948,850.4669 Q902.9948,849.4904 903.4505,848.644 Q903.9063,847.7976 904.7119,847.3419 Q905.5176,846.8862 906.4128,846.8862 Q906.9661,846.8862 907.4382,847.0083 Q907.9102,847.1303 908.3171,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="96.875" x="931.7708" y="855.2755">VPCoordinates</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="792.1875" x2="1136.9792" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="792.1875" x2="1136.9792" y1="876.65" y2="876.65"/><ellipse cx="802.6042" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="262.5" x="816.1458" y="897.5449">VPCoordinates(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="816.1458" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="285.4167" x="816.1458" y="946.2296">default_value: JSONValidValue): VPCoordinates</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="792.1875" x2="1136.9792" y1="958.0104" y2="958.0104"/><ellipse cx="802.6042" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="816.1458" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[80f2ba14ff9c67b6703b69f2c53f5b98]
+class VPSize--><rect codeLine="82" fill="#222222" height="158.3944" id="VPSize" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="1174.4792" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="1174.4792" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="1174.4792" y="864.15"/><rect codeLine="82" fill="none" height="158.3944" id="VPSize" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="1174.4792" y="832.2917"/><ellipse cx="1316.6667" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M1318.2129,847.3907 Q1318.3268,847.228 1318.4652,847.1466 Q1318.6035,847.0652 1318.7663,847.0652 Q1319.043,847.0652 1319.2139,847.2605 Q1319.3848,847.4559 1319.3848,847.8953 L1319.3848,848.9695 Q1319.3848,849.409 1319.2139,849.6043 Q1319.043,849.7996 1318.7663,849.7996 Q1318.5059,849.7996 1318.3594,849.6531 Q1318.2129,849.5229 1318.1315,849.1323 Q1318.099,848.8719 1317.9688,848.7417 Q1317.7083,848.465 1317.2607,848.3022 Q1316.8132,848.1394 1316.3574,848.1394 Q1315.804,848.1394 1315.332,848.3836 Q1314.86,848.6277 1314.502,849.173 Q1314.1439,849.7182 1314.1439,850.4832 L1314.1439,851.297 Q1314.1439,852.1922 1314.8031,852.7944 Q1315.4622,853.3966 1316.6178,853.3966 Q1317.3177,853.3966 1317.806,853.2176 Q1318.0827,853.1036 1318.3919,852.7781 Q1318.5872,852.5828 1318.7012,852.5258 Q1318.8151,852.4689 1318.9453,852.4689 Q1319.2057,852.4689 1319.3929,852.656 Q1319.5801,852.8432 1319.5801,853.1036 Q1319.5801,853.3641 1319.3197,853.657 Q1318.9453,854.0802 1318.3594,854.3243 Q1317.5781,854.6499 1316.6341,854.6499 Q1315.5111,854.6499 1314.6322,854.1941 Q1313.8997,853.8361 1313.3952,853.0385 Q1312.8906,852.241 1312.8906,851.3133 L1312.8906,850.4669 Q1312.8906,849.4904 1313.3464,848.644 Q1313.8021,847.7976 1314.6077,847.3419 Q1315.4134,846.8862 1316.3086,846.8862 Q1316.862,846.8862 1317.334,847.0083 Q1317.806,847.1303 1318.2129,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="43.75" x="1341.6667" y="855.2755">VPSize</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="1175.5208" x2="1520.3125" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1175.5208" x2="1520.3125" y1="876.65" y2="876.65"/><ellipse cx="1185.9375" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="215.625" x="1199.4792" y="897.5449">VPSize(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="1199.4792" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="238.5417" x="1199.4792" y="946.2296">default_value: JSONValidValue): VPSize</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1175.5208" x2="1520.3125" y1="958.0104" y2="958.0104"/><ellipse cx="1185.9375" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="1199.4792" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[8b8f5b46a123cc5050cb0bbaeab976d8]
+class VPRotation--><rect codeLine="92" fill="#222222" height="158.3944" id="VPRotation" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="1557.8125" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="1557.8125" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="1557.8125" y="864.15"/><rect codeLine="92" fill="none" height="158.3944" id="VPRotation" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="1557.8125" y="832.2917"/><ellipse cx="1685.9375" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M1687.4837,847.3907 Q1687.5977,847.228 1687.736,847.1466 Q1687.8743,847.0652 1688.0371,847.0652 Q1688.3138,847.0652 1688.4847,847.2605 Q1688.6556,847.4559 1688.6556,847.8953 L1688.6556,848.9695 Q1688.6556,849.409 1688.4847,849.6043 Q1688.3138,849.7996 1688.0371,849.7996 Q1687.7767,849.7996 1687.6302,849.6531 Q1687.4837,849.5229 1687.4023,849.1323 Q1687.3698,848.8719 1687.2396,848.7417 Q1686.9792,848.465 1686.5316,848.3022 Q1686.084,848.1394 1685.6283,848.1394 Q1685.0749,848.1394 1684.6029,848.3836 Q1684.1309,848.6277 1683.7728,849.173 Q1683.4147,849.7182 1683.4147,850.4832 L1683.4147,851.297 Q1683.4147,852.1922 1684.0739,852.7944 Q1684.7331,853.3966 1685.8887,853.3966 Q1686.5885,853.3966 1687.0768,853.2176 Q1687.3535,853.1036 1687.6628,852.7781 Q1687.8581,852.5828 1687.972,852.5258 Q1688.0859,852.4689 1688.2161,852.4689 Q1688.4766,852.4689 1688.6637,852.656 Q1688.8509,852.8432 1688.8509,853.1036 Q1688.8509,853.3641 1688.5905,853.657 Q1688.2161,854.0802 1687.6302,854.3243 Q1686.849,854.6499 1685.9049,854.6499 Q1684.7819,854.6499 1683.903,854.1941 Q1683.1706,853.8361 1682.666,853.0385 Q1682.1615,852.241 1682.1615,851.3133 L1682.1615,850.4669 Q1682.1615,849.4904 1682.6172,848.644 Q1683.0729,847.7976 1683.8786,847.3419 Q1684.6842,846.8862 1685.5794,846.8862 Q1686.1328,846.8862 1686.6048,847.0083 Q1687.0768,847.1303 1687.4837,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="71.875" x="1710.9375" y="855.2755">VPRotation</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="1558.8542" x2="1903.6458" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1558.8542" x2="1903.6458" y1="876.65" y2="876.65"/><ellipse cx="1569.2708" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="239.5833" x="1582.8125" y="897.5449">VPRotation(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="1582.8125" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="262.5" x="1582.8125" y="946.2296">default_value: JSONValidValue): VPRotation</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1558.8542" x2="1903.6458" y1="958.0104" y2="958.0104"/><ellipse cx="1569.2708" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="1582.8125" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[f9083c19791d9e638fc1cce721b7ccb0]
+class VPSVGFilter--><rect codeLine="102" fill="#222222" height="158.3944" id="VPSVGFilter" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="1941.1458" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="1941.1458" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="1941.1458" y="864.15"/><rect codeLine="102" fill="none" height="158.3944" id="VPSVGFilter" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="1941.1458" y="832.2917"/><ellipse cx="2067.7083" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M2069.2546,847.3907 Q2069.3685,847.228 2069.5068,847.1466 Q2069.6452,847.0652 2069.8079,847.0652 Q2070.0846,847.0652 2070.2555,847.2605 Q2070.4264,847.4559 2070.4264,847.8953 L2070.4264,848.9695 Q2070.4264,849.409 2070.2555,849.6043 Q2070.0846,849.7996 2069.8079,849.7996 Q2069.5475,849.7996 2069.401,849.6531 Q2069.2546,849.5229 2069.1732,849.1323 Q2069.1406,848.8719 2069.0104,848.7417 Q2068.75,848.465 2068.3024,848.3022 Q2067.8548,848.1394 2067.3991,848.1394 Q2066.8457,848.1394 2066.3737,848.3836 Q2065.9017,848.6277 2065.5436,849.173 Q2065.1855,849.7182 2065.1855,850.4832 L2065.1855,851.297 Q2065.1855,852.1922 2065.8447,852.7944 Q2066.5039,853.3966 2067.6595,853.3966 Q2068.3594,853.3966 2068.8477,853.2176 Q2069.1243,853.1036 2069.4336,852.7781 Q2069.6289,852.5828 2069.7428,852.5258 Q2069.8568,852.4689 2069.987,852.4689 Q2070.2474,852.4689 2070.4346,852.656 Q2070.6217,852.8432 2070.6217,853.1036 Q2070.6217,853.3641 2070.3613,853.657 Q2069.987,854.0802 2069.401,854.3243 Q2068.6198,854.6499 2067.6758,854.6499 Q2066.5527,854.6499 2065.6738,854.1941 Q2064.9414,853.8361 2064.4368,853.0385 Q2063.9323,852.241 2063.9323,851.3133 L2063.9323,850.4669 Q2063.9323,849.4904 2064.388,848.644 Q2064.8438,847.7976 2065.6494,847.3419 Q2066.4551,846.8862 2067.3503,846.8862 Q2067.9036,846.8862 2068.3757,847.0083 Q2068.8477,847.1303 2069.2546,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="75" x="2092.7083" y="855.2755">VPSVGFilter</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="1942.1875" x2="2286.9792" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1942.1875" x2="2286.9792" y1="876.65" y2="876.65"/><ellipse cx="1952.6042" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="245.8333" x="1966.1458" y="897.5449">VPSVGFilter(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="1966.1458" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="268.75" x="1966.1458" y="946.2296">default_value: JSONValidValue): VPSVGFilter</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1942.1875" x2="2286.9792" y1="958.0104" y2="958.0104"/><ellipse cx="1952.6042" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="1966.1458" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[79579fbf15247db63a56b49aeed9bf9d]
+class VPColor--><rect codeLine="115" fill="#222222" height="158.3944" id="VPColor" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="2324.4792" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="2324.4792" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="2324.4792" y="864.15"/><rect codeLine="115" fill="none" height="158.3944" id="VPColor" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="2324.4792" y="832.2917"/><ellipse cx="2463.0208" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M2464.5671,847.3907 Q2464.681,847.228 2464.8193,847.1466 Q2464.9577,847.0652 2465.1204,847.0652 Q2465.3971,847.0652 2465.568,847.2605 Q2465.7389,847.4559 2465.7389,847.8953 L2465.7389,848.9695 Q2465.7389,849.409 2465.568,849.6043 Q2465.3971,849.7996 2465.1204,849.7996 Q2464.86,849.7996 2464.7135,849.6531 Q2464.5671,849.5229 2464.4857,849.1323 Q2464.4531,848.8719 2464.3229,848.7417 Q2464.0625,848.465 2463.6149,848.3022 Q2463.1673,848.1394 2462.7116,848.1394 Q2462.1582,848.1394 2461.6862,848.3836 Q2461.2142,848.6277 2460.8561,849.173 Q2460.498,849.7182 2460.498,850.4832 L2460.498,851.297 Q2460.498,852.1922 2461.1572,852.7944 Q2461.8164,853.3966 2462.972,853.3966 Q2463.6719,853.3966 2464.1602,853.2176 Q2464.4368,853.1036 2464.7461,852.7781 Q2464.9414,852.5828 2465.0553,852.5258 Q2465.1693,852.4689 2465.2995,852.4689 Q2465.5599,852.4689 2465.7471,852.656 Q2465.9342,852.8432 2465.9342,853.1036 Q2465.9342,853.3641 2465.6738,853.657 Q2465.2995,854.0802 2464.7135,854.3243 Q2463.9323,854.6499 2462.9883,854.6499 Q2461.8652,854.6499 2460.9863,854.1941 Q2460.2539,853.8361 2459.7493,853.0385 Q2459.2448,852.241 2459.2448,851.3133 L2459.2448,850.4669 Q2459.2448,849.4904 2459.7005,848.644 Q2460.1563,847.7976 2460.9619,847.3419 Q2461.7676,846.8862 2462.6628,846.8862 Q2463.2161,846.8862 2463.6882,847.0083 Q2464.1602,847.1303 2464.5671,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="51.0417" x="2488.0208" y="855.2755">VPColor</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="2325.5208" x2="2670.3125" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="2325.5208" x2="2670.3125" y1="876.65" y2="876.65"/><ellipse cx="2335.9375" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="222.9167" x="2349.4792" y="897.5449">VPColor(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="2349.4792" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="245.8333" x="2349.4792" y="946.2296">default_value: JSONValidValue): VPColor</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="2325.5208" x2="2670.3125" y1="958.0104" y2="958.0104"/><ellipse cx="2335.9375" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="2349.4792" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[eec29843ed4d2922c063a78046e7822e]
+class VPBorderRadius--><rect codeLine="125" fill="#222222" height="158.3944" id="VPBorderRadius" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="2707.8125" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="2707.8125" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="2707.8125" y="864.15"/><rect codeLine="125" fill="none" height="158.3944" id="VPBorderRadius" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="2707.8125" y="832.2917"/><ellipse cx="2819.7917" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M2821.3379,847.3907 Q2821.4518,847.228 2821.5902,847.1466 Q2821.7285,847.0652 2821.8913,847.0652 Q2822.168,847.0652 2822.3389,847.2605 Q2822.5098,847.4559 2822.5098,847.8953 L2822.5098,848.9695 Q2822.5098,849.409 2822.3389,849.6043 Q2822.168,849.7996 2821.8913,849.7996 Q2821.6309,849.7996 2821.4844,849.6531 Q2821.3379,849.5229 2821.2565,849.1323 Q2821.224,848.8719 2821.0938,848.7417 Q2820.8333,848.465 2820.3857,848.3022 Q2819.9382,848.1394 2819.4824,848.1394 Q2818.929,848.1394 2818.457,848.3836 Q2817.985,848.6277 2817.627,849.173 Q2817.2689,849.7182 2817.2689,850.4832 L2817.2689,851.297 Q2817.2689,852.1922 2817.9281,852.7944 Q2818.5872,853.3966 2819.7428,853.3966 Q2820.4427,853.3966 2820.931,853.2176 Q2821.2077,853.1036 2821.5169,852.7781 Q2821.7122,852.5828 2821.8262,852.5258 Q2821.9401,852.4689 2822.0703,852.4689 Q2822.3307,852.4689 2822.5179,852.656 Q2822.7051,852.8432 2822.7051,853.1036 Q2822.7051,853.3641 2822.4447,853.657 Q2822.0703,854.0802 2821.4844,854.3243 Q2820.7031,854.6499 2819.7591,854.6499 Q2818.6361,854.6499 2817.7572,854.1941 Q2817.0247,853.8361 2816.5202,853.0385 Q2816.0156,852.241 2816.0156,851.3133 L2816.0156,850.4669 Q2816.0156,849.4904 2816.4714,848.644 Q2816.9271,847.7976 2817.7327,847.3419 Q2818.5384,846.8862 2819.4336,846.8862 Q2819.987,846.8862 2820.459,847.0083 Q2820.931,847.1303 2821.3379,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="104.1667" x="2844.7917" y="855.2755">VPBorderRadius</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="2708.8542" x2="3053.6458" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="2708.8542" x2="3053.6458" y1="876.65" y2="876.65"/><ellipse cx="2719.2708" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="270.8333" x="2732.8125" y="897.5449">VPBorderRadius(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="2732.8125" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="293.75" x="2732.8125" y="946.2296">default_value: JSONValidValue): VPBorderRadius</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="2708.8542" x2="3053.6458" y1="958.0104" y2="958.0104"/><ellipse cx="2719.2708" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="2732.8125" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[194e65438bdc54bdb3ea966f6ddfd531]
+class VPBoxShadow--><rect codeLine="135" fill="#222222" height="158.3944" id="VPBoxShadow" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="3091.1458" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="3091.1458" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="3091.1458" y="864.15"/><rect codeLine="135" fill="none" height="158.3944" id="VPBoxShadow" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="3091.1458" y="832.2917"/><ellipse cx="3208.3333" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M3209.8796,847.3907 Q3209.9935,847.228 3210.1318,847.1466 Q3210.2702,847.0652 3210.4329,847.0652 Q3210.7096,847.0652 3210.8805,847.2605 Q3211.0514,847.4559 3211.0514,847.8953 L3211.0514,848.9695 Q3211.0514,849.409 3210.8805,849.6043 Q3210.7096,849.7996 3210.4329,849.7996 Q3210.1725,849.7996 3210.026,849.6531 Q3209.8796,849.5229 3209.7982,849.1323 Q3209.7656,848.8719 3209.6354,848.7417 Q3209.375,848.465 3208.9274,848.3022 Q3208.4798,848.1394 3208.0241,848.1394 Q3207.4707,848.1394 3206.9987,848.3836 Q3206.5267,848.6277 3206.1686,849.173 Q3205.8105,849.7182 3205.8105,850.4832 L3205.8105,851.297 Q3205.8105,852.1922 3206.4697,852.7944 Q3207.1289,853.3966 3208.2845,853.3966 Q3208.9844,853.3966 3209.4727,853.2176 Q3209.7493,853.1036 3210.0586,852.7781 Q3210.2539,852.5828 3210.3678,852.5258 Q3210.4818,852.4689 3210.612,852.4689 Q3210.8724,852.4689 3211.0596,852.656 Q3211.2467,852.8432 3211.2467,853.1036 Q3211.2467,853.3641 3210.9863,853.657 Q3210.612,854.0802 3210.026,854.3243 Q3209.2448,854.6499 3208.3008,854.6499 Q3207.1777,854.6499 3206.2988,854.1941 Q3205.5664,853.8361 3205.0618,853.0385 Q3204.5573,852.241 3204.5573,851.3133 L3204.5573,850.4669 Q3204.5573,849.4904 3205.013,848.644 Q3205.4688,847.7976 3206.2744,847.3419 Q3207.0801,846.8862 3207.9753,846.8862 Q3208.5286,846.8862 3209.0007,847.0083 Q3209.4727,847.1303 3209.8796,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="93.75" x="3233.3333" y="855.2755">VPBoxShadow</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="3092.1875" x2="3436.9792" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="3092.1875" x2="3436.9792" y1="876.65" y2="876.65"/><ellipse cx="3102.6042" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="260.4167" x="3116.1458" y="897.5449">VPBoxShadow(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="3116.1458" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="283.3333" x="3116.1458" y="946.2296">default_value: JSONValidValue): VPBoxShadow</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="3092.1875" x2="3436.9792" y1="958.0104" y2="958.0104"/><ellipse cx="3102.6042" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="3116.1458" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[dfc201c0018802cecd080c565afa4518]
+class VPBackground--><rect codeLine="145" fill="#222222" height="304.4484" id="VPBackground" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="360.4167" x="3475" y="759.375"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="360.4167" x="3475" y="759.375"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="360.4167" x="3475" y="791.2333"/><rect codeLine="145" fill="none" height="304.4484" id="VPBackground" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="360.4167" x="3475" y="759.375"/><ellipse cx="3598.9583" cy="777.3875" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M3600.5046,774.4741 Q3600.6185,774.3113 3600.7568,774.2299 Q3600.8952,774.1486 3601.0579,774.1486 Q3601.3346,774.1486 3601.5055,774.3439 Q3601.6764,774.5392 3601.6764,774.9786 L3601.6764,776.0529 Q3601.6764,776.4923 3601.5055,776.6876 Q3601.3346,776.8829 3601.0579,776.8829 Q3600.7975,776.8829 3600.651,776.7365 Q3600.5046,776.6062 3600.4232,776.2156 Q3600.3906,775.9552 3600.2604,775.825 Q3600,775.5483 3599.5524,775.3855 Q3599.1048,775.2228 3598.6491,775.2228 Q3598.0957,775.2228 3597.6237,775.4669 Q3597.1517,775.7111 3596.7936,776.2563 Q3596.4355,776.8016 3596.4355,777.5665 L3596.4355,778.3803 Q3596.4355,779.2755 3597.0947,779.8777 Q3597.7539,780.4799 3598.9095,780.4799 Q3599.6094,780.4799 3600.0977,780.3009 Q3600.3743,780.187 3600.6836,779.8615 Q3600.8789,779.6661 3600.9928,779.6092 Q3601.1068,779.5522 3601.237,779.5522 Q3601.4974,779.5522 3601.6846,779.7394 Q3601.8717,779.9266 3601.8717,780.187 Q3601.8717,780.4474 3601.6113,780.7404 Q3601.237,781.1635 3600.651,781.4077 Q3599.8698,781.7332 3598.9258,781.7332 Q3597.8027,781.7332 3596.9238,781.2775 Q3596.1914,780.9194 3595.6868,780.1219 Q3595.1823,779.3243 3595.1823,778.3966 L3595.1823,777.5503 Q3595.1823,776.5737 3595.638,775.7273 Q3596.0938,774.881 3596.8994,774.4253 Q3597.7051,773.9695 3598.6003,773.9695 Q3599.1536,773.9695 3599.6257,774.0916 Q3600.0977,774.2137 3600.5046,774.4741 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="93.75" x="3623.9583" y="782.3588">VPBackground</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="3476.0417" x2="3834.375" y1="795.4" y2="795.4"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="3476.0417" x2="3834.375" y1="803.7333" y2="803.7333"/><ellipse cx="3486.4583" cy="815.1917" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="261.4583" x="3500" y="824.6282">VPBackground(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="3500" y="848.9705">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="284.375" x="3500" y="873.3129">default_value: JSONValidValue): VPBackground</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="3476.0417" x2="3834.375" y1="885.0937" y2="885.0937"/><ellipse cx="3486.4583" cy="896.552" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="3500" y="905.9886">hasValidValue(): Boolean</text><ellipse cx="3486.4583" cy="920.8944" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="291.6667" x="3500" y="930.3309">parseBackgroundSize(bgnd_size: String): Object</text><ellipse cx="3486.4583" cy="945.2367" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="254.1667" x="3500" y="954.6733">stringifyBackgroundSize(size_type: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="222.9167" x="3500" y="979.0156">size_x: String, size_y: String): String</text><ellipse cx="3486.4583" cy="993.9214" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="323.9583" x="3500" y="1003.358">parseBackgroundRepeat(bgnd_repeat: String): Object</text><ellipse cx="3486.4583" cy="1018.2638" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="280.2083" x="3500" y="1027.7003">stringifyBackgroundRepeat(repeat_x: Boolean,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="160.4167" x="3500" y="1052.0426">repeat_y: Boolean): String</text><!--MD5=[b07628f628d203713e2dd5e499e7ffa1]
+class VPTextType--><rect codeLine="163" fill="#222222" height="158.3944" id="VPTextType" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="3872.3958" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="3872.3958" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="3872.3958" y="864.15"/><rect codeLine="163" fill="none" height="158.3944" id="VPTextType" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="3872.3958" y="832.2917"/><ellipse cx="3998.4375" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M3999.9837,847.3907 Q4000.0977,847.228 4000.236,847.1466 Q4000.3743,847.0652 4000.5371,847.0652 Q4000.8138,847.0652 4000.9847,847.2605 Q4001.1556,847.4559 4001.1556,847.8953 L4001.1556,848.9695 Q4001.1556,849.409 4000.9847,849.6043 Q4000.8138,849.7996 4000.5371,849.7996 Q4000.2767,849.7996 4000.1302,849.6531 Q3999.9837,849.5229 3999.9023,849.1323 Q3999.8698,848.8719 3999.7396,848.7417 Q3999.4792,848.465 3999.0316,848.3022 Q3998.584,848.1394 3998.1283,848.1394 Q3997.5749,848.1394 3997.1029,848.3836 Q3996.6309,848.6277 3996.2728,849.173 Q3995.9147,849.7182 3995.9147,850.4832 L3995.9147,851.297 Q3995.9147,852.1922 3996.5739,852.7944 Q3997.2331,853.3966 3998.3887,853.3966 Q3999.0885,853.3966 3999.5768,853.2176 Q3999.8535,853.1036 4000.1628,852.7781 Q4000.3581,852.5828 4000.472,852.5258 Q4000.5859,852.4689 4000.7161,852.4689 Q4000.9766,852.4689 4001.1637,852.656 Q4001.3509,852.8432 4001.3509,853.1036 Q4001.3509,853.3641 4001.0905,853.657 Q4000.7161,854.0802 4000.1302,854.3243 Q3999.349,854.6499 3998.4049,854.6499 Q3997.2819,854.6499 3996.403,854.1941 Q3995.6706,853.8361 3995.166,853.0385 Q3994.6615,852.241 3994.6615,851.3133 L3994.6615,850.4669 Q3994.6615,849.4904 3995.1172,848.644 Q3995.5729,847.7976 3996.3786,847.3419 Q3997.1842,846.8862 3998.0794,846.8862 Q3998.6328,846.8862 3999.1048,847.0083 Q3999.5768,847.1303 3999.9837,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="76.0417" x="4023.4375" y="855.2755">VPTextType</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="3873.4375" x2="4218.2292" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="3873.4375" x2="4218.2292" y1="876.65" y2="876.65"/><ellipse cx="3883.8542" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="245.8333" x="3897.3958" y="897.5449">VPTextType(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="3897.3958" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="268.75" x="3897.3958" y="946.2296">default_value: JSONValidValue): VPTextType</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="3873.4375" x2="4218.2292" y1="958.0104" y2="958.0104"/><ellipse cx="3883.8542" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="3897.3958" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[766a7262262173746c60dd7aadc95ca0]
+class VPTextContent--><rect codeLine="173" fill="#222222" height="158.3944" id="VPTextContent" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="4255.7292" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="4255.7292" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="4255.7292" y="864.15"/><rect codeLine="173" fill="none" height="158.3944" id="VPTextContent" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="4255.7292" y="832.2917"/><ellipse cx="4370.8333" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M4372.3796,847.3907 Q4372.4935,847.228 4372.6318,847.1466 Q4372.7702,847.0652 4372.9329,847.0652 Q4373.2096,847.0652 4373.3805,847.2605 Q4373.5514,847.4559 4373.5514,847.8953 L4373.5514,848.9695 Q4373.5514,849.409 4373.3805,849.6043 Q4373.2096,849.7996 4372.9329,849.7996 Q4372.6725,849.7996 4372.526,849.6531 Q4372.3796,849.5229 4372.2982,849.1323 Q4372.2656,848.8719 4372.1354,848.7417 Q4371.875,848.465 4371.4274,848.3022 Q4370.9798,848.1394 4370.5241,848.1394 Q4369.9707,848.1394 4369.4987,848.3836 Q4369.0267,848.6277 4368.6686,849.173 Q4368.3105,849.7182 4368.3105,850.4832 L4368.3105,851.297 Q4368.3105,852.1922 4368.9697,852.7944 Q4369.6289,853.3966 4370.7845,853.3966 Q4371.4844,853.3966 4371.9727,853.2176 Q4372.2493,853.1036 4372.5586,852.7781 Q4372.7539,852.5828 4372.8678,852.5258 Q4372.9818,852.4689 4373.112,852.4689 Q4373.3724,852.4689 4373.5596,852.656 Q4373.7467,852.8432 4373.7467,853.1036 Q4373.7467,853.3641 4373.4863,853.657 Q4373.112,854.0802 4372.526,854.3243 Q4371.7448,854.6499 4370.8008,854.6499 Q4369.6777,854.6499 4368.7988,854.1941 Q4368.0664,853.8361 4367.5618,853.0385 Q4367.0573,852.241 4367.0573,851.3133 L4367.0573,850.4669 Q4367.0573,849.4904 4367.513,848.644 Q4367.9688,847.7976 4368.7744,847.3419 Q4369.5801,846.8862 4370.4753,846.8862 Q4371.0286,846.8862 4371.5007,847.0083 Q4371.9727,847.1303 4372.3796,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="97.9167" x="4395.8333" y="855.2755">VPTextContent</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="4256.7708" x2="4601.5625" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="4256.7708" x2="4601.5625" y1="876.65" y2="876.65"/><ellipse cx="4267.1875" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="263.5417" x="4280.7292" y="897.5449">VPTextContent(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="4280.7292" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="286.4583" x="4280.7292" y="946.2296">default_value: JSONValidValue): VPTextContent</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="4256.7708" x2="4601.5625" y1="958.0104" y2="958.0104"/><ellipse cx="4267.1875" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="4280.7292" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[13b47e88851f348fcb255820e2c81457]
+class VPFontSize--><rect codeLine="183" fill="#222222" height="158.3944" id="VPFontSize" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="4639.0625" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="4639.0625" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="4639.0625" y="864.15"/><rect codeLine="183" fill="none" height="158.3944" id="VPFontSize" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="4639.0625" y="832.2917"/><ellipse cx="4766.6667" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M4768.2129,847.3907 Q4768.3268,847.228 4768.4652,847.1466 Q4768.6035,847.0652 4768.7663,847.0652 Q4769.043,847.0652 4769.2139,847.2605 Q4769.3848,847.4559 4769.3848,847.8953 L4769.3848,848.9695 Q4769.3848,849.409 4769.2139,849.6043 Q4769.043,849.7996 4768.7663,849.7996 Q4768.5059,849.7996 4768.3594,849.6531 Q4768.2129,849.5229 4768.1315,849.1323 Q4768.099,848.8719 4767.9688,848.7417 Q4767.7083,848.465 4767.2607,848.3022 Q4766.8132,848.1394 4766.3574,848.1394 Q4765.804,848.1394 4765.332,848.3836 Q4764.86,848.6277 4764.502,849.173 Q4764.1439,849.7182 4764.1439,850.4832 L4764.1439,851.297 Q4764.1439,852.1922 4764.8031,852.7944 Q4765.4622,853.3966 4766.6178,853.3966 Q4767.3177,853.3966 4767.806,853.2176 Q4768.0827,853.1036 4768.3919,852.7781 Q4768.5872,852.5828 4768.7012,852.5258 Q4768.8151,852.4689 4768.9453,852.4689 Q4769.2057,852.4689 4769.3929,852.656 Q4769.5801,852.8432 4769.5801,853.1036 Q4769.5801,853.3641 4769.3197,853.657 Q4768.9453,854.0802 4768.3594,854.3243 Q4767.5781,854.6499 4766.6341,854.6499 Q4765.5111,854.6499 4764.6322,854.1941 Q4763.8997,853.8361 4763.3952,853.0385 Q4762.8906,852.241 4762.8906,851.3133 L4762.8906,850.4669 Q4762.8906,849.4904 4763.3464,848.644 Q4763.8021,847.7976 4764.6077,847.3419 Q4765.4134,846.8862 4766.3086,846.8862 Q4766.862,846.8862 4767.334,847.0083 Q4767.806,847.1303 4768.2129,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="72.9167" x="4791.6667" y="855.2755">VPFontSize</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="4640.1042" x2="4984.8958" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="4640.1042" x2="4984.8958" y1="876.65" y2="876.65"/><ellipse cx="4650.5208" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="240.625" x="4664.0625" y="897.5449">VPFontSize(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="4664.0625" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="263.5417" x="4664.0625" y="946.2296">default_value: JSONValidValue): VPFontSize</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="4640.1042" x2="4984.8958" y1="958.0104" y2="958.0104"/><ellipse cx="4650.5208" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="4664.0625" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[1239c4ec1082c9a8f446d53cb5cd24bc]
+class VPTextDecoration--><rect codeLine="193" fill="#222222" height="158.3944" id="VPTextDecoration" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="5022.3958" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="5022.3958" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="5022.3958" y="864.15"/><rect codeLine="193" fill="none" height="158.3944" id="VPTextDecoration" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="5022.3958" y="832.2917"/><ellipse cx="5128.6458" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M5130.1921,847.3907 Q5130.306,847.228 5130.4443,847.1466 Q5130.5827,847.0652 5130.7454,847.0652 Q5131.0221,847.0652 5131.193,847.2605 Q5131.3639,847.4559 5131.3639,847.8953 L5131.3639,848.9695 Q5131.3639,849.409 5131.193,849.6043 Q5131.0221,849.7996 5130.7454,849.7996 Q5130.485,849.7996 5130.3385,849.6531 Q5130.1921,849.5229 5130.1107,849.1323 Q5130.0781,848.8719 5129.9479,848.7417 Q5129.6875,848.465 5129.2399,848.3022 Q5128.7923,848.1394 5128.3366,848.1394 Q5127.7832,848.1394 5127.3112,848.3836 Q5126.8392,848.6277 5126.4811,849.173 Q5126.123,849.7182 5126.123,850.4832 L5126.123,851.297 Q5126.123,852.1922 5126.7822,852.7944 Q5127.4414,853.3966 5128.597,853.3966 Q5129.2969,853.3966 5129.7852,853.2176 Q5130.0618,853.1036 5130.3711,852.7781 Q5130.5664,852.5828 5130.6803,852.5258 Q5130.7943,852.4689 5130.9245,852.4689 Q5131.1849,852.4689 5131.3721,852.656 Q5131.5592,852.8432 5131.5592,853.1036 Q5131.5592,853.3641 5131.2988,853.657 Q5130.9245,854.0802 5130.3385,854.3243 Q5129.5573,854.6499 5128.6133,854.6499 Q5127.4902,854.6499 5126.6113,854.1941 Q5125.8789,853.8361 5125.3743,853.0385 Q5124.8698,852.241 5124.8698,851.3133 L5124.8698,850.4669 Q5124.8698,849.4904 5125.3255,848.644 Q5125.7813,847.7976 5126.5869,847.3419 Q5127.3926,846.8862 5128.2878,846.8862 Q5128.8411,846.8862 5129.3132,847.0083 Q5129.7852,847.1303 5130.1921,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="115.625" x="5153.6458" y="855.2755">VPTextDecoration</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="5023.4375" x2="5368.2292" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="5023.4375" x2="5368.2292" y1="876.65" y2="876.65"/><ellipse cx="5033.8542" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="281.25" x="5047.3958" y="897.5449">VPTextDecoration(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="5047.3958" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="304.1667" x="5047.3958" y="946.2296">default_value: JSONValidValue): VPTextDecoration</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="5023.4375" x2="5368.2292" y1="958.0104" y2="958.0104"/><ellipse cx="5033.8542" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="5047.3958" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[190af8c3089aa4d904d6d03a802e7fe2]
+class VPTextAlign--><rect codeLine="203" fill="#222222" height="158.3944" id="VPTextAlign" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="5405.7292" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="5405.7292" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="5405.7292" y="864.15"/><rect codeLine="203" fill="none" height="158.3944" id="VPTextAlign" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="5405.7292" y="832.2917"/><ellipse cx="5531.7708" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M5533.3171,847.3907 Q5533.431,847.228 5533.5693,847.1466 Q5533.7077,847.0652 5533.8704,847.0652 Q5534.1471,847.0652 5534.318,847.2605 Q5534.4889,847.4559 5534.4889,847.8953 L5534.4889,848.9695 Q5534.4889,849.409 5534.318,849.6043 Q5534.1471,849.7996 5533.8704,849.7996 Q5533.61,849.7996 5533.4635,849.6531 Q5533.3171,849.5229 5533.2357,849.1323 Q5533.2031,848.8719 5533.0729,848.7417 Q5532.8125,848.465 5532.3649,848.3022 Q5531.9173,848.1394 5531.4616,848.1394 Q5530.9082,848.1394 5530.4362,848.3836 Q5529.9642,848.6277 5529.6061,849.173 Q5529.248,849.7182 5529.248,850.4832 L5529.248,851.297 Q5529.248,852.1922 5529.9072,852.7944 Q5530.5664,853.3966 5531.722,853.3966 Q5532.4219,853.3966 5532.9102,853.2176 Q5533.1868,853.1036 5533.4961,852.7781 Q5533.6914,852.5828 5533.8053,852.5258 Q5533.9193,852.4689 5534.0495,852.4689 Q5534.3099,852.4689 5534.4971,852.656 Q5534.6842,852.8432 5534.6842,853.1036 Q5534.6842,853.3641 5534.4238,853.657 Q5534.0495,854.0802 5533.4635,854.3243 Q5532.6823,854.6499 5531.7383,854.6499 Q5530.6152,854.6499 5529.7363,854.1941 Q5529.0039,853.8361 5528.4993,853.0385 Q5527.9948,852.241 5527.9948,851.3133 L5527.9948,850.4669 Q5527.9948,849.4904 5528.4505,848.644 Q5528.9063,847.7976 5529.7119,847.3419 Q5530.5176,846.8862 5531.4128,846.8862 Q5531.9661,846.8862 5532.4382,847.0083 Q5532.9102,847.1303 5533.3171,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="76.0417" x="5556.7708" y="855.2755">VPTextAlign</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="5406.7708" x2="5751.5625" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="5406.7708" x2="5751.5625" y1="876.65" y2="876.65"/><ellipse cx="5417.1875" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="245.8333" x="5430.7292" y="897.5449">VPTextAlign(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="5430.7292" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="268.75" x="5430.7292" y="946.2296">default_value: JSONValidValue): VPTextAlign</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="5406.7708" x2="5751.5625" y1="958.0104" y2="958.0104"/><ellipse cx="5417.1875" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="5430.7292" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[102a76b3032a6f39764a9a01e0c3a2c4]
+class VPTextShadow--><rect codeLine="213" fill="#222222" height="158.3944" id="VPTextShadow" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="5789.0625" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="5789.0625" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="5789.0625" y="864.15"/><rect codeLine="213" fill="none" height="158.3944" id="VPTextShadow" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="5789.0625" y="832.2917"/><ellipse cx="5904.1667" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M5905.7129,847.3907 Q5905.8268,847.228 5905.9652,847.1466 Q5906.1035,847.0652 5906.2663,847.0652 Q5906.543,847.0652 5906.7139,847.2605 Q5906.8848,847.4559 5906.8848,847.8953 L5906.8848,848.9695 Q5906.8848,849.409 5906.7139,849.6043 Q5906.543,849.7996 5906.2663,849.7996 Q5906.0059,849.7996 5905.8594,849.6531 Q5905.7129,849.5229 5905.6315,849.1323 Q5905.599,848.8719 5905.4688,848.7417 Q5905.2083,848.465 5904.7607,848.3022 Q5904.3132,848.1394 5903.8574,848.1394 Q5903.304,848.1394 5902.832,848.3836 Q5902.36,848.6277 5902.002,849.173 Q5901.6439,849.7182 5901.6439,850.4832 L5901.6439,851.297 Q5901.6439,852.1922 5902.3031,852.7944 Q5902.9622,853.3966 5904.1178,853.3966 Q5904.8177,853.3966 5905.306,853.2176 Q5905.5827,853.1036 5905.8919,852.7781 Q5906.0872,852.5828 5906.2012,852.5258 Q5906.3151,852.4689 5906.4453,852.4689 Q5906.7057,852.4689 5906.8929,852.656 Q5907.0801,852.8432 5907.0801,853.1036 Q5907.0801,853.3641 5906.8197,853.657 Q5906.4453,854.0802 5905.8594,854.3243 Q5905.0781,854.6499 5904.1341,854.6499 Q5903.0111,854.6499 5902.1322,854.1941 Q5901.3997,853.8361 5900.8952,853.0385 Q5900.3906,852.241 5900.3906,851.3133 L5900.3906,850.4669 Q5900.3906,849.4904 5900.8464,848.644 Q5901.3021,847.7976 5902.1077,847.3419 Q5902.9134,846.8862 5903.8086,846.8862 Q5904.362,846.8862 5904.834,847.0083 Q5905.306,847.1303 5905.7129,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="97.9167" x="5929.1667" y="855.2755">VPTextShadow</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="5790.1042" x2="6134.8958" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="5790.1042" x2="6134.8958" y1="876.65" y2="876.65"/><ellipse cx="5800.5208" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="263.5417" x="5814.0625" y="897.5449">VPTextShadow(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="5814.0625" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="286.4583" x="5814.0625" y="946.2296">default_value: JSONValidValue): VPTextShadow</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="5790.1042" x2="6134.8958" y1="958.0104" y2="958.0104"/><ellipse cx="5800.5208" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="5814.0625" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[8aed104a1f2bf009e03730693052419f]
+class VPTimerInnerSpacing--><rect codeLine="225" fill="#222222" height="158.3944" id="VPTimerInnerSpacing" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="363.5417" x="6172.3958" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="363.5417" x="6172.3958" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="363.5417" x="6172.3958" y="864.15"/><rect codeLine="225" fill="none" height="158.3944" id="VPTimerInnerSpacing" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="363.5417" x="6172.3958" y="832.2917"/><ellipse cx="6275.5208" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M6277.0671,847.3907 Q6277.181,847.228 6277.3193,847.1466 Q6277.4577,847.0652 6277.6204,847.0652 Q6277.8971,847.0652 6278.068,847.2605 Q6278.2389,847.4559 6278.2389,847.8953 L6278.2389,848.9695 Q6278.2389,849.409 6278.068,849.6043 Q6277.8971,849.7996 6277.6204,849.7996 Q6277.36,849.7996 6277.2135,849.6531 Q6277.0671,849.5229 6276.9857,849.1323 Q6276.9531,848.8719 6276.8229,848.7417 Q6276.5625,848.465 6276.1149,848.3022 Q6275.6673,848.1394 6275.2116,848.1394 Q6274.6582,848.1394 6274.1862,848.3836 Q6273.7142,848.6277 6273.3561,849.173 Q6272.998,849.7182 6272.998,850.4832 L6272.998,851.297 Q6272.998,852.1922 6273.6572,852.7944 Q6274.3164,853.3966 6275.472,853.3966 Q6276.1719,853.3966 6276.6602,853.2176 Q6276.9368,853.1036 6277.2461,852.7781 Q6277.4414,852.5828 6277.5553,852.5258 Q6277.6693,852.4689 6277.7995,852.4689 Q6278.0599,852.4689 6278.2471,852.656 Q6278.4342,852.8432 6278.4342,853.1036 Q6278.4342,853.3641 6278.1738,853.657 Q6277.7995,854.0802 6277.2135,854.3243 Q6276.4323,854.6499 6275.4883,854.6499 Q6274.3652,854.6499 6273.4863,854.1941 Q6272.7539,853.8361 6272.2493,853.0385 Q6271.7448,852.241 6271.7448,851.3133 L6271.7448,850.4669 Q6271.7448,849.4904 6272.2005,848.644 Q6272.6563,847.7976 6273.4619,847.3419 Q6274.2676,846.8862 6275.1628,846.8862 Q6275.7161,846.8862 6276.1882,847.0083 Q6276.6602,847.1303 6277.0671,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="138.5417" x="6300.5208" y="855.2755">VPTimerInnerSpacing</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="6173.4375" x2="6534.8958" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="6173.4375" x2="6534.8958" y1="876.65" y2="876.65"/><ellipse cx="6183.8542" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="304.1667" x="6197.3958" y="897.5449">VPTimerInnerSpacing(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="6197.3958" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="327.0833" x="6197.3958" y="946.2296">default_value: JSONValidValue): VPTimerInnerSpacing</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="6173.4375" x2="6534.8958" y1="958.0104" y2="958.0104"/><ellipse cx="6183.8542" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="6197.3958" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[858ae61cc331def37cbe0578f375bc20]
+class VPBorderThickness--><rect codeLine="235" fill="#222222" height="158.3944" id="VPBorderThickness" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="348.9583" x="6572.3958" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="348.9583" x="6572.3958" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="348.9583" x="6572.3958" y="864.15"/><rect codeLine="235" fill="none" height="158.3944" id="VPBorderThickness" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="348.9583" x="6572.3958" y="832.2917"/><ellipse cx="6675.5208" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M6677.0671,847.3907 Q6677.181,847.228 6677.3193,847.1466 Q6677.4577,847.0652 6677.6204,847.0652 Q6677.8971,847.0652 6678.068,847.2605 Q6678.2389,847.4559 6678.2389,847.8953 L6678.2389,848.9695 Q6678.2389,849.409 6678.068,849.6043 Q6677.8971,849.7996 6677.6204,849.7996 Q6677.36,849.7996 6677.2135,849.6531 Q6677.0671,849.5229 6676.9857,849.1323 Q6676.9531,848.8719 6676.8229,848.7417 Q6676.5625,848.465 6676.1149,848.3022 Q6675.6673,848.1394 6675.2116,848.1394 Q6674.6582,848.1394 6674.1862,848.3836 Q6673.7142,848.6277 6673.3561,849.173 Q6672.998,849.7182 6672.998,850.4832 L6672.998,851.297 Q6672.998,852.1922 6673.6572,852.7944 Q6674.3164,853.3966 6675.472,853.3966 Q6676.1719,853.3966 6676.6602,853.2176 Q6676.9368,853.1036 6677.2461,852.7781 Q6677.4414,852.5828 6677.5553,852.5258 Q6677.6693,852.4689 6677.7995,852.4689 Q6678.0599,852.4689 6678.2471,852.656 Q6678.4342,852.8432 6678.4342,853.1036 Q6678.4342,853.3641 6678.1738,853.657 Q6677.7995,854.0802 6677.2135,854.3243 Q6676.4323,854.6499 6675.4883,854.6499 Q6674.3652,854.6499 6673.4863,854.1941 Q6672.7539,853.8361 6672.2493,853.0385 Q6671.7448,852.241 6671.7448,851.3133 L6671.7448,850.4669 Q6671.7448,849.4904 6672.2005,848.644 Q6672.6563,847.7976 6673.4619,847.3419 Q6674.2676,846.8862 6675.1628,846.8862 Q6675.7161,846.8862 6676.1882,847.0083 Q6676.6602,847.1303 6677.0671,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="123.9583" x="6700.5208" y="855.2755">VPBorderThickness</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="6573.4375" x2="6920.3125" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="6573.4375" x2="6920.3125" y1="876.65" y2="876.65"/><ellipse cx="6583.8542" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="289.5833" x="6597.3958" y="897.5449">VPBorderThickness(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="6597.3958" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="312.5" x="6597.3958" y="946.2296">default_value: JSONValidValue): VPBorderThickness</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="6573.4375" x2="6920.3125" y1="958.0104" y2="958.0104"/><ellipse cx="6583.8542" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="6597.3958" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[d6e41bf72fb4cdce5577da69bd2ccf41]
+class VPParticleRadiusRange--><rect codeLine="247" fill="#222222" height="158.3944" id="VPParticleRadiusRange" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="370.8333" x="6958.3333" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="370.8333" x="6958.3333" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="370.8333" x="6958.3333" y="864.15"/><rect codeLine="247" fill="none" height="158.3944" id="VPParticleRadiusRange" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="370.8333" x="6958.3333" y="832.2917"/><ellipse cx="7059.375" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M7060.9212,847.3907 Q7061.0352,847.228 7061.1735,847.1466 Q7061.3118,847.0652 7061.4746,847.0652 Q7061.7513,847.0652 7061.9222,847.2605 Q7062.0931,847.4559 7062.0931,847.8953 L7062.0931,848.9695 Q7062.0931,849.409 7061.9222,849.6043 Q7061.7513,849.7996 7061.4746,849.7996 Q7061.2142,849.7996 7061.0677,849.6531 Q7060.9212,849.5229 7060.8398,849.1323 Q7060.8073,848.8719 7060.6771,848.7417 Q7060.4167,848.465 7059.9691,848.3022 Q7059.5215,848.1394 7059.0658,848.1394 Q7058.5124,848.1394 7058.0404,848.3836 Q7057.5684,848.6277 7057.2103,849.173 Q7056.8522,849.7182 7056.8522,850.4832 L7056.8522,851.297 Q7056.8522,852.1922 7057.5114,852.7944 Q7058.1706,853.3966 7059.3262,853.3966 Q7060.026,853.3966 7060.5143,853.2176 Q7060.791,853.1036 7061.1003,852.7781 Q7061.2956,852.5828 7061.4095,852.5258 Q7061.5234,852.4689 7061.6536,852.4689 Q7061.9141,852.4689 7062.1012,852.656 Q7062.2884,852.8432 7062.2884,853.1036 Q7062.2884,853.3641 7062.028,853.657 Q7061.6536,854.0802 7061.0677,854.3243 Q7060.2865,854.6499 7059.3424,854.6499 Q7058.2194,854.6499 7057.3405,854.1941 Q7056.6081,853.8361 7056.1035,853.0385 Q7055.599,852.241 7055.599,851.3133 L7055.599,850.4669 Q7055.599,849.4904 7056.0547,848.644 Q7056.5104,847.7976 7057.3161,847.3419 Q7058.1217,846.8862 7059.0169,846.8862 Q7059.5703,846.8862 7060.0423,847.0083 Q7060.5143,847.1303 7060.9212,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="150" x="7084.375" y="855.2755">VPParticleRadiusRange</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="6959.375" x2="7328.125" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="6959.375" x2="7328.125" y1="876.65" y2="876.65"/><ellipse cx="6969.7917" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="311.4583" x="6983.3333" y="897.5449">VPParticleRadiusRange(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="6983.3333" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="334.375" x="6983.3333" y="946.2296">default_value: JSONValidValue): VPParticleRadiusRange</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="6959.375" x2="7328.125" y1="958.0104" y2="958.0104"/><ellipse cx="6969.7917" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="6983.3333" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[d1f9d4e11af6efbdfdb5aa8d87ede080]
+class VPFlowType--><rect codeLine="257" fill="#222222" height="158.3944" id="VPFlowType" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="7366.1458" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="7366.1458" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="7366.1458" y="864.15"/><rect codeLine="257" fill="none" height="158.3944" id="VPFlowType" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="7366.1458" y="832.2917"/><ellipse cx="7491.1458" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M7492.6921,847.3907 Q7492.806,847.228 7492.9443,847.1466 Q7493.0827,847.0652 7493.2454,847.0652 Q7493.5221,847.0652 7493.693,847.2605 Q7493.8639,847.4559 7493.8639,847.8953 L7493.8639,848.9695 Q7493.8639,849.409 7493.693,849.6043 Q7493.5221,849.7996 7493.2454,849.7996 Q7492.985,849.7996 7492.8385,849.6531 Q7492.6921,849.5229 7492.6107,849.1323 Q7492.5781,848.8719 7492.4479,848.7417 Q7492.1875,848.465 7491.7399,848.3022 Q7491.2923,848.1394 7490.8366,848.1394 Q7490.2832,848.1394 7489.8112,848.3836 Q7489.3392,848.6277 7488.9811,849.173 Q7488.623,849.7182 7488.623,850.4832 L7488.623,851.297 Q7488.623,852.1922 7489.2822,852.7944 Q7489.9414,853.3966 7491.097,853.3966 Q7491.7969,853.3966 7492.2852,853.2176 Q7492.5618,853.1036 7492.8711,852.7781 Q7493.0664,852.5828 7493.1803,852.5258 Q7493.2943,852.4689 7493.4245,852.4689 Q7493.6849,852.4689 7493.8721,852.656 Q7494.0592,852.8432 7494.0592,853.1036 Q7494.0592,853.3641 7493.7988,853.657 Q7493.4245,854.0802 7492.8385,854.3243 Q7492.0573,854.6499 7491.1133,854.6499 Q7489.9902,854.6499 7489.1113,854.1941 Q7488.3789,853.8361 7487.8743,853.0385 Q7487.3698,852.241 7487.3698,851.3133 L7487.3698,850.4669 Q7487.3698,849.4904 7487.8255,848.644 Q7488.2813,847.7976 7489.0869,847.3419 Q7489.8926,846.8862 7490.7878,846.8862 Q7491.3411,846.8862 7491.8132,847.0083 Q7492.2852,847.1303 7492.6921,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="78.125" x="7516.1458" y="855.2755">VPFlowType</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="7367.1875" x2="7711.9792" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="7367.1875" x2="7711.9792" y1="876.65" y2="876.65"/><ellipse cx="7377.6042" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="245.8333" x="7391.1458" y="897.5449">VPFlowType(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="7391.1458" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="268.75" x="7391.1458" y="946.2296">default_value: JSONValidValue): VPFlowType</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="7367.1875" x2="7711.9792" y1="958.0104" y2="958.0104"/><ellipse cx="7377.6042" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="7391.1458" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[0fffaa170c33b3c9cf5718c0763ac51e]
+class VPFlowCenter--><rect codeLine="267" fill="#222222" height="158.3944" id="VPFlowCenter" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="7749.4792" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="7749.4792" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="7749.4792" y="864.15"/><rect codeLine="267" fill="none" height="158.3944" id="VPFlowCenter" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="7749.4792" y="832.2917"/><ellipse cx="7867.7083" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M7869.2546,847.3907 Q7869.3685,847.228 7869.5068,847.1466 Q7869.6452,847.0652 7869.8079,847.0652 Q7870.0846,847.0652 7870.2555,847.2605 Q7870.4264,847.4559 7870.4264,847.8953 L7870.4264,848.9695 Q7870.4264,849.409 7870.2555,849.6043 Q7870.0846,849.7996 7869.8079,849.7996 Q7869.5475,849.7996 7869.401,849.6531 Q7869.2546,849.5229 7869.1732,849.1323 Q7869.1406,848.8719 7869.0104,848.7417 Q7868.75,848.465 7868.3024,848.3022 Q7867.8548,848.1394 7867.3991,848.1394 Q7866.8457,848.1394 7866.3737,848.3836 Q7865.9017,848.6277 7865.5436,849.173 Q7865.1855,849.7182 7865.1855,850.4832 L7865.1855,851.297 Q7865.1855,852.1922 7865.8447,852.7944 Q7866.5039,853.3966 7867.6595,853.3966 Q7868.3594,853.3966 7868.8477,853.2176 Q7869.1243,853.1036 7869.4336,852.7781 Q7869.6289,852.5828 7869.7428,852.5258 Q7869.8568,852.4689 7869.987,852.4689 Q7870.2474,852.4689 7870.4346,852.656 Q7870.6217,852.8432 7870.6217,853.1036 Q7870.6217,853.3641 7870.3613,853.657 Q7869.987,854.0802 7869.401,854.3243 Q7868.6198,854.6499 7867.6758,854.6499 Q7866.5527,854.6499 7865.6738,854.1941 Q7864.9414,853.8361 7864.4368,853.0385 Q7863.9323,852.241 7863.9323,851.3133 L7863.9323,850.4669 Q7863.9323,849.4904 7864.388,848.644 Q7864.8438,847.7976 7865.6494,847.3419 Q7866.4551,846.8862 7867.3503,846.8862 Q7867.9036,846.8862 7868.3757,847.0083 Q7868.8477,847.1303 7869.2546,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="91.6667" x="7892.7083" y="855.2755">VPFlowCenter</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="7750.5208" x2="8095.3125" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="7750.5208" x2="8095.3125" y1="876.65" y2="876.65"/><ellipse cx="7760.9375" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="257.2917" x="7774.4792" y="897.5449">VPFlowCenter(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="7774.4792" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="280.2083" x="7774.4792" y="946.2296">default_value: JSONValidValue): VPFlowCenter</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="7750.5208" x2="8095.3125" y1="958.0104" y2="958.0104"/><ellipse cx="7760.9375" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="7774.4792" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[d52b31ea01e72cb30092686d2518b4fc]
+class VPFlowDirection--><rect codeLine="277" fill="#222222" height="158.3944" id="VPFlowDirection" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="8132.8125" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="8132.8125" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="8132.8125" y="864.15"/><rect codeLine="277" fill="none" height="158.3944" id="VPFlowDirection" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="8132.8125" y="832.2917"/><ellipse cx="8244.7917" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M8246.3379,847.3907 Q8246.4518,847.228 8246.5902,847.1466 Q8246.7285,847.0652 8246.8913,847.0652 Q8247.168,847.0652 8247.3389,847.2605 Q8247.5098,847.4559 8247.5098,847.8953 L8247.5098,848.9695 Q8247.5098,849.409 8247.3389,849.6043 Q8247.168,849.7996 8246.8913,849.7996 Q8246.6309,849.7996 8246.4844,849.6531 Q8246.3379,849.5229 8246.2565,849.1323 Q8246.224,848.8719 8246.0938,848.7417 Q8245.8333,848.465 8245.3857,848.3022 Q8244.9382,848.1394 8244.4824,848.1394 Q8243.929,848.1394 8243.457,848.3836 Q8242.985,848.6277 8242.627,849.173 Q8242.2689,849.7182 8242.2689,850.4832 L8242.2689,851.297 Q8242.2689,852.1922 8242.9281,852.7944 Q8243.5872,853.3966 8244.7428,853.3966 Q8245.4427,853.3966 8245.931,853.2176 Q8246.2077,853.1036 8246.5169,852.7781 Q8246.7122,852.5828 8246.8262,852.5258 Q8246.9401,852.4689 8247.0703,852.4689 Q8247.3307,852.4689 8247.5179,852.656 Q8247.7051,852.8432 8247.7051,853.1036 Q8247.7051,853.3641 8247.4447,853.657 Q8247.0703,854.0802 8246.4844,854.3243 Q8245.7031,854.6499 8244.7591,854.6499 Q8243.6361,854.6499 8242.7572,854.1941 Q8242.0247,853.8361 8241.5202,853.0385 Q8241.0156,852.241 8241.0156,851.3133 L8241.0156,850.4669 Q8241.0156,849.4904 8241.4714,848.644 Q8241.9271,847.7976 8242.7327,847.3419 Q8243.5384,846.8862 8244.4336,846.8862 Q8244.987,846.8862 8245.459,847.0083 Q8245.931,847.1303 8246.3379,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="104.1667" x="8269.7917" y="855.2755">VPFlowDirection</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="8133.8542" x2="8478.6458" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="8133.8542" x2="8478.6458" y1="876.65" y2="876.65"/><ellipse cx="8144.2708" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="269.7917" x="8157.8125" y="897.5449">VPFlowDirection(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="8157.8125" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="292.7083" x="8157.8125" y="946.2296">default_value: JSONValidValue): VPFlowDirection</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="8133.8542" x2="8478.6458" y1="958.0104" y2="958.0104"/><ellipse cx="8144.2708" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="8157.8125" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[fdeb1550a0a8f79f8c4af97793cde616]
+class VPParticleSpawnProbability--><rect codeLine="287" fill="#222222" height="158.3944" id="VPParticleSpawnProbability" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="395.8333" x="8516.6667" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="395.8333" x="8516.6667" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="395.8333" x="8516.6667" y="864.15"/><rect codeLine="287" fill="none" height="158.3944" id="VPParticleSpawnProbability" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="395.8333" x="8516.6667" y="832.2917"/><ellipse cx="8616.1458" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M8617.6921,847.3907 Q8617.806,847.228 8617.9443,847.1466 Q8618.0827,847.0652 8618.2454,847.0652 Q8618.5221,847.0652 8618.693,847.2605 Q8618.8639,847.4559 8618.8639,847.8953 L8618.8639,848.9695 Q8618.8639,849.409 8618.693,849.6043 Q8618.5221,849.7996 8618.2454,849.7996 Q8617.985,849.7996 8617.8385,849.6531 Q8617.6921,849.5229 8617.6107,849.1323 Q8617.5781,848.8719 8617.4479,848.7417 Q8617.1875,848.465 8616.7399,848.3022 Q8616.2923,848.1394 8615.8366,848.1394 Q8615.2832,848.1394 8614.8112,848.3836 Q8614.3392,848.6277 8613.9811,849.173 Q8613.623,849.7182 8613.623,850.4832 L8613.623,851.297 Q8613.623,852.1922 8614.2822,852.7944 Q8614.9414,853.3966 8616.097,853.3966 Q8616.7969,853.3966 8617.2852,853.2176 Q8617.5618,853.1036 8617.8711,852.7781 Q8618.0664,852.5828 8618.1803,852.5258 Q8618.2943,852.4689 8618.4245,852.4689 Q8618.6849,852.4689 8618.8721,852.656 Q8619.0592,852.8432 8619.0592,853.1036 Q8619.0592,853.3641 8618.7988,853.657 Q8618.4245,854.0802 8617.8385,854.3243 Q8617.0573,854.6499 8616.1133,854.6499 Q8614.9902,854.6499 8614.1113,854.1941 Q8613.3789,853.8361 8612.8743,853.0385 Q8612.3698,852.241 8612.3698,851.3133 L8612.3698,850.4669 Q8612.3698,849.4904 8612.8255,848.644 Q8613.2813,847.7976 8614.0869,847.3419 Q8614.8926,846.8862 8615.7878,846.8862 Q8616.3411,846.8862 8616.8132,847.0083 Q8617.2852,847.1303 8617.6921,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="178.125" x="8641.1458" y="855.2755">VPParticleSpawnProbability</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="8517.7083" x2="8911.4583" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="8517.7083" x2="8911.4583" y1="876.65" y2="876.65"/><ellipse cx="8528.125" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="336.4583" x="8541.6667" y="897.5449">VPParticleSpawnProbability(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="8541.6667" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="359.375" x="8541.6667" y="946.2296">default_value: JSONValidValue): VPParticleSpawnProbability</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="8517.7083" x2="8911.4583" y1="958.0104" y2="958.0104"/><ellipse cx="8528.125" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="8541.6667" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[8710281cf327eb5523bd2ebd5a85d757]
+class VPParticleSpawnTests--><rect codeLine="297" fill="#222222" height="158.3944" id="VPParticleSpawnTests" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="364.5833" x="8948.9583" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="364.5833" x="8948.9583" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="364.5833" x="8948.9583" y="864.15"/><rect codeLine="297" fill="none" height="158.3944" id="VPParticleSpawnTests" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="364.5833" x="8948.9583" y="832.2917"/><ellipse cx="9049.4792" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M9051.0254,847.3907 Q9051.1393,847.228 9051.2777,847.1466 Q9051.416,847.0652 9051.5788,847.0652 Q9051.8555,847.0652 9052.0264,847.2605 Q9052.1973,847.4559 9052.1973,847.8953 L9052.1973,848.9695 Q9052.1973,849.409 9052.0264,849.6043 Q9051.8555,849.7996 9051.5788,849.7996 Q9051.3184,849.7996 9051.1719,849.6531 Q9051.0254,849.5229 9050.944,849.1323 Q9050.9115,848.8719 9050.7813,848.7417 Q9050.5208,848.465 9050.0732,848.3022 Q9049.6257,848.1394 9049.1699,848.1394 Q9048.6165,848.1394 9048.1445,848.3836 Q9047.6725,848.6277 9047.3145,849.173 Q9046.9564,849.7182 9046.9564,850.4832 L9046.9564,851.297 Q9046.9564,852.1922 9047.6156,852.7944 Q9048.2747,853.3966 9049.4303,853.3966 Q9050.1302,853.3966 9050.6185,853.2176 Q9050.8952,853.1036 9051.2044,852.7781 Q9051.3997,852.5828 9051.5137,852.5258 Q9051.6276,852.4689 9051.7578,852.4689 Q9052.0182,852.4689 9052.2054,852.656 Q9052.3926,852.8432 9052.3926,853.1036 Q9052.3926,853.3641 9052.1322,853.657 Q9051.7578,854.0802 9051.1719,854.3243 Q9050.3906,854.6499 9049.4466,854.6499 Q9048.3236,854.6499 9047.4447,854.1941 Q9046.7122,853.8361 9046.2077,853.0385 Q9045.7031,852.241 9045.7031,851.3133 L9045.7031,850.4669 Q9045.7031,849.4904 9046.1589,848.644 Q9046.6146,847.7976 9047.4202,847.3419 Q9048.2259,846.8862 9049.1211,846.8862 Q9049.6745,846.8862 9050.1465,847.0083 Q9050.6185,847.1303 9051.0254,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="144.7917" x="9074.4792" y="855.2755">VPParticleSpawnTests</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="8950" x2="9312.5" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="8950" x2="9312.5" y1="876.65" y2="876.65"/><ellipse cx="8960.4167" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="305.2083" x="8973.9583" y="897.5449">VPParticleSpawnTests(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="8973.9583" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="328.125" x="8973.9583" y="946.2296">default_value: JSONValidValue): VPParticleSpawnTests</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="8950" x2="9312.5" y1="958.0104" y2="958.0104"/><ellipse cx="8960.4167" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="8973.9583" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[cbf7ac43227a2246a4d5b7f6aa33ba78]
+class VPVisualizerRadius--><rect codeLine="309" fill="#222222" height="158.3944" id="VPVisualizerRadius" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="9350.5208" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="9350.5208" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="346.875" x="9350.5208" y="864.15"/><rect codeLine="309" fill="none" height="158.3944" id="VPVisualizerRadius" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="346.875" x="9350.5208" y="832.2917"/><ellipse cx="9453.125" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M9454.6712,847.3907 Q9454.7852,847.228 9454.9235,847.1466 Q9455.0618,847.0652 9455.2246,847.0652 Q9455.5013,847.0652 9455.6722,847.2605 Q9455.8431,847.4559 9455.8431,847.8953 L9455.8431,848.9695 Q9455.8431,849.409 9455.6722,849.6043 Q9455.5013,849.7996 9455.2246,849.7996 Q9454.9642,849.7996 9454.8177,849.6531 Q9454.6712,849.5229 9454.5898,849.1323 Q9454.5573,848.8719 9454.4271,848.7417 Q9454.1667,848.465 9453.7191,848.3022 Q9453.2715,848.1394 9452.8158,848.1394 Q9452.2624,848.1394 9451.7904,848.3836 Q9451.3184,848.6277 9450.9603,849.173 Q9450.6022,849.7182 9450.6022,850.4832 L9450.6022,851.297 Q9450.6022,852.1922 9451.2614,852.7944 Q9451.9206,853.3966 9453.0762,853.3966 Q9453.776,853.3966 9454.2643,853.2176 Q9454.541,853.1036 9454.8503,852.7781 Q9455.0456,852.5828 9455.1595,852.5258 Q9455.2734,852.4689 9455.4036,852.4689 Q9455.6641,852.4689 9455.8512,852.656 Q9456.0384,852.8432 9456.0384,853.1036 Q9456.0384,853.3641 9455.778,853.657 Q9455.4036,854.0802 9454.8177,854.3243 Q9454.0365,854.6499 9453.0924,854.6499 Q9451.9694,854.6499 9451.0905,854.1941 Q9450.3581,853.8361 9449.8535,853.0385 Q9449.349,852.241 9449.349,851.3133 L9449.349,850.4669 Q9449.349,849.4904 9449.8047,848.644 Q9450.2604,847.7976 9451.0661,847.3419 Q9451.8717,846.8862 9452.7669,846.8862 Q9453.3203,846.8862 9453.7923,847.0083 Q9454.2643,847.1303 9454.6712,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="122.9167" x="9478.125" y="855.2755">VPVisualizerRadius</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="9351.5625" x2="9696.3542" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="9351.5625" x2="9696.3542" y1="876.65" y2="876.65"/><ellipse cx="9361.9792" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="287.5" x="9375.5208" y="897.5449">VPVisualizerRadius(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="9375.5208" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="9375.5208" y="946.2296">default_value: JSONValidValue): VPVisualizerRadius</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="9351.5625" x2="9696.3542" y1="958.0104" y2="958.0104"/><ellipse cx="9361.9792" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="9375.5208" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[c83c2ed62c471c74c90f0827ee5c15f2]
+class VPVisualizerPointsCount--><rect codeLine="319" fill="#222222" height="158.3944" id="VPVisualizerPointsCount" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="378.125" x="9733.8542" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="378.125" x="9733.8542" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="378.125" x="9733.8542" y="864.15"/><rect codeLine="319" fill="none" height="158.3944" id="VPVisualizerPointsCount" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="378.125" x="9733.8542" y="832.2917"/><ellipse cx="9833.8542" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M9835.4004,847.3907 Q9835.5143,847.228 9835.6527,847.1466 Q9835.791,847.0652 9835.9538,847.0652 Q9836.2305,847.0652 9836.4014,847.2605 Q9836.5723,847.4559 9836.5723,847.8953 L9836.5723,848.9695 Q9836.5723,849.409 9836.4014,849.6043 Q9836.2305,849.7996 9835.9538,849.7996 Q9835.6934,849.7996 9835.5469,849.6531 Q9835.4004,849.5229 9835.319,849.1323 Q9835.2865,848.8719 9835.1563,848.7417 Q9834.8958,848.465 9834.4482,848.3022 Q9834.0007,848.1394 9833.5449,848.1394 Q9832.9915,848.1394 9832.5195,848.3836 Q9832.0475,848.6277 9831.6895,849.173 Q9831.3314,849.7182 9831.3314,850.4832 L9831.3314,851.297 Q9831.3314,852.1922 9831.9906,852.7944 Q9832.6497,853.3966 9833.8053,853.3966 Q9834.5052,853.3966 9834.9935,853.2176 Q9835.2702,853.1036 9835.5794,852.7781 Q9835.7747,852.5828 9835.8887,852.5258 Q9836.0026,852.4689 9836.1328,852.4689 Q9836.3932,852.4689 9836.5804,852.656 Q9836.7676,852.8432 9836.7676,853.1036 Q9836.7676,853.3641 9836.5072,853.657 Q9836.1328,854.0802 9835.5469,854.3243 Q9834.7656,854.6499 9833.8216,854.6499 Q9832.6986,854.6499 9831.8197,854.1941 Q9831.0872,853.8361 9830.5827,853.0385 Q9830.0781,852.241 9830.0781,851.3133 L9830.0781,850.4669 Q9830.0781,849.4904 9830.5339,848.644 Q9830.9896,847.7976 9831.7952,847.3419 Q9832.6009,846.8862 9833.4961,846.8862 Q9834.0495,846.8862 9834.5215,847.0083 Q9834.9935,847.1303 9835.4004,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="159.375" x="9858.8542" y="855.2755">VPVisualizerPointsCount</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="9734.8958" x2="10110.9375" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="9734.8958" x2="10110.9375" y1="876.65" y2="876.65"/><ellipse cx="9745.3125" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="318.75" x="9758.8542" y="897.5449">VPVisualizerPointsCount(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="9758.8542" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="341.6667" x="9758.8542" y="946.2296">default_value: JSONValidValue): VPVisualizerPointsCount</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="9734.8958" x2="10110.9375" y1="958.0104" y2="958.0104"/><ellipse cx="9745.3125" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="9758.8542" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[6eee57a6f8f58b15b53e40032472eb10]
+class VPVisualizerAnalyserRange--><rect codeLine="329" fill="#222222" height="158.3944" id="VPVisualizerAnalyserRange" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="396.875" x="10148.4375" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="396.875" x="10148.4375" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="396.875" x="10148.4375" y="864.15"/><rect codeLine="329" fill="none" height="158.3944" id="VPVisualizerAnalyserRange" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="396.875" x="10148.4375" y="832.2917"/><ellipse cx="10248.9583" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M10250.5046,847.3907 Q10250.6185,847.228 10250.7568,847.1466 Q10250.8952,847.0652 10251.0579,847.0652 Q10251.3346,847.0652 10251.5055,847.2605 Q10251.6764,847.4559 10251.6764,847.8953 L10251.6764,848.9695 Q10251.6764,849.409 10251.5055,849.6043 Q10251.3346,849.7996 10251.0579,849.7996 Q10250.7975,849.7996 10250.651,849.6531 Q10250.5046,849.5229 10250.4232,849.1323 Q10250.3906,848.8719 10250.2604,848.7417 Q10250,848.465 10249.5524,848.3022 Q10249.1048,848.1394 10248.6491,848.1394 Q10248.0957,848.1394 10247.6237,848.3836 Q10247.1517,848.6277 10246.7936,849.173 Q10246.4355,849.7182 10246.4355,850.4832 L10246.4355,851.297 Q10246.4355,852.1922 10247.0947,852.7944 Q10247.7539,853.3966 10248.9095,853.3966 Q10249.6094,853.3966 10250.0977,853.2176 Q10250.3743,853.1036 10250.6836,852.7781 Q10250.8789,852.5828 10250.9928,852.5258 Q10251.1068,852.4689 10251.237,852.4689 Q10251.4974,852.4689 10251.6846,852.656 Q10251.8717,852.8432 10251.8717,853.1036 Q10251.8717,853.3641 10251.6113,853.657 Q10251.237,854.0802 10250.651,854.3243 Q10249.8698,854.6499 10248.9258,854.6499 Q10247.8027,854.6499 10246.9238,854.1941 Q10246.1914,853.8361 10245.6868,853.0385 Q10245.1823,852.241 10245.1823,851.3133 L10245.1823,850.4669 Q10245.1823,849.4904 10245.638,848.644 Q10246.0938,847.7976 10246.8994,847.3419 Q10247.7051,846.8862 10248.6003,846.8862 Q10249.1536,846.8862 10249.6257,847.0083 Q10250.0977,847.1303 10250.5046,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="177.0833" x="10273.9583" y="855.2755">VPVisualizerAnalyserRange</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="10149.4792" x2="10544.2708" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="10149.4792" x2="10544.2708" y1="876.65" y2="876.65"/><ellipse cx="10159.8958" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="337.5" x="10173.4375" y="897.5449">VPVisualizerAnalyserRange(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="10173.4375" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="360.4167" x="10173.4375" y="946.2296">default_value: JSONValidValue): VPVisualizerAnalyserRange</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="10149.4792" x2="10544.2708" y1="958.0104" y2="958.0104"/><ellipse cx="10159.8958" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="10173.4375" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[cf0626dd695867a7853b36e85bffedf4]
+class VPVisualizationSmoothingType--><rect codeLine="339" fill="#222222" height="158.3944" id="VPVisualizationSmoothingType" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="416.6667" x="10582.2917" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="416.6667" x="10582.2917" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="416.6667" x="10582.2917" y="864.15"/><rect codeLine="339" fill="none" height="158.3944" id="VPVisualizationSmoothingType" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="416.6667" x="10582.2917" y="832.2917"/><ellipse cx="10681.25" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M10682.7962,847.3907 Q10682.9102,847.228 10683.0485,847.1466 Q10683.1868,847.0652 10683.3496,847.0652 Q10683.6263,847.0652 10683.7972,847.2605 Q10683.9681,847.4559 10683.9681,847.8953 L10683.9681,848.9695 Q10683.9681,849.409 10683.7972,849.6043 Q10683.6263,849.7996 10683.3496,849.7996 Q10683.0892,849.7996 10682.9427,849.6531 Q10682.7962,849.5229 10682.7148,849.1323 Q10682.6823,848.8719 10682.5521,848.7417 Q10682.2917,848.465 10681.8441,848.3022 Q10681.3965,848.1394 10680.9408,848.1394 Q10680.3874,848.1394 10679.9154,848.3836 Q10679.4434,848.6277 10679.0853,849.173 Q10678.7272,849.7182 10678.7272,850.4832 L10678.7272,851.297 Q10678.7272,852.1922 10679.3864,852.7944 Q10680.0456,853.3966 10681.2012,853.3966 Q10681.901,853.3966 10682.3893,853.2176 Q10682.666,853.1036 10682.9753,852.7781 Q10683.1706,852.5828 10683.2845,852.5258 Q10683.3984,852.4689 10683.5286,852.4689 Q10683.7891,852.4689 10683.9762,852.656 Q10684.1634,852.8432 10684.1634,853.1036 Q10684.1634,853.3641 10683.903,853.657 Q10683.5286,854.0802 10682.9427,854.3243 Q10682.1615,854.6499 10681.2174,854.6499 Q10680.0944,854.6499 10679.2155,854.1941 Q10678.4831,853.8361 10677.9785,853.0385 Q10677.474,852.241 10677.474,851.3133 L10677.474,850.4669 Q10677.474,849.4904 10677.9297,848.644 Q10678.3854,847.7976 10679.1911,847.3419 Q10679.9967,846.8862 10680.8919,846.8862 Q10681.4453,846.8862 10681.9173,847.0083 Q10682.3893,847.1303 10682.7962,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="200" x="10706.25" y="855.2755">VPVisualizationSmoothingType</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="10583.3333" x2="10997.9167" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="10583.3333" x2="10997.9167" y1="876.65" y2="876.65"/><ellipse cx="10593.75" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="357.2917" x="10607.2917" y="897.5449">VPVisualizationSmoothingType(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="10607.2917" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="380.2083" x="10607.2917" y="946.2296">default_value: JSONValidValue): VPVisualizationSmoothingType</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="10583.3333" x2="10997.9167" y1="958.0104" y2="958.0104"/><ellipse cx="10593.75" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="10607.2917" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[b5c9c2dd58a59a2db1114b18738ce365]
+class VPVisualizationSmoothingFactor--><rect codeLine="349" fill="#222222" height="158.3944" id="VPVisualizationSmoothingFactor" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="423.9583" x="11035.9375" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="423.9583" x="11035.9375" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="423.9583" x="11035.9375" y="864.15"/><rect codeLine="349" fill="none" height="158.3944" id="VPVisualizationSmoothingFactor" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="423.9583" x="11035.9375" y="832.2917"/><ellipse cx="11133.8542" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M11135.4004,847.3907 Q11135.5143,847.228 11135.6527,847.1466 Q11135.791,847.0652 11135.9538,847.0652 Q11136.2305,847.0652 11136.4014,847.2605 Q11136.5723,847.4559 11136.5723,847.8953 L11136.5723,848.9695 Q11136.5723,849.409 11136.4014,849.6043 Q11136.2305,849.7996 11135.9538,849.7996 Q11135.6934,849.7996 11135.5469,849.6531 Q11135.4004,849.5229 11135.319,849.1323 Q11135.2865,848.8719 11135.1563,848.7417 Q11134.8958,848.465 11134.4482,848.3022 Q11134.0007,848.1394 11133.5449,848.1394 Q11132.9915,848.1394 11132.5195,848.3836 Q11132.0475,848.6277 11131.6895,849.173 Q11131.3314,849.7182 11131.3314,850.4832 L11131.3314,851.297 Q11131.3314,852.1922 11131.9906,852.7944 Q11132.6497,853.3966 11133.8053,853.3966 Q11134.5052,853.3966 11134.9935,853.2176 Q11135.2702,853.1036 11135.5794,852.7781 Q11135.7747,852.5828 11135.8887,852.5258 Q11136.0026,852.4689 11136.1328,852.4689 Q11136.3932,852.4689 11136.5804,852.656 Q11136.7676,852.8432 11136.7676,853.1036 Q11136.7676,853.3641 11136.5072,853.657 Q11136.1328,854.0802 11135.5469,854.3243 Q11134.7656,854.6499 11133.8216,854.6499 Q11132.6986,854.6499 11131.8197,854.1941 Q11131.0872,853.8361 11130.5827,853.0385 Q11130.0781,852.241 11130.0781,851.3133 L11130.0781,850.4669 Q11130.0781,849.4904 11130.5339,848.644 Q11130.9896,847.7976 11131.7952,847.3419 Q11132.6009,846.8862 11133.4961,846.8862 Q11134.0495,846.8862 11134.5215,847.0083 Q11134.9935,847.1303 11135.4004,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="209.375" x="11158.8542" y="855.2755">VPVisualizationSmoothingFactor</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="11036.9792" x2="11458.8542" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="11036.9792" x2="11458.8542" y1="876.65" y2="876.65"/><ellipse cx="11047.3958" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="364.5833" x="11060.9375" y="897.5449">VPVisualizationSmoothingFactor(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="11060.9375" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="387.5" x="11060.9375" y="946.2296">default_value: JSONValidValue): VPVisualizationSmoothingFactor</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="11036.9792" x2="11458.8542" y1="958.0104" y2="958.0104"/><ellipse cx="11047.3958" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="11060.9375" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[936c070434ae83f896e8c3e848a7b582]
+class VPVisualizerBarThickness--><rect codeLine="359" fill="#222222" height="158.3944" id="VPVisualizerBarThickness" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="386.4583" x="11496.3542" y="832.2917"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="386.4583" x="11496.3542" y="832.2917"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="386.4583" x="11496.3542" y="864.15"/><rect codeLine="359" fill="none" height="158.3944" id="VPVisualizerBarThickness" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="386.4583" x="11496.3542" y="832.2917"/><ellipse cx="11597.9167" cy="850.3042" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M11599.4629,847.3907 Q11599.5768,847.228 11599.7152,847.1466 Q11599.8535,847.0652 11600.0163,847.0652 Q11600.293,847.0652 11600.4639,847.2605 Q11600.6348,847.4559 11600.6348,847.8953 L11600.6348,848.9695 Q11600.6348,849.409 11600.4639,849.6043 Q11600.293,849.7996 11600.0163,849.7996 Q11599.7559,849.7996 11599.6094,849.6531 Q11599.4629,849.5229 11599.3815,849.1323 Q11599.349,848.8719 11599.2188,848.7417 Q11598.9583,848.465 11598.5107,848.3022 Q11598.0632,848.1394 11597.6074,848.1394 Q11597.054,848.1394 11596.582,848.3836 Q11596.11,848.6277 11595.752,849.173 Q11595.3939,849.7182 11595.3939,850.4832 L11595.3939,851.297 Q11595.3939,852.1922 11596.0531,852.7944 Q11596.7122,853.3966 11597.8678,853.3966 Q11598.5677,853.3966 11599.056,853.2176 Q11599.3327,853.1036 11599.6419,852.7781 Q11599.8372,852.5828 11599.9512,852.5258 Q11600.0651,852.4689 11600.1953,852.4689 Q11600.4557,852.4689 11600.6429,852.656 Q11600.8301,852.8432 11600.8301,853.1036 Q11600.8301,853.3641 11600.5697,853.657 Q11600.1953,854.0802 11599.6094,854.3243 Q11598.8281,854.6499 11597.8841,854.6499 Q11596.7611,854.6499 11595.8822,854.1941 Q11595.1497,853.8361 11594.6452,853.0385 Q11594.1406,852.241 11594.1406,851.3133 L11594.1406,850.4669 Q11594.1406,849.4904 11594.5964,848.644 Q11595.0521,847.7976 11595.8577,847.3419 Q11596.6634,846.8862 11597.5586,846.8862 Q11598.112,846.8862 11598.584,847.0083 Q11599.056,847.1303 11599.4629,847.3907 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="164.5833" x="11622.9167" y="855.2755">VPVisualizerBarThickness</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="11497.3958" x2="11881.7708" y1="868.3167" y2="868.3167"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="11497.3958" x2="11881.7708" y1="876.65" y2="876.65"/><ellipse cx="11507.8125" cy="888.1083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="327.0833" x="11521.3542" y="897.5449">VPVisualizerBarThickness(save_handler: SaveHandler,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="310.4167" x="11521.3542" y="921.8872">visual_object: VisualObject, property_name: String,</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="350" x="11521.3542" y="946.2296">default_value: JSONValidValue): VPVisualizerBarThickness</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="11497.3958" x2="11881.7708" y1="958.0104" y2="958.0104"/><ellipse cx="11507.8125" cy="969.4687" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="11521.3542" y="978.9052">hasValidValue(): Boolean</text><!--MD5=[58cd568274d71d196718bef8c3d664ce]
+link EventMixin to VisualObjectProperty--><path codeLine="44" d="M5690.1458,130.4375 C5697.1146,160.4167 5707.4375,204.8125 5718.3646,251.7604 " fill="none" id="EventMixin-VisualObjectProperty" style="stroke:#2A9FD6;stroke-width:3.125;stroke-dasharray:7.0,7.0;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="28.125" x="5708.3333" y="182.3588">with</text><!--MD5=[24cc34519829f201f219ad7042aa495b]
+link SaveHandler to VisualObjectProperty--><path codeLine="45" d="M5852.3854,117.7604 C5845.6042,146.9375 5833.8021,197.6563 5821.2188,251.7917 " fill="none" id="SaveHandler-VisualObjectProperty" style="stroke:#2A9FD6;stroke-width:3.125;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="110.4167" x="5868.1327" y="143.4132">1 _save_handler</text><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="0" x="5817.5965" y="236.1495"/><!--MD5=[385e14232247b592bb026327e1ee5eae]
+link VisualObject to VisualObjectProperty--><path codeLine="46" d="M5522.9792,117.7604 C5543.2604,146.9375 5578.5,197.6563 5616.125,251.7917 " fill="none" id="VisualObject-VisualObjectProperty" style="stroke:#2A9FD6;stroke-width:3.125;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="107.2917" x="5402.3909" y="143.3391">1 _visual_object</text><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="0" x="5605.1322" y="236.1495"/><!--MD5=[849d89c0416ec4a354b6f1eb74dd4b26]
+link UIParameter to VisualObjectProperty--><path codeLine="47" d="M6023.4063,117.7604 C6002.5729,146.9375 5966.3542,197.6563 5927.6979,251.7917 " fill="none" id="UIParameter-VisualObjectProperty" style="stroke:#2A9FD6;stroke-width:3.125;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="107.2917" x="6036.6065" y="143.3391">1 _visual_object</text><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="0" x="5927.9023" y="236.1495"/><!--MD5=[00d53c0282a5530b494efd8dc9566f93]
+reverse link VisualObjectProperty to VPName--><path codeLine="60" d="M5770.8333,696.875 C5770.8333,696.875 2241.4375,704.4375 1233.3333,727.0833 C1045.7396,731.2917 565.6667,694.5313 389.5833,759.375 C353.2083,772.7708 318.3438,795.8854 288.5729,820.0625 " fill="none" id="VisualObjectProperty-backto-VPName" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[e12b5e9ca5cb95eeb1a8e233c92a04aa]
+reverse link VisualObjectProperty to VPLayer--><path codeLine="70" d="M5770.8333,696.875 C5770.8333,696.875 2314.0833,694.9896 1327.0833,727.0833 C1080.5,735.1042 1003.5729,671.8125 772.9167,759.375 C730.9271,775.3125 690.8542,803.9479 658.3021,832.0313 " fill="none" id="VisualObjectProperty-backto-VPLayer" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[cf63a791dfc2d1118a8bc81c929c9708]
+reverse link VisualObjectProperty to VPCoordinates--><path codeLine="80" d="M5770.8333,696.875 C5770.8333,696.875 3675.5313,688.3229 2000,727.0833 C1812.4167,731.4271 1332.3333,694.5313 1156.25,759.375 C1113.9063,774.9688 1073.625,803.7292 1041.0208,832 " fill="none" id="VisualObjectProperty-backto-VPCoordinates" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[71e2f29ff74141e4e3919416634fcabf]
+reverse link VisualObjectProperty to VPSize--><path codeLine="90" d="M5770.8333,696.875 C5770.8333,696.875 2910.4583,699.9479 2093.75,727.0833 C1847.1771,735.2708 1770.2396,671.8125 1539.5833,759.375 C1497.5938,775.3125 1457.5208,803.9479 1424.9688,832.0313 " fill="none" id="VisualObjectProperty-backto-VPSize" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[ea881e0fab9ba7097b54e0353246aa1f]
+reverse link VisualObjectProperty to VPRotation--><path codeLine="100" d="M5770.8333,696.875 C5770.8333,696.875 4102.1146,694.875 2767.7083,727.0833 C2579.8958,731.6146 2099.2188,694.4583 1922.9167,759.375 C1880.5729,774.9688 1840.2917,803.7292 1807.6875,832 " fill="none" id="VisualObjectProperty-backto-VPRotation" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[e0a3d37d30c4726dc218e12e26897cfe]
+reverse link VisualObjectProperty to VPSVGFilter--><path codeLine="110" d="M5770.8333,696.875 C5770.8333,696.875 3508.4583,704.9896 2862.5,727.0833 C2615.0104,735.5521 2537.7813,671.5104 2306.25,759.375 C2264.2604,775.3125 2224.1875,803.9375 2191.6354,832.0313 " fill="none" id="VisualObjectProperty-backto-VPSVGFilter" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[bdc8f3aed45467e667d138be38fa0543]
+reverse link VisualObjectProperty to VPColor--><path codeLine="123" d="M5770.8333,696.875 C5770.8333,696.875 4533.9063,701.6979 3544.7917,727.0833 C3354.6771,731.9583 2868.0625,693.6979 2689.5833,759.375 C2647.2396,774.9583 2606.9583,803.7083 2574.3438,831.9896 " fill="none" id="VisualObjectProperty-backto-VPColor" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[ba9310b722b7c5a7b4446db8d463e498]
+reverse link VisualObjectProperty to VPBorderRadius--><path codeLine="133" d="M5770.8333,696.875 C5770.8333,696.875 3213.6563,707.7083 3072.9167,759.375 C3030.5625,774.9271 2990.2708,803.6771 2957.6667,831.9583 " fill="none" id="VisualObjectProperty-backto-VPBorderRadius" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[c00dd8a79678a873437c49d415dff916]
+reverse link VisualObjectProperty to VPBoxShadow--><path codeLine="143" d="M5770.8333,696.875 C5770.8333,696.875 3577.7083,714.3125 3457.2917,759.375 C3414.8958,775.2396 3374.4167,804.0521 3341.6042,832.2813 " fill="none" id="VisualObjectProperty-backto-VPBoxShadow" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[453d29cc38bb3f4eb78d5ab25069f110]
+reverse link VisualObjectProperty to VPBackground--><path codeLine="159" d="M5770.8333,696.875 C5770.8333,696.875 4054.2917,686.2292 3854.1667,759.375 C3847.9583,761.6458 3841.7813,764.1771 3835.6563,766.9479 " fill="none" id="VisualObjectProperty-backto-VPBackground" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[3f6f9fb89620c9a45528916327cb8d1d]
+reverse link VisualObjectProperty to VPTextType--><path codeLine="171" d="M5770.8333,696.875 C5770.8333,696.875 4397.1458,699.4792 4237.5,759.375 C4195.2604,775.2292 4154.9896,804.0313 4122.3646,832.2604 " fill="none" id="VisualObjectProperty-backto-VPTextType" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[74077e62da38c8c7516ea51027c746cd]
+reverse link VisualObjectProperty to VPTextContent--><path codeLine="181" d="M5770.8333,696.875 C5770.8333,696.875 4740.3958,713.7708 4620.8333,759.375 C4578.875,775.375 4538.8021,804.0208 4506.25,832.1042 " fill="none" id="VisualObjectProperty-backto-VPTextContent" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[278a6c4a1bd65c21c571f244a92d2f62]
+reverse link VisualObjectProperty to VPFontSize--><path codeLine="191" d="M5770.8333,696.875 C5770.8333,696.875 5163.2604,696.8646 5004.1667,759.375 C4962.5625,775.7188 4922.6979,804.25 4890.2083,832.1354 " fill="none" id="VisualObjectProperty-backto-VPFontSize" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[f745e1995b861c85ba0c211bc099199f]
+reverse link VisualObjectProperty to VPTextDecoration--><path codeLine="201" d="M5770.8333,696.875 C5770.8333,696.875 5545.5,689.8542 5387.5,759.375 C5347.3646,777.0313 5308.3542,805.1042 5276.1146,832.2813 " fill="none" id="VisualObjectProperty-backto-VPTextDecoration" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[15df29f1a6f069d7edd80c36369a845b]
+reverse link VisualObjectProperty to VPTextAlign--><path codeLine="211" d="M5770.8333,696.875 C5770.8333,696.875 5704.1458,771.1667 5649.4479,832.1146 " fill="none" id="VisualObjectProperty-backto-VPTextAlign" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[fe6f3f5a13921b23e195422fd8257ac6]
+reverse link VisualObjectProperty to VPTextShadow--><path codeLine="221" d="M5770.8333,696.875 C5770.8333,696.875 5837.5208,771.1667 5892.2188,832.1146 " fill="none" id="VisualObjectProperty-backto-VPTextShadow" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[ded72dd64b202a3744052b08297e5692]
+reverse link VisualObjectProperty to VPTimerInnerSpacing--><path codeLine="233" d="M5770.8333,696.875 C5770.8333,696.875 5995.4583,691.4792 6154.1667,759.375 C6195.375,777 6235.7917,804.8958 6269.3958,831.9375 " fill="none" id="VisualObjectProperty-backto-VPTimerInnerSpacing" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[97b08bcb49e9e54d7a31a59d8dd6af07]
+reverse link VisualObjectProperty to VPBorderThickness--><path codeLine="243" d="M5770.8333,696.875 C5770.8333,696.875 6391.5,695.8646 6554.1667,759.375 C6595.9375,775.6875 6636.0104,804.1979 6668.6875,832.0938 " fill="none" id="VisualObjectProperty-backto-VPBorderThickness" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[686dde7b2d16bce5c4c0faf18f96634a]
+reverse link VisualObjectProperty to VPParticleRadiusRange--><path codeLine="255" d="M5770.8333,696.875 C5770.8333,696.875 6817.3854,714.8854 6939.5833,759.375 C6983.5,775.3646 7026.0521,804.0104 7060.8438,832.0833 " fill="none" id="VisualObjectProperty-backto-VPParticleRadiusRange" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[00c663056fc4d7574a5e6580b0fc8ff4]
+reverse link VisualObjectProperty to VPFlowType--><path codeLine="265" d="M5770.8333,696.875 C5770.8333,696.875 7183.6146,698.0625 7347.9167,759.375 C7390.1875,775.1458 7430.4583,803.9375 7463.0833,832.1875 " fill="none" id="VisualObjectProperty-backto-VPFlowType" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[574989f70238c7ddb8ae407e1526f684]
+reverse link VisualObjectProperty to VPFlowCenter--><path codeLine="275" d="M5770.8333,696.875 C5770.8333,696.875 7527.25,682.6875 7731.25,759.375 C7773.2813,775.1771 7813.375,803.7917 7845.9167,831.8958 " fill="none" id="VisualObjectProperty-backto-VPFlowCenter" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[67bffe8c26b1203c831077eafe9128c6]
+reverse link VisualObjectProperty to VPFlowDirection--><path codeLine="285" d="M5770.8333,696.875 C5770.8333,696.875 6742.8542,699.2917 7519.7917,727.0833 C7784.3646,736.5417 7866.8854,665.9063 8114.5833,759.375 C8156.6042,775.2292 8196.6771,803.8542 8229.2292,831.9479 " fill="none" id="VisualObjectProperty-backto-VPFlowDirection" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[9289ed098a8f25bca5f9bf7ce79c5b72]
+reverse link VisualObjectProperty to VPParticleSpawnProbability--><path codeLine="295" d="M5770.8333,696.875 C5770.8333,696.875 6884.5521,700.4896 7775,727.0833 C8096.4688,736.6875 8193.3125,656.1563 8497.9167,759.375 C8544.2813,775.0833 8589.6458,803.9583 8626.7917,832.2813 " fill="none" id="VisualObjectProperty-backto-VPParticleSpawnProbability" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[e5cfef8cee5235f3750b54b69bbbc3a6]
+reverse link VisualObjectProperty to VPParticleSpawnTests--><path codeLine="305" d="M5770.8333,696.875 C5770.8333,696.875 8765.5729,701.1354 8931.25,759.375 C8975.1771,774.8125 9017.3229,803.7396 9051.5,832.1667 " fill="none" id="VisualObjectProperty-backto-VPParticleSpawnTests" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[2457b1666bcf3f9cfbb9a441821d75d0]
+reverse link VisualObjectProperty to VPVisualizerRadius--><path codeLine="317" d="M5770.8333,696.875 C5770.8333,696.875 7267.6354,698.1042 8464.5833,727.0833 C8657.4792,731.75 9151.1875,692.7917 9332.2917,759.375 C9374.6354,774.9479 9414.9271,803.6979 9447.5313,831.9792 " fill="none" id="VisualObjectProperty-backto-VPVisualizerRadius" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[7a0eed75dd9f9ec15f7b30a02ab3cdda]
+reverse link VisualObjectProperty to VPVisualizerPointsCount--><path codeLine="327" d="M5770.8333,696.875 C5770.8333,696.875 7290.6563,704.1458 8506.25,727.0833 C8775.0521,732.1563 9461.125,672.7188 9715.625,759.375 C9760.7292,774.7292 9804.3438,803.6354 9839.8333,832.0833 " fill="none" id="VisualObjectProperty-backto-VPVisualizerPointsCount" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[6934b501c0bc45f251615e11849a38e5]
+reverse link VisualObjectProperty to VPVisualizerAnalyserRange--><path codeLine="337" d="M5770.8333,696.875 C5770.8333,696.875 9899.8854,684.4271 10130.2083,759.375 C10176.8646,774.5521 10222.3646,803.4375 10259.5313,831.9063 " fill="none" id="VisualObjectProperty-backto-VPVisualizerAnalyserRange" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[564e3facc3bbd32fbea8e4f8bd001cfa]
+reverse link VisualObjectProperty to VPVisualizationSmoothingType--><path codeLine="347" d="M5770.8333,696.875 C5770.8333,696.875 7955.8333,687.5938 9703.125,727.0833 C10085.7083,735.7292 10199.3646,641.8229 10563.5417,759.375 C10611.6458,774.9063 10659.1146,803.7396 10698.1146,832.0938 " fill="none" id="VisualObjectProperty-backto-VPVisualizationSmoothingType" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[888ed32ddc87c2a2941f6c55173b0903]
+reverse link VisualObjectProperty to VPVisualizationSmoothingFactor--><path codeLine="357" d="M5770.8333,696.875 C5770.8333,696.875 7983.4063,697.7813 9753.125,727.0833 C10034.1979,731.7396 10749.4167,675.4688 11017.7083,759.375 C11066.6354,774.6771 11114.9792,803.6667 11154.625,832.1875 " fill="none" id="VisualObjectProperty-backto-VPVisualizationSmoothingFactor" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[638b9261e317871180bde5f677d288fd]
+reverse link VisualObjectProperty to VPVisualizerBarThickness--><path codeLine="367" d="M5770.8333,696.875 C5770.8333,696.875 8290.1771,692.6354 10305.2083,727.0833 C10565.9167,731.5417 11230.9375,676.3958 11478.125,759.375 C11523.8854,774.7396 11568.3333,803.6458 11604.5729,832.0938 " fill="none" id="VisualObjectProperty-backto-VPVisualizerBarThickness" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[2f0a29952cd54036c84eb3ebd291d41d]
+@startuml index
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package "visual_objects" {
+    class VisualObject {}
+}
+
+package "event_mixin" {
+    class EventMixin <<mixin>> {}
+}
+
+package "index" {
+    class SaveHandler {}
+}
+
+package "ui_components" {
+    class UIParameter {}
+}
+
+package "visual_update_property" {
+    abstract class VisualObjectProperty {
+        - _save_handler: SaveHandler
+        - _visual_object: VisualObject
+        - _property_name: String
+        - _default_value: JSONValidValue
+        - _allowed_values: Array[String]
+        - _ui_parameter: UIParameter
+        - -
+        + VisualObjectProperty(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VisualObjectProperty
+        ..
+        + getCurrentValue(): JSONValidValue
+        + setSave(value: JSONValidValue): void
+        + setSaveUISafe(value: JSONValidValue): void
+        + verify(): void
+        + {abstract} hasValidValue(): Boolean
+    }
+    VisualObjectProperty .up. EventMixin: with
+    VisualObjectProperty " " -up- "1 _save_handler" SaveHandler
+    VisualObjectProperty " " -up- "1 _visual_object" VisualObject
+    VisualObjectProperty " " -up- "1 _visual_object" UIParameter
+
+    'shared properties
+
+    class VPName {
+        - -
+        + VPName(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPName
+        ..
+        + hasValidValue(): Boolean
+        + rename(name: String): void
+    }
+    VisualObjectProperty <|- - VPName
+
+    class VPLayer {
+        - -
+        + VPLayer(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPLayer
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPLayer
+
+    class VPCoordinates {
+        - -
+        + VPCoordinates(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPCoordinates
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPCoordinates
+
+    class VPSize {
+        - -
+        + VPSize(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPSize
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPSize
+
+    class VPRotation {
+        - -
+        + VPRotation(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPRotation
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPRotation
+
+    class VPSVGFilter {
+        - -
+        + VPSVGFilter(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPSVGFilter
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPSVGFilter
+
+    'common properties
+
+    
+    class VPColor {
+        - -
+        + VPColor(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPColor
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPColor
+    
+    class VPBorderRadius {
+        - -
+        + VPBorderRadius(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPBorderRadius
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPBorderRadius
+    
+    class VPBoxShadow {
+        - -
+        + VPBoxShadow(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPBoxShadow
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPBoxShadow
+    
+    class VPBackground {
+        - -
+        + VPBackground(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPBackground
+        ..
+        + hasValidValue(): Boolean
+        + parseBackgroundSize(bgnd_size: String): Object
+        + stringifyBackgroundSize(size_type: String,
+        size_x: String, size_y: String): String
+        + parseBackgroundRepeat(bgnd_repeat: String): Object
+        + stringifyBackgroundRepeat(repeat_x: Boolean,
+        repeat_y: Boolean): String
+    }
+    VisualObjectProperty <|- - VPBackground
+
+    'text properties
+    
+    class VPTextType {
+        - -
+        + VPTextType(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextType
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPTextType
+    
+    class VPTextContent {
+        - -
+        + VPTextContent(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextContent
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPTextContent
+    
+    class VPFontSize {
+        - -
+        + VPFontSize(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPFontSize
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPFontSize
+    
+    class VPTextDecoration {
+        - -
+        + VPTextDecoration(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextDecoration
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPTextDecoration
+    
+    class VPTextAlign {
+        - -
+        + VPTextAlign(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextAlign
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPTextAlign
+    
+    class VPTextShadow {
+        - -
+        + VPTextShadow(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextShadow
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPTextShadow
+
+    'timer properties
+        
+    class VPTimerInnerSpacing {
+        - -
+        + VPTimerInnerSpacing(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTimerInnerSpacing
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPTimerInnerSpacing
+        
+    class VPBorderThickness {
+        - -
+        + VPBorderThickness(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPBorderThickness
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPBorderThickness
+    
+    ' particle flow properties
+
+    class VPParticleRadiusRange {
+        - -
+        + VPParticleRadiusRange(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPParticleRadiusRange
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPParticleRadiusRange
+
+    class VPFlowType {
+        - -
+        + VPFlowType(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPFlowType
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPFlowType
+
+    class VPFlowCenter {
+        - -
+        + VPFlowCenter(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPFlowCenter
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPFlowCenter
+
+    class VPFlowDirection {
+        - -
+        + VPFlowDirection(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPFlowDirection
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPFlowDirection
+
+    class VPParticleSpawnProbability {
+        - -
+        + VPParticleSpawnProbability(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPParticleSpawnProbability
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPParticleSpawnProbability
+
+    class VPParticleSpawnTests {
+        - -
+        + VPParticleSpawnTests(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPParticleSpawnTests
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPParticleSpawnTests
+
+    'visualizer properties
+    
+    class VPVisualizerRadius {
+        - -
+        + VPVisualizerRadius(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizerRadius
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPVisualizerRadius
+
+    class VPVisualizerPointsCount {
+        - -
+        + VPVisualizerPointsCount(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizerPointsCount
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPVisualizerPointsCount
+
+    class VPVisualizerAnalyserRange {
+        - -
+        + VPVisualizerAnalyserRange(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizerAnalyserRange
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPVisualizerAnalyserRange
+
+    class VPVisualizationSmoothingType {
+        - -
+        + VPVisualizationSmoothingType(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizationSmoothingType
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPVisualizationSmoothingType
+
+    class VPVisualizationSmoothingFactor {
+        - -
+        + VPVisualizationSmoothingFactor(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizationSmoothingFactor
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPVisualizationSmoothingFactor
+
+    class VPVisualizerBarThickness {
+        - -
+        + VPVisualizerBarThickness(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizerBarThickness
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPVisualizerBarThickness
+}
+@enduml
+
+@startuml index
+
+
+
+skinparam backgroundColor transparent
+skinparam useBetaStyle false
+
+
+
+
+
+
+
+skinparam defaultFontName       "Verdana"
+skinparam defaultFontSize       12
+skinparam dpi                   100
+skinparam shadowing             false
+skinparam roundcorner           8
+skinparam ParticipantPadding    40
+skinparam BoxPadding            40
+skinparam Padding               5
+skinparam ArrowColor            #ADAFAE
+skinparam stereotype {
+    CBackgroundColor #777777
+    CBorderColor #444444
+    ABackgroundColor #5F8F00
+    ABorderColor #92C233
+    IBackgroundColor #a30000
+    IBorderColor #D63333
+    EBackgroundColor #cc6d00
+    EBorderColor #FFA033
+    NBackgroundColor #7a29a3
+    NBorderColor #AD5CD6
+}
+skinparam title {
+	FontColor	                 #2A9FD6
+	BorderColor	                 #777777
+	FontSize	    	         20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor              transparent
+}
+
+skinparam legend {
+	BackgroundColor transparent
+	BorderColor #777777
+	FontColor #ADAFAE
+}
+
+skinparam swimlane {
+	BorderColor #9933CC
+	BorderThickness 2
+	TitleBackgroundColor  #444444-#555
+	TitleFontColor #2A9FD6
+}
+
+
+skinparam activity {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BarColor #77B300
+	StartColor #9933CC
+	EndColor #9933CC
+	DiamondBackgroundColor transparent
+  	DiamondBorderColor #777777
+  	DiamondFontColor #777777
+}
+
+
+skinparam participant {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	ParticipantBorderThickness 2
+}
+
+
+skinparam actor {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam arrow {
+	Thickness 3
+	Color #2A9FD6
+	FontColor #FFF
+}
+
+
+skinparam sequence {
+	BorderColor #2A9FD6
+	TitleFontColor #2A9FD6
+	BackgroundColor transparent
+	StartColor #2A9FD6
+	EndColor #2A9FD6
+	BoxBackgroundColor transparent
+	BoxBorderColor #ADAFAE
+	BoxFontColor $DARk
+	LifeLineBorderColor #555
+	LifeLineBorderThickness 2
+	LifeLineBackgroundColor transparent
+	GroupBorderColor #ADAFAE
+	GroupFontColor #ADAFAE
+	GroupHeaderFontColor #9933CC
+	GroupBackgroundColor transparent
+	GroupHeaderBackgroundColor transparent
+	DividerBackgroundColor transparent
+    DividerBorderColor #ADAFAE
+    DividerBorderThickness 2
+    DividerFontColor #ADAFAE
+	ReferenceBackgroundColor transparent
+	ReferenceBorderColor #ADAFAE
+	ReferenceFontColor #ADAFAE
+	ReferenceHeaderFontColor #9933CC
+	ReferenceHeaderBackgroundColor transparent
+}
+
+
+skinparam partition {
+	BorderColor #2A9FD6
+	FontColor #2A9FD6
+	BackgroundColor transparent
+}
+
+
+skinparam collections {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam control {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam entity {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam boundary {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam agent {
+	BackgroundColor transparent
+	BorderColor #cc6d00
+	FontColor #ADAFAE
+}
+
+
+skinparam note {
+	BorderThickness 1
+	BackgroundColor transparent
+	BorderColor #AD5CD6
+	FontColor #AD5CD6
+}
+
+
+skinparam artifact {
+	BackgroundColor transparent
+	BorderColor #BDBFBE
+	FontColor #BDBFBE
+}
+
+
+skinparam component {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam interface {
+	BackgroundColor  transparent
+	BorderColor  #CC0000
+	FontColor #ADAFAE
+}
+
+
+skinparam storage {
+	BackgroundColor transparent
+  	BorderColor #FFA033
+	FontColor #FF8800
+}
+
+
+skinparam node {
+	BackgroundColor  transparent
+	BorderColor #ADAFAE
+	FontColor #ADAFAE
+}
+
+
+skinparam cloud {
+	BackgroundColor transparent
+	BorderColor #F2FCFE
+	FontColor #ADAFAE
+}
+
+
+skinparam database {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+
+skinparam class {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+        FontColor #222
+	HeaderBackgroundColor #227FAB
+	StereotypeFontColor #ADAFAE
+	BorderThickness 1
+	AttributeFontColor #ADAFAE
+	AttributeFontSize 11
+}
+
+
+skinparam object {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	StereotypeFontColor #ADAFAE
+	BorderThickness 1
+	AttributeFontColor #777777
+	AttributeFontSize 11
+}
+
+
+skinparam usecase {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BorderThickness 2
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam rectangle {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BorderThickness 2
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam package {
+	BackgroundColor transparent
+  	BorderColor #2A9FD6
+	FontColor #2A9FD6
+	BorderThickness 2
+}
+
+
+skinparam folder {
+	BackgroundColor transparent
+  	BorderColor #FF8800
+	FontColor #FF8800
+	BorderThickness 2
+}
+
+
+skinparam frame {
+	BackgroundColor transparent
+  	BorderColor #9933CC
+	FontColor #9933CC
+	BorderThickness 2
+}
+
+
+skinparam state {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	StartColor #9933CC
+	EndColor #9933CC
+	AttributeFontColor #777777
+	AttributeFontSize 11
+}
+
+
+skinparam queue {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam card {
+	BackgroundColor transparent
+	BorderColor #9933CC
+	FontColor #9933CC
+}
+
+
+skinparam file {
+	BackgroundColor transparent
+	BorderColor #555
+	FontColor #555
+}
+
+
+skinparam BackgroundColor #222222
+skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package "visual_objects" {
+    class VisualObject {}
+}
+
+package "event_mixin" {
+    class EventMixin <<mixin>> {}
+}
+
+package "index" {
+    class SaveHandler {}
+}
+
+package "ui_components" {
+    class UIParameter {}
+}
+
+package "visual_update_property" {
+    abstract class VisualObjectProperty {
+        - _save_handler: SaveHandler
+        - _visual_object: VisualObject
+        - _property_name: String
+        - _default_value: JSONValidValue
+        - _allowed_values: Array[String]
+        - _ui_parameter: UIParameter
+        - -
+        + VisualObjectProperty(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VisualObjectProperty
+        ..
+        + getCurrentValue(): JSONValidValue
+        + setSave(value: JSONValidValue): void
+        + setSaveUISafe(value: JSONValidValue): void
+        + verify(): void
+        + {abstract} hasValidValue(): Boolean
+    }
+    VisualObjectProperty .up. EventMixin: with
+    VisualObjectProperty " " -up- "1 _save_handler" SaveHandler
+    VisualObjectProperty " " -up- "1 _visual_object" VisualObject
+    VisualObjectProperty " " -up- "1 _visual_object" UIParameter
+
+
+    class VPName {
+        - -
+        + VPName(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPName
+        ..
+        + hasValidValue(): Boolean
+        + rename(name: String): void
+    }
+    VisualObjectProperty <|- - VPName
+
+    class VPLayer {
+        - -
+        + VPLayer(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPLayer
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPLayer
+
+    class VPCoordinates {
+        - -
+        + VPCoordinates(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPCoordinates
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPCoordinates
+
+    class VPSize {
+        - -
+        + VPSize(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPSize
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPSize
+
+    class VPRotation {
+        - -
+        + VPRotation(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPRotation
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPRotation
+
+    class VPSVGFilter {
+        - -
+        + VPSVGFilter(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPSVGFilter
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPSVGFilter
+
+
+    
+    class VPColor {
+        - -
+        + VPColor(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPColor
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPColor
+    
+    class VPBorderRadius {
+        - -
+        + VPBorderRadius(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPBorderRadius
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPBorderRadius
+    
+    class VPBoxShadow {
+        - -
+        + VPBoxShadow(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPBoxShadow
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPBoxShadow
+    
+    class VPBackground {
+        - -
+        + VPBackground(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPBackground
+        ..
+        + hasValidValue(): Boolean
+        + parseBackgroundSize(bgnd_size: String): Object
+        + stringifyBackgroundSize(size_type: String,
+        size_x: String, size_y: String): String
+        + parseBackgroundRepeat(bgnd_repeat: String): Object
+        + stringifyBackgroundRepeat(repeat_x: Boolean,
+        repeat_y: Boolean): String
+    }
+    VisualObjectProperty <|- - VPBackground
+
+    
+    class VPTextType {
+        - -
+        + VPTextType(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextType
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPTextType
+    
+    class VPTextContent {
+        - -
+        + VPTextContent(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextContent
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPTextContent
+    
+    class VPFontSize {
+        - -
+        + VPFontSize(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPFontSize
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPFontSize
+    
+    class VPTextDecoration {
+        - -
+        + VPTextDecoration(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextDecoration
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPTextDecoration
+    
+    class VPTextAlign {
+        - -
+        + VPTextAlign(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextAlign
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPTextAlign
+    
+    class VPTextShadow {
+        - -
+        + VPTextShadow(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTextShadow
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPTextShadow
+
+        
+    class VPTimerInnerSpacing {
+        - -
+        + VPTimerInnerSpacing(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPTimerInnerSpacing
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPTimerInnerSpacing
+        
+    class VPBorderThickness {
+        - -
+        + VPBorderThickness(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPBorderThickness
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPBorderThickness
+    
+
+    class VPParticleRadiusRange {
+        - -
+        + VPParticleRadiusRange(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPParticleRadiusRange
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPParticleRadiusRange
+
+    class VPFlowType {
+        - -
+        + VPFlowType(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPFlowType
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPFlowType
+
+    class VPFlowCenter {
+        - -
+        + VPFlowCenter(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPFlowCenter
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPFlowCenter
+
+    class VPFlowDirection {
+        - -
+        + VPFlowDirection(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPFlowDirection
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPFlowDirection
+
+    class VPParticleSpawnProbability {
+        - -
+        + VPParticleSpawnProbability(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPParticleSpawnProbability
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPParticleSpawnProbability
+
+    class VPParticleSpawnTests {
+        - -
+        + VPParticleSpawnTests(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPParticleSpawnTests
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPParticleSpawnTests
+
+    
+    class VPVisualizerRadius {
+        - -
+        + VPVisualizerRadius(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizerRadius
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPVisualizerRadius
+
+    class VPVisualizerPointsCount {
+        - -
+        + VPVisualizerPointsCount(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizerPointsCount
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPVisualizerPointsCount
+
+    class VPVisualizerAnalyserRange {
+        - -
+        + VPVisualizerAnalyserRange(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizerAnalyserRange
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPVisualizerAnalyserRange
+
+    class VPVisualizationSmoothingType {
+        - -
+        + VPVisualizationSmoothingType(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizationSmoothingType
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPVisualizationSmoothingType
+
+    class VPVisualizationSmoothingFactor {
+        - -
+        + VPVisualizationSmoothingFactor(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizationSmoothingFactor
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPVisualizationSmoothingFactor
+
+    class VPVisualizerBarThickness {
+        - -
+        + VPVisualizerBarThickness(save_handler: SaveHandler,
+        visual_object: VisualObject, property_name: String,
+        default_value: JSONValidValue): VPVisualizerBarThickness
+        ..
+        + hasValidValue(): Boolean
+    }
+    VisualObjectProperty <|- - VPVisualizerBarThickness
+}
+@enduml
+
+PlantUML version 1.2021.7(Sun May 23 14:40:07 CEST 2021)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: Cp1252
+Language: fr
+Country: FR
+--></g></svg>

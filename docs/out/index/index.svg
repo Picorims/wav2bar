@@ -1,0 +1,638 @@
+<!--MIT License - Copyright (c) 2020-2021 Picorims-->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="2950px" preserveAspectRatio="none" style="width:1278px;height:2950px;background:#222222;" version="1.1" viewBox="0 0 1278 2950" width="1278.125px" zoomAndPan="magnify"><defs/><g><!--MD5=[caec09aa8b1aae56fb92cfb12d3d663f]
+cluster visual_objects--><rect fill="#222222" height="114.5833" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="156.25" x="735.4167" y="7.2917"/><path d="M856.25,7.2917 L856.25,25.6083 L845.8333,36.025 L735.4167,36.025 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="100" x="743.75" y="26.1088">visual_objects</text><!--MD5=[b33187c248a40138ad0b3413979d5dfd]
+cluster event_mixin--><rect fill="#222222" height="139.5833" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="145.8333" x="1126.0417" y="551.5625"/><path d="M1232.2917,551.5625 L1232.2917,569.8792 L1221.875,580.2958 L1126.0417,580.2958 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="85.4167" x="1134.375" y="570.3796">event_mixin</text><!--MD5=[2265efe58f509802ec1fe9822d1e6e2b]
+cluster index--><rect fill="#222222" height="2787.5" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="1076.0417" x="7.2917" y="156.25"/><path d="M65.625,156.25 L65.625,174.5667 L55.2083,184.9833 L7.2917,184.9833 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="37.5" x="15.625" y="175.0671">index</text><!--MD5=[a91f50bfee47489d1e6d2d80041782dc]
+class VisualObject--><rect codeLine="10" fill="#222222" height="52.6917" id="VisualObject" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="122.9167" x="752.0833" y="52.0833"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="122.9167" x="752.0833" y="52.0833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="122.9167" x="752.0833" y="83.9417"/><rect codeLine="10" fill="none" height="52.6917" id="VisualObject" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="122.9167" x="752.0833" y="52.0833"/><ellipse cx="766.6667" cy="70.0958" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M768.2129,67.1824 Q768.3268,67.0197 768.4652,66.9383 Q768.6035,66.8569 768.7663,66.8569 Q769.043,66.8569 769.2139,67.0522 Q769.3848,67.2475 769.3848,67.687 L769.3848,68.7612 Q769.3848,69.2006 769.2139,69.396 Q769.043,69.5913 768.7663,69.5913 Q768.5059,69.5913 768.3594,69.4448 Q768.2129,69.3146 768.1315,68.924 Q768.099,68.6635 767.9688,68.5333 Q767.7083,68.2566 767.2607,68.0939 Q766.8132,67.9311 766.3574,67.9311 Q765.804,67.9311 765.332,68.1753 Q764.86,68.4194 764.502,68.9646 Q764.1439,69.5099 764.1439,70.2749 L764.1439,71.0887 Q764.1439,71.9838 764.8031,72.5861 Q765.4622,73.1883 766.6178,73.1883 Q767.3177,73.1883 767.806,73.0092 Q768.0827,72.8953 768.3919,72.5698 Q768.5872,72.3745 768.7012,72.3175 Q768.8151,72.2605 768.9453,72.2605 Q769.2057,72.2605 769.3929,72.4477 Q769.5801,72.6349 769.5801,72.8953 Q769.5801,73.1557 769.3197,73.4487 Q768.9453,73.8719 768.3594,74.116 Q767.5781,74.4415 766.6341,74.4415 Q765.5111,74.4415 764.6322,73.9858 Q763.8997,73.6277 763.3952,72.8302 Q762.8906,72.0327 762.8906,71.1049 L762.8906,70.2586 Q762.8906,69.282 763.3464,68.4357 Q763.8021,67.5893 764.6077,67.1336 Q765.4134,66.6779 766.3086,66.6779 Q766.862,66.6779 767.334,66.7999 Q767.806,66.922 768.2129,67.1824 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="81.25" x="785.4167" y="75.0671">VisualObject</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="753.125" x2="873.9583" y1="88.1083" y2="88.1083"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="753.125" x2="873.9583" y1="96.4417" y2="96.4417"/><!--MD5=[8c7ae7c48af0001487202e87675f85b8]
+class EventMixin--><rect codeLine="14" fill="#222222" height="78.3" id="EventMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="111.4583" x="1143.2292" y="596.3542"/><rect fill="#227FAB" height="61.6333" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="111.4583" x="1143.2292" y="596.3542"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="111.4583" x="1143.2292" y="653.8208"/><rect codeLine="14" fill="none" height="78.3" id="EventMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="111.4583" x="1143.2292" y="596.3542"/><ellipse cx="1157.8125" cy="627.1708" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M1159.3587,624.2574 Q1159.4727,624.0946 1159.611,624.0133 Q1159.7493,623.9319 1159.9121,623.9319 Q1160.1888,623.9319 1160.3597,624.1272 Q1160.5306,624.3225 1160.5306,624.762 L1160.5306,625.8362 Q1160.5306,626.2756 1160.3597,626.4709 Q1160.1888,626.6663 1159.9121,626.6663 Q1159.6517,626.6663 1159.5052,626.5198 Q1159.3587,626.3896 1159.2773,625.9989 Q1159.2448,625.7385 1159.1146,625.6083 Q1158.8542,625.3316 1158.4066,625.1689 Q1157.959,625.0061 1157.5033,625.0061 Q1156.9499,625.0061 1156.4779,625.2502 Q1156.0059,625.4944 1155.6478,626.0396 Q1155.2897,626.5849 1155.2897,627.3499 L1155.2897,628.1637 Q1155.2897,629.0588 1155.9489,629.6611 Q1156.6081,630.2633 1157.7637,630.2633 Q1158.4635,630.2633 1158.9518,630.0842 Q1159.2285,629.9703 1159.5378,629.6448 Q1159.7331,629.4495 1159.847,629.3925 Q1159.9609,629.3355 1160.0911,629.3355 Q1160.3516,629.3355 1160.5387,629.5227 Q1160.7259,629.7099 1160.7259,629.9703 Q1160.7259,630.2307 1160.4655,630.5237 Q1160.0911,630.9469 1159.5052,631.191 Q1158.724,631.5165 1157.7799,631.5165 Q1156.6569,631.5165 1155.778,631.0608 Q1155.0456,630.7027 1154.541,629.9052 Q1154.0365,629.1077 1154.0365,628.1799 L1154.0365,627.3336 Q1154.0365,626.357 1154.4922,625.5107 Q1154.9479,624.6643 1155.7536,624.2086 Q1156.5592,623.7528 1157.4544,623.7528 Q1158.0078,623.7528 1158.4798,623.8749 Q1158.9518,623.997 1159.3587,624.2574 Z " fill="#000000"/><text fill="#ADAFAE" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="51.0417" x="1185.9375" y="619.338">«mixin»</text><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="69.7917" x="1176.5625" y="644.9463">EventMixin</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1144.2708" x2="1253.6458" y1="657.9875" y2="657.9875"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1144.2708" x2="1253.6458" y1="666.3208" y2="666.3208"/><!--MD5=[63e4f4b7c7497a0e53d6c89ce733691e]
+class SaveHandler--><rect codeLine="18" fill="#222222" height="868.4891" id="SaveHandler" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="506.25" x="560.4167" y="201.0417"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="506.25" x="560.4167" y="201.0417"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="506.25" x="560.4167" y="232.9"/><rect codeLine="18" fill="none" height="868.4891" id="SaveHandler" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="506.25" x="560.4167" y="201.0417"/><ellipse cx="762.5" cy="219.0542" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M764.0462,216.1407 Q764.1602,215.978 764.2985,215.8966 Q764.4368,215.8152 764.5996,215.8152 Q764.8763,215.8152 765.0472,216.0105 Q765.2181,216.2059 765.2181,216.6453 L765.2181,217.7195 Q765.2181,218.159 765.0472,218.3543 Q764.8763,218.5496 764.5996,218.5496 Q764.3392,218.5496 764.1927,218.4031 Q764.0462,218.2729 763.9648,217.8823 Q763.9323,217.6219 763.8021,217.4917 Q763.5417,217.215 763.0941,217.0522 Q762.6465,216.8894 762.1908,216.8894 Q761.6374,216.8894 761.1654,217.1336 Q760.6934,217.3777 760.3353,217.923 Q759.9772,218.4682 759.9772,219.2332 L759.9772,220.047 Q759.9772,220.9422 760.6364,221.5444 Q761.2956,222.1466 762.4512,222.1466 Q763.151,222.1466 763.6393,221.9676 Q763.916,221.8536 764.2253,221.5281 Q764.4206,221.3328 764.5345,221.2758 Q764.6484,221.2189 764.7786,221.2189 Q765.0391,221.2189 765.2262,221.406 Q765.4134,221.5932 765.4134,221.8536 Q765.4134,222.1141 765.153,222.407 Q764.7786,222.8302 764.1927,223.0743 Q763.4115,223.3999 762.4674,223.3999 Q761.3444,223.3999 760.4655,222.9441 Q759.7331,222.5861 759.2285,221.7885 Q758.724,220.991 758.724,220.0633 L758.724,219.2169 Q758.724,218.2404 759.1797,217.394 Q759.6354,216.5476 760.4411,216.0919 Q761.2467,215.6362 762.1419,215.6362 Q762.6953,215.6362 763.1673,215.7583 Q763.6393,215.8803 764.0462,216.1407 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="83.3333" x="787.5" y="224.0255">SaveHandler</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="561.4583" x2="1065.625" y1="237.0667" y2="237.0667"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="568.75" y="245.4"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="143.75" x="585.4167" y="257.9615">_owner_project: Project</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="568.75" y="269.7423"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="219.7917" x="585.4167" y="282.3039">_CURRENT_SAVE_VERSION: Integer</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="568.75" y="294.0847"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="116.6667" x="585.4167" y="306.6462">_save_data: Object</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="568.75" y="318.427"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="158.3333" x="585.4167" y="330.9886">_lock_save_sync: Boolean</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="568.75" y="342.7694"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="186.4583" x="585.4167" y="355.3309">_objects: Object{VisualObject}</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="561.4583" x2="1065.625" y1="367.1117" y2="367.1117"/><ellipse cx="571.875" cy="378.57" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="171.875" x="585.4167" y="388.0066">SaveHandler(): SaveHandler</text><ellipse cx="571.875" cy="431.4214" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="288.5417" x="585.4167" y="440.858">set owner_project(owner_project: Project): void</text><ellipse cx="571.875" cy="455.7638" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="169.7917" x="585.4167" y="465.2003">get owner_project(): Project</text><ellipse cx="571.875" cy="480.1061" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="142.7083" x="585.4167" y="489.5426">get save_data(): Object</text><ellipse cx="571.875" cy="504.4484" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="237.5" x="585.4167" y="513.885">set save_data(save_data: Object): void</text><ellipse cx="571.875" cy="528.7908" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="123.9583" x="585.4167" y="538.2273">get objects(): Object</text><ellipse cx="571.875" cy="553.1331" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="193.75" x="585.4167" y="562.5697">set screen(screen: Object): void</text><ellipse cx="571.875" cy="577.4755" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="104.1667" x="585.4167" y="586.912">get fps(): Integer</text><ellipse cx="571.875" cy="601.8178" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="155.2083" x="585.4167" y="611.2544">set fps(fps: Integer): void</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="561.4583" x2="785.9375" y1="411.9586" y2="411.9586"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="44.7917" x="791.1458" y="415.9948">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="841.1458" x2="1065.625" y1="411.9586" y2="411.9586"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="561.4583" x2="1065.625" y1="623.0352" y2="623.0352"/><ellipse cx="571.875" cy="634.4935" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="163.5417" x="585.4167" y="643.9301">rewriteSoftwareInfo(): void</text><ellipse cx="571.875" cy="658.8359" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="142.7083" x="585.4167" y="668.2724">loadDefaultSave(): void</text><ellipse cx="571.875" cy="683.1782" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="267.7083" x="585.4167" y="692.6147">async loadSave(save_file_path: string): void</text><ellipse cx="571.875" cy="707.5205" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="247.9167" x="585.4167" y="716.9571">convertSave(log_array: Array = []): void</text><ellipse cx="571.875" cy="731.8629" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="150" x="585.4167" y="741.2994">applyLoadedSave(): void</text><ellipse cx="571.875" cy="756.2052" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="159.375" x="585.4167" y="765.6418">exportSaveAsJSON(): void</text><ellipse cx="571.875" cy="780.5476" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="388.5417" x="585.4167" y="789.9841">exportSave(save_path: String, no_dialog: Boolean = false): void</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="589.5833" y="814.3265"/><ellipse cx="571.875" cy="829.2323" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="469.7917" x="585.4167" y="838.6688">createVisualObject(type: String, name: String = null, obj_id: String = ""): void</text><ellipse cx="571.875" cy="853.5746" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="260.4167" x="585.4167" y="863.0112">addVisualObject(object: VisualObject): void</text><ellipse cx="571.875" cy="877.917" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="210.4167" x="585.4167" y="887.3535">deleteVisualObject(id: String): void</text><ellipse cx="571.875" cy="902.2593" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="176.0417" x="585.4167" y="911.6959">deleteAllVisualObjects(): void</text><ellipse cx="571.875" cy="926.6017" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="220.8333" x="585.4167" y="936.0382">getVisualObjectData(id: String): void</text><ellipse cx="571.875" cy="950.944" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="322.9167" x="585.4167" y="960.3806">mergeVisualObjectData(id: String, data: Object): void</text><ellipse cx="571.875" cy="975.2864" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="212.5" x="585.4167" y="984.7229">getVisualObjectIDs(): Array[String]</text><ellipse cx="571.875" cy="999.6287" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="433.3333" x="585.4167" y="1009.0652">async saveObjectBackgroundImage(path: String, obj_id: String): Object</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="589.5833" y="1033.4076"/><ellipse cx="571.875" cy="1048.3134" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="215.625" x="585.4167" y="1057.7499">async saveAudio(path: String): void</text><!--MD5=[79d378210367c0c6ec62ef762ddfbd1b]
+class Project--><rect codeLine="59" fill="#222222" height="1793.4982" id="Project" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="364.5833" x="361.4583" y="1133.3333"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="364.5833" x="361.4583" y="1133.3333"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="364.5833" x="361.4583" y="1165.1917"/><rect codeLine="59" fill="none" height="1793.4982" id="Project" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="364.5833" x="361.4583" y="1133.3333"/><ellipse cx="511.4583" cy="1151.3458" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M513.0046,1148.4324 Q513.1185,1148.2697 513.2568,1148.1883 Q513.3952,1148.1069 513.5579,1148.1069 Q513.8346,1148.1069 514.0055,1148.3022 Q514.1764,1148.4975 514.1764,1148.937 L514.1764,1150.0112 Q514.1764,1150.4506 514.0055,1150.646 Q513.8346,1150.8413 513.5579,1150.8413 Q513.2975,1150.8413 513.151,1150.6948 Q513.0046,1150.5646 512.9232,1150.174 Q512.8906,1149.9135 512.7604,1149.7833 Q512.5,1149.5066 512.0524,1149.3439 Q511.6048,1149.1811 511.1491,1149.1811 Q510.5957,1149.1811 510.1237,1149.4253 Q509.6517,1149.6694 509.2936,1150.2146 Q508.9355,1150.7599 508.9355,1151.5249 L508.9355,1152.3387 Q508.9355,1153.2338 509.5947,1153.8361 Q510.2539,1154.4383 511.4095,1154.4383 Q512.1094,1154.4383 512.5977,1154.2592 Q512.8743,1154.1453 513.1836,1153.8198 Q513.3789,1153.6245 513.4928,1153.5675 Q513.6068,1153.5105 513.737,1153.5105 Q513.9974,1153.5105 514.1846,1153.6977 Q514.3717,1153.8849 514.3717,1154.1453 Q514.3717,1154.4057 514.1113,1154.6987 Q513.737,1155.1219 513.151,1155.366 Q512.3698,1155.6915 511.4258,1155.6915 Q510.3027,1155.6915 509.4238,1155.2358 Q508.6914,1154.8777 508.1868,1154.0802 Q507.6823,1153.2827 507.6823,1152.3549 L507.6823,1151.5086 Q507.6823,1150.532 508.138,1149.6857 Q508.5938,1148.8393 509.3994,1148.3836 Q510.2051,1147.9279 511.1003,1147.9279 Q511.6536,1147.9279 512.1257,1148.0499 Q512.5977,1148.172 513.0046,1148.4324 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="45.8333" x="536.4583" y="1156.3171">Project</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="362.5" x2="725" y1="1169.3583" y2="1169.3583"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1177.6917"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="172.9167" x="386.4583" y="1190.2532">_save_handler: SaveHandler</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1202.034"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="183.3333" x="386.4583" y="1214.5955">_user_interface: UserInterface</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="390.625" y="1238.9379"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1250.7187"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="121.875" x="386.4583" y="1263.2802">_working_dir: String</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1275.061"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="98.9583" x="386.4583" y="1287.6226">_root_dir: String</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1299.4034"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="65.625" x="386.4583" y="1311.9649">_os: String</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1323.7457"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="143.75" x="386.4583" y="1336.3073">_export_mode: Boolean</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="390.625" y="1360.6496"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1372.4304"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="155.2083" x="386.4583" y="1384.992">_stop_animating: Boolean</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1396.7728"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="122.9167" x="386.4583" y="1409.3343">_animating: Boolean</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="390.625" y="1433.6767"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1445.4575"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="135.4167" x="386.4583" y="1458.019">_frame_count: Integer</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1469.7998"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="107.2917" x="386.4583" y="1482.3613">_fps_array: Array</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1494.1422"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="114.5833" x="386.4583" y="1506.7037">_fps_interval: Float</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1518.4845"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="217.7083" x="386.4583" y="1531.046">_FPS_ARRAY_MAX_LENGTH: Integer</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="390.625" y="1555.3884"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1567.1692"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="81.25" x="386.4583" y="1579.7307">_time: Object</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="390.625" y="1604.0731"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1615.8539"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="120.8333" x="386.4583" y="1628.4154">_current_time: Float</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1640.1962"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="133.3333" x="386.4583" y="1652.7578">_audio_duration: Float</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1664.5386"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="187.5" x="386.4583" y="1677.1001">_frequency_array: Array[Float]</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1688.8809"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="212.5" x="386.4583" y="1701.4425">_vol_frequency_array: Array[Float]</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1713.2233"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="246.875" x="386.4583" y="1725.7848">_vol_prev_frequency_array: Array[Float]</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1737.5656"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="88.5417" x="386.4583" y="1750.1272">_volume: Float</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="390.625" y="1774.4695"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1786.2503"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="206.25" x="386.4583" y="1798.8118">_objects_callback: Array[Boolean]</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="390.625" y="1823.1542"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1834.935"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="161.4583" x="386.4583" y="1847.4965">_audio: HTMLAudioElement</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1859.2773"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="142.7083" x="386.4583" y="1871.8389">_audio_file_type: String</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1883.6197"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="93.75" x="386.4583" y="1896.1812">_audio_file: File</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1907.962"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="243.75" x="386.4583" y="1920.5236">_source: MediaElementAudioSourceNode</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1932.3044"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="140.625" x="386.4583" y="1944.8659">_context: AudioContext</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1956.6467"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="150" x="386.4583" y="1969.2083">_analyser: AnalyserNode</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="369.7917" y="1980.9891"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="204.1667" x="386.4583" y="1993.5506">_ctx_frequency_array: Uint8Array</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="362.5" x2="725" y1="2005.3314" y2="2005.3314"/><ellipse cx="372.9167" cy="2016.7898" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="103.125" x="386.4583" y="2026.2263">Project(): Project</text><ellipse cx="372.9167" cy="2069.6411" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="198.9583" x="386.4583" y="2079.0777">get save_handler(): SaveHandler</text><ellipse cx="372.9167" cy="2093.9835" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="312.5" x="386.4583" y="2103.42">set save_handler(save_handler: SaveHandler): void</text><ellipse cx="372.9167" cy="2118.3258" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="209.375" x="386.4583" y="2127.7623">get user_interface(): UserInterface</text><ellipse cx="372.9167" cy="2142.6682" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="328.125" x="386.4583" y="2152.1047">set user_interface(user_interface: UserInterface): void</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="390.625" y="2176.447"/><ellipse cx="372.9167" cy="2191.3528" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="147.9167" x="386.4583" y="2200.7894">get working_dir(): String</text><ellipse cx="372.9167" cy="2215.6952" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="125" x="386.4583" y="2225.1317">get root_dir(): String</text><ellipse cx="372.9167" cy="2240.0375" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="169.7917" x="386.4583" y="2249.4741">get export_mode(): Boolean</text><ellipse cx="372.9167" cy="2264.3799" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="91.6667" x="386.4583" y="2273.8164">get os(): String</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="390.625" y="2298.1588"/><ellipse cx="372.9167" cy="2313.0646" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="114.5833" x="386.4583" y="2322.5011">get volume(): Float</text><ellipse cx="372.9167" cy="2337.4069" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="181.25" x="386.4583" y="2346.8435">get screen(): HTMLDivElement</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="362.5" x2="516.1458" y1="2050.1783" y2="2050.1783"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="44.7917" x="521.3542" y="2054.2145">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="571.3542" x2="725" y1="2050.1783" y2="2050.1783"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="362.5" x2="725" y1="2358.6243" y2="2358.6243"/><ellipse cx="372.9167" cy="2370.0826" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="111.4583" x="386.4583" y="2379.5191">playVisuals(): void</text><ellipse cx="372.9167" cy="2394.4249" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="121.875" x="386.4583" y="2403.8615">pauseVisuals(): void</text><ellipse cx="372.9167" cy="2418.7673" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="111.4583" x="386.4583" y="2428.2038">stopVisuals(): void</text><ellipse cx="372.9167" cy="2443.1096" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="202.0833" x="386.4583" y="2452.5462">startAnimating(fps: Integer): void</text><ellipse cx="372.9167" cy="2467.452" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="129.1667" x="386.4583" y="2476.8885">stopAnimating(): void</text><ellipse cx="372.9167" cy="2491.7943" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="92.7083" x="386.4583" y="2501.2309">animate(): void</text><ellipse cx="372.9167" cy="2516.1367" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="156.25" x="386.4583" y="2525.5732">updateFinished(): Boolean</text><ellipse cx="372.9167" cy="2540.479" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="111.4583" x="386.4583" y="2549.9156">drawFrame(): void</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="390.625" y="2574.2579"/><ellipse cx="372.9167" cy="2589.1637" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="264.5833" x="386.4583" y="2598.6003">loadAudio(file_data: any, type: String): void</text><ellipse cx="372.9167" cy="2613.5061" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="108.3333" x="386.4583" y="2622.9426">closeAudio(): void</text><ellipse cx="372.9167" cy="2637.8484" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="137.5" x="386.4583" y="2647.285">audioReady(): Boolean</text><ellipse cx="372.9167" cy="2662.1908" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="386.4583" y="2671.6273">getAudioDuration(): Float</text><ellipse cx="372.9167" cy="2686.5331" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="120.8333" x="386.4583" y="2695.9696">audioToStart(): void</text><ellipse cx="372.9167" cy="2710.8754" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="113.5417" x="386.4583" y="2720.312">audioToEnd(): void</text><ellipse cx="372.9167" cy="2735.2178" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="280.2083" x="386.4583" y="2744.6543">setAudioCurrentTime(currentTime: Float): void</text><ellipse cx="372.9167" cy="2759.5601" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="175" x="386.4583" y="2768.9967">getAudioCurrentTime(): Float</text><ellipse cx="372.9167" cy="2783.9025" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="144.7917" x="386.4583" y="2793.339">audioLoopToggle(): void</text><ellipse cx="372.9167" cy="2808.2448" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="177.0833" x="386.4583" y="2817.6814">getAudioIsLooping(): Boolean</text><ellipse cx="372.9167" cy="2832.5872" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="205.2083" x="386.4583" y="2842.0237">getFrequencyArray(): Array[Float]</text><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="0" x="390.625" y="2866.3661"/><ellipse cx="372.9167" cy="2881.2719" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="151.0417" x="386.4583" y="2890.7084">updateFPSDisplay(): void</text><ellipse cx="372.9167" cy="2905.6142" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="155.2083" x="386.4583" y="2915.0508">setFPS(fps: Integer): void</text><!--MD5=[a7661dae5b0d701614a666888c8235ba]
+class UserInterface--><rect codeLine="135" fill="#222222" height="235.5881" id="UserInterface" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="500" x="23.9583" y="517.7083"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="500" x="23.9583" y="517.7083"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="500" x="23.9583" y="549.5667"/><rect codeLine="135" fill="none" height="235.5881" id="UserInterface" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="500" x="23.9583" y="517.7083"/><ellipse cx="219.7917" cy="535.7208" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M221.3379,532.8074 Q221.4518,532.6447 221.5902,532.5633 Q221.7285,532.4819 221.8913,532.4819 Q222.168,532.4819 222.3389,532.6772 Q222.5098,532.8725 222.5098,533.312 L222.5098,534.3862 Q222.5098,534.8256 222.3389,535.021 Q222.168,535.2163 221.8913,535.2163 Q221.6309,535.2163 221.4844,535.0698 Q221.3379,534.9396 221.2565,534.549 Q221.224,534.2885 221.0938,534.1583 Q220.8333,533.8816 220.3857,533.7189 Q219.9382,533.5561 219.4824,533.5561 Q218.929,533.5561 218.457,533.8003 Q217.985,534.0444 217.627,534.5896 Q217.2689,535.1349 217.2689,535.8999 L217.2689,536.7137 Q217.2689,537.6088 217.9281,538.2111 Q218.5872,538.8133 219.7428,538.8133 Q220.4427,538.8133 220.931,538.6342 Q221.2077,538.5203 221.5169,538.1948 Q221.7122,537.9995 221.8262,537.9425 Q221.9401,537.8855 222.0703,537.8855 Q222.3307,537.8855 222.5179,538.0727 Q222.7051,538.2599 222.7051,538.5203 Q222.7051,538.7807 222.4447,539.0737 Q222.0703,539.4969 221.4844,539.741 Q220.7031,540.0665 219.7591,540.0665 Q218.6361,540.0665 217.7572,539.6108 Q217.0247,539.2527 216.5202,538.4552 Q216.0156,537.6577 216.0156,536.7299 L216.0156,535.8836 Q216.0156,534.907 216.4714,534.0607 Q216.9271,533.2143 217.7327,532.7586 Q218.5384,532.3029 219.4336,532.3029 Q219.987,532.3029 220.459,532.4249 Q220.931,532.547 221.3379,532.8074 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="89.5833" x="244.7917" y="540.6921">UserInterface</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="25" x2="522.9167" y1="553.7333" y2="553.7333"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="32.2917" y="562.0667"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="155.2083" x="48.9583" y="574.6282">_screen: HTMLDivElement</text><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="32.2917" y="586.409"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="143.75" x="48.9583" y="598.9705">_owner_project: Project</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="25" x2="522.9167" y1="610.7513" y2="610.7513"/><ellipse cx="35.4167" cy="622.2097" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="318.75" x="48.9583" y="631.6462">UserInterface(owner_project: Project): UserInterface</text><ellipse cx="35.4167" cy="675.061" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="181.25" x="48.9583" y="684.4976">get screen(): HTMLDivElement</text><ellipse cx="35.4167" cy="699.4034" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="288.5417" x="48.9583" y="708.8399">set owner_project(owner_project: Project): void</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="25" x2="246.3542" y1="655.5982" y2="655.5982"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="44.7917" x="251.5625" y="659.6344">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="301.5625" x2="522.9167" y1="655.5982" y2="655.5982"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="25" x2="522.9167" y1="720.6207" y2="720.6207"/><ellipse cx="35.4167" cy="732.0791" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="463.5417" x="48.9583" y="741.5156">async FileBrowserDialog(settings: Object, callback: Function, args: any): void</text><!--MD5=[8ac0a6a22443ef373ab915bdd0ae6b94]
+link SaveHandler to Project--><path codeLine="55" d="M729.5625,1069.9583 C725.5417,1090.7188 721.4479,1111.8438 717.3021,1133.2396 " fill="none" id="SaveHandler-Project" style="stroke:#2A9FD6;stroke-width:3.125;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="110.4167" x="611.4557" y="1095.4248">1 _save_handler</text><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="116.6667" x="596.6303" y="1116.0724">1 _owner_project</text><!--MD5=[501579efbb51ee37b3ceb7cdc80c9a34]
+link VisualObject to SaveHandler--><path codeLine="56" d="M813.5417,105.3333 C813.5417,124.375 813.5417,152.8958 813.5417,187 " fill="none" id="VisualObject-to-SaveHandler" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="#222222" points="813.5417,200.8646,817.7083,194.6146,813.5417,188.3646,809.375,194.6146,813.5417,200.8646" style="stroke:#2A9FD6;stroke-width:3.125;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="85.4167" x="713.4831" y="130.9264">0..n _objects</text><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="110.4167" x="696.6895" y="184.5681">1 _save_handler</text><!--MD5=[b9a5e1276e1e5bc3573651fbb496d9ce]
+link SaveHandler to EventMixin--><path codeLine="57" d="M1066.8542,635.4167 C1095.1458,635.4167 1121.4896,635.4167 1143.0938,635.4167 " fill="none" id="SaveHandler-EventMixin" style="stroke:#2A9FD6;stroke-width:3.125;stroke-dasharray:7.0,7.0;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="28.125" x="1090.8854" y="624.0255">with</text><!--MD5=[bfea16aa11a7c0957284c136315aff4f]
+link UserInterface to Project--><path codeLine="146" d="M296.6146,753.4063 C314.3854,845.1563 340.9375,982.2396 370.1458,1132.9688 " fill="none" id="UserInterface-Project" style="stroke:#2A9FD6;stroke-width:3.125;"/><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="115.625" x="173.1954" y="779.5552">1 _user_interface</text><text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="116.6667" x="245.6771" y="1115.7986">1 _owner_project</text><!--MD5=[4480367e703df556a02a857f40077b9a]
+@startuml index
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+' skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package "visual_objects" {
+    class VisualObject {}
+}
+
+package "event_mixin" {
+    class EventMixin <<mixin>> {}
+}
+
+package "index" {
+    class SaveHandler {
+        - _owner_project: Project
+        - _CURRENT_SAVE_VERSION: Integer
+        - _save_data: Object
+        - _lock_save_sync: Boolean
+        - _objects: Object{VisualObject}
+        - -
+        + SaveHandler(): SaveHandler
+        ..get, set..
+        + set owner_project(owner_project: Project): void
+        + get owner_project(): Project
+        + get save_data(): Object
+        + set save_data(save_data: Object): void
+        + get objects(): Object
+        + set screen(screen: Object): void
+        + get fps(): Integer
+        + set fps(fps: Integer): void
+        ..
+        + rewriteSoftwareInfo(): void
+        + loadDefaultSave(): void
+        + async loadSave(save_file_path: string): void
+        + convertSave(log_array: Array = []): void
+        + applyLoadedSave(): void
+        + exportSaveAsJSON(): void
+        + exportSave(save_path: String, no_dialog: Boolean = false): void
+        
+        + createVisualObject(type: String, name: String = null, obj_id: String = ""): void
+        + addVisualObject(object: VisualObject): void
+        + deleteVisualObject(id: String): void
+        + deleteAllVisualObjects(): void
+        + getVisualObjectData(id: String): void
+        + mergeVisualObjectData(id: String, data: Object): void
+        + getVisualObjectIDs(): Array[String]
+        + async saveObjectBackgroundImage(path: String, obj_id: String): Object
+
+        + async saveAudio(path: String): void
+    }
+    SaveHandler "1 _save_handler" - - "1 _owner_project" Project
+    SaveHandler "1 _save_handler" o-up- "0..n _objects" VisualObject
+    SaveHandler .right. EventMixin: with
+
+    class Project {
+        - _save_handler: SaveHandler
+        - _user_interface: UserInterface
+
+        - _working_dir: String
+        - _root_dir: String
+        - _os: String
+        - _export_mode: Boolean
+
+        - _stop_animating: Boolean
+        - _animating: Boolean
+
+        - _frame_count: Integer
+        - _fps_array: Array
+        - _fps_interval: Float
+        - _FPS_ARRAY_MAX_LENGTH: Integer
+
+        - _time: Object
+
+        - _current_time: Float
+        - _audio_duration: Float
+        - _frequency_array: Array[Float]
+        - _vol_frequency_array: Array[Float]
+        - _vol_prev_frequency_array: Array[Float]
+        - _volume: Float
+    
+        - _objects_callback: Array[Boolean]
+
+        - _audio: HTMLAudioElement
+        - _audio_file_type: String
+        - _audio_file: File
+        - _source: MediaElementAudioSourceNode
+        - _context: AudioContext
+        - _analyser: AnalyserNode
+        - _ctx_frequency_array: Uint8Array
+        - -
+        + Project(): Project
+        ..get, set..
+        + get save_handler(): SaveHandler
+        + set save_handler(save_handler: SaveHandler): void
+        + get user_interface(): UserInterface
+        + set user_interface(user_interface: UserInterface): void
+
+        + get working_dir(): String
+        + get root_dir(): String
+        + get export_mode(): Boolean
+        + get os(): String
+
+        + get volume(): Float
+        + get screen(): HTMLDivElement
+        ..
+        + playVisuals(): void
+        + pauseVisuals(): void
+        + stopVisuals(): void
+        + startAnimating(fps: Integer): void
+        + stopAnimating(): void
+        + animate(): void
+        + updateFinished(): Boolean
+        + drawFrame(): void
+
+        + loadAudio(file_data: any, type: String): void
+        + closeAudio(): void
+        + audioReady(): Boolean
+        + getAudioDuration(): Float
+        + audioToStart(): void
+        + audioToEnd(): void
+        + setAudioCurrentTime(currentTime: Float): void
+        + getAudioCurrentTime(): Float
+        + audioLoopToggle(): void
+        + getAudioIsLooping(): Boolean
+        + getFrequencyArray(): Array[Float]
+
+        + updateFPSDisplay(): void
+        + setFPS(fps: Integer): void
+    }
+
+    class UserInterface {
+        - _screen: HTMLDivElement
+        - _owner_project: Project
+        - -
+        + UserInterface(owner_project: Project): UserInterface
+        ..get, set..
+        + get screen(): HTMLDivElement
+        + set owner_project(owner_project: Project): void
+        ..
+        + async FileBrowserDialog(settings: Object, callback: Function, args: any): void
+    }
+    UserInterface "1 _user_interface" - - "1 _owner_project" Project
+}
+@enduml
+
+@startuml index
+
+
+
+skinparam backgroundColor transparent
+skinparam useBetaStyle false
+
+
+
+
+
+
+
+skinparam defaultFontName       "Verdana"
+skinparam defaultFontSize       12
+skinparam dpi                   100
+skinparam shadowing             false
+skinparam roundcorner           8
+skinparam ParticipantPadding    40
+skinparam BoxPadding            40
+skinparam Padding               5
+skinparam ArrowColor            #ADAFAE
+skinparam stereotype {
+    CBackgroundColor #777777
+    CBorderColor #444444
+    ABackgroundColor #5F8F00
+    ABorderColor #92C233
+    IBackgroundColor #a30000
+    IBorderColor #D63333
+    EBackgroundColor #cc6d00
+    EBorderColor #FFA033
+    NBackgroundColor #7a29a3
+    NBorderColor #AD5CD6
+}
+skinparam title {
+	FontColor	                 #2A9FD6
+	BorderColor	                 #777777
+	FontSize	    	         20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor              transparent
+}
+
+skinparam legend {
+	BackgroundColor transparent
+	BorderColor #777777
+	FontColor #ADAFAE
+}
+
+skinparam swimlane {
+	BorderColor #9933CC
+	BorderThickness 2
+	TitleBackgroundColor  #444444-#555
+	TitleFontColor #2A9FD6
+}
+
+
+skinparam activity {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BarColor #77B300
+	StartColor #9933CC
+	EndColor #9933CC
+	DiamondBackgroundColor transparent
+  	DiamondBorderColor #777777
+  	DiamondFontColor #777777
+}
+
+
+skinparam participant {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	ParticipantBorderThickness 2
+}
+
+
+skinparam actor {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam arrow {
+	Thickness 3
+	Color #2A9FD6
+	FontColor #FFF
+}
+
+
+skinparam sequence {
+	BorderColor #2A9FD6
+	TitleFontColor #2A9FD6
+	BackgroundColor transparent
+	StartColor #2A9FD6
+	EndColor #2A9FD6
+	BoxBackgroundColor transparent
+	BoxBorderColor #ADAFAE
+	BoxFontColor $DARk
+	LifeLineBorderColor #555
+	LifeLineBorderThickness 2
+	LifeLineBackgroundColor transparent
+	GroupBorderColor #ADAFAE
+	GroupFontColor #ADAFAE
+	GroupHeaderFontColor #9933CC
+	GroupBackgroundColor transparent
+	GroupHeaderBackgroundColor transparent
+	DividerBackgroundColor transparent
+    DividerBorderColor #ADAFAE
+    DividerBorderThickness 2
+    DividerFontColor #ADAFAE
+	ReferenceBackgroundColor transparent
+	ReferenceBorderColor #ADAFAE
+	ReferenceFontColor #ADAFAE
+	ReferenceHeaderFontColor #9933CC
+	ReferenceHeaderBackgroundColor transparent
+}
+
+
+skinparam partition {
+	BorderColor #2A9FD6
+	FontColor #2A9FD6
+	BackgroundColor transparent
+}
+
+
+skinparam collections {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam control {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam entity {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam boundary {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam agent {
+	BackgroundColor transparent
+	BorderColor #cc6d00
+	FontColor #ADAFAE
+}
+
+
+skinparam note {
+	BorderThickness 1
+	BackgroundColor transparent
+	BorderColor #AD5CD6
+	FontColor #AD5CD6
+}
+
+
+skinparam artifact {
+	BackgroundColor transparent
+	BorderColor #BDBFBE
+	FontColor #BDBFBE
+}
+
+
+skinparam component {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam interface {
+	BackgroundColor  transparent
+	BorderColor  #CC0000
+	FontColor #ADAFAE
+}
+
+
+skinparam storage {
+	BackgroundColor transparent
+  	BorderColor #FFA033
+	FontColor #FF8800
+}
+
+
+skinparam node {
+	BackgroundColor  transparent
+	BorderColor #ADAFAE
+	FontColor #ADAFAE
+}
+
+
+skinparam cloud {
+	BackgroundColor transparent
+	BorderColor #F2FCFE
+	FontColor #ADAFAE
+}
+
+
+skinparam database {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+
+skinparam class {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+        FontColor #222
+	HeaderBackgroundColor #227FAB
+	StereotypeFontColor #ADAFAE
+	BorderThickness 1
+	AttributeFontColor #ADAFAE
+	AttributeFontSize 11
+}
+
+
+skinparam object {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	StereotypeFontColor #ADAFAE
+	BorderThickness 1
+	AttributeFontColor #777777
+	AttributeFontSize 11
+}
+
+
+skinparam usecase {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BorderThickness 2
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam rectangle {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BorderThickness 2
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam package {
+	BackgroundColor transparent
+  	BorderColor #2A9FD6
+	FontColor #2A9FD6
+	BorderThickness 2
+}
+
+
+skinparam folder {
+	BackgroundColor transparent
+  	BorderColor #FF8800
+	FontColor #FF8800
+	BorderThickness 2
+}
+
+
+skinparam frame {
+	BackgroundColor transparent
+  	BorderColor #9933CC
+	FontColor #9933CC
+	BorderThickness 2
+}
+
+
+skinparam state {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	StartColor #9933CC
+	EndColor #9933CC
+	AttributeFontColor #777777
+	AttributeFontSize 11
+}
+
+
+skinparam queue {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam card {
+	BackgroundColor transparent
+	BorderColor #9933CC
+	FontColor #9933CC
+}
+
+
+skinparam file {
+	BackgroundColor transparent
+	BorderColor #555
+	FontColor #555
+}
+
+
+skinparam BackgroundColor #222222
+skinparam PackageStyle frame
+
+package "visual_objects" {
+    class VisualObject {}
+}
+
+package "event_mixin" {
+    class EventMixin <<mixin>> {}
+}
+
+package "index" {
+    class SaveHandler {
+        - _owner_project: Project
+        - _CURRENT_SAVE_VERSION: Integer
+        - _save_data: Object
+        - _lock_save_sync: Boolean
+        - _objects: Object{VisualObject}
+        - -
+        + SaveHandler(): SaveHandler
+        ..get, set..
+        + set owner_project(owner_project: Project): void
+        + get owner_project(): Project
+        + get save_data(): Object
+        + set save_data(save_data: Object): void
+        + get objects(): Object
+        + set screen(screen: Object): void
+        + get fps(): Integer
+        + set fps(fps: Integer): void
+        ..
+        + rewriteSoftwareInfo(): void
+        + loadDefaultSave(): void
+        + async loadSave(save_file_path: string): void
+        + convertSave(log_array: Array = []): void
+        + applyLoadedSave(): void
+        + exportSaveAsJSON(): void
+        + exportSave(save_path: String, no_dialog: Boolean = false): void
+        
+        + createVisualObject(type: String, name: String = null, obj_id: String = ""): void
+        + addVisualObject(object: VisualObject): void
+        + deleteVisualObject(id: String): void
+        + deleteAllVisualObjects(): void
+        + getVisualObjectData(id: String): void
+        + mergeVisualObjectData(id: String, data: Object): void
+        + getVisualObjectIDs(): Array[String]
+        + async saveObjectBackgroundImage(path: String, obj_id: String): Object
+
+        + async saveAudio(path: String): void
+    }
+    SaveHandler "1 _save_handler" - - "1 _owner_project" Project
+    SaveHandler "1 _save_handler" o-up- "0..n _objects" VisualObject
+    SaveHandler .right. EventMixin: with
+
+    class Project {
+        - _save_handler: SaveHandler
+        - _user_interface: UserInterface
+
+        - _working_dir: String
+        - _root_dir: String
+        - _os: String
+        - _export_mode: Boolean
+
+        - _stop_animating: Boolean
+        - _animating: Boolean
+
+        - _frame_count: Integer
+        - _fps_array: Array
+        - _fps_interval: Float
+        - _FPS_ARRAY_MAX_LENGTH: Integer
+
+        - _time: Object
+
+        - _current_time: Float
+        - _audio_duration: Float
+        - _frequency_array: Array[Float]
+        - _vol_frequency_array: Array[Float]
+        - _vol_prev_frequency_array: Array[Float]
+        - _volume: Float
+    
+        - _objects_callback: Array[Boolean]
+
+        - _audio: HTMLAudioElement
+        - _audio_file_type: String
+        - _audio_file: File
+        - _source: MediaElementAudioSourceNode
+        - _context: AudioContext
+        - _analyser: AnalyserNode
+        - _ctx_frequency_array: Uint8Array
+        - -
+        + Project(): Project
+        ..get, set..
+        + get save_handler(): SaveHandler
+        + set save_handler(save_handler: SaveHandler): void
+        + get user_interface(): UserInterface
+        + set user_interface(user_interface: UserInterface): void
+
+        + get working_dir(): String
+        + get root_dir(): String
+        + get export_mode(): Boolean
+        + get os(): String
+
+        + get volume(): Float
+        + get screen(): HTMLDivElement
+        ..
+        + playVisuals(): void
+        + pauseVisuals(): void
+        + stopVisuals(): void
+        + startAnimating(fps: Integer): void
+        + stopAnimating(): void
+        + animate(): void
+        + updateFinished(): Boolean
+        + drawFrame(): void
+
+        + loadAudio(file_data: any, type: String): void
+        + closeAudio(): void
+        + audioReady(): Boolean
+        + getAudioDuration(): Float
+        + audioToStart(): void
+        + audioToEnd(): void
+        + setAudioCurrentTime(currentTime: Float): void
+        + getAudioCurrentTime(): Float
+        + audioLoopToggle(): void
+        + getAudioIsLooping(): Boolean
+        + getFrequencyArray(): Array[Float]
+
+        + updateFPSDisplay(): void
+        + setFPS(fps: Integer): void
+    }
+
+    class UserInterface {
+        - _screen: HTMLDivElement
+        - _owner_project: Project
+        - -
+        + UserInterface(owner_project: Project): UserInterface
+        ..get, set..
+        + get screen(): HTMLDivElement
+        + set owner_project(owner_project: Project): void
+        ..
+        + async FileBrowserDialog(settings: Object, callback: Function, args: any): void
+    }
+    UserInterface "1 _user_interface" - - "1 _owner_project" Project
+}
+@enduml
+
+PlantUML version 1.2021.7(Sun May 23 14:40:07 CEST 2021)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: Cp1252
+Language: fr
+Country: FR
+--></g></svg>
