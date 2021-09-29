@@ -217,15 +217,14 @@ Naviguation tab labels at the top of the control panel
 .tab_label {
     flex-grow: 3;
     flex-shrink: 0;
+    position: relative;
     height: 40px;
     padding: 10px;
-    margin-bottom: 5px;
     box-sizing: border-box;
 
     background-color: var(--main-black);
     border-left: 2px solid var(--main-lighter-black);
     border-right: 2px solid var(--main-lighter-black);
-    border-bottom: 3px solid var(--main-darker-color);
     border-radius: 0px 0px 5px 5px;
 
     color: var(--main-white);
@@ -234,12 +233,36 @@ Naviguation tab labels at the top of the control panel
 
     transition: 0.2s;
 }
+.tab_label::after {
+    z-index: 10;
+    content:"";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: -2px;
+    width: 100%;
+    height: 5px;
+
+    background-color: var(--main-black);
+    border-left: 2px solid var(--main-lighter-black);
+    border-right: 2px solid var(--main-lighter-black);
+    border-bottom: 3px solid var(--main-darker-color);
+    border-radius: 0px 0px 5px 5px;
+    
+    transition: 0.2s;
+}
 
 .tab_label:hover {
-    height: 45px;
     transition: 0.2s;
     cursor: pointer;
     background-color: var(--main-darker-color);
+}
+.tab_label:hover::after {
+    transition: 0.2s;
+    height: 10px;
+    bottom: -5px;
+    background-color: var(--main-darker-color);
+    border-bottom: 3px solid var(--main-color);
 }
 
 .tab_label i::before {
@@ -248,9 +271,13 @@ Naviguation tab labels at the top of the control panel
 }
 
 .selected_tab {
-    height: 45px;
-    border-bottom: 3px solid var(--main-color);
     background-color: var(--main-darker-color);
+}
+.selected_tab::after {
+    background-color: var(--main-darker-color);
+    border-bottom: 3px solid var(--main-color);
+    height: 10px;
+    bottom: -5px;
 }
 
 
