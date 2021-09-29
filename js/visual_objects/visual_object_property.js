@@ -168,6 +168,7 @@ export class VPName extends VisualObjectProperty {
                 this.rename(this._ui_parameter.value);
             }
         );
+        this._ui_parameter.help_string = help.parameter.object.general.name;
         this._visual_object.parameter_rack.rename(this.getCurrentValue());
     }
 
@@ -207,7 +208,7 @@ export class VPLayer extends VisualObjectProperty {
                 }
             }]
         );
-        //this.parameters.layer.help_string = help.parameter.object.general.layer;
+        this._ui_parameter.help_string = help.parameter.object.general.layer;
     }
 
     /**
@@ -301,7 +302,7 @@ export class VPCoordinates extends VisualObjectProperty {
                 ]
             ], false
         );
-        //this.parameters.coordinates.help_string = help.parameter.object.general.pos;
+        this._ui_parameter.help_string = help.parameter.object.general.pos;
     }
 
     /**
@@ -372,7 +373,7 @@ export class VPSize extends VisualObjectProperty {
                 ]
             ], false
         );
-        //this.parameters.size.help_string = help.parameter.object.general.size;
+        this._ui_parameter.help_string = help.parameter.object.general.size;
     }
 
     /**
@@ -406,7 +407,7 @@ export class VPRotation extends VisualObjectProperty {
                 }
             }]
         );
-        //this.parameters.rotation.help_string = help.parameter.object.general.rotation;
+        this._ui_parameter.help_string = help.parameter.object.general.rotation;
     }
 
     /**
@@ -433,7 +434,7 @@ export class VPSVGFilter extends VisualObjectProperty {
                 this.setSaveUISafe(this._ui_parameter.value);
             }
         );
-        // this.parameters.svg_filters.help_string = help.parameter.object.general.svg_filters;
+        this._ui_parameter.help_string = help.parameter.object.general.svg_filters;
 
     }
 
@@ -474,7 +475,7 @@ export class VPColor extends VisualObjectProperty {
                 this.setSaveUISafe(this._ui_parameter.value);
             }
         );
-        // this.parameters.color.help_string = help.parameter.object.general.color;
+        this._ui_parameter.help_string = help.parameter.object.general.color;
     }
 
     /**
@@ -501,7 +502,7 @@ export class VPBorderRadius extends VisualObjectProperty {
                 this.setSaveUISafe(this._ui_parameter.value)
             }
         );
-        // this.parameters.border_radius.help_string = help.parameter.object.general.border_radius;
+        this._ui_parameter.help_string = help.parameter.object.general.border_radius;
     }
 
     /**
@@ -528,7 +529,7 @@ export class VPBoxShadow extends VisualObjectProperty {
                 this.setSaveUISafe(this._ui_parameter.value)
             }
         );
-        // this.parameters.box_shadow.help_string = help.parameter.object.general.shadow;
+        this._ui_parameter.help_string = help.parameter.object.general.shadow;
     }
 
     /**
@@ -595,7 +596,7 @@ export class VPBackground extends VisualObjectProperty {
             });
         };
         this._ui_parameter.size_step = 1;
-        //HELP TODO
+        this._ui_parameter.help_string = help.parameter.object.shape.bgnd;
     }
 
     //parse a background size CSS property into an object with separate values.
@@ -742,7 +743,7 @@ export class VPTextType extends VisualObjectProperty {
                 this.setSaveUISafe(this._ui_parameter.value);
             }
         );
-        //this.parameters.type.help_string = help.parameter.object.text.type;
+        this._ui_parameter.help_string = help.parameter.object.text.type;
     }
 
     /**
@@ -770,7 +771,7 @@ export class VPTextContent extends VisualObjectProperty {
                 this.setSaveUISafe(this._ui_parameter.value);
             }
         );
-        // this.parameters.text.help_string = help.parameter.object.text.text_content;
+        this._ui_parameter.help_string = help.parameter.object.text.text_content;
     }
 
     /**
@@ -804,7 +805,7 @@ export class VPFontSize extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.font_size.help_string = help.parameter.object.text.font_size;
+        this._ui_parameter.help_string = help.parameter.object.text.font_size;
     }
 
     /**
@@ -891,7 +892,7 @@ export class VPTextDecoration extends VisualObjectProperty {
         if (this.getCurrentValue().underline) this._ui_parameter.toggle(0,2);
         if (this.getCurrentValue().overline) this._ui_parameter.toggle(0,3);
         if (this.getCurrentValue().line_through) this._ui_parameter.toggle(0,4);
-        // this.parameters.decoration.help_string = help.parameter.object.text.decoration;
+        this._ui_parameter.help_string = help.parameter.object.text.decoration;
     }
 
     /**
@@ -941,7 +942,7 @@ export class VPTextAlign extends VisualObjectProperty {
                 });
             }
         );
-        // this.parameters.text_align.help_string = help.parameter.object.text.text_align;
+        this._ui_parameter.help_string = help.parameter.object.text.text_align;
     }
 
     /**
@@ -970,7 +971,7 @@ export class VPTextShadow extends VisualObjectProperty {
                 this.setSaveUISafe(this._ui_parameter.value);
             }
         );
-        // this.parameters.text_shadow.help_string = help.parameter.object.general.shadow;
+        this._ui_parameter.help_string = help.parameter.object.general.shadow;
     }
 
     /**
@@ -1016,7 +1017,7 @@ export class VPTimerInnerSpacing extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.border_to_bar_space.help_string = help.parameter.object.timer.space_between;
+        this._ui_parameter.help_string = help.parameter.object.timer.space_between;
     }
 
     /**
@@ -1050,7 +1051,7 @@ export class VPBorderThickness extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.border_thickness.help_string = help.parameter.object.timer.border_thickness;
+        this._ui_parameter.help_string = help.parameter.object.timer.border_thickness;
     }
 
     /**
@@ -1112,7 +1113,7 @@ export class VPParticleRadiusRange extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.particle_radius_range.help_string = help.parameter.object.particles.ptcl_size;
+        this._ui_parameter.help_string = help.parameter.object.particles.ptcl_size;
     }
 
     /**@override */
@@ -1141,7 +1142,7 @@ export class VPFlowType extends VisualObjectProperty {
                 this.setSaveUISafe(this._ui_parameter.value);
             }
         );
-        //HELP TODO
+        this._ui_parameter.help_string = help.parameter.object.particles.flow_type;
     }
 
     /**@override */
@@ -1187,7 +1188,7 @@ export class VPFlowCenter extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.center.help_string = help.parameter.object.particles.center_pos;
+        this._ui_parameter.help_string = help.parameter.object.particles.center_pos;
     }
 
     /**@override */
@@ -1222,7 +1223,7 @@ export class VPFlowDirection extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.direction.help_string = help.parameter.object.particles.direction;
+        this._ui_parameter.help_string = help.parameter.object.particles.direction;
     }
 
     hasValidValue(value) {
@@ -1254,7 +1255,7 @@ export class VPParticleSpawnProbability extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.spawn_probability.help_string = help.parameter.object.particles.spawn_probability;
+        this._ui_parameter.help_string = help.parameter.object.particles.spawn_probability;
     }
 
     /**@override */
@@ -1286,7 +1287,7 @@ export class VPParticleSpawnTests extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.spawn_tests.help_string = help.parameter.object.particles.spawn_tests;
+        this._ui_parameter.help_string = help.parameter.object.particles.spawn_tests;
     }
 
     /**@override */
@@ -1335,7 +1336,7 @@ export class VPVisualizerRadius extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.radius.help_string = help.parameter.object.visualizer.circular_kind.radius;
+        this._ui_parameter.help_string = help.parameter.object.visualizer.circular_kind.radius;
     }
 
     /**@override */
@@ -1367,7 +1368,7 @@ export class VPVisualizerPointsCount extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.points_count.help_string = help.parameter.object.visualizer.general.points_count;
+        this._ui_parameter.help_string = help.parameter.object.visualizer.general.points_count;
     }
 
     /**@override */
@@ -1410,7 +1411,7 @@ export class VPVisualizerAnalyserRange extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.analyser_range.help_string = help.parameter.object.visualizer.general.analyser_range;
+        this._ui_parameter.help_string = help.parameter.object.visualizer.general.analyser_range;
     }
 
     /**@override */
@@ -1445,7 +1446,7 @@ export class VPVisualizationSmoothingType extends VisualObjectProperty {
                 this.setSaveUISafe(this._ui_parameter.value);
             }
         );
-        // this.parameters.visualization_smoothing_type.help_string = help.parameter.object.visualizer.general.visualization_smoothing.type;
+        this._ui_parameter.help_string = help.parameter.object.visualizer.general.visualization_smoothing.type;
     }
 
     /**@override */
@@ -1478,7 +1479,7 @@ export class VPVisualizationSmoothingFactor extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.visualization_smoothing_factor.help_string = help.parameter.object.visualizer.general.visualization_smoothing.factor;
+        this._ui_parameter.help_string = help.parameter.object.visualizer.general.visualization_smoothing.factor;
     }
 
     /**@override */
@@ -1510,7 +1511,7 @@ export class VPVisualizerBarThickness extends VisualObjectProperty {
                 }
             }]
         );
-        // this.parameters.bar_thickness.help_string = help.parameter.object.visualizer.bar_kind.bar_thickness;
+        this._ui_parameter.help_string = help.parameter.object.visualizer.bar_kind.bar_thickness;
     }
 
     /**@override */

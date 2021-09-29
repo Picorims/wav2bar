@@ -7,6 +7,7 @@
         "object": {
             "general": {
                 "creation": "The text fields lets you set a name for the new object. Select the type of object in the dropdown menu. Note that an object type cannot be changed then!",
+                "name": "Sets the object's display name.",
                 "layer": "Sets the order of display. A higher value than another object means this object will be in front of the other.",
                 "pos": "Sets the position of the object in pixels, taking the top left corner as a reference.",
                 "size": "Sets the width and height of the object in pixels.",
@@ -17,15 +18,12 @@
                 "color": "Sets the object's color.",
                 "svg_filters": "Apply SVG filters to the object. This must be a list of &lt;filter&gt;...&lt;/filter&gt; tags separated by '[#]'. Example: &lt;filter&gt;...&lt;/filter&gt;[#]&lt;filter&gt;...&lt;/filter&gt;[#]...<br/>Useful resources:<br/>- https://svgfilters.com/ (put the result in &lt;filter&gt;...&lt;/filter&gt;)<br/>- https://speckyboy.com/svg-filter-tutorials/<br/>- https://maketext.io/ (inspiration).<br/>- https://riptutorial.com/svg/topic/3262/filters"
             },
-            "background": {
-                "bgnd": "Sets the background, using the CSS syntax. It can be a color, a gradient, an image..."
-            },
-            "image": {
+            "shape": {
                 "bgnd": "Sets the background, using the CSS syntax. It can be an image, but also a color or a gradient to make a colored shape."
             },
             "particles": {
                 "ptcl_size": "Sets the size range of a particle in pixels. It takes a random value between the two specified for each particle. For a constant size, use two times the same value. The order doesn't have any impact.",
-                "mvmt_type": "Sets the type of flow for the particles. Their spawn and movement behaviour are linked to this setting",
+                "flow_type": "Sets the type of flow for the particles. Their spawn and movement behaviour are linked to this setting",
                 "center_pos": "Sets the spawn position for a radial flow.",
                 "direction": "Sets the particle direction for a directional flow.",
                 "spawn_probability": "Sets the particle's spawn probability for one spawn test. The value must be between 0 and 1: 0 means it will never spawn, 1 means it will always spawn. The impact of this value is proportional to the number of tests.",
