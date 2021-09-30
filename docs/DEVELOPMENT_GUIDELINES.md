@@ -49,6 +49,7 @@ Backward compatibility is also an important part to consider. Upgrading to a new
 - Go towards object oriented code.
 - Keep an eye on the DRY (Don't Repeat Yourself) principle.
 - Make more canvas based rendering, less HTML based rendering.
+- Try automatic tests. Possible useful resource: https://github.com/electron/electron/blob/main/docs/tutorial/automated-testing-with-a-custom-driver.md
 
 <a name="box-of-ideas"></a>
 
