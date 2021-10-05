@@ -55,13 +55,13 @@
                 },
                 "circular_kind": {
                     "radius": "Sets the inner radius of the visualizer"
-                } 
+                }
             }
         }
     },
     "save": {
-        "import": "Import a save file and load it in the software. The extension is .json. Audio files and images are not imported.",
-        "export": "Saves the current project in a .json file. Images and audio are NOT saved!"
+        "import": "Import a save file and load it in the software. The extension is .w2bzip. Audio files and images are imported.",
+        "export": "Saves the current project in a .w2bzip file. Images and audio are saved!"
     },
     "audio": {
         "import": "Imports an audio file to be used by the software. .mp3, .wav or .ogg formats are highly recommended."
