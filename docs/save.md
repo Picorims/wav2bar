@@ -592,6 +592,7 @@ root
 - Object storage has completely changed in a way that can't be understood by previous version parsers. ID storage has changed, and many property names and structure have changed as well.
 - Split types into more specific types.
 - Removed background object.
+- Timer positioning has changed. The same values from the precedent version won't produce the same results.
 
 ### Other changes
 
