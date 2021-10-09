@@ -69,6 +69,7 @@ Box of ideas for future updates:
     - full CLI with dedicated terminal and script reading
     - better linux support (once I find the good moment to setup a Linux dev environment)
     - More accurate preview (time based instead of frame based)
+    - Make FFmpeg installation easier
 - customization:
     - more particle options
     - more visualizers
