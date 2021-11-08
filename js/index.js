@@ -176,6 +176,7 @@ class SaveHandler {
             imports.utils.CustomLog("info",`Converting the save from version ${this._save_data.save_version} to ${this._save_data.save_version + 1}. The goal is ${this._CURRENT_SAVE_VERSION}.`);
 
             switch (this._save_data.save_version) {
+                //v1 to v2
                 case 1:
                     //convert objects
                     for (obj of this._save_data.objects) {
@@ -227,9 +228,22 @@ class SaveHandler {
                 break;
 
 
-
+                //v2 to v3
                 case 2:
                     //nothing to do, "svg_filters" property is automatically created by objects.
+                break;
+
+
+                //v3 to v4
+                case 3:
+                    this._save_data.software_version_first_created = this._save_data.software_version_used;
+                    
+                    //convert objects
+                    let old_objects = JSON.parse(JSON.stringify(this._save_data.objects));
+                    this._save_data.objects = {};
+                    for (let obj of old_objects) {
+                        this.convertObjV3ToV4(obj, this._save_data);
+                    }
                 break;
 
 
@@ -254,6 +268,186 @@ class SaveHandler {
                 MessageDialog("info", log_string.split("\n").join("<br>"));
             }
         }
+    }
+
+    //convert one object from v3 to v4 by getting
+    //its old data and building the new data from
+    //it in the save.
+    convertObjV3ToV4(old_object, save) {
+        //create object
+        save.objects[old_object.id] = {};
+        let object = save.objects[old_object.id];
+
+        if (old_object.object_type === "background") {
+            
+            object.visual_object_type = "shape";
+            object.name = old_object.name;
+            object.layer = old_object.layer;
+            object.coordinates = {
+                x: 0,
+                y: 0
+            };
+            object.size = {
+                width: save.screen.width,
+                height: save.screen.height
+            }
+            object.rotation = 0;
+            object.svg_filter = old_object.svg_filters;
+            object.border_radius = "";
+            object.box_shadow = "";
+            object.background = JSON.parse(JSON.stringify(old_object.background));
+        
+        } else if (old_object.object_type === "image") {
+            
+            object.visual_object_type = "shape";
+            object.name = old_object.name;
+            object.layer = old_object.layer;
+            object.coordinates = {
+                x: old_object.x,
+                y: old_object.y
+            };
+            object.size = {
+                width: old_object.width,
+                height: old_object.height
+            }
+            object.rotation = old_object.rotation;
+            object.svg_filter = old_object.svg_filters;
+            object.border_radius = old_object.border_radius;
+            object.box_shadow = old_object.box_shadow;
+            object.background = JSON.parse(JSON.stringify(old_object.background));
+
+        } else if (old_object.object_type === "particle_flow") {
+
+            object.visual_object_type = "particle_flow";
+            object.name = old_object.name;
+            object.layer = old_object.layer;
+            object.coordinates = {
+                x: old_object.x,
+                y: old_object.y
+            };
+            object.size = {
+                width: old_object.width,
+                height: old_object.height
+            }
+            object.rotation = 0;
+            object.svg_filter = old_object.svg_filters;
+            object.particle_radius_range = JSON.parse(JSON.stringify(old_object.particle_radius_range));
+            object.flow_type = old_object.type;
+            object.flow_center = JSON.parse(JSON.stringify(old_object.center));
+            object.flow_direction = Math.round(old_object.particle_direction * 180 / Math.PI);
+            object.particle_spawn_probability = old_object.spawn_probability;
+            object.particle_spawn_tests = old_object.spawn_tests;
+            object.color = old_object.color;
+
+        } else if (old_object.object_type === "text") {
+
+            object.visual_object_type = "text";
+            object.name = old_object.name;
+            object.layer = old_object.layer;
+            object.coordinates = {
+                x: old_object.x,
+                y: old_object.y
+            };
+            object.size = {
+                width: old_object.width,
+                height: old_object.height
+            }
+            object.rotation = old_object.rotation;
+            object.svg_filter = old_object.svg_filters;
+            object.text_type = old_object.type;
+            object.text_content = old_object.text;
+            object.font_size = old_object.font_size;
+            object.color = old_object.color;
+            object.text_decoration = {
+                italic: old_object.italic,
+                bold: old_object.bold,
+                underline: old_object.underline,
+                overline: old_object.overline,
+                line_through: old_object.line_through
+            };
+            object.text_align = {
+                horizontal: old_object.text_align,
+                vertical: "top"
+            };
+            object.text_shadow = old_object.text_shadow;
+
+        } else if (old_object.object_type === "timer") {
+
+            object.name = old_object.name;
+            object.layer = old_object.layer;
+            object.coordinates = {
+                x: old_object.x,
+                y: old_object.y
+            };
+            object.size = {
+                width: old_object.width,
+                height: old_object.height
+            }
+            object.rotation = old_object.rotation;
+            object.svg_filter = old_object.svg_filters;
+            object.color = old_object.color;
+            object.border_thickness = old_object.border_thickness;
+            object.border_radius = old_object.border_radius;
+            object.box_shadow = old_object.box_shadow;
+
+            //split in 2 types
+            if (old_object.type === "bar") {
+                object.visual_object_type = "timer_straight_bar";
+                object.timer_inner_spacing = old_object.border_to_bar_space;
+            
+                //adjust size
+                object.size.width += 2 * object.border_thickness;
+                object.size.height += 2 * object.border_thickness;
+
+            } else if (old_object.type === "point") {
+                object.visual_object_type = "timer_straight_line_point";
+            
+                //adjust size and position
+                object.size.width += 2 * object.border_thickness;
+                object.coordinates.x -= object.size.height/2 - object.border_thickness;
+                object.coordinates.y -= object.size.height/2 - object.border_thickness;
+                object.border_thickness *= 2;
+
+            } else throw new Error(`${old_object.type} is an unknown timer type.`);
+        
+        } else if (old_object.object_type === "visualizer") {
+
+            object.name = old_object.name;
+            object.layer = old_object.layer;
+            object.coordinates = {
+                x: old_object.x,
+                y: old_object.y
+            };
+            object.size = {
+                width: old_object.width,
+                height: old_object.height
+            }
+            object.rotation = old_object.rotation;
+            object.visualizer_points_count = old_object.points_count;
+            object.visualizer_analyzer_range = old_object.analyzer_range;
+            object.visualization_smoothing_type = old_object.visualization_smoothing.type;
+            object.visualization_smoothing_factor = old_object.visualization_smoothing.factor;
+            object.svg_filter = old_object.svg_filters;
+            object.color = old_object.color;
+
+            //split in 3 types
+            if (old_object.type === "straight") {
+                object.visual_object_type = "visualizer_straight_bar";
+                object.visualizer_bar_thickness = old_object.bar_thickness;
+                object.border_radius = old_object.border_radius;
+                object.box_shadow = old_object.box_shadow;
+
+            } else if (old_object.type === "straight-wave") {
+                object.visual_object_type = "visualizer_straight_wave";
+            
+            } else if (old_object.type === "circular") {
+                object.visual_object_type = "visualizer_circular_bar";
+                object.radius = old_object.radius;
+            
+            } else throw new Error(`${old_object.type} is an unknown visualizer type.`);
+
+
+        } else throw new Error(`${old_object.object_type} is an unknown object type.`);
     }
 
 
