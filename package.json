@@ -2,7 +2,7 @@
   "name": "wav2bar",
   "version": "0.3.0",
   "description": "A tool to create and export audio visualization mainly for the music industry",
-  "main": "main",
+  "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -30,7 +30,6 @@
   "dependencies": {
     "colors": "^1.4.0",
     "electron-squirrel-startup": "^1.0.0",
-    "exe-icon-extractor": "^1.0.8",
     "fluent-ffmpeg": "^2.1.2",
     "fourier-transform": "^1.1.2",
     "fs-extra": "^10.0.0",
@@ -39,12 +38,16 @@
     "yargs": "^17.0.1",
     "zip-local": "^0.3.4"
   },
+  "optionalDependencies": {
+    "exe-icon-extractor": "^1.0.8"
+  },
   "config": {
     "forge": {
       "packagerConfig": {
         "appCopyright": "Copyright (c) 2020-2021 Picorims",
         "icon": "assets/icons/wav2bar_square_logo",
         "name": "Wav2Bar",
+        "executableName": "wav2bar",
         "overwrite": true,
         "ignore": "/ffmpeg|/user/settings/user_settings.json|/logs|/.vscode|/temp",
         "win32metadata": {
