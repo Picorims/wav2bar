@@ -5,6 +5,7 @@ This document is based on Keep a Changelog 1.0.0
 
 ### Added
 - Particle flow's containers can now be rotated.
+- Added logs folder shortcut to settings tab.
 
 ### Changed
 - Changed how saves and objects are handled internally.
@@ -24,6 +25,7 @@ This document is based on Keep a Changelog 1.0.0
 - Particle flow's flow type parameter provides help again.
 - When opening a new save, existing user interface from old visual objects are now effectively removed.
 - Interacting with control panel's top tabs no longer moves the rest of the user interface.
+- The top of the screen was hard to see, and hidden no matter what behind the top user interface (in some zoom and window size scenarios). There is now a minimum of padding above the screen.
 
 ### Security
 - Updated Electron from v12 to v15.

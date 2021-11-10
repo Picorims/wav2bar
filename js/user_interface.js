@@ -187,6 +187,12 @@ async function InitUI() {
 
     //SETTINGS TAB
     await InitSettings();
+
+    //open logs folder
+    document.getElementById("open_logs_button").onclick = function() {
+        ipcRenderer.invoke("open-folder-in-file-explorer", `${project.working_dir}/logs`);
+    }
+
     //choose ffmpeg path through file browser
     document.getElementById("choose_ffmpeg_path_button").onclick = function() {
         FileBrowserDialog({
@@ -325,8 +331,8 @@ function LoopUI() {//UI responsive update
 
 
     //screen interface
-    var interface_padding = window.getComputedStyle(screen_interface).getPropertyValue("padding-left"); //padding-left defined trough "padding" is only accessible that way!
-    var interface_padding_value = parseInt( interface_padding.replace("px","") );
+    let interface_padding = window.getComputedStyle(screen_interface).getPropertyValue("padding-left"); //padding-left defined trough "padding" is only accessible that way!
+    let interface_padding_value = parseInt( interface_padding.replace("px","") );
 
     screen_interface.style.width = ( window.innerWidth - control_panel.offsetWidth - (interface_padding_value*2) ) + "px";
     screen_interface.style.height = ( window.innerHeight - (interface_padding_value*2) )+"px";
@@ -334,18 +340,18 @@ function LoopUI() {//UI responsive update
     screen_interface.style.left = control_panel.offsetWidth+"px";
 
     //fix the inner space of the interface containing the screen
-    var extra_space = 100;
-    var screen_border = parseInt( window.getComputedStyle(screen).getPropertyValue("border-width").replace("px","") );
-    var screen_width  = (project.save_handler.save_data.screen.width + screen_border*2)  * zoom;
-    var screen_height = (project.save_handler.save_data.screen.height + screen_border*2) * zoom;
+    let extra_space = 100;
+    let screen_border = parseInt( window.getComputedStyle(screen).getPropertyValue("border-width").replace("px","") );
+    let screen_width  = (project.save_handler.save_data.screen.width + screen_border*2)  * zoom;
+    let screen_height = (project.save_handler.save_data.screen.height + screen_border*2) * zoom;
 
-    var inner_spacing_width  = screen_width  + (2*extra_space);
-    var inner_spacing_height = screen_height + (2*extra_space)
+    let inner_spacing_width  = screen_width  + (2*extra_space);
+    let inner_spacing_height = screen_height + (2*extra_space)
     document.getElementById("inner_spacing_fixer").style.width  = inner_spacing_width  + "px";
     document.getElementById("inner_spacing_fixer").style.height = inner_spacing_height + "px";
 
     screen.style.left = (screen_width   < screen_interface.offsetWidth)?  screen_interface.offsetWidth/2  - screen_width/2  + "px" : extra_space + "px";
-    screen.style.top  = (screen_height  < screen_interface.offsetHeight)? screen_interface.offsetHeight/2 - screen_height/2 + "px" : extra_space + "px";
+    screen.style.top  = (screen_height  < screen_interface.offsetHeight - 2 * extra_space)? screen_interface.offsetHeight/2 - screen_height/2 + "px" : extra_space + "px";
 
 }
 
