@@ -163,7 +163,7 @@ export class VPName extends VisualObjectProperty {
         //create associated ui
         this._ui_parameter = new ui_components.UIParameterString(
             this._visual_object.parameter_rack,
-            "Name: ",
+            "Name",
             this.getCurrentValue(),
             () => {
                 this.rename(this._ui_parameter.value);
@@ -199,7 +199,7 @@ export class VPLayer extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Layer :",
+                title: "Layer",
                 unit: "",
                 default_value: this.getCurrentValue(),
                 min: 0,
@@ -234,7 +234,7 @@ export class VPCoordinates extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "X :",
+                title: "X",
                 unit: "px",
                 default_value: this.getCurrentValue().x,
                 step: 1,
@@ -246,7 +246,7 @@ export class VPCoordinates extends VisualObjectProperty {
                 }
             },
             {
-                title: "Y :",
+                title: "Y",
                 unit: "px",
                 default_value: this.getCurrentValue().y,
                 step: 1,
@@ -327,7 +327,7 @@ export class VPSize extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Width :",
+                title: "Width",
                 unit: "px",
                 default_value: this.getCurrentValue().width,
                 min: 0,
@@ -340,7 +340,7 @@ export class VPSize extends VisualObjectProperty {
                 }
             },
             {
-                title: "Height :",
+                title: "Height",
                 unit: "px",
                 default_value: this.getCurrentValue().height,
                 min: 0,
@@ -398,7 +398,7 @@ export class VPRotation extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Rotation (degrees) :",
+                title: "Rotation (degrees)",
                 unit: "°",
                 default_value: this.getCurrentValue(),
                 min: 0,
@@ -799,7 +799,7 @@ export class VPFontSize extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Font size :",
+                title: "Font size",
                 unit: "px",
                 default_value: this.getCurrentValue(),
                 min: 0,
@@ -1013,7 +1013,7 @@ export class VPTimerInnerSpacing extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Timer inner spacing :",
+                title: "Timer inner spacing",
                 unit: "px",
                 default_value: this.getCurrentValue(),
                 min: 0,
@@ -1047,7 +1047,7 @@ export class VPBorderThickness extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Border thickness :",
+                title: "Border thickness",
                 unit: "px",
                 default_value: this.getCurrentValue(),
                 min: 0,
@@ -1093,7 +1093,7 @@ export class VPParticleRadiusRange extends VisualObjectProperty {
             "Particle size range",
             true,
             [{
-                title: "Min :",
+                title: "Min",
                 unit: "px",
                 default_value: this.getCurrentValue()[0],
                 min: 1,
@@ -1106,7 +1106,7 @@ export class VPParticleRadiusRange extends VisualObjectProperty {
                 }
             },
             {
-                title: "Max :",
+                title: "Max",
                 unit: "px",
                 default_value: this.getCurrentValue()[1],
                 min: 1,
@@ -1173,7 +1173,7 @@ export class VPFlowCenter extends VisualObjectProperty {
             "Center position (radial)",
             true,
             [{
-                title: "X :",
+                title: "X",
                 unit: "px",
                 default_value: this.getCurrentValue().x,
                 step: 1,
@@ -1185,7 +1185,7 @@ export class VPFlowCenter extends VisualObjectProperty {
                 }
             },
             {
-                title: "Y :",
+                title: "Y",
                 unit: "px",
                 default_value: this.getCurrentValue().y,
                 step: 1,
@@ -1221,7 +1221,7 @@ export class VPFlowDirection extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Direction (directional) :",
+                title: "Direction (directional)",
                 unit: "°",
                 default_value: this.getCurrentValue(),
                 min: 0,
@@ -1253,7 +1253,7 @@ export class VPParticleSpawnProbability extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Spawn probability :",
+                title: "Spawn probability",
                 unit: "",
                 default_value: this.getCurrentValue(),
                 min: 0,
@@ -1286,7 +1286,7 @@ export class VPParticleSpawnTests extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Spawn tests per frame :",
+                title: "Spawn tests per frame",
                 unit: "",
                 default_value: this.getCurrentValue(),
                 min: 1,
@@ -1335,7 +1335,7 @@ export class VPVisualizerRadius extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Radius (circular visualizer) :",
+                title: "Radius (circular visualizer)",
                 unit: "px",
                 default_value: this.getCurrentValue(),
                 min: 0,
@@ -1367,7 +1367,7 @@ export class VPVisualizerPointsCount extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Points count :",
+                title: "Points count",
                 unit: "px",
                 default_value: this.getCurrentValue(),
                 min: 0,
@@ -1398,7 +1398,7 @@ export class VPVisualizerAnalyserRange extends VisualObjectProperty {
             "Analyser Range",
             true,
             [{
-                title: "Min :",
+                title: "Min",
                 unit: "",
                 default_value: this.getCurrentValue()[0],
                 min: 0,
@@ -1409,7 +1409,7 @@ export class VPVisualizerAnalyserRange extends VisualObjectProperty {
                 }
             },
             {
-                title: "Max :",
+                title: "Max",
                 unit: "",
                 default_value: this.getCurrentValue()[1],
                 min: 0,
@@ -1480,7 +1480,7 @@ export class VPVisualizationSmoothingFactor extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Visualization smoothing factor :",
+                title: "Visualization smoothing factor",
                 unit: "",
                 default_value: this.getCurrentValue(),
                 min: 0,
@@ -1513,7 +1513,7 @@ export class VPVisualizerBarThickness extends VisualObjectProperty {
             "",
             false,
             [{
-                title: "Bar thickness :",
+                title: "Bar thickness",
                 unit: "",
                 default_value: this.getCurrentValue(),
                 min: 0,

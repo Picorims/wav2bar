@@ -94,7 +94,7 @@ export class UIParameterNumInputList extends UIParameter {
         let list = this._input_definition_list
 
         for (let i = 0; i < list.length; i++) {
-            let input = new ui.UINumberInput(list[i].title, list[i].unit, list[i].default_value);
+            let input = new ui.UINumberInput(`${list[i].title}: `, list[i].unit, list[i].default_value);
             input.DOM_container.style.width = "100%";
             this._inputs.push(input);
             input.DOM_parent = this._container;
@@ -152,7 +152,7 @@ export class UIParameterChoice extends UIParameter {
         this._default_value = default_value;
 
         //create element
-        this._list = new ui.UIChoiceList(this._title, this._options_list, this._default_value);
+        this._list = new ui.UIChoiceList(`${this._title}: `, this._options_list, this._default_value);
         this._list.DOM_container.style.width = "100%";
         this._list.DOM_parent = this._container;
         this._list.input_class_list = ["panel_input", "panel_input_list"];
@@ -235,7 +235,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
         //MAIN UI
 
         //mode picker
-        this._list = new ui.UIChoiceList("Type :", ["color","gradient","image"], this._defaults.type);
+        this._list = new ui.UIChoiceList("Type: ", ["color","gradient","image"], this._defaults.type);
         this._list.DOM_container.style.width = "100%";
         this._list.DOM_parent = this._container;
         this._list.input_class_list = ["panel_input", "panel_input_list"];
