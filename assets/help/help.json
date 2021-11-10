@@ -6,28 +6,27 @@
         },
         "object": {
             "general": {
-                "creation": "The text fields lets you set a name for the new object. Select the type of object in the dropdown menu. Note that an object type cannot be changed then!",
+                "creation": "The text fields lets you set a name for the new object. Select the type of object in the dropdown menu. Note that an object type cannot be changed after creation!",
                 "name": "Sets the object's display name.",
                 "layer": "Sets the order of display. A higher value than another object means this object will be in front of the other.",
-                "pos": "Sets the position of the object in pixels, taking the top left corner as a reference.",
+                "pos": "Sets the position of the object in pixels, taking the top left corner as a reference (origin).",
                 "size": "Sets the width and height of the object in pixels.",
                 "rotation": "Sets the object rotation in degrees.",
-                "bgnd_size": "In the case of an image, specify how it should fit the background, using the 'background-size' CSS property.",
-                "border_radius": "It has no effect when left blank. This specifies how the corners of the element(s) should be rounded. It uses the 'border-radius' CSS property syntax. Circle arcs will be achieved with pixel values, whereas ellipsoid shapes will be done using percentage values. Combinations of both can be made, see the CSS syntax for advanced use.",
-                "shadow": "Sets the shadow of an object using the 'box-shadow' CSS property syntax. Multiple shadows can be specified by separating them with a comma. For box shadows, the transparency is not taken into account, only the real object boundaries.",
-                "color": "Sets the object's color.",
+                "border_radius": "It has no effect when left blank. This specifies how the corners of the element(s) should be rounded. It uses the 'border-radius' CSS property syntax. Circle arcs can be achieved with pixel values, whereas ellipsoid shapes can be done using percentages. Combinations of both can be made, see the CSS syntax for advanced use.<br/>examples: '10px' '10%' '10px 20px' '5px / 10px'",
+                "shadow": "Sets the shadow of an object using the 'box-shadow' CSS property syntax. Multiple shadows can be specified by separating them with a comma. For box shadows, the transparency is not taken into account, only the real object boundaries (Otherwise, see drop shadows achieved through SVG filters).",
+                "color": "Sets the object's color. Multiple formats are supported, such as hexadecimal or RGB, including the alpha channel",
                 "svg_filters": "Apply SVG filters to the object. This must be a list of &lt;filter&gt;...&lt;/filter&gt; tags separated by '[#]'. Example: &lt;filter&gt;...&lt;/filter&gt;[#]&lt;filter&gt;...&lt;/filter&gt;[#]...<br/>Useful resources:<br/>- https://svgfilters.com/ (put the result in &lt;filter&gt;...&lt;/filter&gt;)<br/>- https://speckyboy.com/svg-filter-tutorials/<br/>- https://maketext.io/ (inspiration).<br/>- https://riptutorial.com/svg/topic/3262/filters"
             },
             "shape": {
-                "bgnd": "Sets the background, using the CSS syntax. It can be an image, but also a color or a gradient to make a colored shape."
+                "bgnd": "Sets the background of the object. It can be an image, but also a color or a gradient (CSS syntax) to make a colored shape. In the case of an image:<br/>- background size: Specify how the image fits the frame.<br/>- background repeat: Defines if the image should be repeated in the frame when not filling it entirely."
             },
             "particles": {
-                "ptcl_size": "Sets the size range of a particle in pixels. It takes a random value between the two specified for each particle. For a constant size, use two times the same value. The order doesn't have any impact.",
+                "ptcl_size": "Sets the size range of a particle in pixels. It takes a random value between the two specified for each particle. For a constant size, use the same value twice. The order doesn't have any impact.",
                 "flow_type": "Sets the type of flow for the particles. Their spawn and movement behaviour are linked to this setting",
                 "center_pos": "Sets the spawn position for a radial flow.",
                 "direction": "Sets the particle direction for a directional flow.",
                 "spawn_probability": "Sets the particle's spawn probability for one spawn test. The value must be between 0 and 1: 0 means it will never spawn, 1 means it will always spawn. The impact of this value is proportional to the number of tests.",
-                "spawn_tests": "Sets how many time the probability is tested for one frame. A higher value means more particles spawning.",
+                "spawn_tests": "Sets how many time the probability is tested for one frame. A higher value means more particles spawning. Increase with care!",
                 "ptcl_color": "Sets the color of the particle."
             },
             "text": {
@@ -35,39 +34,39 @@
                 "text_content": "Sets the text to display, when allowed.",
                 "font_size": "Sets the font size in pixels.",
                 "decoration": "Respectively toggle italic, bold, underline, overline, and line through on the text.",
-                "text_align": "Sets how the text should aligns itself in the container."
+                "text_align": "Sets how the text should align itself in the container."
             },
             "timer": {
                 "space_between": "For a bar timer, specifies the space in pixels between the bar and its container. It can be removed by setting it to 0.",
-                "border_thickness": "Sets the thickness of the container for a bar timer, the line thickness for a point timer. The bar size of a bar timer is affected by the 'space between...' setting."
+                "border_thickness": "Sets the thickness of the container's border for a bar timer, the line thickness for a point timer."
             },
             "visualizer": {
                 "general": {
-                    "points_count": "'precision' of the visualizer. It specifies how much bars/points... are drawn, and can give different visual results. Big values are resource intensive.",
+                    "points_count": "'precision' of the visualizer. It specifies how much bars/points... are drawn, and can give different visual results. Big values are resource intensive!",
                     "analyser_range": "Audio spectrum range used for the visualization, between 0 and 1023. 0 stands for 20Hz and 1023 for 20000Hz. Usually the extremes are not very interesting visually. Invert the minimum and maximum values to mirror the range.",
                     "visualization_smoothing": {
-                        "type": "average: makes a smooth transition over time between values. It has more impact with a higher factor.<br/><br/>constant decay: the value decrease linearly after reaching a peak. It has more impact with a lower factor.<br/><br/>proportional decrease: the value decreases quicker on a high value, and lower on a low value (i.e impact proportional to the value.), after a peak. It has more impact with a higher value.",
-                        "factor": "Constant used by the visualization smoothing mode selected. It must be between 0 and 1. The behaviour differs depending on the smoothing type. 0 and 1 are often special cases with very specific effects."
+                        "type": "average (0 to 1): makes a smooth transition over time between values. It has more impact with a higher factor.<br/><br/>constant decay (0 or more): the value decrease linearly after reaching a peak. It has more impact with a lower factor.<br/><br/>proportional decrease (0 to 1): the value decreases quicker on a high value, and lower on a low value (i.e impact proportional to the value.), after a peak. It has more impact with a higher value.",
+                        "factor": "Constant used by the visualization smoothing mode selected. The behaviour differs depending on the smoothing type. 0 and 1 are often special cases with very specific effects."
                     }
                 },
                 "bar_kind": {
                     "bar_thickness": "Sets the bar thickness. The height is controlled by the object size."
                 },
                 "circular_kind": {
-                    "radius": "Sets the inner radius of the visualizer"
+                    "radius": "Sets the inner radius of the visualizer."
                 }
             }
         }
     },
     "save": {
-        "import": "Import a save file and load it in the software. The extension is .w2bzip. Audio files and images are imported.",
-        "export": "Saves the current project in a .w2bzip file. Images and audio are saved!"
+        "import": "Import a save file (.w2bzip extension) and load it in the software. Audio files and images are imported.",
+        "export": "Saves the current project in a .w2bzip file. Images and audio are saved in the file."
     },
     "audio": {
-        "import": "Imports an audio file to be used by the software. .mp3, .wav or .ogg formats are highly recommended."
+        "import": "Imports an audio file to be used by the software. Supported formats are mp3, wav and ogg."
     },
     "export": {
-        "video_path": "Sets the video output path and name",
+        "video_path": "Sets the video output path and name (i.e where the video is saved, and how the output file is called).",
         "action": "Exports the project into a video file in .mp4 format, to the length of the audio file.",
         "experimental_jpeg_export": "Use JPEG (quality 100) instead of PNG for intermediate screenshots. Experimental feature, video quality shouldn't be impacted, and export should be faster."
     }
