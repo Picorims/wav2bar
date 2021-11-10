@@ -487,7 +487,7 @@ class SaveHandler {
         //apply audio
         if (this._save_data.audio_filename !== "") {
             ipcRenderer.invoke("get-full-path", `${working_dir}/temp/current_save/assets/audio/${this._save_data.audio_filename}`).then((result => {
-                LoadAudio(result, "url");
+                this._owner_project.loadAudio(result, "url");
                 if (!export_mode) document.getElementById("opened_audio").innerHTML = this._save_data.audio_filename;
             }));
         }
