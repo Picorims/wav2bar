@@ -80,7 +80,7 @@ export class VisualObjectProperty {
         //name in the save, name used by the object for data access.
         this._property_name = property_name;
         this._default_value = default_value;
-        this._allowed_values = []; //used by some properties with a defined list of values.
+        this._allowed_values = null; //used by some properties with a defined list of values.
         this._ui_parameter = null;
 
         if (!this._visual_object instanceof object.VisualObject) throw new SyntaxError("visual object must be a VisualObject.");
@@ -120,9 +120,10 @@ export class VisualObjectProperty {
 
     //verify the value and overwrite it if it is not valid.
     verify() {
-        if (utils.IsUndefined(this.getCurrentValue())) throw new Error("Can't verify a value if it doesn't exist!");
-        if (!this.hasValidValue(this.getCurrentValue())) {
-            utils.CustomLog("warn", `${this._visual_object.constructor.name} ${this._visual_object.id}, ${this.constructor.name} (property "${this._property_name}"): Invalid value! Set to ${this._default_value}.`);
+        let value = this.getCurrentValue();
+        if (utils.IsUndefined(value)) throw new Error("Can't verify a value if it doesn't exist!");
+        if (!this.hasValidValue(value)) {
+            utils.CustomLog("warn", `${this._visual_object.constructor.name} ${this._visual_object.id}, ${this.constructor.name} (property "${this._property_name}"): Invalid value (${value})! Set to ${this._default_value}.`);
             this.setSave(this._default_value);
         }
     }
@@ -750,7 +751,10 @@ export class VPTextType extends VisualObjectProperty {
      * @override
      */
     hasValidValue(value) {
-        return (!utils.IsUndefined(value) && utils.IsAString(value) && this._allowed_values.includes(value));
+        //the second undefined for allowed values handles when verify is called when allowed values has not been initialized.
+        //There is no way to initialize that subclass property before the call of super() ends.
+        //So when undefined, the test ignores such property. This is why reverifying in the constructor is important.
+        return (!utils.IsUndefined(value) && utils.IsAString(value) && (utils.IsUndefined(this._allowed_values) || this._allowed_values.includes(value)));
     }
 }
 
@@ -950,8 +954,10 @@ export class VPTextAlign extends VisualObjectProperty {
      */
     hasValidValue(value) {
         if (utils.IsUndefined(value) || !utils.IsAnObject(value)) return false;
-
-        return (utils.IsAString(value.horizontal) && this._allowed_values.includes(value.horizontal));
+        //the second undefined for allowed values handles when verify is called when allowed values has not been initialized.
+        //There is no way to initialize that subclass property before the call of super() ends.
+        //So when undefined, the test ignores such property. This is why reverifying in the constructor is important.
+        return (utils.IsAString(value.horizontal) && (utils.IsUndefined(this._allowed_values) || this._allowed_values.includes(value.horizontal)));
     }
 }
 
@@ -1147,7 +1153,10 @@ export class VPFlowType extends VisualObjectProperty {
 
     /**@override */
     hasValidValue(value) {
-        return (!utils.IsUndefined(value) && utils.IsAString(value) && this._allowed_values.includes(value));
+        //the second undefined for allowed values handles when verify is called when allowed values has not been initialized.
+        //There is no way to initialize that subclass property before the call of super() ends.
+        //So when undefined, the test ignores such property. This is why reverifying in the constructor is important.
+        return (!utils.IsUndefined(value) && utils.IsAString(value) && (utils.IsUndefined(this._allowed_values) || this._allowed_values.includes(value)));
     }
 }
 
@@ -1451,7 +1460,10 @@ export class VPVisualizationSmoothingType extends VisualObjectProperty {
 
     /**@override */
     hasValidValue(value) {
-        return (!utils.IsUndefined(value) && utils.IsAString(value) && this._allowed_values.includes(value));
+        //the second undefined for allowed values handles when verify is called when allowed values has not been initialized.
+        //There is no way to initialize that subclass property before the call of super() ends.
+        //So when undefined, the test ignores such property. This is why reverifying in the constructor is important.
+        return (!utils.IsUndefined(value) && utils.IsAString(value) && (utils.IsUndefined(this._allowed_values) || this._allowed_values.includes(value)));
     }
 }
 
