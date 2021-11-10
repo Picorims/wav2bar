@@ -45,8 +45,8 @@
                     "points_count": "'precision' of the visualizer. It specifies how much bars/points... are drawn, and can give different visual results. Big values are resource intensive!",
                     "analyser_range": "Audio spectrum range used for the visualization, between 0 and 1023. 0 stands for 20Hz and 1023 for 20000Hz. Usually the extremes are not very interesting visually. Invert the minimum and maximum values to mirror the range.",
                     "visualization_smoothing": {
-                        "type": "average (0 to 1): makes a smooth transition over time between values. It has more impact with a higher factor.<br/><br/>constant decay (0 or more): the value decrease linearly after reaching a peak. It has more impact with a lower factor.<br/><br/>proportional decrease (0 to 1): the value decreases quicker on a high value, and lower on a low value (i.e impact proportional to the value.), after a peak. It has more impact with a higher value.",
-                        "factor": "Constant used by the visualization smoothing mode selected. The behaviour differs depending on the smoothing type. 0 and 1 are often special cases with very specific effects."
+                        "type": "average: makes a smooth transition over time between values. It has more impact with a higher factor.<br/><br/>constant decay: the value decrease linearly after reaching a peak. It has more impact with a lower factor.<br/><br/>proportional decrease: the value decreases quicker on a high value, and lower on a low value (i.e impact proportional to the value.), after a peak. It has more impact with a higher value.",
+                        "factor": "Constant between 0 and 1 used by the visualization smoothing mode selected. The behaviour differs depending on the smoothing type. 0 and 1 are often special cases with very specific effects."
                     }
                 },
                 "bar_kind": {
