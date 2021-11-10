@@ -113,13 +113,18 @@ function createWindow () {
         minWidth: 750,
         minHeight: 500,
         height: height,
-        backgroundColor: "#000000",
+        backgroundColor: "#040608",
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
         },
+        show: false,
     })
     //win.webContents.id = 1; READONLY
+
+    win.once("ready-to-show", () => {
+        win.show();
+    });
 
     // and load the index.html of the app.
     win.loadFile('index.html');
