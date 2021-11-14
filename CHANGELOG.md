@@ -22,6 +22,7 @@ This document is based on Keep a Changelog 1.0.0
 - Removed background visual object that duplicates image/shape visual object. Existing background visual objects in older saves will be converted to image visual objects.
 
 ### Fixed
+- Video export via CLI works again.
 - Particle flow's flow type parameter provides help again.
 - When opening a new save, existing user interface from old visual objects are now effectively removed.
 - Interacting with control panel's top tabs no longer moves the rest of the user interface.

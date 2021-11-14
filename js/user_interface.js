@@ -424,7 +424,7 @@ function SetScreenTo(width, height) {//changes the screen size to the given valu
     // }
 
     //update UI
-    if (!export_mode) {
+    if (!project.export_mode) {
         document.getElementById("screen_width_input").value = width;
         document.getElementById("screen_height_input").value = height;
     }
@@ -442,7 +442,7 @@ function ChangeFPSTo(new_fps) {//changes the FPS used by restarting the animatio
     project.setFPS(new_fps);
 
     //update UI
-    if (!export_mode) document.getElementById("fps_input").value = project.save_handler.save_data.fps;
+    if (!project.export_mode) document.getElementById("fps_input").value = project.save_handler.save_data.fps;
 
     imports.utils.CustomLog("info",`FPS set to ${new_fps}`);
 }

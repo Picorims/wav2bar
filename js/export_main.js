@@ -2,20 +2,16 @@
 
 //EXPORTING THE PROJECT INTO A VIDEO || MAIN PROCESS PART (completely excluded from renderer window process)
 
-var export_mode = false; //not in export window
 var max_frames; //allow setting the max progress through every progress event.
 
 function Export(path) {//Launch the rendering process which will export the video
-    if (typeof audio === "undefined") {
+    if (project.save_handler.save_data.audio_filename === "") {
         MessageDialog("warn","No audio file selected!");
         return;
     }
 
     imports.utils.CustomLog("info","Exporting...");
-    StopAnimating();//this avoids useless background process in the main window
-
-    //create renderer window
-    ipcRenderer.invoke('create-export-win');
+    project.stopAnimating();//this avoids useless background process in the main window
 
     //wait callback
     ipcRenderer.once("renderer-exists", async (event) => {//once avoid the listener to be persistent (if it was,
@@ -27,24 +23,26 @@ function Export(path) {//Launch the rendering process which will export the vide
         //data to send to the renderer process (the project, so it can be recreated into the new window)
         let filename = project.save_handler.save_data.audio_filename;
         let extension = filename.replace(/^.*\./,"");
-        if (imports.utils.IsUndefined(audio_file_type)) {
+        if (imports.utils.IsUndefined(project.audio_file_type)) {
             switch (extension.toLowerCase()) {
-                case 'mp3': audio_file_type = 'audio/mp3'; break;
-                case 'wav': audio_file_type = 'audio/wav'; break;
-                case 'ogg': audio_file_type = 'application/ogg'; break;
+                case 'mp3': project.audio_file_type = 'audio/mp3'; break;
+                case 'wav': project.audio_file_type = 'audio/wav'; break;
+                case 'ogg': project.audio_file_type = 'application/ogg'; break;
                 default: throw `Export: Unknown audio type!`;
             }
         }
         var data = {
             save: project.save_handler.save_data,
-            audio_file_type: audio_file_type,
+            audio_file_type: project.audio_file_type,
             audio_file_extension: extension,
             output_path: path,
             use_jpeg: document.getElementById("experimental_export_input").checked,
         }
 
         //cache audio for rendering in a separate file.
-        await ipcRenderer.invoke("copy-file", `${working_dir}/temp/current_save/assets/audio/${filename}`, `${working_dir}/temp/temp.${extension}`);
+        let from_path = `${project.working_dir}/temp/current_save/assets/audio/${filename}`;
+        let to_path = `${project.working_dir}/temp/temp.${extension}`;
+        await ipcRenderer.invoke("copy-file", from_path, to_path);
         
         //send data to the export window renderer
         await ipcRenderer.invoke("send-event-to-export-win", "data-sent", data);
@@ -143,4 +141,6 @@ function Export(path) {//Launch the rendering process which will export the vide
 
     });
 
+    //create renderer window
+    ipcRenderer.invoke('create-export-win');
 }

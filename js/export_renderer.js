@@ -2,24 +2,22 @@
 
 //EXPORTING THE PROJECT INTO A VIDEO || RENDERER PROCESS PART (completely excluded from main window process)
 
-var path = require("path");
-var export_mode = true; //in export window
+let path = require("path");
 
-var received_data;
-var screen;//HTML screen element
-var audio_file_path;
-var PCM_data, sample_rate, duration;
+let received_data;
+let screen;//HTML screen element
+let audio_file_path;
+let PCM_data, sample_rate, duration;
 //var offline_context, offline_analyser, offline_source, offline_freq_data, audio_rendered;
-var frames_to_render, frames_rendered;
-var export_array;
-var event;
+let frames_to_render, frames_rendered;
+let export_array;
+let event;
 
 var progress_window;//progress bar
 
 //callback to the main window that the renderer windows exists
 function ConfirmCreation() {
     imports.utils.CustomLog("debug","renderer created");
-    LoadModules();//trigger main init of index.js
 
     //confirm that the window exists when it is ready
     ipcRenderer.sendTo(1, "renderer-exists");
@@ -36,7 +34,7 @@ function InitRender() {//render initialization
     ipcRenderer.once("data-sent", (event, data) => {//once avoid the listener to be persistent (if it was,
                                                     //on window re-open, a new listener would stack upon this
                                                     //one, making multiple process stacking on forever.
-        imports.utils.CustomLog("debug","received data of the main renderer.");
+        imports.utils.CustomLog("debug","received data from the main renderer.");
         received_data = data;
         InitExport(data);
 
@@ -215,7 +213,7 @@ function PrepareRendering() {//define important variables
     //interval type: [x,y[
 
     //SPECTRUM STORAGE USED BY THE OBJECTS
-    frequency_array = [];
+    project.frequency_array = [];
 
     imports.utils.CustomLog("info","renderer ready, starting...");
 
@@ -243,7 +241,7 @@ function StartRendering(fps) {//prepare rendering
 async function Render() {//render every frame into an image
 
     //if frame ready (all objects finished rendering)
-    if ( UpdateFinished() ) {
+    if ( project.updateFinished() ) {
 
         //update progress display
         imports.utils.CustomLog("info",`rendered: ${frames_rendered}/${frames_to_render}`);
@@ -270,18 +268,18 @@ async function Render() {//render every frame into an image
             var spectrum = await ipcRenderer.invoke('pcm-to-spectrum', waveform);
 
             //scale from 0-1 to 0-255 (used format in the Web Audio API because of Int8Array)
-            frequency_array = [];
+            project.frequency_array = [];
             for (var i=0; i<spectrum.length; i++) {
-                frequency_array.push( (1 - Math.exp(-32*spectrum[i])) * 255 );//(amplification with ceiling) * (scale to 0-255)
+                project.addToFrequencyArray( (1 - Math.exp(-32*spectrum[i])) * 255 );//(amplification with ceiling) * (scale to 0-255)
             }
-            frequency_array = imports.utils.MappedArray(frequency_array, 1024, 0, 1023); //TEMP FIX FOR EXPORT VISUALIZATION. Ideally, visualization should work no matter the array size.
-            frequency_array = imports.utils.LinearToLog(frequency_array);
-            //console.log(frequency_array);
+            project.frequency_array = imports.utils.MappedArray(project.frequency_array, 1024, 0, 1023); //TEMP FIX FOR EXPORT VISUALIZATION. Ideally, visualization should work no matter the array size.
+            project.frequency_array = imports.utils.LinearToLog(project.frequency_array);
+            //console.log(project.frequency_array);
 
             //Draw the new frame now that the previous finished exporting .
             //render frame, recall loop
             imports.utils.CustomLog("info",`audio time: ${current_time}`);
-            DrawFrame();
+            project.drawFrame();
             frames_rendered++;
             document.dispatchEvent(event.render_loop);
 

@@ -9,10 +9,10 @@ import * as ui_components from "../ui_components/ui_components.js";
 //Otherwuse the data set is created.
 /**@abstract */
 export class VisualObject {
-    constructor(save_handler, rack_parent, id = "") {
+    constructor(save_handler, rack_parent = null, id = "") {
         if (this.constructor === VisualObject) throw new SyntaxError("VisualObject is an abstract class.");
         if (utils.IsUndefined(save_handler)) throw new SyntaxError("SaveHandler required as an argument for a VisualObject.");
-        if (!utils.IsAnElement(rack_parent)) throw new SyntaxError("rack_parent must be a DOM parent for the rack.");
+        if (!utils.IsAnElement(rack_parent) && rack_parent !== null) throw new SyntaxError("rack_parent must be a DOM parent for the rack.");
 
         this._save_handler = save_handler;
         this._owner_project = this._save_handler.owner_project;
@@ -33,18 +33,20 @@ export class VisualObject {
 
 
         //create category
-        this._parameter_rack = new ui_components.UIParameterRack(
-            this._rack_parent,
-            `UI-${this._id}`,
-            "",
-            {
-                default_closed: true,
-                user_can_edit_name: false,
-            }
-        );
-        //kill button action
-        this._parameter_rack.delete_callback = () => {
-            this._save_handler.deleteVisualObject(this._id);
+        if (!this._owner_project.export_mode) {
+            this._parameter_rack = new ui_components.UIParameterRack(
+                this._rack_parent,
+                `UI-${this._id}`,
+                "",
+                {
+                    default_closed: true,
+                    user_can_edit_name: false,
+                }
+            );
+            //kill button action
+            this._parameter_rack.delete_callback = () => {
+                this._save_handler.deleteVisualObject(this._id);
+            }    
         }
 
 
@@ -216,7 +218,7 @@ export class VText extends VisualObject {
         super(save_handler, rack_parent, id);
         this._TYPE = "text";
         this.assertType();
-        this._parameter_rack.icon = '<i class="ri-text"></i>';
+        if (!this._owner_project.export_mode) this._parameter_rack.icon = '<i class="ri-text"></i>';
 
         //#################
         //UNIQUE PROPERTIES
@@ -328,7 +330,7 @@ export class VTimer extends VisualObject {
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         if (this.constructor === VTimer) throw new SyntaxError("VTimer is an abstract class.");
-        this._parameter_rack.icon = '<i class="ri-timer-2-line"></i>';
+        if (!this._owner_project.export_mode) this._parameter_rack.icon = '<i class="ri-timer-2-line"></i>';
     
         //#################
         //UNIQUE PROPERTIES
@@ -519,7 +521,7 @@ export class VParticleFlow extends VisualObject {
         super(save_handler, rack_parent, id);
         this._TYPE = "particle_flow";
         this.assertType();
-        this._parameter_rack.icon = '<i class="ri-loader-line"></i>';
+        if (!this._owner_project.export_mode) this._parameter_rack.icon = '<i class="ri-loader-line"></i>';
 
         this._particles = [];
 
@@ -780,7 +782,7 @@ export class VVisualizer extends VisualObject {
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         if (this.constructor === VVisualizer) throw new SyntaxError("VVisualizer is an abstract class.");
-        this._parameter_rack.icon = '<i class="ri-rhythm-line"></i>';
+        if (!this._owner_project.export_mode) this._parameter_rack.icon = '<i class="ri-rhythm-line"></i>';
 
         //visualization frequency array used for drawing
         this._freq_array = null;
@@ -1281,7 +1283,7 @@ export class VShape extends VisualObject {
         super(save_handler, rack_parent, id);
         this._TYPE = "shape";
         this.assertType();
-        this._parameter_rack.icon = '<i class="ri-image-fill"></i>';
+        if (!this._owner_project.export_mode) this._parameter_rack.icon = '<i class="ri-image-fill"></i>';
 
         //#################
         //UNIQUE PROPERTIES

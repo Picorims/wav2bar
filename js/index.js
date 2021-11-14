@@ -56,7 +56,6 @@ class SaveHandler {
         this._objects = {};
 
         this.loadDefaultSave();
-        imports.utils.CustomLog("debug",'syncing save object every 500ms, starting from now.');
     }
 
     set owner_project(owner_project) {this._owner_project = owner_project;}
@@ -155,7 +154,7 @@ class SaveHandler {
                 this.applyLoadedSave();
                 this._lock_save_sync = false;
             }
-            if (!export_mode) document.getElementById("opened_save").innerHTML = save_file_path;
+            if (!this._owner_project.export_mode) document.getElementById("opened_save").innerHTML = save_file_path;
         });
         await ipcRenderer.invoke("cache-save-file", save_file_path);
     }
@@ -488,7 +487,7 @@ class SaveHandler {
         if (this._save_data.audio_filename !== "") {
             ipcRenderer.invoke("get-full-path", `${working_dir}/temp/current_save/assets/audio/${this._save_data.audio_filename}`).then((result => {
                 this._owner_project.loadAudio(result, "url");
-                if (!export_mode) document.getElementById("opened_audio").innerHTML = this._save_data.audio_filename;
+                if (!this._owner_project.export_mode) document.getElementById("opened_audio").innerHTML = this._save_data.audio_filename;
             }));
         }
 
@@ -572,15 +571,16 @@ class SaveHandler {
     //empty ID generates a random new ID.
     createVisualObject(type, name = null, obj_id = "") {
         let obj;
+        let container = (this._owner_project.export_mode)? null : tab.objects;
         switch (type) {
-            case "shape":                       obj = new imports.visual_objects.VShape(this, tab.objects, obj_id); break;
-            case "particle_flow":               obj = new imports.visual_objects.VParticleFlow(this, tab.objects, obj_id); break;
-            case "text":                        obj = new imports.visual_objects.VText(this, tab.objects, obj_id); break;
-            case "timer_straight_bar":          obj = new imports.visual_objects.VTimerStraightBar(this, tab.objects, obj_id); break;
-            case "timer_straight_line_point":   obj = new imports.visual_objects.VTimerStraightLinePoint(this, tab.objects, obj_id); break;
-            case "visualizer_straight_bar":     obj = new imports.visual_objects.VVisualizerStraightBar(this, tab.objects, obj_id); break;
-            case "visualizer_circular_bar":     obj = new imports.visual_objects.VVisualizerCircularBar(this, tab.objects, obj_id); break;
-            case "visualizer_straight_wave":    obj = new imports.visual_objects.VVisualizerStraightWave(this, tab.objects, obj_id); break;
+            case "shape":                       obj = new imports.visual_objects.VShape(this, container, obj_id); break;
+            case "particle_flow":               obj = new imports.visual_objects.VParticleFlow(this, container, obj_id); break;
+            case "text":                        obj = new imports.visual_objects.VText(this, container, obj_id); break;
+            case "timer_straight_bar":          obj = new imports.visual_objects.VTimerStraightBar(this, container, obj_id); break;
+            case "timer_straight_line_point":   obj = new imports.visual_objects.VTimerStraightLinePoint(this, container, obj_id); break;
+            case "visualizer_straight_bar":     obj = new imports.visual_objects.VVisualizerStraightBar(this, container, obj_id); break;
+            case "visualizer_circular_bar":     obj = new imports.visual_objects.VVisualizerCircularBar(this, container, obj_id); break;
+            case "visualizer_straight_wave":    obj = new imports.visual_objects.VVisualizerStraightWave(this, container, obj_id); break;
             default: throw new SyntaxError(`LoadSave: ${type} is not a valid object type. Is the save corrupted ?`);
         }
         if (name) obj.setName(name);
@@ -720,7 +720,7 @@ PROJECT MANAGEMENT
 */
 
 class Project {
-    constructor() {
+    constructor(export_mode) {
         /**@type {SaveHandler} */
         this._save_handler = null;
         /**@type {UserInterface} */
@@ -785,6 +785,13 @@ class Project {
     get volume() {return this._volume;}
 
     get screen() {return this._user_interface.screen;}
+
+    get audio_file_type() {return this._audio_file_type;}
+    set audio_file_type(audio_file_type) {this._audio_file_type = audio_file_type;}
+
+    get frequency_array() {return this._frequency_array;}
+    set frequency_array(frequency_array) {this._frequency_array = frequency_array}
+    addToFrequencyArray(value) {this._frequency_array.push(value);}
 
     /*
     #########
@@ -886,7 +893,7 @@ class Project {
 
 
         
-        if (export_mode) {
+        if (this._export_mode) {
             //time update
             this._current_time = frames_rendered/project.save_handler.save_data.fps;
             this._audio_duration = duration;
@@ -928,11 +935,13 @@ class Project {
 
         //update all objects
         this._objects_callback = [];
+        let i = 0;
         for (const obj in this._save_handler.objects) {
             if (Object.hasOwnProperty.call(this._save_handler.objects, obj)) {
                 const element = this._save_handler.objects[obj];
                 this._objects_callback[i] = false;//reset all callbacks to false
-                this._objects_callback[i] = element.update();//set to true once update is finished    
+                this._objects_callback[i] = element.update();//set to true once update is finished
+                i++;
             }
         }
 
@@ -997,7 +1006,7 @@ class Project {
         //setup
         this._source.connect(this._analyser);
         this._analyser.connect(this._context.destination);
-        if (!export_mode) SetupAudioUI(); //no need for UI in export mode.
+        if (!this._export_mode) SetupAudioUI(); //no need for UI in export mode.
     
     
         //prepare data collection
@@ -1009,7 +1018,7 @@ class Project {
     closeAudio() {
         imports.utils.CustomLog("info","Closing audio context if any...");
         if (!imports.utils.IsUndefined(this._context)) this._context.close();
-        if (!export_mode) document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
+        if (!this._export_mode) document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
         imports.utils.CustomLog("info","Audio context closed.");
     }
 
@@ -1140,41 +1149,46 @@ function LoadModules() {
     }).then(module => {
         imports.visual_objects = module;
         imports.utils.CustomLog("debug","Loading modules done.");
-        //PreSetup();
-        InitPage();
+
+        //know if the window is a main window (with GUI) or an export window (screen only)
+        return ipcRenderer.invoke('is-export-win');
+    }).then((export_mode) => {
+        InitPage(export_mode);
     }).catch(error => {
         console.log("could not load modules: " + error);
     });
 }
 
-function InitPage() {//page initialization
+function InitPage(export_mode) {//page initialization
 
     //SETUP PROJECT AND PREPARE SAVE
-    project = new Project();
+    project = new Project(export_mode);
     project.save_handler = new SaveHandler();
     project.user_interface = new UserInterface();
 
-
-    //UI INITIALIZATION
+    imports.utils.CustomLog("debug", `is export window: ${export_mode}`);
     if (!export_mode) {
+        //UI INITIALIZATION
         InitUI();
         setInterval(project.updateFPSDisplay(), 1000);
+
+        //CLI
+        console.log(argv);
+
+        //load save passed through CLI if any.
+        if (argv._[0] === "load") project.save_handler.loadSave(argv.savefile);
+        if (argv._[0] === "export") project.save_handler.loadSave(argv.input);
+
+        //enable experimental jpeg from CLI
+        if (argv._[0] === "export" && argv.jpeg) document.getElementById("experimental_export_input").checked = argv.jpeg;
+
+        //launch export if any
+        if (argv._[0] === "export") setTimeout(() => {
+            Export(argv.output);
+        }, 5000);
+    } else {
+        ConfirmCreation();
     }
-
-    //CLI
-    console.log(argv);
-
-    //load save passed through CLI if any.
-    if (argv._[0] === "load") LoadSave(argv.savefile);
-    if (argv._[0] === "export") LoadSave(argv.input);
-
-    //enable experimental jpeg from CLI
-    if (argv._[0] === "export" && argv.jpeg) document.getElementById("experimental_export_input").checked = argv.jpeg;
-
-    //launch export if any
-    if (argv._[0] === "export") setTimeout(() => {
-        Export(argv.output);
-    }, 5000);
 }
 
 
@@ -1183,7 +1197,7 @@ function InitPage() {//page initialization
 function PrepareWindowClose(event) {
     imports.utils.CustomLog("info", "The window will be closed.");
 
-    if (!can_close_window_safely && !export_mode) {
+    if (!can_close_window_safely && !project.export_mode) {
         event.returnValue = false;
 
         

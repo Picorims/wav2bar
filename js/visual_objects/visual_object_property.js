@@ -161,16 +161,18 @@ export class VPName extends VisualObjectProperty {
         super(save_handler, visual_object, "name", `object${utils.RandomInt(0, 999999)}`);
 
         //create associated ui
-        this._ui_parameter = new ui_components.UIParameterString(
-            this._visual_object.parameter_rack,
-            "Name",
-            this.getCurrentValue(),
-            () => {
-                this.rename(this._ui_parameter.value);
-            }
-        );
-        this._ui_parameter.help_string = help.parameter.object.general.name;
-        this._visual_object.parameter_rack.rename(this.getCurrentValue());
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterString(
+                this._visual_object.parameter_rack,
+                "Name",
+                this.getCurrentValue(),
+                () => {
+                    this.rename(this._ui_parameter.value);
+                }
+            );
+            this._ui_parameter.help_string = help.parameter.object.general.name;
+            this._visual_object.parameter_rack.rename(this.getCurrentValue());    
+        }
     }
 
     /**
@@ -194,22 +196,24 @@ export class VPLayer extends VisualObjectProperty {
         super(save_handler, visual_object, "layer", DEFAULTS.LAYER);
 
         //create associated ui
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Layer",
-                unit: "",
-                default_value: this.getCurrentValue(),
-                min: 0,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.general.layer;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Layer",
+                    unit: "",
+                    default_value: this.getCurrentValue(),
+                    min: 0,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.general.layer;
+        }
     }
 
     /**
@@ -229,81 +233,83 @@ export class VPCoordinates extends VisualObjectProperty {
         super(save_handler, visual_object, "coordinates", JSON.parse(JSON.stringify(DEFAULTS.COORDINATES)));
 
         //create associated ui
-        this._ui_parameter = new ui_components.UIParameterInputsAndButtonGrid(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "X",
-                unit: "px",
-                default_value: this.getCurrentValue().x,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe({
-                        x: parseInt(this._ui_parameter.value(0)),
-                        y: this.getCurrentValue().y,
-                    });
-                }
-            },
-            {
-                title: "Y",
-                unit: "px",
-                default_value: this.getCurrentValue().y,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe({
-                        x: this.getCurrentValue().x,
-                        y: parseInt(this._ui_parameter.value(1)),
-                    });
-                }
-            }],
-            2, 3, [
-                [
-                    {
-                        innerHTML: '<i class="ri-align-left"></i>',
-                        callback: () => {
-                            this._ui_parameter.forceValue(0, 0, true);
-                        }
-                    },{
-                        innerHTML: '<i class="ri-align-center"></i>',
-                        callback: () => {
-                            let obj_width = this._save_handler.getVisualObjectData(this._visual_object.id).size.width;
-                            let pos = this._save_handler.save_data.screen.width/2 - obj_width/2;
-                            this._ui_parameter.forceValue(0, pos, true);
-                        }
-                    },{
-                        innerHTML: '<i class="ri-align-right"></i>',
-                        callback: () => {
-                            let obj_width = this._save_handler.getVisualObjectData(this._visual_object.id).size.width;
-                            let pos = this._save_handler.save_data.screen.width - obj_width;
-                            this._ui_parameter.forceValue(0, pos, true);
-                        }
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterInputsAndButtonGrid(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "X",
+                    unit: "px",
+                    default_value: this.getCurrentValue().x,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe({
+                            x: parseInt(this._ui_parameter.value(0)),
+                            y: this.getCurrentValue().y,
+                        });
                     }
-                ],[
-                    {
-                        innerHTML: '<i class="ri-align-top"></i>',
-                        callback: () => {
-                            this._ui_parameter.forceValue(1, 0, true);
-                        }
-                    },{
-                        innerHTML: '<i class="ri-align-vertically"></i>',
-                        callback: () => {
-                            let obj_height = this._save_handler.getVisualObjectData(this._visual_object.id).size.height;
-                            let pos = this._save_handler.save_data.screen.height/2 - obj_height/2;
-                            this._ui_parameter.forceValue(1, pos, true);
-                        }
-                    },{
-                        innerHTML: '<i class="ri-align-bottom"></i>',
-                        callback: () => {
-                            let obj_height = this._save_handler.getVisualObjectData(this._visual_object.id).size.height;
-                            let pos = this._save_handler.save_data.screen.height - obj_height;
-                            this._ui_parameter.forceValue(1, pos, true);
-                        }
+                },
+                {
+                    title: "Y",
+                    unit: "px",
+                    default_value: this.getCurrentValue().y,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe({
+                            x: this.getCurrentValue().x,
+                            y: parseInt(this._ui_parameter.value(1)),
+                        });
                     }
-                ]
-            ], false
-        );
-        this._ui_parameter.help_string = help.parameter.object.general.pos;
+                }],
+                2, 3, [
+                    [
+                        {
+                            innerHTML: '<i class="ri-align-left"></i>',
+                            callback: () => {
+                                this._ui_parameter.forceValue(0, 0, true);
+                            }
+                        },{
+                            innerHTML: '<i class="ri-align-center"></i>',
+                            callback: () => {
+                                let obj_width = this._save_handler.getVisualObjectData(this._visual_object.id).size.width;
+                                let pos = this._save_handler.save_data.screen.width/2 - obj_width/2;
+                                this._ui_parameter.forceValue(0, pos, true);
+                            }
+                        },{
+                            innerHTML: '<i class="ri-align-right"></i>',
+                            callback: () => {
+                                let obj_width = this._save_handler.getVisualObjectData(this._visual_object.id).size.width;
+                                let pos = this._save_handler.save_data.screen.width - obj_width;
+                                this._ui_parameter.forceValue(0, pos, true);
+                            }
+                        }
+                    ],[
+                        {
+                            innerHTML: '<i class="ri-align-top"></i>',
+                            callback: () => {
+                                this._ui_parameter.forceValue(1, 0, true);
+                            }
+                        },{
+                            innerHTML: '<i class="ri-align-vertically"></i>',
+                            callback: () => {
+                                let obj_height = this._save_handler.getVisualObjectData(this._visual_object.id).size.height;
+                                let pos = this._save_handler.save_data.screen.height/2 - obj_height/2;
+                                this._ui_parameter.forceValue(1, pos, true);
+                            }
+                        },{
+                            innerHTML: '<i class="ri-align-bottom"></i>',
+                            callback: () => {
+                                let obj_height = this._save_handler.getVisualObjectData(this._visual_object.id).size.height;
+                                let pos = this._save_handler.save_data.screen.height - obj_height;
+                                this._ui_parameter.forceValue(1, pos, true);
+                            }
+                        }
+                    ]
+                ], false
+            );
+            this._ui_parameter.help_string = help.parameter.object.general.pos;
+        }
     }
 
     /**
@@ -322,59 +328,61 @@ export class VPSize extends VisualObjectProperty {
         super(save_handler, visual_object, "size", JSON.parse(JSON.stringify(DEFAULTS.SIZE)));
     
         //create associated ui
-        this._ui_parameter = new ui_components.UIParameterInputsAndButtonGrid(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Width",
-                unit: "px",
-                default_value: this.getCurrentValue().width,
-                min: 0,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe({
-                        width: parseInt(this._ui_parameter.value(0)),
-                        height: this.getCurrentValue().height,
-                    });
-                }
-            },
-            {
-                title: "Height",
-                unit: "px",
-                default_value: this.getCurrentValue().height,
-                min: 0,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe({
-                        width: this.getCurrentValue().width,
-                        height: parseInt(this._ui_parameter.value(1)),
-                    });
-                }
-            }],
-            1, 3, [
-                [
-                    {
-                        innerHTML: '&#11020;',
-                        callback: () => {
-                            this._ui_parameter.forceValue(0, this._save_handler.save_data.screen.width, true);
-                        }
-                    },{
-                        innerHTML: '&#11021;',
-                        callback: () => {
-                            this._ui_parameter.forceValue(1, this._save_handler.save_data.screen.height, true);
-                        }
-                    },{
-                        innerHTML: '<i class="ri-fullscreen-line"></i>',
-                        callback: () => {
-                            this._ui_parameter.forceValue(0, this._save_handler.save_data.screen.width, true);
-                            this._ui_parameter.forceValue(1, this._save_handler.save_data.screen.height, true);
-                        }
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterInputsAndButtonGrid(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Width",
+                    unit: "px",
+                    default_value: this.getCurrentValue().width,
+                    min: 0,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe({
+                            width: parseInt(this._ui_parameter.value(0)),
+                            height: this.getCurrentValue().height,
+                        });
                     }
-                ]
-            ], false
-        );
-        this._ui_parameter.help_string = help.parameter.object.general.size;
+                },
+                {
+                    title: "Height",
+                    unit: "px",
+                    default_value: this.getCurrentValue().height,
+                    min: 0,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe({
+                            width: this.getCurrentValue().width,
+                            height: parseInt(this._ui_parameter.value(1)),
+                        });
+                    }
+                }],
+                1, 3, [
+                    [
+                        {
+                            innerHTML: '&#11020;',
+                            callback: () => {
+                                this._ui_parameter.forceValue(0, this._save_handler.save_data.screen.width, true);
+                            }
+                        },{
+                            innerHTML: '&#11021;',
+                            callback: () => {
+                                this._ui_parameter.forceValue(1, this._save_handler.save_data.screen.height, true);
+                            }
+                        },{
+                            innerHTML: '<i class="ri-fullscreen-line"></i>',
+                            callback: () => {
+                                this._ui_parameter.forceValue(0, this._save_handler.save_data.screen.width, true);
+                                this._ui_parameter.forceValue(1, this._save_handler.save_data.screen.height, true);
+                            }
+                        }
+                    ]
+                ], false
+            );
+            this._ui_parameter.help_string = help.parameter.object.general.size;
+        }
     }
 
     /**
@@ -393,24 +401,25 @@ export class VPRotation extends VisualObjectProperty {
         super(save_handler, visual_object, "rotation", DEFAULTS.ROTATION);
         
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Rotation (degrees)",
-                unit: "°",
-                default_value: this.getCurrentValue(),
-                min: 0,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.general.rotation;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Rotation (degrees)",
+                    unit: "°",
+                    default_value: this.getCurrentValue(),
+                    min: 0,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.general.rotation;
+        }
     }
-
     /**
      * @override
      */
@@ -427,16 +436,17 @@ export class VPSVGFilter extends VisualObjectProperty {
         super(save_handler, visual_object, "svg_filter", DEFAULTS.SVG_FILTER);
 
         // create associated UI
-        this._ui_parameter = new ui_components.UIParameterString(
-            this._visual_object.parameter_rack,
-            "SVG Filters (advanced, read help)",
-            this.getCurrentValue(),
-            () => {
-                this.setSaveUISafe(this._ui_parameter.value);
-            }
-        );
-        this._ui_parameter.help_string = help.parameter.object.general.svg_filters;
-
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterString(
+                this._visual_object.parameter_rack,
+                "SVG Filters (advanced, read help)",
+                this.getCurrentValue(),
+                () => {
+                    this.setSaveUISafe(this._ui_parameter.value);
+                }
+            );
+            this._ui_parameter.help_string = help.parameter.object.general.svg_filters;
+        }
     }
 
     /**
@@ -468,17 +478,18 @@ export class VPColor extends VisualObjectProperty {
         super(save_handler, visual_object, "color", DEFAULTS.COLOR);
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterColor(
-            this._visual_object.parameter_rack,
-            "Color (hex, rgb, rgba)",
-            this.getCurrentValue(),
-            () => {
-                this.setSaveUISafe(this._ui_parameter.value);
-            }
-        );
-        this._ui_parameter.help_string = help.parameter.object.general.color;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterColor(
+                this._visual_object.parameter_rack,
+                "Color (hex, rgb, rgba)",
+                this.getCurrentValue(),
+                () => {
+                    this.setSaveUISafe(this._ui_parameter.value);
+                }
+            );
+            this._ui_parameter.help_string = help.parameter.object.general.color;
+        }
     }
-
     /**
      * @override
      */
@@ -495,15 +506,17 @@ export class VPBorderRadius extends VisualObjectProperty {
         super(save_handler, visual_object, "border_radius", DEFAULTS.BORDER_RADIUS);
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterString(
-            this._visual_object.parameter_rack,
-            "Border radius (CSS)",
-            this.getCurrentValue(),
-            () => {
-                this.setSaveUISafe(this._ui_parameter.value)
-            }
-        );
-        this._ui_parameter.help_string = help.parameter.object.general.border_radius;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterString(
+                this._visual_object.parameter_rack,
+                "Border radius (CSS)",
+                this.getCurrentValue(),
+                () => {
+                    this.setSaveUISafe(this._ui_parameter.value)
+                }
+            );
+            this._ui_parameter.help_string = help.parameter.object.general.border_radius;
+        }
     }
 
     /**
@@ -522,17 +535,18 @@ export class VPBoxShadow extends VisualObjectProperty {
         super(save_handler, visual_object, "box_shadow", DEFAULTS.BOX_SHADOW);
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterString(
-            this._visual_object.parameter_rack,
-            "Box Shadow (CSS)",
-            this.getCurrentValue(),
-            () => {
-                this.setSaveUISafe(this._ui_parameter.value)
-            }
-        );
-        this._ui_parameter.help_string = help.parameter.object.general.shadow;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterString(
+                this._visual_object.parameter_rack,
+                "Box Shadow (CSS)",
+                this.getCurrentValue(),
+                () => {
+                    this.setSaveUISafe(this._ui_parameter.value)
+                }
+            );
+            this._ui_parameter.help_string = help.parameter.object.general.shadow;
+        }
     }
-
     /**
     * @override
     */
@@ -549,57 +563,58 @@ export class VPBackground extends VisualObjectProperty {
         super(save_handler, visual_object, "background", DEFAULTS.BACKGROUND);
 
         //create associated UI
-        let parsed_size = this.parseBackgroundSize(this.getCurrentValue().size);
-        let parsed_repeat = this.parseBackgroundRepeat(this.getCurrentValue().repeat);
-        this._ui_parameter = new ui_components.UIParameterBackgroundPicker(
-            this._visual_object.parameter_rack,
-            "Background",
-            {//defaults
-                color: this.getCurrentValue().last_color,
-                gradient: this.getCurrentValue().last_gradient,
-                //line below doesn't work because not a relative path
-                image: (this.getCurrentValue().last_image !== "")? `url(${this._save_handler.owner_project.working_dir}/temp/current_save/assets/${this._visual_object.id}/background/${this.getCurrentValue().last_image})` : "",
-                type: this.getCurrentValue().type,
-                size_type: parsed_size.size_type,
-                size_x: parsed_size.size_x,
-                size_y: parsed_size.size_y,
-                repeat_x: parsed_repeat.repeat_x,
-                repeat_y: parsed_repeat.repeat_y,
-            },
-            this._visual_object.id,
-        );
+        if (!this._save_handler.owner_project.export_mode) {
+            let parsed_size = this.parseBackgroundSize(this.getCurrentValue().size);
+            let parsed_repeat = this.parseBackgroundRepeat(this.getCurrentValue().repeat);
+            this._ui_parameter = new ui_components.UIParameterBackgroundPicker(
+                this._visual_object.parameter_rack,
+                "Background",
+                {//defaults
+                    color: this.getCurrentValue().last_color,
+                    gradient: this.getCurrentValue().last_gradient,
+                    //line below doesn't work because not a relative path
+                    image: (this.getCurrentValue().last_image !== "")? `url(${this._save_handler.owner_project.working_dir}/temp/current_save/assets/${this._visual_object.id}/background/${this.getCurrentValue().last_image})` : "",
+                    type: this.getCurrentValue().type,
+                    size_type: parsed_size.size_type,
+                    size_x: parsed_size.size_x,
+                    size_y: parsed_size.size_y,
+                    repeat_x: parsed_repeat.repeat_x,
+                    repeat_y: parsed_repeat.repeat_y,
+                },
+                this._visual_object.id,
+            );
 
-        this._ui_parameter.img_picker_onclick = async () => {
-            await this._save_handler.owner_project.user_interface.FileBrowserDialog({
-                type: "get_file",
-                allowed_extensions: ["avif","jpg","jpeg","jfif","pjpeg","pjp","png","svg","webp","bmp","ico","cur"],
-                //source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
-            }, async (result) => {
-                let file_info = await this._save_handler.saveObjectBackgroundImage(result, this._visual_object.id);
+            this._ui_parameter.img_picker_onclick = async () => {
+                await this._save_handler.owner_project.user_interface.FileBrowserDialog({
+                    type: "get_file",
+                    allowed_extensions: ["avif","jpg","jpeg","jfif","pjpeg","pjp","png","svg","webp","bmp","ico","cur"],
+                    //source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
+                }, async (result) => {
+                    let file_info = await this._save_handler.saveObjectBackgroundImage(result, this._visual_object.id);
 
-                //update display and keep new name in memory;
-                this._ui_parameter.img_disp_background_image = `url("${file_info.new_path}${file_info.filename}")`; //doesn't work because not a relative path
-                this._ui_parameter.default_image = file_info.filename;
+                    //update display and keep new name in memory;
+                    this._ui_parameter.img_disp_background_image = `url("${file_info.new_path}${file_info.filename}")`; //doesn't work because not a relative path
+                    this._ui_parameter.default_image = file_info.filename;
+                
+                    //trigger callback to update the object and save
+                    this._ui_parameter.triggerOnInput();
+                });
+            }
             
-                //trigger callback to update the object and save
-                this._ui_parameter.triggerOnInput();
-            });
+            this._ui_parameter.input_image_callback = this._ui_parameter.input_else_callback = (id, type, value, size_type, size_x, size_y, repeat_x, repeat_y) => {
+                this.setSaveUISafe({
+                    type: type,
+                    last_color: (type === "color")? value : this.getCurrentValue().last_color,
+                    last_gradient: (type === "gradient")? value : this.getCurrentValue().last_gradient,
+                    last_image: (type === "image")? value : this.getCurrentValue().last_image,
+                    size: (type === "image")? this.stringifyBackgroundSize(size_type, size_x, size_y) : this.getCurrentValue().size,
+                    repeat: (type === "image")? this.stringifyBackgroundRepeat(repeat_x, repeat_y) : this.getCurrentValue().repeat,        
+                });
+            };
+            this._ui_parameter.size_step = 1;
+            this._ui_parameter.help_string = help.parameter.object.shape.bgnd;
         }
-        
-        this._ui_parameter.input_image_callback = this._ui_parameter.input_else_callback = (id, type, value, size_type, size_x, size_y, repeat_x, repeat_y) => {
-            this.setSaveUISafe({
-                type: type,
-                last_color: (type === "color")? value : this.getCurrentValue().last_color,
-                last_gradient: (type === "gradient")? value : this.getCurrentValue().last_gradient,
-                last_image: (type === "image")? value : this.getCurrentValue().last_image,
-                size: (type === "image")? this.stringifyBackgroundSize(size_type, size_x, size_y) : this.getCurrentValue().size,
-                repeat: (type === "image")? this.stringifyBackgroundRepeat(repeat_x, repeat_y) : this.getCurrentValue().repeat,        
-            });
-        };
-        this._ui_parameter.size_step = 1;
-        this._ui_parameter.help_string = help.parameter.object.shape.bgnd;
     }
-
     //parse a background size CSS property into an object with separate values.
     parseBackgroundSize(bgnd_size) {
         let bgnd_size_array = bgnd_size.split(" ");
@@ -735,18 +750,19 @@ export class VPTextType extends VisualObjectProperty {
         this.verify(); //reverify as the first verification ignored the line below.
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterChoice(
-            this._visual_object.parameter_rack,
-            "Text type",
-            this._allowed_values,
-            this.getCurrentValue(),
-            () => {
-                this.setSaveUISafe(this._ui_parameter.value);
-            }
-        );
-        this._ui_parameter.help_string = help.parameter.object.text.type;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterChoice(
+                this._visual_object.parameter_rack,
+                "Text type",
+                this._allowed_values,
+                this.getCurrentValue(),
+                () => {
+                    this.setSaveUISafe(this._ui_parameter.value);
+                }
+            );
+            this._ui_parameter.help_string = help.parameter.object.text.type;
+        }
     }
-
     /**
      * @override
      */
@@ -765,19 +781,19 @@ export class VPTextContent extends VisualObjectProperty {
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "text_content", DEFAULTS.TEXT_CONTENT);
         
-        // create associated UI
-        
-        this._ui_parameter = new ui_components.UIParameterString(
-            this._visual_object.parameter_rack,
-            "Displayed text",
-            this.getCurrentValue(),
-            () => {
-                this.setSaveUISafe(this._ui_parameter.value);
-            }
-        );
-        this._ui_parameter.help_string = help.parameter.object.text.text_content;
+        // create associated UI        
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterString(
+                this._visual_object.parameter_rack,
+                "Displayed text",
+                this.getCurrentValue(),
+                () => {
+                    this.setSaveUISafe(this._ui_parameter.value);
+                }
+            );
+            this._ui_parameter.help_string = help.parameter.object.text.text_content;
+        }
     }
-
     /**
      * @override
      */
@@ -794,24 +810,25 @@ export class VPFontSize extends VisualObjectProperty {
         super(save_handler, visual_object, "font_size", DEFAULTS.FONT_SIZE);
 
         //Create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Font size",
-                unit: "px",
-                default_value: this.getCurrentValue(),
-                min: 0,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.text.font_size;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Font size",
+                    unit: "px",
+                    default_value: this.getCurrentValue(),
+                    min: 0,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.text.font_size;
+        }
     }
-
     /**
      * @override
      */
@@ -829,76 +846,77 @@ export class VPTextDecoration extends VisualObjectProperty {
         super(save_handler, visual_object, "text_decoration", DEFAULTS.TEXT_DECORATION);
     
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterButtonGrid(
-            this._visual_object.parameter_rack,
-            "Text decoration",
-            1, 5,
-            [[
-                {
-                    innerHTML: '<i class="ri-italic"></i>',
-                    callback: (bool) => {
-                        this.setSaveUISafe({
-                            italic: bool,
-                            bold: this.getCurrentValue().bold,
-                            underline: this.getCurrentValue().underline,
-                            overline: this.getCurrentValue().overline,
-                            line_through: this.getCurrentValue().line_through,
-                        });
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterButtonGrid(
+                this._visual_object.parameter_rack,
+                "Text decoration",
+                1, 5,
+                [[
+                    {
+                        innerHTML: '<i class="ri-italic"></i>',
+                        callback: (bool) => {
+                            this.setSaveUISafe({
+                                italic: bool,
+                                bold: this.getCurrentValue().bold,
+                                underline: this.getCurrentValue().underline,
+                                overline: this.getCurrentValue().overline,
+                                line_through: this.getCurrentValue().line_through,
+                            });
+                        }
+                    }, {
+                        innerHTML: '<i class="ri-bold"></i>',
+                        callback: (bool) => {
+                            this.setSaveUISafe({
+                                italic: this.getCurrentValue().italic,
+                                bold: bool,
+                                underline: this.getCurrentValue().underline,
+                                overline: this.getCurrentValue().overline,
+                                line_through: this.getCurrentValue().line_through,
+                            });
+                        }
+                    }, {
+                        innerHTML: '<i class="ri-underline"></i>',
+                        callback: (bool) => {
+                            this.setSaveUISafe({
+                                italic: this.getCurrentValue().italic,
+                                bold: this.getCurrentValue().bold,
+                                underline: bool,
+                                overline: this.getCurrentValue().overline,
+                                line_through: this.getCurrentValue().line_through,
+                            });
+                        }
+                    }, {
+                        innerHTML: '<span style="text-decoration: overline">O</span>',
+                        callback: (bool) => {
+                            this.setSaveUISafe({
+                                italic: this.getCurrentValue().italic,
+                                bold: this.getCurrentValue().bold,
+                                underline: this.getCurrentValue().underline,
+                                overline: bool,
+                                line_through: this.getCurrentValue().line_through,
+                            });
+                        }
+                    }, {
+                        innerHTML: '<i class="ri-strikethrough"></i>',
+                        callback: (bool) => {
+                            this.setSaveUISafe({
+                                italic: this.getCurrentValue().italic,
+                                bold: this.getCurrentValue().bold,
+                                underline: this.getCurrentValue().underline,
+                                overline: this.getCurrentValue().overline,
+                                line_through: bool,
+                            });
+                        }
                     }
-                }, {
-                    innerHTML: '<i class="ri-bold"></i>',
-                    callback: (bool) => {
-                        this.setSaveUISafe({
-                            italic: this.getCurrentValue().italic,
-                            bold: bool,
-                            underline: this.getCurrentValue().underline,
-                            overline: this.getCurrentValue().overline,
-                            line_through: this.getCurrentValue().line_through,
-                        });
-                    }
-                }, {
-                    innerHTML: '<i class="ri-underline"></i>',
-                    callback: (bool) => {
-                        this.setSaveUISafe({
-                            italic: this.getCurrentValue().italic,
-                            bold: this.getCurrentValue().bold,
-                            underline: bool,
-                            overline: this.getCurrentValue().overline,
-                            line_through: this.getCurrentValue().line_through,
-                        });
-                    }
-                }, {
-                    innerHTML: '<span style="text-decoration: overline">O</span>',
-                    callback: (bool) => {
-                        this.setSaveUISafe({
-                            italic: this.getCurrentValue().italic,
-                            bold: this.getCurrentValue().bold,
-                            underline: this.getCurrentValue().underline,
-                            overline: bool,
-                            line_through: this.getCurrentValue().line_through,
-                        });
-                    }
-                }, {
-                    innerHTML: '<i class="ri-strikethrough"></i>',
-                    callback: (bool) => {
-                        this.setSaveUISafe({
-                            italic: this.getCurrentValue().italic,
-                            bold: this.getCurrentValue().bold,
-                            underline: this.getCurrentValue().underline,
-                            overline: this.getCurrentValue().overline,
-                            line_through: bool,
-                        });
-                    }
-                }
-            ]], true);
-        if (this.getCurrentValue().italic) this._ui_parameter.toggle(0,0);
-        if (this.getCurrentValue().bold) this._ui_parameter.toggle(0,1);
-        if (this.getCurrentValue().underline) this._ui_parameter.toggle(0,2);
-        if (this.getCurrentValue().overline) this._ui_parameter.toggle(0,3);
-        if (this.getCurrentValue().line_through) this._ui_parameter.toggle(0,4);
-        this._ui_parameter.help_string = help.parameter.object.text.decoration;
+                ]], true);
+            if (this.getCurrentValue().italic) this._ui_parameter.toggle(0,0);
+            if (this.getCurrentValue().bold) this._ui_parameter.toggle(0,1);
+            if (this.getCurrentValue().underline) this._ui_parameter.toggle(0,2);
+            if (this.getCurrentValue().overline) this._ui_parameter.toggle(0,3);
+            if (this.getCurrentValue().line_through) this._ui_parameter.toggle(0,4);
+            this._ui_parameter.help_string = help.parameter.object.text.decoration;
+        }
     }
-
     /**
      * @override
      */
@@ -934,21 +952,22 @@ export class VPTextAlign extends VisualObjectProperty {
         this.verify(); //reverify as the first verification ignored the line below.
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterChoice(
-            this._visual_object.parameter_rack,
-            "Text align",
-            this._allowed_values,
-            this.getCurrentValue().horizontal,
-            () => {
-                this.setSaveUISafe({
-                    horizontal: this._ui_parameter.value,
-                    vertical: this.getCurrentValue().vertical,
-                });
-            }
-        );
-        this._ui_parameter.help_string = help.parameter.object.text.text_align;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterChoice(
+                this._visual_object.parameter_rack,
+                "Text align",
+                this._allowed_values,
+                this.getCurrentValue().horizontal,
+                () => {
+                    this.setSaveUISafe({
+                        horizontal: this._ui_parameter.value,
+                        vertical: this.getCurrentValue().vertical,
+                    });
+                }
+            );
+            this._ui_parameter.help_string = help.parameter.object.text.text_align;
+        }
     }
-
     /**
      * @override
      */
@@ -969,17 +988,18 @@ export class VPTextShadow extends VisualObjectProperty {
         super(save_handler, visual_object, "text_shadow", DEFAULTS.TEXT_SHADOW);
         
         // create associated UI
-        this._ui_parameter = new ui_components.UIParameterString(
-            this._visual_object.parameter_rack,
-            "Text Shadow (CSS)",
-            this.getCurrentValue(),
-            () => {
-                this.setSaveUISafe(this._ui_parameter.value);
-            }
-        );
-        this._ui_parameter.help_string = help.parameter.object.general.shadow;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterString(
+                this._visual_object.parameter_rack,
+                "Text Shadow (CSS)",
+                this.getCurrentValue(),
+                () => {
+                    this.setSaveUISafe(this._ui_parameter.value);
+                }
+            );
+            this._ui_parameter.help_string = help.parameter.object.general.shadow;
+        }
     }
-
     /**
      * @override
      */
@@ -1008,24 +1028,25 @@ export class VPTimerInnerSpacing extends VisualObjectProperty {
         super(save_handler, visual_object, "timer_inner_spacing", DEFAULTS.TIMER_INNER_SPACING);
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Timer inner spacing",
-                unit: "px",
-                default_value: this.getCurrentValue(),
-                min: 0,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.timer.space_between;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Timer inner spacing",
+                    unit: "px",
+                    default_value: this.getCurrentValue(),
+                    min: 0,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.timer.space_between;
+        }
     }
-
     /**
      * @override
      */
@@ -1042,24 +1063,25 @@ export class VPBorderThickness extends VisualObjectProperty {
         super(save_handler, visual_object, "border_thickness", DEFAULTS.BORDER_THICKNESS);
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Border thickness",
-                unit: "px",
-                default_value: this.getCurrentValue(),
-                min: 0,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)))
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.timer.border_thickness;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Border thickness",
+                    unit: "px",
+                    default_value: this.getCurrentValue(),
+                    min: 0,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe(parseInt(this._ui_parameter.value(0)))
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.timer.border_thickness;
+        }
     }
-
     /**
      * @override
      */
@@ -1088,40 +1110,41 @@ export class VPParticleRadiusRange extends VisualObjectProperty {
         super(save_handler, visual_object, "particle_radius_range", DEFAULTS.PARTICLE_RADIUS_RANGE);
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "Particle size range",
-            true,
-            [{
-                title: "Min",
-                unit: "px",
-                default_value: this.getCurrentValue()[0],
-                min: 1,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe([
-                        parseInt(this._ui_parameter.value(0)),
-                        parseInt(this._ui_parameter.value(1))
-                    ]);
-                }
-            },
-            {
-                title: "Max",
-                unit: "px",
-                default_value: this.getCurrentValue()[1],
-                min: 1,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe([
-                        parseInt(this._ui_parameter.value(0)),
-                        parseInt(this._ui_parameter.value(1))
-                    ]);
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.particles.ptcl_size;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "Particle size range",
+                true,
+                [{
+                    title: "Min",
+                    unit: "px",
+                    default_value: this.getCurrentValue()[0],
+                    min: 1,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe([
+                            parseInt(this._ui_parameter.value(0)),
+                            parseInt(this._ui_parameter.value(1))
+                        ]);
+                    }
+                },
+                {
+                    title: "Max",
+                    unit: "px",
+                    default_value: this.getCurrentValue()[1],
+                    min: 1,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe([
+                            parseInt(this._ui_parameter.value(0)),
+                            parseInt(this._ui_parameter.value(1))
+                        ]);
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.particles.ptcl_size;
+        }
     }
-
     /**@override */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnArray(value) && value.length === 2 && utils.IsAnInt(value[0]) && utils.IsAnInt(value[1]));
@@ -1139,18 +1162,19 @@ export class VPFlowType extends VisualObjectProperty {
         this.verify(); //reverify as the first verification ignored the line below.
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterChoice(
-            this._visual_object.parameter_rack,
-            "Type",
-            this._allowed_values,
-            this.getCurrentValue(),
-            () => {
-                this.setSaveUISafe(this._ui_parameter.value);
-            }
-        );
-        this._ui_parameter.help_string = help.parameter.object.particles.flow_type;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterChoice(
+                this._visual_object.parameter_rack,
+                "Type",
+                this._allowed_values,
+                this.getCurrentValue(),
+                () => {
+                    this.setSaveUISafe(this._ui_parameter.value);
+                }
+            );
+            this._ui_parameter.help_string = help.parameter.object.particles.flow_type;
+        }
     }
-
     /**@override */
     hasValidValue(value) {
         //the second undefined for allowed values handles when verify is called when allowed values has not been initialized.
@@ -1168,38 +1192,39 @@ export class VPFlowCenter extends VisualObjectProperty {
         super(save_handler, visual_object, "flow_center", DEFAULTS.FLOW_CENTER);
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "Center position (radial)",
-            true,
-            [{
-                title: "X",
-                unit: "px",
-                default_value: this.getCurrentValue().x,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe({
-                        x: parseInt(this._ui_parameter.value(0)),
-                        y: parseInt(this._ui_parameter.value(1)),
-                    });
-                }
-            },
-            {
-                title: "Y",
-                unit: "px",
-                default_value: this.getCurrentValue().y,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe({
-                        x: parseInt(this._ui_parameter.value(0)),
-                        y: parseInt(this._ui_parameter.value(1)),
-                    });
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.particles.center_pos;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "Center position (radial)",
+                true,
+                [{
+                    title: "X",
+                    unit: "px",
+                    default_value: this.getCurrentValue().x,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe({
+                            x: parseInt(this._ui_parameter.value(0)),
+                            y: parseInt(this._ui_parameter.value(1)),
+                        });
+                    }
+                },
+                {
+                    title: "Y",
+                    unit: "px",
+                    default_value: this.getCurrentValue().y,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe({
+                            x: parseInt(this._ui_parameter.value(0)),
+                            y: parseInt(this._ui_parameter.value(1)),
+                        });
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.particles.center_pos;
+        }
     }
-
     /**@override */
     hasValidValue(value) {
         let keys_defined = !utils.IsUndefined(value.x) && !utils.IsUndefined(value.y);
@@ -1216,25 +1241,26 @@ export class VPFlowDirection extends VisualObjectProperty {
         super(save_handler, visual_object, "flow_direction", DEFAULTS.FLOW_DIRECTION);
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Direction (directional)",
-                unit: "°",
-                default_value: this.getCurrentValue(),
-                min: 0,
-                max: 360,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.particles.direction;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Direction (directional)",
+                    unit: "°",
+                    default_value: this.getCurrentValue(),
+                    min: 0,
+                    max: 360,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.particles.direction;
+        }
     }
-
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0 && value <= 360);
     }
@@ -1248,25 +1274,26 @@ export class VPParticleSpawnProbability extends VisualObjectProperty {
         super(save_handler, visual_object, "particle_spawn_probability", DEFAULTS.PARTICLE_SPAWN_PROBABILITY);
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Spawn probability",
-                unit: "",
-                default_value: this.getCurrentValue(),
-                min: 0,
-                max: 1,
-                step: 0.01,
-                callback: () => {
-                    this.setSaveUISafe(parseFloat(this._ui_parameter.value(0)));
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.particles.spawn_probability;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Spawn probability",
+                    unit: "",
+                    default_value: this.getCurrentValue(),
+                    min: 0,
+                    max: 1,
+                    step: 0.01,
+                    callback: () => {
+                        this.setSaveUISafe(parseFloat(this._ui_parameter.value(0)));
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.particles.spawn_probability;
+        }
     }
-
     /**@override */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsANumber(value) && value >= 0 && value <= 1)
@@ -1281,24 +1308,25 @@ export class VPParticleSpawnTests extends VisualObjectProperty {
         super(save_handler, visual_object, "particle_spawn_tests", DEFAULTS.PARTICLE_SPAWN_TESTS);
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Spawn tests per frame",
-                unit: "",
-                default_value: this.getCurrentValue(),
-                min: 1,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.particles.spawn_tests;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Spawn tests per frame",
+                    unit: "",
+                    default_value: this.getCurrentValue(),
+                    min: 1,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.particles.spawn_tests;
+        }
     }
-
     /**@override */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 1);
@@ -1330,24 +1358,25 @@ export class VPVisualizerRadius extends VisualObjectProperty {
         super(save_handler, visual_object, "visualizer-radius", DEFAULTS.VISUALIZER_RADIUS);
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Radius (circular visualizer)",
-                unit: "px",
-                default_value: this.getCurrentValue(),
-                min: 0,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.visualizer.circular_kind.radius;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Radius (circular visualizer)",
+                    unit: "px",
+                    default_value: this.getCurrentValue(),
+                    min: 0,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.visualizer.circular_kind.radius;
+        }
     }
-
     /**@override */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
@@ -1362,24 +1391,25 @@ export class VPVisualizerPointsCount extends VisualObjectProperty {
         super(save_handler, visual_object, "visualizer_points_count", DEFAULTS.VISUALIZER_POINTS_COUNT);
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Points count",
-                unit: "px",
-                default_value: this.getCurrentValue(),
-                min: 0,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.visualizer.general.points_count;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Points count",
+                    unit: "px",
+                    default_value: this.getCurrentValue(),
+                    min: 0,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.visualizer.general.points_count;
+        }
     }
-
     /**@override */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
@@ -1393,36 +1423,37 @@ export class VPVisualizerAnalyserRange extends VisualObjectProperty {
         super(save_handler, visual_object, "visualizer_analyzer_range", DEFAULTS.VISUALIZER_ANALYZER_RANGE);
     
         // create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "Analyser Range",
-            true,
-            [{
-                title: "Min",
-                unit: "",
-                default_value: this.getCurrentValue()[0],
-                min: 0,
-                max: 1023,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe([parseInt(this._ui_parameter.value(0)), parseInt(this._ui_parameter.value(1))]);
-                }
-            },
-            {
-                title: "Max",
-                unit: "",
-                default_value: this.getCurrentValue()[1],
-                min: 0,
-                max: 1023,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe([parseInt(this._ui_parameter.value(0)), parseInt(this._ui_parameter.value(1))]);
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.visualizer.general.analyser_range;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "Analyser Range",
+                true,
+                [{
+                    title: "Min",
+                    unit: "",
+                    default_value: this.getCurrentValue()[0],
+                    min: 0,
+                    max: 1023,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe([parseInt(this._ui_parameter.value(0)), parseInt(this._ui_parameter.value(1))]);
+                    }
+                },
+                {
+                    title: "Max",
+                    unit: "",
+                    default_value: this.getCurrentValue()[1],
+                    min: 0,
+                    max: 1023,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe([parseInt(this._ui_parameter.value(0)), parseInt(this._ui_parameter.value(1))]);
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.visualizer.general.analyser_range;
+        }
     }
-
     /**@override */
     hasValidValue(value) {
         let is_array = !utils.IsUndefined(value) && utils.IsAnArray(value) && value.length === 2;
@@ -1446,18 +1477,19 @@ export class VPVisualizationSmoothingType extends VisualObjectProperty {
         this.verify(); //reverify as the first verification ignored the line below.
 
         //create associated UI
-        this._ui_parameter = new ui_components.UIParameterChoice(
-            this._visual_object.parameter_rack,
-            "Visualization smoothing type",
-            this._allowed_values,
-            this.getCurrentValue(),
-            () => {
-                this.setSaveUISafe(this._ui_parameter.value);
-            }
-        );
-        this._ui_parameter.help_string = help.parameter.object.visualizer.general.visualization_smoothing.type;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterChoice(
+                this._visual_object.parameter_rack,
+                "Visualization smoothing type",
+                this._allowed_values,
+                this.getCurrentValue(),
+                () => {
+                    this.setSaveUISafe(this._ui_parameter.value);
+                }
+            );
+            this._ui_parameter.help_string = help.parameter.object.visualizer.general.visualization_smoothing.type;
+        }
     }
-
     /**@override */
     hasValidValue(value) {
         //the second undefined for allowed values handles when verify is called when allowed values has not been initialized.
@@ -1475,25 +1507,26 @@ export class VPVisualizationSmoothingFactor extends VisualObjectProperty {
         super(save_handler, visual_object, "visualization_smoothing_factor", DEFAULTS.VISUALIZATION_SMOOTHING_FACTOR);
     
         // create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Visualization smoothing factor",
-                unit: "",
-                default_value: this.getCurrentValue(),
-                min: 0,
-                max: 1,
-                step: 0.01,
-                callback: () => {
-                    this.setSaveUISafe(parseFloat(this._ui_parameter.value(0)));
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.visualizer.general.visualization_smoothing.factor;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Visualization smoothing factor",
+                    unit: "",
+                    default_value: this.getCurrentValue(),
+                    min: 0,
+                    max: 1,
+                    step: 0.01,
+                    callback: () => {
+                        this.setSaveUISafe(parseFloat(this._ui_parameter.value(0)));
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.visualizer.general.visualization_smoothing.factor;
+        }
     }
-
     /**@override */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsANumber(value) && value >= 0);
@@ -1508,24 +1541,25 @@ export class VPVisualizerBarThickness extends VisualObjectProperty {
         super(save_handler, visual_object, "visualizer_bar_thickness", DEFAULTS.VISUALIZER_BAR_THICKNESS);
          
         // create associated UI
-        this._ui_parameter = new ui_components.UIParameterNumInputList(
-            this._visual_object.parameter_rack,
-            "",
-            false,
-            [{
-                title: "Bar thickness",
-                unit: "",
-                default_value: this.getCurrentValue(),
-                min: 0,
-                step: 1,
-                callback: () => {
-                    this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
-                }
-            }]
-        );
-        this._ui_parameter.help_string = help.parameter.object.visualizer.bar_kind.bar_thickness;
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Bar thickness",
+                    unit: "",
+                    default_value: this.getCurrentValue(),
+                    min: 0,
+                    step: 1,
+                    callback: () => {
+                        this.setSaveUISafe(parseInt(this._ui_parameter.value(0)));
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.visualizer.bar_kind.bar_thickness;
+        }
     }
-
     /**@override */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);

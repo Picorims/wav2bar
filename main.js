@@ -367,6 +367,10 @@ ipcMain.handle("argv", (event) => {
 });
 
 
+ipcMain.handle('is-export-win', async (event) => {
+    if (!export_win) return false;
+    else return event.sender.id === export_win.webContents.id;
+});
 
 
 //log4js logging from renderer
@@ -709,7 +713,7 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
                 break;
 
             default:
-                throw `InitExport: ${type} is not a valid audio type!`;
+                throw `InitExport: ${audio_format} is not a valid audio type!`;
         }
 
 

@@ -93,7 +93,7 @@ package "index" {
         - _analyser: AnalyserNode
         - _ctx_frequency_array: Uint8Array
         --
-        + Project(): Project
+        + Project(export_mode: Boolean): Project
         ..get, set..
         + get save_handler(): SaveHandler
         + set save_handler(save_handler: SaveHandler): void
@@ -107,7 +107,13 @@ package "index" {
 
         + get volume(): Float
         + get screen(): HTMLDivElement
+        + get audio_file_type(): String
+        + set audio_file_type(audio_file_type: String): void
+
+        + get frequency_array(): Array[Float]
+        + set frequency_array(frequency_array: Array[Float]): void
         ..
+        + addToFrequencyArray(value: Float): void
         + playVisuals(): void
         + pauseVisuals(): void
         + stopVisuals(): void
