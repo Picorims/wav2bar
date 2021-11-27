@@ -1470,7 +1470,8 @@ export class VVisualizerStraightWave extends VVisualizer {
 
         //CREATE THE WAVE
         vis_ctx.beginPath();
-        vis_ctx.moveTo(this._freq_array[0] / 256 * height, visualizer_cvs.height);
+        vis_ctx.moveTo(0, visualizer_cvs.height);
+        vis_ctx.lineTo(0, this._freq_array[0] / 256 * height);
 
         let x, y, ctrl_point_1_x, ctrl_point_1_y, ctrl_point_2_x, ctrl_point_2_y;
 
