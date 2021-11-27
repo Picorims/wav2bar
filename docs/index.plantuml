@@ -36,7 +36,7 @@ package "index" {
         + rewriteSoftwareInfo(): void
         + loadDefaultSave(): void
         + async loadSave(save_file_path: string): void
-        + convertSave(log_array: Array = []): void
+        + convertSave(log_array: Array = [], no_dialog: Boolean): void
         + convertObjV3ToV4(old_object: Object, save: Object): void
         + applyLoadedSave(): void
         + exportSaveAsJSON(): void

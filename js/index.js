@@ -127,10 +127,11 @@ class SaveHandler {
     /**
      * load a user save or a preset (JSON format)
      *
-     * @param {*} save_file_path
+     * @param {String} save_file_path
+     * @param {Boolean} no_warnings If a dialog should be displayed when the save is outdated. If enabled, the save will be auto updated, and a warning will be logged.
      * @memberof SaveHandler
      */
-    async loadSave(save_file_path) {
+    async loadSave(save_file_path, no_warnings = false) {
         if (!imports.utils.IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
     
         imports.utils.CustomLog("info", "Backing up currently opened save...");
@@ -165,17 +166,24 @@ class SaveHandler {
                 //older version
     
                 imports.utils.CustomLog("warning",`The supported save version is ${this._CURRENT_SAVE_VERSION} but the provided save is of version ${this._save_data.save_version}`);
-                MessageDialog("confirm",`This project has been created in an older version of Wav2Bar (${this._save_data.software_version_used}). Do you want to upgrade it ? (Always backup your project before converting it!)`,
-                    (confirmed) => {
-                        if (confirmed) {
-                            this.convertSave();
-                            this.applyLoadedSave();
-                        } else {
-                            imports.utils.CustomLog("info", "Save load aborted, loading back the project in it's old state.");
-                            this.loadSave(`${working_dir}/temp/before_new_save_open.w2bzip`);
+                if (no_warnings) {
+                    imports.utils.CustomLog("warning", `This project has been created in an older version of Wav2Bar (${this._save_data.software_version_used}). Upgrading the temporary version...`);
+                    this.convertSave([], true);
+                    this.applyLoadedSave();
+                } else {
+                    MessageDialog("confirm",`This project has been created in an older version of Wav2Bar (${this._save_data.software_version_used}). Do you want to upgrade it ? (Always backup your project before converting it!)`,
+                        (confirmed) => {
+                            if (confirmed) {
+                                this.convertSave();
+                                this.applyLoadedSave();
+                            } else {
+                                imports.utils.CustomLog("info", "Save load aborted, loading back the project in it's old state.");
+                                this.loadSave(`${working_dir}/temp/before_new_save_open.w2bzip`);
+                            }
+                            this._lock_save_sync = false;
                         }
-                        this._lock_save_sync = false;
-                    });
+                    );
+                }
             } else {
                 //same version
                 this.applyLoadedSave();
@@ -195,9 +203,10 @@ class SaveHandler {
      * Versions are documented in [root]/docs/save.md.
      * @param {*} [log_array=[]] An array of strings that store log messages to display at the end, and to write to the logs file.
      * It is used for warnings and errors of conversion.
+     * @param {Boolean} no_dialog If no dialog should be displayed concerning warnings. They are still logged to file.
      * @memberof SaveHandler
      */
-    convertSave(log_array = []) {
+    convertSave(log_array = [], no_dialog = false) {
         //something's wrong ?
         imports.utils.CustomLog("debug", JSON.stringify(this._save_data));
         if (this._save_data.save_version > this._CURRENT_SAVE_VERSION) throw `Can't convert the save: the save version (${this._save_data.save_version}) is greater than the supported version (${this._CURRENT_SAVE_VERSION})!`;
@@ -285,7 +294,7 @@ class SaveHandler {
             }
             this._save_data.save_version++;
             imports.utils.CustomLog("info", `Save converted to version ${this._save_data.save_version}!`);
-            this.convertSave(log_array);
+            this.convertSave(log_array, no_dialog);
         } else {
             //finished conversion.
             imports.utils.CustomLog("info", "Conversion done!");
@@ -297,7 +306,7 @@ class SaveHandler {
                     log_string += "- " + msg + "\n";
                 }
                 imports.utils.CustomLog("info", log_string);
-                MessageDialog("info", log_string.split("\n").join("<br>"));
+                if (!no_dialog) MessageDialog("info", log_string.split("\n").join("<br>"));
             }
         }
     }
@@ -1413,7 +1422,7 @@ function InitPage(export_mode) {//
 
         //load save passed through CLI if any.
         if (argv._[0] === "load") project.save_handler.loadSave(argv.savefile);
-        if (argv._[0] === "export") project.save_handler.loadSave(argv.input);
+        if (argv._[0] === "export") project.save_handler.loadSave(argv.input, true);
 
         //enable experimental jpeg from CLI
         if (argv._[0] === "export" && argv.jpeg) document.getElementById("experimental_export_input").checked = argv.jpeg;
