@@ -4,7 +4,17 @@ import * as Type from "./type_checking.js";
 
 //array related utilities
 
-export function MappedArray(array, new_length, min, max) {//function that remaps an array, within the given min and max, to a new length.
+/**
+ * function that remaps an array, within the given min and max, to a new length.
+ *
+ * @export
+ * @param {Array} array
+ * @param {Number} new_length
+ * @param {Number} min minimum index to consider for mapping
+ * @param {Number} max maximum index to consider for mapping
+ * @return {Array} The mapped array.
+ */
+export function MappedArray(array, new_length, min, max) {
 
     //CHECK VARIABLES
     if ( !Type.IsAnArray(array) )                    throw `MappedArray: ${array} is not an array!`;
@@ -48,8 +58,14 @@ export function MappedArray(array, new_length, min, max) {//function that remaps
     return new_array;
 }
 
-
-export function LinearToLog(array) {//redistributes the indexes in a logarithmic base 10 scale
+/**
+ * redistributes the indexes in a logarithmic base 10 scale
+ *
+ * @export
+ * @param {Array} array source array
+ * @return {Array} logarithmic array
+ */
+export function LinearToLog(array) {
     if (!Type.IsAnArray(array)) throw `LinearToLog: ${array} is not a valid array.`;
 
     var length = array.length;
@@ -111,8 +127,16 @@ export function LinearToLog(array) {//redistributes the indexes in a logarithmic
     return log_array;
 }
 
-
-export function InInterval(value, interval, type) {//returns if the given value is in the interval [min,max] included or excluded;
+/**
+ * returns if the given value is in the interval [min,max] included or excluded;
+ *
+ * @export
+ * @param {Number} value Value to search
+ * @param {Array} interval Interval to consider
+ * @param {String} type "included" or "excluded"
+ * @return {Boolean} 
+ */
+export function InInterval(value, interval, type) {
     if (!Type.IsANumber(value)) throw `InInterval: ${value} is not a number`;
     if (!Type.IsAnArray(interval)) throw `InInterval: ${interval} is not a valid array`;
     if (!Type.IsUndefined(interval) && interval[0] > interval[1]) throw `InInterval: ${interval} has values in the wrong order. It must be [min,max], min<max`;

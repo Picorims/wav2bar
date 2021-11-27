@@ -9,8 +9,20 @@ HELP HOVER BUTTONS
 ##################
 */
 
-//question mark you can hover to display a help message
+/**
+ * question mark you can hover to display a help message
+ *
+ * @export
+ * @class UIHelp
+ * @extends {ui.UIComponent}
+ */
 export class UIHelp extends ui.UIComponent {
+    /**
+     * Creates an instance of UIHelp.
+     * @param {HTMLDivElement} parent
+     * @param {String} help_string String to display to the user.
+     * @memberof UIHelp
+     */
     constructor(parent, help_string) {
         super();
         if( !utils.IsAnElement(parent) ) throw new Error(`AppendHelp: ${parent} is not a DOM element.`);
@@ -51,10 +63,14 @@ export class UIHelp extends ui.UIComponent {
 
 
 
-//Display the help message linked to a question mark element of a parameter.
+/**
+ * Displays the help message linked to a question mark element of a parameter.
+ *
+ * @param {HTMLElement} question_mark
+ */
 function DisplayHelpMsg(question_mark) {//display a help message at the given coordinates
 
-    if( !imports.utils.IsAnElement(question_mark) ) throw `DisplayHelpMsg: ${question_mark} is not a DOM element.`;
+    if( !imports.utils.IsAnElement(question_mark) ) throw new Error(`DisplayHelpMsg: ${question_mark} is not a DOM element.`);
 
     //only display if the pointer is on the question_mark
     if (question_mark.getAttribute("data-hover") === "true") {

@@ -6,8 +6,21 @@ import * as help from "./ui_append_help.js";
 
 //parameters UI used in the control panel. Each class is a template.
 
-//base parameter
+/**
+ * base parameter for building all specific parameters in the control panel.
+ *
+ * @export
+ * @class UIParameter
+ * @extends {ui.UIComponent}
+ */
 export class UIParameter extends ui.UIComponent {
+    /**
+     * Creates an instance of UIParameter.
+     * @param {ui.UIComponent|HTMLElement} parent Container of the component.
+     * @param {String} title The displayed title
+     * @param {Boolean} parent_title_visible If a title element should be displayed.
+     * @memberof UIParameter
+     */
     constructor(parent, title, parent_title_visible) {
         super();
         this._parent = parent;
@@ -49,8 +62,22 @@ export class UIParameter extends ui.UIComponent {
 
 
 
-//string parameter
+/**
+ * string parameter
+ *
+ * @export
+ * @class UIParameterString
+ * @extends {UIParameter}
+ */
 export class UIParameterString extends UIParameter {
+    /**
+     * Creates an instance of UIParameterString.
+     * @param {ui.UIComponent|HTMLElement} parent Container of the component.
+     * @param {String} title Displayed title.
+     * @param {String} default_value Default value for the input.
+     * @param {Function} callback Function to call when user inputs data.
+     * @memberof UIParameterString
+     */
     constructor(parent, title, default_value, callback) {
         super(parent, title, false);
         this._default_value = default_value;
@@ -69,8 +96,22 @@ export class UIParameterString extends UIParameter {
 }
 
 
-// Color picker parameter with an associated string input
+/**
+ * Color picker parameter with an associated string input.
+ *
+ * @export
+ * @class UIParameterColor
+ * @extends {UIParameterString}
+ */
 export class UIParameterColor extends UIParameterString {
+    /**
+     * Creates an instance of UIParameterColor.
+     * @param {ui.UIComponent|HTMLElement} parent Container of the component.
+     * @param {String} title Displayed title.
+     * @param {String} default_value Default value for the input.
+     * @param {Function} callback Function to call when user inputs data.
+     * @memberof UIParameterColor
+     */
     constructor(parent, title, default_value, callback) {
         super(parent, title, default_value, callback);
 
@@ -81,8 +122,22 @@ export class UIParameterColor extends UIParameterString {
 
 
 
-//parameter with a list of numeric inputs
+/**
+ * parameter with a list of numeric inputs
+ *
+ * @export
+ * @class UIParameterNumInputList
+ * @extends {UIParameter}
+ */
 export class UIParameterNumInputList extends UIParameter {
+    /**
+     * Creates an instance of UIParameterNumInputList.
+     * @param {ui.UIComponent|HTMLElement} parent Container of the component.
+     * @param {String} title The displayed title
+     * @param {Boolean} parent_title_visible If a title element should be displayed.
+     * @param {Array} input_definition_list Array with the config of all inputs.
+     * @memberof UIParameterNumInputList
+     */
     constructor(parent, title, parent_title_visible, input_definition_list) {
         super(parent, title, parent_title_visible);
         this._input_definition_list = input_definition_list;
@@ -110,7 +165,13 @@ export class UIParameterNumInputList extends UIParameter {
         }
     }
 
-    //get value of input by index
+    /**
+     * get value of input by index
+     *
+     * @param {Number} index Index in the list of inputs. The order is defined by the config.
+     * @return {Number} The value stored in the said input.
+     * @memberof UIParameterNumInputList
+     */
     value(index) {
         return this._inputs[index].value;
     }
@@ -118,8 +179,28 @@ export class UIParameterNumInputList extends UIParameter {
 
 
 
-//parameter for positioning something, comes with shortcuts
+/**
+ * parameter for combinating a list of numeric inputs with
+ * a button grid. The buttons config can be used to create
+ * actions that directly interacts with the inputs.
+ *
+ * @export
+ * @class UIParameterInputsAndButtonGrid
+ * @extends {UIParameterNumInputList}
+ */
 export class UIParameterInputsAndButtonGrid extends UIParameterNumInputList {
+    /**
+     * Creates an instance of UIParameterInputsAndButtonGrid.
+     * @param {ui.UIComponent|HTMLElement} parent Container of the component.
+     * @param {String} title The displayed title
+     * @param {Boolean} parent_title_visible If a title element should be displayed.
+     * @param {Array} input_definition_list Array with the config of all inputs.
+     * @param {Number} rows The number of rows.
+     * @param {Number} columns The number of columns.
+     * @param {Array} button_definitions The config for all the buttons.
+     * @param {Boolean} togglable If togglable mode is used (classic buttons otherwise).
+     * @memberof UIParameterInputsAndButtonGrid
+     */
     constructor(parent, title, parent_title_visible, input_definition_list, rows, columns, button_definitions, togglable) {
         super(parent, title, parent_title_visible, input_definition_list);
 
@@ -135,7 +216,24 @@ export class UIParameterInputsAndButtonGrid extends UIParameterNumInputList {
         this._button_grid.DOM_parent = this._container;
     }
 
+    /**
+     * Enable or disable a given button. Only works in togglable mode.
+     *
+     * @param {Number} i Row position
+     * @param {Number} j Column position
+     * @memberof UIParameterInputsAndButtonGrid
+     */
     toggle(i, j) {this._button_grid.toggle(i, j)}
+
+    /**
+     * Force an input to receive a given value, and optionally fires its callback
+     * after the value has been assigned.
+     *
+     * @param {Number} i Position of the input (config order)
+     * @param {Number} value The value to assign to the input
+     * @param {Boolean} dispatch_event If the input event should be triggered (call its callback).
+     * @memberof UIParameterInputsAndButtonGrid
+     */
     forceValue(i, value, dispatch_event) {
         this._inputs[i].value = value;
         if (dispatch_event) this._inputs[i].trigger();
@@ -144,8 +242,23 @@ export class UIParameterInputsAndButtonGrid extends UIParameterNumInputList {
 
 
 
-//parameter with a list of choices
+/**
+ * parameter with a list of choices
+ *
+ * @export
+ * @class UIParameterChoice
+ * @extends {UIParameter}
+ */
 export class UIParameterChoice extends UIParameter {
+    /**
+     * Creates an instance of UIParameterChoice.
+     * @param {ui.UIComponent|HTMLElement} parent Container of the component.
+     * @param {String} title The displayed title
+     * @param {Array} options_list An array of strings corresponding to the options to choose from.
+     * @param {String} default_value The default option chosen.
+     * @param {Function} callback The function to call when the user performs an action.
+     * @memberof UIParameterChoice
+     */
     constructor(parent, title, options_list, default_value, callback) {
         super(parent, title, false);
         this._options_list = options_list;
@@ -166,8 +279,22 @@ export class UIParameterChoice extends UIParameter {
 
 
 
-//parameter with a checkbox
+/**
+ * parameter with a checkbox
+ *
+ * @export
+ * @class UIParameterCheckBox
+ * @extends {UIParameter}
+ */
 export class UIParameterCheckBox extends UIParameter {
+    /**
+     * Creates an instance of UIParameterCheckBox.
+     * @param {ui.UIComponent|HTMLElement} parent Container of the component.
+     * @param {String} title The displayed title
+     * @param {Boolean} default_value If the checkbox is checked by default.
+     * @param {Function} callback The function to call on user input.
+     * @memberof UIParameterCheckBox
+     */
     constructor(parent, title, default_value, callback) {
         super(parent, title, false);
         this._default_value = default_value;
@@ -187,8 +314,24 @@ export class UIParameterCheckBox extends UIParameter {
 
 
 
-//parameter for making a grid of buttons to interact with
+/**
+ * parameter for making a grid of buttons to interact with
+ *
+ * @export
+ * @class UIParameterButtonGrid
+ * @extends {UIParameter}
+ */
 export class UIParameterButtonGrid extends UIParameter {
+    /**
+     * Creates an instance of UIParameterButtonGrid.
+     * @param {ui.UIComponent|HTMLElement} parent Container of the component.
+     * @param {String} title The displayed title
+     * @param {Number} rows The number of rows.
+     * @param {Number} columns The number of columns.
+     * @param {Array} button_definitions The config for all the buttons.
+     * @param {Boolean} togglable If togglable mode is used (classic buttons otherwise).
+     * @memberof UIParameterButtonGrid
+     */
     constructor(parent, title, rows, columns, button_definitions, togglable) {
         super(parent, title, true);
         this._rows = rows
@@ -200,28 +343,51 @@ export class UIParameterButtonGrid extends UIParameter {
         this._button_grid.DOM_container.style.margin = "0 auto";
         this._button_grid.DOM_parent = this._container;
     }
+
+    /**
+     * Enable or disable a given button. Only works in togglable mode.
+     *
+     * @param {Number} i Row position
+     * @param {Number} j Column position
+     * @memberof UIParameterButtonGrid
+     */
     toggle(i, j) {this._button_grid.toggle(i, j)}
 }
 
 
 
-//parameter for background picking
+/**
+ * parameter for background picking for visual objects.
+ *
+ * @export
+ * @class UIParameterBackgroundPicker
+ * @extends {UIParameter}
+ */
 export class UIParameterBackgroundPicker extends UIParameter {
+    /**
+     * Creates an instance of UIParameterBackgroundPicker.
+     * @param {ui.UIComponent|HTMLElement} parent Container of the component.
+     * @param {String} title The displayed title
+     * @param {Object} defaults Defaults values organized in an object.
+     * @param {*} object_id The ID of the object to interact with, necessary for the component to work.
+     * @memberof UIParameterBackgroundPicker
+     */
     constructor(parent, title, defaults, object_id) {
         super(parent, title, true);
-        /*
-        defaults = {
-            color: value;
-            gradient: value;
-            image: value; (full backgroundImage value with url()!)
-            type: color|gradient|image;
-            size_type: cover|contain|scale_size_control|width_height_size_control,
-            size_x: value (string),
-            size_y: value (string),
-            repeat_x: value (boolean),
-            repeat_y: value (boolean),
-        }
-        */
+        
+        /**
+         * defaults = {
+         *      color: value;
+         *      gradient: value;
+         *      image: value; (full backgroundImage value with url()!)
+         *      type: color|gradient|image;
+         *      size_type: cover|contain|scale_size_control|width_height_size_control,
+         *      size_x: value (string),
+         *      size_y: value (string),
+         *      repeat_x: value (boolean),
+         *      repeat_y: value (boolean),
+         * }
+         */
         this._defaults = defaults;
         this._object_id = object_id;
         this._input_image_callback = function() {};
@@ -445,7 +611,11 @@ export class UIParameterBackgroundPicker extends UIParameter {
         this._bgnd_size_input2.step = step;
     }
 
-    //triggers the main string input event
+    /**
+     * triggers the main string input event
+     *
+     * @memberof UIParameterBackgroundPicker
+     */
     triggerOnInput() {
         this._input.triggerOninput();
     }
@@ -466,8 +636,22 @@ export class UIParameterBackgroundPicker extends UIParameter {
 
 
 
-//toggleable container that can be opened/close, and contains a list of child elements
+/**
+ * toggleable container that can be opened/close, and contains a list of child elements
+ *
+ * @export
+ * @class UIParameterRack
+ * @extends {ui.UIComponent}
+ */
 export class UIParameterRack extends ui.UIComponent {
+    /**
+     * Creates an instance of UIParameterRack.
+     * @param {ui.UIComponent|HTMLElement} parent Container of the component.
+     * @param {String} id The HTML id attribute value to assign to the container.
+     * @param {String} title The displayed title
+     * @param {Object} settings Component configuration.
+     * @memberof UIParameterRack
+     */
     constructor(parent, id, title, settings) {
         super();
         this._parent = parent;
@@ -579,7 +763,11 @@ export class UIParameterRack extends ui.UIComponent {
         this._icon_container.innerHTML = icon;
     }
 
-    //function that opens or closes an object container
+    /**
+     * function that opens or closes the rack depending of its state.
+     *
+     * @memberof UIParameterRack
+     */
     toggleOpen() {
         if (this._closed) {
             this._DOM_container.classList.remove("object_param_closed");
@@ -591,18 +779,31 @@ export class UIParameterRack extends ui.UIComponent {
         }
     }
 
-    //call the delete callback and remove itslef.
+    /**
+     * call the delete callback and remove itslef.
+     *
+     * @memberof UIParameterRack
+     */
     delete() {
         this._delete_callback(); //user action on remove
         this.removeSelf();
     }
 
-    //remove itself from the document
+    /**
+     * remove itself from the document
+     *
+     * @memberof UIParameterRack
+     */
     removeSelf() {
         this._DOM_container.remove();
     }
 
-    //rename the title bar of the display
+    /**
+     * rename the title bar of the display
+     *
+     * @param {*} name
+     * @memberof UIParameterRack
+     */
     rename(name) {
         this._title_span.innerHTML = name;
     }

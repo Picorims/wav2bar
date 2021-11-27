@@ -25,7 +25,10 @@ INITIALIZATION
 ##############
 */
 
-//user interface initialization
+/**
+ * user interface initialization
+ *
+ */
 async function InitUI() {
     //IMPORTS
     imports.ui_components = await import("./ui_components/ui_components.js");
@@ -321,7 +324,12 @@ async function InitUI() {
 LOOP
 ####
 */
-function LoopUI() {//UI responsive update
+
+/**
+ * UI responsive update
+ *
+ */
+function LoopUI() {
 
 
     //###########################
@@ -373,7 +381,10 @@ SHOW / HIDE TAB
 ###############
 */
 
-//hides any tab shown
+/**
+ * hides any tab shown
+ *
+ */
 function HideAnyTab() {
     for (i of Object.keys(tab) ) {
         tab[i].style.left = -1000+"px";
@@ -382,7 +393,12 @@ function HideAnyTab() {
     }
 }
 
-//show the tab given in parameter
+/**
+ * show the tab given in parameter
+ *
+ * @param {HTMLElement} tab Tab to display
+ * @param {HTMLElement} tab_label Label to emphasize as selected.
+ */
 function ShowTab(tab, tab_label) {
     if (!imports.utils.IsAnElement(tab)) throw "ShowTab: tab isn't a DOM element.";
     if (!imports.utils.IsAnElement(tab_label)) throw "ShowTab: tab_label isn't a DOM element.";
@@ -404,7 +420,13 @@ SCREEN
 ######
 */
 
-function SetScreenTo(width, height) {//changes the screen size to the given values
+/**
+ * changes the screen size to the given values
+ *
+ * @param {Number} width
+ * @param {Number} height
+ */
+function SetScreenTo(width, height) {
     if(!imports.utils.IsAnInt(width)) throw `SetScreenTo: ${width} is not an integer.`;
     if(!imports.utils.IsAnInt(height)) throw `SetScreenTo: ${width} is not an integer.`;
 
@@ -433,8 +455,12 @@ function SetScreenTo(width, height) {//changes the screen size to the given valu
 }
 
 
-
-function ChangeFPSTo(new_fps) {//changes the FPS used by restarting the animation with the right FPS
+/**
+ * changes the FPS used by restarting the animation with the right FPS
+ *
+ * @param {Number} new_fps
+ */
+function ChangeFPSTo(new_fps) {
     //error check
     if (!imports.utils.IsAnInt(new_fps)) throw `ChangeFPSto: ${new_fps} is not an integer or a valid FPS value.`;
 
@@ -461,7 +487,10 @@ ZOOM
 ####
 */
 
-//creates a dropdown menu to choose the zoom
+/**
+ * creates a dropdown menu to choose the zoom
+ *
+ */
 function CreateZoomMenu() {
     var zoom_value = document.getElementById("zoom_value");
 
@@ -506,7 +535,10 @@ function CreateZoomMenu() {
 
 }
 
-//destroy the menu created below
+/**
+ * destroy the menu created below
+ *
+ */
 function KillZoomMenu() {
     var elements = document.getElementsByClassName("zoom_option");
     var elements = [...elements];//unlink the array from live count by replacing it by a clone of it
@@ -516,7 +548,11 @@ function KillZoomMenu() {
     }
 }
 
-//function that apply to the screen the zoom given in the control_panel.
+/**
+ * function that apply to the screen the zoom given in the control_panel.
+ *
+ * @param {Number} zoom_value
+ */
 function ApplyZoom(zoom_value) {
     if (!imports.utils.IsANumber(zoom_value)) throw `ApplyZoom: ${zoom_value} is not a valid zoom value.`;
 
@@ -541,11 +577,14 @@ AUDIO CONTROL
 #############
 */
 
-//this function is called by the function LoadAudio() which load audio files.
-//it cannot be called by the global UI initialization because of the access to the audio process,
-//which has to be created with an audio file.
 
-//it initialize the audio control at the top of the screen
+/**
+ * This function is called by the function LoadAudio() which load audio files.
+ * It cannot be called by the global UI initialization because of the access to the audio process,
+ * which has to be created with an audio file.
+ * 
+ * It initializes the audio control at the top of the screen.
+ */
 function SetupAudioUI() {
     //DOM elements (range excluded)
     var play_audio = document.getElementById("play_audio");
@@ -650,7 +689,10 @@ function SetupAudioUI() {
 
 }
 
-//updates the cursor position of the audio range input to match the audio position
+/**
+ * Updates the cursor position of the audio range input to match the audio position
+ *
+ */
 function UpdateAudioRange() {
     if (!audio_range_used) {
         let audio_range = document.getElementById("audio_range");
@@ -658,7 +700,10 @@ function UpdateAudioRange() {
     }
 }
 
-//update the string indicating the time position
+/**
+ * Updates the string indicating the time position
+ *
+ */
 function UpdateTimeDisplay() {
     let current_time = project.getAudioCurrentTime();
     let duration = project.getAudioDuration();
@@ -707,8 +752,14 @@ DIALOGS
 #######
 */
 
-//Creates a dialog box with an input, a cancel button and a confirm button. Handle events.
-//args allows for passing arguments to the callback.
+/**
+ * Creates a dialog box with an input, a cancel button and a confirm button. Handle events.
+ * `args` allows for passing arguments to the callback.
+ *
+ * @param {String} message The displayed message.
+ * @param {Function} callback The function to call on user validation.
+ * @param {*} args
+ */
 function InputDialog(message, callback, args) {
 
     if ( !imports.utils.IsAString(message) ) throw `InputDialog: ${message} is not a string.`;
@@ -759,8 +810,15 @@ function InputDialog(message, callback, args) {
 
 
 
-//Creates a dialog box with a message. Handle events.
-//args allows for passing arguments to the callback.
+/**
+ * Creates a dialog box with a message. Handle events.
+ * `args` allows for passing arguments to the callback.
+ *
+ * @param {String} type
+ * @param {String} message
+ * @param {Function} callback
+ * @param {*} args
+ */
 function MessageDialog(type, message, callback, args) {
 
     if ( !imports.utils.IsAString(type)    ) throw `MessageDialog: ${message} must be a string`;
@@ -862,16 +920,23 @@ FILE BROWSER
 ############
 */
 
-//Creates a file browser in-app, and the callback returns the selected path
-//including the name of the file/folder.
-//The extension is returned as well!
-//"args" allows for passing arguments to the callback.
-/*settings = {
-    type: "get_file"|"get_directory"|"save_file";
-    allowed_extensions: ["png", "json" , ...] || ["#any"] || ["#none"];
-    display_hidden_files: true|false;
-    show_disabled_files: true|false;
-}*/
+/**
+ * Creates a file browser in-app, and the callback returns the selected path
+ * including the name of the file/folder. The extension is returned as well!
+ * `args` allows for passing arguments to the callback.
+ *
+ * @param {Object} settings
+ * ```
+ *  settings = {
+        type: "get_file"|"get_directory"|"save_file";
+        allowed_extensions: ["png", "json" , ...] || ["#any"] || ["#none"];
+        display_hidden_files: true|false;
+        show_disabled_files: true|false;
+    }
+ * ```
+ * @param {Function} callback
+ * @param {*} args
+ */
 async function FileBrowserDialog(settings, callback, args) {
     if ( !imports.utils.IsAnObject(settings) ) throw `FileBrowserDialog: ${settings} is not an object.`;
     if (imports.utils.IsUndefined(callback)) throw `FileBrowserDialog: callback missing!`;
@@ -1112,7 +1177,14 @@ async function FileBrowserDialog(settings, callback, args) {
 }
 
 
-//function that go back one folder up in the file explorer
+/**
+ * function that makes the file browser to go back one folder up.
+ *
+ * @param {HTMLDivElement} file_browser Container to manipulate
+ * @param {HTMLInputElement} path_input Path input to update
+ * @param {HTMLInputElement} name_input Name input to update
+ * @param {Object} settings
+ */
 async function GoBackPrevDirectory(file_browser, path_input, name_input, settings) {
     // ".../love/whatever(/)" -> ".../love/"
     //erase the last directory in the path,
@@ -1131,8 +1203,16 @@ async function GoBackPrevDirectory(file_browser, path_input, name_input, setting
 }
 
 
-//function that takes a path and a DOM container (the file browser dialog container for files and folders)
-//and generate the selection UI in it for the provided path
+/**
+ * Function that takes a path and a DOM container (the file browser dialog container for files and folders)
+ * and generate the selection UI in it for the provided path.
+ * 
+ * @param {String} path
+ * @param {HTMLDivElement} container Container to manipulate
+ * @param {HTMLInputElement} path_input Path input to update
+ * @param {HTMLInputElement} name_input Name input to update
+ * @param {Object} settings
+ */
 async function FillTree(path, container, path_input, name_input, settings) {
 
     //get directory content
@@ -1267,8 +1347,14 @@ async function FillTree(path, container, path_input, name_input, settings) {
 
 
 
-//function that tests if the provided file name matches the list of extensions. It returns false if none of the extensions matches.
-//The dot mustn't be included!
+/**
+ * function that tests if the provided file name matches the list of extensions. It returns false if none of the extensions matches.
+ * The dot mustn't be included!
+ *
+ * @param {String} file_name
+ * @param {Array} extensions_list
+ * @return {Boolean} 
+ */
 function HasValidExtension(file_name, extensions_list) {
     if (!imports.utils.IsAString(file_name)) throw `HasValidExtension: the file name must be a string!`;
     if (!imports.utils.IsAnArray(extensions_list)) {
@@ -1291,7 +1377,12 @@ function HasValidExtension(file_name, extensions_list) {
 }
 
 
-//give a file's extension. ex: test.txt -> "txt". ex2: test -> "".
+/**
+ * give a file's extension. ex: test.txt -> "txt". ex2: test -> "".
+ *
+ * @param {String} file_name
+ * @return {String} 
+ */
 function getExtension(file_name) {
     return file_name.substring(file_name.lastIndexOf('.')+1, file_name.length) || filename;
 }

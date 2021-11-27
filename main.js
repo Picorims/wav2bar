@@ -46,6 +46,7 @@ COMMAND LINE ARGUMENT
 #####################
 */
 
+/** @type {*} yargs argv output. */
 const argv = require("yargs")(process.argv.slice(2))
     .scriptName("wav2bar")
     .command("load <savefile>", "Loads Wav2Bar with a save file.", (yargs) => {
@@ -102,6 +103,10 @@ let export_win;
 exports.win = win;
 exports.export_win = export_win;
 
+/**
+ * Creates the main app window.
+ *
+ */
 function createWindow () {
     main_log.info(`creating main renderer...`);
 
@@ -183,7 +188,10 @@ app.on('activate', () => {
 
 
 
-//this window is for video export
+/**
+ * Creates the export window.
+ *
+ */
 function createExportWin() {
     main_log.info("creating window for export...");
 
@@ -217,9 +225,19 @@ function createExportWin() {
 }
 //exports.createExportWin = createExportWin;
 
+/**
+ * Creates an export window
+ */
 ipcMain.handle("create-export-win", async () => {
     createExportWin();
 });
+
+/**
+ * Resizes the export window to the new dimensions specified.
+ * 
+ * @param {Number} width
+ * @param {Number} height
+ */
 ipcMain.handle("resize-export-window", async (event, width, height) => {
     export_win.setSize(width, height);
     main_log.info(`export window: new size: ${width}x${height}`);
@@ -230,7 +248,11 @@ ipcMain.handle("resize-export-window", async (event, width, height) => {
 
 
 
-//creates a window to display any local html page
+/**
+ * creates a window to display any local html page
+ *
+ * @param {String} link
+ */
 function CreateHTMLDisplayWin(link) {
     main_log.info("creating HTML window...");
 
@@ -286,7 +308,10 @@ function CreateHTMLDisplayWin(link) {
 //===================================================================================
 //===================================================================================
 
-//find working directory to write user and temp data before starting initialization
+/**
+ * find working directory to write user and temp data before starting initialization
+ *
+ */
 function PreInit() {
     working_dir = __dirname;
     let test_path = `${__dirname}/test.txt`;
@@ -304,7 +329,11 @@ function PreInit() {
     });
 }
 
-function Init() {//main initialization
+/**
+ * main initialization
+ *
+ */
+function Init() {
     let path_temp = path.resolve(working_dir, "./temp");
     let path_temp_render = path.resolve(working_dir, "./temp/render");
     let path_temp_current_save = path.resolve(working_dir, "./temp/current_save");
@@ -361,19 +390,30 @@ function Init() {//main initialization
 
 
 
-
+/**
+ * retunrs the process `argv`.
+ * @return {*}
+ */
 ipcMain.handle("argv", (event) => {
     return argv;
 });
 
-
+/**
+ * returnss if the window sending the call is the export window.
+ * @return {Boolean}
+ */
 ipcMain.handle('is-export-win', async (event) => {
     if (!export_win) return false;
     else return event.sender.id === export_win.webContents.id;
 });
 
 
-//log4js logging from renderer
+/**
+ * log4js logging from renderer
+ * 
+ * @param {String} type
+ * @param {String} log
+ */
 ipcMain.handle('log', (event, type, log) => {
     var logger;
     switch (event.sender.id) {
@@ -413,10 +453,20 @@ ipcMain.handle('log', (event, type, log) => {
 
 
 
-
+/**
+ * Get the process' working directory.
+ * 
+ * @return {String}
+ */
 ipcMain.handle('get-working-dir', async () => {
     return working_dir;
 });
+
+/**
+ * Get the process' root.
+ * 
+ * @return {String}
+ */
 
 ipcMain.handle('get-app-root', async () => {
     return __dirname;
@@ -425,7 +475,13 @@ ipcMain.handle('get-app-root', async () => {
 
 
 
-//read a JSON file at the specified path, and return the content of this file as a string.
+//
+/**
+ * read a JSON file at the specified path, and return the content of this file as a string.
+ * 
+ * @param {String} path JSON file path
+ * @returns {Object}
+ */
 ipcMain.handle('read-json-file', async (event, path) => {
     var file_content;
 
@@ -442,7 +498,12 @@ ipcMain.handle('read-json-file', async (event, path) => {
 
 
 
-//write a JSON file at the specified path
+/**
+ * write a JSON file at the specified path
+ * 
+ * @param {String} path Output path
+ * @param {String} json_string Stringified JSON data.
+ */
 ipcMain.handle('write-json-file', async (event, path, json_string) => {
     try {
         main_log.debug(`writing json file to ${path}.`);
@@ -456,7 +517,12 @@ ipcMain.handle('write-json-file', async (event, path, json_string) => {
 
 
 
-//copy file at the specified path
+/**
+ * copy file at the specified path
+ * 
+ * @param {String} path
+ * @param {String} new_path
+ */
 ipcMain.handle('copy-file', async (event, path, new_path) => {
     try {
         main_log.debug(`copying ${path} to ${path}.`);
@@ -470,20 +536,32 @@ ipcMain.handle('copy-file', async (event, path, new_path) => {
 
 
 
-//open provided link in external browser
+/**
+ * open provided link in external browser
+ * 
+ * @param {String} link
+ */
 ipcMain.handle('open-in-browser', async (event, link) => {
     main_log.warn(`opening ${link} in an external browser.`);
     shell.openExternal(link);
 });
 
-//open local html path in a new window.
+/**
+ * open local html path in a new window.
+ * 
+ * @param {String} link
+ */
 ipcMain.handle('open-local-html', async (event, link) => {
     CreateHTMLDisplayWin(link);
 });
 
 
 
-//open a folder in the file explorer
+/**
+ * open a folder in the file explorer
+ * 
+ * @param {String} path_to_open
+ */
 ipcMain.handle('open-folder-in-file-explorer', async (event, path_to_open) => {
     main_log.warn(`opening ${path_to_open}.`);
     var regexp = new RegExp(/^\.\//);
@@ -493,16 +571,27 @@ ipcMain.handle('open-folder-in-file-explorer', async (event, path_to_open) => {
 
 
 
-//returns the OS's home path directory
+/**
+ * returns the OS's home path directory
+ * 
+ * @return {String}
+ */
 ipcMain.handle('get-home-path', async (event) => {
     return os.homedir();
 });
 
-//return OS type
+/**
+ * returns the OS type
+ * 
+ * @return {String}
+ */
 ipcMain.handle('get-os', async (event) => {
     return process.platform
 });
 
+/**
+ * Get tje full path of a relative path, using Node's path.resolve();
+ */
 ipcMain.handle('get-full-path', async (event, relative_path) => {
     return path.resolve(relative_path);
 });
@@ -511,7 +600,12 @@ ipcMain.handle('get-full-path', async (event, relative_path) => {
 
 
 
-//return if a path exists
+/**
+ * return if a path exists
+ * 
+ * @param {String} path_to_test
+ * @return {Boolean}
+ */
 ipcMain.handle('path-exists', async (event, path_to_test) => {
     return fs.existsSync(path_to_test);
 });
@@ -519,7 +613,12 @@ ipcMain.handle('path-exists', async (event, path_to_test) => {
 
 
 
-//read a directory and return its content
+/**
+ * read a directory and return its content
+ * 
+ * @param {String} directory
+ * @return {Array}
+ */
 ipcMain.handle('read-dir', async (event, directory) => {
     try {
         //get files
@@ -560,7 +659,11 @@ ipcMain.handle('read-dir', async (event, directory) => {
 
 
 
-//create a directory
+/**
+ * create a directory
+ * 
+ * @param {String} path the directory to create
+ */
 ipcMain.handle('make-dir', async (event, path) => {
     try {
         main_log.info(`making directory ${path}`);
@@ -575,7 +678,11 @@ ipcMain.handle('make-dir', async (event, path) => {
 
 
 
-//clear a directory
+/**
+ * clear a directory
+ * 
+ * @param {String} path the directory to clear
+ */
 ipcMain.handle("empty-dir", async (event, path) => {
     try {
         main_log.info(`clearing directory ${path}`);
@@ -594,7 +701,12 @@ ipcMain.handle("empty-dir", async (event, path) => {
 
 
 
-//exports Int8Array object to file in temp folder
+/**
+ * exports Int8Array object to file in temp folder
+ * 
+ * @param {Int8Array} arrayBuffer audio data
+ * @type {String} file type
+ */
 ipcMain.handle('write-audio-to-temp', async (event, arrayBuffer, type) => {
     main_log.debug(`writing file of type ${type} in temp directory...`);
     switch (type) {
@@ -629,7 +741,12 @@ ipcMain.handle('write-audio-to-temp', async (event, arrayBuffer, type) => {
 
 
 
-//send an event to the rendering window (export_win)
+/**
+ * send an event to the rendering window (export_win)
+ * 
+ * @param {String} send_event
+ * @param {*} data
+ */
 ipcMain.handle('send-event-to-export-win', async (event, send_event, data) => {
     main_log.debug(`sending event ${send_event} to export window.`);
     export_win.webContents.send(send_event, data);
@@ -640,7 +757,11 @@ ipcMain.handle('send-event-to-export-win', async (event, send_event, data) => {
 
 
 
-//takes a Float32Array and get waveform data from it
+/**
+ * takes a Float32Array and get waveform data from it
+ * 
+ * @param {Float32Array} waveform
+ */
 ipcMain.handle('pcm-to-spectrum', async (event, waveform) => {
     //get normalized magnitudes for frequencies from 0 to 22050 with interval 44100/1024 ≈ 43Hz
     var spectrum = ft(waveform);
@@ -650,7 +771,13 @@ ipcMain.handle('pcm-to-spectrum', async (event, waveform) => {
 
 
 
-//exports the app's rendering screen as an image
+/**
+ * exports the app's rendering screen as an image
+ * 
+ * @param {Object} screen_data
+ * @param {String} name
+ * @param {Boolean} use_jpeg
+ */
 ipcMain.handle('export-screen', async (event, screen_data, name, use_jpeg) => {
     return new Promise( async (resolve, reject) => {
 
@@ -677,18 +804,36 @@ ipcMain.handle('export-screen', async (event, screen_data, name, use_jpeg) => {
 
 
 
-//set ffmpeg path
+/**
+ * set ffmpeg path
+ * 
+ * @param {String} path
+ */
 ipcMain.handle('set-ffmpeg-path', async (event, path) => {
     ffmpeg_path = path;
 });
-//set ffprobe path
+
+/**
+ * set ffprobe path
+ * 
+ * @param {String} path
+ */
 ipcMain.handle('set-ffprobe-path', async (event, path) => {
     ffprobe_path = path;
 });
 
 
 
-//creates a video using ffmpeg from a set of frames and an audio file
+/**
+ * creates a video using ffmpeg from a set of frames and an audio file
+ * 
+ * @param {Object} screen screen data
+ * @param {String} audio_format audio file type
+ * @param {Number} fps framerate
+ * @param {Number} duration duration in seconds
+ * @param {String} output_path Where the created video is written on disk.
+ * @param {Boolean} use_jpeg use jpeg images instead of png
+ */
 ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration, output_path, use_jpeg) => {
     return new Promise( (resolve, reject) => {
         main_log.info(`creating video: ${screen.width}x${screen.height}, ${audio_format}, ${fps}fps, duration: ${duration}s, at ${output_path}`);
@@ -763,7 +908,11 @@ ipcMain.handle('create-video', async (event, screen, audio_format, fps, duration
 
 
 
-
+/**
+ * Cache the current save data into the provided path
+ * 
+ * @param {String} save_path Where to write the cache on disk.
+ */
 ipcMain.handle("cache-save-file", async (event, save_path) => {
     main_log.info(`loading save file at ${save_path}`);
     var sender;
@@ -803,7 +952,11 @@ ipcMain.handle("cache-save-file", async (event, save_path) => {
 
 
 
-//function that packages the content of ./temp/current_save (JSON data, assets...) into a save file.
+/**
+ * function that packages the content of ./temp/current_save (JSON data, assets...) into a save file.
+ * 
+ * @param {String} save_path Where to write the save on disk.
+ */
 ipcMain.handle("create-save-file", async (event, save_path) => {
     main_log.info(`creating save file at ${save_path}`);
 

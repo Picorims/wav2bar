@@ -2,7 +2,15 @@
 
 import * as type from "./type_checking.js";
 
-//merge a data_to_add object onto a data_receiver object, overwrite the concerned properties.
+/**
+ * Merges a data_to_add object onto a data_receiver object,
+ * overwriting the concerned properties.
+ *
+ * @export
+ * @param {Object} data_to_add The data to merge onto the object.
+ * @param {Object} data_receiver The object to merge onto.
+ * @return {Object} The object resulting of the merging.
+ */
 export function mergeData(data_to_add, data_receiver) {
     if (type.IsUndefined(data_to_add)) throw "object_method.mergeData: data missing!";
     if (type.IsUndefined(data_receiver)) throw "object_method.mergeData: destination data missing!";

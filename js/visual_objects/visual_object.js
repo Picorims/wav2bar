@@ -4,11 +4,24 @@ import * as utils from "../utils/utils.js";
 import * as property from "./visual_object_property.js";
 import * as ui_components from "../ui_components/ui_components.js";
 
-//base class for visual objects. They base themselves on their data from a SaveHandler
-//to get and store data. If an id is provided, it inspects an existing data set.
-//Otherwuse the data set is created.
-/**@abstract */
+
+/**
+ * //base class for visual objects. They base themselves on their data from a SaveHandler
+ * to get and store data. If an id is provided, it inspects an existing data set.
+ * Otherwuse the data set is created.
+ *
+ * @abstract
+ * @export
+ * @class VisualObject
+ */
 export class VisualObject {
+    /**
+     * Creates an instance of VisualObject.
+     * @param {SaveHandler} save_handler The SaveHandler where data is loaded and stored.
+     * @param {HTMLElement} [rack_parent=null] The DOM element in which the rack is placed in the UI.
+     * @param {string} [id=""] The assigned unique ID for the object.
+     * @memberof VisualObject
+     */
     constructor(save_handler, rack_parent = null, id = "") {
         if (this.constructor === VisualObject) throw new SyntaxError("VisualObject is an abstract class.");
         if (utils.IsUndefined(save_handler)) throw new SyntaxError("SaveHandler required as an argument for a VisualObject.");
@@ -121,9 +134,19 @@ export class VisualObject {
     get id() {return this._id;}
     get parameter_rack() {return this._parameter_rack;}
 
+    /**
+     * Return the data stored in the SaveHandler for this object.
+     *
+     * @return {Object} 
+     * @memberof VisualObject
+     */
     getThisData() {return this._save_handler.save_data.objects[this._id]}
 
-    //generate a UUID for the object
+    /**
+     * generate a UUID for the object
+     *
+     * @memberof VisualObject
+     */
     generateID() {
         let id;
         do {
@@ -134,14 +157,26 @@ export class VisualObject {
         this._id = id;
     }
 
-    //validate an id to be an UUID.
+    /**
+     * validate an id to be an UUID.
+     *
+     * @param {String} id The ID to verify.
+     * @return {Boolean} 
+     * @memberof VisualObject
+     */
     validID(id) {
         if (!utils.IsAString(id)) throw `${id} is not a string.`;
         
         return id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i) !== null;
     }
 
-    //verify if the id exists in the save.
+    /**
+     * verify if the id exists in the save. Returns if it is unique, in other words if no identical ID exists in the save.
+     *
+     * @param {String} id
+     * @return {Boolean} 
+     * @memberof VisualObject
+     */
     uniqueID(id) {
         if (!utils.IsAString(id)) throw `${id} is not a string.`;
         
@@ -155,25 +190,43 @@ export class VisualObject {
         return valid;
     }
 
-    //sets the name of an object from the exterior
+    /**
+     * sets the name of an object from the exterior
+     *
+     * @param {String} name The new name.
+     * @memberof VisualObject
+     */
     setName(name) {
         this._properties["name"].rename(name);
     }
 
-    //used by visual object constructors to defined their type as a string in save data
+    /**
+     * used by visual object constructors to defined their type as a string in save data
+     *
+     * @param {String} type
+     * @memberof VisualObject
+     */
     setType(type) {
         if (this.getThisData().visual_object_type) throw new SyntaxError("Object type already set, no modification allowed.");
         this._save_handler.mergeVisualObjectData(this._id, {visual_object_type: type});
     }
 
-    //write the type for a new visual object,
-    //and make sure the read data come from an object of the same type.
+    /**
+     * write the type for a new visual object,
+     * and make sure the read data come from an object of the same type.
+     *
+     * @memberof VisualObject
+     */
     assertType() {
         if (!this.getThisData().visual_object_type) this.setType(this._TYPE);
         if (this.getThisData().visual_object_type !== this._TYPE) throw new Error(`Trying to access data from a non ${this._TYPE} object! Aborting initialization.`);
     }
 
-    // trigger object data update, by triggering all visual properties.
+    /**
+     * trigger object data update, by triggering all visual properties.
+     *
+     * @memberof VisualObject
+     */
     triggerUpdateData() {
         for (const key in this._properties) {
             if (Object.hasOwnProperty.call(this._properties, key)) {
@@ -183,13 +236,22 @@ export class VisualObject {
         }
     }
 
-    //update object display
-    /**@abstract */
+    /**
+     * update object display
+     *
+     * @abstract
+     * @memberof VisualObject
+     * @return {Boolean}
+     */
     update() {
         throw new SyntaxError("VisualObject: update() must be implemented.");
     }
 
-    //destroy VisualObject
+    /**
+     * destroy VisualObject
+     *
+     * @memberof VisualObject
+     */
     destroy() {
         if (this._element) this._element.remove();
         this._parameter_rack.removeSelf();
@@ -212,8 +274,21 @@ export class VisualObject {
 
 
 
-//Visual Object to display customizable text. It can also display the time passing by.
+/**
+ * Visual Object to display customizable text. It can also display the time passing by.
+ *
+ * @export
+ * @class VText
+ * @extends {VisualObject}
+ */
 export class VText extends VisualObject {
+    /**
+     * Creates an instance of VText.
+     * @param {SaveHandler} save_handler The SaveHandler where data is loaded and stored.
+     * @param {HTMLElement} rack_parent The DOM element in which the rack is placed in the UI.
+     * @param {string} [id=""] The assigned unique ID for the object.
+     * @memberof VText
+     */
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         this._TYPE = "text";
@@ -289,7 +364,13 @@ export class VText extends VisualObject {
         this.triggerUpdateData();
     }
 
-    /**@override */
+    /**
+     * Updates this object's display.
+     *
+     * @override
+     * @return {Boolean} 
+     * @memberof VText
+     */
     update() {
         if (this.getThisData().text_type === "time") {
             //update time
@@ -324,9 +405,22 @@ export class VText extends VisualObject {
 
 
 
-//object to display the evolution of time in a graphical way.
-/**@abstract */
+/**
+ * object to display the evolution of time in a graphical way.
+ *
+ * @abstract
+ * @export
+ * @class VTimer
+ * @extends {VisualObject}
+ */
 export class VTimer extends VisualObject {
+    /**
+     * Creates an instance of VTimer.
+     * @param {SaveHandler} save_handler The SaveHandler where data is loaded and stored.
+     * @param {HTMLElement} rack_parent The DOM element in which the rack is placed in the UI.
+     * @param {string} [id=""] The assigned unique ID for the object.
+     * @memberof VTimer
+     */
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         if (this.constructor === VTimer) throw new SyntaxError("VTimer is an abstract class.");
@@ -345,8 +439,21 @@ export class VTimer extends VisualObject {
 
 
 
-//Straight timer with a growing bar and a border.
+/**
+ * Straight timer with a growing bar and a border.
+ *
+ * @export
+ * @class VTimerStraightBar
+ * @extends {VTimer}
+ */
 export class VTimerStraightBar extends VTimer {
+    /**
+     * Creates an instance of VTimerStraightBar.
+     * @param {SaveHandler} save_handler The SaveHandler where data is loaded and stored.
+     * @param {HTMLElement} rack_parent The DOM element in which the rack is placed in the UI.
+     * @param {string} [id=""] The assigned unique ID for the object.
+     * @memberof VTimerStraightBar
+     */
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         this._TYPE = "timer_straight_bar";
@@ -411,7 +518,13 @@ export class VTimerStraightBar extends VTimer {
 
     }
 
-    /**@override */
+    /**
+     * Updates this object's display.
+     *
+     * @override
+     * @return {Boolean} 
+     * @memberof VTimerStraightBar
+     */
     update() {
         let current_time = this._owner_project.getAudioCurrentTime();
         let audio_duration = this._owner_project.getAudioDuration();
@@ -425,8 +538,21 @@ export class VTimerStraightBar extends VTimer {
 
 
 
-//Straight timer with a line and a cursor moving on it.
+/**
+ * Straight timer with a line and a cursor moving on it.
+ *
+ * @export
+ * @class VTimerStraightLinePoint
+ * @extends {VTimer}
+ */
 export class VTimerStraightLinePoint extends VTimer {
+    /**
+     * Creates an instance of VTimerStraightLinePoint.
+     * @param {SaveHandler} save_handler The SaveHandler where data is loaded and stored.
+     * @param {HTMLElement} rack_parent The DOM element in which the rack is placed in the UI.
+     * @param {string} [id=""] The assigned unique ID for the object.
+     * @memberof VTimerStraightLinePoint
+     */
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         this._TYPE = "timer_straight_line_point";
@@ -490,7 +616,13 @@ export class VTimerStraightLinePoint extends VTimer {
         this.triggerUpdateData();
     }
 
-    /**@override */
+    /**
+     * Updates this object's display.
+     *
+     * @override
+     * @return {Boolean} 
+     * @memberof VTimerStraightLinePoint
+     */
     update() {
         let current_time = this._owner_project.getAudioCurrentTime();
         let audio_duration = this._owner_project.getAudioDuration();
@@ -515,8 +647,21 @@ export class VTimerStraightLinePoint extends VTimer {
 
 
 
-//Visual object displaying a flow of particles in a container, based on volume.
+/**
+ * Visual object displaying a flow of particles in a container, based on volume.
+ *
+ * @export
+ * @class VParticleFlow
+ * @extends {VisualObject}
+ */
 export class VParticleFlow extends VisualObject {
+    /**
+     * Creates an instance of VParticleFlow.
+     * @param {SaveHandler} save_handler The SaveHandler where data is loaded and stored.
+     * @param {HTMLElement} rack_parent The DOM element in which the rack is placed in the UI.
+     * @param {string} [id=""] The assigned unique ID for the object.
+     * @memberof VParticleFlow
+     */
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         this._TYPE = "particle_flow";
@@ -570,7 +715,13 @@ export class VParticleFlow extends VisualObject {
     get properties() {return this._properties;}
     get volume() {return this._owner_project.volume}
 
-    /**@override */
+    /**
+     * Updates this object's display.
+     *
+     * @override
+     * @return {Boolean} 
+     * @memberof VParticleFlow
+     */
     update() {
         let canvas = this._element;
         let ctx = canvas.getContext("2d");
@@ -612,7 +763,12 @@ export class VParticleFlow extends VisualObject {
         return true;
     }
 
-    //remove a particle from the list of particles. It stops drawing it and kill it.
+    /**
+     * remove a particle from the list of particles. It stops drawing it and kill it.
+     *
+     * @param {Particle} particle
+     * @memberof VParticleFlow
+     */
     killParticle(particle) {
         //remove the particle
         let index = this._particles.indexOf(particle);//find it in the list,
@@ -622,8 +778,17 @@ export class VParticleFlow extends VisualObject {
 
 
 
-//particle of a particle flow visual object
+/**
+ * particle of a particle flow visual object
+ *
+ * @class Particle
+ */
 class Particle {
+    /**
+     * Creates an instance of Particle.
+     * @param {VParticleFlow} parent
+     * @memberof Particle
+     */
     constructor(parent) {
         if (!parent) throw new SyntaxError("particle parent visual object required.");
         /**@type {VParticleFlow} */
@@ -723,24 +888,49 @@ class Particle {
     //SPAWN METHODS
     //spawn the particle arround the screen, depending of the direction.
     //set spawn within the allowed boundaries of the screen
+    /**
+     * Place the particle to a random position on the left border of the screen.
+     *
+     * @memberof Particle
+     */
     leftSpawn() {
         this._x = this._x_min;
         this._y = utils.RandomInt(this._y_min, this._y_max);
     }
+    /**
+     * Place the particle to a random position on the right border of the screen.
+     *
+     * @memberof Particle
+     */
     rightSpawn() {
         this._x = this._x_max;
         this._y = utils.RandomInt(this._y_min, this._y_max);
     }
+    /**
+     * Place the particle to a random position on the top border of the screen.
+     *
+     * @memberof Particle
+     */
     topSpawn() {
         this._x = utils.RandomInt(this._x_min, this._x_max);
         this._y = this._y_min;
     }
+    /**
+     * Place the particle to a random position on the bottom border of the screen.
+     *
+     * @memberof Particle
+     */
     bottomSpawn() {
         this._x = utils.RandomInt(this._x_min, this._x_max);
         this._y = this._y_max;
     }
 
 
+    /**
+     * Update the particle variables.
+     *
+     * @memberof Particle
+     */
     update() {
         //compute speed
         this._speed = this._parent.volume/20;
@@ -756,6 +946,12 @@ class Particle {
             this._parent.killParticle(this);
         }
     };
+
+    /**
+     * Update the display and draw the particle.
+     *
+     * @memberof Particle
+     */
     display() {
         let ctx = this._parent.ctx;
         ctx.moveTo(this._x, this._y);
@@ -776,9 +972,22 @@ class Particle {
 
 
 
-//Foundation for all visualizer Visual Objects.
-/**@abstract */
+/**
+ * Foundation for all visualizer Visual Objects.
+ *
+ * @abstract
+ * @export
+ * @class VVisualizer
+ * @extends {VisualObject}
+ */
 export class VVisualizer extends VisualObject {
+    /**
+     * Creates an instance of VVisualizer.
+     * @param {SaveHandler} save_handler The SaveHandler where data is loaded and stored.
+     * @param {HTMLElement} rack_parent The DOM element in which the rack is placed in the UI.
+     * @param {string} [id=""] The assigned unique ID for the object.
+     * @memberof VVisualizer
+     */
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         if (this.constructor === VVisualizer) throw new SyntaxError("VVisualizer is an abstract class.");
@@ -824,7 +1033,13 @@ export class VVisualizer extends VisualObject {
         });
     }
 
-    /**@override */
+    /**
+     * Updates this object's display.
+     *
+     * @override
+     * @return {Boolean} 
+     * @memberof VVisualizer
+     */
     update() {
         //collect audio data
         let points_count = this._properties["visualizer_points_count"].getCurrentValue();
@@ -885,9 +1100,22 @@ export class VVisualizer extends VisualObject {
 
 
 
-//Abstart Visual Object for all bar visualizers
-/**@abstract */
+/**
+ * Abstart Visual Object for all bar visualizers
+ *
+ * @abstract
+ * @export
+ * @class VVisualizerBar
+ * @extends {VVisualizer}
+ */
 export class VVisualizerBar extends VVisualizer {
+    /**
+     * Creates an instance of VVisualizerBar.
+     * @param {SaveHandler} save_handler The SaveHandler where data is loaded and stored.
+     * @param {HTMLElement} rack_parent The DOM element in which the rack is placed in the UI.
+     * @param {string} [id=""] The assigned unique ID for the object.
+     * @memberof VVisualizerBar
+     */
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         if (this.constructor === VVisualizerBar) throw new SyntaxError("VVisualizerBar is an abstract class.");
@@ -949,8 +1177,12 @@ export class VVisualizerBar extends VVisualizer {
         });
     }
 
-    //update all the bars of the visualizer on all of its characteristics.
-    //Remove or add bars if needed to match points count.
+    /**
+     * Updates all the bars of the visualizer on all of its characteristics.
+     * Remove or add bars if needed to match points count.
+     *
+     * @memberof VVisualizerBar
+     */
     updateBars() {
         if (!this._exclude_bar_count_update) {
 
@@ -982,6 +1214,12 @@ export class VVisualizerBar extends VVisualizer {
         }
     }
 
+    /**
+     * Updates this object's display.
+     *
+     * @return {Boolean} 
+     * @memberof VVisualizerBar
+     */
     update() {
         super.update();
         let height = this._properties["size"].getCurrentValue().height;
@@ -995,8 +1233,21 @@ export class VVisualizerBar extends VVisualizer {
 
 
 
-//Visualizer that is made of parallel straight lines on a straight line path.
+/**
+ * Visualizer that is made of parallel straight lines on a straight line path.
+ *
+ * @export
+ * @class VVisualizerStraightBar
+ * @extends {VVisualizerBar}
+ */
 export class VVisualizerStraightBar extends VVisualizerBar {
+    /**
+     * Creates an instance of VVisualizerStraightBar.
+     * @param {SaveHandler} save_handler The SaveHandler where data is loaded and stored.
+     * @param {HTMLElement} rack_parent The DOM element in which the rack is placed in the UI.
+     * @param {string} [id=""] The assigned unique ID for the object.
+     * @memberof VVisualizerStraightBar
+     */
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         this._TYPE = "visualizer_straight_bar";
@@ -1021,6 +1272,12 @@ export class VVisualizerStraightBar extends VVisualizerBar {
 
     }
 
+    /**
+     * Updates this object's display.
+     *
+     * @return {Boolean} 
+     * @memberof VVisualizerStraightBar
+     */
     update() {
         super.update();
 
@@ -1031,8 +1288,21 @@ export class VVisualizerStraightBar extends VVisualizerBar {
 
 
 
-//Visualizer that is made of straight bar organized around a circle like rays.
+/**
+ * Visualizer that is made of straight bar organized around a circle like rays.
+ *
+ * @export
+ * @class VVisualizerCircularBar
+ * @extends {VVisualizerBar}
+ */
 export class VVisualizerCircularBar extends VVisualizerBar {
+    /**
+     * Creates an instance of VVisualizerCircularBar.
+     * @param {SaveHandler} save_handler The SaveHandler where data is loaded and stored.
+     * @param {HTMLElement} rack_parent The DOM element in which the rack is placed in the UI.
+     * @param {string} [id=""] The assigned unique ID for the object.
+     * @memberof VVisualizerCircularBar
+     */
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         this._TYPE = "visualizer_circular_bar";
@@ -1058,12 +1328,22 @@ export class VVisualizerCircularBar extends VVisualizerBar {
 
     }
 
+    /**
+     * Updates all the bars of the visualizer on all of its characteristics.
+     * Remove or add bars if needed to match points count.
+     *
+     * @memberof VVisualizerCircularBar
+     */
     updateBars() {
         super.updateBars();
         this.updateBarsRotation();
     }
 
-    //reposition all the bars accordingly in a circular way based on radius.
+    /**
+     * Do the repositioning of all the bars accordingly in a circular way based on radius.
+     *
+     * @memberof VVisualizerCircularBar
+     */
     updateBarsRotation() {
         let points_count = this._properties["visualizer_points_count"].getCurrentValue();
         let radius = this._properties["visualizer_radius"].getCurrentValue();
@@ -1089,6 +1369,12 @@ export class VVisualizerCircularBar extends VVisualizerBar {
         }
     }
 
+    /**
+     * Updates this object's display.
+     *
+     * @return {Boolean} 
+     * @memberof VVisualizerCircularBar
+     */
     update() {
         super.update();
         let height = this._properties["size"].getCurrentValue().height;
@@ -1109,8 +1395,21 @@ export class VVisualizerCircularBar extends VVisualizerBar {
 
 
 
-//Visualizer that represent the spectrum as waves, on a linear base
+/**
+ * Visualizer that represent the spectrum as waves, on a linear base
+ *
+ * @export
+ * @class VVisualizerStraightWave
+ * @extends {VVisualizer}
+ */
 export class VVisualizerStraightWave extends VVisualizer {
+    /**
+     * Creates an instance of VVisualizerStraightWave.
+     * @param {SaveHandler} save_handler The SaveHandler where data is loaded and stored.
+     * @param {HTMLElement} rack_parent The DOM element in which the rack is placed in the UI.
+     * @param {string} [id=""] The assigned unique ID for the object.
+     * @memberof VVisualizerStraightWave
+     */
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         this._TYPE = "visualizer_straight_wave";
@@ -1143,6 +1442,12 @@ export class VVisualizerStraightWave extends VVisualizer {
 
     }
 
+    /**
+     * Updates this object's display.
+     *
+     * @return {Boolean} 
+     * @memberof VVisualizerStraightWave
+     */
     update() {
         super.update();
 
@@ -1276,9 +1581,22 @@ export class VVisualizerStraightWave extends VVisualizer {
 
 
 
-//Visual object to represent a basic shape, like a square or ellipse.
-//This object supports multiple background options.
+/**
+ * Visual object to represent a basic shape, like a square or ellipse.
+ * This object supports multiple background options.
+ *
+ * @export
+ * @class VShape
+ * @extends {VisualObject}
+ */
 export class VShape extends VisualObject {
+    /**
+     * Creates an instance of VShape.
+     * @param {SaveHandler} save_handler The SaveHandler where data is loaded and stored.
+     * @param {HTMLElement} rack_parent The DOM element in which the rack is placed in the UI.
+     * @param {string} [id=""] The assigned unique ID for the object.
+     * @memberof VShape
+     */
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         this._TYPE = "shape";
@@ -1361,8 +1679,15 @@ export class VShape extends VisualObject {
         this.triggerUpdateData();
     }
 
-    //transforms an absolute path into a CSS path given the working directory
-    //This might be a big gas engine, option to test: using absolute path that starts with /.
+    /**
+     * transforms an absolute path into a CSS path given the working directory
+     * This might be a big gas engine, option to test: using absolute path that starts with /.
+     *
+     * @param {String} working_dir absolute path of the working directory of the app.
+     * @param {String} absolute_path absolute path of the image.
+     * @return {String} a relative path to the image. 
+     * @memberof VShape
+     */
     fullPathToCSSPath(working_dir, absolute_path) {
         //setup working directory information
         working_dir = working_dir.replace(/^.*\/$/, "").replace(/^.*\\$/, ""); //remove last (anti)slash
@@ -1387,7 +1712,13 @@ export class VShape extends VisualObject {
         return relative_path;
     }
 
-    /**@override */
+    /**
+     * Updates this object's display.
+     *
+     * @override
+     * @return {Boolean} 
+     * @memberof VShape
+     */
     update() {
         //nothing but returning true.
 

@@ -5,6 +5,7 @@ import * as utils from "../utils/utils.js";
 import * as ui_components from "../ui_components/ui_components.js";
 import help from "../../assets/help/help.json" assert {type: "json"}; //not an error, chromium only feature.
 
+/** @type {Object} default values for properties. */
 const DEFAULTS = {
     LAYER: 0,
     COORDINATES: {x: 0, y: 0},
@@ -58,13 +59,23 @@ const DEFAULTS = {
     VISUALIZER_BAR_THICKNESS: 2,
 }
 
-//abstract class to manipulate a property of a VisualObject
-//stored in the save at the root of the object.
+
 /**
+ * Abstract class to manipulate a property of a VisualObject
+ * stored in the save at the root of the object.
+ * 
  * @abstract
- * @borrows utils.EventMixin
+ * @mixes utils.EventMixin
  */
 export class VisualObjectProperty {
+    /**
+     * Creates an instance of VisualObjectProperty.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @param {String} property_name The name of the property in the save.
+     * @param {*} default_value The default assigned value.
+     * @memberof VisualObjectProperty
+     */
     constructor(save_handler, visual_object, property_name, default_value) {
         if (this.constructor === VisualObjectProperty) throw new SyntaxError("VisualObjectProperty is an abstract class.");
 
@@ -95,12 +106,24 @@ export class VisualObjectProperty {
         }
     }
 
-    //get the current stored value in save
+
+    /**
+     * Returns the current stored value in save for the property.
+     *
+     * @return {*} 
+     * @memberof VisualObjectProperty
+     */
     getCurrentValue() {
         return this._save_handler.getVisualObjectData(this._visual_object.id)[this._property_name];
     }
 
-    //register or change value in save
+    
+    /**
+     * Registers or changes a value in the save for that property
+     *
+     * @param {*} value
+     * @memberof VisualObjectProperty
+     */
     setSave(value) {
         let data = {};
         data[this._property_name] = value;
@@ -108,8 +131,16 @@ export class VisualObjectProperty {
         this.triggerEvent("value_changed", value);
     }
 
-    //register or change value in save, after verifying it, designed
-    //for UI interaction.
+
+    /**
+     * Registers or Changes a value in the save after verifying it.
+     * This is designed mainly for UI interaction but can also be used
+     * for protected value assignation (with verification, and fail when
+     * the value is not valid).
+     *
+     * @param {*} value
+     * @memberof VisualObjectProperty
+     */
     setSaveUISafe(value) {
         if (!this.hasValidValue(value)) {
             utils.CustomLog("warn", `${this.constructor.name}: Ignored invalid value from user interface (${value}).`);
@@ -118,7 +149,12 @@ export class VisualObjectProperty {
         }
     }
 
-    //verify the value and overwrite it if it is not valid.
+
+    /**
+     * Verifies the value and overwrite it if it is not valid.
+     *
+     * @memberof VisualObjectProperty
+     */
     verify() {
         let value = this.getCurrentValue();
         if (utils.IsUndefined(value)) throw new Error("Can't verify a value if it doesn't exist!");
@@ -128,9 +164,19 @@ export class VisualObjectProperty {
         }
     }
 
-    //returns if a value is valid (number: match ranges, string: match regexp, etc.)
+
     /**
+     * returns if a value is valid.
+     * 
+     * @example
+     * - number: match ranges,
+     * - string: match regexp,
+     * - etc.
+     * 
      * @abstract
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VisualObjectProperty
      */
     hasValidValue(value) {
         throw new Error("hasValidValue must be implemented in a VisualObject.");
@@ -155,8 +201,20 @@ export class VisualObjectProperty {
 //#################################
 
 
-//name property, define object's display name.
+/**
+ * name property, define object's display name.
+ *
+ * @export
+ * @class VPName
+ * @extends {VisualObjectProperty}
+ */
 export class VPName extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPName.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPName
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "name", `object${utils.RandomInt(0, 999999)}`);
 
@@ -176,12 +234,23 @@ export class VPName extends VisualObjectProperty {
     }
 
     /**
+     * The value is valid if not undefined, and if it is a non empty string.
+     *
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPName
      * @override
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAString(value) && value !== "");
     }
 
+    /**
+     * Renames the object with the new named passed in argument.
+     *
+     * @param {*} name The new object name
+     * @memberof VPName
+     */
     rename(name) {
         this.setSaveUISafe(name);
         this._visual_object.parameter_rack.rename(name);
@@ -190,8 +259,20 @@ export class VPName extends VisualObjectProperty {
 
 
 
-//layer property, defines the order of display of objects.
+/**
+ * layer property, defines the order of display of objects.
+ *
+ * @export
+ * @class VPLayer
+ * @extends {VisualObjectProperty}
+ */
 export class VPLayer extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPLayer.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPLayer
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "layer", DEFAULTS.LAYER);
 
@@ -217,7 +298,12 @@ export class VPLayer extends VisualObjectProperty {
     }
 
     /**
+     * The value is valid if it is an integer superior or equal to 0.
+     *
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPLayer
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
@@ -226,9 +312,22 @@ export class VPLayer extends VisualObjectProperty {
 
 
 
-//coordinates property, defines an object's position.
-//the button grid needs a VPSize to exist on the object in order to work properly.
+/**
+ * coordinates property, defines an object's position.
+ * the button grid needs a VPSize to exist on the object
+ * in order to work properly.
+ * 
+ * @export
+ * @class VPCoordinates
+ * @extends {VisualObjectProperty}
+ */
 export class VPCoordinates extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPCoordinates.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPCoordinates
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "coordinates", JSON.parse(JSON.stringify(DEFAULTS.COORDINATES)));
 
@@ -313,7 +412,12 @@ export class VPCoordinates extends VisualObjectProperty {
     }
 
     /**
-     * @ovveride
+     * The value is valid if it is an object with an "x" integer and a "y" integer.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPCoordinates
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value.x) && !utils.IsUndefined(value.y) && utils.IsAnInt(value.x) && utils.IsAnInt(value.y));
@@ -322,8 +426,20 @@ export class VPCoordinates extends VisualObjectProperty {
 
 
 
-//size property, defines an object's size.
+/**
+ * size property, defines an object's size.
+ *
+ * @export
+ * @class VPSize
+ * @extends {VisualObjectProperty}
+ */
 export class VPSize extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPSize.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPSize
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "size", JSON.parse(JSON.stringify(DEFAULTS.SIZE)));
     
@@ -386,7 +502,12 @@ export class VPSize extends VisualObjectProperty {
     }
 
     /**
+     * The value is valid if it is an object with "width" and "height" being integers superior or equal to 0.
+     *
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPSize
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value.width) && !utils.IsUndefined(value.height) && utils.IsAnInt(value.width) && utils.IsAnInt(value.height) && value.width >= 0 && value.height >= 0);
@@ -395,8 +516,21 @@ export class VPSize extends VisualObjectProperty {
 
 
 
-//rotation property, sets the rotation of the object
+
+/**
+ * rotation property, sets the rotation of the object
+ *
+ * @export
+ * @class VPRotation
+ * @extends {VisualObjectProperty}
+ */
 export class VPRotation extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPRotation.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPRotation
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "rotation", DEFAULTS.ROTATION);
         
@@ -420,8 +554,14 @@ export class VPRotation extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.general.rotation;
         }
     }
+
     /**
+     * The value is valid if it is an integer.
+     * 
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPRotation
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value));
@@ -430,8 +570,20 @@ export class VPRotation extends VisualObjectProperty {
 
 
 
-// Visual property for defining an svg filter applied on an object
+/**
+ * Visual property for defining an svg filter applied on an object
+ *
+ * @export
+ * @class VPSVGFilter
+ * @extends {VisualObjectProperty}
+ */
 export class VPSVGFilter extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPSVGFilter.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPSVGFilter
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "svg_filter", DEFAULTS.SVG_FILTER);
 
@@ -450,7 +602,11 @@ export class VPSVGFilter extends VisualObjectProperty {
     }
 
     /**
+     * The value is valid if it doesn't contain a <script> tag, includes a <filter> tag and is a string.
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPSVGFilter
      */
     hasValidValue(value) {
         let no_script = !value.includes("<script>");
@@ -472,8 +628,20 @@ export class VPSVGFilter extends VisualObjectProperty {
 // COMMON PROPERTIES
 //###################
 
-// Visual property for changing the overall color of an object.
+/**
+ * Visual property for changing the overall color of an object.
+ *
+ * @export
+ * @class VPColor
+ * @extends {VisualObjectProperty}
+ */
 export class VPColor extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPColor.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPColor
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "color", DEFAULTS.COLOR);
 
@@ -490,8 +658,14 @@ export class VPColor extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.general.color;
         }
     }
+
+    
     /**
+     * The value is valid if it is a string.
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPColor
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAString(value));
@@ -500,8 +674,20 @@ export class VPColor extends VisualObjectProperty {
 
 
 
-//property to control border radius of any HTML object using the CSS syntax
+/**
+ * property to control border radius of any HTML object using the CSS syntax
+ *
+ * @export
+ * @class VPBorderRadius
+ * @extends {VisualObjectProperty}
+ */
 export class VPBorderRadius extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPBorderRadius.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPBorderRadius
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "border_radius", DEFAULTS.BORDER_RADIUS);
 
@@ -520,8 +706,13 @@ export class VPBorderRadius extends VisualObjectProperty {
     }
 
     /**
-    * @override
-    */
+     * The value is valid if it is a string.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPBorderRadius
+     */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAString(value));
     }    
@@ -529,8 +720,20 @@ export class VPBorderRadius extends VisualObjectProperty {
 
 
 
-//property to control box shadow of any HTML object using the CSS syntax
+/**
+ * property to control box shadow of any HTML object using the CSS syntax
+ *
+ * @export
+ * @class VPBoxShadow
+ * @extends {VisualObjectProperty}
+ */
 export class VPBoxShadow extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPBoxShadow.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPBoxShadow
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "box_shadow", DEFAULTS.BOX_SHADOW);
 
@@ -547,9 +750,15 @@ export class VPBoxShadow extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.general.shadow;
         }
     }
+
     /**
-    * @override
-    */
+     * The value is valid if it is a string.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPBoxShadow
+     */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAString(value));
     }    
@@ -557,8 +766,20 @@ export class VPBoxShadow extends VisualObjectProperty {
 
 
 
-//visual property to define a CSS based background. It supports color, gradients, and images.
+/**
+ * visual property to define a CSS based background. It supports color, gradients, and images.
+ *
+ * @export
+ * @class VPBackground
+ * @extends {VisualObjectProperty}
+ */
 export class VPBackground extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPBackground.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPBackground
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "background", DEFAULTS.BACKGROUND);
 
@@ -615,7 +836,14 @@ export class VPBackground extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.shape.bgnd;
         }
     }
-    //parse a background size CSS property into an object with separate values.
+
+    /**
+     * Parse a background size CSS property into an object with separate values.
+     *
+     * @param {*} bgnd_size
+     * @return {Object} An object resuming the properties.
+     * @memberof VPBackground
+     */
     parseBackgroundSize(bgnd_size) {
         let bgnd_size_array = bgnd_size.split(" ");
         let def_size_type, def_size_x, def_size_y;
@@ -650,7 +878,15 @@ export class VPBackground extends VisualObjectProperty {
         }
     }
 
-    //craft a CSS background size property from given information.
+    /**
+     * craft a CSS background size property from given information.
+     *
+     * @param {String} size_type
+     * @param {String} size_x
+     * @param {String} size_y
+     * @return {String} result
+     * @memberof VPBackground
+     */
     stringifyBackgroundSize(size_type, size_x, size_y) {
         switch (size_type) {
             case "contain":
@@ -663,7 +899,13 @@ export class VPBackground extends VisualObjectProperty {
         }
     }
 
-    //parse a background repeat CSS property into separated values.
+    /**
+     * parse a background repeat CSS property into separated values.
+     *
+     * @param {String} bgnd_repeat
+     * @return {Object} {repeat_x: string, repeat_y: string}
+     * @memberof VPBackground
+     */
     parseBackgroundRepeat(bgnd_repeat) {
         let repeat_x_bool, repeat_y_bool;
         switch (bgnd_repeat) {
@@ -690,7 +932,14 @@ export class VPBackground extends VisualObjectProperty {
         }
     }
 
-    //Craft a background repeat property from given information.
+    /**
+     * Craft a background repeat property from given information.
+     *
+     * @param {String} repeat_x
+     * @param {String} repeat_y
+     * @return {String} result
+     * @memberof VPBackground
+     */
     stringifyBackgroundRepeat(repeat_x, repeat_y) {
         if (repeat_x && repeat_y) return "repeat";
         else if (repeat_x && !repeat_y) return "repeat-x";
@@ -698,7 +947,20 @@ export class VPBackground extends VisualObjectProperty {
         else if (!repeat_x && !repeat_y) return "no-repeat";
     }
 
-    /**@override */
+    /**
+     * The value is valid if it is an object where all nodes are string.
+     * - type: "color", "gradient", "image"
+     * - last_color: any string
+     * - last_gradient: any string
+     * - last_image: any string
+     * - size: any string
+     * - repeat: "no-repeat", "repeat", "repeat-x", "repeat-y"
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPBackground
+     */
     hasValidValue(value) {
         if (utils.IsUndefined(value)) return false;
         if (!utils.IsAnObject(value)) return false;
@@ -741,8 +1003,20 @@ export class VPBackground extends VisualObjectProperty {
 //#################
 
 
-//text type property, sets if the object uses user text or time generated text.
+/**
+ * text type property, sets if the object uses user text or time generated text.
+ *
+ * @export
+ * @class VPTextType
+ * @extends {VisualObjectProperty}
+ */
 export class VPTextType extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPTextType.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPTextType
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "text_type", DEFAULTS.TEXT_TYPE);
     
@@ -763,8 +1037,14 @@ export class VPTextType extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.text.type;
         }
     }
+
     /**
+     * The value is valid if it belongs to the list of allowed values.
+     * 
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPTextType
      */
     hasValidValue(value) {
         //the second undefined for allowed values handles when verify is called when allowed values has not been initialized.
@@ -776,8 +1056,21 @@ export class VPTextType extends VisualObjectProperty {
 
 
 
-// text content property, text to be displayed for the object.
+
+/**
+ * text content property, text to be displayed for the object.
+ *
+ * @export
+ * @class VPTextContent
+ * @extends {VisualObjectProperty}
+ */
 export class VPTextContent extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPTextContent.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPTextContent
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "text_content", DEFAULTS.TEXT_CONTENT);
         
@@ -794,8 +1087,14 @@ export class VPTextContent extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.text.text_content;
         }
     }
+    
     /**
+     * The value is valid if it is a string with no backslashes.
+     *
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPTextContent
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAString(value) && !(value.indexOf("\\") > -1));
@@ -804,8 +1103,20 @@ export class VPTextContent extends VisualObjectProperty {
 
 
 
-// Visual property to set the font size of a text based object
+/**
+ * Visual property to set the font size of a text based object
+ *
+ * @export
+ * @class VPFontSize
+ * @extends {VisualObjectProperty}
+ */
 export class VPFontSize extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPFontSize.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPFontSize
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "font_size", DEFAULTS.FONT_SIZE);
 
@@ -829,8 +1140,14 @@ export class VPFontSize extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.text.font_size;
         }
     }
+
     /**
+     * The value is valid if it is an integer superior or equal to 0.
+     *
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPFontSize
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
@@ -839,9 +1156,21 @@ export class VPFontSize extends VisualObjectProperty {
 
 
 
-// Visual property for changing text formatting and decoration,
-// like bold, italic or underline.
+/**
+ * Visual property for changing text formatting and decoration,
+ * like bold, italic or underline.
+ * 
+ * @export
+ * @class VPTextDecoration
+ * @extends {VisualObjectProperty}
+ */
 export class VPTextDecoration extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPTextDecoration.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPTextDecoration
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "text_decoration", DEFAULTS.TEXT_DECORATION);
     
@@ -917,8 +1246,14 @@ export class VPTextDecoration extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.text.decoration;
         }
     }
+    
     /**
+     * The value is valid if it is an object of n boolean nodes.
+     *
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPTextDecoration
      */
     hasValidValue(value) {
         if (utils.IsUndefined(value) || !utils.IsAnObject(value)) return false;
@@ -943,8 +1278,20 @@ export class VPTextDecoration extends VisualObjectProperty {
 
 
 
-// visual property for positioning text in its container
+/**
+ * visual property for positioning text in its container
+ *
+ * @export
+ * @class VPTextAlign
+ * @extends {VisualObjectProperty}
+ */
 export class VPTextAlign extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPTextAlign.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPTextAlign
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "text_align", DEFAULTS.TEXT_ALIGN);
 
@@ -968,8 +1315,14 @@ export class VPTextAlign extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.text.text_align;
         }
     }
+    
     /**
+     * The value is valid if it is an object where nodes belongs to the list of allowed values.
+     *
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPTextAlign
      */
     hasValidValue(value) {
         if (utils.IsUndefined(value) || !utils.IsAnObject(value)) return false;
@@ -982,8 +1335,20 @@ export class VPTextAlign extends VisualObjectProperty {
 
 
 
-// Visual property for manipulating css text-shadow
+/**
+ * Visual property for manipulating css text-shadow
+ *
+ * @export
+ * @class VPTextShadow
+ * @extends {VisualObjectProperty}
+ */
 export class VPTextShadow extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPTextShadow.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPTextShadow
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "text_shadow", DEFAULTS.TEXT_SHADOW);
         
@@ -1000,8 +1365,14 @@ export class VPTextShadow extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.general.shadow;
         }
     }
+
     /**
+     * The value is valid if it is a string.
+     *
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPTextShadow
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAString(value));
@@ -1022,8 +1393,20 @@ export class VPTextShadow extends VisualObjectProperty {
 // TIMER PROPERTIES
 //##################
 
-//Visual property to define spacing between the timer content and its border.
+/**
+ * Visual property to define spacing between the timer content and its border.
+ *
+ * @export
+ * @class VPTimerInnerSpacing
+ * @extends {VisualObjectProperty}
+ */
 export class VPTimerInnerSpacing extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPTimerInnerSpacing.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPTimerInnerSpacing
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "timer_inner_spacing", DEFAULTS.TIMER_INNER_SPACING);
 
@@ -1047,8 +1430,14 @@ export class VPTimerInnerSpacing extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.timer.space_between;
         }
     }
+    
     /**
+     * The value is valid if it is an integer superior or equal to 0.
+     *
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPTimerInnerSpacing
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
@@ -1057,8 +1446,20 @@ export class VPTimerInnerSpacing extends VisualObjectProperty {
 
 
 
-//visual property to define the thickness of the border of a timer, or of the line of the timer
+/**
+ * visual property to define the thickness of the border of a timer, or of the line of the timer
+ *
+ * @export
+ * @class VPBorderThickness
+ * @extends {VisualObjectProperty}
+ */
 export class VPBorderThickness extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPBorderThickness.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPBorderThickness
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "border_thickness", DEFAULTS.BORDER_THICKNESS);
 
@@ -1082,8 +1483,14 @@ export class VPBorderThickness extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.timer.border_thickness;
         }
     }
+
     /**
+     * The value is valid if it is an integer superior or equal to 0.
+     *
      * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPBorderThickness
      */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
@@ -1104,8 +1511,20 @@ export class VPBorderThickness extends VisualObjectProperty {
 // PARTICLE FLOW PROPERTIES
 //##########################
 
-//property to define the range in which to pick a radius for a particle, using an array of 2 values.
+/**
+ * property to define the range in which to pick a radius for a particle, using an array of 2 values.
+ *
+ * @export
+ * @class VPParticleRadiusRange
+ * @extends {VisualObjectProperty}
+ */
 export class VPParticleRadiusRange extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPParticleRadiusRange.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPParticleRadiusRange
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "particle_radius_range", DEFAULTS.PARTICLE_RADIUS_RANGE);
 
@@ -1145,7 +1564,15 @@ export class VPParticleRadiusRange extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.particles.ptcl_size;
         }
     }
-    /**@override */
+    
+    /**
+     * The value is valid if it is an array of two integers.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPParticleRadiusRange
+     */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnArray(value) && value.length === 2 && utils.IsAnInt(value[0]) && utils.IsAnInt(value[1]));
     }
@@ -1153,8 +1580,20 @@ export class VPParticleRadiusRange extends VisualObjectProperty {
 
 
 
-//property to set the global flow type (behaviour)
+/**
+ * property to set the global flow type (behaviour)
+ *
+ * @export
+ * @class VPFlowType
+ * @extends {VisualObjectProperty}
+ */
 export class VPFlowType extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPFlowType.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPFlowType
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "flow_type", DEFAULTS.FLOW_TYPE);
 
@@ -1175,7 +1614,15 @@ export class VPFlowType extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.particles.flow_type;
         }
     }
-    /**@override */
+    
+    /**
+     * The value is valid if it belongs to the list of allowed values.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPFlowType
+     */
     hasValidValue(value) {
         //the second undefined for allowed values handles when verify is called when allowed values has not been initialized.
         //There is no way to initialize that subclass property before the call of super() ends.
@@ -1186,8 +1633,20 @@ export class VPFlowType extends VisualObjectProperty {
 
 
 
-//property to set the coordinates of spawning for radial particle flows
+/**
+ * property to set the coordinates of spawning for radial particle flows
+ *
+ * @export
+ * @class VPFlowCenter
+ * @extends {VisualObjectProperty}
+ */
 export class VPFlowCenter extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPFlowCenter.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPFlowCenter
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "flow_center", DEFAULTS.FLOW_CENTER);
 
@@ -1225,7 +1684,15 @@ export class VPFlowCenter extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.particles.center_pos;
         }
     }
-    /**@override */
+    
+    /**
+     * The value is valid if it is an object where "x" and "y" are integers.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPFlowCenter
+     */
     hasValidValue(value) {
         let keys_defined = !utils.IsUndefined(value.x) && !utils.IsUndefined(value.y);
         let keys_are_int = utils.IsAnInt(value.x) && utils.IsAnInt(value.y);
@@ -1235,8 +1702,20 @@ export class VPFlowCenter extends VisualObjectProperty {
 
 
 
-// property to define in which direction particles go
+/**
+ * property to define in which direction particles go
+ *
+ * @export
+ * @class VPFlowDirection
+ * @extends {VisualObjectProperty}
+ */
 export class VPFlowDirection extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPFlowDirection.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPFlowDirection
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "flow_direction", DEFAULTS.FLOW_DIRECTION);
 
@@ -1261,6 +1740,15 @@ export class VPFlowDirection extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.particles.direction;
         }
     }
+
+    /**
+     * The value is valid if it is a value between 0 and 360.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPFlowDirection
+     */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0 && value <= 360);
     }
@@ -1268,8 +1756,20 @@ export class VPFlowDirection extends VisualObjectProperty {
 
 
 
-// Visual property for defining the spawn probability of a particle
+/**
+ * Visual property for defining the spawn probability of a particle
+ *
+ * @export
+ * @class VPParticleSpawnProbability
+ * @extends {VisualObjectProperty}
+ */
 export class VPParticleSpawnProbability extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPParticleSpawnProbability.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPParticleSpawnProbability
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "particle_spawn_probability", DEFAULTS.PARTICLE_SPAWN_PROBABILITY);
 
@@ -1294,7 +1794,15 @@ export class VPParticleSpawnProbability extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.particles.spawn_probability;
         }
     }
-    /**@override */
+    
+    /**
+     * The value is valid if it is a number between 0 and 1.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPParticleSpawnProbability
+     */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsANumber(value) && value >= 0 && value <= 1)
     }
@@ -1302,8 +1810,20 @@ export class VPParticleSpawnProbability extends VisualObjectProperty {
 
 
 
-//Property that defines the spawn tests: how much time the probability is tested.
+/**
+ * Property that defines the spawn tests: how much time the probability is tested.
+ *
+ * @export
+ * @class VPParticleSpawnTests
+ * @extends {VisualObjectProperty}
+ */
 export class VPParticleSpawnTests extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPParticleSpawnTests.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPParticleSpawnTests
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "particle_spawn_tests", DEFAULTS.PARTICLE_SPAWN_TESTS);
 
@@ -1327,7 +1847,15 @@ export class VPParticleSpawnTests extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.particles.spawn_tests;
         }
     }
-    /**@override */
+    
+    /**
+     * The value is valid if it is an integer superior or equal to 1.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPParticleSpawnTests
+     */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 1);
     }
@@ -1352,8 +1880,20 @@ export class VPParticleSpawnTests extends VisualObjectProperty {
 // VISUALIZER PROPERTIES
 //#######################
 
-//property that handle the inner radius of a circular visualizer
+/**
+ * property that handle the inner radius of a circular visualizer
+ *
+ * @export
+ * @class VPVisualizerRadius
+ * @extends {VisualObjectProperty}
+ */
 export class VPVisualizerRadius extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPVisualizerRadius.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPVisualizerRadius
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "visualizer-radius", DEFAULTS.VISUALIZER_RADIUS);
 
@@ -1377,7 +1917,15 @@ export class VPVisualizerRadius extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.visualizer.circular_kind.radius;
         }
     }
-    /**@override */
+    
+    /**
+     * The value is valid if it is an integer superior or equal to 0.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPVisualizerRadius
+     */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
     }
@@ -1385,8 +1933,20 @@ export class VPVisualizerRadius extends VisualObjectProperty {
 
 
 
-//property that defines the number of points used to draw a visualizer (its precision in other words)
+/**
+ * property that defines the number of points used to draw a visualizer (its precision in other words)
+ *
+ * @export
+ * @class VPVisualizerPointsCount
+ * @extends {VisualObjectProperty}
+ */
 export class VPVisualizerPointsCount extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPVisualizerPointsCount.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPVisualizerPointsCount
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "visualizer_points_count", DEFAULTS.VISUALIZER_POINTS_COUNT);
 
@@ -1410,7 +1970,15 @@ export class VPVisualizerPointsCount extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.visualizer.general.points_count;
         }
     }
-    /**@override */
+    
+    /**
+     * The value is valid if it is an integer superior or equal to 0.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPVisualizerPointsCount
+     */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
     }
@@ -1418,7 +1986,20 @@ export class VPVisualizerPointsCount extends VisualObjectProperty {
 
 
 
+/**
+ * Property to define the range of display for the spectrum of a visualizer.
+ *
+ * @export
+ * @class VPVisualizerAnalyserRange
+ * @extends {VisualObjectProperty}
+ */
 export class VPVisualizerAnalyserRange extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPVisualizerAnalyserRange.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPVisualizerAnalyserRange
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "visualizer_analyzer_range", DEFAULTS.VISUALIZER_ANALYZER_RANGE);
     
@@ -1454,7 +2035,15 @@ export class VPVisualizerAnalyserRange extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.visualizer.general.analyser_range;
         }
     }
-    /**@override */
+    
+    /**
+     * The value is valid if it is an array of two integers between 0 and 1023.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPVisualizerAnalyserRange
+     */
     hasValidValue(value) {
         let is_array = !utils.IsUndefined(value) && utils.IsAnArray(value) && value.length === 2;
         if (!is_array) return false;
@@ -1468,8 +2057,20 @@ export class VPVisualizerAnalyserRange extends VisualObjectProperty {
 
 
 
-//property to choose the visualization smoothing type from one frame to another
+/**
+ * //property to choose the visualization smoothing type from one frame to another
+ *
+ * @export
+ * @class VPVisualizationSmoothingType
+ * @extends {VisualObjectProperty}
+ */
 export class VPVisualizationSmoothingType extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPVisualizationSmoothingType.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPVisualizationSmoothingType
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "visualization_smoothing_type", DEFAULTS.VISUALIZATION_SMOOTHING_TYPE);
 
@@ -1490,7 +2091,15 @@ export class VPVisualizationSmoothingType extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.visualizer.general.visualization_smoothing.type;
         }
     }
-    /**@override */
+    
+    /**
+     * The value is valid if it belongs to the list of allowed values.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPVisualizationSmoothingType
+     */
     hasValidValue(value) {
         //the second undefined for allowed values handles when verify is called when allowed values has not been initialized.
         //There is no way to initialize that subclass property before the call of super() ends.
@@ -1501,8 +2110,20 @@ export class VPVisualizationSmoothingType extends VisualObjectProperty {
 
 
 
-//property to choose the factor of visualization smoothing, the value influences the mathematical behaviour.
+/**
+ * property to choose the factor of visualization smoothing, the value influences the mathematical behaviour.
+ *
+ * @export
+ * @class VPVisualizationSmoothingFactor
+ * @extends {VisualObjectProperty}
+ */
 export class VPVisualizationSmoothingFactor extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPVisualizationSmoothingFactor.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPVisualizationSmoothingFactor
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "visualization_smoothing_factor", DEFAULTS.VISUALIZATION_SMOOTHING_FACTOR);
     
@@ -1527,7 +2148,15 @@ export class VPVisualizationSmoothingFactor extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.visualizer.general.visualization_smoothing.factor;
         }
     }
-    /**@override */
+    
+    /**
+     * The value is valid if it is a number superior or equal to 0.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPVisualizationSmoothingFactor
+     */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsANumber(value) && value >= 0);
     }
@@ -1535,8 +2164,20 @@ export class VPVisualizationSmoothingFactor extends VisualObjectProperty {
 
 
 
-//property to define the thickness of bars of a bar visualizer (how large a bar is).
+/**
+ * property to define the thickness of bars of a bar visualizer (how large a bar is).
+ *
+ * @export
+ * @class VPVisualizerBarThickness
+ * @extends {VisualObjectProperty}
+ */
 export class VPVisualizerBarThickness extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPVisualizerBarThickness.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPVisualizerBarThickness
+     */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "visualizer_bar_thickness", DEFAULTS.VISUALIZER_BAR_THICKNESS);
          
@@ -1560,7 +2201,15 @@ export class VPVisualizerBarThickness extends VisualObjectProperty {
             this._ui_parameter.help_string = help.parameter.object.visualizer.bar_kind.bar_thickness;
         }
     }
-    /**@override */
+    
+    /**
+     * The value is valid if it is an integer superior or equal to 0.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPVisualizerBarThickness
+     */
     hasValidValue(value) {
         return (!utils.IsUndefined(value) && utils.IsAnInt(value) && value >= 0);
     }

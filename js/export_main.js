@@ -2,12 +2,19 @@
 
 //EXPORTING THE PROJECT INTO A VIDEO || MAIN PROCESS PART (completely excluded from renderer window process)
 
-var max_frames; //allow setting the max progress through every progress event.
+/** @type {Number} allow setting the max progress through every progress event.*/
+var max_frames;
 
-function Export(path) {//Launch the rendering process which will export the video
+/**
+ * Launches the rendering process which will export the video
+ *
+ * @param {String} path Where to save the video.
+ * @return {Boolean} 
+ */
+function Export(path) {
     if (project.save_handler.save_data.audio_filename === "") {
         MessageDialog("warn","No audio file selected!");
-        return;
+        return false;
     }
 
     imports.utils.CustomLog("info","Exporting...");
@@ -143,4 +150,6 @@ function Export(path) {//Launch the rendering process which will export the vide
 
     //create renderer window
     ipcRenderer.invoke('create-export-win');
+
+    return true;
 }

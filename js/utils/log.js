@@ -2,6 +2,13 @@
 
 const {ipcRenderer} = require("electron");
 
+/**
+ * Logs to the console and to file a message of the given type.
+ *
+ * @export
+ * @param {String} type trace, debug, info, log, warn, error, fatal
+ * @param {String} log associated message to log.
+ */
 export function CustomLog(type, log) {
     switch (type) {
         case 'trace':

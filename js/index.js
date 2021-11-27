@@ -2,7 +2,9 @@
 
 const {ipcRenderer} = require("electron");
 
-const software_version = '0.3.0'; //current build version
+/** @type {String} current build version*/
+const software_version = '0.3.0';
+/** @type {String} current build type */
 const software_status = 'Indev';
 let working_dir; //working directory for user, temp, logs...
 let root_dir; //root of the app (where main.js is located, and html/css folders)
@@ -13,7 +15,7 @@ var can_close_window_safely = false;//set to true when the user confirmed exit
 
 //MAIN PROCESS, PAGE INITIALIZATION
 
-//stores es module imports (loaded through promises as this is not a module and thus, "import" can't be used)
+/** @type {Object} stores ES module imports (loaded through promises as this is not a module and thus, "import" can't be used)*/
 let imports = {
     utils: null,
     ui_components: null,
@@ -38,8 +40,16 @@ SAVE MANAGEMENT
 ###############
 */
 
-//handles everything related to save: import, export, data access.
+/**
+ * handles everything related to save: import, export, data access.
+ *
+ * @class SaveHandler
+ */
 class SaveHandler {
+    /**
+     * Creates an instance of SaveHandler.
+     * @memberof SaveHandler
+     */
     constructor() {
         Object.assign(SaveHandler.prototype, imports.utils.EventMixin);
         // this.setupEventMixin([
@@ -81,11 +91,20 @@ class SaveHandler {
         this._save_data.fps = fps;
     }
 
+    /**
+     * Updates the save version used field with the information of this build.
+     *
+     * @memberof SaveHandler
+     */
     rewriteSoftwareInfo() {
         this._save_data.software_version_used = `${software_version} ${software_status}`;
     }
 
-    //set the save data to default values
+    /**
+     * set the save data to default values
+     *
+     * @memberof SaveHandler
+     */
     loadDefaultSave() {
         this._save_data = {
             //1 -> Wav2Bar 0.1.0 indev before save revamp (image embedding, music embedding)
@@ -103,7 +122,13 @@ class SaveHandler {
         imports.utils.CustomLog('info','loaded default save.');
     }
 
-    async loadSave(save_file_path) {//load a user save or a preset (JSON format)
+    /**
+     * load a user save or a preset (JSON format)
+     *
+     * @param {*} save_file_path
+     * @memberof SaveHandler
+     */
+    async loadSave(save_file_path) {
         if (!imports.utils.IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
     
         imports.utils.CustomLog("info", "Backing up currently opened save...");
@@ -163,8 +188,13 @@ class SaveHandler {
 
 
 
-    //upgrade an older save file to the current version.
-    //versions are documented in [root]/docs/save.md.
+    /**
+     * Upgrades an older save file to the current version.
+     * Versions are documented in [root]/docs/save.md.
+     * @param {*} [log_array=[]] An array of strings that store log messages to display at the end, and to write to the logs file.
+     * It is used for warnings and errors of conversion.
+     * @memberof SaveHandler
+     */
     convertSave(log_array = []) {
         //something's wrong ?
         imports.utils.CustomLog("debug", JSON.stringify(this._save_data));
@@ -269,9 +299,13 @@ class SaveHandler {
         }
     }
 
-    //convert one object from v3 to v4 by getting
-    //its old data and building the new data from
-    //it in the save.
+    /**
+     * Converts one object from v3 to v4 by getting its old data and building the new data from it in the save.
+     *
+     * @param {Object} old_object The object to convert in its V3 format.
+     * @param {Object} save The save to manipulate
+     * @memberof SaveHandler
+     */
     convertObjV3ToV4(old_object, save) {
         //create object
         save.objects[old_object.id] = {};
@@ -453,8 +487,12 @@ class SaveHandler {
 
 
 
-
-    applyLoadedSave() {//read and apply a loaded user save
+    /**
+     * read and apply a loaded user save
+     *
+     * @memberof SaveHandler
+     */
+    applyLoadedSave() {
         imports.utils.CustomLog('info','applying save...');
 
         //CREATE OBJECTS
@@ -510,8 +548,12 @@ class SaveHandler {
 
 
 
-    //legacy save export
-    exportSaveAsJSON() {//export the current save to JSON format.
+    /**
+     * legacy save export, exports the current save to JSON format (everything but binary/external files).
+     *
+     * @memberof SaveHandler
+     */
+    exportSaveAsJSON() {
 
         imports.utils.CustomLog("info","generating download file for the save...");
 
@@ -536,15 +578,23 @@ class SaveHandler {
 
 
 
-    //save project to file
+
     /**
+     * save project to file
+     * 
      * structure:
+     * ```txt
      * project_name.w2bzip (renamed .zip file)
      * |- data.json
      * |- assets
      * |    |- (audio, images, etc...)
      * |    /
      * /
+     * ```
+     *
+     * @param {String} save_path where to store the path.
+     * @param {boolean} [no_dialog=false] If it should be notified to the user using a dialog.
+     * @memberof SaveHandler
      */
     exportSave(save_path, no_dialog = false) {
         if (!imports.utils.IsAString(save_path)) throw `ExportSave: ${save_path} is an invalid save path (not a string).`;
@@ -565,10 +615,15 @@ class SaveHandler {
 
 
 
-
-    //create a VisualObject for new or existing data.
-    //usage: data load, new object creation from UI
-    //empty ID generates a random new ID.
+    /**
+     * Creates a VisualObject for new or existing data. Usage: data load, new object creation from UI.
+     * empty ID generates a random new ID.
+     *
+     * @param {String} type The object type.
+     * @param {String} [name=null] The object's display name.
+     * @param {string} [obj_id=""] The object's unique ID.
+     * @memberof SaveHandler
+     */
     createVisualObject(type, name = null, obj_id = "") {
         let obj;
         let container = (this._owner_project.export_mode)? null : tab.objects;
@@ -586,9 +641,13 @@ class SaveHandler {
         if (name) obj.setName(name);
     }
 
-    //add a visual object to the existing list of visual object
-    //(object = VisualObject instance,
-    //VisualObjects register themselves in the save with this function.)
+    /**
+     * Adds a visual object to the existing list of visual object.
+     * (object = VisualObject instance, VisualObjects register themselves in the save with this function.)
+     *
+     * @param {VisualObject} object
+     * @memberof SaveHandler
+     */
     addVisualObject(object) {
         if (object.id === "") {
             object.generateID(); //generate id
@@ -602,14 +661,23 @@ class SaveHandler {
         this._objects[object.id] = object; //keep a reference.
     }
 
-    //remove a visual object from the save based on its id.
+    /**
+     * Removes a visual object from the save based on its id.
+     *
+     * @param {String} id Object's unique id.
+     * @memberof SaveHandler
+     */
     deleteVisualObject(id) {
         this._objects[id].destroy();
         delete this._objects[id];
         delete this._save_data.objects[id];
     }
 
-    //remove all visual objects saved
+    /**
+     * Removes all visual objects saved
+     *
+     * @memberof SaveHandler
+     */
     deleteAllVisualObjects() {
         let ids = this.getVisualObjectIDs();
         for (let i=0; i<ids.length; i++) {
@@ -617,26 +685,55 @@ class SaveHandler {
         }
     }
 
-    //get the object's data in a manipulable way.
+    /**
+     * get the object's data in a manipulable way.
+     *
+     * @param {String} id Object's unique id.
+     * @return {Object} The object's data. 
+     * @memberof SaveHandler
+     */
     getVisualObjectData(id) {
         return this._save_data.objects[id];
     }
 
-    //overwrite existing data of an object with new data,
-    //for all mentioned properties.
+    /**
+     * Overwrites existing data of an object with new data, for all mentioned properties.
+     *
+     * @param {String} id Object's unique id.
+     * @param {*} data The data to incorporate.
+     * @memberof SaveHandler
+     */
     mergeVisualObjectData(id, data) {
         this._save_data.objects[id] = imports.utils.mergeData(data, this._save_data.objects[id]);
     }
 
-    //get an array of all objects IDs
+    /**
+     * get an array of all objects IDs
+     *
+     * @return {*} 
+     * @memberof SaveHandler
+     */
     getVisualObjectIDs() {
         let ids = [];
         for (let key in this._save_data.objects) ids.push(key);
         return ids;
     }
 
-    //copy an image from the given path and save it in the current save, then returns
-    //the file name and the new path of the saved image.
+    /**
+     * Copies an image from the given path and saves it in the current save, then returns
+     * the file name and the new path of the saved image.
+     *
+     * @param {String} path Source path
+     * @param {String} obj_id Object's unique ID.
+     * @return {Object}
+     * ```
+     *  return {
+            filename: filename,
+            new_path: new_path,
+        }
+     * ``` 
+     * @memberof SaveHandler
+     */
     async saveObjectBackgroundImage(path, obj_id) {
         //copying file
         let filename = path.replace(/^.*[\\\/]/, '');
@@ -675,7 +772,12 @@ class SaveHandler {
     */
 
 
-
+    /**
+     * Saves an audio file in the save.
+     *
+     * @param {String} path The audio source path.
+     * @memberof SaveHandler
+     */
     async saveAudio(path) {
         await this._owner_project.closeAudio();
 
@@ -719,7 +821,18 @@ PROJECT MANAGEMENT
 ##################
 */
 
+/**
+ * The class to manipulate a project as a whole.
+ * It stores the app and project information, handles rendering, host a SaveHandler, etc.
+ *
+ * @class Project
+ */
 class Project {
+    /**
+     * Creates an instance of Project.
+     * @param {Boolean} export_mode If it is created in an export context (no user interface).
+     * @memberof Project
+     */
     constructor(export_mode) {
         /**@type {SaveHandler} */
         this._save_handler = null;
@@ -791,6 +904,12 @@ class Project {
 
     get frequency_array() {return this._frequency_array;}
     set frequency_array(frequency_array) {this._frequency_array = frequency_array}
+    /**
+     * Adds a value manually to the frequency array.
+     *
+     * @param {Number} value the new value.
+     * @memberof Project
+     */
     addToFrequencyArray(value) {this._frequency_array.push(value);}
 
     /*
@@ -799,25 +918,42 @@ class Project {
     #########
     */
 
-    //start screen visuals by starting audio and animation
+    /**
+     * start screen visuals by starting audio and animation
+     *
+     * @memberof Project
+     */
     playVisuals() {
         if (!this._animating) this.startAnimating(this._save_handler.fps);
         this._audio.play();
     }
 
-    //pause audio and animation
+    /**
+     * pause audio and animation
+     *
+     * @memberof Project
+     */
     pauseVisuals() {
         if (this._animating) this.stopAnimating();
         this._audio.pause();
     }
 
-    //stop animation and reset audio position
+    /**
+     * stop animation and reset audio position
+     *
+     * @memberof Project
+     */
     stopVisuals() {
         this.pauseVisuals();
         this._audio.currentTime = 0;
     }
 
-    //prepare fps animation
+    /**
+     * prepare fps animation
+     *
+     * @param {Number} fps
+     * @memberof Project
+     */
     startAnimating(fps) {
         // initialize the timer variables and start the animation
         if (!imports.utils.IsANumber(fps)) throw `StartAnimating: ${fps} is not a valid fps value, start aborted.`;
@@ -832,15 +968,24 @@ class Project {
         imports.utils.CustomLog('info','animation started.');
     }
 
-    //stop the fps animation loop
+    /**
+     * stop the fps animation loop
+     *
+     * @memberof Project
+     */
     stopAnimating() {
         this._stop_animating = true;
         this._animating = false;
         imports.utils.CustomLog('info','animation stopped.');
     }
 
-    // the animation loop calculates time elapsed since the last loop
-    // and only draws if the specified fps interval is achieved
+    /**
+     * The animation loop calculates time elapsed since the last loop
+     * and only draws if the specified fps interval is achieved
+     *
+     * @return {*} 
+     * @memberof Project
+     */
     animate() {
 
         //stop animating if requested
@@ -870,7 +1015,12 @@ class Project {
     }
 
 
-    //returns if all the objects have finished updating.
+    /**
+     * returns if all the objects have finished updating.
+     *
+     * @return {Boolean} 
+     * @memberof Project
+     */
     updateFinished() {
         let finished_render = true;
         //if one object didn't finish rendering, returns false
@@ -883,7 +1033,11 @@ class Project {
 
 
 
-    //update and draw the screen
+    /**
+     * Updates and draws the screen
+     *
+     * @memberof Project
+     */
     drawFrame() {
 
 
@@ -958,7 +1112,14 @@ class Project {
     */
 
 
-    loadAudio(file_data, type) {//load an audio file into the app. type: "file" || "url"
+    /**
+     * load an audio file into the app. type: "file" || "url"
+     *
+     * @param {*} file_data source data.
+     * @param {String} type data type
+     * @memberof Project
+     */
+    loadAudio(file_data, type) {
         if (imports.utils.IsUndefined(file_data)) throw "LoadAudio: No file data provided, couldn't load the audio file.";
         if ( (type!=="file") && (type!=="url") ) throw `LoadAudio: ${type} is not a valid audio file type!`;
     
@@ -1015,6 +1176,11 @@ class Project {
         imports.utils.CustomLog("info","audio loaded successfully.");
     }
     
+    /**
+     * Stops the audio process
+     *
+     * @memberof Project
+     */
     closeAudio() {
         imports.utils.CustomLog("info","Closing audio context if any...");
         if (!imports.utils.IsUndefined(this._context)) this._context.close();
@@ -1022,44 +1188,87 @@ class Project {
         imports.utils.CustomLog("info","Audio context closed.");
     }
 
-    //returns if the audio is in state 4, so it can be manipulated.
+    /**
+     * returns if the audio is in state 4, so it can be manipulated.
+     *
+     * @return {Boolean} 
+     * @memberof Project
+     */
     audioReady() {
         return this._audio.readyState === 4;
     }
 
-    //get the duration of audio object
+    /**
+     * get the duration of audio object
+     *
+     * @return {Number} 
+     * @memberof Project
+     */
     getAudioDuration() {
         return this._audio.duration;
     }
 
-    //set audio playing time to start.
+    /**
+     * set audio playing time to start.
+     *
+     * @memberof Project
+     */
     audioToStart() {
         this._audio.currentTime = 0;
     }
     
-    //set audio playing time to end.
+    /**
+     * set audio playing time to end.
+     *
+     * @memberof Project
+     */
     audioToEnd() {
         this._audio.currentTime = this._audio.duration;
     }
 
-    //sets audio object current time in seconds
+    /**
+     * sets audio object current time in seconds
+     *
+     * @param {Number} currentTime The new time position in seconds
+     * @memberof Project
+     */
     setAudioCurrentTime(currentTime) {
         this._audio.currentTime = currentTime;
     }
 
-    //gets audio object current time in seconds
+    /**
+     * gets audio object current time in seconds
+     *
+     * @return {Number}  The time position in seconds
+     * @memberof Project
+     */
     getAudioCurrentTime() {return this._audio.currentTime;}
 
-    //toggle if the audio should be played forever in loop mode.
+    /**
+     * toggle if the audio should be played forever in loop mode.
+     *
+     * @memberof Project
+     */
     audioLoopToggle() {
         this._audio.loop = (this._audio.loop) ?  false : true;
     }
 
-    //returns if the audio object is in loop mode.
+    /**
+     * returns if the audio object is in loop mode.
+     *
+     * @return {Boolean} 
+     * @memberof Project
+     */
     getAudioIsLooping() {
         return this._audio.loop;
     }
 
+    /**
+     * Returns the project's frequency array.
+     *
+     * @return {Array} 
+     * @memberof Project
+     */
     getFrequencyArray() {
         return this._frequency_array;
     }
@@ -1071,7 +1280,12 @@ class Project {
     //FPS
     //###
 
-    updateFPSDisplay() {//display FPS regularly
+    /**
+     * display FPS regularly
+     *
+     * @memberof Project
+     */
+    updateFPSDisplay() {
         //maintain the max length of the array
         if (this._fps_array.length > this._FPS_ARRAY_MAX_LENGTH) {
 
@@ -1090,7 +1304,12 @@ class Project {
         document.getElementById("fps").innerHTML = `${average_fps}FPS`;
     }
 
-    //change the project fps, taking into account a potential ongoing animation process
+    /**
+     * change the project fps, taking into account a potential ongoing animation process
+     *
+     * @param {Number} fps
+     * @memberof Project
+     */
     setFPS(fps) {
         this._save_handler.fps = fps;
         this.stopAnimating();
@@ -1103,7 +1322,11 @@ class Project {
 
 
 
-//bridge class to interact with global context user interface
+/**
+ * bridge class to interact with global context user interface
+ *
+ * @class UserInterface
+ */
 class UserInterface {
     constructor(owner_project) {
         this._screen = document.getElementById("screen");
@@ -1134,7 +1357,10 @@ GLOBAL INITIALIZATION
 window.onload = function() {LoadModules();};
 window.onbeforeunload = function(event) {PrepareWindowClose(event);};
 
-//load ES modules required
+/**
+ * load ES modules required
+ *
+ */
 function LoadModules() {
     import("./system/system.js").then(module => {
         imports.system = module;
@@ -1159,7 +1385,12 @@ function LoadModules() {
     });
 }
 
-function InitPage(export_mode) {//page initialization
+/**
+ * page initialization
+ *
+ * @param {Boolean} export_mode If the process is in an export context (no user interface, no CLI analysis).
+ */
+function InitPage(export_mode) {//
 
     //SETUP PROJECT AND PREPARE SAVE
     project = new Project(export_mode);
@@ -1193,7 +1424,11 @@ function InitPage(export_mode) {//page initialization
 
 
 
-
+/**
+ * Closes a window after user's confirmation.
+ *
+ * @param {BeforeUnloadEvent} event
+ */
 function PrepareWindowClose(event) {
     imports.utils.CustomLog("info", "The window will be closed.");
 
@@ -1224,11 +1459,20 @@ function PrepareWindowClose(event) {
 //LOGGING
 //#######
 
-//catch all window error (throws...)
-window.onerror = function GlobalErrorHandler(error_msg, url, line_number) {
+/**
+ * catch all window error (throws...)
+ *
+ * @param {String} error_msg
+ * @param {String} url
+ * @param {Number} line_number
+ * @return {Boolean} 
+ */
+function GlobalErrorHandler(error_msg, url, line_number) {
     imports.utils.CustomLog("error",`${error_msg}\nsource: ${url}\n line: ${line_number}`);
     return false;
 }
+
+window.onerror = GlobalErrorHandler;
 
 
 

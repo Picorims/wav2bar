@@ -2,8 +2,18 @@
 
 import * as utils from "../utils/utils.js";
 
-//base class for creating UI components. A base component is a div that can contain other stuff.
+/**
+ * base class for creating UI components.
+ * A base component is a div that can contain other stuff.
+ *
+ * @export
+ * @class UIComponent
+ */
 export class UIComponent {
+    /**
+     * Creates an instance of UIComponent.
+     * @memberof UIComponent
+     */
     constructor() {
         this._DOM_container = document.createElement("div");
         this._DOM_parent = null;
@@ -40,8 +50,22 @@ export class UIComponent {
 
 
 
-//grid of buttons to interact with
+/**
+ * grid of buttons to interact with
+ *
+ * @export
+ * @class UIButtonGrid
+ * @extends {UIComponent}
+ */
 export class UIButtonGrid extends UIComponent {
+    /**
+     * Creates an instance of UIButtonGrid.
+     * @param {Number} rows The number of rows.
+     * @param {Number} columns The number of columns.
+     * @param {Array} button_definitions The config for all the buttons.
+     * @param {Boolean} togglable If togglable mode is used (classic buttons otherwise).
+     * @memberof UIButtonGrid
+     */
     constructor(rows, columns, button_definitions, togglable) {
         super();
 
@@ -114,7 +138,25 @@ export class UIButtonGrid extends UIComponent {
     }
     get rows() {return this._rows;}
     get columns() {return this._columns;}
+    
+    /**
+     * Get the HTML DOM element corresponding to the button at the given position,
+     * starting from 0.
+     *
+     * @param {Number} row Row position
+     * @param {Number} column Column position
+     * @return {HTMLElement} The corresponding button.
+     * @memberof UIButtonGrid
+     */
     getButton(row, column) {return this._buttons[row][column]}
+    
+    /**
+     * Enable or disable a given button. Only works in togglable mode.
+     *
+     * @param {Number} i Row position
+     * @param {Number} j Column position
+     * @memberof UIButtonGrid
+     */
     toggle(i, j) {//row, column
         if (!this._togglable) throw new Error("toggle() only works in togglable mode!");
         this._toggles[i][j] = !this._toggles[i][j];
@@ -124,8 +166,21 @@ export class UIButtonGrid extends UIComponent {
 
 
 
-//Number input with associated label
+/**
+ * Number input with associated label
+ *
+ * @export
+ * @class UINumberInput
+ * @extends {UIComponent}
+ */
 export class UINumberInput extends UIComponent {
+    /**
+     * Creates an instance of UINumberInput.
+     * @param {String} title Displayed title
+     * @param {String} unit Displayed unit
+     * @param {Number} default_value Default value in the input.
+     * @memberof UINumberInput
+     */
     constructor(title, unit, default_value) {
         super();
         this._title = title;
@@ -212,13 +267,30 @@ export class UINumberInput extends UIComponent {
         };
     }
 
+    /**
+     * Send an 'input' event to the DOM input.
+     *
+     * @memberof UINumberInput
+     */
     trigger() {this._input.dispatchEvent(this._input_event);}
 }
 
 
 
-//string input that supports regular expression checking.
+/**
+ * String input that supports regular expression checking.
+ *
+ * @export
+ * @class UIStringInput
+ * @extends {UIComponent}
+ */
 export class UIStringInput extends UIComponent {
+    /**
+     * Creates an instance of UIStringInput.
+     * @param {String} title Displayed title
+     * @param {String} default_value Default value in the input.
+     * @memberof UIStringInput
+     */
     constructor(title, default_value) {
         super();
         this._title = title;
@@ -279,6 +351,11 @@ export class UIStringInput extends UIComponent {
         };
     }
 
+    /**
+     * Triggers an 'input' event on the DOM input element.
+     *
+     * @memberof UIStringInput
+     */
     triggerOninput() {
         this._input.dispatchEvent(new Event('input', {
             bubbles: true,
@@ -288,8 +365,20 @@ export class UIStringInput extends UIComponent {
 }
 
 
-
+/**
+ * Color picker component to choose a color in the hex format.
+ * It uses the browser HTML color picker.
+ *
+ * @export
+ * @class UIColorPicker
+ * @extends {UIComponent}
+ */
 export class UIColorPicker extends UIComponent {
+    /**
+     * Creates an instance of UIColorPicker.
+     * @param {UIStringInput} string_input The attached string input to write the result to.
+     * @memberof UIColorPicker
+     */
     constructor(string_input) {
         super();
         if (!string_input instanceof UIStringInput) throw new SyntaxError("string_input must be a UIStringInput");
@@ -316,8 +405,21 @@ export class UIColorPicker extends UIComponent {
 
 
 
-//choice between a list of values
+/**
+ * Component to make a choice between a list of values
+ *
+ * @export
+ * @class UIChoiceList
+ * @extends {UIComponent}
+ */
 export class UIChoiceList extends UIComponent {
+    /**
+     * Creates an instance of UIChoiceList.
+     * @param {String} title Displayed title
+     * @param {Array} options_list Array of strings, corresponding to the possible choices.
+     * @param {String} default_value Default selected value.
+     * @memberof UIChoiceList
+     */
     constructor(title, options_list, default_value) {
         super();
         this._title = title;
@@ -370,8 +472,20 @@ export class UIChoiceList extends UIComponent {
 
 
 
-//checkbox
+/**
+ * Checkbox component.
+ *
+ * @export
+ * @class UICheckBox
+ * @extends {UIComponent}
+ */
 export class UICheckBox extends UIComponent {
+    /**
+     * Creates an instance of UICheckBox.
+     * @param {String} title The displayed title
+     * @param {Boolean} default_value The default value assigned to the checkbox element.
+     * @memberof UICheckBox
+     */
     constructor(title, default_value) {
         super();
         this._title = title;

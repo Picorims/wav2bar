@@ -5,7 +5,10 @@
 var settings;//user settings. see ./users/settings/default_settings.json.
 var current_settings_version = 1;
 
-//settings initialization. Go reading the .json save.
+/**
+ * settings initialization. Go reading the .json save.
+ *
+ */
 async function InitSettings() {
     imports.utils.CustomLog("info","initializing settings...");
     let default_settings_path = "./user/settings/default_settings.json";
@@ -44,8 +47,12 @@ async function InitSettings() {
     imports.utils.CustomLog("info", JSON.stringify(settings));
 }
 
-//upgrade an older settings file to the current version.
-//versions are documented in [root]/docs/settings.md.
+/**
+ * upgrade an older settings file to the current version.
+ * versions are documented in [root]/docs/settings.md.
+ *
+ * @param {Array} [log_array=[]] An array of strings to store log messages that will go with the rest of logs at the end of the process.
+ */
 function ConvertSettings(log_array = []) {
     //something's wrong ?
     imports.utils.CustomLog("debug", JSON.stringify(settings));
@@ -84,7 +91,10 @@ function ConvertSettings(log_array = []) {
 }
 
 
-//load settings in the app
+/**
+ * load settings in the app
+ *
+ */
 function LoadSettings() {
     imports.utils.CustomLog("info","loading settings...");
 
@@ -97,7 +107,10 @@ function LoadSettings() {
     imports.utils.CustomLog("info","loaded settings!");
 }
 
-//save settings into a .json file
+/**
+ * save settings into a .json file
+ *
+ */
 async function SaveSettings() {
     imports.utils.CustomLog("info", "saving settings...");
     await ipcRenderer.invoke("write-json-file", `${working_dir}/user/settings/user_settings.json`, JSON.stringify(settings));
@@ -107,7 +120,11 @@ async function SaveSettings() {
 
 
 
-//Change FFmpeg path
+/**
+ * Change FFmpeg path
+ *
+ * @param {*} path new path
+ */
 function setFFmpegPath(path) {
     document.getElementById("ffmpeg_path_input").value = path;
     settings.ffmpeg.ffmpeg_path = path;
@@ -115,7 +132,11 @@ function setFFmpegPath(path) {
     SaveSettings();
 }
 
-//Change FFprobe path
+/**
+ * Change FFprobe path
+ *
+ * @param {*} path
+ */
 function setFFprobePath(path) {
     document.getElementById("ffprobe_path_input").value = path;
     settings.ffmpeg.ffprobe_path = path;

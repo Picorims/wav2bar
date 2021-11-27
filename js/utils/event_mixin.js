@@ -1,8 +1,20 @@
 //MIT License - Copyright (c) 2020-2021 Picorims
 
-//Mixin to manage custom events: setup events, subscribe (or unsubscribe) to events, emit events.
+//
+/**
+ * Mixin to manage custom events: setup events,
+ * subscribe (or unsubscribe) to events, emit events.
+ * 
+ * @mixin EventMixin
+ * @export
+ */
 export let EventMixin = {
-    // Create the event list to subscribe to.
+    /**
+     * Setup the events for the class, by creating the event list to subscribe to.
+     * 
+     * @param {Array} events_list The list of events that can be triggered.
+     * @memberof EventMixin
+     */
     setupEventMixin: function (events_list) {
         this._event_handlers = {};
         for (const event of events_list) {
@@ -10,14 +22,26 @@ export let EventMixin = {
         }
     },
 
-    //add a handler to an event
+    /**
+     * Adds a handler to an event
+     * 
+     * @param {String} event targetted event
+     * @param {Function} function_handler callback to associate
+     * @memberof EventMixin
+     */
     subscribeToEvent: function (event, function_handler) {
         if (!this._event_handlers.hasOwnProperty(event)) throw new Error(`"${event}" event doesn't exist.`);
 
         this._event_handlers[event].push(function_handler);
     },
 
-    //remove a handler to an event
+    /**
+     * Removes a handler to an event
+     * 
+     * @param {String} event targetted event
+     * @param {Function} function_handler callback to associate
+     * @memberof EventMixin
+     */
     unsubscribeToEvent: function (event, function_handler) {
         if (!this._event_handlers.hasOwnProperty(event)) throw new Error(`"${event}" event doesn't exist.`);
 
@@ -29,7 +53,13 @@ export let EventMixin = {
         }
     },
 
-    //trigger an event (call all its handlers)
+    /**
+     * Triggers an event (call all its handlers)
+     * 
+     * @param {String} event The event to trigger
+     * @param  {...any} args The arguments to pass to handlers.
+     * @memberof EventMixin
+     */
     triggerEvent: function (event, ...args) {
         this._event_handlers[event].forEach(handler => {
             handler(...args);

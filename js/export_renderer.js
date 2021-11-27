@@ -15,7 +15,10 @@ let event;
 
 var progress_window;//progress bar
 
-//callback to the main window that the renderer windows exists
+/**
+ * callback to the main window that the renderer windows exists
+ *
+ */
 function ConfirmCreation() {
     imports.utils.CustomLog("debug","renderer created");
 
@@ -24,8 +27,11 @@ function ConfirmCreation() {
     InitRender();
 }
 
-
-function InitRender() {//render initialization
+/**
+ * render initialization
+ *
+ */
+function InitRender() {
 
     imports.utils.CustomLog("debug","initialization of the renderer.");
     screen = document.getElementById("screen");
@@ -44,8 +50,13 @@ function InitRender() {//render initialization
 
 
 
-
-async function InitExport(data) {//prepare video export
+/**
+ * prepare video export
+ *
+ * @param {Object} data Everything needed to do the export.
+ * @return {*} 
+ */
+async function InitExport(data) {
     if (imports.utils === null) { //wait for modules to load.
         imports.utils.CustomLog("debug","Waiting for modules to load...");
         setTimeout(() => InitExport(data), 500);
@@ -130,8 +141,11 @@ async function InitExport(data) {//prepare video export
 
 
 
-
-function GetAudioData() {//Transform the audio temp file into PCM data, use FFT on it to get the waveform for each frame.
+/**
+ * Transform the audio temp file into PCM data, use FFT on it to get the waveform for each frame.
+ *
+ */
+function GetAudioData() {
 
     //GET BUFFER FROM THE AUDIO FILE. Cf. function definition.
     GetAudioBuffer(function(audio_buffer) {
@@ -161,8 +175,12 @@ function GetAudioData() {//Transform the audio temp file into PCM data, use FFT 
 
 
 
-
-function GetAudioBuffer(callback) {//get the buffer array from the audio file
+/**
+ * get the buffer array from the audio file
+ *
+ * @param {Function} callback
+ */
+function GetAudioBuffer(callback) {
     if (imports.utils.IsUndefined(callback)) throw `GetAudioBuffer: Please provide a callback.`
 
     //setup
@@ -203,8 +221,11 @@ function GetAudioBuffer(callback) {//get the buffer array from the audio file
 
 
 
-
-function PrepareRendering() {//define important variables
+/**
+ * define important variables
+ *
+ */
+function PrepareRendering() {
 
     //FPS PREPARATION
     frame_count = 0;
@@ -223,8 +244,12 @@ function PrepareRendering() {//define important variables
 
 
 
-
-function StartRendering(fps) {//prepare rendering
+/**
+ * prepare rendering
+ *
+ * @param {Number} fps The framerate to use.
+ */
+function StartRendering(fps) {
     // initialize the timer variables and start the animation
     if (!imports.utils.IsANumber(fps)) throw `StartRendering: ${fps} is not a valid fps value, rendering aborted.`;
 
@@ -237,8 +262,11 @@ function StartRendering(fps) {//prepare rendering
 
 
 
-
-async function Render() {//render every frame into an image
+/**
+ * render every frame into an image
+ *
+ */
+async function Render() {
 
     //if frame ready (all objects finished rendering)
     if ( project.updateFinished() ) {
