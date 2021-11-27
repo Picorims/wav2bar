@@ -30,7 +30,7 @@ export class UIParameter extends ui.UIComponent {
 
         //setup element
         if (parent instanceof ui.UIComponent) this.UI_parent = this._parent;
-            else this.DOM_parent = this._parent;
+        else this.DOM_parent = this._parent;
         this._DOM_container.classList.add("panel_param_container");
 
         //container for everything
@@ -92,7 +92,7 @@ export class UIParameterString extends UIParameter {
         this._string_input.oninput = callback;
     }
 
-    get value() {return this._string_input.value}
+    get value() {return this._string_input.value;}
 }
 
 
@@ -141,12 +141,12 @@ export class UIParameterNumInputList extends UIParameter {
     constructor(parent, title, parent_title_visible, input_definition_list) {
         super(parent, title, parent_title_visible);
         this._input_definition_list = input_definition_list;
-        let template = "{title: string, unit: string, default_value: number, callback: function, min (optional): value, max (optional): value, step (optional): value}"
+        let template = "{title: string, unit: string, default_value: number, callback: function, min (optional): value, max (optional): value, step (optional): value}";
         if (!utils.IsAnArray(this._input_definition_list)) throw new Error(`UIParameterNumInputList: The input definition list must be an array of ${template}`);
 
         //create inputs
         this._inputs = [];
-        let list = this._input_definition_list
+        let list = this._input_definition_list;
 
         for (let i = 0; i < list.length; i++) {
             let input = new ui.UINumberInput(`${list[i].title}: `, list[i].unit, list[i].default_value);
@@ -206,7 +206,7 @@ export class UIParameterInputsAndButtonGrid extends UIParameterNumInputList {
 
         if (input_definition_list.length !== 2) throw new SyntaxError("UIParameterPosition: exactly 2 inputs are required.");
 
-        this._rows = rows
+        this._rows = rows;
         this._columns = columns;
         this._button_definitions = button_definitions;
         this._togglable = togglable;
@@ -223,7 +223,7 @@ export class UIParameterInputsAndButtonGrid extends UIParameterNumInputList {
      * @param {Number} j Column position
      * @memberof UIParameterInputsAndButtonGrid
      */
-    toggle(i, j) {this._button_grid.toggle(i, j)}
+    toggle(i, j) {this._button_grid.toggle(i, j);}
 
     /**
      * Force an input to receive a given value, and optionally fires its callback
@@ -274,7 +274,7 @@ export class UIParameterChoice extends UIParameter {
         this._list.oninput = callback;
     }
 
-    get value() {return this._list.value};
+    get value() {return this._list.value;}
 }
 
 
@@ -309,7 +309,7 @@ export class UIParameterCheckBox extends UIParameter {
         this._checkbox.oninput = callback;
     }
 
-    get checked() {return this._checkbox.checked}
+    get checked() {return this._checkbox.checked;}
 }
 
 
@@ -334,7 +334,7 @@ export class UIParameterButtonGrid extends UIParameter {
      */
     constructor(parent, title, rows, columns, button_definitions, togglable) {
         super(parent, title, true);
-        this._rows = rows
+        this._rows = rows;
         this._columns = columns;
         this._button_definitions = button_definitions;
         this._togglable = togglable;
@@ -351,7 +351,7 @@ export class UIParameterButtonGrid extends UIParameter {
      * @param {Number} j Column position
      * @memberof UIParameterButtonGrid
      */
-    toggle(i, j) {this._button_grid.toggle(i, j)}
+    toggle(i, j) {this._button_grid.toggle(i, j);}
 }
 
 
@@ -393,7 +393,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
         this._input_image_callback = function() {};
         this._input_else_callback = function() {};
 
-        this._input_event = new Event('input', {
+        this._input_event = new Event("input", {
             bubbles: true,
             cancelable: true,
         });
@@ -471,7 +471,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
             this._defaults.size_x = this._bgnd_size_input1.value;
             //update background
             this._input.triggerOninput();
-        }
+        };
 
         //second input
         this._bgnd_size_input2 = new ui.UINumberInput("", "%", this._defaults.size_y);
@@ -483,7 +483,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
             this._defaults.size_y = this._bgnd_size_input2.value;
             //update background
             this._input.triggerOninput();
-        }
+        };
 
 
 
@@ -501,7 +501,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
 
         this._repeat_x_input.oninput = this._repeat_y_input.oninput = () => {
             this._input.triggerOninput();
-        }
+        };
 
 
 
@@ -511,7 +511,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
         //option choice
         let image_UI = [/*this._img_disp,*/ this._img_picker, this._size_mode_picker.DOM_container, this._bgnd_size_inputs, this._repeat_x_input.DOM_container, this._repeat_y_input.DOM_container];
         if (this._defaults.type === "image") image_UI.forEach(element => element.style.display = (element.tagName === "BUTTON")? "initial":"flex");
-            else image_UI.forEach(element => element.style.display = "none");
+        else image_UI.forEach(element => element.style.display = "none");
         this._list.oninput = () => {
             //update UI
             switch (this._list.value) {
@@ -520,24 +520,24 @@ export class UIParameterBackgroundPicker extends UIParameter {
                     this._input.value = this._defaults.color;
                     this._color_picker.DOM_container.style.display = "initial";
                     image_UI.forEach(element => element.style.display = "none");
-                break;
+                    break;
                 case "gradient":
                     this._input.display = "flex";
                     this._input.value = this._defaults.gradient;
                     this._color_picker.DOM_container.style.display = "none";
                     image_UI.forEach(element => element.style.display = "none");
-                break;
+                    break;
                 case "image":
                     this._input.display = "flex";
                     this._input.value = "";
                     this._color_picker.DOM_container.style.display = "none";
                     image_UI.forEach(element => element.style.display = (element.tagName === "BUTTON")? "initial":"flex");
-                break;
+                    break;
             }
 
             //update background on type switch
             this._input.triggerOninput();
-        }
+        };
 
         //background size type choice
         this._size_mode_picker.oninput = () => {
@@ -546,20 +546,20 @@ export class UIParameterBackgroundPicker extends UIParameter {
                 case "contain":
                     this._bgnd_size_input1.display = "none";
                     this._bgnd_size_input2.display = "none";
-                break;
+                    break;
                 case "scale_size_control":
                     this._bgnd_size_input1.display = "flex";
                     this._bgnd_size_input2.display = "none";
-                break;
+                    break;
                 case "width_height_size_control":
                     this._bgnd_size_input1.display = "flex";
                     this._bgnd_size_input2.display = "flex";
-                break;
+                    break;
             }
 
             //update background on size type switch
             this._input.triggerOninput();
-        }
+        };
 
 
 
@@ -567,7 +567,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
         //MAIN FUNCTION
         this._input.oninput = () => {
             if (this._list.value === "image") this._input_image_callback(this._object_id, this._list.value, this._defaults.image, this._size_mode_picker.value, this._defaults.size_x, this._defaults.size_y, this._repeat_x_input.checked, this._repeat_y_input.checked);
-                else this._input_else_callback(this._object_id, this._list.value, this._input.value);
+            else this._input_else_callback(this._object_id, this._list.value, this._input.value);
         
             //keep in memory the changes to when the users change of type, he gets back what he wrote.
             switch (this._list.value) {
@@ -575,7 +575,7 @@ export class UIParameterBackgroundPicker extends UIParameter {
                 case "gradient": this._defaults.gradient = this._input.value; break;
                 //image changes managed by image picker button
             }
-        }
+        };
     }
 
     get list_value() {return this._list.value;}
@@ -711,20 +711,20 @@ export class UIParameterRack extends ui.UIComponent {
         //arrow
         this._arrow = document.createElement("div");
         this._banner.appendChild(this._arrow);
-        this._arrow.innerHTML = '<i class="ri-arrow-right-s-line"></i>';
+        this._arrow.innerHTML = "<i class=\"ri-arrow-right-s-line\"></i>";
         this._arrow.classList.add("object_param_icon", "object_param_arrow");
 
         //deletion cross
         if (this._settings.user_can_delete) {
             this._cross_button = document.createElement("div");
             this._banner.appendChild(this._cross_button);
-            this._cross_button.innerHTML = '<i class="ri-close-circle-fill"></i>';
+            this._cross_button.innerHTML = "<i class=\"ri-close-circle-fill\"></i>";
             this._cross_button.classList.add("object_param_icon", "object_param_cross");
 
             //object deletion
             this._cross_button.onclick = () => {
                 this.delete();
-            }
+            };
 
         }
 
@@ -732,20 +732,20 @@ export class UIParameterRack extends ui.UIComponent {
         if (this._settings.user_can_edit_name) {
             this._edit_button = document.createElement("div");
             this._banner.appendChild(this._edit_button);
-            this._edit_button.innerHTML = '<i class="ri-pencil-fill"></i>';
+            this._edit_button.innerHTML = "<i class=\"ri-pencil-fill\"></i>";
             this._edit_button.classList.add("object_param_icon", "object_param_edit");
 
             //object renaming
             this._edit_button.onclick = () => {
                 this._rename_callback(); //The user call itself the rename() function in its function
-            }
+            };
         }
 
 
         //ability to open and close the object parameters' container
         this._title_container.onclick = this._arrow.onclick = () => {
             this.toggleOpen();
-        }
+        };
         //default
         if (this._settings.default_closed) this.toggleOpen();
 

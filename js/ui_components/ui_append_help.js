@@ -1,5 +1,7 @@
 //MIT License - Copyright (c) 2020-2021 Picorims
 
+/*globals imports*/
+
 import * as ui from "./ui_base_components.js";
 import * as utils from "../utils/utils.js";
 
@@ -43,7 +45,7 @@ export class UIHelp extends ui.UIComponent {
     
             //display delay
             setTimeout(DisplayHelpMsg(this), 1000);
-        }
+        };
     
         this._DOM_container.onpointerleave = function() {
             this.setAttribute("data-hover", "false");
@@ -52,9 +54,9 @@ export class UIHelp extends ui.UIComponent {
             for (var i=msgs.length-1; i>=0; i--) {
                 msgs[i].remove();
             }
-        }
+        };
     }
-    get help_msg() {return this._help_string}
+    get help_msg() {return this._help_string;}
     set help_msg(string) {
         this._help_string = string;
         this._DOM_container.setAttribute("data-content", this._help_string);

@@ -30,7 +30,7 @@ export let EventMixin = {
      * @memberof EventMixin
      */
     subscribeToEvent: function (event, function_handler) {
-        if (!this._event_handlers.hasOwnProperty(event)) throw new Error(`"${event}" event doesn't exist.`);
+        if (!Object.prototype.hasOwnProperty.call(this._event_handlers, event)) throw new Error(`"${event}" event doesn't exist.`);
 
         this._event_handlers[event].push(function_handler);
     },
@@ -43,7 +43,7 @@ export let EventMixin = {
      * @memberof EventMixin
      */
     unsubscribeToEvent: function (event, function_handler) {
-        if (!this._event_handlers.hasOwnProperty(event)) throw new Error(`"${event}" event doesn't exist.`);
+        if (!Object.prototype.hasOwnProperty.call(this._event_handlers, event)) throw new Error(`"${event}" event doesn't exist.`);
 
         let handlers = this._event_handlers[event];
         for (let i = handlers.length-1; i >= 0; i--) {
@@ -65,4 +65,4 @@ export let EventMixin = {
             handler(...args);
         });
     } 
-}
+};

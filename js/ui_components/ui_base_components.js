@@ -129,7 +129,7 @@ export class UIButtonGrid extends UIComponent {
                         //no toggle mode, only callback
                         this._button_definitions[i][j].callback();
                     }
-                }
+                };
                 row.push(button);
             }
             //add the row to the list of rows
@@ -148,7 +148,7 @@ export class UIButtonGrid extends UIComponent {
      * @return {HTMLElement} The corresponding button.
      * @memberof UIButtonGrid
      */
-    getButton(row, column) {return this._buttons[row][column]}
+    getButton(row, column) {return this._buttons[row][column];}
     
     /**
      * Enable or disable a given button. Only works in togglable mode.
@@ -219,13 +219,13 @@ export class UINumberInput extends UIComponent {
         this._label_unit.style.marginLeft = "2px";
 
         //event trigger
-        this._input_event = new Event('input', {
+        this._input_event = new Event("input", {
             bubbles: true,
             cancelable: true,
         });
     }
 
-    get value() {return this._input.value}
+    get value() {return this._input.value;}
     set value(value) {this._input.value = value;}
 
     set min(min) {
@@ -322,7 +322,7 @@ export class UIStringInput extends UIComponent {
 
     get input() {return this._input;}
 
-    get value() {return this._input.value}
+    get value() {return this._input.value;}
     set value(value) {this._input.value = value;}
 
     set pattern(pattern) {
@@ -357,7 +357,7 @@ export class UIStringInput extends UIComponent {
      * @memberof UIStringInput
      */
     triggerOninput() {
-        this._input.dispatchEvent(new Event('input', {
+        this._input.dispatchEvent(new Event("input", {
             bubbles: true,
             cancelable: true,
         }));
@@ -381,7 +381,7 @@ export class UIColorPicker extends UIComponent {
      */
     constructor(string_input) {
         super();
-        if (!string_input instanceof UIStringInput) throw new SyntaxError("string_input must be a UIStringInput");
+        if (!(string_input instanceof UIStringInput)) throw new SyntaxError("string_input must be a UIStringInput");
         this._string_input = string_input;
 
         //HTML color picker
@@ -394,13 +394,13 @@ export class UIColorPicker extends UIComponent {
         this._color_picker.oninput = () => {
             this._string_input.value = this._color_picker.value;
             this._string_input.triggerOninput();
-        }
-        this._string_input.input.addEventListener("input", (e) => {
+        };
+        this._string_input.input.addEventListener("input", () => {
             this._color_picker.value = this._string_input.value;
         });
         this._color_picker.value = this._string_input.value;
     }
-    set value(value) {this._color_picker.value = value}
+    set value(value) {this._color_picker.value = value;}
 }
 
 
@@ -456,7 +456,7 @@ export class UIChoiceList extends UIComponent {
         this._input.style.width = (title === "")? "100%" : "50%";
     }
 
-    get value() {return this._input.value}
+    get value() {return this._input.value;}
     set value(value) {this._input.value = value;}
 
     set input_class_list(class_list) {
@@ -510,7 +510,7 @@ export class UICheckBox extends UIComponent {
         this._input.checked = this._default_value;        
     }
 
-    get checked() {return this._input.checked}
+    get checked() {return this._input.checked;}
     set checked(checked) {this._input.checked = checked;}
 
     set input_class_list(class_list) {

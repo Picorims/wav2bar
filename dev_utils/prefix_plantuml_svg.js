@@ -2,8 +2,9 @@
 
 const fs = require("fs").promises;
 const path = require("path");
+// eslint-disable-next-line no-unused-vars
 const colors = require("colors");
-const prefix = "<!--MIT License - Copyright (c) 2020-2021 Picorims-->"
+const prefix = "<!--MIT License - Copyright (c) 2020-2021 Picorims-->";
 const regexp = new RegExp(/^.*\.svg$/);
 
 //inspired from https://stackoverflow.com/questions/32511789/looping-through-files-in-a-folder-node-js
@@ -12,7 +13,7 @@ async function prefixSVG(rootPath, level) {
     for (let i = 0; i < level; i++) commentPrefix += "|-";
 
     //open directory
-    const dir = await fs.opendir(rootPath)
+    const dir = await fs.opendir(rootPath);
 
     //for each file
     for await (const dirEntry of dir) {

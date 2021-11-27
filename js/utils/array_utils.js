@@ -21,8 +21,8 @@ export function MappedArray(array, new_length, min, max) {
     if ( !Type.IsANumber(new_length) )               throw `MappedArray: ${new_length} is not a number!`;
     if ( !Type.IsUndefined(min) && !Type.IsANumber(min) ) throw `MappedArray: ${min} is not a number!`; //min and max are optional and undefined shouldn't
     if ( !Type.IsUndefined(max) && !Type.IsANumber(max) ) throw `MappedArray: ${max} is not a number!`; //trigger any error.
-    for (var i=0; i< array.length; i++) {
-        if ( Type.IsUndefined(array[i]) ) throw `MappedArray: the value ${i} of the array is undefined or null!`
+    for (let i = 0; i < array.length; i++) {
+        if ( Type.IsUndefined(array[i]) ) throw `MappedArray: the value ${i} of the array is undefined or null!`;
     }
 
     //DEFINITIONS
@@ -48,9 +48,9 @@ export function MappedArray(array, new_length, min, max) {
 
 
     //ARRAY CREATION
-    for (var i = 0; i<new_length; i++) {
-        if (increment === array.length) {     new_array.push(  array[ parseInt(increment-1) ]  )     }
-            else                        {     new_array.push(  array[ parseInt(increment) ]    )     }
+    for (let i = 0; i<new_length; i++) {
+        if (increment === array.length) {     new_array.push(  array[ parseInt(increment-1) ]  );     }
+        else                            {     new_array.push(  array[ parseInt(increment) ]    );     }
         increment += step;
     }
 
@@ -74,7 +74,7 @@ export function LinearToLog(array) {
     var non_empty_indexes = [];
 
     //re-index
-    for (var i=0; i<length; i++) {
+    for (let i = 0; i < length; i++) {
         let log_index = Math.floor( Math.log(i+1)*base_l * length ); //pos * scale
         log_array[log_index] = array[i];
         
@@ -88,7 +88,7 @@ export function LinearToLog(array) {
     //index 0 is defined and is a starting point for the first interpolation (j=0 to j+1 = 1)
     //If "i" was starting to 0 an unecessary increment would be performed, as the loop would think there was an
     //interpolation done before index 0.
-    for (var i=1; i<length; i++) {
+    for (let i = 1; i < length; i++) {
         if (Type.IsUndefined(log_array[i])) {
             //change of area when the right boundary is bypassed.
             //if (i >= non_empty_indexes[j+1]) j++;
@@ -148,6 +148,6 @@ export function InInterval(value, interval, type) {
         case "excluded":
             return (   (value > interval[0])  && (value < interval[1])   );
         default:
-            throw `InInterval: ${type} is not a valid interval type! (included or excluded)`
+            throw `InInterval: ${type} is not a valid interval type! (included or excluded)`;
     }
 }

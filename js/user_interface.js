@@ -2,6 +2,8 @@
 
 //USER INTERFACE PROCESS (CONTROL PANEL INCLUDED)
 
+/*globals project, imports, ipcRenderer, setFFmpegPath, setFFprobePath, software_version, software_status, settings, InitSettings, Export*/
+
 var control_panel, screen_interface, screen;//MAIN HTML ELEMENTS
 
 var tab;//all tabs
@@ -29,6 +31,7 @@ INITIALIZATION
  * user interface initialization
  *
  */
+// eslint-disable-next-line no-unused-vars
 async function InitUI() {
     //IMPORTS
     imports.ui_components = await import("./ui_components/ui_components.js");
@@ -52,7 +55,7 @@ async function InitUI() {
         export: document.getElementById("export_tab"),
         settings: document.getElementById("settings_tab"),
         help: document.getElementById("help_tab"),
-    }
+    };
 
 
 
@@ -63,28 +66,28 @@ async function InitUI() {
         export: document.getElementById("export_label"),
         settings: document.getElementById("settings_label"),
         help: document.getElementById("help_label"),
-    }
+    };
 
     tab_label.project.onclick = function() {
         HideAnyTab();
         ShowTab(tab.project, tab_label.project);
-    }
+    };
     tab_label.objects.onclick = function() {
         HideAnyTab();
         ShowTab(tab.objects, tab_label.objects);
-    }
+    };
     tab_label.export.onclick = function() {
         HideAnyTab();
         ShowTab(tab.export, tab_label.export);
-    }
+    };
     tab_label.settings.onclick = function() {
         HideAnyTab();
         ShowTab(tab.settings, tab_label.settings);
-    }
+    };
     tab_label.help.onclick = function() {
         HideAnyTab();
         ShowTab(tab.help, tab_label.help);
-    }
+    };
 
 
 
@@ -101,20 +104,20 @@ async function InitUI() {
     document.getElementById("fps_input").value = project.save_handler.save_data.fps;
     document.getElementById("fps_input").oninput = function() {
         ChangeFPSTo(parseInt(this.value));
-    }
+    };
 
     //screen width
     document.getElementById("screen_width_input").value = project.save_handler.save_data.screen.width;
     document.getElementById("screen_width_input").oninput = function() {
         SetScreenTo(parseInt(this.value), project.save_handler.save_data.screen.height);
 
-    }
+    };
 
     //screen height
     document.getElementById("screen_height_input").value = project.save_handler.save_data.screen.height;
     document.getElementById("screen_height_input").oninput = function() {
         SetScreenTo(project.save_handler.save_data.screen.width, parseInt(this.value));
-    }
+    };
 
     //import audio
     document.getElementById("load_audio_button").onclick = function() {
@@ -124,7 +127,7 @@ async function InitUI() {
         }, function(result) {
             project.save_handler.saveAudio(result);
         });
-    }
+    };
 
     //import save
     document.getElementById("save_file_button").onclick = function() {
@@ -134,17 +137,17 @@ async function InitUI() {
         }, function(result) {
             project.save_handler.loadSave(result);
         });
-    }
+    };
 
     //export save
     document.getElementById("export_save_button").onclick = function() {
         FileBrowserDialog({
-            type: 'save_file',
+            type: "save_file",
             allowed_extensions:["w2bzip"],
         }, function(result) {
             project.save_handler.exportSave(result);
         });
-    }
+    };
 
 
 
@@ -155,7 +158,7 @@ async function InitUI() {
         //get type
         let type = document.getElementById("create_object_select").value;
         project.save_handler.createVisualObject(type);
-    }
+    };
 
 
 
@@ -169,11 +172,11 @@ async function InitUI() {
         }, function(result) {
             document.getElementById("video_export_path_input").value = result;
         });
-    }
+    };
 
     //export
     document.getElementById("export_button").onclick = async function() {
-        let input_value = document.getElementById("video_export_path_input").value
+        let input_value = document.getElementById("video_export_path_input").value;
         if (input_value == "") {
             MessageDialog("info","please specify the video output path.");
         } else if (!await ipcRenderer.invoke("path-exists",settings.ffmpeg.ffmpeg_path)
@@ -182,7 +185,7 @@ async function InitUI() {
         } else {
             Export(input_value);
         }
-    }
+    };
 
 
 
@@ -194,7 +197,7 @@ async function InitUI() {
     //open logs folder
     document.getElementById("open_logs_button").onclick = function() {
         ipcRenderer.invoke("open-folder-in-file-explorer", `${project.working_dir}/logs`);
-    }
+    };
 
     //choose ffmpeg path through file browser
     document.getElementById("choose_ffmpeg_path_button").onclick = function() {
@@ -204,10 +207,10 @@ async function InitUI() {
         }, function(result) {
             setFFmpegPath(result);
         });
-    }
+    };
     document.getElementById("ffmpeg_path_input").oninput = function() {
         setFFmpegPath(this.value);
-    }
+    };
 
     //choose ffprobe path through file browser
     document.getElementById("choose_ffprobe_path_button").onclick = function() {
@@ -217,25 +220,25 @@ async function InitUI() {
         }, function(result) {
             setFFprobePath(result);
         });
-    }
+    };
     document.getElementById("ffprobe_path_input").oninput = function() {
         setFFprobePath(this.value);
-    }
+    };
 
 
     //open help for FFmpeg and FFprobe installation
     document.getElementById("open_ffmpeg_help").onclick = function() {
         ipcRenderer.invoke("open-local-html", "./html/install_ffmpeg.html");
-    }
+    };
 
 
 
     //HELP AND INFO TAB
-    document.getElementById("website_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://picorims.github.io/wav2bar-website"); }
-    document.getElementById("github_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://github.com/Picorims/audio-visualizer-creator"); }
-    document.getElementById("twitter_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://twitter.com/Picorims"); }
-    document.getElementById("youtube_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://www.youtube.com/channel/UCf15T29ZZ5RxQcbS9onQq9A"); }
-    document.getElementById("discord_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://discord.gg/EVGzfdP"); }
+    document.getElementById("website_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://picorims.github.io/wav2bar-website"); };
+    document.getElementById("github_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://github.com/Picorims/audio-visualizer-creator"); };
+    document.getElementById("twitter_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://twitter.com/Picorims"); };
+    document.getElementById("youtube_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://www.youtube.com/channel/UCf15T29ZZ5RxQcbS9onQq9A"); };
+    document.getElementById("discord_link").onclick = function() { ipcRenderer.invoke("open-in-browser", "https://discord.gg/EVGzfdP"); };
 
 
 
@@ -254,7 +257,7 @@ async function InitUI() {
         }
         ApplyZoom(zoom);
         zoom_disp.innerHTML = `${Math.round(zoom*100)}%`;
-    }
+    };
 
     //zoom in
     document.getElementById("zoom_in").onclick = function() {
@@ -264,12 +267,12 @@ async function InitUI() {
         }
         ApplyZoom(zoom);
         zoom_disp.innerHTML = `${Math.round(zoom*100)}%`;
-    }
+    };
 
     //choose zoom
     document.getElementById("zoom_value").onclick = function() {
         CreateZoomMenu();
-    }
+    };
 
 
 
@@ -287,15 +290,16 @@ async function InitUI() {
 
         let help_ui;
         switch (help_node) {
-            case "fps":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.fps); break;
-            case "screen_size":         help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.size); break;
-            case "audio":               help_ui = new imports.ui_components.UIHelp(elements[i], help.audio.import); break;
-            case "save_import":         help_ui = new imports.ui_components.UIHelp(elements[i], help.save.import); break;
-            case "save_export":         help_ui = new imports.ui_components.UIHelp(elements[i], help.save.export); break;
-            case "new_object":          help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.object.general.creation); break;
-            case "export_video_path":   help_ui = new imports.ui_components.UIHelp(elements[i], help.export.video_path); break;
-            case "export":              help_ui = new imports.ui_components.UIHelp(elements[i], help.export.action); break;
-            case "experimental_jpeg_export": help_ui = new imports.ui_components.UIHelp(elements[i], help.export.experimental_jpeg_export); break;
+            case "fps":                         help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.fps); break;
+            case "screen_size":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.size); break;
+            case "audio":                       help_ui = new imports.ui_components.UIHelp(elements[i], help.audio.import); break;
+            case "save_import":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.save.import); break;
+            case "save_export":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.save.export); break;
+            case "new_object":                  help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.object.general.creation); break;
+            case "export_video_path":           help_ui = new imports.ui_components.UIHelp(elements[i], help.export.video_path); break;
+            case "export":                      help_ui = new imports.ui_components.UIHelp(elements[i], help.export.action); break;
+            // eslint-disable-next-line no-unused-vars
+            case "experimental_jpeg_export":    help_ui = new imports.ui_components.UIHelp(elements[i], help.export.experimental_jpeg_export); break;
             default: break;
         }
     }
@@ -354,7 +358,7 @@ function LoopUI() {
     let screen_height = (project.save_handler.save_data.screen.height + screen_border*2) * zoom;
 
     let inner_spacing_width  = screen_width  + (2*extra_space);
-    let inner_spacing_height = screen_height + (2*extra_space)
+    let inner_spacing_height = screen_height + (2*extra_space);
     document.getElementById("inner_spacing_fixer").style.width  = inner_spacing_width  + "px";
     document.getElementById("inner_spacing_fixer").style.height = inner_spacing_height + "px";
 
@@ -386,7 +390,7 @@ SHOW / HIDE TAB
  *
  */
 function HideAnyTab() {
-    for (i of Object.keys(tab) ) {
+    for (let i of Object.keys(tab) ) {
         tab[i].style.left = -1000+"px";
         tab[i].style.display = "none";
         tab_label[i].classList.remove("selected_tab");
@@ -436,7 +440,7 @@ function SetScreenTo(width, height) {
     project.save_handler.screen = {
         width: width,
         height: height,
-    }
+    };
 
     //update background size
     // for (var i=0; i<objects.length; i++) {
@@ -531,7 +535,7 @@ function CreateZoomMenu() {
     setTimeout(() => {window.onclick = function() {
         KillZoomMenu();
         window.onclick = null;
-    }},100);
+    };},100);
 
 }
 
@@ -541,7 +545,7 @@ function CreateZoomMenu() {
  */
 function KillZoomMenu() {
     var elements = document.getElementsByClassName("zoom_option");
-    var elements = [...elements];//unlink the array from live count by replacing it by a clone of it
+    elements = [...elements];//unlink the array from live count by replacing it by a clone of it
 
     for (var i=0; i < elements.length; i++) {
         elements[i].remove();
@@ -585,6 +589,7 @@ AUDIO CONTROL
  * 
  * It initializes the audio control at the top of the screen.
  */
+// eslint-disable-next-line no-unused-vars
 function SetupAudioUI() {
     //DOM elements (range excluded)
     var play_audio = document.getElementById("play_audio");
@@ -616,7 +621,7 @@ function SetupAudioUI() {
         play_audio.classList.remove("activated");
         pause_audio.classList.add("activated");
         stop_audio.classList.remove("activated");
-    }
+    };
 
 
     //STOP
@@ -627,19 +632,19 @@ function SetupAudioUI() {
         play_audio.classList.remove("activated");
         pause_audio.classList.remove("activated");
         stop_audio.classList.add("activated");
-    }
+    };
 
 
     //TO START
     audio_to_start.onclick = function() {
         project.audioToStart();
-    }
+    };
 
 
     //TO END
     audio_to_end.onclick = function() {
         project.audioToEnd();
-    }
+    };
 
 
     //LOOP
@@ -649,7 +654,7 @@ function SetupAudioUI() {
 
         //update visuals
         loop_audio.classList.toggle("activated");
-    }
+    };
 
 
     //RANGE
@@ -666,10 +671,10 @@ function SetupAudioUI() {
     //know if it is used
     audio_range.onmousedown = function() {
         audio_range_used = true;
-    }
+    };
     audio_range.onmouseup = function() {
         audio_range_used = false;
-    }
+    };
 
     //position update
     if (!audio_range_update) {
@@ -679,7 +684,7 @@ function SetupAudioUI() {
     //ability to change audio_position
     audio_range.oninput = function() {
         project.setAudioCurrentTime(audio_range.value);
-    }
+    };
 
 
     //TIME DISPLAY
@@ -763,7 +768,7 @@ DIALOGS
 function InputDialog(message, callback, args) {
 
     if ( !imports.utils.IsAString(message) ) throw `InputDialog: ${message} is not a string.`;
-    if (imports.utils.IsUndefined(callback)) throw `InputDialog: callback missing!`;
+    if (imports.utils.IsUndefined(callback)) throw "InputDialog: callback missing!";
 
     //create elements
     var background_container = document.createElement("div");
@@ -791,7 +796,7 @@ function InputDialog(message, callback, args) {
     cancel_button.innerHTML = "Cancel";
     cancel_button.onclick = function() {
         background_container.remove();
-    }
+    };
 
     var confirm_button = document.createElement("button");
     container.appendChild(confirm_button);
@@ -803,7 +808,7 @@ function InputDialog(message, callback, args) {
         var result = input.value;
         callback(result, args);
         background_container.remove();
-    }
+    };
 
 }
 
@@ -824,7 +829,7 @@ function MessageDialog(type, message, callback, args) {
     if ( !imports.utils.IsAString(type)    ) throw `MessageDialog: ${message} must be a string`;
     else if (type!=="info" && type!=="warn" && type!=="error" && type!=="confirm") throw `MessageDialog: ${message} must be "info", "warn" or "error"`;
     if ( !imports.utils.IsAString(message) ) throw `MessageDialog: ${message} is not a string.`;
-    if (imports.utils.IsUndefined(callback) && type==="confirm") throw `MessageDialog: callback missing!`;
+    if (imports.utils.IsUndefined(callback) && type==="confirm") throw "MessageDialog: callback missing!";
 
     //create elements
     var background_container = document.createElement("div");
@@ -851,19 +856,19 @@ function MessageDialog(type, message, callback, args) {
     icon.classList.add("dialog_big_icon");
     switch (type) {
         case "info":
-            icon.innerHTML = '<i class="ri-information-line"></i>';
+            icon.innerHTML = "<i class=\"ri-information-line\"></i>";
             icon.classList.add("blue");
             break;
         case "warn":
-            icon.innerHTML = '<i class="ri-alert-line"></i>';
+            icon.innerHTML = "<i class=\"ri-alert-line\"></i>";
             icon.classList.add("blue");
             break;
         case "error":
-            icon.innerHTML = '<i class="ri-error-warning-line"></i>';
+            icon.innerHTML = "<i class=\"ri-error-warning-line\"></i>";
             icon.classList.add("red");
             break;
         case "confirm":
-            icon.innerHTML = '<i class="ri-question-line"></i>';
+            icon.innerHTML = "<i class=\"ri-question-line\"></i>";
             icon.classList.add("blue");
             break;
     }
@@ -882,7 +887,7 @@ function MessageDialog(type, message, callback, args) {
         cancel_button.onclick = function() {
             background_container.remove();
             if (callback) callback(false, args);
-        }
+        };
     }
 
     //button to close if not in confirm mode.
@@ -893,7 +898,7 @@ function MessageDialog(type, message, callback, args) {
     confirm_button.onclick = function() {
         if (callback) callback(true, args);
         background_container.remove();
-    }
+    };
 
 }
 
@@ -939,12 +944,12 @@ FILE BROWSER
  */
 async function FileBrowserDialog(settings, callback, args) {
     if ( !imports.utils.IsAnObject(settings) ) throw `FileBrowserDialog: ${settings} is not an object.`;
-    if (imports.utils.IsUndefined(callback)) throw `FileBrowserDialog: callback missing!`;
+    if (imports.utils.IsUndefined(callback)) throw "FileBrowserDialog: callback missing!";
 
     //SETTINGS VERIFICATION
 
     //is undefined
-    if (imports.utils.IsUndefined(settings.type)) throw `FileBrowserDialog: Dialog type required!`;
+    if (imports.utils.IsUndefined(settings.type)) throw "FileBrowserDialog: Dialog type required!";
     if (imports.utils.IsUndefined(settings.allowed_extensions)) settings.allowed_extensions = ["#any"];
     if (imports.utils.IsUndefined(settings.display_hidden_files)) settings.display_hidden_files = false;
     if (imports.utils.IsUndefined(settings.show_disabled_files)) settings.show_disabled_files = false;
@@ -954,10 +959,10 @@ async function FileBrowserDialog(settings, callback, args) {
         throw `FileBrowserDialog: ${settings.type} dialog type is invalid! It must be get_file, get_directory, or save_file.`;
     }
     if (!imports.utils.IsUndefined(settings.allowed_extensions) && !imports.utils.IsAnArray(settings.allowed_extensions)) {
-        throw `FileBrowserDialog: displayed extentions must be expressed as an array of strings, or ["#none"] or ["#any"].`;
+        throw "FileBrowserDialog: displayed extentions must be expressed as an array of strings, or [\"#none\"] or [\"#any\"].";
     }
     for (let i=0; i<settings.allowed_extensions.length; i++) {
-        if (!imports.utils.IsAString(settings.allowed_extensions[i])) throw `FileBrowserDialog: displayed extentions must be expressed as an array of strings, or ["#none"] or ["#any"].`;
+        if (!imports.utils.IsAString(settings.allowed_extensions[i])) throw "FileBrowserDialog: displayed extentions must be expressed as an array of strings, or [\"#none\"] or [\"#any\"].";
     }
     if (!imports.utils.IsUndefined(settings.display_hidden_files) && !imports.utils.IsABoolean(settings.display_hidden_files)) {
         throw `FileBrowserDialog: display_hidden_files with value ${settings.display_hidden_files} must be a boolean value.`;
@@ -967,7 +972,7 @@ async function FileBrowserDialog(settings, callback, args) {
     }
 
     //starting directory
-    let homedir = await ipcRenderer.invoke('get-home-path');
+    let homedir = await ipcRenderer.invoke("get-home-path");
 
     //DIALOG CREATION
 
@@ -1009,63 +1014,63 @@ async function FileBrowserDialog(settings, callback, args) {
             imports.utils.CustomLog("error",`${path_input.value} do not exists: ${error}`);
             last_path_worked = false;
         }
-    }
+    };
     //on lost focus, if the last path is wrong, fix it.
     path_input.onblur = async () => {
         if (!last_path_worked) {
             path_input.value = last_valid_path;
             FillTree(path_input.value, file_browser, path_input, name_input, settings);
         }
-    }
+    };
 
     //go back button
     var go_back = document.createElement("div");
     path_container.appendChild(go_back);
     go_back.classList.add("file_browser_icon_button");
-    go_back.innerHTML = '<i class="ri-arrow-left-circle-line"></i>';
+    go_back.innerHTML = "<i class=\"ri-arrow-left-circle-line\"></i>";
     go_back.onclick = async () => {
         GoBackPrevDirectory(file_browser, path_input, name_input, settings);
-    }
+    };
 
     //new folder button
     var new_folder = document.createElement("div");
     path_container.appendChild(new_folder);
     new_folder.classList.add("file_browser_icon_button");
-    new_folder.innerHTML = '<i class="ri-folder-add-fill"></i>';
+    new_folder.innerHTML = "<i class=\"ri-folder-add-fill\"></i>";
     new_folder.onclick = function () {
         //create folder
         InputDialog("Name of the directory:", async (name, path) => {
             var os = await ipcRenderer.invoke("get-os");
-            if (os==="win32") await ipcRenderer.invoke('make-dir', `${path}\\${name}`);
-            else await ipcRenderer.invoke('make-dir', `${path}/${name}`);
+            if (os==="win32") await ipcRenderer.invoke("make-dir", `${path}\\${name}`);
+            else await ipcRenderer.invoke("make-dir", `${path}/${name}`);
 
-            var event = new Event('input', {
+            var event = new Event("input", {
                 bubbles: true,
                 cancelable: true,
             });
 
             path_input.dispatchEvent(event);
         }, path_input.value.replace(/\\$/,"").replace(/\/$/,"")); //path
-    }
+    };
 
     //home directory button
     var home_dir = document.createElement("div");
     path_container.appendChild(home_dir);
     home_dir.classList.add("file_browser_icon_button");
-    home_dir.innerHTML = '<i class="ri-home-4-line"></i>';
+    home_dir.innerHTML = "<i class=\"ri-home-4-line\"></i>";
     home_dir.onclick = async () => {
         //go to home directory
-        var home_dir = await ipcRenderer.invoke('get-home-path');
+        var home_dir = await ipcRenderer.invoke("get-home-path");
 
         path_input.value = home_dir;
 
-        var event = new Event('input', {
+        var event = new Event("input", {
             bubbles: true,
             cancelable: true,
         });
 
         path_input.dispatchEvent(event);
-    }
+    };
 
 
 
@@ -1097,13 +1102,13 @@ async function FileBrowserDialog(settings, callback, args) {
         //show/hide disabled files
         settings.show_disabled_files = this.checked;
 
-        var event = new Event('input', {
+        var event = new Event("input", {
             bubbles: true,
             cancelable: true,
         });
 
         path_input.dispatchEvent(event);
-    }
+    };
 
     //input for the name of the file
     var tmp_input_id = "input" + Math.floor(performance.now());
@@ -1111,7 +1116,7 @@ async function FileBrowserDialog(settings, callback, args) {
     var name_input = document.createElement("input");
     file_selection_container.appendChild(name_input);
     name_input.classList.add("panel_input", "panel_input_string", "dialog_input");
-    name_input.placeholder = 'file or folder name';
+    name_input.placeholder = "file or folder name";
     name_input.id = tmp_input_id;
     if (settings.type === "get_file" || settings.type === "get_directory") {
         name_input.disabled = "disabled"; //get file should not allow custom names that doesn't exists.
@@ -1126,7 +1131,7 @@ async function FileBrowserDialog(settings, callback, args) {
     cancel_button.innerHTML = "Cancel";
     cancel_button.onclick = function() {
         background_container.remove();
-    }
+    };
 
     //confirm button
     var confirm_button = document.createElement("button");
@@ -1144,7 +1149,7 @@ async function FileBrowserDialog(settings, callback, args) {
 
                 var regexp = new RegExp(/\..*$/,"g"); //has a dot with anything after it at the end of the path.
                 if (regexp.test(name_input.value)) {
-                    MessageDialog("warn","no extension allowed!")
+                    MessageDialog("warn","no extension allowed!");
                     return;
 
                 }
@@ -1170,7 +1175,7 @@ async function FileBrowserDialog(settings, callback, args) {
 
         callback(result, args);
         background_container.remove();
-    }
+    };
 
     //first update of the file browser
     FillTree(homedir, file_browser, path_input, name_input, settings);
@@ -1195,6 +1200,7 @@ async function GoBackPrevDirectory(file_browser, path_input, name_input, setting
         var os = await ipcRenderer.invoke("get-os");
         var path;
         if (os==="win32") path = path_input.value.replace(/\\[^\\]*\\?$/,"\\");
+        // eslint-disable-next-line no-useless-escape
         else path = path_input.value.replace(/\/[^\/]*\/?$/,"\/");
         await FillTree(path, file_browser, path_input, name_input, settings);
     } catch (error) {
@@ -1216,7 +1222,7 @@ async function GoBackPrevDirectory(file_browser, path_input, name_input, setting
 async function FillTree(path, container, path_input, name_input, settings) {
 
     //get directory content
-    const files = await ipcRenderer.invoke('read-dir', path);
+    const files = await ipcRenderer.invoke("read-dir", path);
     //execution stops if the path do not exists.
 
     //separate files and folders, and only keep files matching settings
@@ -1290,13 +1296,13 @@ async function FillTree(path, container, path_input, name_input, settings) {
             let icon;
             if (file.type === "file") {
                 if (getExtension(file.name) === "w2bzip") {
-                    icon = '<i class="ri-save-3-fill"></i>';
+                    icon = "<i class=\"ri-save-3-fill\"></i>";
                 } else {
-                    icon = '<i class="ri-file-fill icon_directory"></i>';
+                    icon = "<i class=\"ri-file-fill icon_directory\"></i>";
                 }
             }
-            else if (file.type === "directory") icon = '<i class="ri-folder-3-fill icon_file"></i>';
-            else if (file.type === "locked_file") icon = '<i class="ri-lock-2-fill icon_file"></i>';
+            else if (file.type === "directory") icon = "<i class=\"ri-folder-3-fill icon_file\"></i>";
+            else if (file.type === "locked_file") icon = "<i class=\"ri-lock-2-fill icon_file\"></i>";
             item.innerHTML = `${icon} ${file.name}`;
 
             //event
@@ -1320,7 +1326,7 @@ async function FillTree(path, container, path_input, name_input, settings) {
                             path_input.value = path_input.value.replace(/\\$/,"").replace(/\/$/,"");
                             path_input.value += (os==="win32")? `\\${file.name}` : `/${file.name}`;
 
-                            var event = new Event('input', {
+                            var event = new Event("input", {
                                 bubbles: true,
                                 cancelable: true,
                             });
@@ -1330,11 +1336,11 @@ async function FillTree(path, container, path_input, name_input, settings) {
                             //sets the folder name to the selected directory.
                             if (settings.type === "get_directory") name_input.value = file.name;
                         } else {
-                            GoBackPrevDirectory(container, path_input, name_input, settings)
+                            GoBackPrevDirectory(container, path_input, name_input, settings);
                         }
                     }
 
-                }
+                };
             }
 
         }
@@ -1356,12 +1362,12 @@ async function FillTree(path, container, path_input, name_input, settings) {
  * @return {Boolean} 
  */
 function HasValidExtension(file_name, extensions_list) {
-    if (!imports.utils.IsAString(file_name)) throw `HasValidExtension: the file name must be a string!`;
+    if (!imports.utils.IsAString(file_name)) throw "HasValidExtension: the file name must be a string!";
     if (!imports.utils.IsAnArray(extensions_list)) {
-        throw `HasValidExtension: the extensions list must be an array!`;
+        throw "HasValidExtension: the extensions list must be an array!";
     } else {
         for (let i=0; i<extensions_list; i++) {
-            if (!imports.utils.IsAString(extensions_list[i])) throw `HasValidExtension: The extensions list must only be made of strings!`;
+            if (!imports.utils.IsAString(extensions_list[i])) throw "HasValidExtension: The extensions list must only be made of strings!";
         }
     }
 
@@ -1369,6 +1375,7 @@ function HasValidExtension(file_name, extensions_list) {
     file_name = file_name.toLowerCase();
 
     for (let i=0; i < extensions_list.length; i++) {
+        // eslint-disable-next-line no-useless-escape
         let regexp = new RegExp(`\.${extensions_list[i].toLowerCase()}$`,"g"); // ends with .my_extension
         if (regexp.test(file_name)) file_matches = true;
     }
@@ -1384,5 +1391,5 @@ function HasValidExtension(file_name, extensions_list) {
  * @return {String} 
  */
 function getExtension(file_name) {
-    return file_name.substring(file_name.lastIndexOf('.')+1, file_name.length) || filename;
+    return file_name.substring(file_name.lastIndexOf(".")+1, file_name.length) || file_name;
 }

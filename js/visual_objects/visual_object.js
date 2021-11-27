@@ -59,7 +59,7 @@ export class VisualObject {
             //kill button action
             this._parameter_rack.delete_callback = () => {
                 this._save_handler.deleteVisualObject(this._id);
-            }    
+            };    
         }
 
 
@@ -140,7 +140,7 @@ export class VisualObject {
      * @return {Object} 
      * @memberof VisualObject
      */
-    getThisData() {return this._save_handler.save_data.objects[this._id]}
+    getThisData() {return this._save_handler.save_data.objects[this._id];}
 
     /**
      * generate a UUID for the object
@@ -293,7 +293,7 @@ export class VText extends VisualObject {
         super(save_handler, rack_parent, id);
         this._TYPE = "text";
         this.assertType();
-        if (!this._owner_project.export_mode) this._parameter_rack.icon = '<i class="ri-text"></i>';
+        if (!this._owner_project.export_mode) this._parameter_rack.icon = "<i class=\"ri-text\"></i>";
 
         //#################
         //UNIQUE PROPERTIES
@@ -424,7 +424,7 @@ export class VTimer extends VisualObject {
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         if (this.constructor === VTimer) throw new SyntaxError("VTimer is an abstract class.");
-        if (!this._owner_project.export_mode) this._parameter_rack.icon = '<i class="ri-timer-2-line"></i>';
+        if (!this._owner_project.export_mode) this._parameter_rack.icon = "<i class=\"ri-timer-2-line\"></i>";
     
         //#################
         //UNIQUE PROPERTIES
@@ -480,7 +480,7 @@ export class VTimerStraightBar extends VTimer {
 
         //child
         this._element_child = document.createElement("div");
-        this._element.appendChild(this._element_child)
+        this._element.appendChild(this._element_child);
         this._element_child.style.display = "inline-block";
         this._element_child.style.float = "left";
         this._element_child.style.width = "100%";
@@ -572,13 +572,13 @@ export class VTimerStraightLinePoint extends VTimer {
 
         //line
         this._element_line = document.createElement("div");
-        this._element.appendChild(this._element_line)
+        this._element.appendChild(this._element_line);
         this._element_line.style.display = "inline-block";
         this._element_line.style.width = "100%";
 
         //cursor
         this._element_cursor = document.createElement("div");
-        this._element.appendChild(this._element_cursor)
+        this._element.appendChild(this._element_cursor);
         this._element_cursor.style.position = "absolute";
         this._element_cursor.style.display = "inline-block";
         this._element_cursor.style.top = "0%";
@@ -666,7 +666,7 @@ export class VParticleFlow extends VisualObject {
         super(save_handler, rack_parent, id);
         this._TYPE = "particle_flow";
         this.assertType();
-        if (!this._owner_project.export_mode) this._parameter_rack.icon = '<i class="ri-loader-line"></i>';
+        if (!this._owner_project.export_mode) this._parameter_rack.icon = "<i class=\"ri-loader-line\"></i>";
 
         this._particles = [];
 
@@ -713,7 +713,7 @@ export class VParticleFlow extends VisualObject {
     get canvas() {return this._element;}
     get ctx() {return this._element.getContext("2d");}
     get properties() {return this._properties;}
-    get volume() {return this._owner_project.volume}
+    get volume() {return this._owner_project.volume;}
 
     /**
      * Updates this object's display.
@@ -843,10 +843,10 @@ class Particle {
                 default: axis_direction = false;
             }
             //other cases
-            if      (utils.InInterval(this._direction, [0       , PI/2    ], "excluded")) {this._spawn_type = "top-left"}
-            else if (utils.InInterval(this._direction, [PI/2    , PI      ], "excluded")) {this._spawn_type = "top-right"}
-            else if (utils.InInterval(this._direction, [PI      , (3*PI)/2], "excluded")) {this._spawn_type = "bottom-right"}
-            else if (utils.InInterval(this._direction, [(3*PI)/2, 2*PI    ], "excluded")) {this._spawn_type = "bottom-left"}
+            if      (utils.InInterval(this._direction, [0       , PI/2    ], "excluded")) {this._spawn_type = "top-left";}
+            else if (utils.InInterval(this._direction, [PI/2    , PI      ], "excluded")) {this._spawn_type = "top-right";}
+            else if (utils.InInterval(this._direction, [PI      , (3*PI)/2], "excluded")) {this._spawn_type = "bottom-right";}
+            else if (utils.InInterval(this._direction, [(3*PI)/2, 2*PI    ], "excluded")) {this._spawn_type = "bottom-left";}
             else if (!axis_direction)
                 throw new Error(`Particle: ${this._direction} is not a valid particle direction. It must be a radian value between 0 and 2PI!`);
     
@@ -860,25 +860,25 @@ class Particle {
                 //====================================================
                 case "bottom-left":
                     if (random === 0) this.bottomSpawn();
-                        else this.leftSpawn(); break;
+                    else this.leftSpawn(); break;
                 //====================================================
                 case "bottom": this.bottomSpawn(); break;
                 //====================================================
                 case "bottom-right":
                     if (random === 0) this.bottomSpawn();
-                        else this.rightSpawn(); break;
+                    else this.rightSpawn(); break;
                 //====================================================
                 case "right": this.rightSpawn(); break;
-                 //====================================================
+                //====================================================
                 case "top-right":
                     if (random === 0) this.topSpawn();
-                        else this.rightSpawn(); break;
+                    else this.rightSpawn(); break;
                 //====================================================
                 case "top": this.topSpawn(); break;
                 //====================================================
                 case "top-left":
                     if (random === 0) this.topSpawn();
-                        else this.leftSpawn(); break;
+                    else this.leftSpawn(); break;
                 //====================================================
                 default: throw new Error(`Particle: ${this._spawn_type} is not a valid spawn type!`);
             }
@@ -945,7 +945,7 @@ class Particle {
         if (this._x > this._x_max || this._x < this._x_min || this._y > this._y_max || this._y < this._y_min ) {
             this._parent.killParticle(this);
         }
-    };
+    }
 
     /**
      * Update the display and draw the particle.
@@ -956,7 +956,7 @@ class Particle {
         let ctx = this._parent.ctx;
         ctx.moveTo(this._x, this._y);
         ctx.arc(this._x, this._y, this._radius, 0, 2*Math.PI);
-    };
+    }
 }
 
 
@@ -991,7 +991,7 @@ export class VVisualizer extends VisualObject {
     constructor(save_handler, rack_parent, id = "") {
         super(save_handler, rack_parent, id);
         if (this.constructor === VVisualizer) throw new SyntaxError("VVisualizer is an abstract class.");
-        if (!this._owner_project.export_mode) this._parameter_rack.icon = '<i class="ri-rhythm-line"></i>';
+        if (!this._owner_project.export_mode) this._parameter_rack.icon = "<i class=\"ri-rhythm-line\"></i>";
 
         //visualization frequency array used for drawing
         this._freq_array = null;
@@ -1019,16 +1019,16 @@ export class VVisualizer extends VisualObject {
         //UPDATE DATA
         //###########
 
-        this._properties["visualizer_points_count"].subscribeToEvent("value_changed", value => {
+        this._properties["visualizer_points_count"].subscribeToEvent("value_changed", () => {
             this._reset_visualization_smoothing = true;
         });
-        this._properties["visualizer_analyser_range"].subscribeToEvent("value_changed", value => {
+        this._properties["visualizer_analyser_range"].subscribeToEvent("value_changed", () => {
             this._reset_visualization_smoothing = true;
         });
-        this._properties["visualization_smoothing_type"].subscribeToEvent("value_changed", value => {
+        this._properties["visualization_smoothing_type"].subscribeToEvent("value_changed", () => {
             this._reset_visualization_smoothing = true;
         });
-        this._properties["visualization_smoothing_factor"].subscribeToEvent("value_changed", value => {
+        this._properties["visualization_smoothing_factor"].subscribeToEvent("value_changed", () => {
             this._reset_visualization_smoothing = true;
         });
     }
@@ -1172,7 +1172,7 @@ export class VVisualizerBar extends VVisualizer {
                 bar.style.minHeight = value + "px";
             }
         });
-        this._properties["visualizer_points_count"].subscribeToEvent("value_changed", value => {
+        this._properties["visualizer_points_count"].subscribeToEvent("value_changed", () => {
             this.updateBars();
         });
     }
@@ -1319,7 +1319,7 @@ export class VVisualizerCircularBar extends VVisualizerBar {
         //UPDATE DATA
         //###########
 
-        this._properties["visualizer_radius"].subscribeToEvent("value_changed", value => {
+        this._properties["visualizer_radius"].subscribeToEvent("value_changed", () => {
             this.updateBars();
         });
 
@@ -1470,7 +1470,7 @@ export class VVisualizerStraightWave extends VVisualizer {
 
         //CREATE THE WAVE
         vis_ctx.beginPath();
-        vis_ctx.moveTo(this._freq_array[i] / 256 * height, visualizer_cvs.height);
+        vis_ctx.moveTo(this._freq_array[0] / 256 * height, visualizer_cvs.height);
 
         let x, y, ctrl_point_1_x, ctrl_point_1_y, ctrl_point_2_x, ctrl_point_2_y;
 
@@ -1601,7 +1601,7 @@ export class VShape extends VisualObject {
         super(save_handler, rack_parent, id);
         this._TYPE = "shape";
         this.assertType();
-        if (!this._owner_project.export_mode) this._parameter_rack.icon = '<i class="ri-image-fill"></i>';
+        if (!this._owner_project.export_mode) this._parameter_rack.icon = "<i class=\"ri-image-fill\"></i>";
 
         //#################
         //UNIQUE PROPERTIES
@@ -1691,7 +1691,7 @@ export class VShape extends VisualObject {
     fullPathToCSSPath(working_dir, absolute_path) {
         //setup working directory information
         working_dir = working_dir.replace(/^.*\/$/, "").replace(/^.*\\$/, ""); //remove last (anti)slash
-        let splitter = (this._owner_project.os === "win32") ? "\\" : "\/";
+        let splitter = (this._owner_project.os === "win32") ? "\\" : "/";
         
         //find the number of upper levels from the working directory.
         //-1 because we don't want to count what is before the root slash
@@ -1703,9 +1703,9 @@ export class VShape extends VisualObject {
         //apply upper jumps
         for (let i = 0; i < number_of_upper_levels; i++) relative_path += "../";
         //format absolute path to be appended by using only / and removing the root part
-        if (this._owner_project.os === "win32") absolute_path = absolute_path.split("\\").join("\/");
+        if (this._owner_project.os === "win32") absolute_path = absolute_path.split("\\").join("/");
         //remove everything until the first occurence of a /
-        absolute_path = absolute_path.replace(/[^\/]*/, "");
+        absolute_path = absolute_path.replace(/[^/]*/, "");
 
         relative_path += absolute_path;
 

@@ -1,11 +1,13 @@
 //MIT License - Copyright (c) 2020-2021 Picorims
 
+/*globals MessageDialog, frames_rendered, duration, tab, FileBrowserDialog, ChangeFPSTo, SetScreenTo, SetupAudioUI, InitUI, ConfirmCreation, Export */
+
 const {ipcRenderer} = require("electron");
 
 /** @type {String} current build version*/
-const software_version = '0.3.0';
+const software_version = "0.3.0";
 /** @type {String} current build type */
-const software_status = 'Indev';
+const software_status = "Indev";
 let working_dir; //working directory for user, temp, logs...
 let root_dir; //root of the app (where main.js is located, and html/css folders)
 let os; //operating system
@@ -118,8 +120,8 @@ class SaveHandler {
             fps: 60,
             audio_filename: "",
             objects: {},
-        }
-        imports.utils.CustomLog('info','loaded default save.');
+        };
+        imports.utils.CustomLog("info","loaded default save.");
     }
 
     /**
@@ -145,7 +147,7 @@ class SaveHandler {
     
         //LOAD NEW DATA
         //the data must be extracted from the file in order to be able to read it.
-        ipcRenderer.once("finished-caching-save", async (event) => {
+        ipcRenderer.once("finished-caching-save", async () => {
             //read data cached in ./temp/current_save
             imports.utils.CustomLog("info","reading the save...");
     
@@ -208,7 +210,7 @@ class SaveHandler {
                 //v1 to v2
                 case 1:
                     //convert objects
-                    for (obj of this._save_data.objects) {
+                    for (let obj of this._save_data.objects) {
                         if (obj.object_type === "background" || obj.object_type === "image") {
                             //cache legacy data
                             let legacy_bgnd = obj.background;
@@ -254,13 +256,13 @@ class SaveHandler {
 
                     //create audio node
                     this._save_data.audio_filename = "";
-                break;
+                    break;
 
 
                 //v2 to v3
                 case 2:
                     //nothing to do, "svg_filters" property is automatically created by objects.
-                break;
+                    break;
 
 
                 //v3 to v4
@@ -268,12 +270,13 @@ class SaveHandler {
                     this._save_data.software_version_first_created = this._save_data.software_version_used;
                     
                     //convert objects
+                    // eslint-disable-next-line no-case-declarations
                     let old_objects = JSON.parse(JSON.stringify(this._save_data.objects));
                     this._save_data.objects = {};
                     for (let obj of old_objects) {
                         this.convertObjV3ToV4(obj, this._save_data);
                     }
-                break;
+                    break;
 
 
 
@@ -285,13 +288,13 @@ class SaveHandler {
             this.convertSave(log_array);
         } else {
             //finished conversion.
-            imports.utils.CustomLog("info", `Conversion done!`);
+            imports.utils.CustomLog("info", "Conversion done!");
 
             //conversion logs
             if (log_array.length > 0) {
                 let log_string = "Conversion details:\n";
-                for (msg of log_array) {
-                    log_string += "- " + msg + '\n';
+                for (let msg of log_array) {
+                    log_string += "- " + msg + "\n";
                 }
                 imports.utils.CustomLog("info", log_string);
                 MessageDialog("info", log_string.split("\n").join("<br>"));
@@ -323,7 +326,7 @@ class SaveHandler {
             object.size = {
                 width: save.screen.width,
                 height: save.screen.height
-            }
+            };
             object.rotation = 0;
             object.svg_filter = old_object.svg_filters;
             object.border_radius = "";
@@ -342,7 +345,7 @@ class SaveHandler {
             object.size = {
                 width: old_object.width,
                 height: old_object.height
-            }
+            };
             object.rotation = old_object.rotation;
             object.svg_filter = old_object.svg_filters;
             object.border_radius = old_object.border_radius;
@@ -361,7 +364,7 @@ class SaveHandler {
             object.size = {
                 width: old_object.width,
                 height: old_object.height
-            }
+            };
             object.rotation = 0;
             object.svg_filter = old_object.svg_filters;
             object.particle_radius_range = JSON.parse(JSON.stringify(old_object.particle_radius_range));
@@ -384,7 +387,7 @@ class SaveHandler {
             object.size = {
                 width: old_object.width,
                 height: old_object.height
-            }
+            };
             object.rotation = old_object.rotation;
             object.svg_filter = old_object.svg_filters;
             object.text_type = old_object.type;
@@ -415,7 +418,7 @@ class SaveHandler {
             object.size = {
                 width: old_object.width,
                 height: old_object.height
-            }
+            };
             object.rotation = old_object.rotation;
             object.svg_filter = old_object.svg_filters;
             object.color = old_object.color;
@@ -454,7 +457,7 @@ class SaveHandler {
             object.size = {
                 width: old_object.width,
                 height: old_object.height
-            }
+            };
             object.rotation = old_object.rotation;
             object.visualizer_points_count = old_object.points_count;
             object.visualizer_analyzer_range = old_object.analyzer_range;
@@ -493,7 +496,7 @@ class SaveHandler {
      * @memberof SaveHandler
      */
     applyLoadedSave() {
-        imports.utils.CustomLog('info','applying save...');
+        imports.utils.CustomLog("info","applying save...");
 
         //CREATE OBJECTS
         let i=0;
@@ -562,7 +565,7 @@ class SaveHandler {
         var data_string = "data:text/json; charset=utf-8," + encodeURIComponent(exported_save);
 
         //create downloader element
-        var downloader = document.createElement('a');
+        var downloader = document.createElement("a");
         downloader.href = data_string;
         downloader.download = "save.json";
         document.body.appendChild(downloader); // required for firefox
@@ -654,7 +657,7 @@ class SaveHandler {
             this._save_data.objects[object.id] = {};//register in save data
         
         } else if (!object.getThisData()) {
-            throw new SyntaxError(`providing an ID for a VisualObject implies that it is registered in the save, but it is not! ("${id}"). If you want to create an object, leave this empty.`);
+            throw new SyntaxError(`providing an ID for a VisualObject implies that it is registered in the save, but it is not! ("${object.id}"). If you want to create an object, leave this empty.`);
         } else if (this._objects[object.id]) {
             throw new Error("There is already an object inspecting " + object.id);
         }
@@ -736,7 +739,8 @@ class SaveHandler {
      */
     async saveObjectBackgroundImage(path, obj_id) {
         //copying file
-        let filename = path.replace(/^.*[\\\/]/, '');
+        // eslint-disable-next-line no-useless-escape
+        let filename = path.replace(/^.*[\\\/]/, "");
         let new_path = `${working_dir}/temp/current_save/assets/${obj_id}/background/`;
         
         //is an image file already imported ?
@@ -751,13 +755,13 @@ class SaveHandler {
 
         //cache image in current save
         if (image_exists) await ipcRenderer.invoke("empty-dir", new_path);
-            else await ipcRenderer.invoke("make-dir", new_path)
+        else await ipcRenderer.invoke("make-dir", new_path);
         await ipcRenderer.invoke("copy-file", path, `${new_path}${filename}`);
         
         return {
             filename: filename,
             new_path: new_path,
-        }
+        };
     }
 
 
@@ -781,7 +785,8 @@ class SaveHandler {
     async saveAudio(path) {
         await this._owner_project.closeAudio();
 
-        let filename = path.replace(/^.*[\\\/]/, '');
+        // eslint-disable-next-line no-useless-escape
+        let filename = path.replace(/^.*[\\\/]/, "");
         let new_path = `${working_dir}/temp/current_save/assets/audio/`;
 
         //is an audio file already imported ?
@@ -796,7 +801,7 @@ class SaveHandler {
 
         //cache audio in current save.
         if (audio_exists) await ipcRenderer.invoke("empty-dir", new_path);
-            else await ipcRenderer.invoke("make-dir", new_path)
+        else await ipcRenderer.invoke("make-dir", new_path);
         await ipcRenderer.invoke("copy-file", path, `${new_path}${filename}`);
 
         //keep new audio name in memory;
@@ -804,7 +809,7 @@ class SaveHandler {
 
         //load audio
         let audio_path = await ipcRenderer.invoke("get-full-path", `${new_path}${filename}`);
-        this._owner_project.loadAudio(audio_path, 'url');
+        this._owner_project.loadAudio(audio_path, "url");
     }
 
 
@@ -859,7 +864,7 @@ class Project {
             now: null,
             then: null,
             elapsed: null,
-        }
+        };
 
         //frame info
         this._current_time = null;
@@ -881,7 +886,7 @@ class Project {
         this._ctx_frequency_array = null;
     }
 
-    get save_handler() {return this._save_handler}
+    get save_handler() {return this._save_handler;}
     set save_handler(save_handler) {
         this._save_handler = save_handler;
         this._save_handler.owner_project = this;
@@ -903,7 +908,7 @@ class Project {
     set audio_file_type(audio_file_type) {this._audio_file_type = audio_file_type;}
 
     get frequency_array() {return this._frequency_array;}
-    set frequency_array(frequency_array) {this._frequency_array = frequency_array}
+    set frequency_array(frequency_array) {this._frequency_array = frequency_array;}
     /**
      * Adds a value manually to the frequency array.
      *
@@ -965,7 +970,7 @@ class Project {
         this._time.start = this._time.then;
 
         this.animate();
-        imports.utils.CustomLog('info','animation started.');
+        imports.utils.CustomLog("info","animation started.");
     }
 
     /**
@@ -976,7 +981,7 @@ class Project {
     stopAnimating() {
         this._stop_animating = true;
         this._animating = false;
-        imports.utils.CustomLog('info','animation stopped.');
+        imports.utils.CustomLog("info","animation stopped.");
     }
 
     /**
@@ -1334,7 +1339,7 @@ class UserInterface {
     }
 
     get screen() {return this._screen;}
-    set owner_project(owner_project) {this._owner_project = owner_project}
+    set owner_project(owner_project) {this._owner_project = owner_project;}
 
     //bridge to interact with user_interface.js file browser dialog
     async FileBrowserDialog(settings, callback, args) {
@@ -1377,7 +1382,7 @@ function LoadModules() {
         imports.utils.CustomLog("debug","Loading modules done.");
 
         //know if the window is a main window (with GUI) or an export window (screen only)
-        return ipcRenderer.invoke('is-export-win');
+        return ipcRenderer.invoke("is-export-win");
     }).then((export_mode) => {
         InitPage(export_mode);
     }).catch(error => {

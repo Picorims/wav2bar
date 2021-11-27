@@ -2,6 +2,8 @@
 
 //EXPORTING THE PROJECT INTO A VIDEO || MAIN PROCESS PART (completely excluded from renderer window process)
 
+/*globals imports, project, ipcRenderer, MessageDialog*/
+
 /** @type {Number} allow setting the max progress through every progress event.*/
 var max_frames;
 
@@ -11,6 +13,7 @@ var max_frames;
  * @param {String} path Where to save the video.
  * @return {Boolean} 
  */
+// eslint-disable-next-line no-unused-vars
 function Export(path) {
     if (project.save_handler.save_data.audio_filename === "") {
         MessageDialog("warn","No audio file selected!");
@@ -21,9 +24,10 @@ function Export(path) {
     project.stopAnimating();//this avoids useless background process in the main window
 
     //wait callback
-    ipcRenderer.once("renderer-exists", async (event) => {//once avoid the listener to be persistent (if it was,
-                                                    //on window re-open, a new listener would stack upon this
-                                                    //one, making multiple process stacking on forever.
+    //once avoid the listener to be persistent (if it was,
+    //on window re-open, a new listener would stack upon this
+    //one, making multiple process stacking on forever.
+    ipcRenderer.once("renderer-exists", async () => {
         imports.utils.CustomLog("debug","renderer created, sending data...");
 
 
@@ -32,10 +36,10 @@ function Export(path) {
         let extension = filename.replace(/^.*\./,"");
         if (imports.utils.IsUndefined(project.audio_file_type)) {
             switch (extension.toLowerCase()) {
-                case 'mp3': project.audio_file_type = 'audio/mp3'; break;
-                case 'wav': project.audio_file_type = 'audio/wav'; break;
-                case 'ogg': project.audio_file_type = 'application/ogg'; break;
-                default: throw `Export: Unknown audio type!`;
+                case "mp3": project.audio_file_type = "audio/mp3"; break;
+                case "wav": project.audio_file_type = "audio/wav"; break;
+                case "ogg": project.audio_file_type = "application/ogg"; break;
+                default: throw "Export: Unknown audio type!";
             }
         }
         var data = {
@@ -44,7 +48,7 @@ function Export(path) {
             audio_file_extension: extension,
             output_path: path,
             use_jpeg: document.getElementById("experimental_export_input").checked,
-        }
+        };
 
         //cache audio for rendering in a separate file.
         let from_path = `${project.working_dir}/temp/current_save/assets/audio/${filename}`;
@@ -103,7 +107,7 @@ function Export(path) {
 
             document.getElementById("export_frame_time_span").innerHTML = `${hours}:${mins}:${secs}`;
         });
-        ipcRenderer.once("frames-rendered", (event) => {
+        ipcRenderer.once("frames-rendered", () => {
             ipcRenderer.removeAllListeners("export-progress");
         });
 
@@ -141,7 +145,7 @@ function Export(path) {
                 secs = (secs<10)? "0"+secs : secs;
 
                 MessageDialog("info",`The video has been successfully created in ${hours}:${mins}:${secs} !`);
-                imports.utils.CustomLog('info',`The video has been successfully created in ${hours}:${mins}:${secs} !`);
+                imports.utils.CustomLog("info",`The video has been successfully created in ${hours}:${mins}:${secs} !`);
             }
             else MessageDialog("error","An error occurred during the encoding process. For more information, see the logs.");
         });
@@ -149,7 +153,7 @@ function Export(path) {
     });
 
     //create renderer window
-    ipcRenderer.invoke('create-export-win');
+    ipcRenderer.invoke("create-export-win");
 
     return true;
 }

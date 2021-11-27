@@ -2,6 +2,8 @@
 
 //EXPORTING THE PROJECT INTO A VIDEO || RENDERER PROCESS PART (completely excluded from main window process)
 
+/*globals imports, ipcRenderer, project, working_dir */
+
 let path = require("path");
 
 let received_data;
@@ -13,12 +15,11 @@ let frames_to_render, frames_rendered;
 let export_array;
 let event;
 
-var progress_window;//progress bar
-
 /**
  * callback to the main window that the renderer windows exists
  *
  */
+// eslint-disable-next-line no-unused-vars
 function ConfirmCreation() {
     imports.utils.CustomLog("debug","renderer created");
 
@@ -37,9 +38,10 @@ function InitRender() {
     screen = document.getElementById("screen");
 
     //collecting needed data
-    ipcRenderer.once("data-sent", (event, data) => {//once avoid the listener to be persistent (if it was,
-                                                    //on window re-open, a new listener would stack upon this
-                                                    //one, making multiple process stacking on forever.
+    //once avoid the listener to be persistent (if it was,
+    //on window re-open, a new listener would stack upon this
+    //one, making multiple process stacking on forever.
+    ipcRenderer.once("data-sent", (event, data) => {
         imports.utils.CustomLog("debug","received data from the main renderer.");
         received_data = data;
         InitExport(data);
@@ -64,16 +66,12 @@ async function InitExport(data) {
     }
     if (!imports.utils.IsAnObject(data)) throw "InitExport: invalid data provided!";
 
-    working_dir = await ipcRenderer.invoke('get-working-dir');
-    os = await ipcRenderer.invoke('get-os');
-    root_dir = await ipcRenderer.invoke('get-app-root');
-
     //SCREEN SETUP
     screen.style.width = project.save_handler.save_data.screen.width + "px";
     screen.style.height = project.save_handler.save_data.screen.height + "px";
 
     //adapt window size to screen
-    await ipcRenderer.invoke('resize-export-window', project.save_handler.save_data.screen.width, project.save_handler.save_data.screen.height);
+    await ipcRenderer.invoke("resize-export-window", project.save_handler.save_data.screen.width, project.save_handler.save_data.screen.height);
 
 
 
@@ -123,7 +121,7 @@ async function InitExport(data) {
     //EVENTS
     event = {
         render_loop: new Event("render-loop"),
-    }
+    };
 
 
 
@@ -181,7 +179,7 @@ function GetAudioData() {
  * @param {Function} callback
  */
 function GetAudioBuffer(callback) {
-    if (imports.utils.IsUndefined(callback)) throw `GetAudioBuffer: Please provide a callback.`
+    if (imports.utils.IsUndefined(callback)) throw "GetAudioBuffer: Please provide a callback.";
 
     //setup
     var context = new AudioContext();
@@ -195,12 +193,12 @@ function GetAudioBuffer(callback) {
         .then(response => response.blob()) // Gets the response and returns it as a blob
         .then(blob => {
             new Response(blob).arrayBuffer().then(function(result) {//converts to array buffer
-                array_buffer = result;
+                let array_buffer = result;
 
                 context.decodeAudioData(array_buffer, function(decoded_buffer) {//converts to audio buffer
                     callback(decoded_buffer);//return data
 
-                }, function() {throw "GetAudioBuffer: audio decoding has failed."});
+                }, function() {throw "GetAudioBuffer: audio decoding has failed.";});
 
             });
         });
@@ -228,7 +226,6 @@ function GetAudioBuffer(callback) {
 function PrepareRendering() {
 
     //FPS PREPARATION
-    frame_count = 0;
     export_array = [0, duration];//from when to when in seconds to export, based on audio length.
     //export_array = [0,10];
     //interval type: [x,y[
@@ -279,7 +276,7 @@ async function Render() {
         if (frames_rendered < frames_to_render) {
 
             //the previous frame is rendered only now because the render of this one is now finished (UpdateFinished = true). it wasn't the case before
-            await ipcRenderer.invoke('export-screen', {width: project.save_handler.save_data.screen.width, height: project.save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
+            await ipcRenderer.invoke("export-screen", {width: project.save_handler.save_data.screen.width, height: project.save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
 
             //get waveform data
             var length = 8192;//output is length/2
@@ -288,16 +285,16 @@ async function Render() {
             var center_point = Math.floor(current_time*sample_rate*2); //2 channels in PCM_data, pos in seconds -> pos in samples
 
             //take a portion of the PCM data
-            for (var i = center_point-(length/2), j=0 ; i < center_point+(length/2); i++, j++) {
+            for (let i = center_point-(length/2), j=0 ; i < center_point+(length/2); i++, j++) {
                 waveform[j] = (i >= 0)? PCM_data[i] : 0;
             }
 
             //get spectrum
-            var spectrum = await ipcRenderer.invoke('pcm-to-spectrum', waveform);
+            var spectrum = await ipcRenderer.invoke("pcm-to-spectrum", waveform);
 
             //scale from 0-1 to 0-255 (used format in the Web Audio API because of Int8Array)
             project.frequency_array = [];
-            for (var i=0; i<spectrum.length; i++) {
+            for (let i = 0; i < spectrum.length; i++) {
                 project.addToFrequencyArray( (1 - Math.exp(-32*spectrum[i])) * 255 );//(amplification with ceiling) * (scale to 0-255)
             }
             project.frequency_array = imports.utils.MappedArray(project.frequency_array, 1024, 0, 1023); //TEMP FIX FOR EXPORT VISUALIZATION. Ideally, visualization should work no matter the array size.
@@ -316,22 +313,22 @@ async function Render() {
         }//if all frames have been rendered and this is the last frame to export, stop the loop and export the last frame
         else {
 
-            await ipcRenderer.invoke('export-screen', {width: project.save_handler.save_data.screen.width, height: project.save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
+            await ipcRenderer.invoke("export-screen", {width: project.save_handler.save_data.screen.width, height: project.save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
 
             document.removeEventListener("render-loop", Render);
             ipcRenderer.sendTo(1, "frames-rendered");
             var data = received_data;
             var export_duration = export_array[1] - export_array[0];
             ipcRenderer.invoke("create-video", project.save_handler.save_data.screen, data.audio_file_type, project.save_handler.save_data.fps, export_duration, data.output_path, received_data.use_jpeg)
-            .then( () => {
-                imports.utils.CustomLog("info","shutting down the renderer...");
-                window.close();
-            })
-            .catch( (error) => {
-                imports.utils.CustomLog("error",`The video encoding failed: ${error}`);
-                alert(`The video encoding failed. For more information, see the logs.\n\n${error}`);
-                window.close();
-            });
+                .then( () => {
+                    imports.utils.CustomLog("info","shutting down the renderer...");
+                    window.close();
+                })
+                .catch( (error) => {
+                    imports.utils.CustomLog("error",`The video encoding failed: ${error}`);
+                    alert(`The video encoding failed. For more information, see the logs.\n\n${error}`);
+                    window.close();
+                });
 
         }
 

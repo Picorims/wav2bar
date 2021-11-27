@@ -2,6 +2,8 @@
 
 //USER SETTINGS MANIPULATION
 
+/*globals imports, ipcRenderer, working_dir, software_version, software_status, MessageDialog*/
+
 var settings;//user settings. see ./users/settings/default_settings.json.
 var current_settings_version = 1;
 
@@ -9,6 +11,7 @@ var current_settings_version = 1;
  * settings initialization. Go reading the .json save.
  *
  */
+// eslint-disable-next-line no-unused-vars
 async function InitSettings() {
     imports.utils.CustomLog("info","initializing settings...");
     let default_settings_path = "./user/settings/default_settings.json";
@@ -65,7 +68,7 @@ function ConvertSettings(log_array = []) {
         switch (settings.save_version) {
             case 1:
                 //future v1 to v2 conversion.
-            break;
+                break;
 
 
 
@@ -74,16 +77,16 @@ function ConvertSettings(log_array = []) {
         }
         settings.save_version++;
         imports.utils.CustomLog("info", `Settings converted to version ${settings.save_version}!`);
-        ConvertSave(log_array);
+        ConvertSettings(log_array);
     } else {
         //finished conversion.
-        imports.utils.CustomLog("info", `Conversion done!`);
+        imports.utils.CustomLog("info", "Conversion done!");
 
         //conversion logs
         if (log_array.length > 0) {
             let log_string = "Conversion details:\n";
-            for (msg of log_array) {
-                log_string += "- " + msg + '\n';
+            for (let msg of log_array) {
+                log_string += "- " + msg + "\n";
             }
             imports.utils.CustomLog("info", log_string);
         }
@@ -125,6 +128,7 @@ async function SaveSettings() {
  *
  * @param {*} path new path
  */
+// eslint-disable-next-line no-unused-vars
 function setFFmpegPath(path) {
     document.getElementById("ffmpeg_path_input").value = path;
     settings.ffmpeg.ffmpeg_path = path;
@@ -137,6 +141,7 @@ function setFFmpegPath(path) {
  *
  * @param {*} path
  */
+// eslint-disable-next-line no-unused-vars
 function setFFprobePath(path) {
     document.getElementById("ffprobe_path_input").value = path;
     settings.ffmpeg.ffprobe_path = path;

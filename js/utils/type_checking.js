@@ -43,7 +43,7 @@ export function IsAString(value) {//returns true if the given variable is a stri
  * @return {Boolean} 
  */
 export function IsABoolean(value) {//returns true if the given variable is a boolean. (true or false)
-    return ( (value === true) || (value === false) )
+    return ( (value === true) || (value === false) );
 }
 
 /**
@@ -65,7 +65,7 @@ export function IsAnArray(value) {//returns true if the given variable is an arr
  * @return {Boolean} 
  */
 export function IsAnObject(value) {//returns true if the given variable is an Object of any kind.
-    return ( (typeof value === 'object') && (value !== null) )
+    return ( (typeof value === "object") && (value !== null) );
 }
 
 /**
