@@ -35,6 +35,8 @@ package "visual_object" {
         rack_parent: UIParameterRack, id: String): VisualObject
         ..get, set..
         + get id(): String
+        + get parameter_rack(): UIParameterRack
+        + get type(): String
         ..
         + getThisData(): Object
         + generateId(): void

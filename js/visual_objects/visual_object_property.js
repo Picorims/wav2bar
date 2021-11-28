@@ -9,7 +9,14 @@ import help from "../../assets/help/help.json" assert {type: "json"}; //not an e
 const DEFAULTS = {
     LAYER: 0,
     COORDINATES: {x: 0, y: 0},
-    SIZE: {width: 400, height: 100},
+    SIZE: {
+        "any": {width: 400, height: 100},
+        "shape": {width: 400, height: 300},
+        "particle_flow": {width: 400, height: 400},
+        "timer_straight_bar": {width: 400, height: 20},
+        "timer_straight_line_point": {width: 400, height: 14},
+        "visualizer_circular_bar": {width: 400, height: 400},
+    },
     ROTATION: 0,
     SVG_FILTER: "",
 
@@ -441,7 +448,12 @@ export class VPSize extends VisualObjectProperty {
      * @memberof VPSize
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "size", JSON.parse(JSON.stringify(DEFAULTS.SIZE)));
+        super(save_handler, visual_object, "size", JSON.parse(JSON.stringify(DEFAULTS.SIZE["any"])));
+
+        //custom default value based on object type
+        this._default_value = this.defaultValue(visual_object);
+        this.setSave(this._default_value);
+        console.log(visual_object.type);
     
         //create associated ui
         if (!this._save_handler.owner_project.export_mode) {
@@ -498,6 +510,21 @@ export class VPSize extends VisualObjectProperty {
                 ], false
             );
             this._ui_parameter.help_string = help.parameter.object.general.size;
+        }
+    }
+
+    /**
+     * Returns the default type to give at creation, based on the object's type.
+     *
+     * @param {VisualObject} visual_object
+     * @return {String} the default value 
+     * @memberof VPSize
+     */
+    defaultValue(visual_object) {
+        if (utils.IsUndefined(DEFAULTS.SIZE[visual_object.type])) {
+            return JSON.parse(JSON.stringify(DEFAULTS.SIZE["any"]));
+        } else {
+            return JSON.parse(JSON.stringify(DEFAULTS.SIZE[visual_object.type]));
         }
     }
 

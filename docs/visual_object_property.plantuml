@@ -85,6 +85,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPSize
         ..
+        + defaultValue(visual_object: VisualObject): String
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPSize

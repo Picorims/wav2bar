@@ -133,6 +133,7 @@ export class VisualObject {
 
     get id() {return this._id;}
     get parameter_rack() {return this._parameter_rack;}
+    get type() {return this._TYPE;}
 
     /**
      * Return the data stored in the SaveHandler for this object.
@@ -758,7 +759,7 @@ export class VParticleFlow extends VisualObject {
      */
     update() {
         let canvas = this._element;
-        let ctx = canvas.getContext("2d"); console.log("g");
+        let ctx = canvas.getContext("2d");
 
         //clear canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);

@@ -693,7 +693,7 @@ This is documented from a created save with default values. For more information
 
 ```json
 {
-    "name": "object438437",
+    "name": random,
     "layer": 0,
     "coordinates": {
         "x": 0,
@@ -701,7 +701,7 @@ This is documented from a created save with default values. For more information
     },
     "size": {
         "width": 400,
-        "height": 100
+        "height": 300
     },
     "rotation": 0,
     "svg_filter": "",
@@ -723,7 +723,7 @@ This is documented from a created save with default values. For more information
 
 ```json
 {
-    "name": "object440280",
+    "name": random,
     "layer": 0,
     "coordinates": {
         "x": 0,
@@ -731,7 +731,7 @@ This is documented from a created save with default values. For more information
     },
     "size": {
         "width": 400,
-        "height": 100
+        "height": 400
     },
     "rotation": 0,
     "svg_filter": "",
@@ -756,7 +756,7 @@ This is documented from a created save with default values. For more information
 
 ```json
 {
-    "name": "object595215",
+    "name": random,
     "layer": 0,
     "coordinates": {
         "x": 0,
@@ -792,7 +792,7 @@ This is documented from a created save with default values. For more information
 
 ```json
 {
-    "name": "object816281",
+    "name": random,
     "layer": 0,
     "coordinates": {
         "x": 0,
@@ -800,7 +800,7 @@ This is documented from a created save with default values. For more information
     },
     "size": {
         "width": 400,
-        "height": 100
+        "height": 20
     },
     "rotation": 0,
     "svg_filter": "",
@@ -817,7 +817,7 @@ This is documented from a created save with default values. For more information
 
 ```json
 {
-    "name": "object746036",
+    "name": random,
     "layer": 0,
     "coordinates": {
         "x": 0,
@@ -825,7 +825,7 @@ This is documented from a created save with default values. For more information
     },
     "size": {
         "width": 400,
-        "height": 100
+        "height": 14
     },
     "rotation": 0,
     "svg_filter": "",
@@ -841,7 +841,7 @@ This is documented from a created save with default values. For more information
 
 ```json
 {
-    "name": "object944477",
+    "name": random,
     "layer": 0,
     "coordinates": {
         "x": 0,
@@ -872,7 +872,7 @@ This is documented from a created save with default values. For more information
 
 ```json
 {
-    "name": "object826874",
+    "name": random,
     "layer": 0,
     "coordinates": {
         "x": 0,
@@ -900,7 +900,7 @@ This is documented from a created save with default values. For more information
 
 ```json
 {
-    "name": "object303923",
+    "name": random,
     "layer": 0,
     "coordinates": {
         "x": 0,
@@ -908,7 +908,7 @@ This is documented from a created save with default values. For more information
     },
     "size": {
         "width": 400,
-        "height": 100
+        "height": 400
     },
     "rotation": 0,
     "svg_filter": "",
