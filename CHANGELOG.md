@@ -11,6 +11,7 @@ This document is based on Keep a Changelog 1.0.0
 - Changed how saves and objects are handled internally.
 - Improved particle flows performances when using a big amount of particles.
 - Optimized bar visualizers when changing their parameters.
+- Improved visual updates of particle flows and visualizers while audio is paused or stopped.
 - Changing an object's name is now done using a dedicated field in the rack (less clicks!).
 - Changed rules for timers positioning. (The converter should reajust timers when opening a project from an older versions.)
 - Changed some default values (it only affects newly created objects and new object parameters).
@@ -28,6 +29,7 @@ This document is based on Keep a Changelog 1.0.0
 - Interacting with control panel's top tabs no longer moves the rest of the user interface.
 - The top of the screen was hard to see, and hidden no matter what behind the top user interface (in some zoom and window size scenarios). There is now a minimum of padding above the screen.
 - The window no longer flashes to white when being first opened.
+- Changing the color of a waves visualizer while audio is paused now updates the color visually. Same for particle flows.
 
 ### Security
 - Updated Electron from v12 to v15.
