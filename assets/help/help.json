@@ -6,7 +6,7 @@
         },
         "object": {
             "general": {
-                "creation": "The text fields lets you set a name for the new object. Select the type of object in the dropdown menu. Note that an object type cannot be changed after creation!",
+                "creation": "Visual objects represents the content displayed on your video. Select the type of object you want to add in the dropdown menu. Note that an object type CANNOT be changed after creation! The text fields lets you set a name for the new object. Here is a list of objects and their use:<br/><br/>- Image - Shape: Add an image, a filled background, a rectangle, an ellipse...<br/>- Particle Flow: Add particles that reacts to the audio.<br/>- Text: Add custom text, or the audio timestamp (ellapsed, duration).<br/>- Timers: Display visually the progression of the audio.<br/>- Visualizers: Display visually audio data, such as the audio spectrum, in various shapes and ways.",
                 "name": "Sets the object's display name.",
                 "layer": "Sets the order of display. A higher value than another object means this object will be in front of the other.",
                 "pos": "Sets the position of the object in pixels, taking the top left corner as a reference (origin).",
