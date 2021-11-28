@@ -669,6 +669,9 @@ export class VParticleFlow extends VisualObject {
         if (!this._owner_project.export_mode) this._parameter_rack.icon = "<i class=\"ri-loader-line\"></i>";
 
         this._particles = [];
+        this._is_static_update = false;
+        this._draw_particles = true;
+        this._is_regen_update = false;
 
         //#################
         //UNIQUE PROPERTIES
@@ -704,6 +707,36 @@ export class VParticleFlow extends VisualObject {
         this._properties["size"].subscribeToEvent("value_changed", (value) => {
             this._element.width = value.width;
             this._element.height = value.height;
+            this.staticUpdate();
+
+        });
+
+        this._properties["particle_radius_range"].subscribeToEvent("value_changed", () => {
+            this.regenUpdate();
+        });
+
+        this._properties["flow_type"].subscribeToEvent("value_changed", () => {
+            this.regenUpdate();
+        });
+
+        this._properties["flow_center"].subscribeToEvent("value_changed", () => {
+            this.regenUpdate();
+        });
+
+        this._properties["flow_direction"].subscribeToEvent("value_changed", () => {
+            this.regenUpdate();
+        });
+
+        this._properties["particle_spawn_probability"].subscribeToEvent("value_changed", () => {
+            this.regenUpdate();
+        });
+
+        this._properties["particle_spawn_tests"].subscribeToEvent("value_changed", () => {
+            this.regenUpdate();
+        });
+
+        this._properties["color"].subscribeToEvent("value_changed", () => {
+            this.staticUpdate();
         });
 
         //mandatory for initialization
@@ -714,6 +747,7 @@ export class VParticleFlow extends VisualObject {
     get ctx() {return this._element.getContext("2d");}
     get properties() {return this._properties;}
     get volume() {return this._owner_project.volume;}
+    get is_regen_update() {return this._is_regen_update;}
 
     /**
      * Updates this object's display.
@@ -724,43 +758,70 @@ export class VParticleFlow extends VisualObject {
      */
     update() {
         let canvas = this._element;
-        let ctx = canvas.getContext("2d");
+        let ctx = canvas.getContext("2d"); console.log("g");
 
+        //clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = this._properties["color"].getCurrentValue();
 
-        //IF AUDIO IS PLAYING
-        let current_time = this._owner_project.getAudioCurrentTime();
-        let audio_duration = this._owner_project.getAudioDuration();
-        let audio_progress = current_time / audio_duration;
-
-        if (audio_progress !== 0 && audio_progress !== 1) {
-
-            //clear canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = this._properties["color"].getCurrentValue();
-            ctx.fillStyle = "#ffffff";
-
-            //probability to spawn a new particle
+        //probability to spawn a new particle
+        if (!this._is_static_update) {
             let spawn_tests = this._properties["particle_spawn_tests"].getCurrentValue();
             let spawn_probability = this._properties["particle_spawn_probability"].getCurrentValue();
             for (let i = 0; i < spawn_tests; i++) {
                 if (Math.random() < spawn_probability) {
                     this._particles.push(new Particle(this));
                 }
-            }
-
-            //update all particles
-            ctx.beginPath();
-            for (let i = this._particles.length-1; i >= 0; i--) {
-                this._particles[i].update();
-                //display if it hasn't been deleted
-                if (this._particles[i]) this._particles[i].display();
-            }
-            ctx.fill();
-
+            }    
         }
+
+        //update all particles
+        ctx.beginPath();
+        for (let i = this._particles.length-1; i >= 0; i--) {
+            if (!this._is_static_update) this._particles[i].update();
+            //display if it hasn't been deleted
+            if (this._particles[i] && this._draw_particles) this._particles[i].display();
+        }
+        ctx.fill();
 
         //finished updating
         return true;
+    }
+
+    /**
+     * Render particles without moving them.
+     *
+     * @memberof VParticleFlow
+     */
+    staticUpdate() {
+        this._is_static_update = true;
+        this.update();
+        this._is_static_update = false;
+    }
+
+    /**
+     * Update particles without rendering them.
+     *
+     * @memberof VParticleFlow
+     */
+    noDrawUpdate() {
+        this._draw_particles = false;
+        this.update();
+        this._draw_particles = true;
+    }
+
+    /**
+     * Performs many updates then one draw, useful for getting a whole new display of particles.
+     *
+     * @memberof VParticleFlow
+     */
+    regenUpdate() {
+        this._is_regen_update = true;
+        let size = this._properties["size"].getCurrentValue();
+        let count = Math.max(size.width, size.height) / 4; 
+        for (let i = 0; i < count; i++) this.noDrawUpdate();
+        this.staticUpdate();
+        this._is_regen_update = false;
     }
 
     /**
@@ -933,7 +994,7 @@ class Particle {
      */
     update() {
         //compute speed
-        this._speed = this._parent.volume/20;
+        this._speed = (this._parent.is_regen_update)? 10 : this._parent.volume/20;
         this._x_velocity = Math.cos(this._direction) * this._speed;
         this._y_velocity = Math.sin(this._direction) * this._speed;
 
@@ -1021,9 +1082,11 @@ export class VVisualizer extends VisualObject {
 
         this._properties["visualizer_points_count"].subscribeToEvent("value_changed", () => {
             this._reset_visualization_smoothing = true;
+            this.update();
         });
         this._properties["visualizer_analyser_range"].subscribeToEvent("value_changed", () => {
             this._reset_visualization_smoothing = true;
+            this.update();
         });
         this._properties["visualization_smoothing_type"].subscribeToEvent("value_changed", () => {
             this._reset_visualization_smoothing = true;
@@ -1045,6 +1108,11 @@ export class VVisualizer extends VisualObject {
         let points_count = this._properties["visualizer_points_count"].getCurrentValue();
         let analyser_range = this._properties["visualizer_analyser_range"].getCurrentValue();
         let original_freq_array = this._owner_project.getFrequencyArray();
+        //if not yet initialized because no audio, put arbitrary values.
+        if (original_freq_array === null) {
+            original_freq_array = [];
+            for (let i = 0; i < 1024; i++) original_freq_array.push(0); //workaround while MappedArray() is broken
+        }
         this._freq_array = utils.MappedArray(original_freq_array, points_count, analyser_range[0], analyser_range[1]);
 
         //apply visualization smoothing
@@ -1435,6 +1503,11 @@ export class VVisualizerStraightWave extends VVisualizer {
         this._properties["size"].subscribeToEvent("value_changed", (value) => {
             this._element.width = value.width;
             this._element.height = value.height;
+            this.update();
+        });
+
+        this._properties["color"].subscribeToEvent("value_changed", () => {
+            this.update();
         });
 
         //mandatory for initialization

@@ -89,6 +89,9 @@ package "visual_object" {
 
     class VParticleFlow {
         - _particles: Array[Particle]
+        - _is_static_update: Boolean
+        - _draw_particles: Boolean
+        - _is_regen_update: Boolean
         --
         + VParticleFlow(save_handler: SaveHandler,
         rack_parent: UIParameterRack, id: String): VParticleFlow
@@ -97,8 +100,12 @@ package "visual_object" {
         + get ctx(): CanvasRenderingContext2D
         + get properties(): Object{VisualObjectProperty}
         + get volume(): Float
+        + get is_static_update(): Boolean
         ..
         + update(): Boolean
+        + staticUpdate(): void
+        + noDrawUpdate(): void
+        + regenUpdate(): void
         + killParticle(particle: Particle): void
     }
     VisualObject <|-- VParticleFlow
