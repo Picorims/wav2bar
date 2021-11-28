@@ -56,14 +56,15 @@ Backward compatibility is also an important part to consider. Upgrading to a new
 ### Box of ideas
 
 Planned:
-- **Hide/show object feature. (0.4.0)** This quality of life feature would help focusing on specific objects during design. It is not set yet if this will be saved or not.
-- **Display object borders on hovering of its settings. (0.3.0)** It is not always easy to see the boundaries of an object (like particle flow objects), which doesn't help setting its size. This feature aim to fix this.
-- **convert CLI command. (0.3.1)** This quick command would convert the save to a newer said version. There could also be a potential folder support to make migrations easier if you like to keep up to date saves.
-- **Make object creation more intuitive (0.3.0)** (improve help, random color to distinguish the newly created object, default size per type...)
-- **Keep track of last used folder in file explorer. (0.3.1)** Because always starting from home folder and doing all the clicks again is annoying!
-- **New visualizers. (0.4.0 and further)** Yes. Finally. Two would be a great goal to start with. I need to experiment stuff.
-- **Extend existing objects customization. (0.4.0)** That includes more options for text and particle flows.
-- **favorite folders in file explorer. (0.4.1)** This can act as shortcuts.
+- **Hide/show object feature (0.4.0).** This quality of life feature would help focusing on specific objects during design. It is not set yet if this will be saved or not.
+- **Display object borders on hovering of its settings (0.3.0).** It is not always easy to see the boundaries of an object (like particle flow objects), which doesn't help setting its size. This feature aim to fix this.
+- **convert CLI command (0.3.1).** This quick command would convert the save to a newer said version. There could also be a potential folder support to make migrations easier if you like to keep up to date saves.
+- **Make object creation more intuitive (0.3.0).** (improve help, random color to distinguish the newly created object, default size per type...)
+- **Keep track of last used folder in file explorer (0.3.1).** Because always starting from home folder and doing all the clicks again is annoying!
+- **New visualizers (0.4.0 and further).** Yes. Finally. Two would be a great goal to start with. I need to experiment stuff.
+- **Extend existing objects customization (0.4.0).** That includes more options for text and particle flows.
+- **Increase visualization accuracy/resolution (0.4.0).** The goal is to improve rendering of low frequencies.
+- **favorite folders in file explorer (0.4.1).** This can act as shortcuts.
 
 Box of ideas for future updates:
 - technical:
