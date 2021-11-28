@@ -1303,16 +1303,16 @@ class Project {
         //maintain the max length of the array
         if (this._fps_array.length > this._FPS_ARRAY_MAX_LENGTH) {
 
-            var overflow = this._fps_array.length - this._FPS_ARRAY_MAX_LENGTH;
+            let overflow = this._fps_array.length - this._FPS_ARRAY_MAX_LENGTH;
             this._fps_array.splice(0, overflow);
         }
 
         //calculates average FPS from the fps array
-        var sum = 0;
-        for (var index of this._fps_array) {
-            sum += index;
+        let sum = 0;
+        for (let i = 0; i < this._fps_array.length; i++) {
+            sum += this._fps_array[i];
         }
-        var average_fps = sum / this._FPS_ARRAY_MAX_LENGTH;
+        let average_fps = sum / this._FPS_ARRAY_MAX_LENGTH;
 
         //display fps
         document.getElementById("fps").innerHTML = `${average_fps}FPS`;
@@ -1415,7 +1415,7 @@ function InitPage(export_mode) {//
     if (!export_mode) {
         //UI INITIALIZATION
         InitUI();
-        setInterval(project.updateFPSDisplay(), 1000);
+        setInterval(function() {project.updateFPSDisplay();}, 1000);
 
         //CLI
         console.log(argv);
