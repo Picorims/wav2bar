@@ -660,6 +660,9 @@ Tabs content
 
 /*else
   ----*/
+.about_info {
+    text-align: left;
+}
 .about_info i {
     position: relative;
     top: 2px;

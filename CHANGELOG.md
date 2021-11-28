@@ -31,6 +31,7 @@ This document is based on Keep a Changelog 1.0.0
 - The top of the screen was hard to see, and hidden no matter what behind the top user interface (in some zoom and window size scenarios). There is now a minimum of padding above the screen.
 - The window no longer flashes to white when being first opened.
 - Changing the color of a waves visualizer while audio is paused now updates the color visually. Same for particle flows.
+- About section no longer have the text centered.
 
 ### Security
 - Updated Electron from v12 to v15.
