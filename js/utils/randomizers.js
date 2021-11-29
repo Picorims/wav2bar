@@ -33,3 +33,28 @@ export function uuidv4() {//uuid v4 generator.
         return v.toString(16);
     });
 }
+
+
+
+/**
+ * Returns a random color, avoiding too dark colors: If two most significant values are inferior to 0x4,
+ * the last significant value will be superior or equal to 0x4.
+ *
+ * @return {String} color in hexadecimal format #?????? 
+ */
+export function RandomColor() {
+    let hex = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
+    let color = "#";
+    let leadingZeros = 0;
+    for (let i = 0; i < 6; i++) {
+        if (i%2 === 0) {
+            let random = RandomInt(0,15);
+            if (leadingZeros >= 2) random = RandomInt(5,15);
+            if (random < 4) leadingZeros++;
+            color += hex[random];
+            
+        }
+        else color += hex[RandomInt(0,15)];
+    }
+    return color;
+}

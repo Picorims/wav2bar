@@ -453,7 +453,7 @@ export class VPSize extends VisualObjectProperty {
         //custom default value based on object type
         this._default_value = this.defaultValue(visual_object);
         this.setSave(this._default_value);
-        console.log(visual_object.type);
+        //console.log(visual_object.type);
     
         //create associated ui
         if (!this._save_handler.owner_project.export_mode) {
@@ -672,6 +672,10 @@ export class VPColor extends VisualObjectProperty {
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "color", DEFAULTS.COLOR);
 
+        //override default color with random color
+        this._default_value = utils.RandomColor();
+        this.setSave(this._default_value);
+
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
             this._ui_parameter = new ui_components.UIParameterColor(
@@ -809,6 +813,10 @@ export class VPBackground extends VisualObjectProperty {
      */
     constructor(save_handler, visual_object) {
         super(save_handler, visual_object, "background", DEFAULTS.BACKGROUND);
+
+        //override default color with random color
+        this._default_value.last_color = utils.RandomColor();
+        this.setSave(this._default_value);        
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
