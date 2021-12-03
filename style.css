@@ -229,7 +229,7 @@ Naviguation tab labels at the top of the control panel
 
     color: var(--main-white);
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1rem;
 
     transition: 0.2s;
 }
@@ -311,7 +311,7 @@ Tabs container and tabs
     overflow-y: scroll;
 
     color: var(--main-white);
-    font-size: 16px;
+    font-size: 1rem;
     text-align: center;
 }
 
@@ -418,7 +418,7 @@ Tabs content
 .object_param_title {/*displays the name*/
     padding: 0 50px;
     
-    font-size: 20px;
+    font-size: 1.15rem;
     font-weight: bold;
     word-wrap: break-word;
 
@@ -570,7 +570,7 @@ Tabs content
     border-radius: 5px;
     
     color: var(--main-darker-white);
-    font-size: 17px;
+    font-size: 1rem;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
 
@@ -614,7 +614,7 @@ Tabs content
     height: 70px;
     padding: 5px;
     
-    font-size: 12px;
+    font-size: 0.75rem;
     text-align: left;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -704,7 +704,7 @@ Dialog Boxes
     padding: 10px;
     z-index: 1000;
 
-    font-size: 16px;
+    font-size: 1rem;
     word-wrap: break-word;
 
     background-color: var(--main-gray);
@@ -750,7 +750,7 @@ Dialog Boxes
 
 .dialog_title {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 1.5rem;
 }
 
 .help_msg {
@@ -767,7 +767,7 @@ Dialog Boxes
 }
 
 .dialog_big_icon {
-    font-size: 5em;
+    font-size: 5rem;
     margin: 0 15px;
 }
 .dialog_big_icon.blue {
@@ -996,7 +996,7 @@ Top Naviguation UI
     box-shadow: inset 0px 0px 10px var(--main-darker-white);
 
     color: var(--main-gray);
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: bold;
 
     transition: 0.2s;
@@ -1081,7 +1081,7 @@ div.top_UI_tile {
     border: 1px solid var(--main-darker-white);
 
     color: var(--main-gray);
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 .dropdown_option:hover {
