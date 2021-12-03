@@ -898,9 +898,9 @@ Main element
 
 
 /*
-======
-Screen
-======
+=======================
+Screen and object frame
+=======================
 */
 
 #screen {
@@ -923,6 +923,12 @@ Screen
     border-radius: 0px !important;
 }
 
+.object_frame {
+    position: absolute;
+    box-sizing: border-box;
+    border: 2px solid var(--main-color);
+    opacity: 0.5;
+}
 
 
 

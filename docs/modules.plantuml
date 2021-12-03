@@ -32,6 +32,7 @@ package "ui_components" {}
 ui_components <.[dotted]. ui_base_components
 ui_components <.[dotted]. ui_parameters
 ui_components <.[dotted]. ui_append_help
+ui_components <.[dotted]. ui_object_frame
 
 package "ui_base_components" {}
 ui_base_components ..> utils
@@ -44,6 +45,9 @@ ui_parameters ..> ui_append_help
 package "ui_append_help" {}
 ui_append_help ..> utils
 ui_append_help ..> ui_base_components
+
+package "ui_object_frame" {}
+ui_object_frame ..> ui_base_components
 
 
 

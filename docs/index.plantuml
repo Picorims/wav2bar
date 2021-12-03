@@ -14,6 +14,10 @@ package "event_mixin" {
     class EventMixin <<mixin>> {}
 }
 
+package "ui_components" {
+    class ObjectFrame {}
+}
+
 package "index" {
     class SaveHandler {
         - _owner_project: Project
@@ -54,8 +58,8 @@ package "index" {
         + async saveAudio(path: String): void
     }
     SaveHandler "1 _save_handler" -- "1 _owner_project" Project
-    SaveHandler "1 _save_handler" o-up- "0..n _objects" VisualObject
-    SaveHandler .right. EventMixin: with
+    SaveHandler "1 _save_handler" o-left- "0..n _objects" VisualObject
+    SaveHandler .up. EventMixin: with
 
     class Project {
         - _save_handler: SaveHandler
@@ -141,6 +145,7 @@ package "index" {
 
     class UserInterface {
         - _screen: HTMLDivElement
+        - _object_frame: ObjectFrame
         - _owner_project: Project
         --
         + UserInterface(owner_project: Project): UserInterface
@@ -151,4 +156,5 @@ package "index" {
         + async FileBrowserDialog(settings: Object, callback: Function, args: any): void
     }
     UserInterface "1 _user_interface" -- "1 _owner_project" Project
+    UserInterface "1 _user_interface" -- "1 _object_frame" ObjectFrame
 }

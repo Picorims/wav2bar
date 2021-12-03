@@ -1344,6 +1344,8 @@ class Project {
 class UserInterface {
     constructor(owner_project) {
         this._screen = document.getElementById("screen");
+        this._object_frame = new imports.ui_components.UIObjectFrame(); //add to #interface
+        this._object_frame.DOM_parent = document.getElementById("interface");
         this._owner_project = owner_project;
     }
 
@@ -1385,6 +1387,9 @@ function LoadModules() {
         return import("./utils/utils.js");
     }).then(module => {
         imports.utils = module;
+        return import("./ui_components/ui_components.js");
+    }).then(module => {
+        imports.ui_components = module;
         return import("./visual_objects/visual_objects.js");
     }).then(module => {
         imports.visual_objects = module;
