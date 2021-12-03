@@ -309,7 +309,9 @@ async function InitUI() {
 
 
     //RESPONSIVE INTERFACE
-    setInterval(LoopUI, 100);
+    window.addEventListener("resize", function () {
+        LoopUI();
+    });
 }
 
 
@@ -563,6 +565,7 @@ function ApplyZoom(zoom_value) {
     zoom = zoom_value;
     screen.style.transformOrigin = "0 0";
     screen.style.transform = `scale(${zoom})`;
+    LoopUI();
 
     imports.utils.CustomLog("info",`Zoom changed to ${zoom_value}`);
 }

@@ -19,6 +19,7 @@ This document is based on Keep a Changelog 1.0.0
 - Made top user interface for audio and zoom control more compact.
 - Split audio control block in half in the top user interface for better display in a smaller window.
 - Improved help on object creation.
+- Improved responsiveness on window resize.
 
 ### Removed
 - Removed background visual object that duplicates image/shape visual object. Existing background visual objects in older saves will be converted to image visual objects.
