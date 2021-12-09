@@ -168,14 +168,18 @@ class SaveHandler {
                 imports.utils.CustomLog("warning",`The supported save version is ${this._CURRENT_SAVE_VERSION} but the provided save is of version ${this._save_data.save_version}`);
                 if (no_warnings) {
                     imports.utils.CustomLog("warning", `This project has been created in an older version of Wav2Bar (${this._save_data.software_version_used}). Upgrading the temporary version...`);
+                    this._owner_project.user_interface.loadingMode(true);
                     this.convertSave([], true);
                     this.applyLoadedSave();
+                    this._owner_project.user_interface.loadingMode(false);
                 } else {
                     MessageDialog("confirm",`This project has been created in an older version of Wav2Bar (${this._save_data.software_version_used}). Do you want to upgrade it ? (Always backup your project before converting it!)`,
                         (confirmed) => {
                             if (confirmed) {
+                                this._owner_project.user_interface.loadingMode(true);
                                 this.convertSave();
                                 this.applyLoadedSave();
+                                this._owner_project.user_interface.loadingMode(false);
                             } else {
                                 imports.utils.CustomLog("info", "Save load aborted, loading back the project in it's old state.");
                                 this.loadSave(`${working_dir}/temp/before_new_save_open.w2bzip`);
@@ -186,8 +190,10 @@ class SaveHandler {
                 }
             } else {
                 //same version
+                this._owner_project.user_interface.loadingMode(true);
                 this.applyLoadedSave();
                 this._lock_save_sync = false;
+                this._owner_project.user_interface.loadingMode(false);
             }
             if (!this._owner_project.export_mode) document.getElementById("opened_save").innerHTML = save_file_path;
         });
@@ -1347,6 +1353,8 @@ class UserInterface {
         this._object_frame = new imports.ui_components.UIObjectFrame(); //add to #interface
         this._object_frame.DOM_parent = document.getElementById("interface");
         this._owner_project = owner_project;
+
+        this._loading_frame = new imports.ui_components.UILoadingFrame();
     }
 
     get screen() {return this._screen;}
@@ -1355,6 +1363,19 @@ class UserInterface {
     //bridge to interact with user_interface.js file browser dialog
     async FileBrowserDialog(settings, callback, args) {
         await FileBrowserDialog(settings, callback, args);
+    }
+
+    /**
+     * Defines if the UI should be locked behind a loading screen.
+     * It has no effect when passing the same state as it actually
+     * is.
+     *
+     * @param {boolean} is_loading
+     * @memberof UserInterface
+     */
+    loadingMode(is_loading) {
+        if (is_loading) this._loading_frame.show();
+        else this._loading_frame.hide();
     }
 }
 

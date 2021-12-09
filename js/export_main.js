@@ -21,6 +21,7 @@ function Export(path) {
     }
 
     imports.utils.CustomLog("info","Exporting...");
+    project.user_interface.loadingMode(true);
     project.stopAnimating();//this avoids useless background process in the main window
 
     //wait callback
@@ -135,6 +136,7 @@ function Export(path) {
         });
         ipcRenderer.once("encoding-finished", (event, success) => {
             ipcRenderer.removeAllListeners("encoding-progress");
+            this._owner_project.user_interface.loadingMode(false);
             if (success) {
                 let now = performance.now();
                 let ellapsed = now-start;

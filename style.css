@@ -897,6 +897,136 @@ Main element
 
 
 
+
+/*
+=============
+Loading Frame
+=============
+*/
+
+.loading_frame {
+    position: fixed;
+    z-index: 1000000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #090c1199;
+    transition: 0.2s ease-in-out;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.visible {
+    opacity: 1;
+    transition: 0.2s ease-in-out;
+}
+.loading_frame_loading_container {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loading_frame_loading_item {
+    flex: 0 0 auto;
+    width: 10px;
+    height: 10px;
+    background-color: var(--main-color);
+    border-radius: 2px;
+    margin: 2px;
+    box-shadow: 0 0 5px 0 var(--main-color);
+}
+.item1 {
+    animation: 2.5s ease-in-out 0s AnimLoadingItem1 infinite;
+}
+.item2 {
+    animation: 2.5s ease-in-out 0.1s AnimLoadingItem2 infinite;
+}
+.item3 {
+    animation: 2.5s ease-in-out 0.2s AnimLoadingItem3 infinite;
+}
+
+@keyframes AnimLoadingItem1 {
+    0% {
+        height: 5px;
+    }
+    20% {
+        height: 40px;
+    }
+    30% {
+        height: 20px;
+    }
+    50% {
+        height: 30px;
+    }
+    60% {
+        height: 10px;
+    }
+    80% {
+        height: 25px;
+    }
+    100% {
+        height: 5px;
+    }
+}
+
+@keyframes AnimLoadingItem2 {
+    0% {
+        height: 10px;
+    }
+    20% {
+        height: 40px;
+    }
+    30% {
+        height: 30px;
+    }
+    40% {
+        height: 35px;
+    }
+    50% {
+        height: 20px;
+    }
+    70% {
+        height: 35px;
+    }
+    90% {
+        height: 5px;
+    }
+    100% {
+        height: 10px;
+    }
+}
+
+@keyframes AnimLoadingItem3 {
+    0% {
+        height: 10px;
+    }
+    20% {
+        height: 35px;
+    }
+    30% {
+        height: 25px;
+    }
+    40% {
+        height: 30px;
+    }
+    70% {
+        height: 15px;
+    }
+    90% {
+        height: 25px;
+    }
+    100% {
+        height: 10px;
+    }
+}
+
+
+
+
+
 /*
 =======================
 Screen and object frame

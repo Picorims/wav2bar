@@ -214,7 +214,7 @@ function createExportWin() {
     export_win.loadFile("./html/export.html");
 
     //open dev tools
-    //export_win.webContents.openDevTools();
+    export_win.webContents.openDevTools();
 
     // export_win.webContents.on("paint", (event, dirty, image) => {
     //     // updateBitmap(dirty, image.getBitmap())

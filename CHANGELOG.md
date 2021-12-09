@@ -6,6 +6,7 @@ This document is based on Keep a Changelog 1.0.0
 ### Added
 - Particle flow's containers can now be rotated.
 - Added logs folder shortcut to settings tab.
+- The user interface is now locked behind a loading screen while big operations are performed and the user interface shouldn't be touched.
 
 ### Changed
 - Changed how saves and objects are handled internally.
