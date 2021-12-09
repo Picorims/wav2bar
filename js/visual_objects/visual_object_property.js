@@ -83,7 +83,7 @@ export class VisualObjectProperty {
      * @param {*} default_value The default assigned value.
      * @memberof VisualObjectProperty
      */
-    constructor(save_handler, visual_object, property_name, default_value) {
+    constructor(save_handler, visual_object, property_name) {
         if (this.constructor === VisualObjectProperty) throw new SyntaxError("VisualObjectProperty is an abstract class.");
 
         //implements mixin
@@ -97,7 +97,7 @@ export class VisualObjectProperty {
         this._visual_object = visual_object;
         //name in the save, name used by the object for data access.
         this._property_name = property_name;
-        this._default_value = default_value;
+        this._default_value = this.getDefaultValue();
         this._allowed_values = null; //used by some properties with a defined list of values.
         this._ui_parameter = null;
 
@@ -111,6 +111,18 @@ export class VisualObjectProperty {
         } else {
             this.verify();
         }
+    }
+
+
+    /**
+     * Get the default value of the VisualObjectProperty.
+     *
+     * @abstract
+     * @return {*}
+     * @memberof VisualObjectProperty
+     */
+    getDefaultValue() {
+        throw new Error("getDefaultValue must be implemented in a VisualObjectProperty.");
     }
 
 
@@ -186,7 +198,7 @@ export class VisualObjectProperty {
      * @memberof VisualObjectProperty
      */
     hasValidValue(value) {
-        throw new Error("hasValidValue must be implemented in a VisualObject.");
+        throw new Error("hasValidValue must be implemented in a VisualObjectProperty.");
     }
 }
 
@@ -223,7 +235,7 @@ export class VPName extends VisualObjectProperty {
      * @memberof VPName
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "name", `object${utils.RandomInt(0, 999999)}`);
+        super(save_handler, visual_object, "name");
 
         //create associated ui
         if (!this._save_handler.owner_project.export_mode) {
@@ -237,6 +249,22 @@ export class VPName extends VisualObjectProperty {
             );
             this._ui_parameter.help_string = help.parameter.object.general.name;
             this._visual_object.parameter_rack.rename(this.getCurrentValue());    
+        }
+    }
+
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPName
+     * @override
+     * @return {String}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = `object${utils.RandomInt(0, 999999)}`;
+            return this._default_value;
         }
     }
 
@@ -281,7 +309,7 @@ export class VPLayer extends VisualObjectProperty {
      * @memberof VPLayer
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "layer", DEFAULTS.LAYER);
+        super(save_handler, visual_object, "layer");
 
         //create associated ui
         if (!this._save_handler.owner_project.export_mode) {
@@ -302,6 +330,22 @@ export class VPLayer extends VisualObjectProperty {
             );
             this._ui_parameter.help_string = help.parameter.object.general.layer;
         }
+    }
+
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPLayer
+     * @override
+     * @return {Integer}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.LAYER;
+            return this._default_value;
+        };
     }
 
     /**
@@ -336,7 +380,7 @@ export class VPCoordinates extends VisualObjectProperty {
      * @memberof VPCoordinates
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "coordinates", JSON.parse(JSON.stringify(DEFAULTS.COORDINATES)));
+        super(save_handler, visual_object, "coordinates");
 
         //create associated ui
         if (!this._save_handler.owner_project.export_mode) {
@@ -419,6 +463,22 @@ export class VPCoordinates extends VisualObjectProperty {
     }
 
     /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPCoordinates
+     * @override
+     * @return {Object}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = JSON.parse(JSON.stringify(DEFAULTS.COORDINATES));
+            return this._default_value;
+        };
+    }
+
+    /**
      * The value is valid if it is an object with an "x" integer and a "y" integer.
      *
      * @override
@@ -448,12 +508,7 @@ export class VPSize extends VisualObjectProperty {
      * @memberof VPSize
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "size", JSON.parse(JSON.stringify(DEFAULTS.SIZE["any"])));
-
-        //custom default value based on object type
-        this._default_value = this.defaultValue(visual_object);
-        this.setSave(this._default_value);
-        //console.log(visual_object.type);
+        super(save_handler, visual_object, "size");
     
         //create associated ui
         if (!this._save_handler.owner_project.export_mode) {
@@ -514,18 +569,25 @@ export class VPSize extends VisualObjectProperty {
     }
 
     /**
-     * Returns the default type to give at creation, based on the object's type.
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
      *
-     * @param {VisualObject} visual_object
-     * @return {String} the default value 
      * @memberof VPSize
+     * @override
      */
-    defaultValue(visual_object) {
-        if (utils.IsUndefined(DEFAULTS.SIZE[visual_object.type])) {
-            return JSON.parse(JSON.stringify(DEFAULTS.SIZE["any"]));
-        } else {
-            return JSON.parse(JSON.stringify(DEFAULTS.SIZE[visual_object.type]));
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = JSON.parse(JSON.stringify(DEFAULTS.SIZE["any"]));
+            return this._default_value;
         }
+
+        //TODO: handle types
+        // if (utils.IsUndefined(DEFAULTS.SIZE[visual_object.type])) {
+        //     return JSON.parse(JSON.stringify(DEFAULTS.SIZE["any"]));
+        // } else {
+        //     return JSON.parse(JSON.stringify(DEFAULTS.SIZE[visual_object.type]));
+        // }
     }
 
     /**
@@ -559,7 +621,7 @@ export class VPRotation extends VisualObjectProperty {
      * @memberof VPRotation
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "rotation", DEFAULTS.ROTATION);
+        super(save_handler, visual_object, "rotation");
         
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -579,6 +641,22 @@ export class VPRotation extends VisualObjectProperty {
                 }]
             );
             this._ui_parameter.help_string = help.parameter.object.general.rotation;
+        }
+    }
+
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPRotation
+     * @override
+     * @return {Number}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.ROTATION;
+            return this._default_value;
         }
     }
 
@@ -612,7 +690,7 @@ export class VPSVGFilter extends VisualObjectProperty {
      * @memberof VPSVGFilter
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "svg_filter", DEFAULTS.SVG_FILTER);
+        super(save_handler, visual_object, "svg_filter");
 
         // create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -626,6 +704,22 @@ export class VPSVGFilter extends VisualObjectProperty {
             );
             this._ui_parameter.help_string = help.parameter.object.general.svg_filters;
         }
+    }
+
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPSVGFilter
+     * @override
+     * @return {String}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.SVG_FILTER;
+            return this._default_value;
+        };
     }
 
     /**
@@ -670,11 +764,7 @@ export class VPColor extends VisualObjectProperty {
      * @memberof VPColor
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "color", DEFAULTS.COLOR);
-
-        //override default color with random color
-        this._default_value = utils.RandomColor();
-        this.setSave(this._default_value);
+        super(save_handler, visual_object, "color");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -691,6 +781,22 @@ export class VPColor extends VisualObjectProperty {
     }
 
     
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPColor
+     * @override
+     * @return {String}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = utils.RandomColor();
+            return this._default_value;
+        };
+    }
+
     /**
      * The value is valid if it is a string.
      * @override
@@ -720,7 +826,7 @@ export class VPBorderRadius extends VisualObjectProperty {
      * @memberof VPBorderRadius
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "border_radius", DEFAULTS.BORDER_RADIUS);
+        super(save_handler, visual_object, "border_radius");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -734,6 +840,22 @@ export class VPBorderRadius extends VisualObjectProperty {
             );
             this._ui_parameter.help_string = help.parameter.object.general.border_radius;
         }
+    }
+
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPBorderRadius
+     * @override
+     * @return {String}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.BORDER_RADIUS;
+            return this._default_value;
+        };
     }
 
     /**
@@ -766,7 +888,7 @@ export class VPBoxShadow extends VisualObjectProperty {
      * @memberof VPBoxShadow
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "box_shadow", DEFAULTS.BOX_SHADOW);
+        super(save_handler, visual_object, "box_shadow");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -780,6 +902,22 @@ export class VPBoxShadow extends VisualObjectProperty {
             );
             this._ui_parameter.help_string = help.parameter.object.general.shadow;
         }
+    }
+
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPBoxShadow
+     * @override
+     * @return {String}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.BOX_SHADOW;
+            return this._default_value;
+        };
     }
 
     /**
@@ -812,11 +950,7 @@ export class VPBackground extends VisualObjectProperty {
      * @memberof VPBackground
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "background", DEFAULTS.BACKGROUND);
-
-        //override default color with random color
-        this._default_value.last_color = utils.RandomColor();
-        this.setSave(this._default_value);        
+        super(save_handler, visual_object, "background");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -983,6 +1117,22 @@ export class VPBackground extends VisualObjectProperty {
     }
 
     /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPBackground
+     * @override
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = JSON.parse(JSON.stringify(DEFAULTS.BACKGROUND));
+            this._default_value.last_color = utils.RandomColor();
+            return this._default_value;
+        };
+    }
+
+    /**
      * The value is valid if it is an object where all nodes are string.
      * - type: "color", "gradient", "image"
      * - last_color: any string
@@ -1053,7 +1203,7 @@ export class VPTextType extends VisualObjectProperty {
      * @memberof VPTextType
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "text_type", DEFAULTS.TEXT_TYPE);
+        super(save_handler, visual_object, "text_type");
     
         this._allowed_values = ["any","time"];
         this.verify(); //reverify as the first verification ignored the line below.
@@ -1071,6 +1221,22 @@ export class VPTextType extends VisualObjectProperty {
             );
             this._ui_parameter.help_string = help.parameter.object.text.type;
         }
+    }
+
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPTextType
+     * @override
+     * @return {String}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.TEXT_TYPE;
+            return this._default_value;
+        };
     }
 
     /**
@@ -1107,7 +1273,7 @@ export class VPTextContent extends VisualObjectProperty {
      * @memberof VPTextContent
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "text_content", DEFAULTS.TEXT_CONTENT);
+        super(save_handler, visual_object, "text_content");
         
         // create associated UI        
         if (!this._save_handler.owner_project.export_mode) {
@@ -1123,6 +1289,22 @@ export class VPTextContent extends VisualObjectProperty {
         }
     }
     
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPTextContent
+     * @override
+     * @return {String}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.TEXT_CONTENT;
+            return this._default_value;
+        };
+    }
+
     /**
      * The value is valid if it is a string with no backslashes.
      *
@@ -1153,7 +1335,7 @@ export class VPFontSize extends VisualObjectProperty {
      * @memberof VPFontSize
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "font_size", DEFAULTS.FONT_SIZE);
+        super(save_handler, visual_object, "font_size");
 
         //Create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -1174,6 +1356,22 @@ export class VPFontSize extends VisualObjectProperty {
             );
             this._ui_parameter.help_string = help.parameter.object.text.font_size;
         }
+    }
+
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPFontSize
+     * @override
+     * @return {Integer}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.FONT_SIZE;
+            return this._default_value;
+        };
     }
 
     /**
@@ -1207,7 +1405,7 @@ export class VPTextDecoration extends VisualObjectProperty {
      * @memberof VPTextDecoration
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "text_decoration", DEFAULTS.TEXT_DECORATION);
+        super(save_handler, visual_object, "text_decoration");
     
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -1283,6 +1481,22 @@ export class VPTextDecoration extends VisualObjectProperty {
     }
     
     /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPTextDecoration
+     * @override
+     * @return {Object}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.TEXT_DECORATION;
+            return this._default_value;
+        };
+    }
+
+    /**
      * The value is valid if it is an object of n boolean nodes.
      *
      * @override
@@ -1328,7 +1542,7 @@ export class VPTextAlign extends VisualObjectProperty {
      * @memberof VPTextAlign
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "text_align", DEFAULTS.TEXT_ALIGN);
+        super(save_handler, visual_object, "text_align");
 
         this._allowed_values = ["left","center","right"];
         this.verify(); //reverify as the first verification ignored the line below.
@@ -1351,6 +1565,22 @@ export class VPTextAlign extends VisualObjectProperty {
         }
     }
     
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPTextAlign
+     * @override
+     * @return {String}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.TEXT_ALIGN;
+            return this._default_value;
+        };
+    }
+
     /**
      * The value is valid if it is an object where nodes belongs to the list of allowed values.
      *
@@ -1385,7 +1615,7 @@ export class VPTextShadow extends VisualObjectProperty {
      * @memberof VPTextShadow
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "text_shadow", DEFAULTS.TEXT_SHADOW);
+        super(save_handler, visual_object, "text_shadow");
         
         // create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -1399,6 +1629,22 @@ export class VPTextShadow extends VisualObjectProperty {
             );
             this._ui_parameter.help_string = help.parameter.object.general.shadow;
         }
+    }
+
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPTextShadow
+     * @override
+     * @return {String}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.TEXT_SHADOW;
+            return this._default_value;
+        };
     }
 
     /**
@@ -1443,7 +1689,7 @@ export class VPTimerInnerSpacing extends VisualObjectProperty {
      * @memberof VPTimerInnerSpacing
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "timer_inner_spacing", DEFAULTS.TIMER_INNER_SPACING);
+        super(save_handler, visual_object, "timer_inner_spacing");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -1466,6 +1712,22 @@ export class VPTimerInnerSpacing extends VisualObjectProperty {
         }
     }
     
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPTimerInnerSpacing
+     * @override
+     * @return {Integer}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.TIMER_INNER_SPACING;
+            return this._default_value;
+        };
+    }
+
     /**
      * The value is valid if it is an integer superior or equal to 0.
      *
@@ -1496,7 +1758,7 @@ export class VPBorderThickness extends VisualObjectProperty {
      * @memberof VPBorderThickness
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "border_thickness", DEFAULTS.BORDER_THICKNESS);
+        super(save_handler, visual_object, "border_thickness");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -1517,6 +1779,22 @@ export class VPBorderThickness extends VisualObjectProperty {
             );
             this._ui_parameter.help_string = help.parameter.object.timer.border_thickness;
         }
+    }
+
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPBorderThickness
+     * @override
+     * @return {Integer}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.BORDER_THICKNESS;
+            return this._default_value;
+        };
     }
 
     /**
@@ -1561,7 +1839,7 @@ export class VPParticleRadiusRange extends VisualObjectProperty {
      * @memberof VPParticleRadiusRange
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "particle_radius_range", DEFAULTS.PARTICLE_RADIUS_RANGE);
+        super(save_handler, visual_object, "particle_radius_range");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -1601,6 +1879,22 @@ export class VPParticleRadiusRange extends VisualObjectProperty {
     }
     
     /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPParticleRadiusRange
+     * @override
+     * @return {Array}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.PARTICLE_RADIUS_RANGE;
+            return this._default_value;
+        };
+    }
+
+    /**
      * The value is valid if it is an array of two integers.
      *
      * @override
@@ -1630,7 +1924,7 @@ export class VPFlowType extends VisualObjectProperty {
      * @memberof VPFlowType
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "flow_type", DEFAULTS.FLOW_TYPE);
+        super(save_handler, visual_object, "flow_type");
 
         this._allowed_values = ["radial","directional"];
         this.verify(); //reverify as the first verification ignored the line below.
@@ -1650,6 +1944,22 @@ export class VPFlowType extends VisualObjectProperty {
         }
     }
     
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPFlowType
+     * @override
+     * @return {String}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.FLOW_TYPE;
+            return this._default_value;
+        };
+    }
+
     /**
      * The value is valid if it belongs to the list of allowed values.
      *
@@ -1683,7 +1993,7 @@ export class VPFlowCenter extends VisualObjectProperty {
      * @memberof VPFlowCenter
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "flow_center", DEFAULTS.FLOW_CENTER);
+        super(save_handler, visual_object, "flow_center");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -1721,6 +2031,22 @@ export class VPFlowCenter extends VisualObjectProperty {
     }
     
     /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPFlowCenter
+     * @override
+     * @return {Object}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.FLOW_CENTER;
+            return this._default_value;
+        };
+    }
+
+    /**
      * The value is valid if it is an object where "x" and "y" are integers.
      *
      * @override
@@ -1752,7 +2078,7 @@ export class VPFlowDirection extends VisualObjectProperty {
      * @memberof VPFlowDirection
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "flow_direction", DEFAULTS.FLOW_DIRECTION);
+        super(save_handler, visual_object, "flow_direction");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -1774,6 +2100,22 @@ export class VPFlowDirection extends VisualObjectProperty {
             );
             this._ui_parameter.help_string = help.parameter.object.particles.direction;
         }
+    }
+
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPFlowDirection
+     * @override
+     * @return {Integer}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.FLOW_DIRECTION;
+            return this._default_value;
+        };
     }
 
     /**
@@ -1806,7 +2148,7 @@ export class VPParticleSpawnProbability extends VisualObjectProperty {
      * @memberof VPParticleSpawnProbability
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "particle_spawn_probability", DEFAULTS.PARTICLE_SPAWN_PROBABILITY);
+        super(save_handler, visual_object, "particle_spawn_probability");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -1830,6 +2172,22 @@ export class VPParticleSpawnProbability extends VisualObjectProperty {
         }
     }
     
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPParticleSpawnProbability
+     * @override
+     * @return {Number}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.PARTICLE_SPAWN_PROBABILITY;
+            return this._default_value;
+        };
+    }
+
     /**
      * The value is valid if it is a number between 0 and 1.
      *
@@ -1860,7 +2218,7 @@ export class VPParticleSpawnTests extends VisualObjectProperty {
      * @memberof VPParticleSpawnTests
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "particle_spawn_tests", DEFAULTS.PARTICLE_SPAWN_TESTS);
+        super(save_handler, visual_object, "particle_spawn_tests");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -1883,6 +2241,22 @@ export class VPParticleSpawnTests extends VisualObjectProperty {
         }
     }
     
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPParticleSpawnTests
+     * @override
+     * @return {Number}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.PARTICLE_SPAWN_TESTS;
+            return this._default_value;
+        };
+    }
+
     /**
      * The value is valid if it is an integer superior or equal to 1.
      *
@@ -1930,7 +2304,7 @@ export class VPVisualizerRadius extends VisualObjectProperty {
      * @memberof VPVisualizerRadius
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "visualizer-radius", DEFAULTS.VISUALIZER_RADIUS);
+        super(save_handler, visual_object, "visualizer-radius");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -1953,7 +2327,23 @@ export class VPVisualizerRadius extends VisualObjectProperty {
         }
     }
     
-    /**
+     /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPVisualizerRadius
+     * @override
+     * @return {Integer}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.VISUALIZER_RADIUS;
+            return this._default_value;
+        };
+    }
+
+   /**
      * The value is valid if it is an integer superior or equal to 0.
      *
      * @override
@@ -1983,7 +2373,7 @@ export class VPVisualizerPointsCount extends VisualObjectProperty {
      * @memberof VPVisualizerPointsCount
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "visualizer_points_count", DEFAULTS.VISUALIZER_POINTS_COUNT);
+        super(save_handler, visual_object, "visualizer_points_count");
 
         //create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -2006,6 +2396,22 @@ export class VPVisualizerPointsCount extends VisualObjectProperty {
         }
     }
     
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPVisualizerPointsCount
+     * @override
+     * @return {Integer}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.VISUALIZER_POINTS_COUNT;
+            return this._default_value;
+        };
+    }
+
     /**
      * The value is valid if it is an integer superior or equal to 0.
      *
@@ -2036,7 +2442,7 @@ export class VPVisualizerAnalyserRange extends VisualObjectProperty {
      * @memberof VPVisualizerAnalyserRange
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "visualizer_analyzer_range", DEFAULTS.VISUALIZER_ANALYZER_RANGE);
+        super(save_handler, visual_object, "visualizer_analyzer_range");
     
         // create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -2071,6 +2477,22 @@ export class VPVisualizerAnalyserRange extends VisualObjectProperty {
         }
     }
     
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPVisualizerAnalyserRange
+     * @override
+     * @return {Array}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.VISUALIZER_ANALYZER_RANGE;
+            return this._default_value;
+        };
+    }
+
     /**
      * The value is valid if it is an array of two integers between 0 and 1023.
      *
@@ -2107,7 +2529,7 @@ export class VPVisualizationSmoothingType extends VisualObjectProperty {
      * @memberof VPVisualizationSmoothingType
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "visualization_smoothing_type", DEFAULTS.VISUALIZATION_SMOOTHING_TYPE);
+        super(save_handler, visual_object, "visualization_smoothing_type");
 
         this._allowed_values = ["proportional_decrease","linear_decrease","average"];
         this.verify(); //reverify as the first verification ignored the line below.
@@ -2127,6 +2549,22 @@ export class VPVisualizationSmoothingType extends VisualObjectProperty {
         }
     }
     
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPVisualizationSmoothingType
+     * @override
+     * @return {String}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.VISUALIZATION_SMOOTHING_TYPE;
+            return this._default_value;
+        };
+    }
+
     /**
      * The value is valid if it belongs to the list of allowed values.
      *
@@ -2160,7 +2598,7 @@ export class VPVisualizationSmoothingFactor extends VisualObjectProperty {
      * @memberof VPVisualizationSmoothingFactor
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "visualization_smoothing_factor", DEFAULTS.VISUALIZATION_SMOOTHING_FACTOR);
+        super(save_handler, visual_object, "visualization_smoothing_factor");
     
         // create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -2184,6 +2622,22 @@ export class VPVisualizationSmoothingFactor extends VisualObjectProperty {
         }
     }
     
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPVisualizationSmoothingFactor
+     * @override
+     * @return {Number}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.VISUALIZATION_SMOOTHING_FACTOR;
+            return this._default_value;
+        };
+    }
+
     /**
      * The value is valid if it is a number superior or equal to 0.
      *
@@ -2214,7 +2668,7 @@ export class VPVisualizerBarThickness extends VisualObjectProperty {
      * @memberof VPVisualizerBarThickness
      */
     constructor(save_handler, visual_object) {
-        super(save_handler, visual_object, "visualizer_bar_thickness", DEFAULTS.VISUALIZER_BAR_THICKNESS);
+        super(save_handler, visual_object, "visualizer_bar_thickness");
          
         // create associated UI
         if (!this._save_handler.owner_project.export_mode) {
@@ -2237,6 +2691,22 @@ export class VPVisualizerBarThickness extends VisualObjectProperty {
         }
     }
     
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPVisualizerBarThickness
+     * @override
+     * @return {Integer}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.VISUALIZER_BAR_THICKNESS;
+            return this._default_value;
+        };
+    }
+
     /**
      * The value is valid if it is an integer superior or equal to 0.
      *

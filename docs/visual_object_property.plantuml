@@ -32,9 +32,9 @@ package "visual_update_property" {
         - _ui_parameter: UIParameter
         --
         + VisualObjectProperty(save_handler: SaveHandler,
-        visual_object: VisualObject, property_name: String,
-        default_value: JSONValidValue): VisualObjectProperty
+        visual_object: VisualObject, property_name: String): VisualObjectProperty
         ..
+        + {abstract} getDefaultValue(): any
         + getCurrentValue(): JSONValidValue
         + setSave(value: JSONValidValue): void
         + setSaveUISafe(value: JSONValidValue): void
@@ -54,6 +54,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPName
         ..
+        + getDefaultValue(): String
         + hasValidValue(): Boolean
         + rename(name: String): void
     }
@@ -65,6 +66,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPLayer
         ..
+        + getDefaultValue(): Integer
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPLayer
@@ -75,6 +77,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPCoordinates
         ..
+        + getDefaultValue(): Object
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPCoordinates
@@ -85,7 +88,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPSize
         ..
-        + defaultValue(visual_object: VisualObject): String
+        + getDefaultValue(): Object
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPSize
@@ -96,6 +99,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPRotation
         ..
+        + getDefaultValue(): Number
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPRotation
@@ -106,6 +110,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPSVGFilter
         ..
+        + getDefaultValue(): String
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPSVGFilter
@@ -119,6 +124,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPColor
         ..
+        + getDefaultValue(): String
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPColor
@@ -129,6 +135,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPBorderRadius
         ..
+        + getDefaultValue(): String
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPBorderRadius
@@ -139,6 +146,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPBoxShadow
         ..
+        + getDefaultValue(): String
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPBoxShadow
@@ -149,6 +157,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPBackground
         ..
+        + getDefaultValue(): Object
         + hasValidValue(): Boolean
         + parseBackgroundSize(bgnd_size: String): Object
         + stringifyBackgroundSize(size_type: String,
@@ -167,6 +176,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPTextType
         ..
+        + getDefaultValue(): String
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPTextType
@@ -177,6 +187,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPTextContent
         ..
+        + getDefaultValue(): String
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPTextContent
@@ -187,6 +198,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPFontSize
         ..
+        + getDefaultValue(): Integer
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPFontSize
@@ -197,6 +209,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPTextDecoration
         ..
+        + getDefaultValue(): Object
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPTextDecoration
@@ -207,6 +220,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPTextAlign
         ..
+        + getDefaultValue(): String
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPTextAlign
@@ -217,6 +231,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPTextShadow
         ..
+        + getDefaultValue(): String
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPTextShadow
@@ -229,6 +244,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPTimerInnerSpacing
         ..
+        + getDefaultValue(): Integer
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPTimerInnerSpacing
@@ -239,6 +255,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPBorderThickness
         ..
+        + getDefaultValue(): Integer
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPBorderThickness
@@ -251,6 +268,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPParticleRadiusRange
         ..
+        + getDefaultValue(): Array
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPParticleRadiusRange
@@ -261,6 +279,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPFlowType
         ..
+        + getDefaultValue(): String
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPFlowType
@@ -271,6 +290,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPFlowCenter
         ..
+        + getDefaultValue(): Object
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPFlowCenter
@@ -281,6 +301,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPFlowDirection
         ..
+        + getDefaultValue(): Integer
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPFlowDirection
@@ -291,6 +312,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPParticleSpawnProbability
         ..
+        + getDefaultValue(): Number
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPParticleSpawnProbability
@@ -301,6 +323,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPParticleSpawnTests
         ..
+        + getDefaultValue(): Number
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPParticleSpawnTests
@@ -313,6 +336,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPVisualizerRadius
         ..
+        + getDefaultValue(): Integer
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPVisualizerRadius
@@ -323,6 +347,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPVisualizerPointsCount
         ..
+        + getDefaultValue(): Integer
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPVisualizerPointsCount
@@ -333,6 +358,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPVisualizerAnalyserRange
         ..
+        + getDefaultValue(): Array
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPVisualizerAnalyserRange
@@ -343,6 +369,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPVisualizationSmoothingType
         ..
+        + hasValidValue(): String
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPVisualizationSmoothingType
@@ -353,6 +380,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPVisualizationSmoothingFactor
         ..
+        + getDefaultValue(): Number
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPVisualizationSmoothingFactor
@@ -363,6 +391,7 @@ package "visual_update_property" {
         visual_object: VisualObject, property_name: String,
         default_value: JSONValidValue): VPVisualizerBarThickness
         ..
+        + getDefaultValue(): Number
         + hasValidValue(): Boolean
     }
     VisualObjectProperty <|-- VPVisualizerBarThickness
