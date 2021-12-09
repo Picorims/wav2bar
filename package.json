@@ -6,7 +6,10 @@
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "test-main": "npx electron-mocha --config \"./test/main/.mocharc.json\"",
+    "test-renderer": "npx electron-mocha --config \"./test/renderer/.mocharc.json\"",
+    "test": "npm run test-main && npm run test-renderer"
   },
   "keywords": [
     "audio",
@@ -25,8 +28,11 @@
     "@electron-forge/maker-squirrel": "^6.0.0-beta.57",
     "@electron-forge/maker-wix": "^6.0.0-beta.57",
     "@electron-forge/maker-zip": "^6.0.0-beta.57",
+    "chai": "^4.3.4",
     "electron": "^15.0.0",
-    "eslint": "^8.3.0"
+    "electron-mocha": "^11.0.2",
+    "eslint": "^8.3.0",
+    "esm": "^3.2.25"
   },
   "dependencies": {
     "colors": "^1.4.0",

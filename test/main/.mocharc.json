@@ -1,0 +1,6 @@
+{
+    "spec": ["./test/main/**/*.test.js"],
+    "exit": true,
+    "color": true,
+    "diff": true
+}

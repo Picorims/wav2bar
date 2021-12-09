@@ -1,0 +1,8 @@
+{
+    "spec": ["./test/renderer/**/*.test.js"],
+    "require": "esm",
+    "renderer": true,
+    "exit": true,
+    "color": true,
+    "diff": true
+}
