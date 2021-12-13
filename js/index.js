@@ -475,7 +475,7 @@ class SaveHandler {
             };
             object.rotation = old_object.rotation;
             object.visualizer_points_count = old_object.points_count;
-            object.visualizer_analyzer_range = old_object.analyzer_range;
+            object.visualizer_analyzer_range = old_object.analyser_range;
             object.visualization_smoothing_type = old_object.visualization_smoothing.type;
             object.visualization_smoothing_factor = old_object.visualization_smoothing.factor;
             object.svg_filter = old_object.svg_filters;
@@ -493,6 +493,9 @@ class SaveHandler {
             
             } else if (old_object.type === "circular") {
                 object.visual_object_type = "visualizer_circular_bar";
+                object.visualizer_bar_thickness = old_object.bar_thickness;
+                object.border_radius = old_object.border_radius;
+                object.box_shadow = old_object.box_shadow;
                 object.radius = old_object.radius;
             
             } else throw new Error(`${old_object.type} is an unknown visualizer type.`);
