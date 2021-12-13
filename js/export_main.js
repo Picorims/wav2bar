@@ -136,7 +136,7 @@ function Export(path) {
         });
         ipcRenderer.once("encoding-finished", (event, success) => {
             ipcRenderer.removeAllListeners("encoding-progress");
-            this._owner_project.user_interface.loadingMode(false);
+            project.user_interface.loadingMode(false);
             if (success) {
                 let now = performance.now();
                 let ellapsed = now-start;

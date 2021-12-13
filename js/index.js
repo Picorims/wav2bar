@@ -920,7 +920,7 @@ class Project {
 
     get volume() {return this._volume;}
 
-    get screen() {return this._user_interface.screen;}
+    get screen() {return document.getElementById("screen");}
 
     get audio_file_type() {return this._audio_file_type;}
     set audio_file_type(audio_file_type) {this._audio_file_type = audio_file_type;}
@@ -1438,11 +1438,11 @@ function InitPage(export_mode) {//
     //SETUP PROJECT AND PREPARE SAVE
     project = new Project(export_mode);
     project.save_handler = new SaveHandler();
-    project.user_interface = new UserInterface();
 
     imports.utils.CustomLog("debug", `is export window: ${export_mode}`);
     if (!export_mode) {
         //UI INITIALIZATION
+        project.user_interface = new UserInterface();
         InitUI();
         setInterval(function() {project.updateFPSDisplay();}, 1000);
 
