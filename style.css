@@ -911,7 +911,7 @@ Loading Frame
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #090c1199;
+    background: radial-gradient(circle, rgba(9,12,17,0.56) 0%, rgba(9,12,17,0) 40%);
     transition: 0.2s ease-in-out;
     opacity: 0;
     display: flex;
