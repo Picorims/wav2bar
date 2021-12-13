@@ -65,6 +65,7 @@ Planned:
 - **Extend existing objects customization (0.4.0).** That includes more options for text and particle flows.
 - **Increase visualization accuracy/resolution (0.4.0).** The goal is to improve rendering of low frequencies.
 - **favorite folders in file explorer (0.4.1).** This can act as shortcuts.
+- **Add .lrc lyrics suport (0.4.0).**
 
 Box of ideas for future updates:
 - technical:

@@ -14,8 +14,9 @@ This document is based on Keep a Changelog 1.0.0
 - Optimized bar visualizers when changing their parameters.
 - Improved visual updates of particle flows and visualizers while audio is paused or stopped.
 - Changing an object's name is now done using a dedicated field in the rack (less clicks!).
-- Changed rules for timers positioning. (The converter should reajust timers when opening a project from an older versions.)
+- Changed rules for timers positioning. (The converter should reajust timers when opening a project from an older version.)
 - Changed some default values (it only affects newly created objects and new object parameters).
+- The default color is now randomized.
 - Irrelevant options (i.e that have no effect) in some objects are no longer available (timers, visualizers). In consequence they are no longer stored as well with these objects (as they are useless).
 - Made top user interface for audio and zoom control more compact.
 - Split audio control block in half in the top user interface for better display in a smaller window.
