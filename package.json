@@ -1,6 +1,6 @@
 {
   "name": "wav2bar",
-  "version": "0.3.0",
+  "version": "0.3.0-beta",
   "description": "A tool to create and export audio visualization mainly for the music industry",
   "main": "main.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "creation"
   ],
   "author": "Picorims",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.57",
     "@electron-forge/maker-deb": "^6.0.0-beta.57",
@@ -51,7 +51,7 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "appCopyright": "Copyright (c) 2020-2021 Picorims",
+        "appCopyright": "Copyright (c) 2022 Picorims <picorims.contact@gmail.com> - GPL-3.0-or-later",
         "icon": "assets/icons/wav2bar_square_logo",
         "name": "Wav2Bar",
         "executableName": "wav2bar",
@@ -122,7 +122,7 @@
               "genericName": "Wav2Bar",
               "homepage": "https://picorims.github.io/wav2bar-website",
               "icon": "assets/icons/wav2bar_square_logo.png",
-              "license": "MIT",
+              "license": "GPL-3.0-or-later",
               "version": "0.3.0"
             }
           }

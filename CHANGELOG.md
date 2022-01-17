@@ -9,6 +9,7 @@ This document is based on Keep a Changelog 1.0.0
 - The user interface is now locked behind a loading screen while big operations are performed and the user interface shouldn't be touched.
 
 ### Changed
+- Changed license from MIT to GPL-3.0-or-later
 - Changed how saves and objects are handled internally.
 - Improved particle flows performances when using a big amount of particles.
 - Optimized bar visualizers when changing their parameters.
