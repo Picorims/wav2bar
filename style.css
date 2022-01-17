@@ -326,7 +326,6 @@ Tabs container and tabs
 
     color: var(--main-white);
     font-size: 1rem;
-    text-align: center;
 }
 
 
@@ -674,8 +673,9 @@ Tabs content
 
 /*else
   ----*/
-.about_info * {
+.about_info {
     text-align: left;
+    display: block;
 }
 .about_info i {
     position: relative;
