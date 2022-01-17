@@ -674,7 +674,7 @@ Tabs content
 
 /*else
   ----*/
-.about_info {
+.about_info * {
     text-align: left;
 }
 .about_info i {
