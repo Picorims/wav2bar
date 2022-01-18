@@ -38,7 +38,8 @@ This document is based on Keep a Changelog 1.0.0
 - About section no longer have the text centered.
 
 ### Security
-- Updated Electron from v12 to v15.
+- Updated Electron from v12 to v16.
+- Updated dependencies in general
 
 ## 0.2.2-beta (2021-07-28)
 
