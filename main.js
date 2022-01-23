@@ -38,7 +38,6 @@ const colors = require("colors");
 
 //software version
 const software_version = require("./package.json").version;
-const software_status = "";
 
 //fluent-ffmpeg dependencies
 const ffmpeg = require("fluent-ffmpeg");
@@ -393,7 +392,7 @@ function Init() {
     main_renderer_log = log4js.getLogger("main_renderer");
     export_log = log4js.getLogger("export");
 
-    main_log.info(`Running Wav2Bar v${software_version} ${software_status}`);
+    main_log.info(`Running Wav2Bar v${software_version}`);
     if (cant_write_to_root) main_log.warn("Can't write in app's root folder. Writing in app data folder provided by the OS.");
     main_log.info(`Working directory: ${working_dir}`);
 
