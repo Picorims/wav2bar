@@ -16,7 +16,7 @@
 
 //USER SETTINGS MANIPULATION
 
-/*globals imports, ipcRenderer, working_dir, software_version, software_status, MessageDialog*/
+/*globals imports, ipcRenderer, working_dir, software_version, MessageDialog*/
 
 var settings;//user settings. see ./users/settings/default_settings.json.
 var current_settings_version = 1;
@@ -51,7 +51,7 @@ async function InitSettings() {
     }
 
     //add software version
-    settings.software_version_used = `${software_version} ${software_status}`;
+    settings.software_version_used = `${software_version}`;
     SaveSettings();
     LoadSettings();
 
