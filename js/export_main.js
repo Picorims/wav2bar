@@ -48,9 +48,9 @@ function Export(path) {
 
         //data to send to the renderer process (the project, so it can be recreated into the new window)
         let filename = project.save_handler.save_data.audio_filename;
-        let extension = filename.replace(/^.*\./,"");
+        let extension = filename.replace(/^.*\./,"").toLowerCase();
         if (imports.utils.IsUndefined(project.audio_file_type)) {
-            switch (extension.toLowerCase()) {
+            switch (extension) {
                 case "mp3": project.audio_file_type = "audio/mp3"; break;
                 case "wav": project.audio_file_type = "audio/wav"; break;
                 case "ogg": project.audio_file_type = "application/ogg"; break;
