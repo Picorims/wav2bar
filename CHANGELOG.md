@@ -1,6 +1,11 @@
 # Changelogs
 This document is based on Keep a Changelog 1.0.0
 
+## 0.3.1-beta (???)
+
+### Fixed
+- The export no longer crashes when the audio contains capital letters in the extension.
+
 ## 0.3.0-beta (2022-01-21)
 
 ### Added
