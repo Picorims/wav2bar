@@ -1,9 +1,24 @@
-<!--MIT License - Copyright (c) 2020-2021 Picorims-->
-
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="251.0417px" preserveAspectRatio="none" style="width:490px;height:251px;background:#222222;" version="1.1" viewBox="0 0 490 251" width="490.625px" zoomAndPan="magnify"><defs/><g><!--MD5=[b33187c248a40138ad0b3413979d5dfd]
-cluster event_mixin--><rect fill="#222222" height="237.5" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="477.0833" x="7.2917" y="7.2917"/><path d="M113.5417,7.2917 L113.5417,25.6083 L103.125,36.025 L7.2917,36.025 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="85.4167" x="15.625" y="26.1088">event_mixin</text><!--MD5=[8c7ae7c48af0001487202e87675f85b8]
-class EventMixin--><rect codeLine="10" fill="#222222" height="175.6694" id="EventMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="443.75" x="23.9583" y="52.0833"/><rect fill="#227FAB" height="61.6333" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="443.75" x="23.9583" y="52.0833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="443.75" x="23.9583" y="109.55"/><rect codeLine="10" fill="none" height="175.6694" id="EventMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="443.75" x="23.9583" y="52.0833"/><ellipse cx="201.5625" cy="82.9" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M203.1087,79.9866 Q203.2227,79.8238 203.361,79.7424 Q203.4993,79.6611 203.6621,79.6611 Q203.9388,79.6611 204.1097,79.8564 Q204.2806,80.0517 204.2806,80.4911 L204.2806,81.5653 Q204.2806,82.0048 204.1097,82.2001 Q203.9388,82.3954 203.6621,82.3954 Q203.4017,82.3954 203.2552,82.2489 Q203.1087,82.1187 203.0273,81.7281 Q202.9948,81.4677 202.8646,81.3375 Q202.6042,81.0608 202.1566,80.898 Q201.709,80.7353 201.2533,80.7353 Q200.6999,80.7353 200.2279,80.9794 Q199.7559,81.2236 199.3978,81.7688 Q199.0397,82.314 199.0397,83.079 L199.0397,83.8928 Q199.0397,84.788 199.6989,85.3902 Q200.3581,85.9924 201.5137,85.9924 Q202.2135,85.9924 202.7018,85.8134 Q202.9785,85.6995 203.2878,85.3739 Q203.4831,85.1786 203.597,85.1217 Q203.7109,85.0647 203.8411,85.0647 Q204.1016,85.0647 204.2887,85.2519 Q204.4759,85.439 204.4759,85.6995 Q204.4759,85.9599 204.2155,86.2528 Q203.8411,86.676 203.2552,86.9202 Q202.474,87.2457 201.5299,87.2457 Q200.4069,87.2457 199.528,86.79 Q198.7956,86.4319 198.291,85.6344 Q197.7865,84.8368 197.7865,83.9091 L197.7865,83.0627 Q197.7865,82.0862 198.2422,81.2398 Q198.6979,80.3935 199.5036,79.9377 Q200.3092,79.482 201.2044,79.482 Q201.7578,79.482 202.2298,79.6041 Q202.7018,79.7262 203.1087,79.9866 Z " fill="#000000"/><text fill="#ADAFAE" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="51.0417" x="235.9375" y="75.0671">«mixin»</text><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="69.7917" x="226.5625" y="100.6755">EventMixin</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="25" x2="466.6667" y1="113.7166" y2="113.7166"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="25" x2="466.6667" y1="122.05" y2="122.05"/><ellipse cx="35.4167" cy="133.5083" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="292.7083" x="48.9583" y="142.9448">setupEventMixin(events_list: Array[String]): void</text><ellipse cx="35.4167" cy="157.8506" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="392.7083" x="48.9583" y="167.2872">subscribeToEvent(event: String, function_handler: Function): void</text><ellipse cx="35.4167" cy="182.193" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="407.2917" x="48.9583" y="191.6295">unsubscribeToEvent(event: String, function_handler: Function): void</text><ellipse cx="35.4167" cy="206.5353" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="273.9583" x="48.9583" y="215.9719">triggerEvent(event: String, ...args: any): void</text><!--MD5=[90f603d36f73e66dbf537fe59fdb3114]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="279.1667px" preserveAspectRatio="none" style="width:441px;height:279px;background:#222222;" version="1.1" viewBox="0 0 441 279" width="441.6667px" zoomAndPan="magnify"><defs/><g><!--MD5=[b33187c248a40138ad0b3413979d5dfd]
+cluster event_mixin--><rect fill="#222222" height="250" style="stroke:#2A9FD6;stroke-width:1.0416666666666667;" width="412.5" x="17.7083" y="17.7083"/><path d="M156.25,17.7083 L156.25,47.0378 L145.8333,57.4544 L17.7083,57.4544 " fill="none" style="stroke:#2A9FD6;stroke-width:1.0416666666666667;"/><text fill="#2A9FD6" font-family="&quot;Verdana&quot;" font-size="20.8333" font-weight="bold" lengthAdjust="spacing" textLength="117.7083" x="26.0417" y="45.5851">event_mixin</text><!--MD5=[8c7ae7c48af0001487202e87675f85b8]
+class EventMixin--><rect codeLine="24" height="176.8372" id="EventMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;fill:none;" width="378.125" x="34.8958" y="73.9583"/><ellipse cx="188.0208" cy="104.3854" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M189.5671,101.472 Q189.681,101.3092 189.8193,101.2278 Q189.9577,101.1464 190.1204,101.1464 Q190.3971,101.1464 190.568,101.3418 Q190.7389,101.5371 190.7389,101.9765 L190.7389,103.0507 Q190.7389,103.4902 190.568,103.6855 Q190.3971,103.8808 190.1204,103.8808 Q189.86,103.8808 189.7135,103.7343 Q189.5671,103.6041 189.4857,103.2135 Q189.4531,102.9531 189.3229,102.8229 Q189.0625,102.5462 188.6149,102.3834 Q188.1673,102.2207 187.7116,102.2207 Q187.1582,102.2207 186.6862,102.4648 Q186.2142,102.7089 185.8561,103.2542 Q185.498,103.7994 185.498,104.5644 L185.498,105.3782 Q185.498,106.2734 186.1572,106.8756 Q186.8164,107.4778 187.972,107.4778 Q188.6719,107.4778 189.1602,107.2988 Q189.4368,107.1849 189.7461,106.8593 Q189.9414,106.664 190.0553,106.6071 Q190.1693,106.5501 190.2995,106.5501 Q190.5599,106.5501 190.7471,106.7373 Q190.9342,106.9244 190.9342,107.1849 Q190.9342,107.4453 190.6738,107.7382 Q190.2995,108.1614 189.7135,108.4056 Q188.9323,108.7311 187.9883,108.7311 Q186.8652,108.7311 185.9863,108.2753 Q185.2539,107.9173 184.7493,107.1198 Q184.2448,106.3222 184.2448,105.3945 L184.2448,104.5481 Q184.2448,103.5716 184.7005,102.7252 Q185.1563,101.8789 185.9619,101.4231 Q186.7676,100.9674 187.6628,100.9674 Q188.2161,100.9674 188.6882,101.0895 Q189.1602,101.2115 189.5671,101.472 Z " fill="#000000"/><text fill="#ADAFAE" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="51.0417" x="214.0625" y="96.9421">«mixin»</text><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="53.125" x="213.0208" y="121.8781">EventMixin</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="35.9375" x2="411.9792" y1="134.8124" y2="134.8124"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="35.9375" x2="411.9792" y1="143.1458" y2="143.1458"/><ellipse cx="46.3542" cy="154.6041" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="241.6667" x="59.8958" y="164.4155">setupEventMixin(events_list: Array[String]): void</text><ellipse cx="46.3542" cy="179.4332" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="329.1667" x="59.8958" y="189.2446">subscribeToEvent(event: String, function_handler: Function): void</text><ellipse cx="46.3542" cy="204.2623" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="341.6667" x="59.8958" y="214.0737">unsubscribeToEvent(event: String, function_handler: Function): void</text><ellipse cx="46.3542" cy="229.0914" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="222.9167" x="59.8958" y="238.9028">triggerEvent(event: String, ...args: any): void</text><!--MD5=[5d8ec3a8d81b963d267e3340ae1403ae]
 @startuml index
+
+'Wav2Bar - Free software for creating audio visualization (motion design) videos
+'Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+
+'This program is free software: you can redistribute it and/or modify
+'it under the terms of the GNU General Public License as published by
+'the Free Software Foundation, either version 3 of the License, or
+'any later version.
+
+'This program is distributed in the hope that it will be useful,
+'but WITHOUT ANY WARRANTY; without even the implied warranty of
+'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'GNU General Public License for more details.
+
+'You should have received a copy of the GNU General Public License
+'along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 !theme cyborg-outline
 skinparam BackgroundColor #222222
 ' skinparam groupInheritance 2
@@ -17,9 +32,14 @@ package "event_mixin" {
         + triggerEvent(event: String, ...args: any): void
     }
 }
-@enduml
+@end
 
 @startuml index
+
+
+
+
+
 
 
 
@@ -31,7 +51,116 @@ skinparam useBetaStyle false
 
 
 
-
+<style>
+  root {
+    BackgroundColor transparent
+    FontColor #2A9FD6
+    HyperLinkColor #fd7e14
+    LineColor #55B2DE
+    LineThickness 1
+    Margin 10
+    Padding 6
+    Shadowing 0.0
+  }
+  node {
+   Padding 15
+   roundcorner 20
+   BackgroundColor transparent
+  }
+  caption {
+    LineThickness 0
+  }
+  footer {
+    LineThickness 0
+  }
+  groupHeader {
+    BackgroundColor #555
+    FontColor #9933CC
+    FontStyle bold
+  }
+  header {
+    LineThickness 0
+  }
+  referenceHeader {
+    BackgroundColor transparent
+    FontColor #ADAFAE
+    FontStyle bold
+  }
+  separator {
+    BackgroundColor #FFF
+    FontColor transparent
+    FontStyle bold
+  }
+  title {
+	FontSize 20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor  transparent
+	FontColor #2A9FD6
+	BorderColor #555
+  }
+  nwdiagDiagram {
+	network {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent    
+		LineColor #2A9FD6
+		LineThickness 1.0
+		FontColor #227FAB
+	}
+	server {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	}
+	arrow {
+		FontColor #227FAB
+		LineColor #227FAB
+	}
+	group {
+		BackGroundColor #222
+		LineColor #4E4E4E
+		LineThickness 2.0
+		Margin 5
+		Padding 5
+	}
+  }
+  ganttDiagram {
+	task {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+		LineColor #2A9FD6
+		Margin 10
+		Padding 6
+	}
+	note {
+		FontColor #9933CC
+		LineColor #AD5CD6
+		BackGroundColor transparent
+	}
+	separator {
+		LineColor #777777
+		BackGroundColor transparent
+		FontColor #777777
+	}
+	milestone {
+		FontColor #9933CC
+		FontSize 16
+		FontStyle italic
+		BackGroundColor #555
+		LineColor #777777
+	}
+	timeline {
+		BackgroundColor #555
+		FontColor #777777
+	}
+	closed {
+		BackgroundColor #FFA033
+		FontColor #FF8800
+	}
+  }
+</style>
 skinparam defaultFontName       "Verdana"
 skinparam defaultFontSize       12
 skinparam dpi                   100
@@ -120,7 +249,8 @@ skinparam sequence {
 	EndColor #2A9FD6
 	BoxBackgroundColor transparent
 	BoxBorderColor #ADAFAE
-	BoxFontColor $DARk
+	BoxFontColor #ADAFAE
+	DelayFontColor #ADAFAE
 	LifeLineBorderColor #555
 	LifeLineBorderThickness 2
 	LifeLineBackgroundColor transparent
@@ -138,6 +268,7 @@ skinparam sequence {
 	ReferenceFontColor #ADAFAE
 	ReferenceHeaderFontColor #9933CC
 	ReferenceHeaderBackgroundColor transparent
+	StereotypeFontColor #2A9FD6
 }
 
 
@@ -343,6 +474,11 @@ skinparam file {
 }
 
 
+skinparam stack {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
 skinparam BackgroundColor #222222
 skinparam PackageStyle frame
 
@@ -354,9 +490,9 @@ package "event_mixin" {
         + triggerEvent(event: String, ...args: any): void
     }
 }
-@enduml
+@end
 
-PlantUML version 1.2021.7(Sun May 23 14:40:07 CEST 2021)
+PlantUML version 1.2022.0(Tue Jan 11 17:16:42 CET 2022)
 (GPL source distribution)
 Java Runtime: Java(TM) SE Runtime Environment
 JVM: Java HotSpot(TM) 64-Bit Server VM
