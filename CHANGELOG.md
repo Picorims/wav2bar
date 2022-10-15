@@ -6,6 +6,10 @@ This document is based on Keep a Changelog 1.0.0
 ### Fixed
 - The export no longer crashes when the audio contains capital letters in the extension.
 
+### Security
+- Updated Electron from v16.0.7 to v16.2.8.
+- Updated dependencies.
+
 ## 0.3.0-beta (2022-01-21)
 
 ### Added
