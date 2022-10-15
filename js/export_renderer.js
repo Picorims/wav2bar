@@ -23,7 +23,7 @@ let path = require("path");
 let received_data;
 let screen;//HTML screen element
 let audio_file_path;
-let PCM_data, sample_rate, duration;
+let PCM_data, sample_rate, duration, channel_count;
 //var offline_context, offline_analyser, offline_source, offline_freq_data, audio_rendered;
 let frames_to_render, frames_rendered;
 let export_array;
@@ -164,20 +164,27 @@ function GetAudioData() {
 
         duration = audio_buffer.duration;      //time
         sample_rate = audio_buffer.sampleRate; //number of samples (one value) per second
+        channel_count = audio_buffer.numberOfChannels;
 
         //STEREO FUSION TO A SINGLE INTERLEAVED PCM ARRAY
+        if (audio_buffer.numberOfChannels > 1) {
+            // Float32Array samples
+            const [left, right] =  [audio_buffer.getChannelData(0), audio_buffer.getChannelData(1)];
 
-        // Float32Array samples
-        const [left, right] =  [audio_buffer.getChannelData(0), audio_buffer.getChannelData(1)];
+            // interleaved
+            const interleaved = new Float32Array(left.length + right.length);
+            for (let src=0, dst=0; src < left.length; src++, dst+=2) {
+                interleaved[dst] =   left[src];
+                interleaved[dst+1] = right[src];
+            }
 
-        // interleaved
-        const interleaved = new Float32Array(left.length + right.length);
-        for (let src=0, dst=0; src < left.length; src++, dst+=2) {
-            interleaved[dst] =   left[src];
-            interleaved[dst+1] = right[src];
+            PCM_data = interleaved;
+        } else {
+            PCM_data = audio_buffer.getChannelData(0);
         }
 
-        PCM_data = interleaved;
+
+        
 
         imports.utils.CustomLog("debug","audio processed. Preparing to render...");
         PrepareRendering(duration);
@@ -296,7 +303,7 @@ async function Render() {
             var length = 8192;//output is length/2
             var waveform = new Float32Array(length);
             var current_time = frames_rendered/project.save_handler.save_data.fps;
-            var center_point = Math.floor(current_time*sample_rate*2); //2 channels in PCM_data, pos in seconds -> pos in samples
+            var center_point = Math.floor(current_time * sample_rate * channel_count); //2 channels in PCM_data, pos in seconds -> pos in samples
 
             //take a portion of the PCM data
             for (let i = center_point-(length/2), j=0 ; i < center_point+(length/2); i++, j++) {

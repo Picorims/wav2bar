@@ -4,7 +4,8 @@ This document is based on Keep a Changelog 1.0.0
 ## 0.3.1-beta (???)
 
 ### Fixed
-- The export no longer crashes when the audio contains capital letters in the extension.
+- Fixed: Trying to export a projet with an audio file in mono crashes the export (#34).
+- Fixed: Audio file extension containing capital letters may cause errors at export (#38).
 
 ### Security
 - Updated Electron from v16.0.7 to v16.2.8.
