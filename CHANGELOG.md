@@ -4,7 +4,8 @@ This document is based on Keep a Changelog 1.0.0
 ## 0.3.1-beta (???)
 
 ### Fixed
-- Fixed: Trying to export a projet with an audio file in mono crashes the export (#34).
+- Fixed: The video is cropped when exported if the resolution is greater than 720p (#36).
+- Fixed: Trying to export a project with an audio file in mono crashes the export (#34).
 - Fixed: Audio file extension containing capital letters may cause errors at export (#38).
 
 ### Security

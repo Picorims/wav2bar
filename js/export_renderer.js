@@ -80,14 +80,6 @@ async function InitExport(data) {
     }
     if (!imports.utils.IsAnObject(data)) throw "InitExport: invalid data provided!";
 
-    //SCREEN SETUP
-    screen.style.width = project.save_handler.save_data.screen.width + "px";
-    screen.style.height = project.save_handler.save_data.screen.height + "px";
-
-    //adapt window size to screen
-    await ipcRenderer.invoke("resize-export-window", project.save_handler.save_data.screen.width, project.save_handler.save_data.screen.height);
-
-
 
 
     //LOAD SAVE
@@ -96,6 +88,13 @@ async function InitExport(data) {
     imports.utils.CustomLog("debug","save loaded into the renderer");
 
 
+
+    //SCREEN SETUP
+    screen.style.width = project.save_handler.save_data.screen.width + "px";
+    screen.style.height = project.save_handler.save_data.screen.height + "px";
+
+    //adapt window size to screen
+    await ipcRenderer.invoke("resize-export-window", project.save_handler.save_data.screen.width, project.save_handler.save_data.screen.height);
 
 
 
