@@ -1,12 +1,27 @@
-<!--MIT License - Copyright (c) 2020-2021 Picorims-->
-
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="392.7083px" preserveAspectRatio="none" style="width:446px;height:392px;background:#222222;" version="1.1" viewBox="0 0 446 392" width="446.875px" zoomAndPan="magnify"><defs/><g><!--MD5=[12e8ed3d31618ab0ff1f89041617434d]
-cluster ui_base_components--><rect fill="#222222" height="114.5833" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="172.9167" x="137.5" y="7.2917"/><path d="M304.1667,7.2917 L304.1667,25.6083 L293.75,36.025 L137.5,36.025 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="145.8333" x="145.8333" y="26.1088">ui_base_components</text><!--MD5=[5d1b350b0743fff38882203718b7b4e9]
-cluster ui_append_help--><rect fill="#222222" height="239.5833" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="433.3333" x="7.2917" y="146.875"/><path d="M138.5417,146.875 L138.5417,165.1917 L128.125,175.6083 L7.2917,175.6083 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing" textLength="110.4167" x="15.625" y="165.6921">ui_append_help</text><!--MD5=[5f541e8ad6d2a88033f479c756d5b41a]
-class UIComponent--><rect codeLine="7" fill="#222222" height="52.6917" id="UIComponent" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="132.2917" x="157.8125" y="52.0833"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="132.2917" x="157.8125" y="52.0833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="132.2917" x="157.8125" y="83.9417"/><rect codeLine="7" fill="none" height="52.6917" id="UIComponent" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="132.2917" x="157.8125" y="52.0833"/><ellipse cx="172.3958" cy="70.0958" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M173.9421,67.1824 Q174.056,67.0197 174.1943,66.9383 Q174.3327,66.8569 174.4954,66.8569 Q174.7721,66.8569 174.943,67.0522 Q175.1139,67.2475 175.1139,67.687 L175.1139,68.7612 Q175.1139,69.2006 174.943,69.396 Q174.7721,69.5913 174.4954,69.5913 Q174.235,69.5913 174.0885,69.4448 Q173.9421,69.3146 173.8607,68.924 Q173.8281,68.6635 173.6979,68.5333 Q173.4375,68.2566 172.9899,68.0939 Q172.5423,67.9311 172.0866,67.9311 Q171.5332,67.9311 171.0612,68.1753 Q170.5892,68.4194 170.2311,68.9646 Q169.873,69.5099 169.873,70.2749 L169.873,71.0887 Q169.873,71.9838 170.5322,72.5861 Q171.1914,73.1883 172.347,73.1883 Q173.0469,73.1883 173.5352,73.0092 Q173.8118,72.8953 174.1211,72.5698 Q174.3164,72.3745 174.4303,72.3175 Q174.5443,72.2605 174.6745,72.2605 Q174.9349,72.2605 175.1221,72.4477 Q175.3092,72.6349 175.3092,72.8953 Q175.3092,73.1557 175.0488,73.4487 Q174.6745,73.8719 174.0885,74.116 Q173.3073,74.4415 172.3633,74.4415 Q171.2402,74.4415 170.3613,73.9858 Q169.6289,73.6277 169.1243,72.8302 Q168.6198,72.0327 168.6198,71.1049 L168.6198,70.2586 Q168.6198,69.282 169.0755,68.4357 Q169.5313,67.5893 170.3369,67.1336 Q171.1426,66.6779 172.0378,66.6779 Q172.5911,66.6779 173.0632,66.7999 Q173.5352,66.922 173.9421,67.1824 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="90.625" x="191.1458" y="75.0671">UIComponent</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="158.8542" x2="289.0625" y1="88.1083" y2="88.1083"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="158.8542" x2="289.0625" y1="96.4417" y2="96.4417"/><!--MD5=[1c9dc00bfd784125614cc1b299b41c30]
-class UIHelp--><rect codeLine="11" fill="#222222" height="178.57" id="UIHelp" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="398.9583" x="24.4792" y="191.6667"/><rect fill="#227FAB" height="36.025" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="398.9583" x="24.4792" y="191.6667"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="398.9583" x="24.4792" y="223.525"/><rect codeLine="11" fill="none" height="178.57" id="UIHelp" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="398.9583" x="24.4792" y="191.6667"/><ellipse cx="192.7083" cy="209.6792" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M194.2546,206.7657 Q194.3685,206.603 194.5068,206.5216 Q194.6452,206.4402 194.8079,206.4402 Q195.0846,206.4402 195.2555,206.6355 Q195.4264,206.8309 195.4264,207.2703 L195.4264,208.3445 Q195.4264,208.784 195.2555,208.9793 Q195.0846,209.1746 194.8079,209.1746 Q194.5475,209.1746 194.401,209.0281 Q194.2546,208.8979 194.1732,208.5073 Q194.1406,208.2469 194.0104,208.1167 Q193.75,207.84 193.3024,207.6772 Q192.8548,207.5144 192.3991,207.5144 Q191.8457,207.5144 191.3737,207.7586 Q190.9017,208.0027 190.5436,208.548 Q190.1855,209.0932 190.1855,209.8582 L190.1855,210.672 Q190.1855,211.5672 190.8447,212.1694 Q191.5039,212.7716 192.6595,212.7716 Q193.3594,212.7716 193.8477,212.5926 Q194.1243,212.4786 194.4336,212.1531 Q194.6289,211.9578 194.7428,211.9008 Q194.8568,211.8439 194.987,211.8439 Q195.2474,211.8439 195.4346,212.031 Q195.6217,212.2182 195.6217,212.4786 Q195.6217,212.7391 195.3613,213.032 Q194.987,213.4552 194.401,213.6993 Q193.6198,214.0249 192.6758,214.0249 Q191.5527,214.0249 190.6738,213.5691 Q189.9414,213.2111 189.4368,212.4135 Q188.9323,211.616 188.9323,210.6883 L188.9323,209.8419 Q188.9323,208.8654 189.388,208.019 Q189.8438,207.1726 190.6494,206.7169 Q191.4551,206.2612 192.3503,206.2612 Q192.9036,206.2612 193.3757,206.3833 Q193.8477,206.5053 194.2546,206.7657 Z " fill="#000000"/><text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="43.75" x="217.7083" y="214.6505">UIHelp</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="25.5208" x2="422.3958" y1="227.6917" y2="227.6917"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="32.8125" y="236.025"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="115.625" x="49.4792" y="248.5865">_help_string: string</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="25.5208" x2="422.3958" y1="260.3673" y2="260.3673"/><ellipse cx="35.9375" cy="271.8257" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="362.5" x="49.4792" y="281.2622">UIHelp(parent: HTMLDivElement, help_string: string): UIHelp</text><ellipse cx="35.9375" cy="324.677" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="247.9167" x="49.4792" y="334.1136">get help_msg() {return this._help_string}</text><ellipse cx="35.9375" cy="349.0194" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="200" x="49.4792" y="358.4559">set help_msg(string: string): void</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="25.5208" x2="196.3542" y1="305.2142" y2="305.2142"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="44.7917" x="201.5625" y="309.2504">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="251.5625" x2="422.3958" y1="305.2142" y2="305.2142"/><!--MD5=[8d55f86c4c0064ec526adf4ac69b52e8]
-reverse link UIComponent to UIHelp--><path codeLine="19" d="M223.9583,126.5729 C223.9583,145.9896 223.9583,169.1667 223.9583,191.5417 " fill="none" id="UIComponent-backto-UIHelp" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="216.6667,126.2604,223.9583,105.4271,231.25,126.2604,216.6667,126.2604" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[2f630b327587ee34c36b71e927db0feb]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="432.2917px" preserveAspectRatio="none" style="width:393px;height:432px;background:#222222;" version="1.1" viewBox="0 0 393 432" width="393.75px" zoomAndPan="magnify"><defs/><g><!--MD5=[12e8ed3d31618ab0ff1f89041617434d]
+cluster ui_base_components--><rect fill="#222222" height="125" style="stroke:#2A9FD6;stroke-width:1.0416666666666667;" width="236.4583" x="82.2917" y="17.7083"/><path d="M312.5,17.7083 L312.5,47.0378 L302.0833,57.4544 L82.2917,57.4544 " fill="none" style="stroke:#2A9FD6;stroke-width:1.0416666666666667;"/><text fill="#2A9FD6" font-family="&quot;Verdana&quot;" font-size="20.8333" font-weight="bold" lengthAdjust="spacing" textLength="209.375" x="90.625" y="45.5851">ui_base_components</text><!--MD5=[5d1b350b0743fff38882203718b7b4e9]
+cluster ui_append_help--><rect fill="#222222" height="253.125" style="stroke:#2A9FD6;stroke-width:1.0416666666666667;" width="364.5833" x="17.7083" y="167.7083"/><path d="M193.75,167.7083 L193.75,197.0378 L183.3333,207.4544 L17.7083,207.4544 " fill="none" style="stroke:#2A9FD6;stroke-width:1.0416666666666667;"/><text fill="#2A9FD6" font-family="&quot;Verdana&quot;" font-size="20.8333" font-weight="bold" lengthAdjust="spacing" textLength="155.2083" x="26.0417" y="195.5851">ui_append_help</text><!--MD5=[5f541e8ad6d2a88033f479c756d5b41a]
+class UIComponent--><rect codeLine="24" height="51.9124" id="UIComponent" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;fill:none;" width="107.2917" x="146.3542" y="73.9583"/><ellipse cx="160.9375" cy="91.5812" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M162.4837,88.6678 Q162.5977,88.505 162.736,88.4237 Q162.8743,88.3423 163.0371,88.3423 Q163.3138,88.3423 163.4847,88.5376 Q163.6556,88.7329 163.6556,89.1724 L163.6556,90.2466 Q163.6556,90.686 163.4847,90.8813 Q163.3138,91.0767 163.0371,91.0767 Q162.7767,91.0767 162.6302,90.9302 Q162.4837,90.8 162.4023,90.4093 Q162.3698,90.1489 162.2396,90.0187 Q161.9792,89.742 161.5316,89.5793 Q161.084,89.4165 160.6283,89.4165 Q160.0749,89.4165 159.6029,89.6606 Q159.1309,89.9048 158.7728,90.45 Q158.4147,90.9953 158.4147,91.7603 L158.4147,92.5741 Q158.4147,93.4692 159.0739,94.0715 Q159.7331,94.6737 160.8887,94.6737 Q161.5885,94.6737 162.0768,94.4946 Q162.3535,94.3807 162.6628,94.0552 Q162.8581,93.8599 162.972,93.8029 Q163.0859,93.7459 163.2161,93.7459 Q163.4766,93.7459 163.6637,93.9331 Q163.8509,94.1203 163.8509,94.3807 Q163.8509,94.6411 163.5905,94.9341 Q163.2161,95.3573 162.6302,95.6014 Q161.849,95.9269 160.9049,95.9269 Q159.7819,95.9269 158.903,95.4712 Q158.1706,95.1131 157.666,94.3156 Q157.1615,93.5181 157.1615,92.5903 L157.1615,91.744 Q157.1615,90.7674 157.6172,89.9211 Q158.0729,89.0747 158.8786,88.619 Q159.6842,88.1632 160.5794,88.1632 Q161.1328,88.1632 161.6048,88.2853 Q162.0768,88.4074 162.4837,88.6678 Z " fill="#000000"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="65.625" x="179.6875" y="96.2697">UIComponent</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="147.3958" x2="252.6042" y1="109.2041" y2="109.2041"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="147.3958" x2="252.6042" y1="117.5374" y2="117.5374"/><!--MD5=[1c9dc00bfd784125614cc1b299b41c30]
+class UIHelp--><rect codeLine="28" height="179.7379" id="UIHelp" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;fill:none;" width="330.2083" x="34.8958" y="223.9583"/><ellipse cx="175" cy="241.5812" fill="#777777" rx="10.4167" ry="10.4167" style="stroke:#444444;stroke-width:1.0416666666666667;"/><path d="M176.5462,238.6678 Q176.6602,238.505 176.7985,238.4237 Q176.9368,238.3423 177.0996,238.3423 Q177.3763,238.3423 177.5472,238.5376 Q177.7181,238.7329 177.7181,239.1724 L177.7181,240.2466 Q177.7181,240.686 177.5472,240.8813 Q177.3763,241.0767 177.0996,241.0767 Q176.8392,241.0767 176.6927,240.9302 Q176.5462,240.8 176.4648,240.4093 Q176.4323,240.1489 176.3021,240.0187 Q176.0417,239.742 175.5941,239.5793 Q175.1465,239.4165 174.6908,239.4165 Q174.1374,239.4165 173.6654,239.6606 Q173.1934,239.9048 172.8353,240.45 Q172.4772,240.9953 172.4772,241.7603 L172.4772,242.5741 Q172.4772,243.4692 173.1364,244.0715 Q173.7956,244.6737 174.9512,244.6737 Q175.651,244.6737 176.1393,244.4946 Q176.416,244.3807 176.7253,244.0552 Q176.9206,243.8599 177.0345,243.8029 Q177.1484,243.7459 177.2786,243.7459 Q177.5391,243.7459 177.7262,243.9331 Q177.9134,244.1203 177.9134,244.3807 Q177.9134,244.6411 177.653,244.9341 Q177.2786,245.3573 176.6927,245.6014 Q175.9115,245.9269 174.9674,245.9269 Q173.8444,245.9269 172.9655,245.4712 Q172.2331,245.1131 171.7285,244.3156 Q171.224,243.5181 171.224,242.5903 L171.224,241.744 Q171.224,240.7674 171.6797,239.9211 Q172.1354,239.0747 172.9411,238.619 Q173.7467,238.1632 174.6419,238.1632 Q175.1953,238.1632 175.6673,238.2853 Q176.1393,238.4074 176.5462,238.6678 Z " fill="#000000"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="31.25" x="200" y="246.2697">UIHelp</text><line style="stroke:#55B2DE;stroke-width:1.5625;" x1="35.9375" x2="364.0625" y1="259.2041" y2="259.2041"/><rect fill="none" height="6.25" style="stroke:#C82930;stroke-width:1.0416666666666667;" width="6.25" x="43.2292" y="267.5374"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="95.8333" x="59.8958" y="280.4738">_help_string: string</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="35.9375" x2="364.0625" y1="292.3665" y2="292.3665"/><ellipse cx="46.3542" cy="303.8249" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="293.75" x="59.8958" y="313.6363">UIHelp(parent: HTMLDivElement, help_string: string): UIHelp</text><ellipse cx="46.3542" cy="357.163" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="202.0833" x="59.8958" y="366.9744">get help_msg() {return this._help_string}</text><ellipse cx="46.3542" cy="381.9921" fill="#84BE84" rx="3.125" ry="3.125" style="stroke:#038048;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="164.5833" x="59.8958" y="391.8035">set help_msg(string: string): void</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="35.9375" x2="172.3958" y1="337.7001" y2="337.7001"/><text fill="#ADAFAE" font-family="Verdana" font-size="11.4583" lengthAdjust="spacing" textLength="44.7917" x="177.6042" y="341.7363">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="227.6042" x2="364.0625" y1="337.7001" y2="337.7001"/><!--MD5=[8d55f86c4c0064ec526adf4ac69b52e8]
+reverse link UIComponent to UIHelp--><path codeLine="36" d="M200,147.3125 C200,169.6875 200,197.3229 200,223.5729 " fill="none" id="UIComponent-backto-UIHelp" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="192.7083,147.0208,200,126.1875,207.2917,147.0208,192.7083,147.0208" style="stroke:#2A9FD6;stroke-width:3.125;"/><!--MD5=[ca8fb3f48e204b7895344913e936854a]
 @startuml ui_append_help
+
+'Wav2Bar - Free software for creating audio visualization (motion design) videos
+'Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+
+'This program is free software: you can redistribute it and/or modify
+'it under the terms of the GNU General Public License as published by
+'the Free Software Foundation, either version 3 of the License, or
+'any later version.
+
+'This program is distributed in the hope that it will be useful,
+'but WITHOUT ANY WARRANTY; without even the implied warranty of
+'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'GNU General Public License for more details.
+
+'You should have received a copy of the GNU General Public License
+'along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 !theme cyborg-outline
 skinparam BackgroundColor #222222
 ' skinparam groupInheritance 2
@@ -34,6 +49,11 @@ package "ui_append_help" {
 
 
 
+
+
+
+
+
 skinparam backgroundColor transparent
 skinparam useBetaStyle false
 
@@ -42,7 +62,116 @@ skinparam useBetaStyle false
 
 
 
-
+<style>
+  root {
+    BackgroundColor transparent
+    FontColor #2A9FD6
+    HyperLinkColor #fd7e14
+    LineColor #55B2DE
+    LineThickness 1
+    Margin 10
+    Padding 6
+    Shadowing 0.0
+  }
+  node {
+   Padding 15
+   roundcorner 20
+   BackgroundColor transparent
+  }
+  caption {
+    LineThickness 0
+  }
+  footer {
+    LineThickness 0
+  }
+  groupHeader {
+    BackgroundColor #555
+    FontColor #9933CC
+    FontStyle bold
+  }
+  header {
+    LineThickness 0
+  }
+  referenceHeader {
+    BackgroundColor transparent
+    FontColor #ADAFAE
+    FontStyle bold
+  }
+  separator {
+    BackgroundColor #FFF
+    FontColor transparent
+    FontStyle bold
+  }
+  title {
+	FontSize 20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor  transparent
+	FontColor #2A9FD6
+	BorderColor #555
+  }
+  nwdiagDiagram {
+	network {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent    
+		LineColor #2A9FD6
+		LineThickness 1.0
+		FontColor #227FAB
+	}
+	server {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	}
+	arrow {
+		FontColor #227FAB
+		LineColor #227FAB
+	}
+	group {
+		BackGroundColor #222
+		LineColor #4E4E4E
+		LineThickness 2.0
+		Margin 5
+		Padding 5
+	}
+  }
+  ganttDiagram {
+	task {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+		LineColor #2A9FD6
+		Margin 10
+		Padding 6
+	}
+	note {
+		FontColor #9933CC
+		LineColor #AD5CD6
+		BackGroundColor transparent
+	}
+	separator {
+		LineColor #777777
+		BackGroundColor transparent
+		FontColor #777777
+	}
+	milestone {
+		FontColor #9933CC
+		FontSize 16
+		FontStyle italic
+		BackGroundColor #555
+		LineColor #777777
+	}
+	timeline {
+		BackgroundColor #555
+		FontColor #777777
+	}
+	closed {
+		BackgroundColor #FFA033
+		FontColor #FF8800
+	}
+  }
+</style>
 skinparam defaultFontName       "Verdana"
 skinparam defaultFontSize       12
 skinparam dpi                   100
@@ -131,7 +260,8 @@ skinparam sequence {
 	EndColor #2A9FD6
 	BoxBackgroundColor transparent
 	BoxBorderColor #ADAFAE
-	BoxFontColor $DARk
+	BoxFontColor #ADAFAE
+	DelayFontColor #ADAFAE
 	LifeLineBorderColor #555
 	LifeLineBorderThickness 2
 	LifeLineBackgroundColor transparent
@@ -149,6 +279,7 @@ skinparam sequence {
 	ReferenceFontColor #ADAFAE
 	ReferenceHeaderFontColor #9933CC
 	ReferenceHeaderBackgroundColor transparent
+	StereotypeFontColor #2A9FD6
 }
 
 
@@ -354,6 +485,11 @@ skinparam file {
 }
 
 
+skinparam stack {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
 skinparam BackgroundColor #222222
 skinparam PackageStyle frame
 
@@ -375,7 +511,7 @@ package "ui_append_help" {
 
 @enduml
 
-PlantUML version 1.2021.7(Sun May 23 14:40:07 CEST 2021)
+PlantUML version 1.2022.0(Tue Jan 11 17:16:42 CET 2022)
 (GPL source distribution)
 Java Runtime: Java(TM) SE Runtime Environment
 JVM: Java HotSpot(TM) 64-Bit Server VM

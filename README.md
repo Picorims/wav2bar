@@ -5,6 +5,7 @@ A tool to make custom audio visualization and export production videos for the a
 - **Discord Server:** https://discord.gg/EVGzfdP
 
 ## Important Notes
+- **This tool is a side project and is provided as is, without garantee of long term maintenance. If this is fine for you, you can proceed. Enjoy!**
 - **This tool is usable at this point, but is still in early development! Your work is subject to bugs, backup your saves!**
 - Git LFS used to be used for node_modules and FFMpeg, but is no longer used. Both of these folders have been removed from the repository, but not its history. You do not need to clone them. Git LFS files are no longer included in archive downloads. **If you want a full release source code archive, go to the releases section. This will include node_modules, but not FFmpeg** (which can be downloaded from their official website compiled and packaged).
 

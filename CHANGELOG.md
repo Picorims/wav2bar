@@ -1,5 +1,17 @@
 # Changelogs
 This document is based on Keep a Changelog 1.0.0
+https://keepachangelog.com/en/1.0.0/
+
+## 0.3.1-beta (2022-11-01)
+
+### Fixed
+- Fixed: The video is cropped when exported if the resolution is greater than 720p (#36).
+- Fixed: Trying to export a project with an audio file in mono crashes the export (#34).
+- Fixed: Audio file extension containing capital letters may cause errors at export (#38).
+
+### Security
+- Updated Electron from v16.0.7 to v16.2.8.
+- Updated dependencies.
 
 ## 0.3.0-beta (2022-01-21)
 

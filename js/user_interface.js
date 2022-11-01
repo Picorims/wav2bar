@@ -16,7 +16,7 @@
 
 //USER INTERFACE PROCESS (CONTROL PANEL INCLUDED)
 
-/*globals project, imports, ipcRenderer, setFFmpegPath, setFFprobePath, software_version, software_status, settings, InitSettings, Export*/
+/*globals project, imports, ipcRenderer, setFFmpegPath, setFFprobePath, software_version, settings, InitSettings, Export*/
 
 var control_panel, screen_interface, screen;//MAIN HTML ELEMENTS
 
@@ -51,8 +51,8 @@ async function InitUI() {
     imports.ui_components = await import("./ui_components/ui_components.js");
 
     //DISPLAY VERSION
-    document.title = "Wav2Bar - " + software_status + " " + software_version;
-    document.getElementById("software_version").innerHTML = `${software_version} ${software_status}`;
+    document.title = "Wav2Bar - " + software_version;
+    document.getElementById("software_version").innerHTML = `${software_version}`;
 
     //HTML DEFINITIONS
     control_panel = document.getElementById("control_panel");

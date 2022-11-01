@@ -55,28 +55,26 @@ Backward compatibility is also an important part to consider. Upgrading to a new
 
 ### Box of ideas
 
-Planned:
-- **Hide/show object feature (0.4.0).** This quality of life feature would help focusing on specific objects during design. It is not set yet if this will be saved or not.
-- **Display object borders on hovering of its settings (0.4.0).** It is not always easy to see the boundaries of an object (like particle flow objects), which doesn't help setting its size. This feature aim to fix this.
-- **convert CLI command (0.3.1).** This quick command would convert the save to a newer said version. There could also be a potential folder support to make migrations easier if you like to keep up to date saves.
-- **Make object creation more intuitive (0.4.0).** (left to do: default size per type...)
-- **Keep track of last used folder in file explorer (0.3.1).** Because always starting from home folder and doing all the clicks again is annoying!
-- **New visualizers (0.4.0 and further).** Yes. Finally. Two would be a great goal to start with. I need to experiment stuff.
-- **Extend existing objects customization (0.4.0).** That includes more options for text and particle flows.
-- **Increase visualization accuracy/resolution (0.4.0).** The goal is to improve rendering of low frequencies.
-- **favorite folders in file explorer (0.4.1).** This can act as shortcuts.
-- **Add .lrc lyrics suport (0.4.0).**
+> **Note: I have stopped making plans for future versions as it is more stress for not any additional results. I will focus instead on what I feel like working on, but this list remains a good indication at what I am aiming for. Fixing reported bugs remains a priority though.**
 
-Box of ideas for future updates:
 - technical:
+    - **convert CLI command ~~(0.3.1)~~.** This quick command would convert the save to a newer said version. There could also be a potential folder support to make migrations easier if you like to keep up to date saves.
     - full CLI with dedicated terminal and script reading
     - better linux support (once I find the good moment to setup a Linux dev environment)
     - More accurate preview (time based instead of frame based)
     - Make FFmpeg installation easier
+    - **Increase visualization accuracy/resolution ~~(0.4.0)~~.** The goal is to improve rendering of low frequencies.
 - customization:
     - more particle options
-    - more visualizers
+    - **New visualizers ~~(0.4.0 and further)~~.** Yes. Finally. Two would be a great goal to start with. I need to experiment stuff.
+    - **Extend existing objects customization ~~(0.4.0)~~.** That includes more options for text and particle flows.
+    - **Add .lrc lyrics suport ~~(0.4.0)~~.**
 - quality of life
+    - **Hide/show object feature ~~(0.4.0)~~.** This quality of life feature would help focusing on specific objects during design. It is not set yet if this will be saved or not.
+    - **Display object borders on hovering of its settings ~~(0.4.0)~~.** It is not always easy to see the boundaries of an object (like particle flow objects), which doesn't help setting its size. This feature aim to fix this.
+    - **Make object creation more intuitive ~~(0.4.0)~~.** (left to do: default size per type...)
+    - **Keep track of last used folder in file explorer ~~(0.3.1)~~.** Because always starting from home folder and doing all the clicks again is annoying!
+    - **favorite folders in file explorer ~~(0.4.1)~~.** This can act as shortcuts.
     - gradient UI
     - custom color picker
     - mouse interactions to manipulate objects
@@ -226,8 +224,8 @@ All the documentation is written in the `docs` folder and should be saved in git
 
 `<giant_upgrade>.<major_update>.<small_update>[-beta]`.
 - **giant_upgrade:** Switching development phase (beta to release, gigantic rewrite and upgrade of features). Very unlikely to increment.
-- **major_update:** Update with a multiple new features and breaking changes
-- **small_update:** Small feature changes that are not breaking changes, bug fixes, security patches.
+- **major_update:** Update with multiple new features and breaking changes.
+- **small_update:** Small features and changes that are not breaking changes, bug fixes, security patches.
 - **-beta:** Beta release. All 0.x.y releases should have it as they are betas.
 
 > Note: **Do NOT use Git LFS!** It caused many issues in the past and should not be touched or used anymore.
@@ -245,19 +243,19 @@ You can submit your concerns by opening an issue. For questions, use the discuss
 (Picorims answering)
 
 ### Why using JavaScript and not TypeScript ?
-The project was started when my knowledge of programming was pretty basic. I didn't know classes at the time. Now, the code when through multiple rewrites, and more time should be spent towards adding new features, so rewriting again by adapting to TypeScript is not worth the work. JavaScript is sufficient right now.
+The project was started when my knowledge of programming was pretty basic. I didn't know classes at the time. Now, the code went through multiple rewrites, and more time should be spent towards improving the software (going out of the endless refactor loop basically and do it gradually). Thus rewriting again by adapting to TypeScript is not worth the work, especially considering the setup is tedious (there is no Webpack or Vite or else in the repository). JavaScript and JSDoc are sufficient right now.
 
-### Why not using React/Vue/Angular ?
+### Why not using React/Vue/Angular/Svelte ?
 Same as below. By the time, a custom component system has been setup using `UIComponent` and `EventMixin`, which is enough for the needs of the project.
 
 ### Why making it a desktop app ? Why not a web app ?
 Here, the "server" is shipped with the application. Otherwise, it would require maintaining and hosting a server capable of handling many video exports at the same time. So it is easier and cheaper, in addition to having a better native experience.
 
 ### There are many similar apps on the Internet. Why Wav2Bar ?
-When I started the project, the only truly free option I knew was SonicCandle, which was discontinued. By the time I saw some other projects exist as well. But hey, it's a good training and practice project for a student, as it covers many topics at the same time. And the more options for the end user, the better!
+When I started the project, the only truly free option I knew was SonicCandle, which was discontinued. By the time I discovered some other projects exist as well. But hey, it's a good training and practice project for a student, as it covers many topics at the same time. This is mostly a side project to experiment, train and have fun, so concurrency isn't something I care much about. And the more options for the end user, the better!
 
 ### Why current Linux support is not very good ?
-I have to setup a Linux development environment, when I find the right moment to do it properly.
+I am limited to a virtual machine (VM) on a computer with only an integrated graphics card. I can build and quickly test the software but remain pretty limited (playing the preview can crash the VM altogether). The fact that I don't use Linux often and couldn't dual boot at home doesn't help either. However feel free to report any issue or suggestion regarding Linux support, I really enjoy that platform existing and want to do my best to support it.
 
 ### Why not supporting MacOSX ?
-Shipping to mac requires signing packages, and is generally more troublesome than shipping on other operating systems. Because right now I am the only active maintainer, I have to make choices and can't handle everything. But you can try running from source, Electron is compatible with Mac after all.
+Shipping to macOS requires signing packages, and is generally more troublesome than shipping on other operating systems. As I am the only maintainer doing it on my free time, I have to make choices and can't handle everything. (I also don't want to spend thousand of dollars to support a platform). But you can try running Wav2Bar from source, Electron is compatible with Mac after all, and share similarities with Linux.

@@ -1,6 +1,6 @@
 {
   "name": "wav2bar",
-  "version": "0.3.0-beta",
+  "version": "0.3.1-beta",
   "description": "A tool to create and export audio visualization mainly for the music industry",
   "main": "main.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "@electron-forge/maker-wix": "^6.0.0-beta.57",
     "@electron-forge/maker-zip": "^6.0.0-beta.57",
     "chai": "^4.3.4",
-    "electron": "^16.0.7",
+    "electron": "^16.2.8",
     "electron-mocha": "^11.0.2",
     "eslint": "^8.7.0",
     "esm": "^3.2.25"
@@ -80,7 +80,7 @@
             "name": "Wav2Bar",
             "shortcutFolderName": "Wav2Bar",
             "manufacturer": "Picorims",
-            "version": "0.3.0",
+            "version": "0.3.1",
             "iconPath": "D:/wav2bar_wix_imgs_U/wav2bar_square_logo.ico",
             "ui": {
               "chooseDirectory": true,
@@ -104,8 +104,8 @@
               "homepage": "https://picorims.github.io/wav2bar-website",
               "icon": "assets/icons/wav2bar_square_logo.png",
               "maintainer": "Picorims",
-              "revision": "0.3.0",
-              "version": "0.3.0"
+              "revision": "0.3.1",
+              "version": "0.3.1"
             }
           }
         },
@@ -123,7 +123,7 @@
               "homepage": "https://picorims.github.io/wav2bar-website",
               "icon": "assets/icons/wav2bar_square_logo.png",
               "license": "GPL-3.0-or-later",
-              "version": "0.3.0"
+              "version": "0.3.1"
             }
           }
         }

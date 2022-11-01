@@ -19,9 +19,8 @@
 const {ipcRenderer} = require("electron");
 
 /** @type {String} current build version*/
-const software_version = "0.3.0";
+const software_version = "0.3.1-beta";
 /** @type {String} current build type */
-const software_status = "Beta";
 let working_dir; //working directory for user, temp, logs...
 let root_dir; //root of the app (where main.js is located, and html/css folders)
 let os; //operating system
@@ -113,7 +112,7 @@ class SaveHandler {
      * @memberof SaveHandler
      */
     rewriteSoftwareInfo() {
-        this._save_data.software_version_used = `${software_version} ${software_status}`;
+        this._save_data.software_version_used = `${software_version}`;
     }
 
     /**
@@ -128,8 +127,8 @@ class SaveHandler {
             //3 -> Wav2Bar 0.2.0 Beta to 0.2.2 Beta
             //4 -> Wav2Bar 0.3.0 Indev and after
             save_version: this._CURRENT_SAVE_VERSION,
-            software_version_used: `${software_version} ${software_status}`,
-            software_version_first_created: `${software_version} ${software_status}`, //to never change!
+            software_version_used: `${software_version}`,
+            software_version_first_created: `${software_version}`, //to never change!
             screen: {width: 1280, height: 720},
             fps: 60,
             audio_filename: "",
