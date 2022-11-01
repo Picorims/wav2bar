@@ -1,5 +1,7 @@
 # Contributing
 
+> **Note:** I currently do NOT accept code contributions, as I can't wrap my mind around which open source licence to use yet. Accepting them would make me lose that choice because of GPL.
+
 First, thanks for your interest in contributing!
 
 If you are willing to partake into big contributions, please contact me first at picorims.contact@gmail.com so we can discuss the topic and I can setup an appropriate branch workflow.
