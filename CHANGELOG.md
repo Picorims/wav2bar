@@ -2,7 +2,7 @@
 This document is based on Keep a Changelog 1.0.0
 https://keepachangelog.com/en/1.0.0/
 
-## 0.3.1-beta (2022-10-30)
+## 0.3.1-beta (2022-11-01)
 
 ### Fixed
 - Fixed: The video is cropped when exported if the resolution is greater than 720p (#36).
