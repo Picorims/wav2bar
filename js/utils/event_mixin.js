@@ -44,6 +44,8 @@ export let EventMixin = {
      * @memberof EventMixin
      */
     subscribeToEvent: function (event, function_handler) {
+        // https://stackoverflow.com/questions/12017693/why-use-object-prototype-hasownproperty-callmyobj-prop-instead-of-myobj-hasow
+        // TD;DR: It is safer this way to avoid it missing or being overriden
         if (!Object.prototype.hasOwnProperty.call(this._event_handlers, event)) throw new Error(`"${event}" event doesn't exist.`);
 
         this._event_handlers[event].push(function_handler);
@@ -57,6 +59,8 @@ export let EventMixin = {
      * @memberof EventMixin
      */
     unsubscribeToEvent: function (event, function_handler) {
+        // https://stackoverflow.com/questions/12017693/why-use-object-prototype-hasownproperty-callmyobj-prop-instead-of-myobj-hasow
+        // TD;DR: It is safer this way to avoid it missing or being overriden
         if (!Object.prototype.hasOwnProperty.call(this._event_handlers, event)) throw new Error(`"${event}" event doesn't exist.`);
 
         let handlers = this._event_handlers[event];

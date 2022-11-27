@@ -238,4 +238,49 @@ describe('utils', () => {
             });
         });
     });
+
+    describe('event_mixin', () => {
+        describe('EventMixin', () => {
+            class testClass {
+                constructor() {
+                    Object.assign(testClass.prototype, utils.EventMixin);
+                    this.setupEventMixin(["a", "b", "c"]);
+                }
+            }
+
+            it('has all the required methods', () => {
+                let c = new testClass();
+                let methods = [
+                    "setupEventMixin",
+                    "subscribeToEvent",
+                    "unsubscribeToEvent",
+                    "triggerEvent"
+                ];
+                for (let method of methods) {
+                    expect(c).to.be.an('object').that.respondTo(method);
+                }
+            });
+
+            it('initializes and trigger events correctly', function(done) {
+                let c = new testClass();
+                this.timeout(1000);
+
+                c.subscribeToEvent("c", () => {
+                    done();
+                })
+                c.triggerEvent("c");
+            });
+
+            it('lets unsubscribe to events', () => {
+                let c = new testClass();
+                let func = () => {
+                    expect.fail("The object did not unsubscribe from the event.");
+                }
+
+                c.subscribeToEvent("c", func);
+                c.unsubscribeToEvent("c", func);
+                c.triggerEvent("c");
+            });
+        });
+    });
 });
