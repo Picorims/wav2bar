@@ -36,15 +36,6 @@ export class webUICustomComponent extends HTMLElement {
         let template_content = templates[tag].content;
         this._shadow_root = this.attachShadow({mode: "open"});
         this._shadow_root.appendChild(template_content.cloneNode(true));
-    
-        //support "hidden" prop
-        let style = document.createElement("style");
-        style.textContent = `
-        :host[hidden] {
-            display: none;
-        }
-        `;
-        this._shadow_root.appendChild(style);
     }
 }
 

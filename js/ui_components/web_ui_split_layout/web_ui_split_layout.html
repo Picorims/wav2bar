@@ -16,50 +16,61 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<template>
+<template data-direction="vertical">
     <style>
-        :host {
+        :host .ui_split_layout {
             display: flex;
             flex-wrap: nowrap;
             justify-content: space-between;
             align-items: stretch;
             align-content: space-between;
-            width: 50px;
-            height: 50px;
-            background-color: #623552;
+            width: 100%;
+            height: 100%;
         }
-        :host[direction="vertical"] {
+        :host([data-direction="vertical"]) {
             flex-direction: row;
         }
-        :host[direction="horizontal"] {
+        /* :host([data-direction="horizontal"]) {
             flex-direction: column;
-        }
+        } */
 
         :host .ui_split_layout_separator {
-            background-color: gray;
+            flex: 0 0 auto;
+            background-color: var(--main-gray);
+            transition: 0.2s;
         }
-        :host[direction="vertical"] .ui_split_layout_separator {
+        :host .ui_split_layout_separator:hover {
+            background-color: var(--main-darker-color);
+            transition: 0.5s ease-in-out 1s;
+        }
+        :host([data-direction="vertical"]) .ui_split_layout_separator {
             width: 5px;
             height: 100%;
             cursor: col-resize;
         }
-        :host[direction="horizontal"] .ui_split_layout_separator {
+        /* :host([data-direction="horizontal"]) .ui_split_layout_separator {
             width: 100%;
             height: 5px;
             cursor: row-resize;
-        }
+        } */
 
-        :host .ui_split_layout_container {
+        :host .ui_split_layout_container_1 {
+            flex: 0 0 auto;
+        }
+        :host .ui_split_layout_container_2 {
             flex: 1 1 auto;
         }
-        :host[direction="vertical"] .ui_split_layout_container {
+        :host([data-direction="vertical"]) .ui_split_layout_container_1,
+        :host([data-direction="vertical"]) .ui_split_layout_container_2 {
             height: 100%;
         }
-        :host[direction="horizontal"] .ui_split_layout_container {
+        /* :host([data-direction="horizontal"]) .ui_split_layout_container {
             width: 100%;
-        }
+        } */
     </style>
-    <div class="ui_split_layout_container"><slot name="first-child"></slot></div>
-    <div class="ui_split_layout_separator"></div>
-    <div class="ui_split_layout_container"><slot name="second-child"></slot></div>
+    <div class="ui_split_layout">
+        <div class="ui_split_layout_container_1"><slot name="first-child"></slot></div>
+        <div class="ui_split_layout_separator"></div>
+        <div class="ui_split_layout_container_2"><slot name="second-child"></slot></div>    
+    </div>
 </template>
