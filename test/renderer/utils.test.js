@@ -239,19 +239,23 @@ describe('utils', () => {
         });
     });
 
+
+
+    
+
     describe('event_mixin', () => {
         describe('EventMixin', () => {
             class testClass {
                 constructor() {
                     Object.assign(testClass.prototype, utils.EventMixin);
-                    this.setupEventMixin(["a", "b", "c"]);
+                    this._setupEventMixin(["a", "b", "c"]);
                 }
             }
 
             it('has all the required methods', () => {
                 let c = new testClass();
                 let methods = [
-                    "setupEventMixin",
+                    "_setupEventMixin",
                     "subscribeToEvent",
                     "unsubscribeToEvent",
                     "triggerEvent"
@@ -280,6 +284,152 @@ describe('utils', () => {
                 c.subscribeToEvent("c", func);
                 c.unsubscribeToEvent("c", func);
                 c.triggerEvent("c");
+            });
+        });
+    });
+
+
+
+
+
+    describe('state_machine_mixin', () => {
+        describe('StateMachineMixin', () => {
+            let initialState = {
+                a: "a state value",
+                "b": 13,
+                c: [3,5],
+                d: {
+                    e: true,
+                    f: null
+                }
+            };
+
+            class testClass {
+                constructor() {
+                    Object.assign(testClass.prototype, utils.StateMachineMixin);
+                    this._setupStateMachineMixin(testClass, initialState);
+                }
+            }
+
+            class testClass2 extends testClass {
+                constructor() {
+                    super();
+                    this._registerValidator("b", (value) => (value >= 0), "It must be positive.");
+                    this._registerValidator("d/e", (value) => (value === true || value === false), "It must be a boolean.");
+                }
+            }
+
+            it('has all the required methods', () => {
+                let c = new testClass();
+                let methods = [
+                    // event mixin
+                    "_setupEventMixin",
+                    "subscribeToEvent",
+                    "unsubscribeToEvent",
+                    "triggerEvent",
+                    // state machine mixin
+                    "_setupStateMachineMixin",
+                    "getState"
+                ];
+                for (let method of methods) {
+                    expect(c).to.be.an('object').that.respondTo(method);
+                }
+            });
+
+            it('returns the value of a state with get', () => {
+                let c = new testClass();
+
+                let assertStateExplorable = (initial_path, object) => {
+                    if (!initial_path) initial_path = "";
+                    for (let key in object) {
+                        let path = initial_path + key;
+                        let value = object[key];
+
+                        if (typeof value === "object") {
+                            // If it is an object, we explore it as well
+                            // to test all paths and not just equality
+                            assertStateExplorable(path + "/", value);
+
+                            expect(c.getState(path)).to.deep.equal(value);
+                        } else if (typeof value === "array") {
+                            expect(c.getState(path)).to.deep.equal(value);
+                        } else {
+                            expect(c.getState(path)).to.equal(value);
+                        }
+                    }
+                }
+                assertStateExplorable(false, initialState);
+            });
+
+            it('allow new state values', () => {
+                let c = new testClass();
+
+                // TODO
+                // - handle when the path doesn't exist (for get too)
+                c.setState("a", "new value");
+                expect(c.getState("a")).to.equal("new value");
+                c.setState("d/e", false);
+                expect(c.getState("d/e")).to.equal(false);
+                c.setState("c", [7,8]);
+                expect(c.getState("c")).to.deep.equal([7,8]);
+
+                c.setState("d", {e: true, f: "test"});
+                expect(c.getState("d")).to.deep.equal({e: true, f: "test"});
+                expect(c.getState("d/f")).to.equal("test");
+                
+                c.setState("d", {f: "test2"});
+                expect(c.getState("d")).to.deep.equal({e: true, f: "test2"});
+                expect(c.getState("d/f")).to.equal("test2");
+            });
+
+            it('throws an exception when a value does not exist', () => {
+                let c = new testClass();
+
+                expect(() => {c.getState("unknown")}).to.throw();
+                expect(() => {c.setState("unknown", 1)}).to.throw();
+                expect(() => {c.getState("d/unknown")}).to.throw();
+                expect(() => {c.setState("d/unknown", 2)}).to.throw();
+                expect(() => {c.setState("d", {unknown: "a"})}).to.throw();
+            });
+
+            it('supports using validators on states', () => {
+                let c = new testClass2();
+
+                expect(() => {c.setState("b", 5)}).to.not.throw();
+                expect(c.getState("b")).to.equal(5);
+                expect(() => {c.setState("b", -5)}).to.throw();
+
+                expect(() => {c.setState("d/e", false)}).to.not.throw();
+                expect(c.getState("d/e")).to.equal(false);
+                expect(() => {c.setState("d/e", -5)}).to.throw();
+
+                expect(() => {c.setState("d", {e: true, f: null})}).to.not.throw();
+                expect(c.getState("d")).to.deep.equal({e: true, f: null});
+                expect(() => {c.setState("d", {e: 1, f: null})}).to.throw();
+            });
+
+            it('allows to subscribe to a state change', function(done) {
+                let c = new testClass2();
+
+                this.timeout(1000);
+                expect(c._state_paths).to.be.of.length(6);
+
+                c.subscribeToState("a", (value) => {
+                    expect(value).to.equal("foo");
+                    done();
+                })
+                c.setState("a", "foo");
+            });
+
+            it('lets unsubscribe to state', () => {
+                let c = new testClass2();
+                let func = () => {
+                    expect.fail("The object did not unsubscribe from the event.");
+                }
+
+                c.subscribeToState("c", func);
+                c.unsubscribeToState("c", func);
+                c.setState("c", [9]);
             });
         });
     });

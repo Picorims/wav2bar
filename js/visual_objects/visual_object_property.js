@@ -102,7 +102,7 @@ export class VisualObjectProperty {
 
         //implements mixin
         Object.assign(VisualObjectProperty.prototype, utils.EventMixin);
-        this.setupEventMixin([
+        this._setupEventMixin([
             "value_changed",
         ]);
 

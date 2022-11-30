@@ -82,6 +82,7 @@ utils <.[dotted]. randomizers
 utils <.[dotted]. array_utils
 utils <.[dotted]. log
 utils <.[dotted]. event_mixin
+utils <.[dotted]. state_machine_mixin
 utils <.[dotted]. object_utils
 
 package "array_utils" {}
@@ -96,6 +97,8 @@ package "log" {}
 log ..> electron_ipcRenderer
 
 package "event_mixin" {}
+
+package "state_machine_mixin" {}
 
 package "object_utils" {}
 object_utils ..> type_checking

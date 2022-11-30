@@ -14,7 +14,7 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-//
+
 /**
  * Mixin to manage custom events: setup events,
  * subscribe (or unsubscribe) to events, emit events.
@@ -29,7 +29,7 @@ export let EventMixin = {
      * @param {Array} events_list The list of events that can be triggered.
      * @memberof EventMixin
      */
-    setupEventMixin: function (events_list) {
+    _setupEventMixin: function (events_list) {
         this._event_handlers = {};
         for (const event of events_list) {
             this._event_handlers[event] = [];

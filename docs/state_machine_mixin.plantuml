@@ -22,10 +22,19 @@ skinparam BackgroundColor #222222
 skinparam PackageStyle frame
 
 package "event_mixin" {
-    class EventMixin <<mixin>> {
-        - setupEventMixin(events_list: Array[String]): void
-        + subscribeToEvent(event: String, function_handler: Function): void
-        + unsubscribeToEvent(event: String, function_handler: Function): void
-        + triggerEvent(event: String, ...args: any): void
+    class EventMixin <<mixin>> {}
+}
+
+package "state_machine_mixin" {
+    class StateMachineMixin <<mixin>> {
+        - _setupStateMachineMixin(class_ref: Object, initial_tree: Object): void
+        - _getStatePaths(object: Object, root: String): Array[String]
+        + getState(state_path: String): any
+        + setState(state_path: String, value: any): void
+        - _registerValidator(state_path: String, validator: Function, rules_msg: String): void
+        - _verify(state_path: String, value: any): bool
+        + subscribeToState(state_path: String, function_handler: Function): void
+        + unsubscribeToState(state_path: String, function_handler: Function): void
     }
+    StateMachineMixin -left-|> EventMixin
 }

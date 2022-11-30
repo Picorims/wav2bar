@@ -54,6 +54,7 @@ await register(TAG, class extends webUICustomComponent {
          * - getters and setters
          * - middleware mechanism for getters and setters
          * - state machine
+         * - update doc
          */
         this.direction = this.DIR.vertical;
         let separator = this._shadow_root.querySelector(".ui_split_layout_separator");

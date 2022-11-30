@@ -67,7 +67,7 @@ class SaveHandler {
      */
     constructor() {
         Object.assign(SaveHandler.prototype, imports.utils.EventMixin);
-        // this.setupEventMixin([
+        // this._setupEventMixin([
         //     "test",
         // ]);
 
