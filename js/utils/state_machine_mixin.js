@@ -26,6 +26,11 @@ import * as type from "./type_checking.js";
  * **State data supports what JSON supports :** null, booleans, numbers,
  * strings, arrays and objects composed of such types.
  * 
+ * **Note:** Currently an object using this mixin can't directly use the
+ * EventMixin (i.e register other events than states). Either create a protected
+ * add event function for the EventMixin (cleaner), or use a toggled boolean as an
+ * event dispatcher (quick hack).
+ * 
  * @mixin StateMachineMixin
  * @export
  */
@@ -37,6 +42,7 @@ export let StateMachineMixin = {
      * @param {Object} initial_tree The initial state machine tree, with default
      * values in it.
      * @memberof StateMachineMixin
+     * @access protected
      */
     _setupStateMachineMixin: function(class_ref, initial_tree) {
         Object.assign(class_ref.prototype, EventMixin);
@@ -60,6 +66,7 @@ export let StateMachineMixin = {
      * @param {String} root The root to start with (paths are then of the form "<root>/...")
      * @returns {Array<String>}
      * @memberof StateMachineMixin
+     * @access protected
      */
     _getStatePaths: function(object, root) {
         let keys = [];
@@ -98,10 +105,12 @@ export let StateMachineMixin = {
      * Sets the new state value, after calling its preprocessors.
      * @param {String} state_path path of the state separated by slashes ("/").
      * @param {*} value The new value desired for the state
+     * @returns {Boolean} modified
      * @throws Throws an error if the state does not exist.
      * @memberof StateMachineMixin
      */
     setState: function(state_path, value) {
+        let modified = false;
         let path_array = state_path.split("/");
         //remove the last element from the path
         //and save its key to change its value at the end
@@ -114,34 +123,46 @@ export let StateMachineMixin = {
             if (container === undefined) throw new Error(`setState: ${state_path} does not exist.`);
         }
         if (container[modified_key] === undefined) throw new Error(`setState: ${state_path} does not exist.`);
+        
+        //make sure the value is allowed
+        if (!this._verify(state_path, value)) {
+            throw new Error(`setState: ${value} is not a valid value
+            for ${state_path} as per the following rules:
+            ${this._validators[state_path].msg}`);
+        }
 
         //change the value of the desired key
-        if (type.IsAnObject(value) && !type.IsAnArray(value)) {
+        let is_obj = type.IsAnObject(value) && !type.IsAnArray(value);
+        if (is_obj) {
             //if it is an object, change all of its listed states.
             let obj = value;
             for (let key in obj) {
                 if (Object.hasOwnProperty.call(obj, key)) {
-                    this.setState(`${state_path}/${key}`, obj[key]);
-                    
+                    modified = this.setState(`${state_path}/${key}`, obj[key]);
                 }
             }
-            this.triggerEvent(state_path, JSON.parse(JSON.stringify(value))); //object changed
         } else {
-            //make sure the value is allowed
-            if (this._verify(state_path, value)) {
-                //assign
-                if (type.IsAnArray(value)) {
-                    container[modified_key] = JSON.parse(JSON.stringify(value));
-                } else {
-                    container[modified_key] = value;
-                }
-                this.triggerEvent(state_path, value);
+            //assign
+            if (type.IsAnArray(value)) {
+                // path for optimization
+                container[modified_key] = JSON.parse(JSON.stringify(value));
+                modified = true;
             } else {
-                throw new Error(`setState: ${value} is not a valid value
-                    for ${state_path} as per the following rules:
-                    ${this._validators[state_path].msg}`);
+                if (container[modified_key] !== value) {
+                    container[modified_key] = value;
+                    modified = true;
+                }
             }
         }
+        if (modified) {
+            if (type.IsAnObject(value) || type.IsAnArray(value)) {
+                // path for optimization
+                this.triggerEvent(state_path, JSON.parse(JSON.stringify(value)));
+            } else {
+                this.triggerEvent(state_path, value);
+            }
+        }
+        return modified;
     },
 
     /**
@@ -152,6 +173,7 @@ export let StateMachineMixin = {
      * It should describe the rules of validation useful to the developer.
      * It must return a boolean value asserting the validity of value.
      * @memberof StateMachineMixin
+     * @access protected
      */
     _registerValidator: function(state_path, validator, rules_msg) {
         if (!type.IsAFunction(validator)) throw new Error("registerValidator: The validator is not a function.");
@@ -172,6 +194,7 @@ export let StateMachineMixin = {
      * @param {*} value The value to assert.
      * @returns {Boolean}
      * @memberof StateMachineMixin
+     * @access protected
      */
     _verify: function(state_path, value) {
         let validator = this._validators[state_path];

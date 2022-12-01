@@ -28,6 +28,7 @@ export let EventMixin = {
      * 
      * @param {Array} events_list The list of events that can be triggered.
      * @memberof EventMixin
+     * @access protected
      */
     _setupEventMixin: function (events_list) {
         this._event_handlers = {};
