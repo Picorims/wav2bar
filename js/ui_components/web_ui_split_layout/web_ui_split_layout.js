@@ -17,12 +17,14 @@
 import {webUICustomComponent, register} from "../web_ui_custom_component.js";
 
 const TAG = "ui-split-layout";
+// useful for intellisense and auto completion
 const PROPS = {
     direction: "direction",
     size: "size",
     size_min: "size_min",
     size_max: "size_max"
 };
+// declared here to have both in sight at the same time
 const PROPS_DEFAULTS = {
     direction: "vertical",
     size: null,
@@ -39,7 +41,7 @@ export default TAG;
 
 export class webUISplitLayout extends webUICustomComponent {
     /**
-     * List of properties of the element
+     * List of properties of the element, accessible to the user.
      * @enum
      */
     PROPS = {...PROPS};
@@ -84,23 +86,10 @@ export class webUISplitLayout extends webUICustomComponent {
             this._setContainerSize(size);
         });
         this._setContainerSize(this.getProp(PROPS.size));
-        
-        /**
-         * TODO fix this because illegal to initialize attributes
-         * - OK attribute object with name:value pairs in the base custom element
-         * - OK on upgrade, assign values to the dom
-         * - OK getters and setters
-         * - USE SUBSCRIBE AND VALIDATORS middleware mechanism for getters and setters
-         * - OK state machine
-         * - OK deep equals
-         * - OK deep clone
-         * - OK fix errors
-         * - update doc (diagrams, dev guidelines)
-         */
 
-        /**
-         * commit msg: enrich webUICustomComponent, doc and utils, fix errors in split layout and state machine
-         */
+
+
+        // listen to mouse movements
 
         let separator = this._shadow_root.querySelector(".ui_split_layout_separator");
 
@@ -137,66 +126,6 @@ export class webUISplitLayout extends webUICustomComponent {
     _setContainerSize(size) {
         this._shadow_root.querySelector(".ui_split_layout_container_1").style.width = `${size}px`;
     }
-    
-    /**
-     * Defines if the split direction is vertical or horizontal. 
-     *
-     * @param {"vertical"} direction
-     * @returns {string}
-     */
-    // set direction(direction) {
-    //     if (direction === this.DIR.vertical) {
-    //         this.setAttribute(this.PROPS.direction, direction);
-    //     } else {
-    //         throw new Error("ui-split-layout: only vertical direction is allowed.");
-    //     }
-    // }
-    // get direction() {
-    //     return this.getAttribute(this.PROPS.direction);
-    // }
-
-    /**
-     * Defines the size for the resizable element
-     *
-     * @param {number} size
-     * @returns {number}
-     */
-    // set size(size) {
-    //     if (size < this.sizeMin) size = this.sizeMin;
-    //     if (size > this.sizeMax) size = this.sizeMax;
-    //     this._shadow_root.querySelector(".ui_split_layout_container_1").style.width = `${size}px`;
-
-    //     this.setAttribute(this.PROPS.size, size);
-    // }
-    // get size() {
-    //     return parseFloat(this.getAttribute(this.PROPS.size));
-    // }
-
-    /**
-     * Defines the minimum size allowed for the resizable element
-     *
-     * @param {number} size_min
-     * @returns {number}
-     */
-    // set sizeMin(size_min) {
-    //     this.setAttribute(this.PROPS.size_min, size_min);
-    // }
-    // get sizeMin() {
-    //     return parseFloat(this.getAttribute(this.PROPS.size_min));
-    // }
-
-    /**
-     * Defines the maxnimum size allowed for the resizable element
-     *
-     * @param {number} size_max
-     * @returns {number}
-     */
-    // set sizeMax(size_max) {
-    //     this.setAttribute(this.PROPS.size_max, size_max);
-    // }
-    // get sizeMax() {
-    //     return parseFloat(this.getAttribute(this.PROPS.size_max));
-    // }
 }
 
 await register(TAG, webUISplitLayout);
