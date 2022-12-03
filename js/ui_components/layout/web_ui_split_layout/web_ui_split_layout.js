@@ -14,9 +14,9 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import {webUICustomComponent, register} from "../web_ui_custom_component.js";
+import {webUICustomComponent, register} from "../../web_ui_custom_component.js";
 
-export const TAG = "ui-split-layout";
+const TAG = "ui-split-layout";
 // useful for intellisense and auto completion
 const PROPS = {
     direction: "direction",
@@ -126,4 +126,4 @@ export class webUISplitLayout extends webUICustomComponent {
     }
 }
 
-await register(TAG, webUISplitLayout);
+await register(TAG, webUISplitLayout, "layout");

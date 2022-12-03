@@ -22,6 +22,7 @@ import * as utils from "../utils/utils.js";
  *
  * @export
  * @class UIComponent
+ * @deprecated
  */
 export class UIComponent {
     /**

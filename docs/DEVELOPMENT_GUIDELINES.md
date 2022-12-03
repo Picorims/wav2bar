@@ -264,7 +264,7 @@ web_ui_foo_bar.js
 ```js
 import {webUICustomComponent, register} from "../web_ui_custom_component.js";
 
-export const TAG = "ui-foo-bar";
+const TAG = "ui-foo-bar";
 // useful for intellisense and auto completion
 const PROPS = {
     prop: "prop"
@@ -305,9 +305,10 @@ export class webUIFooBar extends webUICustomComponent {
         });
     }
 }
-// you could also use an anonymous class if you wanted, though typing it
-// allows to use the type elsewhere in the codebase (typeof, JSDoc, etc.)
-await register(TAG, webUIFooBar);
+// You could also use an anonymous class if you wanted, though typing it
+// allows to use the type elsewhere in the codebase (typeof, JSDoc, etc.).
+// The path is from the ui_component folder. It can be ommited if at the root.
+await register(TAG, webUIFooBar, "path/to/folder_containing_component_folder");
 ```
 
 ui_components.js

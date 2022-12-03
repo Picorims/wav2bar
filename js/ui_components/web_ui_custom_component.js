@@ -160,12 +160,20 @@ let templates = {};
  * be consistent!
  *
  * @export
- * @param {string} tag
+ * @param {String} tag
  * @param {Function} class_ref
+ * @param {String} path The path to the folder containing the component folder (root is `ui_components`).
+ * 
+ * ex: "foo/bar" leads to "ui_components/foo/bar/<tag>/<tag>.js".
  */
-export async function register(tag, class_ref) {
+export async function register(tag, class_ref, path = "") {
     const tag_to_folder = "web_" + tag.replaceAll("-","_");
-    const template_path = `./js/ui_components/${tag_to_folder}/${tag_to_folder}.html`;
+    // add trailing slash if missing
+    let noSlash = /[^/]$/g;
+    if (path !== "" && noSlash.test(path)) path = path + "/";
+
+    const template_path = `./js/ui_components/${path}${tag_to_folder}/${tag_to_folder}.html`;
+    console.log(template_path);
     const template = await getTemplate(template_path);
     templates[tag] = template;
     customElements.define(tag, class_ref);

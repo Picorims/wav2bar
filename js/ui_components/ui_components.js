@@ -25,4 +25,4 @@ export * from "./ui_object_frame.js";
 export * from "./ui_loading_frame.js";
 export * from "./web_ui_custom_component.js";
 
-export * from "./web_ui_split_layout/web_ui_split_layout.js";
+export * from "./layout/web_ui_split_layout/web_ui_split_layout.js";
