@@ -326,6 +326,11 @@ async function InitUI() {
     window.addEventListener("resize", function () {
         LoopUI();
     });
+    /**@type {import('./ui_components/ui_components').webUISplitLayout} */
+    let split_layout = document.querySelector("#root ui-split-layout");
+    split_layout.subscribeToProp(split_layout.PROPS.size, () => {
+        LoopUI();
+    }); 
 }
 
 

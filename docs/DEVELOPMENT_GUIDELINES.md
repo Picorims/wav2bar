@@ -243,7 +243,7 @@ Those aren't as powerful as full featured JS frameworks such as React, Vue, Angu
 
 While web components comes pretty handy for pure JS development, they are tedious to declare. You need to register them, create a shadow DOM, clone an instance of the template in the constructor (which requires a fetch if we want to separate the template in another file), etc. Thus the process has been abstracted by the `web_ui_custom_component` module. It comes with two important tools: the `webUICustomComponent` class and the `register` asynchronous function. While the class handles creating the DOM shadow and cloning the template, the `register` function defines the element in `customElements` and cache the template.
 
-To create a component, create a new folder within `ui_components` called `web_<tag_name_underscore>`. Create a JS module and an HTML file named the same way inside your newly created folder. In the HTML file, write your UI withing a `<template>`. In the module, asynchronously call `register` with the tag name separated by hyphens (the actual tag) and the class definition extending `webUICustomComponent`. in the constructor, call `super(<tag_name_hyphens>, <props_and_states>)`. In order for the component to load, add an import to `ui_components.js` named (by convention) `web_<tag_name_underscore>`.
+To create a component, create a new folder within `ui_components` called `web_<tag_name_underscore>`. Create a JS module and an HTML file named the same way inside your newly created folder. In the HTML file, write your UI withing a `<template>`. In the module, asynchronously call `register` with the tag name separated by hyphens (the actual tag) and the class definition extending `webUICustomComponent`. in the constructor, call `super(<tag_name_hyphens>, <props_and_states>)`. In order for the component to load, add an `export *` to `ui_components.js`.
 
 It should look like this for `ui-foo-bar`:
 
@@ -264,7 +264,7 @@ web_ui_foo_bar.js
 ```js
 import {webUICustomComponent, register} from "../web_ui_custom_component.js";
 
-const TAG = "ui-foo-bar";
+export const TAG = "ui-foo-bar";
 // useful for intellisense and auto completion
 const PROPS = {
     prop: "prop"
@@ -273,8 +273,6 @@ const PROPS = {
 const PROPS_DEFAULTS = {
     prop: 
 }
-
-export default TAG
 
 export class webUIFooBar extends webUICustomComponent {
     /**
@@ -288,7 +286,8 @@ export class webUIFooBar extends webUICustomComponent {
          * every part here is optional.
          * - Props are values accessible as HTML attributes, and are accessible
          *  using getProp(prop), setProp(prop, value) instead of
-         * the state counterpart.
+         * the state counterpart. You can subscribe to its changes using
+         * subscribeToProp(prop, function_handler(value)).
          * /!\/!\/!\ DO NOT USE getState/setState TO ACCESS PROPS! /!\/!\/!\
          * 
          * - States can be used for cases non fitting props, and

@@ -16,7 +16,7 @@
 
 import {webUICustomComponent, register} from "../web_ui_custom_component.js";
 
-const TAG = "ui-split-layout";
+export const TAG = "ui-split-layout";
 // useful for intellisense and auto completion
 const PROPS = {
     direction: "direction",
@@ -31,8 +31,6 @@ const PROPS_DEFAULTS = {
     size_min: 0,
     size_max: 999999
 };
-
-export default TAG;
 
 /**
  * Note that horizontal direction hasn't been implemented right now.
@@ -82,7 +80,7 @@ export class webUISplitLayout extends webUICustomComponent {
             size-min and size-max, and must not be null`
         );
 
-        this.subscribeToState(`props/${PROPS.size}`, (size) => {
+        this.subscribeToProp(PROPS.size, (size) => {
             this._setContainerSize(size);
         });
         this._setContainerSize(this.getProp(PROPS.size));

@@ -137,6 +137,15 @@ export class webUICustomComponent extends HTMLElement {
         let changed = this.setState(`props/${prop}`, value);
         if (changed) this.setAttribute(this.attrFromProp(prop), value);
     }
+
+    /**
+     * Listen to property changes, and get the value when it changes.
+     * @param {String} prop The property to listen to
+     * @param {function(any)} function_handler The function to call, with the value available as an argument
+     */
+    subscribeToProp(prop, function_handler) {
+        this.subscribeToState(`props/${prop}`, function_handler);
+    }
 }
 
 
