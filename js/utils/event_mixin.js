@@ -14,7 +14,7 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-//
+
 /**
  * Mixin to manage custom events: setup events,
  * subscribe (or unsubscribe) to events, emit events.
@@ -28,8 +28,9 @@ export let EventMixin = {
      * 
      * @param {Array} events_list The list of events that can be triggered.
      * @memberof EventMixin
+     * @access protected
      */
-    setupEventMixin: function (events_list) {
+    _setupEventMixin: function (events_list) {
         this._event_handlers = {};
         for (const event of events_list) {
             this._event_handlers[event] = [];
@@ -44,6 +45,8 @@ export let EventMixin = {
      * @memberof EventMixin
      */
     subscribeToEvent: function (event, function_handler) {
+        // https://stackoverflow.com/questions/12017693/why-use-object-prototype-hasownproperty-callmyobj-prop-instead-of-myobj-hasow
+        // TD;DR: It is safer this way to avoid it missing or being overriden
         if (!Object.prototype.hasOwnProperty.call(this._event_handlers, event)) throw new Error(`"${event}" event doesn't exist.`);
 
         this._event_handlers[event].push(function_handler);
@@ -57,6 +60,8 @@ export let EventMixin = {
      * @memberof EventMixin
      */
     unsubscribeToEvent: function (event, function_handler) {
+        // https://stackoverflow.com/questions/12017693/why-use-object-prototype-hasownproperty-callmyobj-prop-instead-of-myobj-hasow
+        // TD;DR: It is safer this way to avoid it missing or being overriden
         if (!Object.prototype.hasOwnProperty.call(this._event_handlers, event)) throw new Error(`"${event}" event doesn't exist.`);
 
         let handlers = this._event_handlers[event];

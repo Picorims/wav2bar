@@ -238,4 +238,499 @@ describe('utils', () => {
             });
         });
     });
+
+
+
+
+
+    describe('deep_equal', () => {
+        describe('deepEquals', () => {
+            it('behaves correctly with simple values', () => {
+                expect(utils.deepEquals(1, 1)).to.be.true;
+                expect(utils.deepEquals(1, 2)).to.be.false;
+                expect(utils.deepEquals("1", "1")).to.be.true;
+                expect(utils.deepEquals("1", "2")).to.be.false;
+                expect(utils.deepEquals(1, "1")).to.be.false;
+                expect(utils.deepEquals(true, false)).to.be.false;
+                expect(utils.deepEquals(true, true)).to.be.true;
+                expect(utils.deepEquals(null, null)).to.be.true;
+                expect(utils.deepEquals(null, undefined)).to.be.false;
+                expect(utils.deepEquals(undefined, undefined)).to.be.true;
+                expect(utils.deepEquals(5.5, 5.6)).to.be.false;
+                expect(utils.deepEquals(5.5, 5.5)).to.be.true;
+            });
+            it('behaves correctly with simple objects', () => {
+                let a = {
+                    a: 1,
+                    b: true,
+                    c: null,
+                    d: undefined,
+                    e: "string",
+                    f: 5.8,
+                }
+                let b = {
+                    a: 1,
+                    b: true,
+                    c: null,
+                    d: undefined,
+                    e: "string",
+                    f: 5.8,
+                }
+                let c = {
+                    a: 1,
+                    b: true,
+                    c: null,
+                    d: undefined,
+                    e: "string_diff",
+                    f: 5.8,
+                }
+                let d = {
+                    b: true,
+                    a: 1,
+                    c: null,
+                    d: undefined,
+                    e: "string",
+                    f: 5.8,
+                }
+                expect(utils.deepEquals(a,b)).to.be.true;
+                expect(utils.deepEquals(a,c)).to.be.false;
+                expect(utils.deepEquals(a,d)).to.be.true;
+            });
+            it('behaves correctly with nested objects', () => {
+                let a = {
+                    a: 5,
+                    b: {
+                        c: 4,
+                        foo: {
+                            bar: "baz",
+                            key: null,
+                        },
+                        d: "wow"
+                    }
+                }
+                let b = {
+                    a: 5,
+                    b: {
+                        c: 4,
+                        foo: {
+                            bar: "baz",
+                            key: null,
+                        },
+                        d: "wow"
+                    }
+                }
+                let bBis = {
+                    b: {
+                        c: 4,
+                        d: "wow",
+                        foo: {
+                            key: null,
+                            bar: "baz",
+                        },
+                    },
+                    a: 5,
+                }
+                let c = {
+                    a: 5,
+                    b: {
+                        c: 4,
+                        foo: {
+                            bar: "different",
+                            key: null,
+                        },
+                        d: "wow"
+                    }
+                }
+                let d = {
+                    a: 5,
+                    b: {
+                        c: 4,
+                        foo: "bar",
+                        d: "wow"
+                    }
+                }
+                expect(utils.deepEquals(a,a)).to.be.true;
+                expect(utils.deepEquals(a,b)).to.be.true;
+                expect(utils.deepEquals(a,bBis)).to.be.true;
+
+                expect(utils.deepEquals(a,c)).to.be.false;
+                expect(utils.deepEquals(a,d)).to.be.false;
+            });
+            it('behaves correctly with simple arrays', () => {
+                let a = [1, 8.9, true, "str", null, undefined];
+                let b = [1, 8.9, true, "str", null, undefined];
+                let c = [1, 8.9, true, "str", null];
+                let d = [1, 8.9, true, "str", undefined, null];
+                let e = [1, 8.9, false, "str", null, undefined];
+                let f = [];
+                let g = [];
+                expect(utils.deepEquals(a,a)).to.be.true;
+                expect(utils.deepEquals(a,b)).to.be.true;
+
+                expect(utils.deepEquals(a,c)).to.be.false;
+                expect(utils.deepEquals(a,d)).to.be.false;
+                expect(utils.deepEquals(a,e)).to.be.false;
+                expect(utils.deepEquals(a,f)).to.be.false;
+
+                expect(utils.deepEquals(f,g)).to.be.true;
+            });
+            it('behaves correctly with nested arrays', () => {
+                let a = [1, [2,3,4]];
+                let b = [1, [2,3,4]];
+                let c = [1, [2,5,4]];
+                let d = [1, [3,4]];
+                let e = [5,8,"sdfok",[["foo",[]],[[[[5, "3", undefined]],[8,[true, 5]],[]]]], 89, null];
+                let f = [5,8,"sdfok",[["foo",[]],[[[[5, "3", undefined]],[8,[true, 5]],[]]]], 89, null];
+                let g = [5,8,"sdfok",[[[]],[[[[5, "3", undefined]],[8,[true, 5]],[]]]], 89, null];
+                let h = [5,8,"sdfok",[["foo",[]],[[8,[[5, "3", undefined]],[8,[true, 5]],[]]]], 89, null];
+                let i = [5,8,"sdfok",[["foo",[]],[[[[5, "3"]],[8,[true, 5]],[]]]], 89, null];
+            
+                expect(utils.deepEquals(a,a)).to.be.true;
+                expect(utils.deepEquals(a,b)).to.be.true;
+
+                expect(utils.deepEquals(a,c)).to.be.false;
+                expect(utils.deepEquals(a,d)).to.be.false;
+                expect(utils.deepEquals(a,e)).to.be.false;
+
+                expect(utils.deepEquals(e,f)).to.be.true;
+
+                expect(utils.deepEquals(e,g)).to.be.false;
+                expect(utils.deepEquals(e,h)).to.be.false;
+                expect(utils.deepEquals(e,i)).to.be.false;
+            });
+            it('handles all kinds of variables', () => {
+                let a = {
+                    8984: 45,
+                    "foo": "bar",
+                    baz: [5, null, "stuff", {
+                        some: "kind",
+                        of: "obj",
+                        its: true,
+                    }],
+                    someother: {
+                        object: "here"
+                    }
+                };
+                let b = {
+                    8984: 45,
+                    "foo": "bar",
+                    baz: [5, null, "stuff", {
+                        some: "kind",
+                        of: "obj",
+                        its: true,
+                    }],
+                    someother: {
+                        object: "here"
+                    }
+                };
+                let c = [8984, "foo", "bar", undefined, [
+                        5, null, "stuff", {
+                            some: "kind",
+                            of: "obj",
+                            its: true,
+                            arr: [],
+                            obj: {}
+                        }
+                    ], {
+                        object: "here",
+                        key: undefined,
+                    }
+                ];
+                let d = [8984, "foo", "bar", undefined, [
+                        5, null, "stuff", {
+                            some: "kind",
+                            of: "obj",
+                            its: true,
+                            arr: [],
+                            obj: {}
+                        }
+                    ], {
+                        object: "here",
+                        key: undefined,
+                    }
+                ];
+
+                expect(utils.deepEquals(a,a)).to.be.true;
+                expect(utils.deepEquals(a,b)).to.be.true;
+                expect(utils.deepEquals(c,c)).to.be.true;
+                expect(utils.deepEquals(c,d)).to.be.true;
+
+                expect(utils.deepEquals(a,c)).to.be.false;
+
+            });
+        });
+    });
+
+
+
+
+
+    describe('deep_clone', () => {
+        describe('deepClone', () => {
+            it('clones simple values', () => {
+                let tests = [
+                    null,
+                    undefined,
+                    5,
+                    8.9,
+                    "string stuff",
+                    true,
+                    false,
+                    [],
+                    {}
+                ];
+                for (let test of tests) {
+                    expect(utils.deepClone(test)).to.deep.equal(test);
+                }                
+            });
+
+            it('clones complex values', () => {
+                let tests = [
+                    {
+                        a: 5,
+                        b: {
+                            c: 4,
+                            foo: {
+                                bar: "different",
+                                key: null,
+                            },
+                            d: "wow"
+                        }
+                    },
+                    [8984, "foo", "bar", undefined, [
+                            5, null, "stuff", {
+                                some: "kind",
+                                of: "obj",
+                                its: true,
+                                arr: [],
+                                obj: {}
+                            }
+                        ], {
+                            object: "here",
+                            key: undefined,
+                        }
+                    ],
+                    {
+                        8984: 45,
+                        "foo": "bar",
+                        baz: [5, null, "stuff", {
+                            some: "kind",
+                            of: "obj",
+                            its: true,
+                        }],
+                        someother: {
+                            object: "here"
+                        }
+                    }
+                ];
+                for (let test of tests) {
+                    expect(utils.deepClone(test)).to.deep.equal(test);
+                }                
+            });    
+        });
+    });
+
+
+
+    
+
+    describe('event_mixin', () => {
+        describe('EventMixin', () => {
+            class testClass {
+                constructor() {
+                    Object.assign(testClass.prototype, utils.EventMixin);
+                    this._setupEventMixin(["a", "b", "c"]);
+                }
+            }
+
+            it('has all the required methods', () => {
+                let c = new testClass();
+                let methods = [
+                    "_setupEventMixin",
+                    "subscribeToEvent",
+                    "unsubscribeToEvent",
+                    "triggerEvent"
+                ];
+                for (let method of methods) {
+                    expect(c).to.be.an('object').that.respondTo(method);
+                }
+            });
+
+            it('initializes and trigger events correctly', function(done) {
+                let c = new testClass();
+                this.timeout(1000);
+
+                c.subscribeToEvent("c", () => {
+                    done();
+                })
+                c.triggerEvent("c");
+            });
+
+            it('lets unsubscribe to events', () => {
+                let c = new testClass();
+                let func = () => {
+                    expect.fail("The object did not unsubscribe from the event.");
+                }
+
+                c.subscribeToEvent("c", func);
+                c.unsubscribeToEvent("c", func);
+                c.triggerEvent("c");
+            });
+        });
+    });
+
+
+
+
+
+    describe('state_machine_mixin', () => {
+        describe('StateMachineMixin', () => {
+            let initial_state = {
+                a: "a state value",
+                "b": 13,
+                c: [3,5],
+                d: {
+                    e: true,
+                    f: null
+                }
+            };
+
+            let initial_state2 = {
+                direction: "vertical",
+                size: 200,
+                size_min: 0,
+                size_max: 999999
+            };
+
+            class testClass {
+                constructor(init_state = initial_state) {
+                    Object.assign(testClass.prototype, utils.StateMachineMixin);
+                    this._setupStateMachineMixin(testClass, initial_state);
+                }
+            }
+
+            class testClass2 extends testClass {
+                constructor() {
+                    super();
+                    this._registerValidator("b", (value) => (value >= 0), "It must be positive.");
+                    this._registerValidator("d/e", (value) => (value === true || value === false), "It must be a boolean.");
+                }
+            }
+
+            it('has all the required methods', () => {
+                let c = new testClass();
+                let methods = [
+                    // event mixin
+                    "_setupEventMixin",
+                    "subscribeToEvent",
+                    "unsubscribeToEvent",
+                    "triggerEvent",
+                    // state machine mixin
+                    "_setupStateMachineMixin",
+                    "getState"
+                ];
+                for (let method of methods) {
+                    expect(c).to.be.an('object').that.respondTo(method);
+                }
+            });
+
+            it('returns the value of a state with get', () => {
+                let c = new testClass();
+                let d = new testClass(initial_state2);
+
+                let assertStateExplorable = (class_instance, initial_path, object) => {
+                    if (!initial_path) initial_path = "";
+                    for (let key in object) {
+                        let path = initial_path + key;
+                        let value = object[key];
+
+                        if (typeof value === "object") {
+                            // If it is an object, we explore it as well
+                            // to test all paths and not just equality
+                            assertStateExplorable(path + "/", value);
+
+                            expect(class_instance.getState(path)).to.deep.equal(value);
+                        } else if (typeof value === "array") {
+                            expect(class_instance.getState(path)).to.deep.equal(value);
+                        } else {
+                            expect(class_instance.getState(path)).to.equal(value);
+                        }
+                    }
+                }
+                assertStateExplorable(c, false, initial_state);
+                assertStateExplorable(d, false, initial_state);
+            });
+
+            it('allow new state values', () => {
+                let c = new testClass();
+
+                // TODO
+                // - handle when the path doesn't exist (for get too)
+                c.setState("a", "new value");
+                expect(c.getState("a")).to.equal("new value");
+                c.setState("d/e", false);
+                expect(c.getState("d/e")).to.equal(false);
+                c.setState("c", [7,8]);
+                expect(c.getState("c")).to.deep.equal([7,8]);
+
+                c.setState("d", {e: true, f: "test"});
+                expect(c.getState("d")).to.deep.equal({e: true, f: "test"});
+                expect(c.getState("d/f")).to.equal("test");
+                
+                c.setState("d", {f: "test2"});
+                expect(c.getState("d")).to.deep.equal({e: true, f: "test2"});
+                expect(c.getState("d/f")).to.equal("test2");
+            });
+
+            it('throws an exception when a value does not exist', () => {
+                let c = new testClass();
+
+                expect(() => {c.getState("unknown")}).to.throw();
+                expect(() => {c.setState("unknown", 1)}).to.throw();
+                expect(() => {c.getState("d/unknown")}).to.throw();
+                expect(() => {c.setState("d/unknown", 2)}).to.throw();
+                expect(() => {c.setState("d", {unknown: "a"})}).to.throw();
+            });
+
+            it('supports using validators on states', () => {
+                let c = new testClass2();
+
+                expect(() => {c.setState("b", 5)}).to.not.throw();
+                expect(c.getState("b")).to.equal(5);
+                expect(() => {c.setState("b", -5)}).to.throw();
+
+                expect(() => {c.setState("d/e", false)}).to.not.throw();
+                expect(c.getState("d/e")).to.equal(false);
+                expect(() => {c.setState("d/e", -5)}).to.throw();
+
+                expect(() => {c.setState("d", {e: true, f: null})}).to.not.throw();
+                expect(c.getState("d")).to.deep.equal({e: true, f: null});
+                expect(() => {c.setState("d", {e: 1, f: null})}).to.throw();
+            });
+
+            it('allows to subscribe to a state change', function(done) {
+                let c = new testClass2();
+
+                this.timeout(1000);
+                expect(c._state_paths).to.be.of.length(6);
+
+                c.subscribeToState("a", (value) => {
+                    expect(value).to.equal("foo");
+                    done();
+                })
+                c.setState("a", "foo");
+            });
+
+            it('lets unsubscribe to state', () => {
+                let c = new testClass2();
+                let func = () => {
+                    expect.fail("The object did not unsubscribe from the event.");
+                }
+
+                c.subscribeToState("c", func);
+                c.unsubscribeToState("c", func);
+                c.setState("c", [9]);
+            });
+        });
+    });
 });

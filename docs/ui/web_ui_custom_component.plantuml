@@ -1,4 +1,4 @@
-@startuml index
+@startuml ui_base_components
 
 'Wav2Bar - Free software for creating audio visualization (motion design) videos
 'Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
@@ -21,11 +21,19 @@ skinparam BackgroundColor #222222
 ' skinparam groupInheritance 2
 skinparam PackageStyle frame
 
-package "event_mixin" {
-    class EventMixin <<mixin>> {
-        # setupEventMixin(events_list: Array[String]): void
-        + subscribeToEvent(event: String, function_handler: Function): void
-        + unsubscribeToEvent(event: String, function_handler: Function): void
-        + triggerEvent(event: String, ...args: any): void
+class HTMLElement {}
+
+package "ui_base_components" {
+    class webUICustomComponent {
+        --
+        + webUICustomComponent(tag: string, props_and_states: Object) : webUICustomComponent
+        + attrFromProp(prop: string): string
+        - _refreshAttributes(): void
+        - _refreshProperties(): void
+        + getProp(prop: string): any
+        + setProp(prop: string, value: any): void
     }
+    HTMLElement <|-right- webUICustomComponent
 }
+
+@enduml

@@ -15,6 +15,16 @@
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 const {ipcRenderer} = require("electron");
+/** @type {object} enumerates available log types */
+export const LOG_T = {
+    TRACE: "trace",
+    DEBUG: "debug",
+    INFO: "info",
+    LOG: "log",
+    WARN: "warn",
+    ERROR: "error",
+    FATAL: "fatal",
+};
 
 /**
  * Logs to the console and to file a message of the given type.

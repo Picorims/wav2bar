@@ -359,13 +359,6 @@ function LoopUI() {
 
 
     //screen interface
-    let interface_padding = window.getComputedStyle(screen_interface).getPropertyValue("padding-left"); //padding-left defined trough "padding" is only accessible that way!
-    let interface_padding_value = parseInt( interface_padding.replace("px","") );
-
-    screen_interface.style.width = ( window.innerWidth - control_panel.offsetWidth - (interface_padding_value*2) ) + "px";
-    screen_interface.style.height = ( window.innerHeight - (interface_padding_value*2) )+"px";
-    screen_interface.style.top = 0;
-    screen_interface.style.left = control_panel.offsetWidth+"px";
 
     //fix the inner space of the interface containing the screen
     let extra_space = 100;

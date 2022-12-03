@@ -180,6 +180,24 @@ body.frameless_window {
 
 
 /*
+########
+APP ROOT
+########
+*/
+#root {
+    width: 100vw;
+    height: 100vh;
+}
+
+
+
+
+
+
+
+
+
+/*
 ##############################
 CONTROL PANEL AND IT'S CONTENT
 ##############################
@@ -192,8 +210,7 @@ Main Element
 */
 
 #control_panel {
-    position: fixed;
-    width: 350px;
+    width: 100%;
     height: 100%;
     top: 0;
     left: 0;
@@ -901,11 +918,9 @@ Main element
 */
 
 #interface {
-    position: absolute;
-    width: 0;
-    height: 0;
-    overflow: auto;
-    padding: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -1047,6 +1062,15 @@ Screen and object frame
 =======================
 */
 
+#screen_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 1px);
+    overflow: auto;
+}
+
 #screen {
     position: absolute;
     width: 0;
@@ -1102,18 +1126,14 @@ Top Naviguation UI
 */
 
 #top_UI {
-    position: fixed;
-    max-width: calc(100% - 400px);
+    position: absolute;
+    max-width: calc(100% - 100px);
     top: 5px;
-    left: 355px;
+    left: 5px;
     z-index: 500;
 
     display: flex;
     flex-wrap: wrap;
-
-    border-radius: 5px;
-
-    font-size: 0px;
 }
 
 /*group of tiles*/

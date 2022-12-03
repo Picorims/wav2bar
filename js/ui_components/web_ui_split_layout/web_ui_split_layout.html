@@ -1,0 +1,76 @@
+<!--
+Wav2Bar - Free software for creating audio visualization (motion design) videos
+Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<template data-direction="vertical">
+    <style>
+        :host .ui_split_layout {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: stretch;
+            align-content: space-between;
+            width: 100%;
+            height: 100%;
+        }
+        :host([data-direction="vertical"]) {
+            flex-direction: row;
+        }
+        /* :host([data-direction="horizontal"]) {
+            flex-direction: column;
+        } */
+
+        :host .ui_split_layout_separator {
+            flex: 0 0 auto;
+            background-color: var(--main-gray);
+            transition: 0.2s;
+        }
+        :host .ui_split_layout_separator:hover {
+            background-color: var(--main-darker-color);
+            transition: 0.5s ease-in-out 1s;
+        }
+        :host([data-direction="vertical"]) .ui_split_layout_separator {
+            width: 5px;
+            height: 100%;
+            cursor: col-resize;
+        }
+        /* :host([data-direction="horizontal"]) .ui_split_layout_separator {
+            width: 100%;
+            height: 5px;
+            cursor: row-resize;
+        } */
+
+        :host .ui_split_layout_container_1 {
+            flex: 0 0 auto;
+        }
+        :host .ui_split_layout_container_2 {
+            flex: 1 1 auto;
+        }
+        :host([data-direction="vertical"]) .ui_split_layout_container_1,
+        :host([data-direction="vertical"]) .ui_split_layout_container_2 {
+            height: 100%;
+        }
+        /* :host([data-direction="horizontal"]) .ui_split_layout_container {
+            width: 100%;
+        } */
+    </style>
+    <div class="ui_split_layout">
+        <div class="ui_split_layout_container_1"><slot name="first-child"></slot></div>
+        <div class="ui_split_layout_separator"></div>
+        <div class="ui_split_layout_container_2"><slot name="second-child"></slot></div>    
+    </div>
+</template>

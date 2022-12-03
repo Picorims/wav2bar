@@ -14,6 +14,7 @@
 - [About the global context](#about-the-global-context)
 - [About Node integration in the renderer process](#about-node-integration)
 - [Documenting](#documenting)
+- [Creating UI components](#ui-components)
 - [Versioning and Git](#versioning-and-git)
 - [Questions or concerns ?](#questions-or-context)
 - [FAQ](#faq)
@@ -95,6 +96,8 @@ See `README.md`.
 ## Code styling
 
 ### Formatting
+
+#### JS
 |Type               |Formatting         |example        |
 |-                  |-                  |-              |
 |variable           |snake case         |`my_var`       |
@@ -107,6 +110,12 @@ See `README.md`.
 |public method      |camel case         |`myMethod`     |
 |get/set property   |snake case         |`my_property`  |
 |module name        |snake case         |`module_name`  |
+
+#### CSS
+|Type               |Formatting         |example        |
+|-                  |-                  |-              |
+|id                 |snake case         |`#my_id`       |
+|class              |snake case         |`.my_class`    |
 
 ### Tabs
 4 spaces.
@@ -166,11 +175,11 @@ JSDoc decorators `/** @abstract */` and `/** @override */` are used above classe
 ## Modules and packages structuring
 
 Modules are grouped by theme, area or functionality. A package is represented by the following:
-- a folder named after the package nam;
+- a folder named after the package name;
 - a main aggregating module named after the package name, that only serves to export sub modules so they can be all imported through one single module;
 - one or more submodules implementing features. Multiple functions or class can be grouped in one module if they are part of the same feature or have a very close relationship. (inheritence of a specific feature that still describe the same feature, group of utilities for the same group of usages, etc.)
 
-JavaScript file not part of a package (i.e lying directly in the `js` folder) belongs to the global context. They share the same context together (so global variables and function definitions for example). Right now it is the main "module" at the head of all modules.
+A JavaScript file not part of a package (i.e lying directly in the `js` folder) belongs to the global context. They share the same context together (so global variables and function definitions for example). Right now it is the main "module" at the head of all modules.
 
 > Note: Their relationship is documented at `docs/modules.plantuml` and `docs/out/modules/modules.svg`.
 
@@ -218,9 +227,104 @@ Here is the list of things that should be documented:
 
 All the documentation is written in the `docs` folder and should be saved in git friendly, text based formats.
 
+<a name="ui-components"></a>
+
+## Creating UI components
+
+Web components are prefered over the older approach of components through classes and are in fact an evolution of it.
+
+In the previous approach, every component is an extension of a class encapsulating a div and some utility functions. Every component can both have a UI parent and a DOM parent in order to be compatible with the DOM. The DOM parent allows to access the DOM nodes while the UI parent allows to use the functionalities of the component itself. This double approach is rather confusing and counter productive. Another caveat is having to instantiate and style all the elements through the JavaScript API, which leads to long constructors affecting readability. Finally, those components are bare bones that requires additional methods to manipulate it like a DOM element. 
+
+[Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) on the other hand keeps the class approach but integrates perfectly to the native DOM tree and JavaScript APIs. It creates a custom tag resuable anywhere as a classic HTML tag (within chevrons, through createElement, etc.). In addition, the declarated custom properties of the class are accessible through the node instance like any node manipulated in JS. At the same time, since it extends `HTMLElement`, the entire DOM api is supported on those components. Finally, by using HTML templates, the user interface can be written declaratively (to some extent) in a more consise and readable way. Note that web components do not need to be imported, since they are accessed using regular JS APIs instead. (You can use `customElements.get("tag");` to get the class definition.)
+
+Those aren't as powerful as full featured JS frameworks such as React, Vue, Angular or Svelte, however I do not wish to further complexify this project by bringing in other package managers, compilers, etc.
+
+### Creating web components the easy way
+
+While web components comes pretty handy for pure JS development, they are tedious to declare. You need to register them, create a shadow DOM, clone an instance of the template in the constructor (which requires a fetch if we want to separate the template in another file), etc. Thus the process has been abstracted by the `web_ui_custom_component` module. It comes with two important tools: the `webUICustomComponent` class and the `register` asynchronous function. While the class handles creating the DOM shadow and cloning the template, the `register` function defines the element in `customElements` and cache the template.
+
+To create a component, create a new folder within `ui_components` called `web_<tag_name_underscore>`. Create a JS module and an HTML file named the same way inside your newly created folder. In the HTML file, write your UI withing a `<template>`. In the module, asynchronously call `register` with the tag name separated by hyphens (the actual tag) and the class definition extending `webUICustomComponent`. in the constructor, call `super(<tag_name_hyphens>, <props_and_states>)`. In order for the component to load, add an import to `ui_components.js` named (by convention) `web_<tag_name_underscore>`.
+
+It should look like this for `ui-foo-bar`:
+
+```
+web_ui_foo_bar
+|- web_ui_foo_bar.js
+|- web_ui_foo_bar.html
+```
+
+web_ui_foo_bar.html
+```html
+<template>
+    <!--your UI and style...-->
+</template>
+```
+
+web_ui_foo_bar.js
+```js
+import {webUICustomComponent, register} from "../web_ui_custom_component.js";
+
+const TAG = "ui-foo-bar";
+// useful for intellisense and auto completion
+const PROPS = {
+    prop: "prop"
+}
+// declared here to have both in sight at the same time
+const PROPS_DEFAULTS = {
+    prop: 
+}
+
+export default TAG
+
+export class webUIFooBar extends webUICustomComponent {
+    /**
+     * List of properties of the element, accessible to the user.
+     * @enum
+     */
+    PROPS = {...PROPS};
+
+    constructor() {
+        /**
+         * every part here is optional.
+         * - Props are values accessible as HTML attributes, and are accessible
+         *  using getProp(prop), setProp(prop, value) instead of
+         * the state counterpart.
+         * /!\/!\/!\ DO NOT USE getState/setState TO ACCESS PROPS! /!\/!\/!\
+         * 
+         * - States can be used for cases non fitting props, and
+         * should preferably have getters and setters for the user.
+         * 
+         * - Private states can be used as you wish inside the component.
+         * 
+         * For more details on manipulating them (validators,
+         * event subscription, set state, etc.), see the StateMachineMixin.
+         */
+        super(TAG, {
+            props: {...PROPS_DEFAULTS}
+            states: {}
+            private_states: {}
+        });
+    }
+}
+// you could also use an anonymous class if you wanted, though typing it
+// allows to use the type elsewhere in the codebase (typeof, JSDoc, etc.)
+await register(TAG, webUIFooBar);
+```
+
+ui_components.js
+```js
+//...
+import web_foo_bar from "./web_ui_foo_bar/web_ui_foo_bar.js";
+//...
+```
+
+It is (again) arguably not as convenient as a framework introducing custom syntax, but will do the job. 
+
+> **Note:** Make sur to import `ui_components` in order for the web components to be loaded! Otherwise you will get errors telling you that the components don't exist.
+
 <a name="versioning-and-git"></a>
 
-# Versioning and Git
+## Versioning and Git
 
 `<giant_upgrade>.<major_update>.<small_update>[-beta]`.
 - **giant_upgrade:** Switching development phase (beta to release, gigantic rewrite and upgrade of features). Very unlikely to increment.

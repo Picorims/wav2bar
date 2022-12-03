@@ -67,7 +67,7 @@ class SaveHandler {
      */
     constructor() {
         Object.assign(SaveHandler.prototype, imports.utils.EventMixin);
-        // this.setupEventMixin([
+        // this._setupEventMixin([
         //     "test",
         // ]);
 
@@ -1438,6 +1438,7 @@ function LoadModules() {
         InitPage(export_mode);
     }).catch(error => {
         console.log("could not load modules: " + error);
+        console.log(error.stack);
     });
 }
 
@@ -1446,7 +1447,7 @@ function LoadModules() {
  *
  * @param {Boolean} export_mode If the process is in an export context (no user interface, no CLI analysis).
  */
-function InitPage(export_mode) {//
+function InitPage(export_mode) {
 
     //SETUP PROJECT AND PREPARE SAVE
     project = new Project(export_mode);

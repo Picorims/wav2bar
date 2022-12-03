@@ -14,8 +14,15 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+//MODULE GATHERING ALL SUBMODULES RELATED TO CREATING USER INTERFACES.
+
+/* eslint-disable no-unused-vars */
+
 export * from "./ui_base_components.js";
 export * from "./ui_parameters.js";
 export * from "./ui_append_help.js";
 export * from "./ui_object_frame.js";
 export * from "./ui_loading_frame.js";
+export * from "./web_ui_custom_component.js";
+
+import web_ui_split_layout from "./web_ui_split_layout/web_ui_split_layout.js";
