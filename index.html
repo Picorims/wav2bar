@@ -63,18 +63,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                     <div id="project_tab" class="tab">
     
                         <div class="panel_param_container" data-help="fps">
-                            <span>Framerate: </span>
-                            <input id="fps_input" class="panel_input" type="number" min="1" max="8000" step="1"/>    
+                            <ui-label-block data-name="Framerate">
+                                <input id="fps_input" class="panel_input" type="number" min="1" max="8000" step="1"/>
+                            </ui-label-block>
                         </div>
     
                         <div class="panel_param_container" data-help="screen_size">
-                            <span>Screen resolution: </span>
-                            <div>
-                                <input id="screen_width_input" class="panel_input" type="number" min="16" max="8000" step="1"/>
-                                <span> x </span>
-                                <input id="screen_height_input" class="panel_input" type="number" min="16" max="8000" step="1"/>
-                        
-                            </div>
+                            <ui-label-block data-name="Screen resolution">
+                                <div>
+                                    <input id="screen_width_input" class="panel_input" type="number" min="16" max="8000" step="1"/>
+                                    <span> x </span>
+                                    <input id="screen_height_input" class="panel_input" type="number" min="16" max="8000" step="1"/>
+                                </div>
+                            </ui-label-block>
                         </div>
                         <div class="panel_param_container" data-help="audio">
                             <span>Import audio (mp3/wav/ogg): </span>

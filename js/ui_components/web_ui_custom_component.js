@@ -140,11 +140,13 @@ export class webUICustomComponent extends HTMLElement {
 
     /**
      * Listen to property changes, and get the value when it changes.
+     * It fires once with the current value for initialization.
      * @param {String} prop The property to listen to
      * @param {function(any)} function_handler The function to call, with the value available as an argument
      */
     subscribeToProp(prop, function_handler) {
         this.subscribeToState(`props/${prop}`, function_handler);
+        this.triggerEvent(`props/${prop}`, this.getProp(prop));
     }
 }
 

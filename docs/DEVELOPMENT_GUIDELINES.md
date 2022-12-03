@@ -268,11 +268,11 @@ const TAG = "ui-foo-bar";
 // useful for intellisense and auto completion
 const PROPS = {
     prop: "prop"
-}
+};
 // declared here to have both in sight at the same time
 const PROPS_DEFAULTS = {
     prop: 
-}
+};
 
 export class webUIFooBar extends webUICustomComponent {
     /**

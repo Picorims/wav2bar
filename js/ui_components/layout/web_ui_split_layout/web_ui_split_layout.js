@@ -83,7 +83,6 @@ export class webUISplitLayout extends webUICustomComponent {
         this.subscribeToProp(PROPS.size, (size) => {
             this._setContainerSize(size);
         });
-        this._setContainerSize(this.getProp(PROPS.size));
 
 
 
