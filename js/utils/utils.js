@@ -21,3 +21,5 @@ export * from "./log.js";
 export * from "./event_mixin.js";
 export * from "./state_machine_mixin.js";
 export * from "./object_utils.js";
+export * from "./deep_equals.js";
+export * from "./deep_clone.js";

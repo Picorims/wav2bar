@@ -56,6 +56,8 @@ package "ui_base_components" {}
 ui_base_components ..> utils
 
 package "web_ui_custom_component" {}
+web_ui_custom_component ..> utils
+
 package "web_ui_foo_bar" {}
 note bottom of web_ui_foo_bar: There is one import per web component
 
@@ -84,6 +86,8 @@ utils <.[dotted]. log
 utils <.[dotted]. event_mixin
 utils <.[dotted]. state_machine_mixin
 utils <.[dotted]. object_utils
+utils <.[dotted]. deep_equals
+utils <.[dotted]. deep_clone
 
 package "array_utils" {}
 array_utils ..> type_checking
@@ -99,9 +103,22 @@ log ..> electron_ipcRenderer
 package "event_mixin" {}
 
 package "state_machine_mixin" {}
+state_machine_mixin ..> type_checking
+state_machine_mixin ..> event_mixin
+state_machine_mixin ..> object_utils
+state_machine_mixin ..> deep_clone
+state_machine_mixin ..> deep_equals
 
 package "object_utils" {}
 object_utils ..> type_checking
+
+package "deep_equals" {}
+deep_equals ..> type_checking
+deep_equals ..> object_utils
+
+package "deep_clone" {}
+deep_clone ..> type_checking
+deep_clone ..> object_utils
 
 
 

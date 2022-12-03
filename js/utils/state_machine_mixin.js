@@ -16,6 +16,9 @@
 
 import { EventMixin } from "./event_mixin.js";
 import * as type from "./type_checking.js";
+import * as obj from "./object_utils.js";
+import * as clone from "./deep_clone.js";
+import * as equals from "./deep_equals.js";
 
 /**
  * Mixin to implement a state machine on an object, built
@@ -47,7 +50,7 @@ export let StateMachineMixin = {
     _setupStateMachineMixin: function(class_ref, initial_tree) {
         Object.assign(class_ref.prototype, EventMixin);
         //deep copy the state
-        this._machine_state = JSON.parse(JSON.stringify(initial_tree));
+        this._machine_state = clone.deepClone(initial_tree);
 
         /**
          * List of validators stored as the following:
@@ -125,50 +128,39 @@ export let StateMachineMixin = {
         if (container[modified_key] === undefined) throw new Error(`setState: ${state_path} does not exist.`);
         
         //make sure the value is allowed
-        if (!this._verify(state_path, value)) {
-            throw new Error(`setState: ${value} is not a valid value
-            for ${state_path} as per the following rules:
-            ${this._validators[state_path].msg}`);
-        }
+        this._assertState(state_path, value);
 
         //change the value of the desired key
         let is_obj = type.IsAnObject(value) && !type.IsAnArray(value);
         if (is_obj) {
             //if it is an object, change all of its listed states.
-            let obj = value;
-            for (let key in obj) {
-                if (Object.hasOwnProperty.call(obj, key)) {
-                    modified = this.setState(`${state_path}/${key}`, obj[key]);
+            let object = value;
+            for (let key in object) {
+                if (obj.objHasOwnProp(object, key)) {
+                    modified = this.setState(`${state_path}/${key}`, object[key]);
                 }
             }
         } else {
             //assign
-            if (type.IsAnArray(value)) {
-                // path for optimization
-                container[modified_key] = JSON.parse(JSON.stringify(value));
+            if (!equals.deepEquals(container[modified_key], value)) {
+                container[modified_key] = clone.deepClone(value);
                 modified = true;
-            } else {
-                if (container[modified_key] !== value) {
-                    container[modified_key] = value;
-                    modified = true;
-                }
             }
         }
         if (modified) {
-            if (type.IsAnObject(value) || type.IsAnArray(value)) {
-                // path for optimization
-                this.triggerEvent(state_path, JSON.parse(JSON.stringify(value)));
-            } else {
-                this.triggerEvent(state_path, value);
-            }
+            this.triggerEvent(state_path, clone.deepClone(value));
         }
         return modified;
     },
 
     /**
+     * Registers a function to call on every state change attempt to ensure
+     * that a value is valid.
      * 
+     * The value is directly verified upon registration, ensuring a safe
+     * initial state.
      * @param {String} state_path path of the state separated by slashes ("/").
-     * @param {Function} validator The validator to call for the state.
+     * @param {function(): Boolean} validator The validator to call for the state.
      * @param {String} rules_msg The message to display when a state isn't valid.
      * It should describe the rules of validation useful to the developer.
      * It must return a boolean value asserting the validity of value.
@@ -184,7 +176,18 @@ export let StateMachineMixin = {
                 fn: validator,
                 msg: rules_msg
             };
+            this._assertState(state_path, this.getState(state_path));
         }
+    },
+
+    /**
+     * @param {String} state_path path of the state separated by slashes ("/").
+     * @returns {Boolean}
+     * @access protected
+     */
+    _validatorExists: function(state_path) {
+        let validator = this._validators[state_path];
+        return !type.IsUndefined(validator);
     },
 
     /**
@@ -194,12 +197,27 @@ export let StateMachineMixin = {
      * @param {*} value The value to assert.
      * @returns {Boolean}
      * @memberof StateMachineMixin
-     * @access protected
      */
-    _verify: function(state_path, value) {
+    verifyState: function(state_path, value) {
+        if (!this._validatorExists(state_path)) {
+            throw new Error(`verifyState: ${state_path} do not have any validator.`);
+        }
+
         let validator = this._validators[state_path];
-        let validator_exists = !type.IsUndefined(validator);
-        return !validator_exists || validator_exists && validator.fn(value);
+        return validator.fn(value);
+    },
+
+    /**
+     * Throws an error if the given value isn't valid for a given state
+     * @param {String} state_path path of the state separated by slashes ("/").
+     * @param {*} value The value to assert.
+     */
+    _assertState: function(state_path, value) {
+        if (this._validatorExists(state_path) && !this.verifyState(state_path, value)) {
+            throw new Error(`_assertState: ${value} is not a valid value
+            for ${state_path} as per the following rules:
+            ${this._validators[state_path].msg}`);
+        }
     },
 
     /**

@@ -266,11 +266,14 @@ import {webUICustomComponent, register} from "../web_ui_custom_component.js";
 
 const TAG = "ui-foo-bar";
 
-await register(TAG, class extends webUICustomComponent {
+export class webUIFooBar extends webUICustomComponent {
     constructor() {
         super(TAG);
     }
-});
+}
+// you could also use an anonymous class if you wanted, though typing it
+// allows to use the type elsewhere in the codebase (typeof, JSDoc, etc.)
+await register(TAG, webUIFooBar);
 ```
 
 ui_components.js

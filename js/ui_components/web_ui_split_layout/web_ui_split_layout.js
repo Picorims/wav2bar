@@ -17,6 +17,19 @@
 import {webUICustomComponent, register} from "../web_ui_custom_component.js";
 
 const TAG = "ui-split-layout";
+const PROPS = {
+    direction: "direction",
+    size: "size",
+    size_min: "size_min",
+    size_max: "size_max"
+};
+const PROPS_DEFAULTS = {
+    direction: "vertical",
+    size: null,
+    size_min: 0,
+    size_max: 999999
+};
+
 export default TAG;
 
 /**
@@ -24,17 +37,12 @@ export default TAG;
  * Only the CSS has been paved in preparation of this change.
  */
 
-await register(TAG, class extends webUICustomComponent {
+export class webUISplitLayout extends webUICustomComponent {
     /**
-     * List of attributes of the element
+     * List of properties of the element
      * @enum
      */
-    ATTR = {
-        direction: "data-direction",
-        size: "data-size",
-        size_min: "data-size-min",
-        size_max: "data-size-max"
-    };
+    PROPS = {...PROPS};
 
     /**
      * List of possible directions for the property `direction`
@@ -45,18 +53,55 @@ await register(TAG, class extends webUICustomComponent {
     };
 
     constructor() {
-        super(TAG);
+        super(TAG, {
+            props: {...PROPS_DEFAULTS}
+        });
+
+        // direction
+        this._registerValidator(
+            `props/${PROPS.direction}`,
+            (value) => (value === this.DIR.vertical),
+            "ui-split-layout: only vertical direction is allowed."
+        );
+
+        // size
+        let min = this.getProp(PROPS.size_min);
+        let max = this.getProp(PROPS.size_max);
+        if (this.getProp(PROPS.size) === null) {
+            this.setProp(PROPS.size, (min + max) / 2);
+        }
+        this._registerValidator(
+            `props/${PROPS.size}`,
+            (value) => (value !== null
+                && value >= this.getProp(PROPS.size_min)
+                && value <= this.getProp(PROPS.size_max)
+            ),
+            `ui-split-layout: The size must be within
+            size-min and size-max, and must not be null`
+        );
+
+        this.subscribeToState(`props/${PROPS.size}`, (size) => {
+            this._setContainerSize(size);
+        });
+        this._setContainerSize(this.getProp(PROPS.size));
         
         /**
          * TODO fix this because illegal to initialize attributes
-         * - attribute object with name:value pairs in the base custom element
-         * - on upgrade, assign values to the dom
-         * - getters and setters
-         * - middleware mechanism for getters and setters
-         * - state machine
-         * - update doc
+         * - OK attribute object with name:value pairs in the base custom element
+         * - OK on upgrade, assign values to the dom
+         * - OK getters and setters
+         * - USE SUBSCRIBE AND VALIDATORS middleware mechanism for getters and setters
+         * - OK state machine
+         * - OK deep equals
+         * - OK deep clone
+         * - OK fix errors
+         * - update doc (diagrams, dev guidelines)
          */
-        this.direction = this.DIR.vertical;
+
+        /**
+         * commit msg: enrich webUICustomComponent, doc and utils, fix errors in split layout and state machine
+         */
+
         let separator = this._shadow_root.querySelector(".ui_split_layout_separator");
 
         //make separator functional
@@ -66,7 +111,14 @@ await register(TAG, class extends webUICustomComponent {
                 let hostX = this.getBoundingClientRect().x;
                 let size = mouseX - hostX;
                 //keep the mouse centered on the separator while resizing
-                this.size = size - (separator.clientWidth / 2);
+                let final_size = size - (separator.clientWidth / 2);
+
+                let min = this.getProp(PROPS.size_min);
+                let max = this.getProp(PROPS.size_max);
+                if (final_size > max) final_size = max;
+                if (final_size < min) final_size = min;
+
+                this.setProp(PROPS.size, final_size);
             };
             document.addEventListener("mousemove", moving);
 
@@ -77,6 +129,14 @@ await register(TAG, class extends webUICustomComponent {
         });
 
     }
+
+    /**
+     * Apply the given size to the first container (style.width)
+     * @param {Number} size The size to apply
+     */
+    _setContainerSize(size) {
+        this._shadow_root.querySelector(".ui_split_layout_container_1").style.width = `${size}px`;
+    }
     
     /**
      * Defines if the split direction is vertical or horizontal. 
@@ -84,16 +144,16 @@ await register(TAG, class extends webUICustomComponent {
      * @param {"vertical"} direction
      * @returns {string}
      */
-    set direction(direction) {
-        if (direction === this.DIR.vertical) {
-            this.setAttribute(this.ATTR.direction, direction);
-        } else {
-            throw new Error("ui-split-layout: only vertical direction is allowed.");
-        }
-    }
-    get direction() {
-        return this.getAttribute(this.ATTR.direction);
-    }
+    // set direction(direction) {
+    //     if (direction === this.DIR.vertical) {
+    //         this.setAttribute(this.PROPS.direction, direction);
+    //     } else {
+    //         throw new Error("ui-split-layout: only vertical direction is allowed.");
+    //     }
+    // }
+    // get direction() {
+    //     return this.getAttribute(this.PROPS.direction);
+    // }
 
     /**
      * Defines the size for the resizable element
@@ -101,16 +161,16 @@ await register(TAG, class extends webUICustomComponent {
      * @param {number} size
      * @returns {number}
      */
-    set size(size) {
-        if (size < this.sizeMin) size = this.sizeMin;
-        if (size > this.sizeMax) size = this.sizeMax;
-        this._shadow_root.querySelector(".ui_split_layout_container_1").style.width = `${size}px`;
+    // set size(size) {
+    //     if (size < this.sizeMin) size = this.sizeMin;
+    //     if (size > this.sizeMax) size = this.sizeMax;
+    //     this._shadow_root.querySelector(".ui_split_layout_container_1").style.width = `${size}px`;
 
-        this.setAttribute(this.ATTR.size, size);
-    }
-    get size() {
-        return parseFloat(this.getAttribute(this.ATTR.size));
-    }
+    //     this.setAttribute(this.PROPS.size, size);
+    // }
+    // get size() {
+    //     return parseFloat(this.getAttribute(this.PROPS.size));
+    // }
 
     /**
      * Defines the minimum size allowed for the resizable element
@@ -118,12 +178,12 @@ await register(TAG, class extends webUICustomComponent {
      * @param {number} size_min
      * @returns {number}
      */
-    set sizeMin(size_min) {
-        this.setAttribute(this.ATTR.size_min, size_min);
-    }
-    get sizeMin() {
-        return parseFloat(this.getAttribute(this.ATTR.size_min));
-    }
+    // set sizeMin(size_min) {
+    //     this.setAttribute(this.PROPS.size_min, size_min);
+    // }
+    // get sizeMin() {
+    //     return parseFloat(this.getAttribute(this.PROPS.size_min));
+    // }
 
     /**
      * Defines the maxnimum size allowed for the resizable element
@@ -131,10 +191,12 @@ await register(TAG, class extends webUICustomComponent {
      * @param {number} size_max
      * @returns {number}
      */
-    set sizeMax(size_max) {
-        this.setAttribute(this.ATTR.size_max, size_max);
-    }
-    get sizeMax() {
-        return parseFloat(this.getAttribute(this.ATTR.size_max));
-    }
-});
+    // set sizeMax(size_max) {
+    //     this.setAttribute(this.PROPS.size_max, size_max);
+    // }
+    // get sizeMax() {
+    //     return parseFloat(this.getAttribute(this.PROPS.size_max));
+    // }
+}
+
+await register(TAG, webUISplitLayout);

@@ -43,3 +43,28 @@ export function mergeData(data_to_add, data_receiver) {
 
     return data_receiver;
 }
+
+
+
+/**
+ * Add a mixin of an object by assigning its properties to the object prototype.
+ * (Arrow functions aren't supported as it doesn't redefine `this` in the right context!)
+ * @export
+ * @param {Object} object The object for which its prototype should receive the mixin
+ * @param {Object} mixin The mixin to use on the object
+ */
+export function useMixin(object, mixin) {
+    Object.assign(object.prototype, mixin);
+}
+
+
+
+/**
+ * Shorthand for `Object.prototype.hasOwnProperty.call(object, prop)`.
+ * @param {Object} object The object to call `hasOwnProperty` on
+ * @param {String} prop The property to seek
+ * @returns {Boolean}
+ */
+export function objHasOwnProp(object, prop) {
+    return Object.prototype.hasOwnProperty.call(object, prop);
+}

@@ -32,7 +32,9 @@ package "state_machine_mixin" {
         + getState(state_path: String): any
         + setState(state_path: String, value: any): bool
         # _registerValidator(state_path: String, validator: Function, rules_msg: String): void
-        # _verify(state_path: String, value: any): bool
+        # _validatorExists(state_path: String): bool
+        + verifyState(state_path: String, value: any): bool
+        # _assertState(state_path: String, value: any): void
         + subscribeToState(state_path: String, function_handler: Function): void
         + unsubscribeToState(state_path: String, function_handler: Function): void
     }
