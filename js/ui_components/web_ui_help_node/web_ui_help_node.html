@@ -1,0 +1,48 @@
+<!--
+Wav2Bar - Free software for creating audio visualization (motion design) videos
+Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<template>
+    <link rel="stylesheet" type="text/css" href="node_modules/remixicon/fonts/remixicon.css"/>
+    <style>
+        .ui-help-node {
+            width: 25px;
+            height: 25px;
+            margin-left: auto; /*makes them stick to the right*/
+            font-size: 25px;
+            z-index: 1000;
+
+            transition: 0.2s;
+        }
+        .ui-help-node:hover {
+            transition: 0.2s;
+            cursor: help;
+            color: var(--main-color);
+            transform: scale(1.2);
+        }
+        .ui-help-node i {transition: 0.1s;}
+        .ui-help-node:hover i {
+            transition: 0.1s;
+            text-shadow: 0px 0px 10px var(--main-darker-color);
+        }
+    </style>
+    <div class="ui-help-node">
+        <span>
+            <i class='ri-question-line'></i>
+        </span>
+    </div>
+</template>

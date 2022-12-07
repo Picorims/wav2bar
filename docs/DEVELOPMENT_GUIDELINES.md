@@ -111,11 +111,17 @@ See `README.md`.
 |get/set property   |snake case         |`my_property`  |
 |module name        |snake case         |`module_name`  |
 
-#### CSS
+#### CSS (old)
 |Type               |Formatting         |example        |
 |-                  |-                  |-              |
 |id                 |snake case         |`#my_id`       |
 |class              |snake case         |`.my_class`    |
+
+#### CSS (new) (yes I changed of mind)
+|Type               |Formatting         |example        |
+|-                  |-                  |-              |
+|id                 |kebab case         |`#my-id`       |
+|class              |kebab case         |`.my-class`    |
 
 ### Tabs
 4 spaces.
@@ -271,7 +277,7 @@ const PROPS = {
 };
 // declared here to have both in sight at the same time
 const PROPS_DEFAULTS = {
-    prop: 
+    prop: "default"
 };
 
 export class webUIFooBar extends webUICustomComponent {
@@ -350,7 +356,7 @@ You can submit your concerns by opening an issue. For questions, use the discuss
 The project was started when my knowledge of programming was pretty basic. I didn't know classes at the time. Now, the code went through multiple rewrites, and more time should be spent towards improving the software (going out of the endless refactor loop basically and do it gradually). Thus rewriting again by adapting to TypeScript is not worth the work, especially considering the setup is tedious (there is no Webpack or Vite or else in the repository). JavaScript and JSDoc are sufficient right now.
 
 ### Why not using React/Vue/Angular/Svelte ?
-Same as below. By the time, a custom component system has been setup using `UIComponent` and `EventMixin`, which is enough for the needs of the project.
+Same as below. By the time, a custom component system has been setup using ~~`UIComponent` and `EventMixin`~~ `WebUICustomComponent`, which is enough for the needs of the project.
 
 ### Why making it a desktop app ? Why not a web app ?
 Here, the "server" is shipped with the application. Otherwise, it would require maintaining and hosting a server capable of handling many video exports at the same time. So it is easier and cheaper, in addition to having a better native experience.

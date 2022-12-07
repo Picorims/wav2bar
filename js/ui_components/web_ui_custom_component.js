@@ -50,6 +50,7 @@ export class webUICustomComponent extends HTMLElement {
      */
     constructor(tag, props_and_states = {}) {
         super();
+        // test in static block for optimization
         utils.useMixin(webUICustomComponent, utils.StateMachineMixin);
         
         //load template
@@ -175,7 +176,6 @@ export async function register(tag, class_ref, path = "") {
     if (path !== "" && noSlash.test(path)) path = path + "/";
 
     const template_path = `./js/ui_components/${path}${tag_to_folder}/${tag_to_folder}.html`;
-    console.log(template_path);
     const template = await getTemplate(template_path);
     templates[tag] = template;
     customElements.define(tag, class_ref);

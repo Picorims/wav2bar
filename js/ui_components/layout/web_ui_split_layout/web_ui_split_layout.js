@@ -33,10 +33,11 @@ const PROPS_DEFAULTS = {
 };
 
 /**
+ * Layout with two resizable containers.
+ * 
  * Note that horizontal direction hasn't been implemented right now.
  * Only the CSS has been paved in preparation of this change.
  */
-
 export class webUISplitLayout extends webUICustomComponent {
     /**
      * List of properties of the element, accessible to the user.

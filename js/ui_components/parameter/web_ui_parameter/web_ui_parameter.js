@@ -14,22 +14,26 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import {webUICustomComponent, register} from "../web_ui_custom_component.js";
+import {webUICustomComponent, register} from "../../web_ui_custom_component.js";
 
-const TAG = "ui-label-block";
+const TAG = "ui-parameter";
 // useful for intellisense and auto completion
 const PROPS = {
-    name: "name"
+    title: "title",
+    help: "help"
 };
 // declared here to have both in sight at the same time
 const PROPS_DEFAULTS = {
-    name: "label"
+    title: "",
+    help: ""
 };
 
 /**
- * Container that adds a configurable label to the left.
+ * Container designed for hosting parameters.
+ * Provides a help node with a help bubble, as well
+ * as an optional title.
  */
-export class webUILabelBlock extends webUICustomComponent {
+export class webUIParameter extends webUICustomComponent {
     /**
      * List of properties of the element, accessible to the user.
      * @enum
@@ -41,10 +45,22 @@ export class webUILabelBlock extends webUICustomComponent {
             props: {...PROPS_DEFAULTS}
         });
 
-        this.subscribeToProp(PROPS.name, (value) => {
-            this._shadow_root.querySelector(".ui_label_block_name").textContent = `${value}: `;
+        /** @type {import("../../web_ui_help_node/web_ui_help_node.js").webUIHelpNode} */
+        let help_node = this._shadow_root.querySelector("ui-help-node");
+        console.log(help_node);
+
+        customElements.whenDefined("ui-help-node").then(() => {
+            this.subscribeToProp(PROPS.help, (content) => {
+                help_node.setProp(help_node.PROPS.help, content);
+            });    
+        });
+        
+        let title_elt = this._shadow_root.querySelector(".ui_parameter_title");
+
+        this.subscribeToProp(PROPS.title, (title) => {
+            title_elt.innerText = (title === "") ? "" : `${title}: `;
         });
     }
 }
 
-await register(TAG, webUILabelBlock);
+await register(TAG, webUIParameter, "parameter");

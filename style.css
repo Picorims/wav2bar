@@ -373,6 +373,7 @@ Tabs content
     border-bottom: 4px solid var(--main-gray);
 }
 
+/* <web-ui-parameter> */
 .panel_param_container {
     padding: 5px;
     padding-left: 15px;
@@ -388,23 +389,26 @@ Tabs content
 
     overflow: hidden;
 }
+/* <web-ui-parameter> */
 .panel_param_subcontainer {
     width: calc(100% - 30px); /*size of question_mark + margin*/
 }
 
+/* <web-ui-parameter> */
 .panel_param_subcontainer > span {
     text-align: left;
     display: inline-block;
     width: 100%;
 }
 
+/* <web-ui-parameter> */
 .panel_param_container > .panel_input_file,
 .panel_param_container > .panel_input_string {
     flex-shrink: 0;
 }
 
 
-
+/* <ui-help-node> */
 .question_mark {
     width: 25px;
     height: 25px;

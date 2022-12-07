@@ -27,3 +27,5 @@ export * from "./web_ui_custom_component.js";
 
 export * from "./layout/web_ui_split_layout/web_ui_split_layout.js";
 export * from "./web_ui_label_block/web_ui_label_block.js";
+export * from "./parameter/web_ui_parameter/web_ui_parameter.js";
+export * from "./web_ui_help_node/web_ui_help_node.js";
