@@ -46,7 +46,8 @@ system_info ..> electron_ipcRenderer
 package "ui_components" {}
 ui_components <.[dotted]. ui_base_components
 ui_components <.[dotted]. web_ui_custom_component
-ui_components ..> web_ui_foo_bar
+ui_components <.[dotted]. web_ui_foo_bar
+ui_components ..> dom_ready
 ui_components <.[dotted]. ui_parameters
 ui_components <.[dotted]. ui_append_help
 ui_components <.[dotted]. ui_object_frame
@@ -60,6 +61,9 @@ web_ui_custom_component ..> utils
 
 package "web_ui_foo_bar" {}
 note bottom of web_ui_foo_bar: There is one import per web component
+
+package "dom_ready" {}
+dom_ready ..> web_ui_custom_component
 
 package "ui_parameters" {}
 ui_parameters ..> utils

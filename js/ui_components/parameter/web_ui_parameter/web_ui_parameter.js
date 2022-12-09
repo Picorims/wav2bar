@@ -46,19 +46,17 @@ export class webUIParameter extends webUICustomComponent {
         });
 
         /** @type {import("../../web_ui_help_node/web_ui_help_node.js").webUIHelpNode} */
-        let help_node = this._shadow_root.querySelector("ui-help-node");
-        console.log(help_node);
-
-        customElements.whenDefined("ui-help-node").then(() => {
+        this._help_node = this._shadow_root.querySelector("ui-help-node");
+        this._title_elt = this._shadow_root.querySelector(".ui_parameter_title");
+    
+        this.onDOMReadyOnce(() => {
             this.subscribeToProp(PROPS.help, (content) => {
-                help_node.setProp(help_node.PROPS.help, content);
+                this._help_node.setProp(this._help_node.PROPS.help, content);
+            });
+    
+            this.subscribeToProp(PROPS.title, (title) => {
+                this._title_elt.innerText = (title === "") ? "" : `${title}: `;
             });    
-        });
-        
-        let title_elt = this._shadow_root.querySelector(".ui_parameter_title");
-
-        this.subscribeToProp(PROPS.title, (title) => {
-            title_elt.innerText = (title === "") ? "" : `${title}: `;
         });
     }
 }

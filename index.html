@@ -63,7 +63,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                     <div id="project_tab" class="tab">
 
                         <ui-parameter data-title="A title" data-help="some help">
-                            <span>hello</span>
+                            <ui-label-block data-name="name">
+                                <ui-bind-input data-type="int">
+                                    <input type="number" value="2" />
+                                </ui-bind-input>
+                            </ui-label-block>
                         </ui-parameter>
     
                         <div class="panel_param_container" data-help="fps">

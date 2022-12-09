@@ -29,3 +29,8 @@ export * from "./layout/web_ui_split_layout/web_ui_split_layout.js";
 export * from "./web_ui_label_block/web_ui_label_block.js";
 export * from "./parameter/web_ui_parameter/web_ui_parameter.js";
 export * from "./web_ui_help_node/web_ui_help_node.js";
+export * from "./web_ui_bind_input/web_ui_bind_input.js";
+
+// loaded last to ensure all components were loaded when this code is called
+import { _CustomComponentsReady } from "./dom_ready.js";
+_CustomComponentsReady();

@@ -27,6 +27,8 @@ package "ui_base_components" {
     class webUICustomComponent {
         --
         + webUICustomComponent(tag: string, props_and_states: Object) : webUICustomComponent
+        + onDOMReady(callback: Function): void
+        + onDOMReadyOnce(callback: Function): void
         + attrFromProp(prop: string): string
         - _refreshAttributes(): void
         - _refreshProperties(): void

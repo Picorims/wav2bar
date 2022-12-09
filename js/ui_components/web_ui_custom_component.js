@@ -17,6 +17,25 @@
 import * as utils from "../utils/utils.js";
 
 /**
+ * @type {Array<{this: Object, fn: Function}>}
+ */
+let pending_DOM_callbacks = [];
+let custom_components_loaded = false;
+
+/**
+ * Call callbacks from DOMReady() that fired too early from connectedCallback(),
+ * after all custom components were loaded.
+ */
+export function callPendingDOMCallbacks() {
+    for (const entry of pending_DOM_callbacks) {
+        entry.fn.call(entry.this);
+    }
+    custom_components_loaded = true;
+    console.log(pending_DOM_callbacks);
+    pending_DOM_callbacks = [];
+}
+
+/**
  * Base class that simplifies creating custom web components.
  * Their information must be declared in `web_ui_custom_components.js`
  * in order for them to work!
@@ -52,6 +71,11 @@ export class webUICustomComponent extends HTMLElement {
         super();
         // test in static block for optimization
         utils.useMixin(webUICustomComponent, utils.StateMachineMixin);
+
+        /**
+         * @type {Array<{fn: Function, once: Boolean}>}
+         */
+        this._DOM_ready_callbacks = [];
         
         //load template
         if (templates[tag] === undefined) throw new Error("webUICustomComponent: unknown tag. Make sure it has been declared!");
@@ -73,6 +97,33 @@ export class webUICustomComponent extends HTMLElement {
      */
     connectedCallback() {
         this._refreshAttributes();
+        for (let i = this._DOM_ready_callbacks.length -1; i >= 0; i--) {
+            let entry = this._DOM_ready_callbacks[i];
+            if (custom_components_loaded) {
+                entry.fn();
+                // some callbacks only fire once
+                if (entry.once) this._DOM_ready_callbacks.splice(i, 1);
+            }
+            else pending_DOM_callbacks.push({this: this, fn: entry.fn});
+        }        
+    }
+
+    /**
+     * Function fired when the connectedCallback() function is fired (component)
+     * on DOM, and after all custom components loaded.
+     * @param {Function} callback 
+     */
+    onDOMReady(callback) {
+        this._DOM_ready_callbacks.push({fn: callback, once: false});
+    }
+
+    /**
+     * Function fired ***once*** when the connectedCallback() function is fired (component)
+     * on DOM, and after all custom components loaded.
+     * @param {Function} callback 
+     */
+    onDOMReadyOnce(callback) {
+        this._DOM_ready_callbacks.push({fn: callback, once: true});
     }
 
     /**
@@ -92,7 +143,7 @@ export class webUICustomComponent extends HTMLElement {
     _refreshAttributes() {
         for (let prop in this._props) {
             if (Object.hasOwnProperty.call(this._props, prop)) {
-                this.setAttribute(this.attrFromProp(prop), this._props[prop]);
+                this.setAttribute(this.attrFromProp(prop), this.getProp(prop));
             }
         }
     }
