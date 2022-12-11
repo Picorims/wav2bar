@@ -207,6 +207,10 @@ export class webUICustomComponent extends HTMLElement {
 /** @type {object} List of template DOM objects for each tag */
 let templates = {};
 
+let global_stylesheets = [
+    "style.css"
+];
+
 /**
  * Register a component by defining it in customElements and caching its template.
  * The path is deudcted by looking at `./web_<tag_name_underscores>/web_<tag_name_underscores>.html`
@@ -228,7 +232,9 @@ export async function register(tag, class_ref, path = "") {
 
     const template_path = `./js/ui_components/${path}${tag_to_folder}/${tag_to_folder}.html`;
     const template = await getTemplate(template_path);
+    bindGlobalStyles(template);
     templates[tag] = template;
+    console.log(template);
     customElements.define(tag, class_ref);
     console.log("defined " + tag);
 }
@@ -246,4 +252,17 @@ async function getTemplate(template_path) {
     const text = await file.text();
     const html = dom_parser.parseFromString(text, "text/html");
     return html.querySelector("template");
+}
+
+/**
+ * Appends all global stylesheets to the template by adding link elements to it.
+ * @param {HTMLTemplateElement} template The template to append style to
+ */
+function bindGlobalStyles(template) {
+    for (const path of global_stylesheets) {
+        const link_element = document.createElement("link");
+        link_element.setAttribute("rel", "stylesheet");
+        link_element.setAttribute("href", path);
+        template.content.appendChild(link_element);
+    }
 }

@@ -37,12 +37,14 @@ export class webUIHelpNode extends webUICustomComponent {
         this._help_node.addEventListener("pointerenter", () => {
             let help = this.getProp(PROPS.help);
             if (help !== "") {
-                this._bubble = DisplayHelpMsg(this, this.getProp(PROPS.help));
+                this._bubble = DisplayHelpMsg(this, help);
             }
         });
 
         this._help_node.addEventListener("pointerleave", () => {
-            this._bubble.remove();
+            if (this.getProp(PROPS.help) !== "") {
+                this._bubble.remove();
+            }
         });
     }
 }
