@@ -1,6 +1,7 @@
 {
     "spec": ["./test/renderer/**/*.test.js"],
     "require": "esm",
+    "script": ["./test/renderer/load.js"],
     "renderer": true,
     "exit": true,
     "color": true,

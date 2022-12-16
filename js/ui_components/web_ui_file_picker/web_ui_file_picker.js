@@ -26,8 +26,6 @@ const PROPS_DEFAULTS = {
     path: ""
 };
 
-// commit msg: fix help node when no string is provided, file picker, external css in components
-
 export class webUIFilePicker extends webUICustomComponent {
     /**
      * List of properties of the element, accessible to the user.

@@ -113,6 +113,7 @@ export let StateMachineMixin = {
      * @memberof StateMachineMixin
      */
     setState: function(state_path, value) {
+        if (this.getState(state_path) === value) return;
         let modified = false;
         let path_array = state_path.split("/");
         //remove the last element from the path
@@ -240,5 +241,24 @@ export let StateMachineMixin = {
      */
     unsubscribeToState: function(state_path, function_handler) {
         this.unsubscribeToEvent(state_path, function_handler);
+    },
+
+    /**
+     * Link two states from two state machines (it can be the same machine,
+     * in theory (not tested)). When one state triggers an event, the other
+     * is set to the updated value. Since setState() does nothing when two
+     * values are equal, there is no infinite loop.
+     * @param {String} state_path The state path to bind to in the current machine
+     * @param {StateMachineMixin} external_machine The other machine to bind to
+     * @param {String} external_state_path The other machine's state to bind to
+     */
+    bindStates: function(state_path, external_machine, external_state_path) {
+        this.subscribeToState(state_path, (value) => {
+            external_machine.setState(external_state_path, value);
+        });
+
+        external_machine.subscribeToState(external_state_path, (value) => {
+            this.setState(state_path, value);
+        });
     }
 };
