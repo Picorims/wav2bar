@@ -101,7 +101,7 @@ export let StateMachineMixin = {
             if (value === undefined) throw new Error(`getState: ${state_path} does not exist.`);
         }
 
-        return value;
+        return clone.deepClone(value);
     },
 
     /**
