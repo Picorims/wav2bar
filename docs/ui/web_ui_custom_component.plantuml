@@ -35,6 +35,7 @@ package "ui_base_components" {
         + getProp(prop: string): any
         + setProp(prop: string, value: any): void
         + subscribeToProp(prop: string, function_handler: Function(any)): void
+        + unsubscribeToProp(prop: string, function_handler: Function(any)): void
     }
     HTMLElement <|-right- webUICustomComponent
 }

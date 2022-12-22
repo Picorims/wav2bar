@@ -89,14 +89,39 @@ export class webUICustomComponent extends HTMLElement {
 
         //load existing values from attributes, and set not defined ones
         this._refreshProperties();
-        this._refreshAttributes();
+        // attribute refreshing is performed by the DOM ready listener in the constructor
+        // this._refreshAttributes();
+
+        // bind attributes to props (from prop to attr only)
+        let bind_props_and_attrs_handlers = {};
+        for (let prop in this._props) {
+            if (utils.objHasOwnProp(this._props, prop)) {
+                bind_props_and_attrs_handlers[prop] = () => {
+                    this.setAttribute(this.attrFromProp(prop), this.getProp(prop));
+                };
+            }
+        }
+        this.onDOMReady(() => {
+            for (let prop in this._props) {
+                if (utils.objHasOwnProp(this._props, prop)) {
+                    this.subscribeToProp(prop, bind_props_and_attrs_handlers[prop]);
+                }
+            }
+        }, () => {
+            for (let prop in this._props) {
+                if (utils.objHasOwnProp(this._props, prop)) {
+                    this.unsubscribeToProp(prop, bind_props_and_attrs_handlers[prop]);
+                }
+            }
+        });
     }
 
     /**
      * HTMLElement function that fires when the element is added to the DOM
      */
     connectedCallback() {
-        this._refreshAttributes();
+        // attribute refreshing is performed by the DOM ready listener in the constructor
+        // this._refreshAttributes();
 
         // DOM handlers
         for (let i = this._DOM_ready_callbacks.length -1; i >= 0; i--) {
@@ -216,8 +241,8 @@ export class webUICustomComponent extends HTMLElement {
      * @param {*} value 
      */
     setProp(prop, value) {
-        let changed = this.setState(`props/${prop}`, value);
-        if (changed) this.setAttribute(this.attrFromProp(prop), value);
+        this.setState(`props/${prop}`, value);
+        // attribute refreshing is performed by the DOM ready listener in the constructor
     }
 
     /**
@@ -229,6 +254,15 @@ export class webUICustomComponent extends HTMLElement {
     subscribeToProp(prop, function_handler) {
         this.subscribeToState(`props/${prop}`, function_handler);
         this.triggerEvent(`props/${prop}`, this.getProp(prop));
+    }
+
+    /**
+     * Stop listening to property changes
+     * @param {String} prop The property to not listen to
+     * @param {function(any)} function_handler The function that was called
+     */
+    unsubscribeToProp(prop, function_handler) {
+        this.unsubscribeToState(`props/${prop}`, function_handler);
     }
 }
 
