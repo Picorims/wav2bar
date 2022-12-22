@@ -58,18 +58,25 @@ export class webUIBindInput extends webUICustomComponent {
         if (!(input instanceof HTMLInputElement)) {
             throw new Error("webUIBindInput: The child must be an <input> HTML element.");
         }
-        this.onDOMReadyOnce(() => {
+
+        let update_prop = () => {
             this._updateProp(input.value);
+        };
+
+        this.onDOMReadyOnce(() => {
+            update_prop();
 
             // bind from prop to input
+            // (the DOM must be ready to set it up, or it will fail to initialize correctly)
             this.subscribeToProp(PROPS.value, (value) => {
                 input.value = value;
             });
-
+        });
+        this.onDOMReady(() => {
             // bind from input to prop
-            input.addEventListener("input", () => {
-                this._updateProp(input.value);
-            });
+            input.addEventListener("input", update_prop);
+        }, () => {
+            input.removeEventListener("input", update_prop);
         });
     }
 

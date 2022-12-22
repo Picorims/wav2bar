@@ -97,33 +97,63 @@ export class webUICustomComponent extends HTMLElement {
      */
     connectedCallback() {
         this._refreshAttributes();
+
+        // DOM handlers
         for (let i = this._DOM_ready_callbacks.length -1; i >= 0; i--) {
             let entry = this._DOM_ready_callbacks[i];
-            if (custom_components_loaded) {
-                entry.fn();
-                // some callbacks only fire once
-                if (entry.once) this._DOM_ready_callbacks.splice(i, 1);
+            if (entry.enabled) {
+                if (custom_components_loaded) {
+                
+                    entry.fn();
+                    // some callbacks only fire once
+                    if (entry.once) {
+                        if (entry.destroyer === null) this._DOM_ready_callbacks.splice(i, 1);
+                        else entry.enabled = false;
+                    }    
+                } else pending_DOM_callbacks.push({this: this, fn: entry.fn});
             }
-            else pending_DOM_callbacks.push({this: this, fn: entry.fn});
+            
         }        
+    }
+
+    /**
+     * HTMLElement function that fires when the element is removed from the DOM
+     */
+    disconnectedCallback() {
+        // DOM handlers
+        for (let i = this._DOM_ready_callbacks.length -1; i >= 0; i--) {
+            let entry = this._DOM_ready_callbacks[i];
+            if (entry.destroyer !== null) {
+                if (custom_components_loaded) {
+                    
+                    entry.destroyer();
+                    // some callbacks only fire once
+                    if (entry.once) this._DOM_ready_callbacks.splice(i, 1);
+                }
+                else pending_DOM_callbacks.push({this: this, fn: entry.destroyer});
+            }
+        }
     }
 
     /**
      * Function fired when the connectedCallback() function is fired (component)
      * on DOM, and after all custom components loaded.
      * @param {Function} callback 
+     * @param {Function} destroyer The function to call when the component gets off the DOM
+     * (to remove an event listener for example)
      */
-    onDOMReady(callback) {
-        this._DOM_ready_callbacks.push({fn: callback, once: false});
+    onDOMReady(callback, destroyer = null) {
+        this._DOM_ready_callbacks.push({fn: callback, once: false, destroyer: destroyer, enabled: true});
     }
 
     /**
      * Function fired ***once*** when the connectedCallback() function is fired (component)
      * on DOM, and after all custom components loaded.
      * @param {Function} callback 
+     * @param {Function} destroyer The function to call when the component gets off the DOM
      */
-    onDOMReadyOnce(callback) {
-        this._DOM_ready_callbacks.push({fn: callback, once: true});
+    onDOMReadyOnce(callback, destroyer = null) {
+        this._DOM_ready_callbacks.push({fn: callback, once: true, destroyer: destroyer, enabled: true});
     }
 
     /**

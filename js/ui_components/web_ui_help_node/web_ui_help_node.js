@@ -33,19 +33,28 @@ export class webUIHelpNode extends webUICustomComponent {
         this._bubble = null;
 
         // interactivity
-
-        this._help_node.addEventListener("pointerenter", () => {
+        let show_help = () => {
             let help = this.getProp(PROPS.help);
             if (help !== "") {
                 this._bubble = DisplayHelpMsg(this, help);
             }
-        });
+        };
 
-        this._help_node.addEventListener("pointerleave", () => {
+        let hide_help = () => {
             if (this.getProp(PROPS.help) !== "") {
                 this._bubble.remove();
             }
+        };
+
+        this.onDOMReady(() => {
+            this._help_node.addEventListener("pointerenter", show_help);
+            this._help_node.addEventListener("pointerleave", hide_help);
+        }, () => {
+            this._help_node.removeEventListener("pointerenter", show_help);
+            this._help_node.removeEventListener("pointerleave", hide_help);
         });
+
+        
     }
 }
 await register(TAG, webUIHelpNode, "");
