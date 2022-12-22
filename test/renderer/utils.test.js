@@ -655,10 +655,12 @@ describe('utils', () => {
                     }
                 });
     
-                it('returns the value of a state with get', () => {
+                it('returns the value of a state with get', function() {
                     let c = new testClass();
                     let d = new testClass(initial_state2);
     
+                    this.timeout(1000);
+
                     let assertStateExplorable = (class_instance, initial_path, object) => {
                         if (!initial_path) initial_path = "";
                         for (let key in object) {
@@ -740,6 +742,18 @@ describe('utils', () => {
                         done();
                     })
                     c.setState("a", "foo");
+                });
+
+                it('allows to subscribe to a state change happening in children', function(done) {
+                    let c = new testClass2();
+    
+                    this.timeout(1000);
+    
+                    c.subscribeToState("d", (value) => {
+                        expect(value).to.deep.equal({e: true, f: 5});
+                        done();
+                    })
+                    c.setState("d/f", 5);
                 });
     
                 it('lets unsubscribe to state', () => {

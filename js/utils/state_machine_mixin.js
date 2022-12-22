@@ -150,6 +150,22 @@ export let StateMachineMixin = {
         }
         if (modified) {
             this.triggerEvent(state_path, clone.deepClone(value));
+            
+            // notify parent objects as well
+            let truncatePathRegExp = /\/[^/]*$/g; // removes "/stuff" from "bla/thing/stuff"
+            let isAtRootRegExp = /^[^/]+$/g; // no slash
+
+            if (!isAtRootRegExp.test(state_path)) {
+                let path = state_path.replace(truncatePathRegExp, "");
+
+                // for each parent
+                let done = false;
+                while (!done) {
+                    done = isAtRootRegExp.test(path);
+                    this.triggerEvent(path, clone.deepClone(this.getState(path)));
+                    path = path.replace(truncatePathRegExp, "");
+                }
+            }
         }
         return modified;
     },
