@@ -83,5 +83,14 @@ export let EventMixin = {
         this._event_handlers[event].forEach(handler => {
             handler(...args);
         });
-    } 
+    },
+
+    /**
+     * Returns if functions are listening to the given event.
+     * @param {String} event 
+     * @returns 
+     */
+    hasHandlers: function(event) {
+        return this._event_handlers[event].length > 0;
+    }
 };

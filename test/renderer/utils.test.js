@@ -551,7 +551,8 @@ describe('utils', () => {
                         "_setupEventMixin",
                         "subscribeToEvent",
                         "unsubscribeToEvent",
-                        "triggerEvent"
+                        "triggerEvent",
+                        "hasHandlers"
                     ];
                     for (let method of methods) {
                         expect(c).to.be.an('object').that.respondTo(method);
@@ -577,6 +578,16 @@ describe('utils', () => {
                     c.subscribeToEvent("c", func);
                     c.unsubscribeToEvent("c", func);
                     c.triggerEvent("c");
+                });
+
+                it('correctly reports if handlers exist', () => {
+                    let c = new testClass();
+                    let func = () => {};
+                    expect(c.hasHandlers("c")).to.be.false;
+                    c.subscribeToEvent("c", func);
+                    expect(c.hasHandlers("c")).to.be.true;
+                    c.unsubscribeToEvent("c", func);
+                    expect(c.hasHandlers("c")).to.be.false;
                 });
             });
         });
@@ -642,6 +653,8 @@ describe('utils', () => {
                         "_getStatePaths",
                         "getState",
                         "setState",
+                        "_notifyParents",
+                        "_callPendingNotifications",
                         "_registerValidator",
                         "_validatorExists",
                         "verifyState",
@@ -649,6 +662,7 @@ describe('utils', () => {
                         "subscribeToState",
                         "unsubscribeToState",
                         "bindStates",
+                        "_triggerState"
                     ];
                     for (let method of methods) {
                         expect(c).to.be.an('object').that.respondTo(method);
