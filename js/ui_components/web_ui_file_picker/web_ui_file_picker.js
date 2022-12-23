@@ -87,7 +87,7 @@ export class WebUIFilePicker extends WebUICustomComponent {
 
         let click_fn = () => {
             window.FileBrowserDialog({
-                type: "get_file",
+                type: this.getProp(PROPS.type),
                 allowed_extensions: this.getState(STATES.allowed_extensions)
             }, (result) => {
                 this.setProp(PROPS.path, result);

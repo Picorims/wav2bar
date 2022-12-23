@@ -107,10 +107,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <div><span>Opened save: </span><span id="opened_save"></span></div>
                         </div> -->
     
-                        <div class="panel_param_container" data-help="save_export">
+                        <ui-parameter id="export-save" data-title="Export save" data-help="save_export">
+                            <ui-file-picker id="export-save-picker" data-type="save_file" data-button-text="SAVE" data-opened-span-text="Saved at"></ui-file-picker>
+                        </ui-parameter>
+                        <!-- <div class="panel_param_container" data-help="save_export">
                             <span>Export save: </span>
                             <button id="export_save_button" class="panel_button">SAVE</button>
-                        </div>
+                        </div> -->
                     
                     </div>
     

@@ -167,15 +167,20 @@ async function InitUI() {
     // };
 
     //export save
-    document.getElementById("export_save_button").onclick = function() {
-        FileBrowserDialog({
-            type: "save_file",
-            allowed_extensions:["w2bzip"],
-        }, function(result) {
-            project.save_handler.exportSave(result);
-        });
-    };
-
+    // document.getElementById("export_save_button").onclick = function() {
+    //     FileBrowserDialog({
+    //         type: "save_file",
+    //         allowed_extensions:["w2bzip"],
+    //     }, function(result) {
+    //         project.save_handler.exportSave(result);
+    //     });
+    // };
+    /** @type {uiComponents.WebUIFilePicker} */
+    let export_save_picker = document.getElementById("export-save-picker");
+    export_save_picker.subscribeToEvent(export_save_picker.EVENTS.path_chosen, (path) => {
+        project.save_handler.exportSave(path);
+    });
+    export_save_picker.setState(export_save_picker.STATES.allowed_extensions, ["w2bzip"]);
 
 
 
@@ -321,7 +326,7 @@ async function InitUI() {
             case "screen_size":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.size); break;
             case "audio":                       elements[i].setProp("help", help.audio.import); break;
             case "save_import":                 elements[i].setProp("help", help.save.import); break;
-            case "save_export":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.save.export); break;
+            case "save_export":                 elements[i].setProp("help", help.save.export); break;
             case "new_object":                  help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.object.general.creation); break;
             case "export_video_path":           help_ui = new imports.ui_components.UIHelp(elements[i], help.export.video_path); break;
             case "export":                      help_ui = new imports.ui_components.UIHelp(elements[i], help.export.action); break;
