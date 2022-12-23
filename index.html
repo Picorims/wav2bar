@@ -89,11 +89,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                                 </div>
                             </ui-label-block>
                         </div>
-                        <div class="panel_param_container" data-help="audio">
-                            <span>Import audio (mp3/wav/ogg): </span>
+
+                        <ui-parameter id="load-audio" data-title="Import audio (mp3/wav/ogg)" data-help="audio">
+                            <ui-file-picker id="load-audio-picker" data-opened-span-text="Opened audio file"></ui-file-picker>
+                        </ui-parameter>
+
+                        <!-- <div class="panel_param_container" data-help="audio">
                             <button id="load_audio_button" class="panel_button">CHOOSE AUDIO FILE</button>
-                            <div><span>Opened audio file: </span><span id="opened_audio"></span></div>
-                        </div>
+                            <div><span>: </span><span id="opened_audio"></span></div>
+                        </div> -->
                         
                         <div class="panel_param_container" data-help="save_import">
                             <span>Import save (.w2bzip): </span>

@@ -626,9 +626,9 @@ describe('utils', () => {
                 };
     
                 class testClass {
-                    constructor(init_state = initial_state) {
+                    constructor(init_state = initial_state, additional_events = []) {
                         Object.assign(testClass.prototype, utils.StateMachineMixin);
-                        this._setupStateMachineMixin(testClass, init_state);
+                        this._setupStateMachineMixin(testClass, init_state, additional_events);
                     }
                 }
     
@@ -639,7 +639,7 @@ describe('utils', () => {
                         this._registerValidator("d/e", (value) => (value === true || value === false), "It must be a boolean.");
                     }
                 }
-    
+
                 it('has all the required methods', () => {
                     let c = new testClass();
                     let methods = [
@@ -829,6 +829,16 @@ describe('utils', () => {
                         let res = test.other_machine.getState(test.other_path);
                         expect(res).to.deep.equal(test.test_val);
                     }
+                });
+
+                it('supports events next to states', function(done) {
+                    let c1 = new testClass(initial_state, ["test_event"]);
+
+                    this.timeout(1000);
+                    c1.subscribeToEvent("test_event", () => {
+                        done();
+                    });
+                    c1.triggerEvent("test_event");
                 });
             });
         });

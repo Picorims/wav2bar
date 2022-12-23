@@ -44,10 +44,11 @@ export let StateMachineMixin = {
      * @param {Object} class_ref The reference to the class definition
      * @param {Object} initial_tree The initial state machine tree, with default
      * values in it.
+     * @param {Array<String>} additional_events add other events to the event mixin
      * @memberof StateMachineMixin
      * @access protected
      */
-    _setupStateMachineMixin: function(class_ref, initial_tree) {
+    _setupStateMachineMixin: function(class_ref, initial_tree, additional_events = []) {
         Object.assign(class_ref.prototype, EventMixin);
         //deep copy the state
         this._machine_state = clone.deepClone(initial_tree);
@@ -60,7 +61,7 @@ export let StateMachineMixin = {
          */
         this._validators = {};
         this._state_paths = this._getStatePaths(this._machine_state, "");
-        this._setupEventMixin(this._state_paths);
+        this._setupEventMixin([...this._state_paths, ...additional_events]);
         this._pending_notifications = {};
     },
 

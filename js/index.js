@@ -559,7 +559,8 @@ class SaveHandler {
         if (this._save_data.audio_filename !== "") {
             ipcRenderer.invoke("get-full-path", `${working_dir}/temp/current_save/assets/audio/${this._save_data.audio_filename}`).then((result => {
                 this._owner_project.loadAudio(result, "url");
-                if (!this._owner_project.export_mode) document.getElementById("opened_audio").innerHTML = this._save_data.audio_filename;
+                // if (!this._owner_project.export_mode) document.getElementById("opened_audio").innerHTML = this._save_data.audio_filename;
+                if (!this._owner_project.export_mode) document.getElementById("load-audio-picker").setProp("path", this._save_data.audio_filename);
             }));
         }
 
@@ -1220,7 +1221,8 @@ class Project {
     closeAudio() {
         imports.utils.CustomLog("info","Closing audio context if any...");
         if (!imports.utils.IsUndefined(this._context)) this._context.close();
-        if (!this._export_mode) document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
+        // if (!this._export_mode) document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
+        if (!this._export_mode) document.getElementById("load-audio-picker").setProp("path", project.save_handler.save_data.audio_filename);
         imports.utils.CustomLog("info","Audio context closed.");
     }
 

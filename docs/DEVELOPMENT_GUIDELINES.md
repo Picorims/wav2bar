@@ -305,9 +305,10 @@ export class webUIFooBar extends webUICustomComponent {
          * event subscription, set state, etc.), see the StateMachineMixin.
          */
         super(TAG, {
-            props: {...PROPS_DEFAULTS}
-            states: {}
-            private_states: {}
+            props: {...PROPS_DEFAULTS}, //copy declared values. It is prefered to do the same for other types below.
+            states: {},
+            private_states: {},
+            events: [] 
         });
     }
 }

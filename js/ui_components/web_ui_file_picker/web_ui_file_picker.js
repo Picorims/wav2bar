@@ -22,6 +22,7 @@ const PROPS = {
     path: "path",
     type: "type",
     button_text: "button_text",
+    opened_span_text: "opened_span_text",
     show_input: "show_input"
 };
 // declared here to have both in sight at the same time
@@ -29,17 +30,24 @@ const PROPS_DEFAULTS = {
     path: "",
     type: ["#any"],
     button_text: "BROWSE",
+    opened_span_text: "Opened",
     show_input: false
 };
 
 const STATES = {
     allowed_extensions: "allowed_extensions"
 };
-
 const STATES_DEFAULTS = {
     allowed_extensions: ["#any"]
 };
 
+const EVENTS = {
+    path_chosen: "path_chosen"
+}
+
+/**
+ * Component that allows picking a path through the file picker dialog.
+ */
 export class webUIFilePicker extends webUICustomComponent {
     /**
      * List of properties of the element, accessible to the user.
@@ -53,10 +61,17 @@ export class webUIFilePicker extends webUICustomComponent {
      */
     STATES = {...STATES};
 
+    /**
+     * List of events of the element, accessible to the user.
+     * @enum
+     */
+    EVENTS = {...EVENTS};
+
     constructor() {
         super(TAG, {
             props: {...PROPS_DEFAULTS},
-            states: {...STATES_DEFAULTS}
+            states: {...STATES_DEFAULTS},
+            events: {...EVENTS}
         });
 
         /** @type {import("../web_ui_bind_input/web_ui_bind_input.js").webUIBindInput} */
@@ -65,6 +80,8 @@ export class webUIFilePicker extends webUICustomComponent {
         let browse_btn = this._shadow_root.querySelector(".ui-file-picker-button");
         /** @type {HTMLSpanElement} */
         let path_disp = this._shadow_root.querySelector(".ui-file-picker-path-disp");
+        /** @type {HTMLSpanElement} */
+        let opened_span = this._shadow_root.querySelector(".ui-file-picker-opened-span");
 
         let click_fn = () => {
             window.FileBrowserDialog({
@@ -72,6 +89,7 @@ export class webUIFilePicker extends webUICustomComponent {
                 allowed_extensions: ["#any"]
             }, (result) => {
                 this.setProp(PROPS.path, result);
+                this.triggerEvent(EVENTS.path_chosen, result);
             });
         };
 
@@ -81,6 +99,9 @@ export class webUIFilePicker extends webUICustomComponent {
             });
             this.subscribeToProp(PROPS.path, (path) => {
                 path_disp.textContent = path;
+            });
+            this.subscribeToProp(PROPS.opened_span_text, (text) => {
+                opened_span.textContent = text;
             });
             this.bindStates(`props/${this.PROPS.path}`, input, `props/${input.PROPS.value}`);
         });

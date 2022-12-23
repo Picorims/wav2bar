@@ -27,7 +27,7 @@ package "event_mixin" {
 
 package "state_machine_mixin" {
     class StateMachineMixin <<mixin>> {
-        # _setupStateMachineMixin(class_ref: Object, initial_tree: Object): void
+        # _setupStateMachineMixin(class_ref: Object, initial_tree: Object, additional_events: Array<String>): void
         # _getStatePaths(object: Object, root: String): Array[String]
         + getState(state_path: String): any
         + setState(state_path: String, value: any, pending_notifications: boolean = false): bool

@@ -50,7 +50,7 @@ export class webUICustomComponent extends HTMLElement {
      * Initialize the component with a shadow root filled with
      * the template associated with the provided tag.
      * @param {string} tag tag used by the component in templates.
-     * @param {{props: {}, states: {}, private_states: {}}} props_and_states
+     * @param {{props: {}, states: {}, private_states: {}, events: {}}} props_and_states
      * Base for the state machine.
      * 
      * Use props for properties accessible from HTML, states for complex properties
@@ -65,6 +65,9 @@ export class webUICustomComponent extends HTMLElement {
      * Don't hesitate to make use of `StateMachineMixin`'s `_registerValidator`
      * to put rules on allowed values and `subscribeToState` to perform reactive
      * changes based on props and states.
+     * 
+     * Events that can be fired using the `EventMixin` can also be defined.
+     * 
      * @memberof webUICustomComponent
      */
     constructor(tag, props_and_states = {}) {
@@ -83,9 +86,19 @@ export class webUICustomComponent extends HTMLElement {
         this._shadow_root = this.attachShadow({mode: "open"});
         this._shadow_root.appendChild(template_content.cloneNode(true));
 
+        //isolate events
+        let events = [];
+        if (props_and_states.events !== undefined) {
+            let events_obj = utils.deepClone(props_and_states.events);
+            delete props_and_states.events;
+            for (const key in events_obj) {
+                events.push(key);
+            }
+        }
+
         //setup props and states
         this._props = props_and_states.props;
-        this._setupStateMachineMixin(webUICustomComponent, props_and_states);
+        this._setupStateMachineMixin(webUICustomComponent, props_and_states, events);
 
         //load existing values from attributes, and set not defined ones
         this._refreshProperties();
@@ -250,10 +263,11 @@ export class webUICustomComponent extends HTMLElement {
      * It fires once with the current value for initialization.
      * @param {String} prop The property to listen to
      * @param {function(any)} function_handler The function to call, with the value available as an argument
+     * @param {Boolean} mute_first Prevent the event from firing once at initialization
      */
-    subscribeToProp(prop, function_handler) {
+    subscribeToProp(prop, function_handler, mute_first = false) {
         this.subscribeToState(`props/${prop}`, function_handler);
-        this.triggerEvent(`props/${prop}`, this.getProp(prop));
+        if (!mute_first) this.triggerEvent(`props/${prop}`, this.getProp(prop));
     }
 
     /**

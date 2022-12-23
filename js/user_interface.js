@@ -134,14 +134,20 @@ async function InitUI() {
     };
 
     //import audio
-    document.getElementById("load_audio_button").onclick = function() {
-        FileBrowserDialog({
-            type: "get_file",
-            allowed_extensions: ["wav","mp3","ogg"],
-        }, function(result) {
-            project.save_handler.saveAudio(result);
-        });
-    };
+    /** @type {import("../js/ui_components/web_ui_file_picker/web_ui_file_picker.js").webUIFilePicker} */
+    let load_audio_picker = document.getElementById("load-audio-picker");
+    load_audio_picker.subscribeToEvent(load_audio_picker.EVENTS.path_chosen, (path) => {
+        project.save_handler.saveAudio(path);
+    }, true);
+    
+    // document.getElementById("load_audio_button").onclick = function() {
+    //     FileBrowserDialog({
+    //         type: "get_file",
+    //         allowed_extensions: ["wav","mp3","ogg"],
+    //     }, function(result) {
+    //         project.save_handler.saveAudio(result);
+    //     });
+    // };
 
     //import save
     document.getElementById("save_file_button").onclick = function() {
@@ -297,7 +303,7 @@ async function InitUI() {
     //apply help to existing parameters not generated.
     help = await ipcRenderer.invoke("read-json-file", "./assets/help/help.json");
 
-    var elements = document.getElementsByClassName("panel_param_container");
+    var elements = document.getElementsByClassName("panel_param_container, ui-parameter");
 
     for (var i=0; i<elements.length; i++) {
         var help_node = elements[i].getAttribute("data-help");
@@ -306,7 +312,7 @@ async function InitUI() {
         switch (help_node) {
             case "fps":                         help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.fps); break;
             case "screen_size":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.size); break;
-            case "audio":                       help_ui = new imports.ui_components.UIHelp(elements[i], help.audio.import); break;
+            case "audio":                       elements[i].setProp("help", help.audio.import); break;
             case "save_import":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.save.import); break;
             case "save_export":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.save.export); break;
             case "new_object":                  help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.object.general.creation); break;
@@ -615,7 +621,8 @@ function SetupAudioUI() {
     var loop_audio = document.getElementById("loop_audio");
 
     //DISPLAY TITLE OF LOADED AUDIO
-    document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
+    // document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
+    document.getElementById("load-audio-picker").setProp("path", project.save_handler.save_data.audio_filename);
 
     //PLAY
     play_audio.onclick = function() {
