@@ -30,7 +30,7 @@ const PROPS_DEFAULTS = {
     path: "",
     type: "get_file",
     button_text: "BROWSE",
-    opened_span_text: "Opened",
+    opened_span_text: "Location",
     show_input: false
 };
 

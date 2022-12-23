@@ -28,6 +28,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     <title>Wav2Bar</title>
 
     <!-- main process -->
+    <script type="text/javascript">
+        var export_window = false;
+    </script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/settings.js"></script>
     <script type="text/javascript" src="js/user_interface.js"></script>
@@ -142,11 +145,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     
                     <!--EXPORT-->
                     <div id="export_tab" class="tab">
-                        <div class="panel_param_container" data-help="export_video_path">
+                        <ui-parameter id="choose-video-path" data-title="Save directory" data-help="export_video_path">
+                            <ui-file-picker id="choose-video-path-picker" data-type="save_file"></ui-file-picker>
+                        </ui-parameter>
+                        <!-- <div class="panel_param_container" data-help="export_video_path">
                             <span>Save directory: </span>
                             <input id="video_export_path_input" class="panel_input panel_input_string" />
                             <button id="choose_video_path_button" class="panel_button">BROWSE</button>
-                        </div>
+                        </div> -->
     
                         <div class="panel_param_container" data-help="experimental_jpeg_export">
                             <span>Experimental JPEG export: </span>

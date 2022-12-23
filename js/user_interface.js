@@ -197,18 +197,22 @@ async function InitUI() {
 
     //EXPORT TAB
     //choose video path through file browser
-    document.getElementById("choose_video_path_button").onclick = function() {
-        FileBrowserDialog({
-            type: "save_file",
-            allowed_extensions: ["mp4"]
-        }, function(result) {
-            document.getElementById("video_export_path_input").value = result;
-        });
-    };
+    /** @type {uiComponents.WebUIFilePicker} */
+    let choose_vid_path = document.getElementById("choose-video-path-picker");
+    choose_vid_path.setState(choose_vid_path.STATES.allowed_extensions, ["mp4"]);
+    // document.getElementById("choose_video_path_button").onclick = function() {
+    //     FileBrowserDialog({
+    //         type: "save_file",
+    //         allowed_extensions: ["mp4"]
+    //     }, function(result) {
+    //         document.getElementById("video_export_path_input").value = result;
+    //     });
+    // };
 
     //export
     document.getElementById("export_button").onclick = async function() {
-        let input_value = document.getElementById("video_export_path_input").value;
+        // let input_value = document.getElementById("video_export_path_input").value;
+        let input_value = choose_vid_path.getProp(choose_vid_path.PROPS.path);
         if (input_value == "") {
             MessageDialog("info","please specify the video output path.");
         } else if (!await ipcRenderer.invoke("path-exists",settings.ffmpeg.ffmpeg_path)
@@ -328,7 +332,7 @@ async function InitUI() {
             case "save_import":                 elements[i].setProp("help", help.save.import); break;
             case "save_export":                 elements[i].setProp("help", help.save.export); break;
             case "new_object":                  help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.object.general.creation); break;
-            case "export_video_path":           help_ui = new imports.ui_components.UIHelp(elements[i], help.export.video_path); break;
+            case "export_video_path":           elements[i].setProp("help", help.export.video_path); break;
             case "export":                      help_ui = new imports.ui_components.UIHelp(elements[i], help.export.action); break;
             // eslint-disable-next-line no-unused-vars
             case "experimental_jpeg_export":    help_ui = new imports.ui_components.UIHelp(elements[i], help.export.experimental_jpeg_export); break;

@@ -307,8 +307,8 @@ export async function register(tag, class_ref, path = "") {
     // add trailing slash if missing
     let noSlash = /[^/]$/g;
     if (path !== "" && noSlash.test(path)) path = path + "/";
-
-    const template_path = `./js/ui_components/${path}${tag_to_folder}/${tag_to_folder}.html`;
+    const root = window.export_window ? "../js/ui_components" : "./js/ui_components"; 
+    const template_path = `${root}/${path}${tag_to_folder}/${tag_to_folder}.html`;
     const template = await getTemplate(template_path);
     bindGlobalStyles(template);
     templates[tag] = template;
