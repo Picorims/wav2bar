@@ -18,6 +18,7 @@
 
 /*globals project, imports, ipcRenderer, setFFmpegPath, setFFprobePath, software_version, settings, InitSettings, Export*/
 
+// eslint-disable-next-line no-unused-vars
 var control_panel, screen_interface, screen;//MAIN HTML ELEMENTS
 
 var tab;//all tabs
@@ -134,7 +135,7 @@ async function InitUI() {
     };
 
     //import audio
-    /** @type {import("../js/ui_components/web_ui_file_picker/web_ui_file_picker.js").WebUIFilePicker} */
+    /** @type {uiComponents.WebUIFilePicker} */
     let load_audio_picker = document.getElementById("load-audio-picker");
     load_audio_picker.subscribeToEvent(load_audio_picker.EVENTS.path_chosen, (path) => {
         project.save_handler.saveAudio(path);
@@ -332,11 +333,11 @@ async function InitUI() {
     window.addEventListener("resize", function () {
         LoopUI();
     });
-    /**@type {import('./ui_components/ui_components').WebUISplitLayout} */
+    /**@type {uiComponents.WebUISplitLayout} */
     let split_layout = document.querySelector("#root ui-split-layout");
     split_layout.subscribeToProp(split_layout.PROPS.size, () => {
         LoopUI();
-    }); 
+    });
 }
 
 

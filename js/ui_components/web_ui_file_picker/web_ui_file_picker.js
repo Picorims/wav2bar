@@ -74,7 +74,7 @@ export class WebUIFilePicker extends WebUICustomComponent {
             events: {...EVENTS}
         });
 
-        /** @type {import("../web_ui_bind_input/web_ui_bind_input.js").WebUIBindInput} */
+        /** @type {uiComponents.WebUIBindInput} */
         let input = this._shadow_root.querySelector(".ui-file-picker-input");
         /** @type {HTMLButtonElement} */
         let browse_btn = this._shadow_root.querySelector(".ui-file-picker-button");

@@ -45,7 +45,7 @@ export class WebUIParameter extends WebUICustomComponent {
             props: {...PROPS_DEFAULTS}
         });
 
-        /** @type {import("../../web_ui_help_node/web_ui_help_node.js").WebUIHelpNode} */
+        /** @type {uiComponents.WebUIHelpNode} */
         this._help_node = this._shadow_root.querySelector("ui-help-node");
         this._title_elt = this._shadow_root.querySelector(".ui_parameter_title");
     

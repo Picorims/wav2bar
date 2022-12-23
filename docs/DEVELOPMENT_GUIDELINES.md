@@ -249,7 +249,7 @@ Those aren't as powerful as full featured JS frameworks such as React, Vue, Angu
 
 While web components comes pretty handy for pure JS development, they are tedious to declare. You need to register them, create a shadow DOM, clone an instance of the template in the constructor (which requires a fetch if we want to separate the template in another file), etc. Thus the process has been abstracted by the `web_ui_custom_component` module. It comes with two important tools: the `WebUICustomComponent` class and the `register` asynchronous function. While the class handles creating the DOM shadow and cloning the template, the `register` function defines the element in `customElements` and cache the template.
 
-To create a component, create a new folder within `ui_components` called `web_<tag_name_underscore>`. Create a JS module and an HTML file named the same way inside your newly created folder. In the HTML file, write your UI withing a `<template>`. In the module, asynchronously call `register` with the tag name separated by hyphens (the actual tag) and the class definition extending `WebUICustomComponent`. in the constructor, call `super(<tag_name_hyphens>, <props_and_states>)`. In order for the component to load, add an `export *` to `ui_components.js`.
+To create a component, create a new folder within `ui_components` called `web_<tag_name_underscore>`. Create a JS module and an HTML file named the same way inside your newly created folder. In the HTML file, write your UI withing a `<template>`. In the module, asynchronously call `register` with the tag name separated by hyphens (the actual tag) and the class definition extending `WebUICustomComponent`. in the constructor, call `super(<tag_name_hyphens>, <props_and_states>)`. In order for the component to load, add an `export *` to `ui_components.js`. Finally, to be able to use it in type definitions in JSDoc (from `uiComponents.<type>`), add it to `ui_components.d.ts`.
 
 It should look like this for `ui-foo-bar`:
 
@@ -321,7 +321,14 @@ await register(TAG, WebUIFooBar, "path/to/folder_containing_component_folder");
 ui_components.js
 ```js
 //...
-import web_foo_bar from "./web_ui_foo_bar/web_ui_foo_bar.js";
+export * from "./web_ui_foo_bar/web_ui_foo_bar.js";
+//...
+```
+
+ui_components.d.ts
+```ts
+//...
+export * from "./web_ui_foo_bar/web_ui_foo_bar.js";
 //...
 ```
 
