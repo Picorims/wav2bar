@@ -280,12 +280,36 @@ const PROPS_DEFAULTS = {
     prop: "default"
 };
 
+// put complex structures in states. The prefix in the value is necessary here
+const STATES = {
+    allowed_extensions: "states/allowed_extensions"
+};
+const STATES_DEFAULTS = {
+    allowed_extensions: ["#any"]
+};
+
+const EVENTS = {
+    path_chosen: "path_chosen"
+};
+
 export class WebUIFooBar extends WebUICustomComponent {
     /**
      * List of properties of the element, accessible to the user.
      * @enum
      */
     PROPS = {...PROPS};
+
+    /**
+     * List of states of the element, accessible to the user.
+     * @enum
+     */
+    STATES = {...STATES};
+
+    /**
+     * List of events of the element, accessible to the user.
+     * @enum
+     */
+    EVENTS = {...EVENTS};
 
     constructor() {
         /**
@@ -305,10 +329,10 @@ export class WebUIFooBar extends WebUICustomComponent {
          * event subscription, set state, etc.), see the StateMachineMixin.
          */
         super(TAG, {
-            props: {...PROPS_DEFAULTS}, //copy declared values. It is prefered to do the same for other types below.
-            states: {},
+            props: {...PROPS_DEFAULTS}, //copy declared values.
+            states: {...STATES_DEFAULTS},
             private_states: {},
-            events: [] 
+            events: {...EVENTS} 
         });
     }
 }

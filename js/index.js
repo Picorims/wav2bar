@@ -208,7 +208,8 @@ class SaveHandler {
                 this._lock_save_sync = false;
                 this._owner_project.user_interface.loadingMode(false);
             }
-            if (!this._owner_project.export_mode) document.getElementById("opened_save").innerHTML = save_file_path;
+            // if (!this._owner_project.export_mode) document.getElementById("opened_save").innerHTML = save_file_path;
+            if (!this._owner_project.export_mode) document.getElementById("load-save-picker").setProp("path", save_file_path);
         });
         await ipcRenderer.invoke("cache-save-file", save_file_path);
     }

@@ -140,7 +140,7 @@ async function InitUI() {
     load_audio_picker.subscribeToEvent(load_audio_picker.EVENTS.path_chosen, (path) => {
         project.save_handler.saveAudio(path);
     }, true);
-    
+    load_audio_picker.setState(load_audio_picker.STATES.allowed_extensions, ["wav","mp3","ogg"]);
     // document.getElementById("load_audio_button").onclick = function() {
     //     FileBrowserDialog({
     //         type: "get_file",
@@ -151,14 +151,20 @@ async function InitUI() {
     // };
 
     //import save
-    document.getElementById("save_file_button").onclick = function() {
-        FileBrowserDialog({
-            type: "get_file",
-            allowed_extensions:["w2bzip"],
-        }, function(result) {
-            project.save_handler.loadSave(result);
-        });
-    };
+    /** @type {uiComponents.WebUIFilePicker} */
+    let load_save_picker = document.getElementById("load-save-picker");
+    load_save_picker.subscribeToEvent(load_save_picker.EVENTS.path_chosen, (path) => {
+        project.save_handler.loadSave(path);
+    });
+    load_save_picker.setState(load_save_picker.STATES.allowed_extensions, ["w2bzip"]);
+    // document.getElementById("save_file_button").onclick = function() {
+    //     FileBrowserDialog({
+    //         type: "get_file",
+    //         allowed_extensions:["w2bzip"],
+    //     }, function(result) {
+    //         project.save_handler.loadSave(result);
+    //     });
+    // };
 
     //export save
     document.getElementById("export_save_button").onclick = function() {
@@ -304,7 +310,7 @@ async function InitUI() {
     //apply help to existing parameters not generated.
     help = await ipcRenderer.invoke("read-json-file", "./assets/help/help.json");
 
-    var elements = document.getElementsByClassName("panel_param_container, ui-parameter");
+    var elements = document.querySelectorAll(".panel_param_container, ui-parameter");
 
     for (var i=0; i<elements.length; i++) {
         var help_node = elements[i].getAttribute("data-help");
@@ -314,7 +320,7 @@ async function InitUI() {
             case "fps":                         help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.fps); break;
             case "screen_size":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.size); break;
             case "audio":                       elements[i].setProp("help", help.audio.import); break;
-            case "save_import":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.save.import); break;
+            case "save_import":                 elements[i].setProp("help", help.save.import); break;
             case "save_export":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.save.export); break;
             case "new_object":                  help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.object.general.creation); break;
             case "export_video_path":           help_ui = new imports.ui_components.UIHelp(elements[i], help.export.video_path); break;

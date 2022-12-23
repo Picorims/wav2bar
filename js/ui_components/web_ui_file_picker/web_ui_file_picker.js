@@ -28,14 +28,14 @@ const PROPS = {
 // declared here to have both in sight at the same time
 const PROPS_DEFAULTS = {
     path: "",
-    type: ["#any"],
+    type: "get_file",
     button_text: "BROWSE",
     opened_span_text: "Opened",
     show_input: false
 };
 
 const STATES = {
-    allowed_extensions: "allowed_extensions"
+    allowed_extensions: "states/allowed_extensions"
 };
 const STATES_DEFAULTS = {
     allowed_extensions: ["#any"]
@@ -47,6 +47,8 @@ const EVENTS = {
 
 /**
  * Component that allows picking a path through the file picker dialog.
+ * 
+ * **WARNING:** Do NOT use the `path` prop to listen to user input, use the `path_chosen` event instead.
  */
 export class WebUIFilePicker extends WebUICustomComponent {
     /**
@@ -86,7 +88,7 @@ export class WebUIFilePicker extends WebUICustomComponent {
         let click_fn = () => {
             window.FileBrowserDialog({
                 type: "get_file",
-                allowed_extensions: ["#any"]
+                allowed_extensions: this.getState(STATES.allowed_extensions)
             }, (result) => {
                 this.setProp(PROPS.path, result);
                 this.triggerEvent(EVENTS.path_chosen, result);

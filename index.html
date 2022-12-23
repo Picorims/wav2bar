@@ -91,19 +91,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                         </div>
 
                         <ui-parameter id="load-audio" data-title="Import audio (mp3/wav/ogg)" data-help="audio">
-                            <ui-file-picker id="load-audio-picker" data-opened-span-text="Opened audio file"></ui-file-picker>
+                            <ui-file-picker id="load-audio-picker" data-type="get_file" data-button-text="CHOOSE AUDIO FILE" data-opened-span-text="Opened audio file"></ui-file-picker>
                         </ui-parameter>
-
                         <!-- <div class="panel_param_container" data-help="audio">
                             <button id="load_audio_button" class="panel_button">CHOOSE AUDIO FILE</button>
                             <div><span>: </span><span id="opened_audio"></span></div>
                         </div> -->
                         
-                        <div class="panel_param_container" data-help="save_import">
+                        <ui-parameter id="load-save" data-title="Import save (.w2bzip)" data-help="save_import">
+                            <ui-file-picker id="load-save-picker" data-type="get_file" data-button-text="CHOOSE SAVE FILE" data-opened-span-text="Opened save"></ui-file-picker>
+                        </ui-parameter>
+                        <!-- <div class="panel_param_container" data-help="save_import">
                             <span>Import save (.w2bzip): </span>
                             <button id="save_file_button" class="panel_button">CHOOSE SAVE FILE</button>
                             <div><span>Opened save: </span><span id="opened_save"></span></div>
-                        </div>
+                        </div> -->
     
                         <div class="panel_param_container" data-help="save_export">
                             <span>Export save: </span>
