@@ -14,7 +14,7 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import {webUICustomComponent, register} from "../web_ui_custom_component.js";
+import {WebUICustomComponent, register} from "../web_ui_custom_component.js";
 
 const TAG = "ui-file-picker";
 // useful for intellisense and auto completion
@@ -43,12 +43,12 @@ const STATES_DEFAULTS = {
 
 const EVENTS = {
     path_chosen: "path_chosen"
-}
+};
 
 /**
  * Component that allows picking a path through the file picker dialog.
  */
-export class webUIFilePicker extends webUICustomComponent {
+export class WebUIFilePicker extends WebUICustomComponent {
     /**
      * List of properties of the element, accessible to the user.
      * @enum
@@ -74,7 +74,7 @@ export class webUIFilePicker extends webUICustomComponent {
             events: {...EVENTS}
         });
 
-        /** @type {import("../web_ui_bind_input/web_ui_bind_input.js").webUIBindInput} */
+        /** @type {import("../web_ui_bind_input/web_ui_bind_input.js").WebUIBindInput} */
         let input = this._shadow_root.querySelector(".ui-file-picker-input");
         /** @type {HTMLButtonElement} */
         let browse_btn = this._shadow_root.querySelector(".ui-file-picker-button");
@@ -115,4 +115,4 @@ export class webUIFilePicker extends webUICustomComponent {
         // TODO : button event listener + fix label block
     }
 }
-await register(TAG, webUIFilePicker);
+await register(TAG, WebUIFilePicker);

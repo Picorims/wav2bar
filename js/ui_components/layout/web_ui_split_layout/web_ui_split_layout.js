@@ -14,7 +14,7 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import {webUICustomComponent, register} from "../../web_ui_custom_component.js";
+import {WebUICustomComponent, register} from "../../web_ui_custom_component.js";
 
 const TAG = "ui-split-layout";
 // useful for intellisense and auto completion
@@ -38,7 +38,7 @@ const PROPS_DEFAULTS = {
  * Note that horizontal direction hasn't been implemented right now.
  * Only the CSS has been paved in preparation of this change.
  */
-export class webUISplitLayout extends webUICustomComponent {
+export class WebUISplitLayout extends WebUICustomComponent {
     /**
      * List of properties of the element, accessible to the user.
      * @enum
@@ -126,4 +126,4 @@ export class webUISplitLayout extends webUICustomComponent {
     }
 }
 
-await register(TAG, webUISplitLayout, "layout");
+await register(TAG, WebUISplitLayout, "layout");

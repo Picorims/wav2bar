@@ -134,7 +134,7 @@ async function InitUI() {
     };
 
     //import audio
-    /** @type {import("../js/ui_components/web_ui_file_picker/web_ui_file_picker.js").webUIFilePicker} */
+    /** @type {import("../js/ui_components/web_ui_file_picker/web_ui_file_picker.js").WebUIFilePicker} */
     let load_audio_picker = document.getElementById("load-audio-picker");
     load_audio_picker.subscribeToEvent(load_audio_picker.EVENTS.path_chosen, (path) => {
         project.save_handler.saveAudio(path);
@@ -332,7 +332,7 @@ async function InitUI() {
     window.addEventListener("resize", function () {
         LoopUI();
     });
-    /**@type {import('./ui_components/ui_components').webUISplitLayout} */
+    /**@type {import('./ui_components/ui_components').WebUISplitLayout} */
     let split_layout = document.querySelector("#root ui-split-layout");
     split_layout.subscribeToProp(split_layout.PROPS.size, () => {
         LoopUI();

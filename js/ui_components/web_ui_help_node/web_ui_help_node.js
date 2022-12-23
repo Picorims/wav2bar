@@ -1,4 +1,4 @@
-import {webUICustomComponent, register} from "../web_ui_custom_component.js";
+import {WebUICustomComponent, register} from "../web_ui_custom_component.js";
 import * as utils from "../../utils/utils.js";
 
 const TAG = "ui-help-node";
@@ -15,7 +15,7 @@ const PROPS_DEFAULTS = {
  * Hoverable node that displays text in a floating bubble,
  * designed to display help.
  */
-export class webUIHelpNode extends webUICustomComponent {
+export class WebUIHelpNode extends WebUICustomComponent {
     /**
      * List of properties of the element, accessible to the user.
      * @enum
@@ -57,7 +57,7 @@ export class webUIHelpNode extends webUICustomComponent {
         
     }
 }
-await register(TAG, webUIHelpNode, "");
+await register(TAG, WebUIHelpNode, "");
 
 /**
  * Displays the help message linked to a question mark element of a parameter.

@@ -14,7 +14,7 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import {webUICustomComponent, register} from "../web_ui_custom_component.js";
+import {WebUICustomComponent, register} from "../web_ui_custom_component.js";
 
 const TAG = "ui-bind-input";
 // useful for intellisense and auto completion
@@ -32,7 +32,7 @@ const PROPS_DEFAULTS = {
  * Components that makes databinding between an HTML input and state machines
  * easier, through a synchronized `value` property.
  */
-export class webUIBindInput extends webUICustomComponent {
+export class WebUIBindInput extends WebUICustomComponent {
     /**
      * List of properties of the element, accessible to the user.
      * @enum
@@ -56,7 +56,7 @@ export class webUIBindInput extends webUICustomComponent {
 
         let input = this.querySelector("input");
         if (!(input instanceof HTMLInputElement)) {
-            throw new Error("webUIBindInput: The child must be an <input> HTML element.");
+            throw new Error("WebUIBindInput: The child must be an <input> HTML element.");
         }
 
         let update_prop = () => {
@@ -99,4 +99,4 @@ export class webUIBindInput extends webUICustomComponent {
         this.setProp(PROPS.value, v);
     }
 }
-await register(TAG, webUIBindInput);
+await register(TAG, WebUIBindInput);

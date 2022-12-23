@@ -14,7 +14,7 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import {webUICustomComponent, register} from "../web_ui_custom_component.js";
+import {WebUICustomComponent, register} from "../web_ui_custom_component.js";
 
 const TAG = "ui-label-block";
 // useful for intellisense and auto completion
@@ -29,7 +29,7 @@ const PROPS_DEFAULTS = {
 /**
  * Container that adds a configurable label to the left.
  */
-export class webUILabelBlock extends webUICustomComponent {
+export class WebUILabelBlock extends WebUICustomComponent {
     /**
      * List of properties of the element, accessible to the user.
      * @enum
@@ -49,4 +49,4 @@ export class webUILabelBlock extends webUICustomComponent {
     }
 }
 
-await register(TAG, webUILabelBlock);
+await register(TAG, WebUILabelBlock);

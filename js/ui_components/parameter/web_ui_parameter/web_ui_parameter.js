@@ -14,7 +14,7 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import {webUICustomComponent, register} from "../../web_ui_custom_component.js";
+import {WebUICustomComponent, register} from "../../web_ui_custom_component.js";
 
 const TAG = "ui-parameter";
 // useful for intellisense and auto completion
@@ -33,7 +33,7 @@ const PROPS_DEFAULTS = {
  * Provides a help node with a help bubble, as well
  * as an optional title.
  */
-export class webUIParameter extends webUICustomComponent {
+export class WebUIParameter extends WebUICustomComponent {
     /**
      * List of properties of the element, accessible to the user.
      * @enum
@@ -45,7 +45,7 @@ export class webUIParameter extends webUICustomComponent {
             props: {...PROPS_DEFAULTS}
         });
 
-        /** @type {import("../../web_ui_help_node/web_ui_help_node.js").webUIHelpNode} */
+        /** @type {import("../../web_ui_help_node/web_ui_help_node.js").WebUIHelpNode} */
         this._help_node = this._shadow_root.querySelector("ui-help-node");
         this._title_elt = this._shadow_root.querySelector(".ui_parameter_title");
     
@@ -61,4 +61,4 @@ export class webUIParameter extends webUICustomComponent {
     }
 }
 
-await register(TAG, webUIParameter, "parameter");
+await register(TAG, WebUIParameter, "parameter");

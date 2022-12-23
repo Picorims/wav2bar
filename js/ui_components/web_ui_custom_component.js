@@ -41,11 +41,11 @@ export function callPendingDOMCallbacks() {
  * in order for them to work!
  *
  * @export
- * @class webUICustomComponent
+ * @class WebUICustomComponent
  * @extends {HTMLElement}
  * @mixes StateMachineMixin
  */
-export class webUICustomComponent extends HTMLElement {
+export class WebUICustomComponent extends HTMLElement {
     /**
      * Initialize the component with a shadow root filled with
      * the template associated with the provided tag.
@@ -68,12 +68,12 @@ export class webUICustomComponent extends HTMLElement {
      * 
      * Events that can be fired using the `EventMixin` can also be defined.
      * 
-     * @memberof webUICustomComponent
+     * @memberof WebUICustomComponent
      */
     constructor(tag, props_and_states = {}) {
         super();
         // test in static block for optimization
-        utils.useMixin(webUICustomComponent, utils.StateMachineMixin);
+        utils.useMixin(WebUICustomComponent, utils.StateMachineMixin);
 
         /**
          * @type {Array<{fn: Function, once: Boolean}>}
@@ -81,7 +81,7 @@ export class webUICustomComponent extends HTMLElement {
         this._DOM_ready_callbacks = [];
         
         //load template
-        if (templates[tag] === undefined) throw new Error("webUICustomComponent: unknown tag. Make sure it has been declared!");
+        if (templates[tag] === undefined) throw new Error("WebUICustomComponent: unknown tag. Make sure it has been declared!");
         let template_content = templates[tag].content;
         this._shadow_root = this.attachShadow({mode: "open"});
         this._shadow_root.appendChild(template_content.cloneNode(true));
@@ -98,7 +98,7 @@ export class webUICustomComponent extends HTMLElement {
 
         //setup props and states
         this._props = props_and_states.props;
-        this._setupStateMachineMixin(webUICustomComponent, props_and_states, events);
+        this._setupStateMachineMixin(WebUICustomComponent, props_and_states, events);
 
         //load existing values from attributes, and set not defined ones
         this._refreshProperties();

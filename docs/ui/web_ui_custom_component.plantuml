@@ -24,9 +24,9 @@ skinparam PackageStyle frame
 class HTMLElement {}
 
 package "ui_base_components" {
-    class webUICustomComponent {
+    class WebUICustomComponent {
         --
-        + webUICustomComponent(tag: string, props_and_states: Object) : webUICustomComponent
+        + WebUICustomComponent(tag: string, props_and_states: Object) : WebUICustomComponent
         + onDOMReady(callback: Function, destroyer: Function = null): void
         + onDOMReadyOnce(callback: Function, destroyer: Function = null): void
         + attrFromProp(prop: string): string
@@ -37,7 +37,7 @@ package "ui_base_components" {
         + subscribeToProp(prop: string, function_handler: Function(any), mute_first: Boolean): void
         + unsubscribeToProp(prop: string, function_handler: Function(any)): void
     }
-    HTMLElement <|-right- webUICustomComponent
+    HTMLElement <|-right- WebUICustomComponent
 }
 
 @enduml
