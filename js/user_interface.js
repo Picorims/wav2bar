@@ -116,10 +116,16 @@ async function InitUI() {
 
     //PROJECT TAB
     //fps selection
-    document.getElementById("fps_input").value = project.save_handler.save_data.fps;
-    document.getElementById("fps_input").oninput = function() {
-        ChangeFPSTo(parseInt(this.value));
-    };
+    /** @type {uiComponents.WebUIBindInput} */
+    let fps_input = document.getElementById("fps-input");
+    fps_input.setProp(fps_input.PROPS.value, project.save_handler.save_data.fps);
+    fps_input.subscribeToProp(fps_input.PROPS.value, (fps) => {
+        ChangeFPSTo(fps);
+    });
+    // document.getElementById("fps_input").value = project.save_handler.save_data.fps;
+    // document.getElementById("fps_input").oninput = function() {
+    //     ChangeFPSTo(parseInt(this.value));
+    // };
 
     //screen width
     document.getElementById("screen_width_input").value = project.save_handler.save_data.screen.width;
@@ -336,7 +342,7 @@ async function InitUI() {
 
         let help_ui;
         switch (help_node) {
-            case "fps":                         help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.fps); break;
+            case "fps":                         elements[i].setProp("help", help.parameter.screen.fps); break;
             case "screen_size":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.size); break;
             case "audio":                       elements[i].setProp("help", help.audio.import); break;
             case "save_import":                 elements[i].setProp("help", help.save.import); break;
@@ -518,7 +524,8 @@ function ChangeFPSTo(new_fps) {
     project.setFPS(new_fps);
 
     //update UI
-    if (!project.export_mode) document.getElementById("fps_input").value = project.save_handler.save_data.fps;
+    // if (!project.export_mode) document.getElementById("fps_input").value = project.save_handler.save_data.fps;
+    if (!project.export_mode) document.getElementById("fps-input").setProp("value", project.save_handler.save_data.fps);
 
     imports.utils.CustomLog("info",`FPS set to ${new_fps}`);
 }

@@ -77,11 +77,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <ui-file-picker data-button-text="GOGOGO"></ui-file-picker>
                         </ui-parameter>
     
-                        <div class="panel_param_container" data-help="fps">
+                        <ui-parameter data-help="fps">
+                            <ui-label-block data-name="Framerate">
+                                <ui-bind-input id="fps-input" data-type="int">
+                                    <input class="panel_input" type="number" min="1" max="8000" step="1"/>
+                                </ui-bind-input>
+                            </ui-label-block>
+                        </ui-parameter>
+                        <!-- <div class="panel_param_container" data-help="fps">
                             <ui-label-block data-name="Framerate">
                                 <input id="fps_input" class="panel_input" type="number" min="1" max="8000" step="1"/>
                             </ui-label-block>
-                        </div>
+                        </div> -->
     
                         <div class="panel_param_container" data-help="screen_size">
                             <ui-label-block data-name="Screen resolution">
