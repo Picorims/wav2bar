@@ -236,30 +236,40 @@ async function InitUI() {
     };
 
     //choose ffmpeg path through file browser
-    document.getElementById("choose_ffmpeg_path_button").onclick = function() {
-        FileBrowserDialog({
-            type: "get_file",
-            allowed_extensions: ["#any"]
-        }, function(result) {
-            setFFmpegPath(result);
-        });
-    };
-    document.getElementById("ffmpeg_path_input").oninput = function() {
-        setFFmpegPath(this.value);
-    };
+    /** @type {uiComponents.WebUIFilePicker} */
+    let ffmpeg_picker = document.getElementById("locate-ffmpeg-picker");
+    ffmpeg_picker.subscribeToEvent(ffmpeg_picker.EVENTS.path_chosen, (path) => {
+        setFFmpegPath(path);
+    });
+    // document.getElementById("choose_ffmpeg_path_button").onclick = function() {
+    //     FileBrowserDialog({
+    //         type: "get_file",
+    //         allowed_extensions: ["#any"]
+    //     }, function(result) {
+    //         setFFmpegPath(result);
+    //     });
+    // };
+    // document.getElementById("ffmpeg_path_input").oninput = function() {
+    //     setFFmpegPath(this.value);
+    // };
 
     //choose ffprobe path through file browser
-    document.getElementById("choose_ffprobe_path_button").onclick = function() {
-        FileBrowserDialog({
-            type: "get_file",
-            allowed_extensions: ["#any"]
-        }, function(result) {
-            setFFprobePath(result);
-        });
-    };
-    document.getElementById("ffprobe_path_input").oninput = function() {
-        setFFprobePath(this.value);
-    };
+    /** @type {uiComponents.WebUIFilePicker} */
+    let ffprobe_picker = document.getElementById("locate-ffprobe-picker");
+    ffprobe_picker.subscribeToEvent(ffprobe_picker.EVENTS.path_chosen, (path) => {
+        setFFprobePath(path);
+    });    
+    // document.getElementById("choose_ffprobe_path_button").onclick = function() {
+    //     FileBrowserDialog({
+    //         type: "get_file",
+    //         allowed_extensions: ["#any"]
+    //     }, function(result) {
+    //         setFFprobePath(result);
+    //     });
+    // };
+    // document.getElementById("ffprobe_path_input").oninput = function() {
+    //     setFFprobePath(this.value);
+    // };
 
 
     //open help for FFmpeg and FFprobe installation

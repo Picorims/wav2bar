@@ -183,16 +183,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <span>Logs: </span>
                             <button id="open_logs_button" class="panel_button">BROWSE LOGS FOLDER</button>    
                         </div>
-                        <div class="panel_param_container" data-help="">
+                        <ui-parameter id="locate-ffmpeg" data-title="FFmpeg location">
+                            <ui-file-picker id="locate-ffmpeg-picker" data-type="get_file"></ui-file-picker>
+                        </ui-parameter>
+                        <!-- <div class="panel_param_container" data-help="">
                             <span>Locate FFmpeg: </span>
                             <input id="ffmpeg_path_input" class="panel_input panel_input_string" />
                             <button id="choose_ffmpeg_path_button" class="panel_button">BROWSE</button>    
-                        </div>
-                        <div class="panel_param_container" data-help="">
+                        </div> -->
+                        <ui-parameter id="locate-ffprobe" data-title="FFprobe location">
+                            <ui-file-picker id="locate-ffprobe-picker" data-type="get_file"></ui-file-picker>
+                        </ui-parameter>
+                        <!-- <div class="panel_param_container" data-help="">
                             <span>Locate FFprobe: </span>
                             <input id="ffprobe_path_input" class="panel_input panel_input_string" />
                             <button id="choose_ffprobe_path_button" class="panel_button">BROWSE</button>
-                        </div>
+                        </div> -->
                         <div class="panel_param_container" data-help="">
                             <span>How to import FFmpeg and FFprobe: </span>
                             <button id="open_ffmpeg_help" class="panel_button">OPEN HELP</button>
