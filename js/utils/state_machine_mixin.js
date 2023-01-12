@@ -119,7 +119,8 @@ export let StateMachineMixin = {
      * @memberof StateMachineMixin
      */
     setState: function(state_path, value, pending_notifications = false) {
-        if (this.getState(state_path) === value) return;
+        if (equals.deepEquals(this.getState(state_path), value)) return;
+        if (type.equalsNaN(value)) throw new Error("setState: NaN is not supported in the state machine, as it is not a safe value.");
         let modified = false;
         let path_array = state_path.split("/");
         //remove the last element from the path
@@ -299,13 +300,17 @@ export let StateMachineMixin = {
     /**
      * Link two states from two state machines (it can be the same machine,
      * in theory (not tested)). When one state triggers an event, the other
-     * is set to the updated value. Since setState() does nothing when two
-     * values are equal, there is no infinite loop.
+     * is set to the updated value.
+     * 
+     * The destination receives the value of the host at initialization.
      * @param {String} state_path The state path to bind to in the current machine
      * @param {StateMachineMixin} external_machine The other machine to bind to
      * @param {String} external_state_path The other machine's state to bind to
      */
     bindStates: function(state_path, external_machine, external_state_path) {
+        // synchronize values
+        external_machine.setState(external_state_path, this.getState(state_path));
+
         this.subscribeToState(state_path, (value) => {
             external_machine.setState(external_state_path, value);
         });

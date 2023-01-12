@@ -41,9 +41,10 @@ export class WebUILabelBlock extends WebUICustomComponent {
             props: {...PROPS_DEFAULTS}
         });
 
+        let label = this._shadow_root.querySelector(".ui_label_block_name");
         this.onDOMReadyOnce(() => {
             this.subscribeToProp(PROPS.name, (value) => {
-                this._shadow_root.querySelector(".ui_label_block_name").textContent = `${value}: `;
+                label.textContent = `${value}: `;
             });    
         });
     }

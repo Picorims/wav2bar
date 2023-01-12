@@ -14,7 +14,7 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-export as namespace uiComponents
+export as namespace uiComponents;
 
 export * from "./layout/web_ui_split_layout/web_ui_split_layout.js";
 export * from "./web_ui_label_block/web_ui_label_block.js";
@@ -22,3 +22,4 @@ export * from "./parameter/web_ui_parameter/web_ui_parameter.js";
 export * from "./web_ui_help_node/web_ui_help_node.js";
 export * from "./web_ui_bind_input/web_ui_bind_input.js";
 export * from "./web_ui_file_picker/web_ui_file_picker.js";
+export * from "./web_ui_input_field/web_ui_input_field.js";

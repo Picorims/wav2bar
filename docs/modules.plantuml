@@ -46,7 +46,16 @@ system_info ..> electron_ipcRenderer
 package "ui_components" {}
 ui_components <.[dotted]. ui_base_components
 ui_components <.[dotted]. web_ui_custom_component
-ui_components <.[dotted]. web_ui_foo_bar
+
+'ui_components <.[dotted]. web_ui_foo_bar
+ui_components <.[dotted]. web_ui_split_layout
+ui_components <.[dotted]. web_ui_label_block
+ui_components <.[dotted]. web_ui_parameter
+ui_components <.[dotted]. web_ui_help_node
+ui_components <.[dotted]. web_ui_bind_input
+ui_components <.[dotted]. web_ui_file_picker
+ui_components <.[dotted]. web_ui_input_field
+
 ui_components ..> dom_ready
 ui_components <.[dotted]. ui_parameters
 ui_components <.[dotted]. ui_append_help
@@ -59,8 +68,24 @@ ui_base_components ..> utils
 package "web_ui_custom_component" {}
 web_ui_custom_component ..> utils
 
-package "web_ui_foo_bar" {}
-note bottom of web_ui_foo_bar: There is one import per web component
+' package "web_ui_foo_bar" {}
+'note bottom of web_ui_foo_bar: There is one import per web component
+package "web_ui_split_layout" {}
+web_ui_split_layout ..> web_ui_custom_component
+package "web_ui_label_block" {}
+web_ui_label_block ..> web_ui_custom_component
+package "web_ui_parameter" {}
+web_ui_parameter ..> web_ui_custom_component
+package "web_ui_help_node" {}
+web_ui_help_node ..> web_ui_custom_component
+web_ui_help_node ..> utils
+package "web_ui_bind_input" {}
+web_ui_bind_input ..> web_ui_custom_component
+package "web_ui_file_picker" {}
+web_ui_file_picker ..> web_ui_custom_component
+package "web_ui_input_field" {}
+web_ui_input_field ..> web_ui_custom_component
+web_ui_input_field ..> utils
 
 package "dom_ready" {}
 dom_ready ..> web_ui_custom_component

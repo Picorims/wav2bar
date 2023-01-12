@@ -37,6 +37,7 @@ export function deepEquals(val1, val2) {
         if (!objDeepEquals(val1, val2)) return false;
     } else {
         //simple value
+        if (type.equalsNaN(val1) && type.equalsNaN(val2)) return true;
         return val1 === val2;
     }
 

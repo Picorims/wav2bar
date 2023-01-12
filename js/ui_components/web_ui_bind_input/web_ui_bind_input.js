@@ -15,6 +15,7 @@
 //along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import {WebUICustomComponent, register} from "../web_ui_custom_component.js";
+import * as utils from "../../utils/utils.js";
 
 const TAG = "ui-bind-input";
 // useful for intellisense and auto completion
@@ -31,6 +32,9 @@ const PROPS_DEFAULTS = {
 /**
  * Components that makes databinding between an HTML input and state machines
  * easier, through a synchronized `value` property.
+ * 
+ * At initialization, the value props get priority over the predefined value
+ * of the HTML input.
  */
 export class WebUIBindInput extends WebUICustomComponent {
     /**
@@ -59,19 +63,24 @@ export class WebUIBindInput extends WebUICustomComponent {
             throw new Error("WebUIBindInput: The child must be an <input> HTML element.");
         }
 
+        // prevent "" from being parsed into NaN
+        let init_type = this.getProp(PROPS.type);
+        let init_type_numeric = (init_type === this.TYPES.INTEGER || init_type === this.TYPES.FLOAT); 
+        if (this.getProp(PROPS.value) === "" && init_type_numeric) {
+            this.setProp(PROPS.value, 0);
+        }
+
         let update_prop = () => {
             this._updateProp(input.value);
         };
 
-        this.onDOMReadyOnce(() => {
-            update_prop();
-
-            // bind from prop to input
-            // (the DOM must be ready to set it up, or it will fail to initialize correctly)
-            this.subscribeToProp(PROPS.value, (value) => {
-                input.value = value;
-            });
+        // value prop take precedence, so we override input.value first.
+        // bind from prop to input
+        // (the DOM must be ready to set it up, or it will fail to initialize correctly)
+        this.autoSubscribeToProp(PROPS.value, (value) => {
+            input.value = value;
         });
+
         this.onDOMReady(() => {
             // bind from input to prop
             input.addEventListener("input", update_prop);
@@ -91,8 +100,16 @@ export class WebUIBindInput extends WebUICustomComponent {
             v = value;
         } else if (type === this.TYPES.INTEGER) {
             v = parseInt(value);
+            if (utils.equalsNaN(v)) {
+                v = 0;
+                utils.CustomLog(utils.LOG_T.WARN, "WebUIBindInput: tried to parse a NaN like value.");
+            }
         } else if (type === this.TYPES.FLOAT) {
             v = parseFloat(value);
+            if (utils.equalsNaN(v)) {
+                v = 0;
+                utils.CustomLog(utils.LOG_T.WARN, "WebUIBindInput: tried to parse a NaN like value.");
+            }
         } else {
             throw new Error("_updateProp: unknown type for input value binding: " + type);
         }

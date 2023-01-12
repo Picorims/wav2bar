@@ -278,6 +278,31 @@ export class WebUICustomComponent extends HTMLElement {
     unsubscribeToProp(prop, function_handler) {
         this.unsubscribeToState(`props/${prop}`, function_handler);
     }
+
+    /**
+     * Subscribe to property changes only when the DOM is ready.
+     * It uses `onDOMReady` behinds the hood to automatically subscribe
+     * and unsubscribe.
+     * @param {String} prop The property to listen to
+     * @param {function(any)} function_handler The function that was called
+     */
+    autoSubscribeToProp(prop, function_handler) {
+        this.onDOMReady(() => {
+            this.subscribeToProp(prop, function_handler);
+        }, () => {
+            this.unsubscribeToProp(prop, function_handler);
+        });
+    }
+
+    /**
+     * Shorthand for `bindStates`.
+     * @param {String} prop Host prop
+     * @param {WebUICustomComponent} other_component Other host
+     * @param {String} other_prop Other host prop
+     */
+    bindProps(prop, other_component, other_prop) {
+        this.bindStates(`props/${prop}`, other_component, `props/${other_prop}`);
+    }
 }
 
 
@@ -312,7 +337,6 @@ export async function register(tag, class_ref, path = "") {
     const template = await getTemplate(template_path);
     bindGlobalStyles(template);
     templates[tag] = template;
-    console.log(template);
     customElements.define(tag, class_ref);
     console.log("defined " + tag);
 }

@@ -78,11 +78,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                         </ui-parameter>
     
                         <ui-parameter data-help="fps">
-                            <ui-label-block data-name="Framerate">
+                            <!-- <ui-label-block data-name="Framerate">
                                 <ui-bind-input id="fps-input" data-type="int">
                                     <input class="panel_input" type="number" min="1" max="8000" step="1"/>
                                 </ui-bind-input>
-                            </ui-label-block>
+                            </ui-label-block> -->
+                            <ui-input-field id="fps-input"
+                                data-name="Framerate"
+                                data-type="int"
+                                data-value="0"
+                                data-min="1"
+                                data-max="8000"
+                                data-step="1">
+                            </ui-input-field>
                         </ui-parameter>
                         <!-- <div class="panel_param_container" data-help="fps">
                             <ui-label-block data-name="Framerate">

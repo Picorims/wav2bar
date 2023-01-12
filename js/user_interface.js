@@ -116,7 +116,7 @@ async function InitUI() {
 
     //PROJECT TAB
     //fps selection
-    /** @type {uiComponents.WebUIBindInput} */
+    /** @type {uiComponents.WebUIInputField} */
     let fps_input = document.getElementById("fps-input");
     fps_input.setProp(fps_input.PROPS.value, project.save_handler.save_data.fps);
     fps_input.subscribeToProp(fps_input.PROPS.value, (fps) => {

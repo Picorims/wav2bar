@@ -239,6 +239,19 @@ describe('utils', () => {
                     expect(utils.IsAFunction(() => {})).to.equal(true);
                 });
             });
+
+
+
+            describe('equalsNaN', () => {
+                it('accepts NaN', () => {
+                    expect(utils.equalsNaN(NaN)).to.be.true;
+                });
+                it('rejects everything else', () => {
+                    let test_values = [Infinity, -Infinity, {}, [], [[]], [0], [1],
+                            null, undefined, 0, 1, 4, 7.8, "NaN", "str", "4", "4.5", "4,5", true, false];
+                    for (v of test_values) expect(utils.equalsNaN(v)).to.be.false;
+                });
+            });
         });
     
     
@@ -718,6 +731,11 @@ describe('utils', () => {
                     expect(c.getState("d")).to.deep.equal({e: true, f: "test2"});
                     expect(c.getState("d/f")).to.equal("test2");
                 });
+
+                it('does not allow NaN', () => {
+                    let c = new testClass();
+                    expect(() => {c.setState("a", NaN)}).to.throw();
+                });
     
                 it('throws an exception when a value does not exist', () => {
                     let c = new testClass();
@@ -825,6 +843,9 @@ describe('utils', () => {
     
                     for (let test of tests) {
                         test.machine.bindStates(test.path, test.other_machine, test.other_path);
+                        let init = test.machine.getState(test.path);
+                        let init_other = test.other_machine.getState(test.other_path);
+                        expect(init_other).to.deep.equal(init);
                         test.machine.setState(test.path, test.test_val);
                         let res = test.other_machine.getState(test.other_path);
                         expect(res).to.deep.equal(test.test_val);
