@@ -347,7 +347,6 @@ async function InitUI() {
     for (var i=0; i<elements.length; i++) {
         var help_node = elements[i].getAttribute("data-help");
 
-        let help_ui;
         switch (help_node) {
             case "fps":                         elements[i].setProp("help", help.parameter.screen.fps); break;
             case "screen_size":                 elements[i].setProp("help", help.parameter.screen.size); break;
@@ -357,8 +356,7 @@ async function InitUI() {
             case "new_object":                  elements[i].setProp("help", help.parameter.object.general.creation); break;
             case "export_video_path":           elements[i].setProp("help", help.export.video_path); break;
             case "export":                      elements[i].setProp("help", help.export.action); break;
-            // eslint-disable-next-line no-unused-vars
-            case "experimental_jpeg_export":    help_ui = new imports.ui_components.UIHelp(elements[i], help.export.experimental_jpeg_export); break;
+            case "experimental_jpeg_export":    elements[i].setProp("help", help.export.experimental_jpeg_export); break;
             default: break;
         }
     }

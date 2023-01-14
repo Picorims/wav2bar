@@ -167,10 +167,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <button id="choose_video_path_button" class="panel_button">BROWSE</button>
                         </div> -->
     
-                        <div class="panel_param_container" data-help="experimental_jpeg_export">
+                        <!-- <div class="panel_param_container" data-help="experimental_jpeg_export">
                             <span>Experimental JPEG export: </span>
                             <input id="experimental_export_input" type="checkbox" class="panel_input panel_input_checkbox" />
-                        </div>
+                        </div> -->
+                        <ui-parameter data-help="experimental_jpeg_export">
+                            <ui-input-field id="experimental-export-input"
+                                data-name="Save directory"
+                                data-type="bool"
+                                data-value="false">
+                            </ui-input-field>
+                        </ui-parameter>
 
                         <ui-parameter data-title="Export" data-help="export">
                             <button id="export_button" class="panel_button panel_button_wide">EXPORT NOW!</button>

@@ -1471,8 +1471,11 @@ function InitPage(export_mode) {
         if (argv._[0] === "export") project.save_handler.loadSave(argv.input, true);
 
         //enable experimental jpeg from CLI
-        if (argv._[0] === "export" && argv.jpeg) document.getElementById("experimental_export_input").checked = argv.jpeg;
-
+        if (argv._[0] === "export" && argv.jpeg) {
+            /** @type {uiComponents.WebUIInputField} */
+            let elt = document.getElementById("experimental-export-input");
+            elt.setProp(elt.PROPS.value, argv.jpeg);
+        }
         //launch export if any
         if (argv._[0] === "export") setTimeout(() => {
             Export(argv.output);

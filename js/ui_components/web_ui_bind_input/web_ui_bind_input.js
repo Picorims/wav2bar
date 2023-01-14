@@ -51,6 +51,7 @@ export class WebUIBindInput extends WebUICustomComponent {
         STRING: "str",
         INTEGER: "int",
         FLOAT: "float",
+        BOOL: "bool",
     };
 
     constructor() {
@@ -71,14 +72,22 @@ export class WebUIBindInput extends WebUICustomComponent {
         }
 
         let update_prop = () => {
-            this._updateProp(input.value);
+            if (this.getProp(PROPS.type) === this.TYPES.BOOL) {
+                this._updateProp(input.checked);
+            } else {
+                this._updateProp(input.value);
+            }
         };
 
         // value prop take precedence, so we override input.value first.
         // bind from prop to input
         // (the DOM must be ready to set it up, or it will fail to initialize correctly)
         this.autoSubscribeToProp(PROPS.value, (value) => {
-            input.value = value;
+            if (this.getProp(PROPS.type) === this.TYPES.BOOL) {
+                input.checked = value;
+            } else {
+                input.value = value;
+            }
         });
 
         this.onDOMReady(() => {
@@ -96,7 +105,7 @@ export class WebUIBindInput extends WebUICustomComponent {
     _updateProp(value) {
         let v;
         let type = this.getProp(PROPS.type);
-        if (type === this.TYPES.STRING) {
+        if (type === this.TYPES.STRING || type === this.TYPES.BOOL) {
             v = value;
         } else if (type === this.TYPES.INTEGER) {
             v = parseInt(value);

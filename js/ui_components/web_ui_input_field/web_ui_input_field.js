@@ -62,13 +62,19 @@ export class WebUIInputField extends WebUICustomComponent {
         let input = this._shadow_root.querySelector(".ui-input-field-input");
 
         this.autoSubscribeToProp(PROPS.type, (type) => {
-            console.log(input);
+            input.classList.remove("panel_input_checkbox");
             switch (type) {
                 case bind_input.TYPES.INTEGER:
                 case bind_input.TYPES.FLOAT:
                     input.type = "number"; break;
                 case bind_input.TYPES.STRING:
-                    input.type = "text";
+                    input.type = "text"; break;
+                case bind_input.TYPES.BOOL:
+                    input.type = "checkbox";
+                    input.classList.add("panel_input_checkbox");
+                    break;
+                default:
+                    throw new Error("WebUIInputField: invalid input type: " + type);
             }
         });
         this.autoSubscribeToProp(PROPS.min, (min) => {input.min = min;});
