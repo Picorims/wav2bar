@@ -65,24 +65,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                     <!--PROJECT-->
                     <div id="project_tab" class="tab">
 
-                        <ui-parameter data-title="A title" data-help="some help">
-                            <ui-label-block data-name="name">
-                                <ui-bind-input data-type="int">
-                                    <input type="number" value="2" />
-                                </ui-bind-input>
-                            </ui-label-block>
-                        </ui-parameter>
-
-                        <ui-parameter data-title="pick something">
-                            <ui-file-picker data-button-text="GOGOGO"></ui-file-picker>
-                        </ui-parameter>
-    
                         <ui-parameter data-help="fps">
-                            <!-- <ui-label-block data-name="Framerate">
-                                <ui-bind-input id="fps-input" data-type="int">
-                                    <input class="panel_input" type="number" min="1" max="8000" step="1"/>
-                                </ui-bind-input>
-                            </ui-label-block> -->
                             <ui-input-field id="fps-input"
                                 data-name="Framerate"
                                 data-type="int"
@@ -92,11 +75,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                                 data-step="1">
                             </ui-input-field>
                         </ui-parameter>
-                        <!-- <div class="panel_param_container" data-help="fps">
-                            <ui-label-block data-name="Framerate">
-                                <input id="fps_input" class="panel_input" type="number" min="1" max="8000" step="1"/>
-                            </ui-label-block>
-                        </div> -->
     
                         <div class="panel_param_container" data-help="screen_size">
                             <ui-label-block data-name="Screen resolution">

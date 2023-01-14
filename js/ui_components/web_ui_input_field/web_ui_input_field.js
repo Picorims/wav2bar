@@ -71,9 +71,9 @@ export class WebUIInputField extends WebUICustomComponent {
                     input.type = "text";
             }
         });
-        // this.autoSubscribeToProp(PROPS.min, (min) => {input.min = min;});
-        // this.autoSubscribeToProp(PROPS.max, (max) => {input.max = max;});
-        // this.autoSubscribeToProp(PROPS.step, (step) => {input.step = step;});
+        this.autoSubscribeToProp(PROPS.min, (min) => {input.min = min;});
+        this.autoSubscribeToProp(PROPS.max, (max) => {input.max = max;});
+        this.autoSubscribeToProp(PROPS.step, (step) => {input.step = step;});
     }
 }
 await register(TAG, WebUIInputField);

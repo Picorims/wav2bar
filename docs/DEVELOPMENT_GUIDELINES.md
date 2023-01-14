@@ -358,7 +358,7 @@ export * from "./web_ui_foo_bar/web_ui_foo_bar.js";
 
 It is (again) arguably not as convenient as a framework introducing custom syntax, but will do the job. 
 
-> **Note:** Make sur to import `ui_components` in order for the web components to be loaded! Otherwise you will get errors telling you that the components don't exist.
+> **Note:** Make sur to export the components in `ui_components` in order for the web components to be loaded! Otherwise you will get errors telling you that the components does not exist.
 
 <a name="versioning-and-git"></a>
 
