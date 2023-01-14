@@ -134,24 +134,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     
                     <!--OBJECTS-->
                     <div id="objects_tab" class="tab">
-                        <div class="panel_param_container" data-help="new_object">
-                            <span>New Object: </span>
-                            <select id="create_object_select" class="panel_input panel_input_list">
-                                <option value="shape">Image - Shape</option>
-                                <option value="particle_flow">Particle Flow</option>
-                                <option value="text">Text</option>
-                                <optgroup label="Timers">
-                                    <option value="timer_straight_bar">Timer - bar</option>
-                                    <option value="timer_straight_line_point">Timer - point</option>
-                                </optgroup>
-                                <optgroup label="Visualizers">
-                                    <option value="visualizer_straight_bar">Visualizer - straight</option>
-                                    <option value="visualizer_straight_wave">Visualizer - straight, waves</option>
-                                    <option value="visualizer_circular_bar">Visualizer - circular</option>
-                                </optgroup>
-                            </select>
-                            <button id="create_object_button" class="panel_button">CREATE</button>    
-                        </div>
+                        <ui-parameter data-help="new_object" data-title="New Object">
+                            <ui-label-block data-name="Type">
+                                <select id="create_object_select" class="panel_input panel_input_list">
+                                    <option value="shape">Image - Shape</option>
+                                    <option value="particle_flow">Particle Flow</option>
+                                    <option value="text">Text</option>
+                                    <optgroup label="Timers">
+                                        <option value="timer_straight_bar">Timer - bar</option>
+                                        <option value="timer_straight_line_point">Timer - point</option>
+                                    </optgroup>
+                                    <optgroup label="Visualizers">
+                                        <option value="visualizer_straight_bar">Visualizer - straight</option>
+                                        <option value="visualizer_straight_wave">Visualizer - straight, waves</option>
+                                        <option value="visualizer_circular_bar">Visualizer - circular</option>
+                                    </optgroup>
+                                </select>    
+                            </ui-label-block>
+                            <button id="create_object_button" class="panel_button panel_button_wide">CREATE</button>
+                        </ui-parameter>
                         <!--all object parameters container go here-->
                     </div>
     
@@ -170,8 +171,33 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <span>Experimental JPEG export: </span>
                             <input id="experimental_export_input" type="checkbox" class="panel_input panel_input_checkbox" />
                         </div>
-    
-                        <div class="panel_param_container" data-help="export">
+
+                        <ui-parameter data-title="Export" data-help="export">
+                            <button id="export_button" class="panel_button panel_button_wide">EXPORT NOW!</button>
+                            <ui-label-block data-name="Frames rendered">
+                                <span id="export_frame_span"></span>
+                            </ui-label-block>
+                            <ui-label-block data-name="Estimated time">
+                                <span id="export_frame_time_span"></span>
+                            </ui-label-block>
+
+                            <div class="progress_bar">
+                                <div id="export_frame_progress" class="progress_child"></div>
+                            </div>
+                            
+                            <ui-label-block data-name="Encoding video">
+                                <span id="export_encoding_span"></span>
+                            </ui-label-block>
+                            <ui-label-block data-name="Estimated time">
+                                <span id="export_encoding_time_span"></span>
+                            </ui-label-block>
+
+                            <div class="progress_bar">
+                                <div id="export_encoding_progress" class="progress_child"></div>
+                            </div>
+                        </ui-parameter>
+
+                        <!-- <div class="panel_param_container" data-help="export">
                             <span>Export: </span>
                             <button id="export_button" class="panel_button">EXPORT NOW!</button>
                             
@@ -186,15 +212,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <div class="progress_bar">
                                 <div id="export_encoding_progress" class="progress_child"></div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
     
                     <!--SETTINGS-->
                     <div id="settings_tab" class="tab">
-                        <div class="panel_param_container" data-help="">
-                            <span>Logs: </span>
-                            <button id="open_logs_button" class="panel_button">BROWSE LOGS FOLDER</button>    
-                        </div>
+                        <ui-parameter data-title="Logs">
+                            <button id="open_logs_button" class="panel_button panel_button_wide">BROWSE LOGS FOLDER</button>    
+                        </ui-parameter>
                         <ui-parameter id="locate-ffmpeg" data-title="FFmpeg location">
                             <ui-file-picker id="locate-ffmpeg-picker" data-type="get_file"></ui-file-picker>
                         </ui-parameter>
@@ -211,15 +236,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <input id="ffprobe_path_input" class="panel_input panel_input_string" />
                             <button id="choose_ffprobe_path_button" class="panel_button">BROWSE</button>
                         </div> -->
-                        <div class="panel_param_container" data-help="">
-                            <span>How to import FFmpeg and FFprobe: </span>
-                            <button id="open_ffmpeg_help" class="panel_button">OPEN HELP</button>
-                        </div>
+                        <ui-parameter data-title="How to import FFmpeg and FFprobe">
+                            <button id="open_ffmpeg_help" class="panel_button panel_button_wide">OPEN HELP</button>
+                        </ui-parameter>
                     </div>
     
                     <!--CONTACT AND HELP-->
                     <div id="help_tab" class="tab">
-                        <div class="panel_param_container about_info" data-help="">
+                        <ui-parameter class="about_info">
                             <p>
                                 Wav2Bar v<span id="software_version"></span>
                             </p>
@@ -247,7 +271,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <hr>
                             <p>
                                 Wav2Bar - Free software for creating audio visualization (motion design) videos
-                                Copyright (C) 2022  Picorims &lt;picorims.contact@gmail.com&gt;
+                                <br/>Copyright (C) 2022  Picorims &lt;picorims.contact@gmail.com&gt;
                                 <br/><br/>
                                 This program is free software: you can redistribute it and/or modify
                                 it under the terms of the GNU General Public License as published by
@@ -268,8 +292,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                                 - Kanade_Senpai (trailer video rendering)
                                 - pdejan (fix help.json information)
                             </p>
-                            </span>
-                        </div>
+                        </ui-parameter>
                     </div>
                 </div>
             </div>

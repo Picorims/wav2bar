@@ -354,9 +354,9 @@ async function InitUI() {
             case "audio":                       elements[i].setProp("help", help.audio.import); break;
             case "save_import":                 elements[i].setProp("help", help.save.import); break;
             case "save_export":                 elements[i].setProp("help", help.save.export); break;
-            case "new_object":                  help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.object.general.creation); break;
+            case "new_object":                  elements[i].setProp("help", help.parameter.object.general.creation); break;
             case "export_video_path":           elements[i].setProp("help", help.export.video_path); break;
-            case "export":                      help_ui = new imports.ui_components.UIHelp(elements[i], help.export.action); break;
+            case "export":                      elements[i].setProp("help", help.export.action); break;
             // eslint-disable-next-line no-unused-vars
             case "experimental_jpeg_export":    help_ui = new imports.ui_components.UIHelp(elements[i], help.export.experimental_jpeg_export); break;
             default: break;

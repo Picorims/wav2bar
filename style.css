@@ -566,6 +566,10 @@ Tabs content
     transition: 0.2s;
 }
 
+.panel_button_wide {
+    width: 100%;
+}
+
 
 .button_grid {
     overflow: hidden;
