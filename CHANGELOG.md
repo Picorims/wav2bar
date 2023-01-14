@@ -4,6 +4,9 @@ https://keepachangelog.com/en/1.0.0/
 
 ## 0.3.2-indev (????-??-??)
 
+### Changed
+- The side panel is now resizable.
+- The side panel user interface is more responsive, and should be easier to read.
 
 ## 0.3.1-beta (2022-11-01)
 
