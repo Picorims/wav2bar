@@ -128,17 +128,24 @@ async function InitUI() {
     // };
 
     //screen width
-    document.getElementById("screen_width_input").value = project.save_handler.save_data.screen.width;
-    document.getElementById("screen_width_input").oninput = function() {
-        SetScreenTo(parseInt(this.value), project.save_handler.save_data.screen.height);
-
-    };
+    /** @type {uiComponents.WebUIInputField} */
+    let screen_width_input = document.getElementById("screen-width-input");
+    screen_width_input.setProp(screen_width_input.PROPS.value, project.save_handler.save_data.screen.width);
+    screen_width_input.subscribeToProp(screen_width_input.PROPS.value, (width) => {
+        SetScreenTo(width, project.save_handler.save_data.screen.height);
+    });
 
     //screen height
-    document.getElementById("screen_height_input").value = project.save_handler.save_data.screen.height;
-    document.getElementById("screen_height_input").oninput = function() {
-        SetScreenTo(project.save_handler.save_data.screen.width, parseInt(this.value));
-    };
+    // document.getElementById("screen_height_input").value = project.save_handler.save_data.screen.height;
+    // document.getElementById("screen_height_input").oninput = function() {
+    //     SetScreenTo(project.save_handler.save_data.screen.width, parseInt(this.value));
+    // };
+    /** @type {uiComponents.WebUIInputField} */
+    let screen_height_input = document.getElementById("screen-height-input");
+    screen_height_input.setProp(screen_height_input.PROPS.value, project.save_handler.save_data.screen.height);
+    screen_height_input.subscribeToProp(screen_height_input.PROPS.value, (height) => {
+        SetScreenTo(project.save_handler.save_data.screen.width, height);
+    });
 
     //import audio
     /** @type {uiComponents.WebUIFilePicker} */
@@ -343,7 +350,7 @@ async function InitUI() {
         let help_ui;
         switch (help_node) {
             case "fps":                         elements[i].setProp("help", help.parameter.screen.fps); break;
-            case "screen_size":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.size); break;
+            case "screen_size":                 elements[i].setProp("help", help.parameter.screen.size); break;
             case "audio":                       elements[i].setProp("help", help.audio.import); break;
             case "save_import":                 elements[i].setProp("help", help.save.import); break;
             case "save_export":                 elements[i].setProp("help", help.save.export); break;
@@ -503,8 +510,14 @@ function SetScreenTo(width, height) {
 
     //update UI
     if (!project.export_mode) {
-        document.getElementById("screen_width_input").value = width;
-        document.getElementById("screen_height_input").value = height;
+        // document.getElementById("screen_width_input").value = width;
+        // document.getElementById("screen_height_input").value = height;
+        /** @type {uiComponents.WebUIInputField} */
+        let width_input = document.getElementById("screen-width-input");
+        /** @type {uiComponents.WebUIInputField} */
+        let height_input = document.getElementById("screen-height-input");
+        width_input.setProp(width_input.PROPS.value, width);
+        height_input.setProp(height_input.PROPS.value, height);
     }
 
     imports.utils.CustomLog("info",`screen set to ${width}x${height}`);

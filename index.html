@@ -76,7 +76,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             </ui-input-field>
                         </ui-parameter>
     
-                        <div class="panel_param_container" data-help="screen_size">
+                        <!-- <div class="panel_param_container" data-help="screen_size">
                             <ui-label-block data-name="Screen resolution">
                                 <div>
                                     <input id="screen_width_input" class="panel_input" type="number" min="16" max="8000" step="1"/>
@@ -84,7 +84,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                                     <input id="screen_height_input" class="panel_input" type="number" min="16" max="8000" step="1"/>
                                 </div>
                             </ui-label-block>
-                        </div>
+                        </div> -->
+
+                        <ui-parameter data-help="screen_size" data-title="Screen resolution">
+                            <ui-input-field id="screen-width-input"
+                                data-name="Width"
+                                data-type="int"
+                                data-value="1280"
+                                data-min="16"
+                                data-max="8000"
+                                data-step="1">
+                            </ui-input-field>
+                            <ui-input-field id="screen-height-input"
+                                data-name="Height"
+                                data-type="int"
+                                data-value="720"
+                                data-min="16"
+                                data-max="8000"
+                                data-step="1">
+                            </ui-input-field>
+                        </ui-parameter>
 
                         <ui-parameter id="load-audio" data-title="Import audio (mp3/wav/ogg)" data-help="audio">
                             <ui-file-picker id="load-audio-picker" data-type="get_file" data-button-text="CHOOSE AUDIO FILE" data-opened-span-text="Opened audio file"></ui-file-picker>
