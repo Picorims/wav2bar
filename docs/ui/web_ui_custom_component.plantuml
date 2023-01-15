@@ -24,16 +24,22 @@ skinparam PackageStyle frame
 class HTMLElement {}
 
 package "ui_base_components" {
-    class webUICustomComponent {
+    class WebUICustomComponent {
         --
-        + webUICustomComponent(tag: string, props_and_states: Object) : webUICustomComponent
+        + WebUICustomComponent(tag: string, props_and_states: Object) : WebUICustomComponent
+        + onDOMReady(callback: Function, destroyer: Function = null): void
+        + onDOMReadyOnce(callback: Function, destroyer: Function = null): void
         + attrFromProp(prop: string): string
         - _refreshAttributes(): void
         - _refreshProperties(): void
         + getProp(prop: string): any
         + setProp(prop: string, value: any): void
+        + subscribeToProp(prop: string, function_handler: Function(any), mute_first: Boolean): void
+        + unsubscribeToProp(prop: string, function_handler: Function(any)): void
+        + autoSubscribeToProp(prop: string, function_handler: Function(any)): void
+        + bindProps(prop: String, other_component: WebUICustomComponent, other_prop: String): void
     }
-    HTMLElement <|-right- webUICustomComponent
+    HTMLElement <|-right- WebUICustomComponent
 }
 
 @enduml

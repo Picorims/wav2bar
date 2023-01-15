@@ -1,0 +1,66 @@
+<!--
+Wav2Bar - Free software for creating audio visualization (motion design) videos
+Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<template>
+    <style>
+        :host {
+            width: 100%;
+        }
+
+        .ui_parameter_title,
+        .ui_parameter_subcontainer > span {
+            text-align: left;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .ui_parameter_container {
+            padding: 5px;
+            padding-left: 15px;
+
+            border-top: 4px solid var(--main-gray);
+            border-bottom: 4px solid var(--main-gray);
+            box-shadow: inset 0px 0px 10px black;
+
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+
+            overflow: hidden;
+
+            text-align: left;
+        }
+
+        .ui_parameter_container > .panel_input_file,
+        .ui_parameter_container > .panel_input_string {
+            flex-shrink: 0;
+        }
+
+        .ui_parameter_subcontainer {
+            width: calc(100% - 30px); /*size of question_mark + margin*/
+        }
+    </style>
+    <div class="ui_parameter_container">
+        <span class="ui_parameter_title"></span>
+        <div class="ui_parameter_subcontainer">
+            <slot></slot>
+        </div>
+        <ui-help-node></ui-help-node>
+    </div>
+</template>

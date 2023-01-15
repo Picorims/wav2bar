@@ -208,7 +208,8 @@ class SaveHandler {
                 this._lock_save_sync = false;
                 this._owner_project.user_interface.loadingMode(false);
             }
-            if (!this._owner_project.export_mode) document.getElementById("opened_save").innerHTML = save_file_path;
+            // if (!this._owner_project.export_mode) document.getElementById("opened_save").innerHTML = save_file_path;
+            if (!this._owner_project.export_mode) document.getElementById("load-save-picker").setProp("path", save_file_path);
         });
         await ipcRenderer.invoke("cache-save-file", save_file_path);
     }
@@ -559,7 +560,8 @@ class SaveHandler {
         if (this._save_data.audio_filename !== "") {
             ipcRenderer.invoke("get-full-path", `${working_dir}/temp/current_save/assets/audio/${this._save_data.audio_filename}`).then((result => {
                 this._owner_project.loadAudio(result, "url");
-                if (!this._owner_project.export_mode) document.getElementById("opened_audio").innerHTML = this._save_data.audio_filename;
+                // if (!this._owner_project.export_mode) document.getElementById("opened_audio").innerHTML = this._save_data.audio_filename;
+                if (!this._owner_project.export_mode) document.getElementById("load-audio-picker").setProp("path", this._save_data.audio_filename);
             }));
         }
 
@@ -1220,7 +1222,8 @@ class Project {
     closeAudio() {
         imports.utils.CustomLog("info","Closing audio context if any...");
         if (!imports.utils.IsUndefined(this._context)) this._context.close();
-        if (!this._export_mode) document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
+        // if (!this._export_mode) document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
+        if (!this._export_mode) document.getElementById("load-audio-picker").setProp("path", project.save_handler.save_data.audio_filename);
         imports.utils.CustomLog("info","Audio context closed.");
     }
 
@@ -1468,8 +1471,11 @@ function InitPage(export_mode) {
         if (argv._[0] === "export") project.save_handler.loadSave(argv.input, true);
 
         //enable experimental jpeg from CLI
-        if (argv._[0] === "export" && argv.jpeg) document.getElementById("experimental_export_input").checked = argv.jpeg;
-
+        if (argv._[0] === "export" && argv.jpeg) {
+            /** @type {uiComponents.WebUIInputField} */
+            let elt = document.getElementById("experimental-export-input");
+            elt.setProp(elt.PROPS.value, argv.jpeg);
+        }
         //launch export if any
         if (argv._[0] === "export") setTimeout(() => {
             Export(argv.output);

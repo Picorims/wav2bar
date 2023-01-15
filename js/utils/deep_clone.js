@@ -23,13 +23,13 @@ import * as type from "./type_checking.js";
  * @param {*} value value to clone
  * @returns {*} copy
  */
-export function deepClone(value) {
+export function deepClone(value, depth=0) {
     let clone;
 
     if (type.IsAnArray(value)) {
-        clone = arrayDeepClone(value);
+        clone = arrayDeepClone(value, depth++);
     } else if (type.IsAnObject(value)) {
-        clone = objDeepClone(value);
+        clone = objDeepClone(value, depth++);
     } else {
         clone = value;
     }            
@@ -45,11 +45,11 @@ export function deepClone(value) {
  * @param {Object} object object to clone
  * @returns {Object} copy
  */
-function objDeepClone(object) {
+function objDeepClone(object, depth=0) {
     let new_obj = {};
     for (let key in object) {
         if (obj.objHasOwnProp(object, key)) {
-            new_obj[key] = deepClone(object[key]);
+            new_obj[key] = deepClone(object[key], depth++);
         }
     }
     return new_obj;
@@ -63,10 +63,10 @@ function objDeepClone(object) {
  * @returns {Array} copy
  */
 
-function arrayDeepClone(array) {
+function arrayDeepClone(array, depth=0) {
     let new_array = [];
     for (let i = 0; i < array.length; i++) {
-        new_array[i] = deepClone(array[i]);
+        new_array[i] = deepClone(array[i], depth++);
     }
     return new_array;
 }

@@ -27,5 +27,6 @@ package "event_mixin" {
         + subscribeToEvent(event: String, function_handler: Function): void
         + unsubscribeToEvent(event: String, function_handler: Function): void
         + triggerEvent(event: String, ...args: any): void
+        + hasHandlers(event: String): bool
     }
 }

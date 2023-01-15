@@ -44,10 +44,11 @@ export let StateMachineMixin = {
      * @param {Object} class_ref The reference to the class definition
      * @param {Object} initial_tree The initial state machine tree, with default
      * values in it.
+     * @param {Array<String>} additional_events add other events to the event mixin
      * @memberof StateMachineMixin
      * @access protected
      */
-    _setupStateMachineMixin: function(class_ref, initial_tree) {
+    _setupStateMachineMixin: function(class_ref, initial_tree, additional_events = []) {
         Object.assign(class_ref.prototype, EventMixin);
         //deep copy the state
         this._machine_state = clone.deepClone(initial_tree);
@@ -60,7 +61,8 @@ export let StateMachineMixin = {
          */
         this._validators = {};
         this._state_paths = this._getStatePaths(this._machine_state, "");
-        this._setupEventMixin(this._state_paths);
+        this._setupEventMixin([...this._state_paths, ...additional_events]);
+        this._pending_notifications = {};
     },
 
     /**
@@ -101,18 +103,24 @@ export let StateMachineMixin = {
             if (value === undefined) throw new Error(`getState: ${state_path} does not exist.`);
         }
 
-        return value;
+        return clone.deepClone(value);
     },
 
     /**
      * Sets the new state value, after calling its preprocessors.
      * @param {String} state_path path of the state separated by slashes ("/").
      * @param {*} value The new value desired for the state
+     * @param {Boolean} pending_notifications Weather paths to notify should be cached or emitted.
+     * If cached, any event triggering multiple times will only fire once after the end of a setState with
+     * `pending_notifications = false`. This mecanism prevents duplicate events when setting the state of
+     * a (potentially complex) object.
      * @returns {Boolean} modified
      * @throws Throws an error if the state does not exist.
      * @memberof StateMachineMixin
      */
-    setState: function(state_path, value) {
+    setState: function(state_path, value, pending_notifications = false) {
+        if (equals.deepEquals(this.getState(state_path), value)) return;
+        if (type.equalsNaN(value)) throw new Error("setState: NaN is not supported in the state machine, as it is not a safe value.");
         let modified = false;
         let path_array = state_path.split("/");
         //remove the last element from the path
@@ -137,7 +145,8 @@ export let StateMachineMixin = {
             let object = value;
             for (let key in object) {
                 if (obj.objHasOwnProp(object, key)) {
-                    modified = this.setState(`${state_path}/${key}`, object[key]);
+                    let modifiedLocal = this.setState(`${state_path}/${key}`, object[key], true);
+                    if (modifiedLocal) modified = true;
                 }
             }
         } else {
@@ -148,9 +157,55 @@ export let StateMachineMixin = {
             }
         }
         if (modified) {
-            this.triggerEvent(state_path, clone.deepClone(value));
+            // prevents multiple calls of the same event within a single setState() call
+            this._pending_notifications[state_path] = value;
+            this._notifyParents(state_path, true);
+
+            if (!pending_notifications) {
+                this._callPendingNotifications();
+            }
         }
         return modified;
+    },
+
+    /**
+     * Trigger an event for every parent of a given path by going up the tree up to the root.
+     * @param {String} state_path
+     * @param {Boolean} [pending_notifications=true] see `setState()`.
+     * @access private
+     */
+    _notifyParents: function(state_path, pending_notifications = false) {
+        let truncatePathRegExp = /\/[^/]*$/g; // removes "/stuff" from "bla/thing/stuff"
+        let isAtRootRegExp = /^[^/]+$/g; // no slash
+
+        if (!isAtRootRegExp.test(state_path)) {
+            let path = state_path.replace(truncatePathRegExp, "");
+
+            // for each parent
+            let done = false;
+            while (!done) {
+                done = isAtRootRegExp.test(path);
+
+                if (pending_notifications) {
+                    this._pending_notifications[path] = this.getState(path);
+                } else {
+                    this._triggerState(state_path, this.getState(path));
+                }
+    
+                path = path.replace(truncatePathRegExp, "");
+            }
+        }
+    },
+
+    /**
+     * Call all pending notifications (events), then free up the queue.
+     * @access private
+     */
+    _callPendingNotifications: function() {
+        for (let key in this._pending_notifications) {
+            this._triggerState(key, this._pending_notifications[key]);
+        }
+        this._pending_notifications = {};
     },
 
     /**
@@ -240,5 +295,41 @@ export let StateMachineMixin = {
      */
     unsubscribeToState: function(state_path, function_handler) {
         this.unsubscribeToEvent(state_path, function_handler);
+    },
+
+    /**
+     * Link two states from two state machines (it can be the same machine,
+     * in theory (not tested)). When one state triggers an event, the other
+     * is set to the updated value.
+     * 
+     * The destination receives the value of the host at initialization.
+     * @param {String} state_path The state path to bind to in the current machine
+     * @param {StateMachineMixin} external_machine The other machine to bind to
+     * @param {String} external_state_path The other machine's state to bind to
+     */
+    bindStates: function(state_path, external_machine, external_state_path) {
+        // synchronize values
+        external_machine.setState(external_state_path, this.getState(state_path));
+
+        this.subscribeToState(state_path, (value) => {
+            external_machine.setState(external_state_path, value);
+        });
+
+        external_machine.subscribeToState(external_state_path, (value) => {
+            this.setState(state_path, value);
+        });
+    },
+
+    /**
+     * Triggers the state's associated event if one or more handlers exists, by deep cloning the given value
+     * and transmitting it to the handler as a parameter.
+     * @param {String} state_path The state path to notify
+     * @param {*} value The value (reference) to pass to the handlers
+     * @access private
+     */
+    _triggerState: function(state_path, value) {
+        if (this.hasHandlers(state_path)) {
+            this.triggerEvent(state_path, clone.deepClone(value));
+        }
     }
 };

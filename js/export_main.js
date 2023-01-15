@@ -62,7 +62,7 @@ function Export(path) {
             audio_file_type: project.audio_file_type,
             audio_file_extension: extension,
             output_path: path,
-            use_jpeg: document.getElementById("experimental_export_input").checked,
+            use_jpeg: document.getElementById("experimental-export-input").getProp("value")
         };
 
         //cache audio for rendering in a separate file.

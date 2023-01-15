@@ -18,6 +18,7 @@
 
 /*globals project, imports, ipcRenderer, setFFmpegPath, setFFprobePath, software_version, settings, InitSettings, Export*/
 
+// eslint-disable-next-line no-unused-vars
 var control_panel, screen_interface, screen;//MAIN HTML ELEMENTS
 
 var tab;//all tabs
@@ -115,54 +116,84 @@ async function InitUI() {
 
     //PROJECT TAB
     //fps selection
-    document.getElementById("fps_input").value = project.save_handler.save_data.fps;
-    document.getElementById("fps_input").oninput = function() {
-        ChangeFPSTo(parseInt(this.value));
-    };
+    /** @type {uiComponents.WebUIInputField} */
+    let fps_input = document.getElementById("fps-input");
+    fps_input.setProp(fps_input.PROPS.value, project.save_handler.save_data.fps);
+    fps_input.subscribeToProp(fps_input.PROPS.value, (fps) => {
+        ChangeFPSTo(fps);
+    });
+    // document.getElementById("fps_input").value = project.save_handler.save_data.fps;
+    // document.getElementById("fps_input").oninput = function() {
+    //     ChangeFPSTo(parseInt(this.value));
+    // };
 
     //screen width
-    document.getElementById("screen_width_input").value = project.save_handler.save_data.screen.width;
-    document.getElementById("screen_width_input").oninput = function() {
-        SetScreenTo(parseInt(this.value), project.save_handler.save_data.screen.height);
-
-    };
+    /** @type {uiComponents.WebUIInputField} */
+    let screen_width_input = document.getElementById("screen-width-input");
+    screen_width_input.setProp(screen_width_input.PROPS.value, project.save_handler.save_data.screen.width);
+    screen_width_input.subscribeToProp(screen_width_input.PROPS.value, (width) => {
+        SetScreenTo(width, project.save_handler.save_data.screen.height);
+    });
 
     //screen height
-    document.getElementById("screen_height_input").value = project.save_handler.save_data.screen.height;
-    document.getElementById("screen_height_input").oninput = function() {
-        SetScreenTo(project.save_handler.save_data.screen.width, parseInt(this.value));
-    };
+    // document.getElementById("screen_height_input").value = project.save_handler.save_data.screen.height;
+    // document.getElementById("screen_height_input").oninput = function() {
+    //     SetScreenTo(project.save_handler.save_data.screen.width, parseInt(this.value));
+    // };
+    /** @type {uiComponents.WebUIInputField} */
+    let screen_height_input = document.getElementById("screen-height-input");
+    screen_height_input.setProp(screen_height_input.PROPS.value, project.save_handler.save_data.screen.height);
+    screen_height_input.subscribeToProp(screen_height_input.PROPS.value, (height) => {
+        SetScreenTo(project.save_handler.save_data.screen.width, height);
+    });
 
     //import audio
-    document.getElementById("load_audio_button").onclick = function() {
-        FileBrowserDialog({
-            type: "get_file",
-            allowed_extensions: ["wav","mp3","ogg"],
-        }, function(result) {
-            project.save_handler.saveAudio(result);
-        });
-    };
+    /** @type {uiComponents.WebUIFilePicker} */
+    let load_audio_picker = document.getElementById("load-audio-picker");
+    load_audio_picker.subscribeToEvent(load_audio_picker.EVENTS.path_chosen, (path) => {
+        project.save_handler.saveAudio(path);
+    }, true);
+    load_audio_picker.setState(load_audio_picker.STATES.allowed_extensions, ["wav","mp3","ogg"]);
+    // document.getElementById("load_audio_button").onclick = function() {
+    //     FileBrowserDialog({
+    //         type: "get_file",
+    //         allowed_extensions: ["wav","mp3","ogg"],
+    //     }, function(result) {
+    //         project.save_handler.saveAudio(result);
+    //     });
+    // };
 
     //import save
-    document.getElementById("save_file_button").onclick = function() {
-        FileBrowserDialog({
-            type: "get_file",
-            allowed_extensions:["w2bzip"],
-        }, function(result) {
-            project.save_handler.loadSave(result);
-        });
-    };
+    /** @type {uiComponents.WebUIFilePicker} */
+    let load_save_picker = document.getElementById("load-save-picker");
+    load_save_picker.subscribeToEvent(load_save_picker.EVENTS.path_chosen, (path) => {
+        project.save_handler.loadSave(path);
+    });
+    load_save_picker.setState(load_save_picker.STATES.allowed_extensions, ["w2bzip"]);
+    // document.getElementById("save_file_button").onclick = function() {
+    //     FileBrowserDialog({
+    //         type: "get_file",
+    //         allowed_extensions:["w2bzip"],
+    //     }, function(result) {
+    //         project.save_handler.loadSave(result);
+    //     });
+    // };
 
     //export save
-    document.getElementById("export_save_button").onclick = function() {
-        FileBrowserDialog({
-            type: "save_file",
-            allowed_extensions:["w2bzip"],
-        }, function(result) {
-            project.save_handler.exportSave(result);
-        });
-    };
-
+    // document.getElementById("export_save_button").onclick = function() {
+    //     FileBrowserDialog({
+    //         type: "save_file",
+    //         allowed_extensions:["w2bzip"],
+    //     }, function(result) {
+    //         project.save_handler.exportSave(result);
+    //     });
+    // };
+    /** @type {uiComponents.WebUIFilePicker} */
+    let export_save_picker = document.getElementById("export-save-picker");
+    export_save_picker.subscribeToEvent(export_save_picker.EVENTS.path_chosen, (path) => {
+        project.save_handler.exportSave(path);
+    });
+    export_save_picker.setState(export_save_picker.STATES.allowed_extensions, ["w2bzip"]);
 
 
 
@@ -179,18 +210,22 @@ async function InitUI() {
 
     //EXPORT TAB
     //choose video path through file browser
-    document.getElementById("choose_video_path_button").onclick = function() {
-        FileBrowserDialog({
-            type: "save_file",
-            allowed_extensions: ["mp4"]
-        }, function(result) {
-            document.getElementById("video_export_path_input").value = result;
-        });
-    };
+    /** @type {uiComponents.WebUIFilePicker} */
+    let choose_vid_path = document.getElementById("choose-video-path-picker");
+    choose_vid_path.setState(choose_vid_path.STATES.allowed_extensions, ["mp4"]);
+    // document.getElementById("choose_video_path_button").onclick = function() {
+    //     FileBrowserDialog({
+    //         type: "save_file",
+    //         allowed_extensions: ["mp4"]
+    //     }, function(result) {
+    //         document.getElementById("video_export_path_input").value = result;
+    //     });
+    // };
 
     //export
     document.getElementById("export_button").onclick = async function() {
-        let input_value = document.getElementById("video_export_path_input").value;
+        // let input_value = document.getElementById("video_export_path_input").value;
+        let input_value = choose_vid_path.getProp(choose_vid_path.PROPS.path);
         if (input_value == "") {
             MessageDialog("info","please specify the video output path.");
         } else if (!await ipcRenderer.invoke("path-exists",settings.ffmpeg.ffmpeg_path)
@@ -214,30 +249,40 @@ async function InitUI() {
     };
 
     //choose ffmpeg path through file browser
-    document.getElementById("choose_ffmpeg_path_button").onclick = function() {
-        FileBrowserDialog({
-            type: "get_file",
-            allowed_extensions: ["#any"]
-        }, function(result) {
-            setFFmpegPath(result);
-        });
-    };
-    document.getElementById("ffmpeg_path_input").oninput = function() {
-        setFFmpegPath(this.value);
-    };
+    /** @type {uiComponents.WebUIFilePicker} */
+    let ffmpeg_picker = document.getElementById("locate-ffmpeg-picker");
+    ffmpeg_picker.subscribeToEvent(ffmpeg_picker.EVENTS.path_chosen, (path) => {
+        setFFmpegPath(path);
+    });
+    // document.getElementById("choose_ffmpeg_path_button").onclick = function() {
+    //     FileBrowserDialog({
+    //         type: "get_file",
+    //         allowed_extensions: ["#any"]
+    //     }, function(result) {
+    //         setFFmpegPath(result);
+    //     });
+    // };
+    // document.getElementById("ffmpeg_path_input").oninput = function() {
+    //     setFFmpegPath(this.value);
+    // };
 
     //choose ffprobe path through file browser
-    document.getElementById("choose_ffprobe_path_button").onclick = function() {
-        FileBrowserDialog({
-            type: "get_file",
-            allowed_extensions: ["#any"]
-        }, function(result) {
-            setFFprobePath(result);
-        });
-    };
-    document.getElementById("ffprobe_path_input").oninput = function() {
-        setFFprobePath(this.value);
-    };
+    /** @type {uiComponents.WebUIFilePicker} */
+    let ffprobe_picker = document.getElementById("locate-ffprobe-picker");
+    ffprobe_picker.subscribeToEvent(ffprobe_picker.EVENTS.path_chosen, (path) => {
+        setFFprobePath(path);
+    });    
+    // document.getElementById("choose_ffprobe_path_button").onclick = function() {
+    //     FileBrowserDialog({
+    //         type: "get_file",
+    //         allowed_extensions: ["#any"]
+    //     }, function(result) {
+    //         setFFprobePath(result);
+    //     });
+    // };
+    // document.getElementById("ffprobe_path_input").oninput = function() {
+    //     setFFprobePath(this.value);
+    // };
 
 
     //open help for FFmpeg and FFprobe installation
@@ -297,23 +342,21 @@ async function InitUI() {
     //apply help to existing parameters not generated.
     help = await ipcRenderer.invoke("read-json-file", "./assets/help/help.json");
 
-    var elements = document.getElementsByClassName("panel_param_container");
+    var elements = document.querySelectorAll(".panel_param_container, ui-parameter");
 
     for (var i=0; i<elements.length; i++) {
         var help_node = elements[i].getAttribute("data-help");
 
-        let help_ui;
         switch (help_node) {
-            case "fps":                         help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.fps); break;
-            case "screen_size":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.screen.size); break;
-            case "audio":                       help_ui = new imports.ui_components.UIHelp(elements[i], help.audio.import); break;
-            case "save_import":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.save.import); break;
-            case "save_export":                 help_ui = new imports.ui_components.UIHelp(elements[i], help.save.export); break;
-            case "new_object":                  help_ui = new imports.ui_components.UIHelp(elements[i], help.parameter.object.general.creation); break;
-            case "export_video_path":           help_ui = new imports.ui_components.UIHelp(elements[i], help.export.video_path); break;
-            case "export":                      help_ui = new imports.ui_components.UIHelp(elements[i], help.export.action); break;
-            // eslint-disable-next-line no-unused-vars
-            case "experimental_jpeg_export":    help_ui = new imports.ui_components.UIHelp(elements[i], help.export.experimental_jpeg_export); break;
+            case "fps":                         elements[i].setProp("help", help.parameter.screen.fps); break;
+            case "screen_size":                 elements[i].setProp("help", help.parameter.screen.size); break;
+            case "audio":                       elements[i].setProp("help", help.audio.import); break;
+            case "save_import":                 elements[i].setProp("help", help.save.import); break;
+            case "save_export":                 elements[i].setProp("help", help.save.export); break;
+            case "new_object":                  elements[i].setProp("help", help.parameter.object.general.creation); break;
+            case "export_video_path":           elements[i].setProp("help", help.export.video_path); break;
+            case "export":                      elements[i].setProp("help", help.export.action); break;
+            case "experimental_jpeg_export":    elements[i].setProp("help", help.export.experimental_jpeg_export); break;
             default: break;
         }
     }
@@ -324,6 +367,11 @@ async function InitUI() {
 
     //RESPONSIVE INTERFACE
     window.addEventListener("resize", function () {
+        LoopUI();
+    });
+    /**@type {uiComponents.WebUISplitLayout} */
+    let split_layout = document.querySelector("#root ui-split-layout");
+    split_layout.subscribeToProp(split_layout.PROPS.size, () => {
         LoopUI();
     });
 }
@@ -460,8 +508,14 @@ function SetScreenTo(width, height) {
 
     //update UI
     if (!project.export_mode) {
-        document.getElementById("screen_width_input").value = width;
-        document.getElementById("screen_height_input").value = height;
+        // document.getElementById("screen_width_input").value = width;
+        // document.getElementById("screen_height_input").value = height;
+        /** @type {uiComponents.WebUIInputField} */
+        let width_input = document.getElementById("screen-width-input");
+        /** @type {uiComponents.WebUIInputField} */
+        let height_input = document.getElementById("screen-height-input");
+        width_input.setProp(width_input.PROPS.value, width);
+        height_input.setProp(height_input.PROPS.value, height);
     }
 
     imports.utils.CustomLog("info",`screen set to ${width}x${height}`);
@@ -481,7 +535,8 @@ function ChangeFPSTo(new_fps) {
     project.setFPS(new_fps);
 
     //update UI
-    if (!project.export_mode) document.getElementById("fps_input").value = project.save_handler.save_data.fps;
+    // if (!project.export_mode) document.getElementById("fps_input").value = project.save_handler.save_data.fps;
+    if (!project.export_mode) document.getElementById("fps-input").setProp("value", project.save_handler.save_data.fps);
 
     imports.utils.CustomLog("info",`FPS set to ${new_fps}`);
 }
@@ -610,7 +665,8 @@ function SetupAudioUI() {
     var loop_audio = document.getElementById("loop_audio");
 
     //DISPLAY TITLE OF LOADED AUDIO
-    document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
+    // document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
+    document.getElementById("load-audio-picker").setProp("path", project.save_handler.save_data.audio_filename);
 
     //PLAY
     play_audio.onclick = function() {
