@@ -4,8 +4,10 @@
 name: Node.js Package
 
 on:
-  release:
-    types: [created]
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
   # Build artifacts for each supported OS
