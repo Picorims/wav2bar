@@ -8,6 +8,9 @@ https://keepachangelog.com/en/1.0.0/
 - The side panel is now resizable.
 - The side panel user interface is more responsive, and should be easier to read.
 
+### Fixed
+- Fixed: The timer does not export correctly at export (#48).
+
 ## 0.3.1-beta (2022-11-01)
 
 ### Fixed
