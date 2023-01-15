@@ -23,12 +23,12 @@
   "author": "Picorims",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.57",
-    "@electron-forge/maker-deb": "^6.0.0-beta.57",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.57",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.57",
-    "@electron-forge/maker-wix": "^6.0.0-beta.57",
-    "@electron-forge/maker-zip": "^6.0.0-beta.57",
+    "@electron-forge/cli": "^6.0.4",
+    "@electron-forge/maker-deb": "^6.0.4",
+    "@electron-forge/maker-rpm": "^6.0.4",
+    "@electron-forge/maker-squirrel": "^6.0.4",
+    "@electron-forge/maker-wix": "^6.0.4",
+    "@electron-forge/maker-zip": "^6.0.4",
     "chai": "^4.3.4",
     "electron": "^16.2.8",
     "electron-mocha": "^11.0.2",
@@ -82,7 +82,7 @@
             "shortcutFolderName": "Wav2Bar",
             "manufacturer": "Picorims",
             "version": "0.3.2",
-            "iconPath": "D:/wav2bar_wix_imgs_U/wav2bar_square_logo.ico",
+            "icon": "D:/wav2bar_wix_imgs_U/wav2bar_square_logo.ico",
             "ui": {
               "chooseDirectory": true,
               "images": {
