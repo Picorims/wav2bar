@@ -1281,7 +1281,13 @@ class Project {
      * @return {Number}  The time position in seconds
      * @memberof Project
      */
-    getAudioCurrentTime() {return this._audio.currentTime;}
+    getAudioCurrentTime() {
+        if (this.export_mode) {
+            return this._current_time;
+        } else {
+            return this._audio.currentTime;
+        }
+    }
 
     /**
      * toggle if the audio should be played forever in loop mode.
