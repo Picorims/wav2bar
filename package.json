@@ -24,8 +24,6 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.4",
-    "@electron-forge/maker-deb": "^6.0.4",
-    "@electron-forge/maker-rpm": "^6.0.4",
     "@electron-forge/maker-squirrel": "^6.0.4",
     "@electron-forge/maker-wix": "^6.0.4",
     "@electron-forge/maker-zip": "^6.0.4",
@@ -89,42 +87,6 @@
                 "background": "D:/wav2bar_wix_imgs_U/installer/installer_banner_493x312.png",
                 "banner": "D:/wav2bar_wix_imgs_U/installer/installer_banner_493x58.png"
               }
-            }
-          }
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {
-            "options": {
-              "categories": "Video",
-              "description": "Wav2Bar - A tool to create and export audio visualization mainly for the music industry",
-              "productDescription": "Wav2Bar - A tool to create and export audio visualization mainly for the music industry",
-              "name": "Wav2Bar",
-              "productName": "Wav2Bar",
-              "genericName": "Wav2Bar",
-              "homepage": "https://picorims.github.io/wav2bar-website",
-              "icon": "assets/icons/wav2bar_square_logo.png",
-              "maintainer": "Picorims",
-              "revision": "0.3.2",
-              "version": "0.3.2"
-            }
-          }
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {
-            "options": {
-              "categories": "Video",
-              "section": "video",
-              "description": "Wav2Bar - A tool to create and export audio visualization mainly for the music industry",
-              "productDescription": "Wav2Bar - A tool to create and export audio visualization mainly for the music industry",
-              "name": "Wav2Bar",
-              "productName": "Wav2Bar",
-              "genericName": "Wav2Bar",
-              "homepage": "https://picorims.github.io/wav2bar-website",
-              "icon": "assets/icons/wav2bar_square_logo.png",
-              "license": "GPL-3.0-or-later",
-              "version": "0.3.2"
             }
           }
         }

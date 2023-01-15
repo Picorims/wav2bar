@@ -34,15 +34,8 @@ This maker create a Windows .msi installer. To make a .msi installer, Wix must b
 **The paths for the installer assets are absolute, don't forget to change them in package.json or the make command will fail!**
 
 ### Linux specific
-There are existing configurations for .deb and .rpm packages **although they have not been tested** as I have no viable Linux development environment at the moment.
-
-#### .deb packages
-.deb packages can be made on MacOS and Linux machines with `fakeroot` and `dpkg` packages installed.
-See https://www.electronforge.io/config/makers/deb
-
-#### .rpm packages
-.rpm packages can be made on Linux machines with `rpm` or `rpm-build` packages installed.
-See https://www.electronforge.io/config/makers/rpm.
+~~There are existing configurations for .deb and .rpm packages **although they have not been tested** as I have no viable Linux development environment at the moment.~~
+`deb` and `rpm` packages have been abandoned as their packaging never worked, and Linux support is otherwise guaranteed from the `zip` package. Instead (if it works), `flatpak` support should be introduced in a future release.
 
 ### Mac Specific
 
