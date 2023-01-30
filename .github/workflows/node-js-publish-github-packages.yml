@@ -23,6 +23,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Add Wix to path on Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          $env:Path += ";C:\Program Files (x86)\WiX Toolset v3.11\bin"
+          light.exe
       - name: Install node modules
         run: npm install # the package lock is windows dependant, so ci can't be used here.
       - name: Make packages
