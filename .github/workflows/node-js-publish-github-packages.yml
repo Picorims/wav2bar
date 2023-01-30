@@ -63,7 +63,7 @@ jobs:
         uses: actions/download-artifact@v3.0.2
         with:
           # Artifact name
-          name: articaft-ubuntu-latest # optional
+          name: artifact-ubuntu-latest # optional
           # Destination path
           #path: # optional
       # https://github.com/softprops/action-gh-release
