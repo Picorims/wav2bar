@@ -59,11 +59,19 @@ jobs:
       contents: write
     
     steps:
-      - name: Download a Build Artifact
+      - name: Download Linux artifacts
         uses: actions/download-artifact@v3.0.2
         with:
           # Artifact name
-          name: articaft-* # optional
+          name: articaft-ubuntu-latest # optional
+          # Destination path
+          #path: # optional
+      # https://github.com/softprops/action-gh-release
+      - name: Download Windows artifacts
+        uses: actions/download-artifact@v3.0.2
+        with:
+          # Artifact name
+          name: articaft-windows-latest # optional
           # Destination path
           #path: # optional
       # https://github.com/softprops/action-gh-release
