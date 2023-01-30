@@ -71,7 +71,7 @@ jobs:
         uses: actions/download-artifact@v3.0.2
         with:
           # Artifact name
-          name: articaft-windows-latest # optional
+          name: artifact-windows-latest # optional
           # Destination path
           #path: # optional
       # https://github.com/softprops/action-gh-release
@@ -93,7 +93,7 @@ jobs:
           # Identify the release as a prerelease. Defaults to false
           #prerelease: # optional
           # Newline-delimited list of path globs for asset files to upload
-          files: artifact-* # optional
+          files: out/make/* # optional
           # Fails if any of the `files` globs match nothing. Defaults to false
           #fail_on_unmatched_files: # optional
           # Repository to make releases against, in <owner>/<repo> format
