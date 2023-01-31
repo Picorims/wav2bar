@@ -16,7 +16,7 @@ jobs:
     
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest] #, windows-latest]
     
     steps:
       - uses: actions/checkout@v3
@@ -59,19 +59,11 @@ jobs:
       contents: write
     
     steps:
-      - name: Download Linux artifacts
+      - name: Download all artifacts
         uses: actions/download-artifact@v3.0.2
-        with:
+        #with:
           # Artifact name
-          name: artifact-ubuntu-latest # optional
-          # Destination path
-          #path: # optional
-      # https://github.com/softprops/action-gh-release
-      - name: Download Windows artifacts
-        uses: actions/download-artifact@v3.0.2
-        with:
-          # Artifact name
-          name: artifact-windows-latest # optional
+          #name: artifact-ubuntu-latest # optional
           # Destination path
           #path: # optional
       # https://github.com/softprops/action-gh-release
