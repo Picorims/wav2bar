@@ -16,7 +16,7 @@ jobs:
     
     strategy:
       matrix:
-        os: [ubuntu-latest] #, windows-latest]
+        os: [ubuntu-latest, windows-latest]
     
     steps:
       - uses: actions/checkout@v3
@@ -87,7 +87,10 @@ jobs:
           # Identify the release as a prerelease. Defaults to false
           #prerelease: # optional
           # Newline-delimited list of path globs for asset files to upload
-          files: out/make/**/* # optional
+          files: | # optional
+            artifact-windows-latest/zip/win32/x64/*.zip
+            artifact-windows-latest/wix/x64/*.msi
+            artifact-ubuntu-latest/zip/linux/x64/*.zip
           # Fails if any of the `files` globs match nothing. Defaults to false
           #fail_on_unmatched_files: # optional
           # Repository to make releases against, in <owner>/<repo> format
