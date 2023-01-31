@@ -67,6 +67,8 @@ jobs:
           # Destination path
           #path: # optional
       # https://github.com/softprops/action-gh-release
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: GH Release
         # You may pin to the exact commit or the version.
         # uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
