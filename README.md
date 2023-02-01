@@ -37,6 +37,8 @@ This maker create a Windows .msi installer. To make a .msi installer, Wix must b
 
 #### flatpak
 
+**This option is currently configured but NOT available due to this issue: https://github.com/electron/forge/issues/2561**
+
 This maker creates a flatpak package, which is a sandboxed package that helps deploying applications to many Linux distributions at a time.
 
 As per the Electron Forge documentation (https://www.electronforge.io/config/makers/flatpak):

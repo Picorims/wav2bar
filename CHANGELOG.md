@@ -4,9 +4,6 @@ https://keepachangelog.com/en/1.0.0/
 
 ## 0.3.2-indev (????-??-??)
 
-### Added
-- Added flatpak support for Linux.
-
 ### Changed
 - The side panel is now resizable.
 - The side panel user interface is more responsive, and should be easier to read.

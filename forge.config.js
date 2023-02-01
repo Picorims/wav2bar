@@ -45,22 +45,23 @@ module.exports = {
                 }
             }
         },
-        {
-            name: "@electron-forge/maker-flatpak",
-            config: {
-                options: {
-                    base: "org.electronjs.Electron2.BaseApp",
-                    baseVersion: "22.08",
-                    categories: ["AudioVideo","Video","Graphics"],
-                    branch: "develop", //TODO change to main
-                    description: description,
-                    genericName: "Wav2Bar",
-                    icon: path.resolve(__dirname, "./assets/icons/wav2bar_square_logo.png"),
-                    id: "com.picorims.wav2bar",
-                    mimeType: ["audio/x-wav", "audio/wav", "audio/mpeg", "audio/mp3", "application/ogg"],
-                    productName: "Wav2Bar"
-                }
-            }
-        }
+        // {
+        //     // https://github.com/electron/forge/issues/2561 can't work
+        //     name: "@electron-forge/maker-flatpak",
+        //     config: {
+        //         options: {
+        //             base: "org.electronjs.Electron2.BaseApp",
+        //             baseVersion: "22.08",
+        //             categories: ["AudioVideo","Video","Graphics"],
+        //             branch: "develop", //TODO change to main
+        //             description: description,
+        //             genericName: "Wav2Bar",
+        //             icon: path.resolve(__dirname, "./assets/icons/wav2bar_square_logo.png"),
+        //             id: "com.picorims.wav2bar",
+        //             mimeType: ["audio/x-wav", "audio/wav", "audio/mpeg", "audio/mp3", "application/ogg"],
+        //             productName: "Wav2Bar"
+        //         }
+        //     }
+        // }
     ]
 };
