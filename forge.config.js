@@ -1,4 +1,7 @@
 const path = require("path");
+const packageJson = require("./package.json");
+
+const description = "Wav2Bar - " + packageJson.description;
 
 module.exports = {
     packagerConfig: {
@@ -7,10 +10,10 @@ module.exports = {
         name: "Wav2Bar",
         executableName: "wav2bar",
         overwrite: true,
-        ignore: "/ffmpeg|/user/settings/user_settings.json|/logs|/.vscode|/temp",
+        ignore: "/ffmpeg|/user/settings/user_settings.json|/logs|/.vscode|/temp|/.github",
         win32metadata: {
-            CompanyName: "Picorims",
-            FileDescription: "Wav2Bar - A tool to create and export audio visualization mainly for the music industry"
+            CompanyName: packageJson.author,
+            FileDescription: description
         },
         appCategoryType: "public.app-category.video"
     },
@@ -26,12 +29,12 @@ module.exports = {
         {
             name: "@electron-forge/maker-wix",
             config: {
-                description: "Wav2Bar - A tool to create and export audio visualization mainly for the music industry",
+                description: description,
                 exe: "Wav2Bar",
                 name: "Wav2Bar",
                 shortcutFolderName: "Wav2Bar",
-                manufacturer: "Picorims",
-                version: "0.3.2",
+                manufacturer: packageJson.author,
+                version: packageJson.version,
                 icon: path.resolve(__dirname, "./assets/icons/wav2bar_square_logo.ico"),
                 ui: {
                     chooseDirectory: true,
@@ -39,6 +42,23 @@ module.exports = {
                         background: path.resolve(__dirname, "./assets/installer/installer_banner_493x312.png"),
                         banner: path.resolve(__dirname, "./assets/installer/installer_banner_493x58.png")
                     }
+                }
+            }
+        },
+        {
+            name: "@electron-forge/maker-flatpak",
+            config: {
+                options: {
+                    base: "org.electronjs.Electron2.BaseApp",
+                    baseVersion: "22.08",
+                    categories: ["AudioVideo","Video","Graphics"],
+                    branch: "develop", //TODO change to main
+                    description: description,
+                    genericName: "Wav2Bar",
+                    icon: path.resolve(__dirname, "./assets/icons/wav2bar_square_logo.png"),
+                    id: "com.picorims.wav2bar",
+                    mimeType: ["audio/x-wav", "audio/wav", "audio/mpeg", "audio/mp3", "application/ogg"],
+                    productName: "Wav2Bar"
                 }
             }
         }

@@ -24,8 +24,8 @@ Compilation settings are detailed in package.JSON at the "config" node. You can 
 
 FFmpeg should be installed independently and not compiled in the application.
 
-#### ZIP
-Zip maker is available for all platforms, without any dependencies required. On Windows, it will produce an executable (.exe) to run the app from anywhere on a Windows machine, without any installation process.
+### ZIP (Windows, Linux)
+Zip maker is available for all platforms, without any dependencies required. It will produce an executable to run the app from anywhere on your machine, without any installation process. Use this if you want a portable installation, that can for example be kept on an external storage device (like a USB stick).
 
 ### Windows specific
 
@@ -34,8 +34,20 @@ This maker create a Windows .msi installer. To make a .msi installer, Wix must b
 **The paths for the installer assets are absolute, don't forget to change them in package.json or the make command will fail!**
 
 ### Linux specific
+
+#### flatpak
+
+This maker creates a flatpak package, which is a sandboxed package that helps deploying applications to many Linux distributions at a time.
+
+As per the Electron Forge documentation (https://www.electronforge.io/config/makers/flatpak):
+> You can only build the Flatpak target if you have flatpak, flatpak-builder, and eu-strip (usually part of the elfutils package) installed on your system.
+
+#### deb and rpm
 ~~There are existing configurations for .deb and .rpm packages **although they have not been tested** as I have no viable Linux development environment at the moment.~~
-`deb` and `rpm` packages have been abandoned as their packaging never worked, and Linux support is otherwise guaranteed from the `zip` package. Instead (if it works), `flatpak` support should be introduced in a future release.
+
+`deb` and `rpm` packages have been abandoned as their packaging never worked, and Linux support is otherwise guaranteed from other package formats. Instead (if it works), `flatpak` support should be introduced in a future release.
+
+
 
 ### Mac Specific
 

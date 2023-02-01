@@ -24,11 +24,12 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.4",
+    "@electron-forge/maker-flatpak": "^6.0.4",
     "@electron-forge/maker-squirrel": "^6.0.4",
     "@electron-forge/maker-wix": "^6.0.4",
     "@electron-forge/maker-zip": "^6.0.4",
     "chai": "^4.3.4",
-    "electron": "^16.2.8",
+    "electron": "^22.2.0",
     "electron-mocha": "^11.0.2",
     "eslint": "^8.7.0",
     "esm": "^3.2.25"
@@ -43,8 +44,5 @@
     "remixicon": "^2.5.0",
     "yargs": "^17.3.1",
     "zip-local": "^0.3.5"
-  },
-  "optionalDependencies": {
-    "exe-icon-extractor": "^1.0.8"
   }
 }
