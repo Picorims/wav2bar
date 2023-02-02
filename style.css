@@ -1,5 +1,5 @@
 /*Wav2Bar - Free software for creating audio visualization (motion design) videos
-Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -180,6 +180,24 @@ body.frameless_window {
 
 
 /*
+########
+APP ROOT
+########
+*/
+#root {
+    width: 100vw;
+    height: 100vh;
+}
+
+
+
+
+
+
+
+
+
+/*
 ##############################
 CONTROL PANEL AND IT'S CONTENT
 ##############################
@@ -192,8 +210,7 @@ Main Element
 */
 
 #control_panel {
-    position: fixed;
-    width: 350px;
+    width: 100%;
     height: 100%;
     top: 0;
     left: 0;
@@ -356,6 +373,7 @@ Tabs content
     border-bottom: 4px solid var(--main-gray);
 }
 
+/* <web-ui-parameter> */
 .panel_param_container {
     padding: 5px;
     padding-left: 15px;
@@ -371,23 +389,26 @@ Tabs content
 
     overflow: hidden;
 }
+/* <web-ui-parameter> */
 .panel_param_subcontainer {
     width: calc(100% - 30px); /*size of question_mark + margin*/
 }
 
+/* <web-ui-parameter> */
 .panel_param_subcontainer > span {
     text-align: left;
     display: inline-block;
     width: 100%;
 }
 
+/* <web-ui-parameter> */
 .panel_param_container > .panel_input_file,
 .panel_param_container > .panel_input_string {
     flex-shrink: 0;
 }
 
 
-
+/* <ui-help-node> */
 .question_mark {
     width: 25px;
     height: 25px;
@@ -543,6 +564,10 @@ Tabs content
     cursor: pointer;
     
     transition: 0.2s;
+}
+
+.panel_button_wide {
+    width: 100%;
 }
 
 
@@ -901,11 +926,9 @@ Main element
 */
 
 #interface {
-    position: absolute;
-    width: 0;
-    height: 0;
-    overflow: auto;
-    padding: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -1047,6 +1070,15 @@ Screen and object frame
 =======================
 */
 
+#screen_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 1px);
+    overflow: auto;
+}
+
 #screen {
     position: absolute;
     width: 0;
@@ -1102,18 +1134,14 @@ Top Naviguation UI
 */
 
 #top_UI {
-    position: fixed;
-    max-width: calc(100% - 400px);
+    position: absolute;
+    max-width: calc(100% - 100px);
     top: 5px;
-    left: 355px;
+    left: 5px;
     z-index: 500;
 
     display: flex;
     flex-wrap: wrap;
-
-    border-radius: 5px;
-
-    font-size: 0px;
 }
 
 /*group of tiles*/

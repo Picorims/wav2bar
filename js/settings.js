@@ -1,5 +1,5 @@
 //Wav2Bar - Free software for creating audio visualization (motion design) videos
-//Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+//Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
 
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -116,9 +116,11 @@ function LoadSettings() {
     imports.utils.CustomLog("info","loading settings...");
 
     //set FFmpeg paths
-    document.getElementById("ffmpeg_path_input").value = settings.ffmpeg.ffmpeg_path;
+    // document.getElementById("ffmpeg_path_input").value = settings.ffmpeg.ffmpeg_path;
+    document.getElementById("locate-ffmpeg-picker").setProp("path", settings.ffmpeg.ffmpeg_path);
     ipcRenderer.invoke("set-ffmpeg-path", settings.ffmpeg.ffmpeg_path);
-    document.getElementById("ffprobe_path_input").value = settings.ffmpeg.ffprobe_path;
+    // document.getElementById("ffprobe_path_input").value = settings.ffmpeg.ffprobe_path;
+    document.getElementById("locate-ffprobe-picker").setProp("path", settings.ffmpeg.ffprobe_path);
     ipcRenderer.invoke("set-ffprobe-path", settings.ffmpeg.ffprobe_path);
 
     imports.utils.CustomLog("info","loaded settings!");
@@ -144,7 +146,7 @@ async function SaveSettings() {
  */
 // eslint-disable-next-line no-unused-vars
 function setFFmpegPath(path) {
-    document.getElementById("ffmpeg_path_input").value = path;
+    // document.getElementById("ffmpeg_path_input").value = path;
     settings.ffmpeg.ffmpeg_path = path;
     ipcRenderer.invoke("set-ffmpeg-path", path);
     SaveSettings();
@@ -157,7 +159,7 @@ function setFFmpegPath(path) {
  */
 // eslint-disable-next-line no-unused-vars
 function setFFprobePath(path) {
-    document.getElementById("ffprobe_path_input").value = path;
+    // document.getElementById("ffprobe_path_input").value = path;
     settings.ffmpeg.ffprobe_path = path;
     ipcRenderer.invoke("set-ffprobe-path", path);
     SaveSettings();

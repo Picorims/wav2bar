@@ -1,0 +1,45 @@
+@startuml index
+
+'Wav2Bar - Free software for creating audio visualization (motion design) videos
+'Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
+
+'This program is free software: you can redistribute it and/or modify
+'it under the terms of the GNU General Public License as published by
+'the Free Software Foundation, either version 3 of the License, or
+'any later version.
+
+'This program is distributed in the hope that it will be useful,
+'but WITHOUT ANY WARRANTY; without even the implied warranty of
+'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'GNU General Public License for more details.
+
+'You should have received a copy of the GNU General Public License
+'along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+' skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package "event_mixin" {
+    class EventMixin <<mixin>> {}
+}
+
+package "state_machine_mixin" {
+    class StateMachineMixin <<mixin>> {
+        # _setupStateMachineMixin(class_ref: Object, initial_tree: Object, additional_events: Array<String>): void
+        # _getStatePaths(object: Object, root: String): Array[String]
+        + getState(state_path: String): any
+        + setState(state_path: String, value: any, pending_notifications: boolean = false): bool
+        - _notifyParents(state_path: String, pending_notifications: boolean = false): void
+        - _callPendingNotifications() : void
+        # _registerValidator(state_path: String, validator: Function, rules_msg: String): void
+        # _validatorExists(state_path: String): bool
+        + verifyState(state_path: String, value: any): bool
+        # _assertState(state_path: String, value: any): void
+        + subscribeToState(state_path: String, function_handler: Function): void
+        + unsubscribeToState(state_path: String, function_handler: Function): void
+        - _triggerState(state_path: String, value: any): void
+    }
+    StateMachineMixin -left-|> EventMixin
+}

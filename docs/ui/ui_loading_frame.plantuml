@@ -1,7 +1,7 @@
-@startuml ui_append_help
+@startuml ui_loading_frame
 
 'Wav2Bar - Free software for creating audio visualization (motion design) videos
-'Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+'Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
 
 'This program is free software: you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -25,14 +25,15 @@ package "ui_base_components" {
     class UIComponent {}
 }
 
-package "ui_append_help" {
-    class UIHelp {
-        - _help_string: string
+package "ui_loading_frame" {
+    class UILoadingFrame {
+        - _TIMEOUT: Number
+        - _visible: Boolean
         --
-        + UIHelp(parent: HTMLDivElement, help_string: string): UIHelp
-        ..get, set..
-        + get help_msg() {return this._help_string}
-        + set help_msg(string: string): void
+        + UILoadingFrame(): UILoadingFrame
+        ..
+        + show(): void
+        + hide(): void
     }
     UIComponent <|-- UIHelp
 }

@@ -1,5 +1,5 @@
 //Wav2Bar - Free software for creating audio visualization (motion design) videos
-//Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+//Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
 
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 const {ipcRenderer} = require("electron");
 
 /** @type {String} current build version*/
-const software_version = "0.3.1-beta";
+const software_version = "0.3.2-beta";
 /** @type {String} current build type */
 let working_dir; //working directory for user, temp, logs...
 let root_dir; //root of the app (where main.js is located, and html/css folders)
@@ -67,7 +67,7 @@ class SaveHandler {
      */
     constructor() {
         Object.assign(SaveHandler.prototype, imports.utils.EventMixin);
-        // this.setupEventMixin([
+        // this._setupEventMixin([
         //     "test",
         // ]);
 
@@ -208,7 +208,8 @@ class SaveHandler {
                 this._lock_save_sync = false;
                 this._owner_project.user_interface.loadingMode(false);
             }
-            if (!this._owner_project.export_mode) document.getElementById("opened_save").innerHTML = save_file_path;
+            // if (!this._owner_project.export_mode) document.getElementById("opened_save").innerHTML = save_file_path;
+            if (!this._owner_project.export_mode) document.getElementById("load-save-picker").setProp("path", save_file_path);
         });
         await ipcRenderer.invoke("cache-save-file", save_file_path);
     }
@@ -559,7 +560,8 @@ class SaveHandler {
         if (this._save_data.audio_filename !== "") {
             ipcRenderer.invoke("get-full-path", `${working_dir}/temp/current_save/assets/audio/${this._save_data.audio_filename}`).then((result => {
                 this._owner_project.loadAudio(result, "url");
-                if (!this._owner_project.export_mode) document.getElementById("opened_audio").innerHTML = this._save_data.audio_filename;
+                // if (!this._owner_project.export_mode) document.getElementById("opened_audio").innerHTML = this._save_data.audio_filename;
+                if (!this._owner_project.export_mode) document.getElementById("load-audio-picker").setProp("path", this._save_data.audio_filename);
             }));
         }
 
@@ -1220,7 +1222,8 @@ class Project {
     closeAudio() {
         imports.utils.CustomLog("info","Closing audio context if any...");
         if (!imports.utils.IsUndefined(this._context)) this._context.close();
-        if (!this._export_mode) document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
+        // if (!this._export_mode) document.getElementById("opened_audio").innerHTML = project.save_handler.save_data.audio_filename;
+        if (!this._export_mode) document.getElementById("load-audio-picker").setProp("path", project.save_handler.save_data.audio_filename);
         imports.utils.CustomLog("info","Audio context closed.");
     }
 
@@ -1278,7 +1281,13 @@ class Project {
      * @return {Number}  The time position in seconds
      * @memberof Project
      */
-    getAudioCurrentTime() {return this._audio.currentTime;}
+    getAudioCurrentTime() {
+        if (this.export_mode) {
+            return this._current_time;
+        } else {
+            return this._audio.currentTime;
+        }
+    }
 
     /**
      * toggle if the audio should be played forever in loop mode.
@@ -1438,6 +1447,7 @@ function LoadModules() {
         InitPage(export_mode);
     }).catch(error => {
         console.log("could not load modules: " + error);
+        console.log(error.stack);
     });
 }
 
@@ -1446,7 +1456,7 @@ function LoadModules() {
  *
  * @param {Boolean} export_mode If the process is in an export context (no user interface, no CLI analysis).
  */
-function InitPage(export_mode) {//
+function InitPage(export_mode) {
 
     //SETUP PROJECT AND PREPARE SAVE
     project = new Project(export_mode);
@@ -1467,8 +1477,11 @@ function InitPage(export_mode) {//
         if (argv._[0] === "export") project.save_handler.loadSave(argv.input, true);
 
         //enable experimental jpeg from CLI
-        if (argv._[0] === "export" && argv.jpeg) document.getElementById("experimental_export_input").checked = argv.jpeg;
-
+        if (argv._[0] === "export" && argv.jpeg) {
+            /** @type {uiComponents.WebUIInputField} */
+            let elt = document.getElementById("experimental-export-input");
+            elt.setProp(elt.PROPS.value, argv.jpeg);
+        }
         //launch export if any
         if (argv._[0] === "export") setTimeout(() => {
             Export(argv.output);

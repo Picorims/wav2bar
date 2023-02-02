@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="452.0833px" preserveAspectRatio="none" style="width:694px;height:452px;background:#222222;" version="1.1" viewBox="0 0 694 452" width="694.7917px" zoomAndPan="magnify"><defs/><g><!--MD5=[12e8ed3d31618ab0ff1f89041617434d]
+cluster ui_base_components--><g id="cluster_ui_base_components"><rect fill="none" height="422.9167" rx="4.1667" ry="4.1667" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="537.5" x="145.8333" y="17.7083"/><path d="M376.0417,17.7083 L376.0417,47.0378 L365.625,57.4544 L145.8333,57.4544 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="&quot;Verdana&quot;" font-size="20.8333" font-weight="bold" lengthAdjust="spacing" textLength="209.375" x="154.1667" y="45.5851">ui_base_components</text></g><!--MD5=[47afafd49ae9353acb14c9b3aa076c66]
+class WebUICustomComponent--><g id="elem_WebUICustomComponent"><rect codeLine="26" fill="none" height="349.8617" id="WebUICustomComponent" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="503.125" x="163.0208" y="73.9583"/><rect fill="#227FAB" height="35.2458" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="503.125" x="163.0208" y="73.9583"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="503.125" x="163.0208" y="105.0374"/><rect codeLine="26" fill="none" height="349.8617" id="WebUICustomComponent" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="503.125" x="163.0208" y="73.9583"/><ellipse cx="342.1875" cy="91.5812" fill="none" rx="10.4167" ry="10.4167" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><path d="M343.7337,88.6678 Q343.8477,88.505 343.9779,88.4237 Q344.1243,88.3423 344.2871,88.3423 Q344.5638,88.3423 344.7266,88.5376 Q344.9056,88.7329 344.9056,89.1724 L344.9056,90.2466 Q344.9056,90.686 344.7266,90.8813 Q344.5638,91.0767 344.2871,91.0767 Q344.0267,91.0767 343.8802,90.9302 Q343.7337,90.8 343.6523,90.4093 Q343.6198,90.1489 343.4896,90.0187 Q343.2292,89.742 342.7734,89.5793 Q342.334,89.4165 341.8783,89.4165 Q341.3249,89.4165 340.8529,89.6606 Q340.3809,89.9048 340.0228,90.4582 Q339.6647,90.9953 339.6647,91.7603 L339.6647,92.5741 Q339.6647,93.4692 340.3158,94.0715 Q340.9831,94.6737 342.1387,94.6737 Q342.8385,94.6737 343.3268,94.4946 Q343.6035,94.3807 343.9128,94.0552 Q344.1081,93.8599 344.222,93.811 Q344.3359,93.7459 344.4661,93.7459 Q344.7266,93.7459 344.9056,93.9412 Q345.1009,94.1203 345.1009,94.3807 Q345.1009,94.6411 344.8405,94.9341 Q344.4661,95.3573 343.8802,95.6014 Q343.099,95.9269 342.1549,95.9269 Q341.0319,95.9269 340.153,95.4712 Q339.4206,95.1131 338.916,94.3156 Q338.4115,93.5181 338.4115,92.5903 L338.4115,91.744 Q338.4115,90.7674 338.8672,89.9211 Q339.3229,89.0747 340.1204,88.619 Q340.9342,88.1632 341.8294,88.1632 Q342.3828,88.1632 342.8548,88.2935 Q343.3268,88.4074 343.7337,88.6678 Z " fill="#2A9FD6"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="126.0417" x="367.1875" y="96.2697">WebUICustomComponent</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="164.0625" x2="665.1042" y1="109.2041" y2="109.2041"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="164.0625" x2="665.1042" y1="117.5374" y2="117.5374"/><ellipse cx="174.4792" cy="135.6812" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="456.25" x="188.0208" y="138.8072">WebUICustomComponent(tag: string, props_and_states: Object) : WebUICustomComponent</text><ellipse cx="174.4792" cy="160.5103" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="327.0833" x="188.0208" y="163.6363">onDOMReady(callback: Function, destroyer: Function = null): void</text><ellipse cx="174.4792" cy="185.3394" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="354.1667" x="188.0208" y="188.4654">onDOMReadyOnce(callback: Function, destroyer: Function = null): void</text><ellipse cx="174.4792" cy="210.1685" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="164.5833" x="188.0208" y="213.2945">attrFromProp(prop: string): string</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="171.3542" y="231.8726"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="128.125" x="188.0208" y="238.1236">_refreshAttributes(): void</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="171.3542" y="256.7017"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="130.2083" x="188.0208" y="262.9527">_refreshProperties(): void</text><ellipse cx="174.4792" cy="284.6558" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="129.1667" x="188.0208" y="287.7818">getProp(prop: string): any</text><ellipse cx="174.4792" cy="309.4849" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="189.5833" x="188.0208" y="312.6109">setProp(prop: string, value: any): void</text><ellipse cx="174.4792" cy="334.314" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="447.9167" x="188.0208" y="337.44">subscribeToProp(prop: string, function_handler: Function(any), mute_first: Boolean): void</text><ellipse cx="174.4792" cy="359.1431" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="357.2917" x="188.0208" y="362.2691">unsubscribeToProp(prop: string, function_handler: Function(any)): void</text><ellipse cx="174.4792" cy="383.9722" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="367.7083" x="188.0208" y="387.0982">autoSubscribeToProp(prop: string, function_handler: Function(any)): void</text><ellipse cx="174.4792" cy="408.8013" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="466.6667" x="188.0208" y="411.9273">bindProps(prop: String, other_component: WebUICustomComponent, other_prop: String): void</text></g><!--MD5=[f79fc37c49c69e0f79ff4b75b65447de]
+class HTMLElement--><g id="elem_HTMLElement"><rect codeLine="23" fill="none" height="51.9124" id="HTMLElement" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="108.3333" x="17.7083" y="222.9167"/><rect fill="#227FAB" height="35.2458" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="108.3333" x="17.7083" y="222.9167"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="108.3333" x="17.7083" y="253.9958"/><rect codeLine="23" fill="none" height="51.9124" id="HTMLElement" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="108.3333" x="17.7083" y="222.9167"/><ellipse cx="32.2917" cy="240.5396" fill="none" rx="10.4167" ry="10.4167" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><path d="M33.8379,237.6261 Q33.9518,237.4634 34.082,237.382 Q34.2285,237.3006 34.3913,237.3006 Q34.668,237.3006 34.8307,237.4959 Q35.0098,237.6912 35.0098,238.1307 L35.0098,239.2049 Q35.0098,239.6444 34.8307,239.8397 Q34.668,240.035 34.3913,240.035 Q34.1309,240.035 33.9844,239.8885 Q33.8379,239.7583 33.7565,239.3677 Q33.724,239.1073 33.5938,238.9771 Q33.3333,238.7004 32.8776,238.5376 Q32.4382,238.3748 31.9824,238.3748 Q31.429,238.3748 30.957,238.619 Q30.485,238.8631 30.127,239.4165 Q29.7689,239.9536 29.7689,240.7186 L29.7689,241.5324 Q29.7689,242.4276 30.4199,243.0298 Q31.0872,243.632 32.2428,243.632 Q32.9427,243.632 33.431,243.453 Q33.7077,243.339 34.0169,243.0135 Q34.2122,242.8182 34.3262,242.7694 Q34.4401,242.7043 34.5703,242.7043 Q34.8307,242.7043 35.0098,242.8996 Q35.2051,243.0786 35.2051,243.339 Q35.2051,243.5994 34.9447,243.8924 Q34.5703,244.3156 33.9844,244.5597 Q33.2031,244.8853 32.2591,244.8853 Q31.1361,244.8853 30.2572,244.4295 Q29.5247,244.0715 29.0202,243.2739 Q28.5156,242.4764 28.5156,241.5487 L28.5156,240.7023 Q28.5156,239.7257 28.9714,238.8794 Q29.4271,238.033 30.2246,237.5773 Q31.0384,237.1216 31.9336,237.1216 Q32.487,237.1216 32.959,237.2518 Q33.431,237.3657 33.8379,237.6261 Z " fill="#2A9FD6"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="66.6667" x="51.0417" y="245.2281">HTMLElement</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="18.75" x2="125" y1="258.1624" y2="258.1624"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="18.75" x2="125" y1="266.4958" y2="266.4958"/></g><!--MD5=[ce5f5a864ee745993dd1b064d574a820]
+reverse link HTMLElement to WebUICustomComponent--><g id="link_HTMLElement_WebUICustomComponent"><path codeLine="41" d="M147.1458,248.9583 C152.4271,248.9583 157.7083,248.9583 163,248.9583 " fill="none" id="HTMLElement-backto-WebUICustomComponent" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="146.9271,256.25,126.0938,248.9583,146.9271,241.6667,146.9271,256.25" style="stroke:#2A9FD6;stroke-width:3.125;"/></g><!--MD5=[5fa68074c0a4b34f04c48dba1ab2ffa4]
+@startuml ui_base_components
+
+'Wav2Bar - Free software for creating audio visualization (motion design) videos
+'Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
+
+'This program is free software: you can redistribute it and/or modify
+'it under the terms of the GNU General Public License as published by
+'the Free Software Foundation, either version 3 of the License, or
+'any later version.
+
+'This program is distributed in the hope that it will be useful,
+'but WITHOUT ANY WARRANTY; without even the implied warranty of
+'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'GNU General Public License for more details.
+
+'You should have received a copy of the GNU General Public License
+'along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+' skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+class HTMLElement {}
+
+package "ui_base_components" {
+    class WebUICustomComponent {
+        - -
+        + WebUICustomComponent(tag: string, props_and_states: Object) : WebUICustomComponent
+        + onDOMReady(callback: Function, destroyer: Function = null): void
+        + onDOMReadyOnce(callback: Function, destroyer: Function = null): void
+        + attrFromProp(prop: string): string
+        - _refreshAttributes(): void
+        - _refreshProperties(): void
+        + getProp(prop: string): any
+        + setProp(prop: string, value: any): void
+        + subscribeToProp(prop: string, function_handler: Function(any), mute_first: Boolean): void
+        + unsubscribeToProp(prop: string, function_handler: Function(any)): void
+        + autoSubscribeToProp(prop: string, function_handler: Function(any)): void
+        + bindProps(prop: String, other_component: WebUICustomComponent, other_prop: String): void
+    }
+    HTMLElement <|-right- WebUICustomComponent
+}
+
+@enduml
+
+@startuml ui_base_components
+
+
+
+
+
+
+
+
+skinparam backgroundColor transparent
+skinparam useBetaStyle false
+
+
+
+
+
+
+<style>
+  root {
+    BackgroundColor transparent
+    FontColor #2A9FD6
+    HyperLinkColor #fd7e14
+    LineColor #55B2DE
+    LineThickness 1
+    Margin 10
+    Padding 6
+    Shadowing 0.0
+  }
+  node {
+   Padding 15
+   roundcorner 20
+   BackgroundColor transparent
+  }
+  caption {
+    LineThickness 0
+  }
+  footer {
+    LineThickness 0
+  }
+  groupHeader {
+    BackgroundColor #555
+    FontColor #9933CC
+    FontStyle bold
+  }
+  header {
+    LineThickness 0
+  }
+  referenceHeader {
+    BackgroundColor transparent
+    FontColor #ADAFAE
+    FontStyle bold
+  }
+  separator {
+    BackgroundColor #FFF
+    FontColor transparent
+    FontStyle bold
+  }
+  title {
+	FontSize 20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor  transparent
+	FontColor #2A9FD6
+	BorderColor #555
+  }
+  nwdiagDiagram {
+	network {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent    
+		LineColor #2A9FD6
+		LineThickness 1.0
+		FontColor #227FAB
+	}
+	server {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	}
+	arrow {
+		FontColor #227FAB
+		LineColor #227FAB
+	}
+	group {
+		BackGroundColor #222
+		LineColor #4E4E4E
+		LineThickness 2.0
+		Margin 5
+		Padding 5
+	}
+  }
+  ganttDiagram {
+	task {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+		LineColor #2A9FD6
+		Margin 10
+		Padding 6
+	}
+	note {
+		FontColor #9933CC
+		LineColor #AD5CD6
+		BackGroundColor transparent
+	}
+	separator {
+		LineColor #777777
+		BackGroundColor transparent
+		FontColor #777777
+	}
+	milestone {
+		FontColor #9933CC
+		FontSize 16
+		FontStyle italic
+		BackGroundColor #555
+		LineColor #777777
+	}
+	timeline {
+		BackgroundColor #555
+		FontColor #777777
+	}
+	closed {
+		BackgroundColor #FFA033
+		FontColor #FF8800
+	}
+  }
+</style>
+skinparam defaultFontName       "Verdana"
+skinparam defaultFontSize       12
+skinparam dpi                   100
+skinparam shadowing             false
+skinparam roundcorner           8
+skinparam ParticipantPadding    40
+skinparam BoxPadding            40
+skinparam Padding               5
+skinparam ArrowColor            #ADAFAE
+skinparam stereotype {
+    CBackgroundColor #777777
+    CBorderColor #444444
+    ABackgroundColor #5F8F00
+    ABorderColor #92C233
+    IBackgroundColor #a30000
+    IBorderColor #D63333
+    EBackgroundColor #cc6d00
+    EBorderColor #FFA033
+    NBackgroundColor #7a29a3
+    NBorderColor #AD5CD6
+}
+skinparam title {
+	FontColor	                 #2A9FD6
+	BorderColor	                 #777777
+	FontSize	    	         20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor              transparent
+}
+
+skinparam legend {
+	BackgroundColor transparent
+	BorderColor #777777
+	FontColor #ADAFAE
+}
+
+skinparam swimlane {
+	BorderColor #9933CC
+	BorderThickness 2
+	TitleBackgroundColor  #444444-#555
+	TitleFontColor #2A9FD6
+}
+
+
+skinparam activity {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BarColor #77B300
+	StartColor #9933CC
+	EndColor #9933CC
+	DiamondBackgroundColor transparent
+  	DiamondBorderColor #777777
+  	DiamondFontColor #777777
+}
+
+
+skinparam participant {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	ParticipantBorderThickness 2
+}
+
+
+skinparam actor {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam arrow {
+	Thickness 3
+	Color #2A9FD6
+	FontColor #FFF
+}
+
+
+skinparam sequence {
+	BorderColor #2A9FD6
+	TitleFontColor #2A9FD6
+	BackgroundColor transparent
+	StartColor #2A9FD6
+	EndColor #2A9FD6
+	BoxBackgroundColor transparent
+	BoxBorderColor #ADAFAE
+	BoxFontColor #ADAFAE
+	DelayFontColor #ADAFAE
+	LifeLineBorderColor #555
+	LifeLineBorderThickness 2
+	LifeLineBackgroundColor transparent
+	GroupBorderColor #ADAFAE
+	GroupFontColor #ADAFAE
+	GroupHeaderFontColor #9933CC
+	GroupBackgroundColor transparent
+	GroupHeaderBackgroundColor transparent
+	DividerBackgroundColor transparent
+    DividerBorderColor #ADAFAE
+    DividerBorderThickness 2
+    DividerFontColor #ADAFAE
+	ReferenceBackgroundColor transparent
+	ReferenceBorderColor #ADAFAE
+	ReferenceFontColor #ADAFAE
+	ReferenceHeaderFontColor #9933CC
+	ReferenceHeaderBackgroundColor transparent
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam partition {
+	BorderColor #2A9FD6
+	FontColor #2A9FD6
+	BackgroundColor transparent
+}
+
+
+skinparam collections {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam control {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam entity {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam boundary {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam agent {
+	BackgroundColor transparent
+	BorderColor #cc6d00
+	FontColor #ADAFAE
+}
+
+
+skinparam note {
+	BorderThickness 1
+	BackgroundColor transparent
+	BorderColor #AD5CD6
+	FontColor #AD5CD6
+}
+
+
+skinparam artifact {
+	BackgroundColor transparent
+	BorderColor #BDBFBE
+	FontColor #BDBFBE
+}
+
+
+skinparam component {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam interface {
+	BackgroundColor  transparent
+	BorderColor  #CC0000
+	FontColor #ADAFAE
+}
+
+
+skinparam storage {
+	BackgroundColor transparent
+  	BorderColor #FFA033
+	FontColor #FF8800
+}
+
+
+skinparam node {
+	BackgroundColor  transparent
+	BorderColor #ADAFAE
+	FontColor #ADAFAE
+}
+
+
+skinparam cloud {
+	BackgroundColor transparent
+	BorderColor #F2FCFE
+	FontColor #ADAFAE
+}
+
+
+skinparam database {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+
+skinparam class {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+        FontColor #222
+	HeaderBackgroundColor #227FAB
+	StereotypeFontColor #ADAFAE
+	BorderThickness 1
+	AttributeFontColor #ADAFAE
+	AttributeFontSize 11
+}
+
+
+skinparam object {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	StereotypeFontColor #ADAFAE
+	BorderThickness 1
+	AttributeFontColor #777777
+	AttributeFontSize 11
+}
+
+
+skinparam usecase {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BorderThickness 2
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam rectangle {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BorderThickness 2
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam package {
+	BackgroundColor transparent
+  	BorderColor #2A9FD6
+	FontColor #2A9FD6
+	BorderThickness 2
+}
+
+
+skinparam folder {
+	BackgroundColor transparent
+  	BorderColor #FF8800
+	FontColor #FF8800
+	BorderThickness 2
+}
+
+
+skinparam frame {
+	BackgroundColor transparent
+  	BorderColor #9933CC
+	FontColor #9933CC
+	BorderThickness 2
+}
+
+
+skinparam state {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	StartColor #9933CC
+	EndColor #9933CC
+	AttributeFontColor #777777
+	AttributeFontSize 11
+}
+
+
+skinparam queue {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam card {
+	BackgroundColor transparent
+	BorderColor #9933CC
+	FontColor #9933CC
+}
+
+
+skinparam file {
+	BackgroundColor transparent
+	BorderColor #555
+	FontColor #555
+}
+
+
+skinparam stack {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+skinparam BackgroundColor #222222
+skinparam PackageStyle frame
+
+class HTMLElement {}
+
+package "ui_base_components" {
+    class WebUICustomComponent {
+        - -
+        + WebUICustomComponent(tag: string, props_and_states: Object) : WebUICustomComponent
+        + onDOMReady(callback: Function, destroyer: Function = null): void
+        + onDOMReadyOnce(callback: Function, destroyer: Function = null): void
+        + attrFromProp(prop: string): string
+        - _refreshAttributes(): void
+        - _refreshProperties(): void
+        + getProp(prop: string): any
+        + setProp(prop: string, value: any): void
+        + subscribeToProp(prop: string, function_handler: Function(any), mute_first: Boolean): void
+        + unsubscribeToProp(prop: string, function_handler: Function(any)): void
+        + autoSubscribeToProp(prop: string, function_handler: Function(any)): void
+        + bindProps(prop: String, other_component: WebUICustomComponent, other_prop: String): void
+    }
+    HTMLElement <|-right- WebUICustomComponent
+}
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: fr
+Country: FR
+--></g></svg>

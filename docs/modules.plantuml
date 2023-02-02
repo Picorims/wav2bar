@@ -1,7 +1,7 @@
 @startuml modules
 
 'Wav2Bar - Free software for creating audio visualization (motion design) videos
-'Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+'Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
 
 'This program is free software: you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -45,6 +45,18 @@ system_info ..> electron_ipcRenderer
 
 package "ui_components" {}
 ui_components <.[dotted]. ui_base_components
+ui_components <.[dotted]. web_ui_custom_component
+
+'ui_components <.[dotted]. web_ui_foo_bar
+ui_components <.[dotted]. web_ui_split_layout
+ui_components <.[dotted]. web_ui_label_block
+ui_components <.[dotted]. web_ui_parameter
+ui_components <.[dotted]. web_ui_help_node
+ui_components <.[dotted]. web_ui_bind_input
+ui_components <.[dotted]. web_ui_file_picker
+ui_components <.[dotted]. web_ui_input_field
+
+ui_components ..> dom_ready
 ui_components <.[dotted]. ui_parameters
 ui_components <.[dotted]. ui_append_help
 ui_components <.[dotted]. ui_object_frame
@@ -52,6 +64,31 @@ ui_components <.[dotted]. ui_loading_frame
 
 package "ui_base_components" {}
 ui_base_components ..> utils
+
+package "web_ui_custom_component" {}
+web_ui_custom_component ..> utils
+
+' package "web_ui_foo_bar" {}
+'note bottom of web_ui_foo_bar: There is one import per web component
+package "web_ui_split_layout" {}
+web_ui_split_layout ..> web_ui_custom_component
+package "web_ui_label_block" {}
+web_ui_label_block ..> web_ui_custom_component
+package "web_ui_parameter" {}
+web_ui_parameter ..> web_ui_custom_component
+package "web_ui_help_node" {}
+web_ui_help_node ..> web_ui_custom_component
+web_ui_help_node ..> utils
+package "web_ui_bind_input" {}
+web_ui_bind_input ..> web_ui_custom_component
+package "web_ui_file_picker" {}
+web_ui_file_picker ..> web_ui_custom_component
+package "web_ui_input_field" {}
+web_ui_input_field ..> web_ui_custom_component
+web_ui_input_field ..> utils
+
+package "dom_ready" {}
+dom_ready ..> web_ui_custom_component
 
 package "ui_parameters" {}
 ui_parameters ..> utils
@@ -76,7 +113,10 @@ utils <.[dotted]. randomizers
 utils <.[dotted]. array_utils
 utils <.[dotted]. log
 utils <.[dotted]. event_mixin
+utils <.[dotted]. state_machine_mixin
 utils <.[dotted]. object_utils
+utils <.[dotted]. deep_equals
+utils <.[dotted]. deep_clone
 
 package "array_utils" {}
 array_utils ..> type_checking
@@ -91,8 +131,23 @@ log ..> electron_ipcRenderer
 
 package "event_mixin" {}
 
+package "state_machine_mixin" {}
+state_machine_mixin ..> type_checking
+state_machine_mixin ..> event_mixin
+state_machine_mixin ..> object_utils
+state_machine_mixin ..> deep_clone
+state_machine_mixin ..> deep_equals
+
 package "object_utils" {}
 object_utils ..> type_checking
+
+package "deep_equals" {}
+deep_equals ..> type_checking
+deep_equals ..> object_utils
+
+package "deep_clone" {}
+deep_clone ..> type_checking
+deep_clone ..> object_utils
 
 
 

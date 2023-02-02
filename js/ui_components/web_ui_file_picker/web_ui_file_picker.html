@@ -1,0 +1,39 @@
+<!--
+Wav2Bar - Free software for creating audio visualization (motion design) videos
+Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<template>
+    <style>
+        .ui-file-picker-input input,
+        .ui-file-picker-button {
+            width: 100%;
+        }
+        :host([data-show-input="false"]) .ui-file-picker-input {
+            display: none;
+        }
+        :host([data-show-input="true"]) .ui-file-picker-input {
+            display: initial;
+        }
+    </style>
+    <div class="ui-file-picker-container">
+        <ui-bind-input class="ui-file-picker-input">
+            <input class="panel_input panel_input_string"/>
+        </ui-bind-input>
+        <button class="ui-file-picker-button panel_button">BROWSE</button>
+        <span class="ui-file-picker-opened-span"></span><span>: </span><span class="ui-file-picker-path-disp"></span>
+    </div>
+</template>

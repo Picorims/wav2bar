@@ -8,6 +8,7 @@ A tool to make custom audio visualization and export production videos for the a
 - **This tool is a side project and is provided as is, without garantee of long term maintenance. If this is fine for you, you can proceed. Enjoy!**
 - **This tool is usable at this point, but is still in early development! Your work is subject to bugs, backup your saves!**
 - Git LFS used to be used for node_modules and FFMpeg, but is no longer used. Both of these folders have been removed from the repository, but not its history. You do not need to clone them. Git LFS files are no longer included in archive downloads. **If you want a full release source code archive, go to the releases section. This will include node_modules, but not FFmpeg** (which can be downloaded from their official website compiled and packaged).
+- I know this is some Frankenstein of a project with an awful architecture, questionnable decisions (why my own UI system and state machine when you have all kinds of frameworks and libs?). It is something I started in high school and that I tried to continuously improve with refreshed novel (which explains the mix of module and non module JS for example). At the same time it is my sandbox for experimentations (custom UI, state machine, etc.). So yeah, it has a lot of awful stuff but I am just having fun there. Which doesn't mean I neglect it either. I have limited time and energy, that I try to avoid spending on endless refactoring (easier said than done). Check the FAQ in the development guidelines file for additional information.
 
 ## Hacking
 - NodeJS must be installed (It will install npm too).
@@ -23,8 +24,8 @@ Compilation settings are detailed in package.JSON at the "config" node. You can 
 
 FFmpeg should be installed independently and not compiled in the application.
 
-#### ZIP
-Zip maker is available for all platforms, without any dependencies required. On Windows, it will produce an executable (.exe) to run the app from anywhere on a Windows machine, without any installation process.
+### ZIP (Windows, Linux)
+Zip maker is available for all platforms, without any dependencies required. It will produce an executable to run the app from anywhere on your machine, without any installation process. Use this if you want a portable installation, that can for example be kept on an external storage device (like a USB stick).
 
 ### Windows specific
 
@@ -33,15 +34,22 @@ This maker create a Windows .msi installer. To make a .msi installer, Wix must b
 **The paths for the installer assets are absolute, don't forget to change them in package.json or the make command will fail!**
 
 ### Linux specific
-There are existing configurations for .deb and .rpm packages **although they have not been tested** as I have no viable Linux development environment at the moment.
 
-#### .deb packages
-.deb packages can be made on MacOS and Linux machines with `fakeroot` and `dpkg` packages installed.
-See https://www.electronforge.io/config/makers/deb
+#### flatpak
 
-#### .rpm packages
-.rpm packages can be made on Linux machines with `rpm` or `rpm-build` packages installed.
-See https://www.electronforge.io/config/makers/rpm.
+**This option is currently configured but NOT available due to this issue: https://github.com/electron/forge/issues/2561**
+
+This maker creates a flatpak package, which is a sandboxed package that helps deploying applications to many Linux distributions at a time.
+
+As per the Electron Forge documentation (https://www.electronforge.io/config/makers/flatpak):
+> You can only build the Flatpak target if you have flatpak, flatpak-builder, and eu-strip (usually part of the elfutils package) installed on your system.
+
+#### deb and rpm
+~~There are existing configurations for .deb and .rpm packages **although they have not been tested** as I have no viable Linux development environment at the moment.~~
+
+`deb` and `rpm` packages have been abandoned as their packaging never worked, and Linux support is otherwise guaranteed from other package formats. Instead (if it works), `flatpak` support should be introduced in a future release.
+
+
 
 ### Mac Specific
 
@@ -58,7 +66,7 @@ See `docs/cli.md` for more details.
 This tool is licensed under GPL-3.0-or-later
 
     Wav2Bar - Free software for creating audio visualization (motion design) videos
-    Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+    Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

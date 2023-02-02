@@ -1,5 +1,5 @@
 //Wav2Bar - Free software for creating audio visualization (motion design) videos
-//Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+//Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
 
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -113,4 +113,18 @@ export function IsAnElement(value) {//returns true if the given variable is an H
  */
 export function IsAFunction(value) {
     return (typeof value === "function");
+}
+
+/**
+ * Returns if the value is strictly equals to NaN. It differs from
+ * isNaN that only returns if the value is equivalent to NaN.
+ * @param {*} value 
+ * @returns {Boolean}
+ */
+export function equalsNaN(value) {
+    // isNaN is more for safety than anything else
+    // see https://dorey.github.io/JavaScript-Equality-Table/
+    // the only value not strictly equal to itself of type number is NaN.
+    // Other values not strictly equal to themselves are of type object.
+    return (typeof value === "number" && value !== value && isNaN(value));
 }

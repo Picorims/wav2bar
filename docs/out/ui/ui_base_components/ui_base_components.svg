@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1129.1667px" preserveAspectRatio="none" style="width:2129px;height:1129px;background:#222222;" version="1.1" viewBox="0 0 2129 1129" width="2129.1667px" zoomAndPan="magnify"><defs/><g><!--MD5=[12e8ed3d31618ab0ff1f89041617434d]
+cluster ui_base_components--><g id="cluster_ui_base_components"><rect fill="none" height="1100" rx="4.1667" ry="4.1667" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="2100" x="17.7083" y="17.7083"/><path d="M247.9167,17.7083 L247.9167,47.0378 L237.5,57.4544 L17.7083,57.4544 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="&quot;Verdana&quot;" font-size="20.8333" font-weight="bold" lengthAdjust="spacing" textLength="209.375" x="26.0417" y="45.5851">ui_base_components</text></g><!--MD5=[5f541e8ad6d2a88033f479c756d5b41a]
+class UIComponent--><g id="elem_UIComponent"><rect codeLine="24" fill="none" height="378.8574" id="UIComponent" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="273.9583" x="971.3542" y="73.9583"/><rect fill="#227FAB" height="35.2458" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="273.9583" x="971.3542" y="73.9583"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="273.9583" x="971.3542" y="105.0374"/><rect codeLine="24" fill="none" height="378.8574" id="UIComponent" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="273.9583" x="971.3542" y="73.9583"/><ellipse cx="1066.1458" cy="91.5812" fill="none" rx="10.4167" ry="10.4167" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><path d="M1067.6921,88.6678 Q1067.806,88.505 1067.9362,88.4237 Q1068.0827,88.3423 1068.2454,88.3423 Q1068.5221,88.3423 1068.6849,88.5376 Q1068.8639,88.7329 1068.8639,89.1724 L1068.8639,90.2466 Q1068.8639,90.686 1068.6849,90.8813 Q1068.5221,91.0767 1068.2454,91.0767 Q1067.985,91.0767 1067.8385,90.9302 Q1067.6921,90.8 1067.6107,90.4093 Q1067.5781,90.1489 1067.4479,90.0187 Q1067.1875,89.742 1066.7318,89.5793 Q1066.2923,89.4165 1065.8366,89.4165 Q1065.2832,89.4165 1064.8112,89.6606 Q1064.3392,89.9048 1063.9811,90.4582 Q1063.623,90.9953 1063.623,91.7603 L1063.623,92.5741 Q1063.623,93.4692 1064.2741,94.0715 Q1064.9414,94.6737 1066.097,94.6737 Q1066.7969,94.6737 1067.2852,94.4946 Q1067.5618,94.3807 1067.8711,94.0552 Q1068.0664,93.8599 1068.1803,93.811 Q1068.2943,93.7459 1068.4245,93.7459 Q1068.6849,93.7459 1068.8639,93.9412 Q1069.0592,94.1203 1069.0592,94.3807 Q1069.0592,94.6411 1068.7988,94.9341 Q1068.4245,95.3573 1067.8385,95.6014 Q1067.0573,95.9269 1066.1133,95.9269 Q1064.9902,95.9269 1064.1113,95.4712 Q1063.3789,95.1131 1062.8743,94.3156 Q1062.3698,93.5181 1062.3698,92.5903 L1062.3698,91.744 Q1062.3698,90.7674 1062.8255,89.9211 Q1063.2813,89.0747 1064.0788,88.619 Q1064.8926,88.1632 1065.7878,88.1632 Q1066.3411,88.1632 1066.8132,88.2935 Q1067.2852,88.4074 1067.6921,88.6678 Z " fill="#2A9FD6"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="65.625" x="1091.1458" y="96.2697">UIComponent</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="972.3958" x2="1244.2708" y1="109.2041" y2="109.2041"/><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="979.6875" y="124.2228"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="171.875" x="996.3542" y="130.4738">_DOM_container: HTMLDivElement</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="979.6875" y="149.0519"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="157.2917" x="996.3542" y="155.3029">_DOM_parent: HTMLDivElement</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="979.6875" y="173.881"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="126.0417" x="996.3542" y="180.132">_UI_parent: UIComponent</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="979.6875" y="198.7101"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="76.0417" x="996.3542" y="204.9611">_display: string</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="972.3958" x2="1244.2708" y1="216.8538" y2="216.8538"/><ellipse cx="982.8125" cy="234.9976" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="148.9583" x="996.3542" y="238.1236">UIComponent() : UIComponent</text><ellipse cx="982.8125" cy="288.8224" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="192.7083" x="996.3542" y="291.9484">get DOM_container(): HTMLDivElement</text><ellipse cx="982.8125" cy="313.6515" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="178.125" x="996.3542" y="316.7775">get DOM_parent(): HTMLDivElement</text><ellipse cx="982.8125" cy="338.4806" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="237.5" x="996.3542" y="341.6066">set DOM_parent(parent: HTMLDivElement): void</text><ellipse cx="982.8125" cy="363.3097" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="146.875" x="996.3542" y="366.4358">get UI_parent(): UIComponent</text><ellipse cx="982.8125" cy="388.1388" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="206.25" x="996.3542" y="391.2649">set UI_parent(parent: UIComponent): void</text><ellipse cx="982.8125" cy="412.9679" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="96.875" x="996.3542" y="416.094">get display(): string</text><ellipse cx="982.8125" cy="437.797" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="159.375" x="996.3542" y="440.9231">set display(display: string): void</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="972.3958" x2="1084.375" y1="262.4308" y2="262.4308"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="37.5" x="1089.5833" y="266.5985">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1132.2917" x2="1244.2708" y1="262.4308" y2="262.4308"/></g><!--MD5=[4649464fc1beabbcceeaf9555e0ceb8b]
+class UIButtonGrid--><g id="elem_UIButtonGrid"><rect codeLine="42" fill="none" height="362.3617" id="UIButtonGrid" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="379.1667" x="34.375" y="627.0833"/><rect fill="#227FAB" height="35.2458" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="379.1667" x="34.375" y="627.0833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="379.1667" x="34.375" y="658.1624"/><rect codeLine="42" fill="none" height="362.3617" id="UIButtonGrid" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="379.1667" x="34.375" y="627.0833"/><ellipse cx="183.3333" cy="644.7062" fill="none" rx="10.4167" ry="10.4167" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><path d="M184.8796,641.7928 Q184.9935,641.63 185.1237,641.5487 Q185.2702,641.4673 185.4329,641.4673 Q185.7096,641.4673 185.8724,641.6626 Q186.0514,641.8579 186.0514,642.2974 L186.0514,643.3716 Q186.0514,643.811 185.8724,644.0063 Q185.7096,644.2017 185.4329,644.2017 Q185.1725,644.2017 185.026,644.0552 Q184.8796,643.925 184.7982,643.5343 Q184.7656,643.2739 184.6354,643.1437 Q184.375,642.867 183.9193,642.7043 Q183.4798,642.5415 183.0241,642.5415 Q182.4707,642.5415 181.9987,642.7856 Q181.5267,643.0298 181.1686,643.5832 Q180.8105,644.1203 180.8105,644.8853 L180.8105,645.6991 Q180.8105,646.5942 181.4616,647.1965 Q182.1289,647.7987 183.2845,647.7987 Q183.9844,647.7987 184.4727,647.6196 Q184.7493,647.5057 185.0586,647.1802 Q185.2539,646.9849 185.3678,646.936 Q185.4818,646.8709 185.612,646.8709 Q185.8724,646.8709 186.0514,647.0662 Q186.2467,647.2453 186.2467,647.5057 Q186.2467,647.7661 185.9863,648.0591 Q185.612,648.4823 185.026,648.7264 Q184.2448,649.0519 183.3008,649.0519 Q182.1777,649.0519 181.2988,648.5962 Q180.5664,648.2381 180.0618,647.4406 Q179.5573,646.6431 179.5573,645.7153 L179.5573,644.869 Q179.5573,643.8924 180.013,643.0461 Q180.4688,642.1997 181.2663,641.744 Q182.0801,641.2882 182.9753,641.2882 Q183.5286,641.2882 184.0007,641.4185 Q184.4727,641.5324 184.8796,641.7928 Z " fill="#2A9FD6"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="62.5" x="208.3333" y="649.3947">UIButtonGrid</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="35.4167" x2="412.5" y1="662.3291" y2="662.3291"/><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="42.7083" y="677.3478"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="51.0417" x="59.375" y="683.5988">_rows: int</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="42.7083" y="702.1769"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="65.625" x="59.375" y="708.4279">_columns: int</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="42.7083" y="727.006"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="197.9167" x="59.375" y="733.257">_button_definitions: array[array[object]]</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="42.7083" y="751.8351"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="78.125" x="59.375" y="758.0861">_togglable: bool</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="42.7083" y="776.6642"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="215.625" x="59.375" y="782.9152">_buttons: array[array[HTMLButtonElement]]</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="35.4167" x2="412.5" y1="794.8079" y2="794.8079"/><ellipse cx="45.8333" cy="812.9517" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="180.2083" x="59.375" y="816.0777">UIButtonGrid(rows: int, columns: int,</text><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="342.7083" x="59.375" y="840.9068">button_definitions: array[array[object]], togglable: bool): UIButtonGrid</text><ellipse cx="45.8333" cy="891.6056" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="75" x="59.375" y="894.7316">get rows() : int</text><ellipse cx="45.8333" cy="916.4347" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="89.5833" x="59.375" y="919.5608">get columns() : int</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="35.4167" x2="200" y1="865.214" y2="865.214"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="37.5" x="205.2083" y="869.3817">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="247.9167" x2="412.5" y1="865.214" y2="865.214"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="35.4167" x2="412.5" y1="931.4535" y2="931.4535"/><ellipse cx="45.8333" cy="949.5972" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="262.5" x="59.375" y="952.7232">getButton(row: int, column: int) : HTMLButtonElement</text><ellipse cx="45.8333" cy="974.4263" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="111.4583" x="59.375" y="977.5523">toggle(i: int, j: int): void</text></g><!--MD5=[55ecda4c96e29bc0c5306f6c8f5be5c2]
+class UINumberInput--><g id="elem_UINumberInput"><rect codeLine="60" fill="none" height="585.8236" id="UINumberInput" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="282.2917" x="450.5208" y="515.625"/><rect fill="#227FAB" height="35.2458" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="282.2917" x="450.5208" y="515.625"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="282.2917" x="450.5208" y="546.7041"/><rect codeLine="60" fill="none" height="585.8236" id="UINumberInput" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="282.2917" x="450.5208" y="515.625"/><ellipse cx="546.3542" cy="533.2479" fill="none" rx="10.4167" ry="10.4167" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><path d="M547.9004,530.3345 Q548.0143,530.1717 548.1445,530.0903 Q548.291,530.009 548.4538,530.009 Q548.7305,530.009 548.8932,530.2043 Q549.0723,530.3996 549.0723,530.839 L549.0723,531.9132 Q549.0723,532.3527 548.8932,532.548 Q548.7305,532.7433 548.4538,532.7433 Q548.1934,532.7433 548.0469,532.5968 Q547.9004,532.4666 547.819,532.076 Q547.7865,531.8156 547.6563,531.6854 Q547.3958,531.4087 546.9401,531.2459 Q546.5007,531.0832 546.0449,531.0832 Q545.4915,531.0832 545.0195,531.3273 Q544.5475,531.5715 544.1895,532.1248 Q543.8314,532.6619 543.8314,533.4269 L543.8314,534.2407 Q543.8314,535.1359 544.4824,535.7381 Q545.1497,536.3403 546.3053,536.3403 Q547.0052,536.3403 547.4935,536.1613 Q547.7702,536.0474 548.0794,535.7218 Q548.2747,535.5265 548.3887,535.4777 Q548.5026,535.4126 548.6328,535.4126 Q548.8932,535.4126 549.0723,535.6079 Q549.2676,535.7869 549.2676,536.0474 Q549.2676,536.3078 549.0072,536.6007 Q548.6328,537.0239 548.0469,537.2681 Q547.2656,537.5936 546.3216,537.5936 Q545.1986,537.5936 544.3197,537.1379 Q543.5872,536.7798 543.0827,535.9823 Q542.5781,535.1847 542.5781,534.257 L542.5781,533.4106 Q542.5781,532.4341 543.0339,531.5877 Q543.4896,530.7414 544.2871,530.2856 Q545.1009,529.8299 545.9961,529.8299 Q546.5495,529.8299 547.0215,529.9601 Q547.4935,530.0741 547.9004,530.3345 Z " fill="#2A9FD6"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="71.875" x="571.3542" y="537.9364">UINumberInput</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="451.5625" x2="731.7708" y1="550.8708" y2="550.8708"/><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="458.8542" y="565.8895"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="57.2917" x="475.5208" y="572.1405">_title: string</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="458.8542" y="590.7186"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="58.3333" x="475.5208" y="596.9696">_unit: string</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="458.8542" y="615.5477"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="117.7083" x="475.5208" y="621.7987">_default_value: number</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="458.8542" y="640.3768"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="66.6667" x="475.5208" y="646.6278">_min: number</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="458.8542" y="665.2059"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="70.8333" x="475.5208" y="671.4569">_max: number</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="458.8542" y="690.035"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="71.875" x="475.5208" y="696.286">_step: number</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="458.8542" y="714.8641"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="128.125" x="475.5208" y="721.1151">_label: HTMLSpanElement</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="458.8542" y="739.6932"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="127.0833" x="475.5208" y="745.9442">_input: HTMLInputElement</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="458.8542" y="764.5223"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="152.0833" x="475.5208" y="770.7733">_label_unit: HTMLSpanElement</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="458.8542" y="789.3514"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="98.9583" x="475.5208" y="795.6024">_input_event: Event</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="451.5625" x2="731.7708" y1="807.4951" y2="807.4951"/><ellipse cx="461.9792" cy="825.6388" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="188.5417" x="475.5208" y="828.7649">UINumberInput(title: string, unit: string,</text><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="193.75" x="475.5208" y="853.594">default_value: number): UINumberInput</text><ellipse cx="461.9792" cy="904.2928" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="97.9167" x="475.5208" y="907.4188">get value(): number</text><ellipse cx="461.9792" cy="929.1219" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="152.0833" x="475.5208" y="932.2479">set value(value: number): void</text><ellipse cx="461.9792" cy="953.951" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="131.25" x="475.5208" y="957.077">set min(min: number): void</text><ellipse cx="461.9792" cy="978.7801" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="139.5833" x="475.5208" y="981.9061">set max(max: number): void</text><ellipse cx="461.9792" cy="1003.6092" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="141.6667" x="475.5208" y="1006.7352">set step(step: number): void</text><ellipse cx="461.9792" cy="1028.4383" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="245.8333" x="475.5208" y="1031.5643">set input_class_list(class_list: array[string]): void</text><ellipse cx="461.9792" cy="1053.2674" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="225" x="475.5208" y="1056.3934">set oninput(function_callback: function): void</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="451.5625" x2="567.7083" y1="877.9012" y2="877.9012"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="37.5" x="572.9167" y="882.0689">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="615.625" x2="731.7708" y1="877.9012" y2="877.9012"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="451.5625" x2="731.7708" y1="1068.2861" y2="1068.2861"/><ellipse cx="461.9792" cy="1086.4299" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="67.7083" x="475.5208" y="1089.5559">trigger(): void</text></g><!--MD5=[02b5c2125a30d3c791355dee0c617048]
+class UIStringInput--><g id="elem_UIStringInput"><rect codeLine="87" fill="none" height="412.0199" id="UIStringInput" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="335.4167" x="769.7917" y="602.0833"/><rect fill="#227FAB" height="35.2458" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="335.4167" x="769.7917" y="602.0833"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="335.4167" x="769.7917" y="633.1624"/><rect codeLine="87" fill="none" height="412.0199" id="UIStringInput" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="335.4167" x="769.7917" y="602.0833"/><ellipse cx="896.875" cy="619.7062" fill="none" rx="10.4167" ry="10.4167" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><path d="M898.4212,616.7928 Q898.5352,616.63 898.6654,616.5487 Q898.8118,616.4673 898.9746,616.4673 Q899.2513,616.4673 899.4141,616.6626 Q899.5931,616.8579 899.5931,617.2974 L899.5931,618.3716 Q899.5931,618.811 899.4141,619.0063 Q899.2513,619.2017 898.9746,619.2017 Q898.7142,619.2017 898.5677,619.0552 Q898.4212,618.925 898.3398,618.5343 Q898.3073,618.2739 898.1771,618.1437 Q897.9167,617.867 897.4609,617.7043 Q897.0215,617.5415 896.5658,617.5415 Q896.0124,617.5415 895.5404,617.7856 Q895.0684,618.0298 894.7103,618.5832 Q894.3522,619.1203 894.3522,619.8853 L894.3522,620.6991 Q894.3522,621.5942 895.0033,622.1965 Q895.6706,622.7987 896.8262,622.7987 Q897.526,622.7987 898.0143,622.6196 Q898.291,622.5057 898.6003,622.1802 Q898.7956,621.9849 898.9095,621.936 Q899.0234,621.8709 899.1536,621.8709 Q899.4141,621.8709 899.5931,622.0662 Q899.7884,622.2453 899.7884,622.5057 Q899.7884,622.7661 899.528,623.0591 Q899.1536,623.4823 898.5677,623.7264 Q897.7865,624.0519 896.8424,624.0519 Q895.7194,624.0519 894.8405,623.5962 Q894.1081,623.2381 893.6035,622.4406 Q893.099,621.6431 893.099,620.7153 L893.099,619.869 Q893.099,618.8924 893.5547,618.0461 Q894.0104,617.1997 894.8079,616.744 Q895.6217,616.2882 896.5169,616.2882 Q897.0703,616.2882 897.5423,616.4185 Q898.0143,616.5324 898.4212,616.7928 Z " fill="#2A9FD6"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="62.5" x="921.875" y="624.3947">UIStringInput</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="770.8333" x2="1104.1667" y1="637.3291" y2="637.3291"/><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="778.125" y="652.3478"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="57.2917" x="794.7917" y="658.5988">_title: string</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="778.125" y="677.1769"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="108.3333" x="794.7917" y="683.4279">_default_value: string</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="778.125" y="702.006"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="83.3333" x="794.7917" y="708.257">_pattern: regexp</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="778.125" y="726.8351"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="128.125" x="794.7917" y="733.0861">_label: HTMLSpanElement</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="778.125" y="751.6642"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="127.0833" x="794.7917" y="757.9152">_input: HTMLInputElement</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="770.8333" x2="1104.1667" y1="769.8079" y2="769.8079"/><ellipse cx="781.25" cy="787.9517" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="298.9583" x="794.7917" y="791.0777">UIStringInput(title: string, default_value: string): UIStringInput</text><ellipse cx="781.25" cy="841.7765" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="147.9167" x="794.7917" y="844.9025">get input(): HTMLInputElement</text><ellipse cx="781.25" cy="866.6056" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="88.5417" x="794.7917" y="869.7316">get value(): string</text><ellipse cx="781.25" cy="891.4347" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="142.7083" x="794.7917" y="894.5608">set value(value: string): void</text><ellipse cx="781.25" cy="916.2638" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="166.6667" x="794.7917" y="919.3899">set pattern(pattern: regexp): void</text><ellipse cx="781.25" cy="941.0929" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="245.8333" x="794.7917" y="944.219">set input_class_list(class_list: array[string]): void</text><ellipse cx="781.25" cy="965.922" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="225" x="794.7917" y="969.0481">set oninput(function_callback: function): void</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="770.8333" x2="913.5417" y1="815.3849" y2="815.3849"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="37.5" x="918.75" y="819.5526">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="961.4583" x2="1104.1667" y1="815.3849" y2="815.3849"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="770.8333" x2="1104.1667" y1="980.9408" y2="980.9408"/><ellipse cx="781.25" cy="999.0845" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="106.25" x="794.7917" y="1002.2105">triggerOninput(): void</text></g><!--MD5=[1e7f511c7cfc171f9ff221b112a7f016]
+class UIColorPicker--><g id="elem_UIColorPicker"><rect codeLine="107" fill="none" height="180.2246" id="UIColorPicker" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="275" x="1141.6667" y="718.2292"/><rect fill="#227FAB" height="35.2458" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="275" x="1141.6667" y="718.2292"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="275" x="1141.6667" y="749.3083"/><rect codeLine="107" fill="none" height="180.2246" id="UIColorPicker" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="275" x="1141.6667" y="718.2292"/><ellipse cx="1236.9792" cy="735.8521" fill="none" rx="10.4167" ry="10.4167" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><path d="M1238.5254,732.9386 Q1238.6393,732.7759 1238.7695,732.6945 Q1238.916,732.6131 1239.0788,732.6131 Q1239.3555,732.6131 1239.5182,732.8084 Q1239.6973,733.0037 1239.6973,733.4432 L1239.6973,734.5174 Q1239.6973,734.9569 1239.5182,735.1522 Q1239.3555,735.3475 1239.0788,735.3475 Q1238.8184,735.3475 1238.6719,735.201 Q1238.5254,735.0708 1238.444,734.6802 Q1238.4115,734.4198 1238.2813,734.2896 Q1238.0208,734.0129 1237.5651,733.8501 Q1237.1257,733.6873 1236.6699,733.6873 Q1236.1165,733.6873 1235.6445,733.9315 Q1235.1725,734.1756 1234.8145,734.729 Q1234.4564,735.2661 1234.4564,736.0311 L1234.4564,736.8449 Q1234.4564,737.7401 1235.1074,738.3423 Q1235.7747,738.9445 1236.9303,738.9445 Q1237.6302,738.9445 1238.1185,738.7655 Q1238.3952,738.6515 1238.7044,738.326 Q1238.8997,738.1307 1239.0137,738.0819 Q1239.1276,738.0168 1239.2578,738.0168 Q1239.5182,738.0168 1239.6973,738.2121 Q1239.8926,738.3911 1239.8926,738.6515 Q1239.8926,738.9119 1239.6322,739.2049 Q1239.2578,739.6281 1238.6719,739.8722 Q1237.8906,740.1978 1236.9466,740.1978 Q1235.8236,740.1978 1234.9447,739.742 Q1234.2122,739.384 1233.7077,738.5864 Q1233.2031,737.7889 1233.2031,736.8612 L1233.2031,736.0148 Q1233.2031,735.0382 1233.6589,734.1919 Q1234.1146,733.3455 1234.9121,732.8898 Q1235.7259,732.4341 1236.6211,732.4341 Q1237.1745,732.4341 1237.6465,732.5643 Q1238.1185,732.6782 1238.5254,732.9386 Z " fill="#2A9FD6"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="65.625" x="1261.9792" y="740.5406">UIColorPicker</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1142.7083" x2="1415.625" y1="753.4749" y2="753.4749"/><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="1150" y="768.4937"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="161.4583" x="1166.6667" y="774.7447">_string_input: HTMLInputElement</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="1150" y="793.3228"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="164.5833" x="1166.6667" y="799.5738">_color_picker: HTMLInputElement</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1142.7083" x2="1415.625" y1="811.4665" y2="811.4665"/><ellipse cx="1153.125" cy="829.6102" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="238.5417" x="1166.6667" y="832.7362">UIColorPicker(string_input: string): UIColorPicker</text><ellipse cx="1153.125" cy="883.4351" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="142.7083" x="1166.6667" y="886.5611">set value(value: string): void</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1142.7083" x2="1255.2083" y1="857.0435" y2="857.0435"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="37.5" x="1260.4167" y="861.2111">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1303.125" x2="1415.625" y1="857.0435" y2="857.0435"/></g><!--MD5=[d1fee772d00f673d8df71f5526ae0cb3]
+class UIChoiceList--><g id="elem_UIChoiceList"><rect codeLine="117" fill="none" height="354.0283" id="UIChoiceList" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="286.4583" x="1453.6458" y="631.25"/><rect fill="#227FAB" height="35.2458" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="286.4583" x="1453.6458" y="631.25"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="286.4583" x="1453.6458" y="662.3291"/><rect codeLine="117" fill="none" height="354.0283" id="UIChoiceList" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="286.4583" x="1453.6458" y="631.25"/><ellipse cx="1556.7708" cy="648.8729" fill="none" rx="10.4167" ry="10.4167" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><path d="M1558.3171,645.9595 Q1558.431,645.7967 1558.5612,645.7153 Q1558.7077,645.634 1558.8704,645.634 Q1559.1471,645.634 1559.3099,645.8293 Q1559.4889,646.0246 1559.4889,646.464 L1559.4889,647.5382 Q1559.4889,647.9777 1559.3099,648.173 Q1559.1471,648.3683 1558.8704,648.3683 Q1558.61,648.3683 1558.4635,648.2218 Q1558.3171,648.0916 1558.2357,647.701 Q1558.2031,647.4406 1558.0729,647.3104 Q1557.8125,647.0337 1557.3568,646.8709 Q1556.9173,646.7082 1556.4616,646.7082 Q1555.9082,646.7082 1555.4362,646.9523 Q1554.9642,647.1965 1554.6061,647.7498 Q1554.248,648.2869 1554.248,649.0519 L1554.248,649.8657 Q1554.248,650.7609 1554.8991,651.3631 Q1555.5664,651.9653 1556.722,651.9653 Q1557.4219,651.9653 1557.9102,651.7863 Q1558.1868,651.6724 1558.4961,651.3468 Q1558.6914,651.1515 1558.8053,651.1027 Q1558.9193,651.0376 1559.0495,651.0376 Q1559.3099,651.0376 1559.4889,651.2329 Q1559.6842,651.4119 1559.6842,651.6724 Q1559.6842,651.9328 1559.4238,652.2257 Q1559.0495,652.6489 1558.4635,652.8931 Q1557.6823,653.2186 1556.7383,653.2186 Q1555.6152,653.2186 1554.7363,652.7629 Q1554.0039,652.4048 1553.4993,651.6073 Q1552.9948,650.8097 1552.9948,649.882 L1552.9948,649.0356 Q1552.9948,648.0591 1553.4505,647.2127 Q1553.9063,646.3664 1554.7038,645.9106 Q1555.5176,645.4549 1556.4128,645.4549 Q1556.9661,645.4549 1557.4382,645.5851 Q1557.9102,645.6991 1558.3171,645.9595 Z " fill="#2A9FD6"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="61.4583" x="1581.7708" y="653.5614">UIChoiceList</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1454.6875" x2="1739.0625" y1="666.4958" y2="666.4958"/><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="1461.9792" y="681.5145"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="57.2917" x="1478.6458" y="687.7655">_title: string</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="1461.9792" y="706.3436"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="130.2083" x="1478.6458" y="712.5946">_options_list: array[string]</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="1461.9792" y="731.1727"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="108.3333" x="1478.6458" y="737.4237">_default_value: string</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="1461.9792" y="756.0018"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="128.125" x="1478.6458" y="762.2528">_label: HTMLSpanElement</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="1461.9792" y="780.8309"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="127.0833" x="1478.6458" y="787.0819">_input: HTMLInputElement</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1454.6875" x2="1739.0625" y1="798.9746" y2="798.9746"/><ellipse cx="1465.1042" cy="817.1183" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="250" x="1478.6458" y="820.2443">UIChoiceList(title: string, options_list: array[string],</text><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="173.9583" x="1478.6458" y="845.0734">default_value: string): UIChoiceList</text><ellipse cx="1465.1042" cy="895.7723" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="88.5417" x="1478.6458" y="898.8983">get value(): string</text><ellipse cx="1465.1042" cy="920.6014" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="142.7083" x="1478.6458" y="923.7274">set value(value: string): void</text><ellipse cx="1465.1042" cy="945.4305" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="245.8333" x="1478.6458" y="948.5565">set input_class_list(class_list: array[string]): void</text><ellipse cx="1465.1042" cy="970.2596" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="225" x="1478.6458" y="973.3856">set oninput(function_callback: function): void</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1454.6875" x2="1572.9167" y1="869.3807" y2="869.3807"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="37.5" x="1578.125" y="873.5484">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1620.8333" x2="1739.0625" y1="869.3807" y2="869.3807"/></g><!--MD5=[ba26938a5f2f6f1583d46181ac4b2a2d]
+class UICheckBox--><g id="elem_UICheckBox"><rect codeLine="134" fill="none" height="304.3701" id="UICheckBox" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="323.9583" x="1776.5625" y="656.25"/><rect fill="#227FAB" height="35.2458" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="323.9583" x="1776.5625" y="656.25"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="323.9583" x="1776.5625" y="687.3291"/><rect codeLine="134" fill="none" height="304.3701" id="UICheckBox" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="323.9583" x="1776.5625" y="656.25"/><ellipse cx="1898.9583" cy="673.8729" fill="none" rx="10.4167" ry="10.4167" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><path d="M1900.5046,670.9595 Q1900.6185,670.7967 1900.7487,670.7153 Q1900.8952,670.634 1901.0579,670.634 Q1901.3346,670.634 1901.4974,670.8293 Q1901.6764,671.0246 1901.6764,671.464 L1901.6764,672.5382 Q1901.6764,672.9777 1901.4974,673.173 Q1901.3346,673.3683 1901.0579,673.3683 Q1900.7975,673.3683 1900.651,673.2218 Q1900.5046,673.0916 1900.4232,672.701 Q1900.3906,672.4406 1900.2604,672.3104 Q1900,672.0337 1899.5443,671.8709 Q1899.1048,671.7082 1898.6491,671.7082 Q1898.0957,671.7082 1897.6237,671.9523 Q1897.1517,672.1965 1896.7936,672.7498 Q1896.4355,673.2869 1896.4355,674.0519 L1896.4355,674.8657 Q1896.4355,675.7609 1897.0866,676.3631 Q1897.7539,676.9653 1898.9095,676.9653 Q1899.6094,676.9653 1900.0977,676.7863 Q1900.3743,676.6724 1900.6836,676.3468 Q1900.8789,676.1515 1900.9928,676.1027 Q1901.1068,676.0376 1901.237,676.0376 Q1901.4974,676.0376 1901.6764,676.2329 Q1901.8717,676.4119 1901.8717,676.6724 Q1901.8717,676.9328 1901.6113,677.2257 Q1901.237,677.6489 1900.651,677.8931 Q1899.8698,678.2186 1898.9258,678.2186 Q1897.8027,678.2186 1896.9238,677.7629 Q1896.1914,677.4048 1895.6868,676.6073 Q1895.1823,675.8097 1895.1823,674.882 L1895.1823,674.0356 Q1895.1823,673.0591 1895.638,672.2127 Q1896.0938,671.3664 1896.8913,670.9106 Q1897.7051,670.4549 1898.6003,670.4549 Q1899.1536,670.4549 1899.6257,670.5851 Q1900.0977,670.6991 1900.5046,670.9595 Z " fill="#2A9FD6"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="60.4167" x="1923.9583" y="678.5614">UICheckBox</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1777.6042" x2="2099.4792" y1="691.4958" y2="691.4958"/><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="1784.8958" y="706.5145"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="57.2917" x="1801.5625" y="712.7655">_title: string</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="1784.8958" y="731.3436"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="101.0417" x="1801.5625" y="737.5946">_default_value: bool</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="1784.8958" y="756.1727"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="128.125" x="1801.5625" y="762.4237">_label: HTMLSpanElement</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="1784.8958" y="781.0018"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="127.0833" x="1801.5625" y="787.2528">_input: HTMLInputElement</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="1777.6042" x2="2099.4792" y1="799.1455" y2="799.1455"/><ellipse cx="1788.0208" cy="817.2892" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="287.5" x="1801.5625" y="820.4152">UICheckBox(title: string, default_value: bool): UICheckBox</text><ellipse cx="1788.0208" cy="871.1141" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="96.875" x="1801.5625" y="874.2401">get checked(): bool</text><ellipse cx="1788.0208" cy="895.9432" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="166.6667" x="1801.5625" y="899.0692">set checked(checked: bool): void</text><ellipse cx="1788.0208" cy="920.7723" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="245.8333" x="1801.5625" y="923.8983">set input_class_list(class_list: array[string]): void</text><ellipse cx="1788.0208" cy="945.6014" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="225" x="1801.5625" y="948.7274">set oninput(function_callback: function): void</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1777.6042" x2="1914.5833" y1="844.7225" y2="844.7225"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="37.5" x="1919.7917" y="848.8902">get, set</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;stroke-dasharray:1.0,2.0;" x1="1962.5" x2="2099.4792" y1="844.7225" y2="844.7225"/></g><!--MD5=[2fdbdc0615c4a45f7ebd6a816059a97a]
+link UIComponent to UIComponent--><g id="link_UIComponent_UIComponent"><path codeLine="40" d="M1245.375,169.875 C1267,183.7292 1281.7708,214.9583 1281.7708,263.5417 C1281.7708,312.125 1267,343.3542 1245.375,357.2083 " fill="none" id="UIComponent-UIComponent" style="stroke:#2A9FD6;stroke-width:3.125;"/><text fill="#FFFFFF" font-family="&quot;Verdana&quot;" font-size="12.5" lengthAdjust="spacing" textLength="46.875" x="1258.6088" y="156.8599">1 parent</text><text fill="#FFFFFF" font-family="&quot;Verdana&quot;" font-size="12.5" lengthAdjust="spacing" textLength="51.0417" x="1258.7097" y="353.2672">0..n child</text></g><!--MD5=[c267d42af3d0491e3abf9236fb8dfa29]
+reverse link UIComponent to UIButtonGrid--><g id="link_UIComponent_UIButtonGrid"><path codeLine="58" d="M950.7917,295.1771 C804.8438,329.5938 587.5313,396.8646 432.2917,515.625 C392.5104,546.0625 357.1458,586.1979 327.3542,626.9271 " fill="none" id="UIComponent-backto-UIButtonGrid" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="949.4063,288.0104,971.3438,290.4375,952.6771,302.2188,949.4063,288.0104" style="stroke:#2A9FD6;stroke-width:3.125;"/></g><!--MD5=[c261dfee7df4017274ddf90fe67d69c7]
+reverse link UIComponent to UINumberInput--><g id="link_UIComponent_UINumberInput"><path codeLine="85" d="M953.4688,351.7396 C885.9896,394.9271 809.3958,451.5729 752.0833,515.625 C745.5313,522.9479 739.1458,530.5833 732.9271,538.4583 " fill="none" id="UIComponent-backto-UINumberInput" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="949.8125,345.4271,971.3229,340.4896,957.5938,357.7604,949.8125,345.4271" style="stroke:#2A9FD6;stroke-width:3.125;"/></g><!--MD5=[4443e51bcf8993e8dcc10d68205092e6]
+reverse link UIComponent to UIStringInput--><g id="link_UIComponent_UIStringInput"><path codeLine="105" d="M1042.6771,473.1563 C1029.375,515.4271 1015.3958,559.8438 1002.125,602 " fill="none" id="UIComponent-backto-UIStringInput" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="1035.7292,470.9375,1048.9479,453.25,1049.6458,475.3125,1035.7292,470.9375" style="stroke:#2A9FD6;stroke-width:3.125;"/></g><!--MD5=[55b614d702daae746c26ceb219e0a8f2]
+reverse link UIComponent to UIColorPicker--><g id="link_UIComponent_UIColorPicker"><path codeLine="115" d="M1174,473.1875 C1200.6979,558.0208 1230.125,651.5104 1251.0521,717.9688 " fill="none" id="UIComponent-backto-UIColorPicker" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="1167.0208,475.3125,1167.7188,453.25,1180.9375,470.9375,1167.0208,475.3125" style="stroke:#2A9FD6;stroke-width:3.125;"/></g><!--MD5=[5cc2dcfed89fdd89d1241cfdf506856b]
+reverse link UIComponent to UIChoiceList--><g id="link_UIComponent_UIChoiceList"><path codeLine="132" d="M1262.5729,362.8854 C1321.2813,405.1667 1385.8958,458.1042 1435.4167,515.625 C1465.1563,550.1667 1491.875,591.0521 1514.625,631.1146 " fill="none" id="UIComponent-backto-UIChoiceList" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="1258.1458,368.6875,1245.3854,350.6771,1266.5938,356.7917,1258.1458,368.6875" style="stroke:#2A9FD6;stroke-width:3.125;"/></g><!--MD5=[c5c4726133c817eb299aadd6a8c14d18]
+reverse link UIComponent to UICheckBox--><g id="link_UIComponent_UICheckBox"><path codeLine="147" d="M1265.9688,295.3542 C1407.4896,329.4896 1614.5208,396.2083 1758.3333,515.625 C1803.8958,553.4583 1841.2708,605.9479 1869.9271,655.9792 " fill="none" id="UIComponent-backto-UICheckBox" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="1264.1771,302.4271,1245.5729,290.5521,1267.5208,288.2292,1264.1771,302.4271" style="stroke:#2A9FD6;stroke-width:3.125;"/></g><!--MD5=[7f40f295f82a2a2db5556f7c1470389d]
+@startuml ui_base_components
+
+'Wav2Bar - Free software for creating audio visualization (motion design) videos
+'Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
+
+'This program is free software: you can redistribute it and/or modify
+'it under the terms of the GNU General Public License as published by
+'the Free Software Foundation, either version 3 of the License, or
+'any later version.
+
+'This program is distributed in the hope that it will be useful,
+'but WITHOUT ANY WARRANTY; without even the implied warranty of
+'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'GNU General Public License for more details.
+
+'You should have received a copy of the GNU General Public License
+'along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+' skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package "ui_base_components" {
+    class UIComponent {
+        - _DOM_container: HTMLDivElement
+        - _DOM_parent: HTMLDivElement
+        - _UI_parent: UIComponent
+        - _display: string
+        - -
+        + UIComponent() : UIComponent
+        ..get, set..
+        + get DOM_container(): HTMLDivElement
+        + get DOM_parent(): HTMLDivElement
+        + set DOM_parent(parent: HTMLDivElement): void
+        + get UI_parent(): UIComponent
+        + set UI_parent(parent: UIComponent): void
+        + get display(): string
+        + set display(display: string): void
+    }
+    UIComponent "1 parent" - - "0..n child" UIComponent
+
+    class UIButtonGrid {
+        - _rows: int
+        - _columns: int
+        - _button_definitions: array[array[object]]
+        - _togglable: bool
+        - _buttons: array[array[HTMLButtonElement]]
+        - -
+        + UIButtonGrid(rows: int, columns: int,
+        button_definitions: array[array[object]], togglable: bool): UIButtonGrid
+        ..get, set..
+        + get rows() : int
+        + get columns() : int
+        ..
+        + getButton(row: int, column: int) : HTMLButtonElement
+        + toggle(i: int, j: int): void
+    }
+    UIComponent <|- - UIButtonGrid
+
+    class UINumberInput {
+        - _title: string
+        - _unit: string
+        - _default_value: number
+        - _min: number
+        - _max: number
+        - _step: number
+        - _label: HTMLSpanElement
+        - _input: HTMLInputElement
+        - _label_unit: HTMLSpanElement
+        - _input_event: Event
+        - -
+        + UINumberInput(title: string, unit: string,
+        default_value: number): UINumberInput
+        ..get, set..
+        + get value(): number
+        + set value(value: number): void
+        + set min(min: number): void
+        + set max(max: number): void
+        + set step(step: number): void
+        + set input_class_list(class_list: array[string]): void
+        + set oninput(function_callback: function): void
+        ..
+        + trigger(): void
+    }
+    UIComponent <|- - UINumberInput
+
+    class UIStringInput {
+        - _title: string
+        - _default_value: string
+        - _pattern: regexp
+        - _label: HTMLSpanElement
+        - _input: HTMLInputElement
+        - -
+        + UIStringInput(title: string, default_value: string): UIStringInput
+        ..get, set..
+        + get input(): HTMLInputElement
+        + get value(): string
+        + set value(value: string): void
+        + set pattern(pattern: regexp): void
+        + set input_class_list(class_list: array[string]): void
+        + set oninput(function_callback: function): void
+        ..
+        + triggerOninput(): void
+    }
+    UIComponent <|- - UIStringInput
+
+    class UIColorPicker {
+        - _string_input: HTMLInputElement
+        - _color_picker: HTMLInputElement
+        - -
+        + UIColorPicker(string_input: string): UIColorPicker
+        ..get, set..
+        + set value(value: string): void
+    }
+    UIComponent <|- - UIColorPicker
+
+    class UIChoiceList {
+        - _title: string
+        - _options_list: array[string]
+        - _default_value: string
+        - _label: HTMLSpanElement
+        - _input: HTMLInputElement
+        - -
+        + UIChoiceList(title: string, options_list: array[string],
+        default_value: string): UIChoiceList
+        ..get, set..
+        + get value(): string
+        + set value(value: string): void
+        + set input_class_list(class_list: array[string]): void
+        + set oninput(function_callback: function): void
+    }
+    UIComponent <|- - UIChoiceList
+
+    class UICheckBox {
+        - _title: string
+        - _default_value: bool
+        - _label: HTMLSpanElement
+        - _input: HTMLInputElement
+        - -
+        + UICheckBox(title: string, default_value: bool): UICheckBox
+        ..get, set..
+        + get checked(): bool
+        + set checked(checked: bool): void
+        + set input_class_list(class_list: array[string]): void
+        + set oninput(function_callback: function): void
+    }
+    UIComponent <|- - UICheckBox
+}
+
+@enduml
+
+@startuml ui_base_components
+
+
+
+
+
+
+
+
+skinparam backgroundColor transparent
+skinparam useBetaStyle false
+
+
+
+
+
+
+<style>
+  root {
+    BackgroundColor transparent
+    FontColor #2A9FD6
+    HyperLinkColor #fd7e14
+    LineColor #55B2DE
+    LineThickness 1
+    Margin 10
+    Padding 6
+    Shadowing 0.0
+  }
+  node {
+   Padding 15
+   roundcorner 20
+   BackgroundColor transparent
+  }
+  caption {
+    LineThickness 0
+  }
+  footer {
+    LineThickness 0
+  }
+  groupHeader {
+    BackgroundColor #555
+    FontColor #9933CC
+    FontStyle bold
+  }
+  header {
+    LineThickness 0
+  }
+  referenceHeader {
+    BackgroundColor transparent
+    FontColor #ADAFAE
+    FontStyle bold
+  }
+  separator {
+    BackgroundColor #FFF
+    FontColor transparent
+    FontStyle bold
+  }
+  title {
+	FontSize 20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor  transparent
+	FontColor #2A9FD6
+	BorderColor #555
+  }
+  nwdiagDiagram {
+	network {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent    
+		LineColor #2A9FD6
+		LineThickness 1.0
+		FontColor #227FAB
+	}
+	server {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	}
+	arrow {
+		FontColor #227FAB
+		LineColor #227FAB
+	}
+	group {
+		BackGroundColor #222
+		LineColor #4E4E4E
+		LineThickness 2.0
+		Margin 5
+		Padding 5
+	}
+  }
+  ganttDiagram {
+	task {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+		LineColor #2A9FD6
+		Margin 10
+		Padding 6
+	}
+	note {
+		FontColor #9933CC
+		LineColor #AD5CD6
+		BackGroundColor transparent
+	}
+	separator {
+		LineColor #777777
+		BackGroundColor transparent
+		FontColor #777777
+	}
+	milestone {
+		FontColor #9933CC
+		FontSize 16
+		FontStyle italic
+		BackGroundColor #555
+		LineColor #777777
+	}
+	timeline {
+		BackgroundColor #555
+		FontColor #777777
+	}
+	closed {
+		BackgroundColor #FFA033
+		FontColor #FF8800
+	}
+  }
+</style>
+skinparam defaultFontName       "Verdana"
+skinparam defaultFontSize       12
+skinparam dpi                   100
+skinparam shadowing             false
+skinparam roundcorner           8
+skinparam ParticipantPadding    40
+skinparam BoxPadding            40
+skinparam Padding               5
+skinparam ArrowColor            #ADAFAE
+skinparam stereotype {
+    CBackgroundColor #777777
+    CBorderColor #444444
+    ABackgroundColor #5F8F00
+    ABorderColor #92C233
+    IBackgroundColor #a30000
+    IBorderColor #D63333
+    EBackgroundColor #cc6d00
+    EBorderColor #FFA033
+    NBackgroundColor #7a29a3
+    NBorderColor #AD5CD6
+}
+skinparam title {
+	FontColor	                 #2A9FD6
+	BorderColor	                 #777777
+	FontSize	    	         20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor              transparent
+}
+
+skinparam legend {
+	BackgroundColor transparent
+	BorderColor #777777
+	FontColor #ADAFAE
+}
+
+skinparam swimlane {
+	BorderColor #9933CC
+	BorderThickness 2
+	TitleBackgroundColor  #444444-#555
+	TitleFontColor #2A9FD6
+}
+
+
+skinparam activity {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BarColor #77B300
+	StartColor #9933CC
+	EndColor #9933CC
+	DiamondBackgroundColor transparent
+  	DiamondBorderColor #777777
+  	DiamondFontColor #777777
+}
+
+
+skinparam participant {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	ParticipantBorderThickness 2
+}
+
+
+skinparam actor {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam arrow {
+	Thickness 3
+	Color #2A9FD6
+	FontColor #FFF
+}
+
+
+skinparam sequence {
+	BorderColor #2A9FD6
+	TitleFontColor #2A9FD6
+	BackgroundColor transparent
+	StartColor #2A9FD6
+	EndColor #2A9FD6
+	BoxBackgroundColor transparent
+	BoxBorderColor #ADAFAE
+	BoxFontColor #ADAFAE
+	DelayFontColor #ADAFAE
+	LifeLineBorderColor #555
+	LifeLineBorderThickness 2
+	LifeLineBackgroundColor transparent
+	GroupBorderColor #ADAFAE
+	GroupFontColor #ADAFAE
+	GroupHeaderFontColor #9933CC
+	GroupBackgroundColor transparent
+	GroupHeaderBackgroundColor transparent
+	DividerBackgroundColor transparent
+    DividerBorderColor #ADAFAE
+    DividerBorderThickness 2
+    DividerFontColor #ADAFAE
+	ReferenceBackgroundColor transparent
+	ReferenceBorderColor #ADAFAE
+	ReferenceFontColor #ADAFAE
+	ReferenceHeaderFontColor #9933CC
+	ReferenceHeaderBackgroundColor transparent
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam partition {
+	BorderColor #2A9FD6
+	FontColor #2A9FD6
+	BackgroundColor transparent
+}
+
+
+skinparam collections {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam control {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam entity {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam boundary {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam agent {
+	BackgroundColor transparent
+	BorderColor #cc6d00
+	FontColor #ADAFAE
+}
+
+
+skinparam note {
+	BorderThickness 1
+	BackgroundColor transparent
+	BorderColor #AD5CD6
+	FontColor #AD5CD6
+}
+
+
+skinparam artifact {
+	BackgroundColor transparent
+	BorderColor #BDBFBE
+	FontColor #BDBFBE
+}
+
+
+skinparam component {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam interface {
+	BackgroundColor  transparent
+	BorderColor  #CC0000
+	FontColor #ADAFAE
+}
+
+
+skinparam storage {
+	BackgroundColor transparent
+  	BorderColor #FFA033
+	FontColor #FF8800
+}
+
+
+skinparam node {
+	BackgroundColor  transparent
+	BorderColor #ADAFAE
+	FontColor #ADAFAE
+}
+
+
+skinparam cloud {
+	BackgroundColor transparent
+	BorderColor #F2FCFE
+	FontColor #ADAFAE
+}
+
+
+skinparam database {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+
+skinparam class {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+        FontColor #222
+	HeaderBackgroundColor #227FAB
+	StereotypeFontColor #ADAFAE
+	BorderThickness 1
+	AttributeFontColor #ADAFAE
+	AttributeFontSize 11
+}
+
+
+skinparam object {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	StereotypeFontColor #ADAFAE
+	BorderThickness 1
+	AttributeFontColor #777777
+	AttributeFontSize 11
+}
+
+
+skinparam usecase {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BorderThickness 2
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam rectangle {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BorderThickness 2
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam package {
+	BackgroundColor transparent
+  	BorderColor #2A9FD6
+	FontColor #2A9FD6
+	BorderThickness 2
+}
+
+
+skinparam folder {
+	BackgroundColor transparent
+  	BorderColor #FF8800
+	FontColor #FF8800
+	BorderThickness 2
+}
+
+
+skinparam frame {
+	BackgroundColor transparent
+  	BorderColor #9933CC
+	FontColor #9933CC
+	BorderThickness 2
+}
+
+
+skinparam state {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	StartColor #9933CC
+	EndColor #9933CC
+	AttributeFontColor #777777
+	AttributeFontSize 11
+}
+
+
+skinparam queue {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam card {
+	BackgroundColor transparent
+	BorderColor #9933CC
+	FontColor #9933CC
+}
+
+
+skinparam file {
+	BackgroundColor transparent
+	BorderColor #555
+	FontColor #555
+}
+
+
+skinparam stack {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+skinparam BackgroundColor #222222
+skinparam PackageStyle frame
+
+package "ui_base_components" {
+    class UIComponent {
+        - _DOM_container: HTMLDivElement
+        - _DOM_parent: HTMLDivElement
+        - _UI_parent: UIComponent
+        - _display: string
+        - -
+        + UIComponent() : UIComponent
+        ..get, set..
+        + get DOM_container(): HTMLDivElement
+        + get DOM_parent(): HTMLDivElement
+        + set DOM_parent(parent: HTMLDivElement): void
+        + get UI_parent(): UIComponent
+        + set UI_parent(parent: UIComponent): void
+        + get display(): string
+        + set display(display: string): void
+    }
+    UIComponent "1 parent" - - "0..n child" UIComponent
+
+    class UIButtonGrid {
+        - _rows: int
+        - _columns: int
+        - _button_definitions: array[array[object]]
+        - _togglable: bool
+        - _buttons: array[array[HTMLButtonElement]]
+        - -
+        + UIButtonGrid(rows: int, columns: int,
+        button_definitions: array[array[object]], togglable: bool): UIButtonGrid
+        ..get, set..
+        + get rows() : int
+        + get columns() : int
+        ..
+        + getButton(row: int, column: int) : HTMLButtonElement
+        + toggle(i: int, j: int): void
+    }
+    UIComponent <|- - UIButtonGrid
+
+    class UINumberInput {
+        - _title: string
+        - _unit: string
+        - _default_value: number
+        - _min: number
+        - _max: number
+        - _step: number
+        - _label: HTMLSpanElement
+        - _input: HTMLInputElement
+        - _label_unit: HTMLSpanElement
+        - _input_event: Event
+        - -
+        + UINumberInput(title: string, unit: string,
+        default_value: number): UINumberInput
+        ..get, set..
+        + get value(): number
+        + set value(value: number): void
+        + set min(min: number): void
+        + set max(max: number): void
+        + set step(step: number): void
+        + set input_class_list(class_list: array[string]): void
+        + set oninput(function_callback: function): void
+        ..
+        + trigger(): void
+    }
+    UIComponent <|- - UINumberInput
+
+    class UIStringInput {
+        - _title: string
+        - _default_value: string
+        - _pattern: regexp
+        - _label: HTMLSpanElement
+        - _input: HTMLInputElement
+        - -
+        + UIStringInput(title: string, default_value: string): UIStringInput
+        ..get, set..
+        + get input(): HTMLInputElement
+        + get value(): string
+        + set value(value: string): void
+        + set pattern(pattern: regexp): void
+        + set input_class_list(class_list: array[string]): void
+        + set oninput(function_callback: function): void
+        ..
+        + triggerOninput(): void
+    }
+    UIComponent <|- - UIStringInput
+
+    class UIColorPicker {
+        - _string_input: HTMLInputElement
+        - _color_picker: HTMLInputElement
+        - -
+        + UIColorPicker(string_input: string): UIColorPicker
+        ..get, set..
+        + set value(value: string): void
+    }
+    UIComponent <|- - UIColorPicker
+
+    class UIChoiceList {
+        - _title: string
+        - _options_list: array[string]
+        - _default_value: string
+        - _label: HTMLSpanElement
+        - _input: HTMLInputElement
+        - -
+        + UIChoiceList(title: string, options_list: array[string],
+        default_value: string): UIChoiceList
+        ..get, set..
+        + get value(): string
+        + set value(value: string): void
+        + set input_class_list(class_list: array[string]): void
+        + set oninput(function_callback: function): void
+    }
+    UIComponent <|- - UIChoiceList
+
+    class UICheckBox {
+        - _title: string
+        - _default_value: bool
+        - _label: HTMLSpanElement
+        - _input: HTMLInputElement
+        - -
+        + UICheckBox(title: string, default_value: bool): UICheckBox
+        ..get, set..
+        + get checked(): bool
+        + set checked(checked: bool): void
+        + set input_class_list(class_list: array[string]): void
+        + set oninput(function_callback: function): void
+    }
+    UIComponent <|- - UICheckBox
+}
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: fr
+Country: FR
+--></g></svg>

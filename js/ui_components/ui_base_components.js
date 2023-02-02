@@ -1,5 +1,5 @@
 //Wav2Bar - Free software for creating audio visualization (motion design) videos
-//Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+//Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
 
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@ import * as utils from "../utils/utils.js";
  *
  * @export
  * @class UIComponent
+ * @deprecated
  */
 export class UIComponent {
     /**

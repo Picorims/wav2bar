@@ -1,6 +1,6 @@
 <!--
 Wav2Bar - Free software for creating audio visualization (motion design) videos
-Copyright (C) 2022  Picorims <picorims.contact@gmail.com>
+Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,6 +28,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     <title>Wav2Bar</title>
 
     <!-- main process -->
+    <script type="text/javascript">
+        var export_window = false;
+    </script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/settings.js"></script>
     <script type="text/javascript" src="js/user_interface.js"></script>
@@ -40,308 +43,374 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 <body>
+    <div id="root">
+        <ui-split-layout data-direction="vertical" data-size-min="300" data-size-max="600">
+            <!--CONTROL PANEL-->
+            <div slot="first-child" id="control_panel">
     
-    <!--CONTROL PANEL-->
-    <div id="control_panel">
-
-        <!--Labels, tabs naviguation-->
-        <div id="naviguation_tab_labels">
-            <div class="tab_label" id="project_label"> <i class="ri-file-edit-line"></i></i> PROJECT</div>
-            <div class="tab_label" id="objects_label"> <i class="ri-node-tree"></i></i> OBJECTS</div>
-            <div class="tab_label" id="export_label"> <i class="ri-film-line"></i> EXPORT</div>
-            <div class="tab_label" id="settings_label"> <i class="ri-settings-4-line"></i> SETTINGS</div>
-            <div class="tab_label" id="help_label"> <i class="ri-question-line"></i> CONTACT AND HELP</div>
-        </div>
-
-
-
-        <!--Tabs container-->
-        <div id="tabs_container">
-
-            <!--PROJECT-->
-            <div id="project_tab" class="tab">
-
-                <div class="panel_param_container" data-help="fps">
-                    <span>Framerate: </span>
-                    <input id="fps_input" class="panel_input" type="number" min="1" max="8000" step="1"/>    
+                <!--Labels, tabs naviguation-->
+                <div id="naviguation_tab_labels">
+                    <div class="tab_label" id="project_label"> <i class="ri-file-edit-line"></i></i> PROJECT</div>
+                    <div class="tab_label" id="objects_label"> <i class="ri-node-tree"></i></i> OBJECTS</div>
+                    <div class="tab_label" id="export_label"> <i class="ri-film-line"></i> EXPORT</div>
+                    <div class="tab_label" id="settings_label"> <i class="ri-settings-4-line"></i> SETTINGS</div>
+                    <div class="tab_label" id="help_label"> <i class="ri-question-line"></i> CONTACT AND HELP</div>
                 </div>
+    
+    
+    
+                <!--Tabs container-->
+                <div id="tabs_container">
+    
+                    <!--PROJECT-->
+                    <div id="project_tab" class="tab">
 
-                <div class="panel_param_container" data-help="screen_size">
-                    <span>Screen resolution: </span>
-                    <div>
-                        <input id="screen_width_input" class="panel_input" type="number" min="16" max="8000" step="1"/>
-                        <span> x </span>
-                        <input id="screen_height_input" class="panel_input" type="number" min="16" max="8000" step="1"/>
-                
-                    </div>
-                </div>
-                <div class="panel_param_container" data-help="audio">
-                    <span>Import audio (mp3/wav/ogg): </span>
-                    <button id="load_audio_button" class="panel_button">CHOOSE AUDIO FILE</button>
-                    <div><span>Opened audio file: </span><span id="opened_audio"></span></div>
-                </div>
-                
-                <div class="panel_param_container" data-help="save_import">
-                    <span>Import save (.w2bzip): </span>
-                    <button id="save_file_button" class="panel_button">CHOOSE SAVE FILE</button>
-                    <div><span>Opened save: </span><span id="opened_save"></span></div>
-                </div>
+                        <ui-parameter data-help="fps">
+                            <ui-input-field id="fps-input"
+                                data-name="Framerate"
+                                data-type="int"
+                                data-value="0"
+                                data-min="1"
+                                data-max="8000"
+                                data-step="1">
+                            </ui-input-field>
+                        </ui-parameter>
+    
+                        <!-- <div class="panel_param_container" data-help="screen_size">
+                            <ui-label-block data-name="Screen resolution">
+                                <div>
+                                    <input id="screen_width_input" class="panel_input" type="number" min="16" max="8000" step="1"/>
+                                    <span> x </span>
+                                    <input id="screen_height_input" class="panel_input" type="number" min="16" max="8000" step="1"/>
+                                </div>
+                            </ui-label-block>
+                        </div> -->
 
-                <div class="panel_param_container" data-help="save_export">
-                    <span>Export save: </span>
-                    <button id="export_save_button" class="panel_button">SAVE</button>
-                </div>
-            
-            </div>
+                        <ui-parameter data-help="screen_size" data-title="Screen resolution">
+                            <ui-input-field id="screen-width-input"
+                                data-name="Width"
+                                data-type="int"
+                                data-value="1280"
+                                data-min="16"
+                                data-max="8000"
+                                data-step="1">
+                            </ui-input-field>
+                            <ui-input-field id="screen-height-input"
+                                data-name="Height"
+                                data-type="int"
+                                data-value="720"
+                                data-min="16"
+                                data-max="8000"
+                                data-step="1">
+                            </ui-input-field>
+                        </ui-parameter>
 
-            <!--OBJECTS-->
-            <div id="objects_tab" class="tab">
-                <div class="panel_param_container" data-help="new_object">
-                    <span>New Object: </span>
-                    <select id="create_object_select" class="panel_input panel_input_list">
-                        <option value="shape">Image - Shape</option>
-                        <option value="particle_flow">Particle Flow</option>
-                        <option value="text">Text</option>
-                        <optgroup label="Timers">
-                            <option value="timer_straight_bar">Timer - bar</option>
-                            <option value="timer_straight_line_point">Timer - point</option>
-                        </optgroup>
-                        <optgroup label="Visualizers">
-                            <option value="visualizer_straight_bar">Visualizer - straight</option>
-                            <option value="visualizer_straight_wave">Visualizer - straight, waves</option>
-                            <option value="visualizer_circular_bar">Visualizer - circular</option>
-                        </optgroup>
-                    </select>
-                    <button id="create_object_button" class="panel_button">CREATE</button>    
-                </div>
-                <!--all object parameters container go here-->
-            </div>
-
-            <!--EXPORT-->
-            <div id="export_tab" class="tab">
-                <div class="panel_param_container" data-help="export_video_path">
-                    <span>Save directory: </span>
-                    <input id="video_export_path_input" class="panel_input panel_input_string" />
-                    <button id="choose_video_path_button" class="panel_button">BROWSE</button>
-                </div>
-
-                <div class="panel_param_container" data-help="experimental_jpeg_export">
-                    <span>Experimental JPEG export: </span>
-                    <input id="experimental_export_input" type="checkbox" class="panel_input panel_input_checkbox" />
-                </div>
-
-                <div class="panel_param_container" data-help="export">
-                    <span>Export: </span>
-                    <button id="export_button" class="panel_button">EXPORT NOW!</button>
+                        <ui-parameter id="load-audio" data-title="Import audio (mp3/wav/ogg)" data-help="audio">
+                            <ui-file-picker id="load-audio-picker" data-type="get_file" data-button-text="CHOOSE AUDIO FILE" data-opened-span-text="Opened audio file"></ui-file-picker>
+                        </ui-parameter>
+                        <!-- <div class="panel_param_container" data-help="audio">
+                            <button id="load_audio_button" class="panel_button">CHOOSE AUDIO FILE</button>
+                            <div><span>: </span><span id="opened_audio"></span></div>
+                        </div> -->
+                        
+                        <ui-parameter id="load-save" data-title="Import save (.w2bzip)" data-help="save_import">
+                            <ui-file-picker id="load-save-picker" data-type="get_file" data-button-text="CHOOSE SAVE FILE" data-opened-span-text="Opened save"></ui-file-picker>
+                        </ui-parameter>
+                        <!-- <div class="panel_param_container" data-help="save_import">
+                            <span>Import save (.w2bzip): </span>
+                            <button id="save_file_button" class="panel_button">CHOOSE SAVE FILE</button>
+                            <div><span>Opened save: </span><span id="opened_save"></span></div>
+                        </div> -->
+    
+                        <ui-parameter id="export-save" data-title="Export save" data-help="save_export">
+                            <ui-file-picker id="export-save-picker" data-type="save_file" data-button-text="SAVE" data-opened-span-text="Saved at"></ui-file-picker>
+                        </ui-parameter>
+                        <!-- <div class="panel_param_container" data-help="save_export">
+                            <span>Export save: </span>
+                            <button id="export_save_button" class="panel_button">SAVE</button>
+                        </div> -->
                     
-                    <span>Frames rendered: </span><span id="export_frame_span"></span>
-                    <span>Estimated time: </span><span id="export_frame_time_span"></span>
-                    <div class="progress_bar">
-                        <div id="export_frame_progress" class="progress_child"></div>
                     </div>
-                    
-                    <span>Encoding video: </span><span id="export_encoding_span"></span>
-                    <span>Estimated time: </span><span id="export_encoding_time_span"></span>
-                    <div class="progress_bar">
-                        <div id="export_encoding_progress" class="progress_child"></div>
+    
+                    <!--OBJECTS-->
+                    <div id="objects_tab" class="tab">
+                        <ui-parameter data-help="new_object" data-title="New Object">
+                            <ui-label-block data-name="Type">
+                                <select id="create_object_select" class="panel_input panel_input_list">
+                                    <option value="shape">Image - Shape</option>
+                                    <option value="particle_flow">Particle Flow</option>
+                                    <option value="text">Text</option>
+                                    <optgroup label="Timers">
+                                        <option value="timer_straight_bar">Timer - bar</option>
+                                        <option value="timer_straight_line_point">Timer - point</option>
+                                    </optgroup>
+                                    <optgroup label="Visualizers">
+                                        <option value="visualizer_straight_bar">Visualizer - straight</option>
+                                        <option value="visualizer_straight_wave">Visualizer - straight, waves</option>
+                                        <option value="visualizer_circular_bar">Visualizer - circular</option>
+                                    </optgroup>
+                                </select>    
+                            </ui-label-block>
+                            <button id="create_object_button" class="panel_button panel_button_wide">CREATE</button>
+                        </ui-parameter>
+                        <!--all object parameters container go here-->
+                    </div>
+    
+                    <!--EXPORT-->
+                    <div id="export_tab" class="tab">
+                        <ui-parameter id="choose-video-path" data-title="Save directory" data-help="export_video_path">
+                            <ui-file-picker id="choose-video-path-picker" data-type="save_file"></ui-file-picker>
+                        </ui-parameter>
+                        <!-- <div class="panel_param_container" data-help="export_video_path">
+                            <span>Save directory: </span>
+                            <input id="video_export_path_input" class="panel_input panel_input_string" />
+                            <button id="choose_video_path_button" class="panel_button">BROWSE</button>
+                        </div> -->
+    
+                        <!-- <div class="panel_param_container" data-help="experimental_jpeg_export">
+                            <span>Experimental JPEG export: </span>
+                            <input id="experimental_export_input" type="checkbox" class="panel_input panel_input_checkbox" />
+                        </div> -->
+                        <ui-parameter data-help="experimental_jpeg_export">
+                            <ui-input-field id="experimental-export-input"
+                                data-name="Save directory"
+                                data-type="bool"
+                                data-value="false">
+                            </ui-input-field>
+                        </ui-parameter>
+
+                        <ui-parameter data-title="Export" data-help="export">
+                            <button id="export_button" class="panel_button panel_button_wide">EXPORT NOW!</button>
+                            <ui-label-block data-name="Frames rendered">
+                                <span id="export_frame_span"></span>
+                            </ui-label-block>
+                            <ui-label-block data-name="Estimated time">
+                                <span id="export_frame_time_span"></span>
+                            </ui-label-block>
+
+                            <div class="progress_bar">
+                                <div id="export_frame_progress" class="progress_child"></div>
+                            </div>
+                            
+                            <ui-label-block data-name="Encoding video">
+                                <span id="export_encoding_span"></span>
+                            </ui-label-block>
+                            <ui-label-block data-name="Estimated time">
+                                <span id="export_encoding_time_span"></span>
+                            </ui-label-block>
+
+                            <div class="progress_bar">
+                                <div id="export_encoding_progress" class="progress_child"></div>
+                            </div>
+                        </ui-parameter>
+
+                        <!-- <div class="panel_param_container" data-help="export">
+                            <span>Export: </span>
+                            <button id="export_button" class="panel_button">EXPORT NOW!</button>
+                            
+                            <span>Frames rendered: </span><span id="export_frame_span"></span>
+                            <span>Estimated time: </span><span id="export_frame_time_span"></span>
+                            <div class="progress_bar">
+                                <div id="export_frame_progress" class="progress_child"></div>
+                            </div>
+                            
+                            <span>Encoding video: </span><span id="export_encoding_span"></span>
+                            <span>Estimated time: </span><span id="export_encoding_time_span"></span>
+                            <div class="progress_bar">
+                                <div id="export_encoding_progress" class="progress_child"></div>
+                            </div>
+                        </div> -->
+                    </div>
+    
+                    <!--SETTINGS-->
+                    <div id="settings_tab" class="tab">
+                        <ui-parameter data-title="Logs">
+                            <button id="open_logs_button" class="panel_button panel_button_wide">BROWSE LOGS FOLDER</button>    
+                        </ui-parameter>
+                        <ui-parameter id="locate-ffmpeg" data-title="FFmpeg location">
+                            <ui-file-picker id="locate-ffmpeg-picker" data-type="get_file"></ui-file-picker>
+                        </ui-parameter>
+                        <!-- <div class="panel_param_container" data-help="">
+                            <span>Locate FFmpeg: </span>
+                            <input id="ffmpeg_path_input" class="panel_input panel_input_string" />
+                            <button id="choose_ffmpeg_path_button" class="panel_button">BROWSE</button>    
+                        </div> -->
+                        <ui-parameter id="locate-ffprobe" data-title="FFprobe location">
+                            <ui-file-picker id="locate-ffprobe-picker" data-type="get_file"></ui-file-picker>
+                        </ui-parameter>
+                        <!-- <div class="panel_param_container" data-help="">
+                            <span>Locate FFprobe: </span>
+                            <input id="ffprobe_path_input" class="panel_input panel_input_string" />
+                            <button id="choose_ffprobe_path_button" class="panel_button">BROWSE</button>
+                        </div> -->
+                        <ui-parameter data-title="How to import FFmpeg and FFprobe">
+                            <button id="open_ffmpeg_help" class="panel_button panel_button_wide">OPEN HELP</button>
+                        </ui-parameter>
+                    </div>
+    
+                    <!--CONTACT AND HELP-->
+                    <div id="help_tab" class="tab">
+                        <ui-parameter class="about_info">
+                            <p>
+                                Wav2Bar v<span id="software_version"></span>
+                            </p>
+                            <p>
+                                Place your mouse over the <i class="ri-question-line"></i> icons to get help on a specific feature.
+                            </p>
+                            <p>
+                                Information and contact:
+                                <br/>
+                                <a id="website_link">Website</a><br/>
+                                <a id="github_link">GitHub repository</a><br/>
+                                <a id="twitter_link">Twitter</a><br/>
+                                <a id="youtube_link">YouTube</a><br/>
+                                <a id="discord_link">Discord Server</a><br/>
+                            </p>
+                            <p>
+                                Send an email at: <a href="mailto:picorims.contact@gmail.com">picorims.contact@gmail.com</a>
+                            </p>
+                            <p>
+                                Special thanks:
+                                <br/>
+                                - My amazing friend Kanade_Senpai<br/>
+                                - RemixIcon (remixicon.com)
+                            </p>
+                            <hr>
+                            <p>
+                                Wav2Bar - Free software for creating audio visualization (motion design) videos
+                                <br/>Copyright (C) 2023  Picorims &lt;picorims.contact@gmail.com&gt;
+                                <br/><br/>
+                                This program is free software: you can redistribute it and/or modify
+                                it under the terms of the GNU General Public License as published by
+                                the Free Software Foundation, either version 3 of the License, or
+                                any later version.
+                                <br/><br/>
+                                This program is distributed in the hope that it will be useful,
+                                but WITHOUT ANY WARRANTY; without even the implied warranty of
+                                MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+                                GNU General Public License for more details.
+                                <br/><br/>
+                                You should have received a copy of the GNU General Public License
+                                along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
+                            </p>
+                            <p>
+                                Helpers:
+                                <br/>
+                                - Kanade_Senpai (trailer video rendering)<br/>
+                                - pdejan (fix help.json information)
+                            </p>
+                        </ui-parameter>
                     </div>
                 </div>
             </div>
-
-            <!--SETTINGS-->
-            <div id="settings_tab" class="tab">
-                <div class="panel_param_container" data-help="">
-                    <span>Logs: </span>
-                    <button id="open_logs_button" class="panel_button">BROWSE LOGS FOLDER</button>    
-                </div>
-                <div class="panel_param_container" data-help="">
-                    <span>Locate FFmpeg: </span>
-                    <input id="ffmpeg_path_input" class="panel_input panel_input_string" />
-                    <button id="choose_ffmpeg_path_button" class="panel_button">BROWSE</button>    
-                </div>
-                <div class="panel_param_container" data-help="">
-                    <span>Locate FFprobe: </span>
-                    <input id="ffprobe_path_input" class="panel_input panel_input_string" />
-                    <button id="choose_ffprobe_path_button" class="panel_button">BROWSE</button>
-                </div>
-                <div class="panel_param_container" data-help="">
-                    <span>How to import FFmpeg and FFprobe: </span>
-                    <button id="open_ffmpeg_help" class="panel_button">OPEN HELP</button>
-                </div>
-            </div>
-
-            <!--CONTACT AND HELP-->
-            <div id="help_tab" class="tab">
-                <div class="panel_param_container about_info" data-help="">
-                    <p>
-                        Wav2Bar v<span id="software_version"></span>
-                    </p>
-                    <p>
-                        Place your mouse over the <i class="ri-question-line"></i> icons to get help on a specific feature.
-                    </p>
-                    <p>
-                        Information and contact:
-                        <br/>
-                        <a id="website_link">Website</a><br/>
-                        <a id="github_link">GitHub repository</a><br/>
-                        <a id="twitter_link">Twitter</a><br/>
-                        <a id="youtube_link">YouTube</a><br/>
-                        <a id="discord_link">Discord Server</a><br/>
-                    </p>
-                    <p>
-                        Send an email at: <a href="mailto:picorims.contact@gmail.com">picorims.contact@gmail.com</a>
-                    </p>
-                    <p>
-                        Special thanks:
-                        <br/>
-                        - My amazing friend Kanade_Senpai<br/>
-                        - RemixIcon (remixicon.com)
-                    </p>
-                    <hr>
-                    <p>
-                        Wav2Bar - Free software for creating audio visualization (motion design) videos
-                        Copyright (C) 2022  Picorims &lt;picorims.contact@gmail.com&gt;
-                        <br/><br/>
-                        This program is free software: you can redistribute it and/or modify
-                        it under the terms of the GNU General Public License as published by
-                        the Free Software Foundation, either version 3 of the License, or
-                        any later version.
-                        <br/><br/>
-                        This program is distributed in the hope that it will be useful,
-                        but WITHOUT ANY WARRANTY; without even the implied warranty of
-                        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-                        GNU General Public License for more details.
-                        <br/><br/>
-                        You should have received a copy of the GNU General Public License
-                        along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
-                    </p>
-                    <p>
-                        Helpers:
-                        <br/>
-                        - Kanade_Senpai (trailer video rendering)
-                        - pdejan (fix help.json information)
-                    </p>
-                    </span>
-                </div>
-            </div>
-
-
-
-        </div>
-
-    </div>
-  
-
-
-
-
-
-
-    <!--INTERFACE WITH SCREEN-->
-    <div id="interface">
+    
+    
+    
+    
+    
+            <!--INTERFACE WITH SCREEN-->
+            <div slot="second-child" id="interface">
+                
+                <div id="screen_container">
+                    <!-- PREVIEW / RENDER -->
+                    <div id="screen">
+                        <!-- objects goes here! -->
+                    </div>
         
-        <!--Naviguation Buttons-->
-        <div id="top_UI">
-
-            <!--Audio control-->
-            <div class="top_UI_block">
-                <button class="top_UI_tile left_round" id="play_audio">
-                    <i class="ri-play-fill"></i>
-                </button>
-                <button class="top_UI_tile" id="pause_audio">
-                    <i class="ri-pause-fill"></i>
-                </button>
-                <button class="top_UI_tile" id="stop_audio">
-                    <i class="ri-stop-fill"></i>
-                </button>
-                <div class="top_UI_tile triple_size right_round">
-                    <span class="text" id="time_display">0:00 | 0:00</span>
+                    <!-- INNER SPACING FIXER -->
+                    <div id="inner_spacing_fixer"></div>
                 </div>
-            </div>
 
-            <!--audio position-->
-            <div class="top_UI_block">
-                <button class="top_UI_tile left_round" id="audio_to_start">
-                    <i class="ri-skip-back-fill"></i>
-                </button>
-                <div class="top_UI_tile range">
-                    <input class="range_track" type="range" id="audio_range"/>
+                <!--Naviguation Buttons-->
+                <div id="top_UI">
+    
+                    <!--Audio control-->
+                    <div class="top_UI_block">
+                        <button class="top_UI_tile left_round" id="play_audio">
+                            <i class="ri-play-fill"></i>
+                        </button>
+                        <button class="top_UI_tile" id="pause_audio">
+                            <i class="ri-pause-fill"></i>
+                        </button>
+                        <button class="top_UI_tile" id="stop_audio">
+                            <i class="ri-stop-fill"></i>
+                        </button>
+                        <div class="top_UI_tile triple_size right_round">
+                            <span class="text" id="time_display">0:00 | 0:00</span>
+                        </div>
+                    </div>
+    
+                    <!--audio position-->
+                    <div class="top_UI_block">
+                        <button class="top_UI_tile left_round" id="audio_to_start">
+                            <i class="ri-skip-back-fill"></i>
+                        </button>
+                        <div class="top_UI_tile range">
+                            <input class="range_track" type="range" id="audio_range"/>
+                        </div>
+                        <button class="top_UI_tile right_round" id="audio_to_end">
+                            <i class="ri-skip-forward-fill"></i>
+                        </button>
+                    </div>
+    
+                    <!--Loop music-->
+                    <div class="top_UI_block">
+                        <button class="top_UI_tile left_round right_round" id="loop_audio">
+                            <i class="ri-repeat-fill"></i>
+                        </button>
+                    </div>
+    
+                    <!--FPS-->
+                    <div class="top_UI_block">
+                        <div class="top_UI_tile left_round right_round double_size">
+                            <span id="fps" class="text"></span>
+                        </div>
+                    </div>
+    
+                    <!--Zoom-->
+                    <div class="top_UI_block">
+                        <button class="top_UI_tile left_round" id="zoom_out">
+                            <i class="ri-zoom-out-line"></i>
+                        </button>
+                        <button class="top_UI_tile double_size" id="zoom_value">
+                            <span id="zoom_display" class="text"></span>
+                        </button>
+                        <button class="top_UI_tile right_round"id="zoom_in">
+                            <i class="ri-zoom-in-line"></i>
+                        </button>
+                    </div>
                 </div>
-                <button class="top_UI_tile right_round" id="audio_to_end">
-                    <i class="ri-skip-forward-fill"></i>
-                </button>
+    
             </div>
-
-            <!--Loop music-->
-            <div class="top_UI_block">
-                <button class="top_UI_tile left_round right_round" id="loop_audio">
-                    <i class="ri-repeat-fill"></i>
-                </button>
-            </div>
-
-            <!--FPS-->
-            <div class="top_UI_block">
-                <div class="top_UI_tile left_round right_round double_size">
-                    <span id="fps" class="text"></span>
-                </div>
-            </div>
-
-            <!--Zoom-->
-            <div class="top_UI_block">
-                <button class="top_UI_tile left_round" id="zoom_out">
-                    <i class="ri-zoom-out-line"></i>
-                </button>
-                <button class="top_UI_tile double_size" id="zoom_value">
-                    <span id="zoom_display" class="text"></span>
-                </button>
-                <button class="top_UI_tile right_round"id="zoom_in">
-                    <i class="ri-zoom-in-line"></i>
-                </button>
-            </div>
-        </div>
-
-
-        <!-- PREVIEW / RENDER -->
-        <div id="screen">
-            <!-- objects goes here! -->
-        </div>
-
-        <!-- INNER SPACING FIXER -->
-        <div id="inner_spacing_fixer"></div>
-
+        </ui-split-layout>
+      
+    
+        <!--FILTERS TESTS-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+    
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                    <feBlend in="SourceGraphic" in2="goo" />
+                </filter>
+    
+                <filter id="fancy-goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                    <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                    <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+                </filter>
+    
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                    <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+    
+            </defs>
+        </svg>-->
     </div>
-
-
-
-
-
-
-
-    <!--FILTERS TESTS-->
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-        <defs>
-
-            <filter id="goo">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-                <feBlend in="SourceGraphic" in2="goo" />
-            </filter>
-
-            <filter id="fancy-goo">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-                <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-            </filter>
-
-            <filter id="glow">
-                <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-                <feMerge>
-                    <feMergeNode in="coloredBlur" />
-                    <feMergeNode in="SourceGraphic" />
-                </feMerge>
-            </filter>
-
-        </defs>
-    </svg>
 </body>
 </html>
