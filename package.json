@@ -1,6 +1,6 @@
 {
   "name": "wav2bar",
-  "version": "0.3.2-indev",
+  "version": "0.3.2-beta",
   "description": "A tool to create and export audio visualization mainly for the music industry",
   "main": "main.js",
   "scripts": {
