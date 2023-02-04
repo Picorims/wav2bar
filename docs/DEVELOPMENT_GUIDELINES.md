@@ -391,17 +391,19 @@ It is (again) arguably not as convenient as a framework introducing custom synta
 6) `npm run make` (for local testing or manual builds)
 7) test the maked files (if not ok go back to #4)
 
-8) tag locally (`git tag -a v1.4 -m "my version 1.4"`)
-9) commit the tag (`git push origin --tags` or `git push origin tag_name`)
+8) merge the release from `develop` to `main`
+
+9) tag locally on `main` (`git tag -a v1.4 -m "my version 1.4"`)
+10) commit the tag (`git push origin --tags` or `git push origin tag_name`)
 > **to get rid of a tag:**
 > - `git tag -d v1.4-lw`
 > - `git push origin --delete <tagname>`
-10)
+11)
     - **local build:**
         - Do the GitHub release with appropriate packages and the right tag (source code already managed BUT without node modules)
     - **CI build:**
         - Wait for the tag CI action to finish. It will produce a release draft for the tag, with built packages attached to it.
-11) Fill the release information:
+12) Fill the release information:
 ```md
 [description]
 
@@ -427,9 +429,9 @@ Mac is not supported at this moment, but you can give it a try using the source 
 For bug reports, please use the issues section of GitHub. For other support, use the discussions section or go over to my Discord server (https://discord.gg/EVGzfdP)
 ```
 
-12) Update the website links and release numbers (hard coded, yes I know what you will say, and it is OK as is for me right now).
-13) OPTIONAL : Blog post
-14) Do an archive of the Git repository and GitHub assets
+13) Update the website links and release numbers (hard coded, yes I know what you will say, and it is OK as is for me right now).
+14) OPTIONAL : Blog post
+15) Do an archive of the Git repository and GitHub assets
 
 <a name="questions-or-concerns"></a>
 
