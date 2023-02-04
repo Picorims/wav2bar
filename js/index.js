@@ -19,7 +19,7 @@
 const {ipcRenderer} = require("electron");
 
 /** @type {String} current build version*/
-const software_version = "0.3.3-indev";
+const software_version = "0.3.3-beta";
 /** @type {String} current build type */
 let working_dir; //working directory for user, temp, logs...
 let root_dir; //root of the app (where main.js is located, and html/css folders)
