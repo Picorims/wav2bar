@@ -378,10 +378,10 @@ It is (again) arguably not as convenient as a framework introducing custom synta
 ## Doing a release
 
 1) verify the version number and type **( /!\ indev -> beta /!\ )** in:
-    - package.json (/!\/!\/!\/!\ including in package makers!!! /!\/!\/!\/!\)
-    - package.lock.json
-    - index.js
-2) update CHANGELOG.md
+    - `package.json`
+    - `package.lock.json`
+    - `index.js`
+2) update [CHANGELOG.md](../CHANGELOG.md)
 
 3) comment out the `openDevTools` line in window functions in main.js
 4) do necessary fixes
