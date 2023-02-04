@@ -16,6 +16,7 @@
 - [Documenting](#documenting)
 - [Creating UI components](#ui-components)
 - [Versioning and Git](#versioning-and-git)
+- [Doing a release](#doing-a-release)
 - [Questions or concerns ?](#questions-or-context)
 - [FAQ](#faq)
 
@@ -371,6 +372,66 @@ It is (again) arguably not as convenient as a framework introducing custom synta
 - **-beta:** Beta release. All 0.x.y releases should have it as they are betas.
 
 > Note: **Do NOT use Git LFS!** It caused many issues in the past and should not be touched or used anymore.
+
+<a name="doing-a-release"></a>
+
+## Doing a release
+
+1) verify the version number and type **( /!\ indev -> beta /!\ )** in:
+    - `package.json`
+    - `package.lock.json`
+    - `index.js`
+2) update [CHANGELOG.md](../CHANGELOG.md)
+
+3) comment out the `openDevTools` line in window functions in main.js
+4) do necessary fixes
+
+5) push to master
+
+6) `npm run make` (for local testing or manual builds)
+7) test the maked files (if not ok go back to #4)
+
+8) merge the release from `develop` to `main`
+
+9) tag locally on `main` (`git tag -a v1.4 -m "my version 1.4"`)
+10) commit the tag (`git push origin --tags` or `git push origin tag_name`)
+> **to get rid of a tag:**
+> - `git tag -d v1.4-lw`
+> - `git push origin --delete <tagname>`
+11)
+    - **local build:**
+        - Do the GitHub release with appropriate packages and the right tag (source code already managed BUT without node modules)
+    - **CI build:**
+        - Wait for the tag CI action to finish. It will produce a release draft for the tag, with built packages attached to it.
+12) Fill the release information:
+```md
+[description]
+
+# Changelog
+- a
+- b
+
+# Known issues
+- a
+- b
+
+# Note on Betas
+Wav2Bar is currently in beta, which means that things actively change (UI, saves, etc.)! Please **backup your saves**, especially when updating Wav2Bar.
+
+# Note for Linux
+Right now Linux is not very well supported, but I try my best to make it better bit by bit. For now you should be able to use Wav2Bar without much problem by using the zipped version or using the source code after installing the dependencies (see the README or the wiki). There are some predefined (but not tested) configs to make some other linux packages that you can try.
+
+# Note for Mac
+Mac is not supported at this moment, but you can give it a try using the source code (see the README or the wiki).
+
+
+# Support
+For bug reports, please use the issues section of GitHub. For other support, use the discussions section or go over to my Discord server (https://discord.gg/EVGzfdP)
+```
+
+13) Update the website links and release numbers (hard coded, yes I know what you will say, and it is OK as is for me right now).
+14) OPTIONAL : Blog post
+15) Do an archive of the Git repository and GitHub assets
 
 <a name="questions-or-concerns"></a>
 

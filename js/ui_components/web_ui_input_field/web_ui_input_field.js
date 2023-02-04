@@ -49,14 +49,17 @@ export class WebUIInputField extends WebUICustomComponent {
             props: {...PROPS_DEFAULTS},
         });
 
+        this.onDOMReadyOnce(() => {
+            this.bindProps(PROPS.value, bind_input, bind_input.PROPS.value);
+            this.bindProps(PROPS.type, bind_input, bind_input.PROPS.type);
+            this.bindProps(PROPS.name, label_block, label_block.PROPS.name);
+        });
+
         /** @type {uiComponents.WebUIBindInput} */
         let bind_input = this._shadow_root.querySelector(".ui-input-field-bind");
-        this.bindProps(PROPS.value, bind_input, bind_input.PROPS.value);
-        this.bindProps(PROPS.type, bind_input, bind_input.PROPS.type);
         
         /** @type {uiComponents.WebUILabelBlock} */
         let label_block = this._shadow_root.querySelector(".ui-input-field-label");
-        this.bindProps(PROPS.name, label_block, label_block.PROPS.name);
 
         // /** @type {HTMLInputElement} */
         let input = this._shadow_root.querySelector(".ui-input-field-input");

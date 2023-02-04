@@ -2,7 +2,13 @@
 This document is based on Keep a Changelog 1.0.0
 https://keepachangelog.com/en/1.0.0/
 
-## 0.3.2-indev (2023-02-02)
+## 0.3.3-beta (2023-02-04)
+
+### Fixed
+- Fixed: FPS, screen size and JPEG export inputs are completely broken (MSI installation) (#59) 
+- Fixed: The open logs folder is broken (#58) 
+
+## 0.3.2-beta (2023-02-02)
 
 ### Changed
 - The side panel is now resizable.
