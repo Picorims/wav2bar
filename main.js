@@ -575,6 +575,7 @@ ipcMain.handle("open-local-html", async (event, link) => {
  * @param {String} path_to_open
  */
 ipcMain.handle("open-folder-in-file-explorer", async (event, path_to_open) => {
+    if (process.platform === "win32") path_to_open = path_to_open.replaceAll("/","\\");
     main_log.warn(`opening ${path_to_open}.`);
     var regexp = new RegExp(/^\.\//);
     if (regexp.test(path_to_open)) path_to_open = path.join(__dirname, path_to_open);
