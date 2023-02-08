@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="502.0833px" preserveAspectRatio="none" style="width:784px;height:502px;background:#222222;" version="1.1" viewBox="0 0 784 502" width="784.375px" zoomAndPan="magnify"><defs/><g><!--MD5=[b33187c248a40138ad0b3413979d5dfd]
+cluster event_mixin--><g id="cluster_event_mixin"><rect fill="none" height="150" rx="4.1667" ry="4.1667" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="144.7917" x="17.7083" y="179.1667"/><path d="M156.25,179.1667 L156.25,208.4961 L145.8333,218.9128 L17.7083,218.9128 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="&quot;Verdana&quot;" font-size="20.8333" font-weight="bold" lengthAdjust="spacing" textLength="117.7083" x="26.0417" y="207.0435">event_mixin</text></g><!--MD5=[14aaedb83838b628d8e87b258b2e2b98]
+cluster state_machine_mixin--><g id="cluster_state_machine_mixin"><rect fill="none" height="472.9167" rx="4.1667" ry="4.1667" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;" width="585.4167" x="187.5" y="17.7083"/><path d="M414.5833,17.7083 L414.5833,47.0378 L404.1667,57.4544 L187.5,57.4544 " fill="none" style="stroke:#2A9FD6;stroke-width:2.0833333333333335;"/><text fill="#2A9FD6" font-family="&quot;Verdana&quot;" font-size="20.8333" font-weight="bold" lengthAdjust="spacing" textLength="206.25" x="195.8333" y="45.5851">state_machine_mixin</text></g><!--MD5=[8c7ae7c48af0001487202e87675f85b8]
+class EventMixin--><g id="elem_EventMixin"><rect codeLine="24" fill="none" height="77.5208" id="EventMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="94.7917" x="50.5208" y="235.4167"/><rect fill="#227FAB" height="60.8541" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="94.7917" x="50.5208" y="235.4167"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="94.7917" x="50.5208" y="292.1041"/><rect codeLine="24" fill="none" height="77.5208" id="EventMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="94.7917" x="50.5208" y="235.4167"/><ellipse cx="65.1042" cy="265.8437" fill="none" rx="10.4167" ry="10.4167" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><path d="M66.6504,262.9303 Q66.7643,262.7675 66.8945,262.6862 Q67.041,262.6048 67.2038,262.6048 Q67.4805,262.6048 67.6432,262.8001 Q67.8223,262.9954 67.8223,263.4349 L67.8223,264.5091 Q67.8223,264.9485 67.6432,265.1438 Q67.4805,265.3392 67.2038,265.3392 Q66.9434,265.3392 66.7969,265.1927 Q66.6504,265.0625 66.569,264.6718 Q66.5365,264.4114 66.4063,264.2812 Q66.1458,264.0045 65.6901,263.8418 Q65.2507,263.679 64.7949,263.679 Q64.2415,263.679 63.7695,263.9231 Q63.2975,264.1673 62.9395,264.7207 Q62.5814,265.2578 62.5814,266.0227 L62.5814,266.8365 Q62.5814,267.7317 63.2324,268.3339 Q63.8997,268.9362 65.0553,268.9362 Q65.7552,268.9362 66.2435,268.7571 Q66.5202,268.6432 66.8294,268.3177 Q67.0247,268.1224 67.1387,268.0735 Q67.2526,268.0084 67.3828,268.0084 Q67.6432,268.0084 67.8223,268.2037 Q68.0176,268.3828 68.0176,268.6432 Q68.0176,268.9036 67.7572,269.1966 Q67.3828,269.6198 66.7969,269.8639 Q66.0156,270.1894 65.0716,270.1894 Q63.9486,270.1894 63.0697,269.7337 Q62.3372,269.3756 61.8327,268.5781 Q61.3281,267.7806 61.3281,266.8528 L61.3281,266.0065 Q61.3281,265.0299 61.7839,264.1836 Q62.2396,263.3372 63.0371,262.8815 Q63.8509,262.4257 64.7461,262.4257 Q65.2995,262.4257 65.7715,262.5559 Q66.2435,262.6699 66.6504,262.9303 Z " fill="#2A9FD6"/><text fill="#ADAFAE" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="51.0417" x="84.8958" y="258.4005">«mixin»</text><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="53.125" x="83.8542" y="283.3364">EventMixin</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="51.5625" x2="144.2708" y1="296.2708" y2="296.2708"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="51.5625" x2="144.2708" y1="304.6041" y2="304.6041"/></g><!--MD5=[85399f87461dba4d7d219ef281f03b16]
+class StateMachineMixin--><g id="elem_StateMachineMixin"><rect codeLine="28" fill="none" height="400.2991" id="StateMachineMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="551.0417" x="204.6875" y="73.9583"/><rect fill="#227FAB" height="60.8541" rx="4.1667" ry="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="551.0417" x="204.6875" y="73.9583"/><rect fill="#227FAB" height="4.1667" style="stroke:#227FAB;stroke-width:1.0416666666666667;" width="551.0417" x="204.6875" y="130.6458"/><rect codeLine="28" fill="none" height="400.2991" id="StateMachineMixin" rx="4.1667" ry="4.1667" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="551.0417" x="204.6875" y="73.9583"/><ellipse cx="424.4792" cy="104.3854" fill="none" rx="10.4167" ry="10.4167" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><path d="M426.0254,101.472 Q426.1393,101.3092 426.2695,101.2278 Q426.416,101.1464 426.5788,101.1464 Q426.8555,101.1464 427.0182,101.3418 Q427.1973,101.5371 427.1973,101.9765 L427.1973,103.0507 Q427.1973,103.4902 427.0182,103.6855 Q426.8555,103.8808 426.5788,103.8808 Q426.3184,103.8808 426.1719,103.7343 Q426.0254,103.6041 425.944,103.2135 Q425.9115,102.9531 425.7813,102.8229 Q425.5208,102.5462 425.0651,102.3834 Q424.6257,102.2207 424.1699,102.2207 Q423.6165,102.2207 423.1445,102.4648 Q422.6725,102.7089 422.3145,103.2623 Q421.9564,103.7994 421.9564,104.5644 L421.9564,105.3782 Q421.9564,106.2734 422.6074,106.8756 Q423.2747,107.4778 424.4303,107.4778 Q425.1302,107.4778 425.6185,107.2988 Q425.8952,107.1849 426.2044,106.8593 Q426.3997,106.664 426.5137,106.6152 Q426.6276,106.5501 426.7578,106.5501 Q427.0182,106.5501 427.1973,106.7454 Q427.3926,106.9244 427.3926,107.1849 Q427.3926,107.4453 427.1322,107.7382 Q426.7578,108.1614 426.1719,108.4056 Q425.3906,108.7311 424.4466,108.7311 Q423.3236,108.7311 422.4447,108.2753 Q421.7122,107.9173 421.2077,107.1198 Q420.7031,106.3222 420.7031,105.3945 L420.7031,104.5481 Q420.7031,103.5716 421.1589,102.7252 Q421.6146,101.8789 422.4121,101.4231 Q423.2259,100.9674 424.1211,100.9674 Q424.6745,100.9674 425.1465,101.0976 Q425.6185,101.2115 426.0254,101.472 Z " fill="#2A9FD6"/><text fill="#ADAFAE" font-family="Verdana" font-size="12.5" font-style="italic" lengthAdjust="spacing" textLength="51.0417" x="470.3125" y="96.9421">«mixin»</text><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="92.7083" x="449.4792" y="121.8781">StateMachineMixin</text><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="205.7292" x2="754.6875" y1="134.8124" y2="134.8124"/><line style="stroke:#55B2DE;stroke-width:1.0416666666666667;" x1="205.7292" x2="754.6875" y1="143.1458" y2="143.1458"/><polygon fill="none" points="216.1458,156.0811,220.3125,160.2478,216.1458,164.4145,211.9792,160.2478" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="514.5833" x="229.6875" y="164.4155">_setupStateMachineMixin(class_ref: Object, initial_tree: Object, additional_events: Array&lt;String&gt;): void</text><polygon fill="none" points="216.1458,180.9102,220.3125,185.0769,216.1458,189.2436,211.9792,185.0769" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="285.4167" x="229.6875" y="189.2446">_getStatePaths(object: Object, root: String): Array[String]</text><ellipse cx="216.1458" cy="210.9477" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="163.5417" x="229.6875" y="214.0737">getState(state_path: String): any</text><ellipse cx="216.1458" cy="235.7768" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="419.7917" x="229.6875" y="238.9028">setState(state_path: String, value: any, pending_notifications: boolean = false): bool</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="213.0208" y="257.4809"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="392.7083" x="229.6875" y="263.7319">_notifyParents(state_path: String, pending_notifications: boolean = false): void</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="213.0208" y="282.31"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="162.5" x="229.6875" y="288.561">_callPendingNotifications() : void</text><polygon fill="none" points="216.1458,305.0557,220.3125,309.2224,216.1458,313.3891,211.9792,309.2224" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="405.2083" x="229.6875" y="313.3901">_registerValidator(state_path: String, validator: Function, rules_msg: String): void</text><polygon fill="none" points="216.1458,329.8848,220.3125,334.0515,216.1458,338.2182,211.9792,334.0515" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="203.125" x="229.6875" y="338.2192">_validatorExists(state_path: String): bool</text><ellipse cx="216.1458" cy="359.9223" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="237.5" x="229.6875" y="363.0483">verifyState(state_path: String, value: any): bool</text><polygon fill="none" points="216.1458,379.5431,220.3125,383.7097,216.1458,387.8764,211.9792,383.7097" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="246.875" x="229.6875" y="387.8774">_assertState(state_path: String, value: any): void</text><ellipse cx="216.1458" cy="409.5805" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="352.0833" x="229.6875" y="412.7065">subscribeToState(state_path: String, function_handler: Function): void</text><ellipse cx="216.1458" cy="434.4096" fill="none" rx="3.125" ry="3.125" style="stroke:#55B2DE;stroke-width:1.0416666666666667;"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="364.5833" x="229.6875" y="437.5356">unsubscribeToState(state_path: String, function_handler: Function): void</text><rect fill="none" height="6.25" style="stroke:#55B2DE;stroke-width:1.0416666666666667;" width="6.25" x="213.0208" y="456.1137"/><text fill="#ADAFAE" font-family="&quot;Verdana&quot;" font-size="11.4583" lengthAdjust="spacing" textLength="246.875" x="229.6875" y="462.3647">_triggerState(state_path: String, value: any): void</text></g><!--MD5=[a9bcee4178bc3c3370ac900835bcc094]
+reverse link EventMixin to StateMachineMixin--><g id="link_EventMixin_StateMachineMixin"><path codeLine="43" d="M166.6042,273.9583 C179.2396,273.9583 191.8854,273.9583 204.5208,273.9583 " fill="none" id="EventMixin-backto-StateMachineMixin" style="stroke:#2A9FD6;stroke-width:3.125;"/><polygon fill="none" points="166.1667,281.25,145.3333,273.9583,166.1667,266.6667,166.1667,281.25" style="stroke:#2A9FD6;stroke-width:3.125;"/></g><!--MD5=[112d992684c0c9b0c649236498137ccd]
+@startuml state_machine_mixin
+
+'Wav2Bar - Free software for creating audio visualization (motion design) videos
+'Copyright (C) 2023  Picorims <picorims.contact@gmail.com>
+
+'This program is free software: you can redistribute it and/or modify
+'it under the terms of the GNU General Public License as published by
+'the Free Software Foundation, either version 3 of the License, or
+'any later version.
+
+'This program is distributed in the hope that it will be useful,
+'but WITHOUT ANY WARRANTY; without even the implied warranty of
+'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'GNU General Public License for more details.
+
+'You should have received a copy of the GNU General Public License
+'along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+!theme cyborg-outline
+skinparam BackgroundColor #222222
+' skinparam groupInheritance 2
+skinparam PackageStyle frame
+
+package "event_mixin" {
+    class EventMixin <<mixin>> {}
+}
+
+package "state_machine_mixin" {
+    class StateMachineMixin <<mixin>> {
+        # _setupStateMachineMixin(class_ref: Object, initial_tree: Object, additional_events: Array<String>): void
+        # _getStatePaths(object: Object, root: String): Array[String]
+        + getState(state_path: String): any
+        + setState(state_path: String, value: any, pending_notifications: boolean = false): bool
+        - _notifyParents(state_path: String, pending_notifications: boolean = false): void
+        - _callPendingNotifications() : void
+        # _registerValidator(state_path: String, validator: Function, rules_msg: String): void
+        # _validatorExists(state_path: String): bool
+        + verifyState(state_path: String, value: any): bool
+        # _assertState(state_path: String, value: any): void
+        + subscribeToState(state_path: String, function_handler: Function): void
+        + unsubscribeToState(state_path: String, function_handler: Function): void
+        - _triggerState(state_path: String, value: any): void
+    }
+    StateMachineMixin -left-|> EventMixin
+}
+@end
+
+@startuml state_machine_mixin
+
+
+
+
+
+
+
+
+skinparam backgroundColor transparent
+skinparam useBetaStyle false
+
+
+
+
+
+
+<style>
+  root {
+    BackgroundColor transparent
+    FontColor #2A9FD6
+    HyperLinkColor #fd7e14
+    LineColor #55B2DE
+    LineThickness 1
+    Margin 10
+    Padding 6
+    Shadowing 0.0
+  }
+  node {
+   Padding 15
+   roundcorner 20
+   BackgroundColor transparent
+  }
+  caption {
+    LineThickness 0
+  }
+  footer {
+    LineThickness 0
+  }
+  groupHeader {
+    BackgroundColor #555
+    FontColor #9933CC
+    FontStyle bold
+  }
+  header {
+    LineThickness 0
+  }
+  referenceHeader {
+    BackgroundColor transparent
+    FontColor #ADAFAE
+    FontStyle bold
+  }
+  separator {
+    BackgroundColor #FFF
+    FontColor transparent
+    FontStyle bold
+  }
+  title {
+	FontSize 20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor  transparent
+	FontColor #2A9FD6
+	BorderColor #555
+  }
+  nwdiagDiagram {
+	network {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent    
+		LineColor #2A9FD6
+		LineThickness 1.0
+		FontColor #227FAB
+	}
+	server {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	}
+	arrow {
+		FontColor #227FAB
+		LineColor #227FAB
+	}
+	group {
+		BackGroundColor #222
+		LineColor #4E4E4E
+		LineThickness 2.0
+		Margin 5
+		Padding 5
+	}
+  }
+  ganttDiagram {
+	task {
+			FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+		LineColor #2A9FD6
+		Margin 10
+		Padding 6
+	}
+	note {
+		FontColor #9933CC
+		LineColor #AD5CD6
+		BackGroundColor transparent
+	}
+	separator {
+		LineColor #777777
+		BackGroundColor transparent
+		FontColor #777777
+	}
+	milestone {
+		FontColor #9933CC
+		FontSize 16
+		FontStyle italic
+		BackGroundColor #555
+		LineColor #777777
+	}
+	timeline {
+		BackgroundColor #555
+		FontColor #777777
+	}
+	closed {
+		BackgroundColor #FFA033
+		FontColor #FF8800
+	}
+  }
+</style>
+skinparam defaultFontName       "Verdana"
+skinparam defaultFontSize       12
+skinparam dpi                   100
+skinparam shadowing             false
+skinparam roundcorner           8
+skinparam ParticipantPadding    40
+skinparam BoxPadding            40
+skinparam Padding               5
+skinparam ArrowColor            #ADAFAE
+skinparam stereotype {
+    CBackgroundColor #777777
+    CBorderColor #444444
+    ABackgroundColor #5F8F00
+    ABorderColor #92C233
+    IBackgroundColor #a30000
+    IBorderColor #D63333
+    EBackgroundColor #cc6d00
+    EBorderColor #FFA033
+    NBackgroundColor #7a29a3
+    NBorderColor #AD5CD6
+}
+skinparam title {
+	FontColor	                 #2A9FD6
+	BorderColor	                 #777777
+	FontSize	    	         20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor              transparent
+}
+
+skinparam legend {
+	BackgroundColor transparent
+	BorderColor #777777
+	FontColor #ADAFAE
+}
+
+skinparam swimlane {
+	BorderColor #9933CC
+	BorderThickness 2
+	TitleBackgroundColor  #444444-#555
+	TitleFontColor #2A9FD6
+}
+
+
+skinparam activity {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BarColor #77B300
+	StartColor #9933CC
+	EndColor #9933CC
+	DiamondBackgroundColor transparent
+  	DiamondBorderColor #777777
+  	DiamondFontColor #777777
+}
+
+
+skinparam participant {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	ParticipantBorderThickness 2
+}
+
+
+skinparam actor {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam arrow {
+	Thickness 3
+	Color #2A9FD6
+	FontColor #FFF
+}
+
+
+skinparam sequence {
+	BorderColor #2A9FD6
+	TitleFontColor #2A9FD6
+	BackgroundColor transparent
+	StartColor #2A9FD6
+	EndColor #2A9FD6
+	BoxBackgroundColor transparent
+	BoxBorderColor #ADAFAE
+	BoxFontColor #ADAFAE
+	DelayFontColor #ADAFAE
+	LifeLineBorderColor #555
+	LifeLineBorderThickness 2
+	LifeLineBackgroundColor transparent
+	GroupBorderColor #ADAFAE
+	GroupFontColor #ADAFAE
+	GroupHeaderFontColor #9933CC
+	GroupBackgroundColor transparent
+	GroupHeaderBackgroundColor transparent
+	DividerBackgroundColor transparent
+    DividerBorderColor #ADAFAE
+    DividerBorderThickness 2
+    DividerFontColor #ADAFAE
+	ReferenceBackgroundColor transparent
+	ReferenceBorderColor #ADAFAE
+	ReferenceFontColor #ADAFAE
+	ReferenceHeaderFontColor #9933CC
+	ReferenceHeaderBackgroundColor transparent
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam partition {
+	BorderColor #2A9FD6
+	FontColor #2A9FD6
+	BackgroundColor transparent
+}
+
+
+skinparam collections {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam control {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam entity {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam boundary {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+skinparam agent {
+	BackgroundColor transparent
+	BorderColor #cc6d00
+	FontColor #ADAFAE
+}
+
+
+skinparam note {
+	BorderThickness 1
+	BackgroundColor transparent
+	BorderColor #AD5CD6
+	FontColor #AD5CD6
+}
+
+
+skinparam artifact {
+	BackgroundColor transparent
+	BorderColor #BDBFBE
+	FontColor #BDBFBE
+}
+
+
+skinparam component {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam interface {
+	BackgroundColor  transparent
+	BorderColor  #CC0000
+	FontColor #ADAFAE
+}
+
+
+skinparam storage {
+	BackgroundColor transparent
+  	BorderColor #FFA033
+	FontColor #FF8800
+}
+
+
+skinparam node {
+	BackgroundColor  transparent
+	BorderColor #ADAFAE
+	FontColor #ADAFAE
+}
+
+
+skinparam cloud {
+	BackgroundColor transparent
+	BorderColor #F2FCFE
+	FontColor #ADAFAE
+}
+
+
+skinparam database {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	FontColor #2A9FD6
+}
+
+
+
+skinparam class {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+        FontColor #222
+	HeaderBackgroundColor #227FAB
+	StereotypeFontColor #ADAFAE
+	BorderThickness 1
+	AttributeFontColor #ADAFAE
+	AttributeFontSize 11
+}
+
+
+skinparam object {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	StereotypeFontColor #ADAFAE
+	BorderThickness 1
+	AttributeFontColor #777777
+	AttributeFontSize 11
+}
+
+
+skinparam usecase {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BorderThickness 2
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam rectangle {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	BorderThickness 2
+	StereotypeFontColor #2A9FD6
+}
+
+
+skinparam package {
+	BackgroundColor transparent
+  	BorderColor #2A9FD6
+	FontColor #2A9FD6
+	BorderThickness 2
+}
+
+
+skinparam folder {
+	BackgroundColor transparent
+  	BorderColor #FF8800
+	FontColor #FF8800
+	BorderThickness 2
+}
+
+
+skinparam frame {
+	BackgroundColor transparent
+  	BorderColor #9933CC
+	FontColor #9933CC
+	BorderThickness 2
+}
+
+
+skinparam state {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+	StartColor #9933CC
+	EndColor #9933CC
+	AttributeFontColor #777777
+	AttributeFontSize 11
+}
+
+
+skinparam queue {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+
+
+skinparam card {
+	BackgroundColor transparent
+	BorderColor #9933CC
+	FontColor #9933CC
+}
+
+
+skinparam file {
+	BackgroundColor transparent
+	BorderColor #555
+	FontColor #555
+}
+
+
+skinparam stack {
+		FontColor #2A9FD6
+	BorderColor #55B2DE
+	BackgroundColor transparent
+}
+skinparam BackgroundColor #222222
+skinparam PackageStyle frame
+
+package "event_mixin" {
+    class EventMixin <<mixin>> {}
+}
+
+package "state_machine_mixin" {
+    class StateMachineMixin <<mixin>> {
+        # _setupStateMachineMixin(class_ref: Object, initial_tree: Object, additional_events: Array<String>): void
+        # _getStatePaths(object: Object, root: String): Array[String]
+        + getState(state_path: String): any
+        + setState(state_path: String, value: any, pending_notifications: boolean = false): bool
+        - _notifyParents(state_path: String, pending_notifications: boolean = false): void
+        - _callPendingNotifications() : void
+        # _registerValidator(state_path: String, validator: Function, rules_msg: String): void
+        # _validatorExists(state_path: String): bool
+        + verifyState(state_path: String, value: any): bool
+        # _assertState(state_path: String, value: any): void
+        + subscribeToState(state_path: String, function_handler: Function): void
+        + unsubscribeToState(state_path: String, function_handler: Function): void
+        - _triggerState(state_path: String, value: any): void
+    }
+    StateMachineMixin -left-|> EventMixin
+}
+@end
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: fr
+Country: FR
+--></g></svg>
