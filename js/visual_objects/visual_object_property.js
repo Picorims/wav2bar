@@ -1381,7 +1381,7 @@ export class VPFontFamily extends VisualObjectProperty {
     }
 
     /**
-     * The value is valid if it is a string with no backslashes.
+     * Only checking for \ like the text_content. Could possibly add validation to state if the font exists. 
      *
      * @override
      * @param {*} value
