@@ -316,6 +316,7 @@ export class VText extends VisualObject {
 
         this._properties["text_type"] = new property.VPTextType(this._save_handler, this);
         this._properties["text_content"] = new property.VPTextContent(this._save_handler, this);
+		this._properties["font_family"] = new property.VPFontFamily(this._save_handler, this);
         this._properties["font_size"] = new property.VPFontSize(this._save_handler, this);
         this._properties["color"] = new property.VPColor(this._save_handler, this);
         this._properties["text_decoration"] = new property.VPTextDecoration(this._save_handler, this);
@@ -343,6 +344,10 @@ export class VText extends VisualObject {
 
         this._properties["text_content"].subscribeToEvent("value_changed", (value) => {
             this._element.innerHTML = value;
+        });
+
+		this._properties["font_family"].subscribeToEvent("value_changed", (value) => {
+            this._element.style.fontFamily = value;
         });
 
         this._properties["font_size"].subscribeToEvent("value_changed", (value) => {
