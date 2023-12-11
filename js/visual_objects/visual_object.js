@@ -346,7 +346,7 @@ export class VText extends VisualObject {
             this._element.innerHTML = value;
         });
 
-		this._properties["font_family"].subscribeToEvent("value_changed", (value) => {
+	this._properties["font_family"].subscribeToEvent("value_changed", (value) => {
             this._element.style.fontFamily = value;
         });
 
