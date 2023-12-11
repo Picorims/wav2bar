@@ -1815,7 +1815,9 @@ export class VShape extends VisualObject {
      */
     update() {
         //nothing but returning true.
+
         //finished updating
         return true;
     }
+
 }
