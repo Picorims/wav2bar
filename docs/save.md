@@ -93,6 +93,7 @@ root
     "width": int >= 0, //(px)
     "height": int >= 0, //(px)
     "particle_radius_range": [min_int_radius, max_int_radius], //(px) (min > max possible)
+    "particle_speed": 10,
     "type": "radial"|"directional",
     "center": { //spawn position
         "x": int, //(px)
@@ -290,6 +291,7 @@ root
     "width": int >= 0, //(px)
     "height": int >= 0, //(px)
     "particle_radius_range": [min_int_radius, max_int_radius], //(px) (min > max possible)
+    "particle_speed": 10,
     "type": "radial"|"directional",
     "center": { //spawn position
         "x": int, //(px)
@@ -740,6 +742,7 @@ This is documented from a created save with default values. For more information
         1,
         2
     ],
+    "particle_speed": 10,
     "flow_type": "radial",
     "flow_center": {
         "x": 0,
@@ -1062,6 +1065,10 @@ This is documented from a created save with default values. For more information
         - **type:** array
         - **allowed values:** array of length 2 of integers.
         - **description:** Range within which a random radius/size is picked for spawned particles.
+    - `particle_speed`:
+        - **type:** integer
+        - **allowed values:** decimal between 0 and 1
+        - **description:** Speed at which a particle travels across the space.
     - `flow_type`:
         - **type:** string
         - **allowed values:** `["radial","directional"]`
