@@ -421,6 +421,7 @@ class SaveHandler {
             object.svg_filter = old_object.svg_filters;
             object.text_type = old_object.type;
             object.text_content = old_object.text;
+            object.font_family = old_object.font_family;
             object.font_size = old_object.font_size;
             object.color = old_object.color;
             object.text_decoration = {

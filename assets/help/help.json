@@ -32,6 +32,7 @@
             "text": {
                 "type": "Sets the text type. The text may be automatically generated depending of the setting.",
                 "text_content": "Sets the text to display, when allowed.",
+                "font_family": "Sets the font family of the text",
                 "font_size": "Sets the font size in pixels.",
                 "decoration": "Respectively toggle italic, bold, underline, overline, and line through on the text.",
                 "text_align": "Sets how the text should align itself in the container."

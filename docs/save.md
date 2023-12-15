@@ -771,6 +771,7 @@ This is documented from a created save with default values. For more information
     "visual_object_type": "text",
     "text_type": "any",
     "text_content": "text",
+    "font_family" : "verdana",
     "font_size": 20,
     "color": "#ffffff",
     "text_decoration": {
@@ -1014,6 +1015,10 @@ This is documented from a created save with default values. For more information
         - **type:** String
         - **allowed values:** Any string without any "\".
         - **description:** Text content displayed by the object.
+    - `font_family`:
+        - **type:** String
+        - **allowed values:** serif, sans-serif, monospace, cursive, fantasy...
+        - **description:** Font family of the displayed text.        
     - `font_size`:
         - **type:** integer
         - **allowed values:** value >= 0
