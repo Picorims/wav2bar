@@ -397,6 +397,7 @@ class SaveHandler {
             object.rotation = 0;
             object.svg_filter = old_object.svg_filters;
             object.particle_radius_range = JSON.parse(JSON.stringify(old_object.particle_radius_range));
+            object.particle_speed = old_object.particle_speed;
             object.flow_type = old_object.type;
             object.flow_center = JSON.parse(JSON.stringify(old_object.center));
             object.flow_direction = Math.round(old_object.particle_direction * 180 / Math.PI);
