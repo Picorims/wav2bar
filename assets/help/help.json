@@ -22,6 +22,7 @@
             },
             "particles": {
                 "ptcl_size": "Sets the size range of a particle in pixels. It takes a random value between the two specified for each particle. For a constant size, use the same value twice. The order doesn't have any impact.",
+                "speed" : "Sets the speed of the particles.",
                 "flow_type": "Sets the type of flow for the particles. Their spawn and movement behaviour are linked to this setting",
                 "center_pos": "Sets the spawn position for a radial flow.",
                 "direction": "Sets the particle direction for a directional flow.",

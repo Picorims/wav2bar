@@ -66,6 +66,7 @@ const DEFAULTS = {
     BORDER_THICKNESS: 2,
 
     PARTICLE_RADIUS_RANGE: [1,2],
+    PARTICLE_SPEED: 10,
     FLOW_TYPE: "radial",
     FLOW_CENTER: {x: 0, y: 0},
     FLOW_DIRECTION: 0,
@@ -1921,7 +1922,73 @@ export class VPParticleRadiusRange extends VisualObjectProperty {
     }
 }
 
+/**
+ * Visual property for defining the speed of a particle
+ *
+ * @export
+ * @class VPParticleSpeed
+ * @extends {VisualObjectProperty}
+ */
+export class VPParticleSpeed extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPParticleSpeed.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPParticleSpeed
+     */
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "particle_speed");
 
+        //create associated UI
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterNumInputList(
+                this._visual_object.parameter_rack,
+                "",
+                false,
+                [{
+                    title: "Particle speed",
+                    unit: "",
+                    default_value: this.getCurrentValue(),
+                    min: 0,
+                    max: 30,
+                    step: 0.1,
+                    callback: () => {
+                        this.setSaveUISafe(parseFloat(this._ui_parameter.value(0)));
+                    }
+                }]
+            );
+            this._ui_parameter.help_string = help.parameter.object.particles.speed;
+        }
+    }
+
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPParticleSpeed
+     * @override
+     * @return {Number}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.PARTICLE_SPEED;
+            return this._default_value;
+        };
+    }
+
+    /**
+     * The value is valid if it is a number between 1 and 100.
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPParticleSpeed
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsANumber(value) && value >= 0 && value <= 100)
+    }
+}
 
 /**
  * property to set the global flow type (behaviour)
