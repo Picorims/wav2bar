@@ -4,6 +4,10 @@ A tool to make custom audio visualization and export production videos for the a
 - **Blog:** https://picorims.github.io/wav2bar-blog/
 - **Discord Server:** https://discord.gg/EVGzfdP
 
+## ⚠️ Development has moved!
+
+A rewrite of Wav2Bar is happening at: https://github.com/picorims/wav2bar-reborn. Check the milestones and projects to follow the rewrite's progress.
+
 ## Important Notes
 - **This tool is a side project and is provided as is, without garantee of long term maintenance. If this is fine for you, you can proceed. Enjoy!**
 - **This tool is usable at this point, but is still in early development! Your work is subject to bugs, backup your saves!**
