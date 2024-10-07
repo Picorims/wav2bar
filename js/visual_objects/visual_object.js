@@ -693,6 +693,7 @@ export class VParticleFlow extends VisualObject {
         //#################
 
         this._properties["particle_radius_range"] = new property.VPParticleRadiusRange(this._save_handler, this);
+        this._properties["particle_speed"] = new property.VPParticleSpeed(this._save_handler, this);
         this._properties["flow_type"] = new property.VPFlowType(this._save_handler, this);
         this._properties["flow_center"] = new property.VPFlowCenter(this._save_handler, this);
         this._properties["flow_direction"] = new property.VPFlowDirection(this._save_handler, this);
@@ -727,6 +728,10 @@ export class VParticleFlow extends VisualObject {
         });
 
         this._properties["particle_radius_range"].subscribeToEvent("value_changed", () => {
+            this.regenUpdate();
+        });
+        
+        this._properties["particle_speed"].subscribeToEvent("value_changed", () => {
             this.regenUpdate();
         });
 
@@ -873,7 +878,7 @@ class Particle {
         //radius and speed
         let radius_range = this._parent.properties["particle_radius_range"].getCurrentValue();
         this._radius = utils.RandomInt(radius_range[0], radius_range[1]);
-        this._speed = 0;
+        this._speed = this._parent.properties["particle_speed"].getCurrentValue();
         this._direction = 0;
 
         //coordinates
@@ -1009,7 +1014,7 @@ class Particle {
      */
     update() {
         //compute speed
-        this._speed = (this._parent.is_regen_update)? 10 : this._parent.volume/20;
+        //this._speed = (this._parent.is_regen_update)? 10 : this._parent.volume/20;
         this._x_velocity = Math.cos(this._direction) * this._speed;
         this._y_velocity = Math.sin(this._direction) * this._speed;
 
