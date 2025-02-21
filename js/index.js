@@ -164,9 +164,13 @@ class SaveHandler {
         ipcRenderer.once("finished-caching-save", async () => {
             //read data cached in ./temp/current_save
             imports.utils.CustomLog("info","reading the save...");
-    
-            const JSON_data = await ipcRenderer.invoke("read-json-file",`${working_dir}/temp/current_save/data.json`);
-            this._save_data = JSON.parse(JSON.stringify(JSON_data)); //copy data
+
+            try {
+                const JSON_data = await ipcRenderer.invoke("read-json-file",`${working_dir}/temp/current_save/data.json`);
+                this._save_data = JSON.parse(JSON.stringify(JSON_data)); //copy data
+            } catch (error) {
+                MessageDialog("error", "The save file data could not be read. The save file may be corrupted. To check out, change the extension to '.zip' and unzip it (make a backup!), and look for a data.json file.");
+            }
     
             //check version
             if (this._save_data.save_version > this._CURRENT_SAVE_VERSION) {
