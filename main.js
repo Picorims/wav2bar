@@ -49,6 +49,7 @@ process.chdir(__dirname);
 //folder to write temp data and user data
 let working_dir;
 let cant_write_to_root = false;
+let encountered_write_issue = false;
 
 
 
@@ -365,20 +366,25 @@ function Init() {
     let path_user_settings = path.resolve(working_dir, "./user/settings");
     let path_logs = path.resolve(working_dir, "./logs");
 
-    //create temp directory
-    if (!fs.existsSync(path_temp)) fs.mkdirSync(path_temp);
-    //clear existing cache if files remains from the last execution
-    fsExtra.emptyDirSync(path_temp);
-    //recreate the temp hierarchy
-    if (!fs.existsSync(path_temp_render)) fs.mkdirSync(path_temp_render);
-    if(!fs.existsSync(path_temp_current_save)) fs.mkdirSync(path_temp_current_save);
-
-    //create user directory
-    if(!fs.existsSync(path_user)) fs.mkdirSync(path_user);
-    if(!fs.existsSync(path_user_settings)) fs.mkdirSync(path_user_settings);
-
-    //create logs directory
-    if(!fs.existsSync(path_logs)) fs.mkdirSync(path_logs);
+    try {
+        //create temp directory
+        if (!fs.existsSync(path_temp)) fs.mkdirSync(path_temp);
+        //clear existing cache if files remains from the last execution
+        fsExtra.emptyDirSync(path_temp);
+        //recreate the temp hierarchy
+        if (!fs.existsSync(path_temp_render)) fs.mkdirSync(path_temp_render);
+        if(!fs.existsSync(path_temp_current_save)) fs.mkdirSync(path_temp_current_save);
+    
+        //create user directory
+        if(!fs.existsSync(path_user)) fs.mkdirSync(path_user);
+        if(!fs.existsSync(path_user_settings)) fs.mkdirSync(path_user_settings);
+    
+        //create logs directory
+        if(!fs.existsSync(path_logs)) fs.mkdirSync(path_logs);
+    } catch (e) {
+        encountered_write_issue = true;
+        main_log.error(`Couldn't create the necessary directories: ${e}`);
+    }
 
 
 
@@ -430,6 +436,10 @@ ipcMain.handle("argv", () => {
 ipcMain.handle("is-export-win", async (event) => {
     if (!export_win) return false;
     else return event.sender.id === export_win.webContents.id;
+});
+
+ipcMain.handle("encountered-write-issue", async () => {
+    return encountered_write_issue;
 });
 
 
