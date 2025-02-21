@@ -1386,7 +1386,12 @@ class UserInterface {
         this._owner_project = owner_project;
 
         this._loading_frame = new imports.ui_components.UILoadingFrame();
+
+        this._drives = [];
     }
+
+    get drives() {return [...this._drives];}
+    set drives(drives) {this._drives = drives;}
 
     get screen() {return this._screen;}
     set owner_project(owner_project) {this._owner_project = owner_project;}

@@ -44,6 +44,9 @@ const ffmpeg = require("fluent-ffmpeg");
 var ffmpeg_path = "";
 var ffprobe_path = "";
 
+const drivelist = require("drivelist");
+let drives;
+
 //set process directory to the position of main.js (i.e root of the app)
 process.chdir(__dirname);
 //folder to write temp data and user data
@@ -349,7 +352,15 @@ function PreInit() {
             working_dir = path.join(app.getPath("appData"), "/Wav2Bar");
             if (!fs.existsSync(working_dir)) fs.mkdirSync(working_dir);
         }).finally(() => {
-            Init();
+            drivelist.list().then((drives_list) => {
+                drives = drives_list
+                    .filter(drive => drive.mountpoints.length > 0)
+                    .map(drive => drive.mountpoints[0].path);
+            }).catch((error) => {
+                main_log.error(`Couldn't get the drives list: ${error}`);
+            }).finally(() => {
+                Init();
+            });
         });
 }
 
@@ -606,6 +617,10 @@ ipcMain.handle("open-folder-in-file-explorer", async (event, path_to_open) => {
     var regexp = new RegExp(/^\.\//);
     if (regexp.test(path_to_open)) path_to_open = path.join(__dirname, path_to_open);
     shell.openPath(path_to_open);
+});
+
+ipcMain.handle("get-drives", async () => {
+    return drives;
 });
 
 
