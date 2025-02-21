@@ -168,6 +168,12 @@ function createWindow () {
     main_log.info("main renderer created.");
 }
 
+// disable scaling and force high dpi support to fix inconsistent scaling on screen content depending of system settings
+// see: https://github.com/Picorims/wav2bar/issues/71
+// Thanks to @Magimedia for the solution!
+app.commandLine.appendSwitch("high-dpi-support", 1);
+app.commandLine.appendSwitch("force-device-scale-factor", 1);
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
