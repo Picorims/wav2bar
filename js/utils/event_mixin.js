@@ -30,11 +30,32 @@ export let EventMixin = {
      * @memberof EventMixin
      * @access protected
      */
-    _setupEventMixin: function (events_list) {
+    _setupEventMixin: function(events_list) {
         this._event_handlers = {};
         for (const event of events_list) {
             this._event_handlers[event] = [];
         }
+    },
+
+    /**
+     * Allows a new event for subscription.
+     * @param {String} name event name
+     */
+    _createEvent: function(name) {
+        if (this._event_handlers[name] !== undefined) throw new Error("_createEvent: this event already exist.");
+        this._event_handlers[name] = [];
+        //TODO test
+    },
+
+    /**
+     * Removes an event and all its current handlers (they won't be called again).
+     * The event can't be subscribed to again.
+     * @param {String} name event name
+     */
+    _deleteEvent: function(name) {
+        if (this._event_handlers[name] === undefined) throw new Error("_createEvent: this event does not exist.");
+        delete this._event_handlers[name];
+        //TODO test
     },
 
     /**
@@ -44,7 +65,7 @@ export let EventMixin = {
      * @param {Function} function_handler callback to associate
      * @memberof EventMixin
      */
-    subscribeToEvent: function (event, function_handler) {
+    subscribeToEvent: function(event, function_handler) {
         // https://stackoverflow.com/questions/12017693/why-use-object-prototype-hasownproperty-callmyobj-prop-instead-of-myobj-hasow
         // TD;DR: It is safer this way to avoid it missing or being overriden
         if (!Object.prototype.hasOwnProperty.call(this._event_handlers, event)) throw new Error(`"${event}" event doesn't exist.`);
@@ -59,7 +80,7 @@ export let EventMixin = {
      * @param {Function} function_handler callback to associate
      * @memberof EventMixin
      */
-    unsubscribeToEvent: function (event, function_handler) {
+    unsubscribeToEvent: function(event, function_handler) {
         // https://stackoverflow.com/questions/12017693/why-use-object-prototype-hasownproperty-callmyobj-prop-instead-of-myobj-hasow
         // TD;DR: It is safer this way to avoid it missing or being overriden
         if (!Object.prototype.hasOwnProperty.call(this._event_handlers, event)) throw new Error(`"${event}" event doesn't exist.`);

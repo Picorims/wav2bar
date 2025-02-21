@@ -34,6 +34,8 @@ import * as equals from "./deep_equals.js";
  * add event function for the EventMixin (cleaner), or use a toggled boolean as an
  * event dispatcher (quick hack).
  * 
+ * The structure is immutable, except for array objects.
+ * 
  * @mixin StateMachineMixin
  * @export
  */
@@ -79,7 +81,7 @@ export let StateMachineMixin = {
             let val = object[key];
             let path = (root === "") ? key : `${root}/${key}`;
             keys.push(path);
-            if (type.IsAnObject(val) && !type.IsAnArray(val)) {
+            if (type.IsAnObject(val)) {//object or array? deep explore
                 keys = [...keys, ...this._getStatePaths(val, path)];
             }
         }
@@ -140,6 +142,7 @@ export let StateMachineMixin = {
 
         //change the value of the desired key
         let is_obj = type.IsAnObject(value) && !type.IsAnArray(value);
+        let is_array = type.IsAnArray(value);
         if (is_obj) {
             //if it is an object, change all of its listed states.
             let object = value;
@@ -148,6 +151,13 @@ export let StateMachineMixin = {
                     let modifiedLocal = this.setState(`${state_path}/${key}`, object[key], true);
                     if (modifiedLocal) modified = true;
                 }
+            }
+        } else if (is_array) {
+            //if it is an array, change all of its index values, and create or remove index references as necessary.
+            let array = value;
+            for (let i = 0; i < array.length; i++) {
+                let modifiedLocal = this.setState(`${state_path}/${i}`, array[i], true);
+                if (modifiedLocal) modified = true;
             }
         } else {
             //assign
