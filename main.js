@@ -255,6 +255,18 @@ ipcMain.handle("resize-export-window", async (event, width, height) => {
     main_log.info(`export window: new size: ${width}x${height}`);
 });
 
+/**
+ * Attempts to delete render frames
+ */
+ipcMain.handle("clean-up-render-files", () => {
+    try {
+        fsExtra.emptyDirSync(path.resolve(working_dir, "./temp/render")); //clear render cache
+        main_log.info("render cache cleared.");
+    } catch (e) {
+        main_log.error("Couldn't clear all the render cache because some files are still busy.");
+    }
+});
+
 
 
 
