@@ -15,6 +15,7 @@ https://keepachangelog.com/en/1.0.0/
 ### Changed
 
 - Reduced log spam at export.
+- If only one extension kind is allowed, the extension will be automatically fixed instead of prompting the user to do so.
 
 ### Fixed
 
@@ -24,6 +25,7 @@ https://keepachangelog.com/en/1.0.0/
 - Fixed: Save files won't load correctly (#73)
     - Wav2Bar now correctly uses the appdata directory instead of picking the disk root directory. To recover old settings on Windows, copy the content of `C:\Wav2Bar` over to `C:\Users\USERNAME\AppData\Roaming\Wav2Bar` (you likely only want the `user` directory there).
 - Some log messages were lost in specific scenarios where the window could not be identified.
+- Fixed: Choosing no file in file picker leads to errors such as soft lock on save load (#90)
 
 ## 0.3.3-beta (2023-02-04)
 

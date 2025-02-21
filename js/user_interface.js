@@ -1249,6 +1249,26 @@ async function FileBrowserDialog(settings, callback, args) {
         var name_input = document.getElementById(this.getAttribute("data-tmp-input-id"));
         var extensions = settings.allowed_extensions;
 
+        if ((settings.type === "get_file" || settings.type === "save_file") && name_input.value === "") {
+            MessageDialog("warn","No name provided! Please pick a file or choose a name.");
+            return;
+        }
+
+        // auto add extension if not provided and only one extension is allowed
+        if (settings.type === "save_file") {
+            if (extensions.length === 1 && extensions[0] !== "#any" && extensions[0] !== "#none") {
+                const was = name_input.value;
+                // replace the extension if it is has one, otherwise add it.
+                var regexp = new RegExp(/\..*$/,"g"); //has a dot with anything after it at the end of the path.
+                if (!regexp.test(name_input.value)) {
+                    name_input.value += `.${extensions[0]}`;
+                } else {
+                    name_input.value = name_input.value.replace(/\..*$/,"") + `.${extensions[0]}`;
+                }
+                imports.utils.CustomLog("info",`extension automatically fixed for the file: ${name_input.value} (was ${was})`);
+            }
+        }
+
         if ( settings.type === "save_file") {
             if (extensions[0] === "#none") {
 
