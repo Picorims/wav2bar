@@ -343,13 +343,12 @@ function PreInit() {
     fs.promises.writeFile(test_path, "can write : OK")
         .then(() => {
             fsExtra.removeSync(test_path);
-            Init();
         })
         .catch(() => {
             cant_write_to_root = true;
             working_dir = path.join(app.getPath("appData"), "/Wav2Bar");
             if (!fs.existsSync(working_dir)) fs.mkdirSync(working_dir);
-
+        }).finally(() => {
             Init();
         });
 }
