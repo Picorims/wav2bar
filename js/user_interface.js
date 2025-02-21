@@ -34,6 +34,8 @@ var audio_time_update;//setInterval that updates audio time display
 
 var help; //help strings
 
+let drives_list; //list of drives
+
 
 
 /*
@@ -48,6 +50,14 @@ INITIALIZATION
  */
 // eslint-disable-next-line no-unused-vars
 async function InitUI() {
+
+    ipcRenderer.invoke("get-drives").then((drives) => {
+        drives_list = drives;
+        imports.utils.CustomLog("info", "Drives list found");
+    }).catch((error) => {
+        imports.utils.CustomLog("error", "Could not get drives: " + error);
+    });
+
     //IMPORTS
     imports.ui_components = await import("./ui_components/ui_components.js");
 
@@ -1124,16 +1134,8 @@ async function FileBrowserDialog(settings, callback, args) {
         }, path_input.value.replace(/\\$/,"").replace(/\/$/,"")); //path
     };
 
-    //home directory button
-    var home_dir = document.createElement("div");
-    path_container.appendChild(home_dir);
-    home_dir.classList.add("file_browser_icon_button");
-    home_dir.innerHTML = "<i class=\"ri-home-4-line\"></i>";
-    home_dir.onclick = async () => {
-        //go to home directory
-        var home_dir = await ipcRenderer.invoke("get-home-path");
-
-        path_input.value = home_dir;
+    const updatePathInput = (path) => {
+        path_input.value = path;
 
         var event = new Event("input", {
             bubbles: true,
@@ -1141,7 +1143,39 @@ async function FileBrowserDialog(settings, callback, args) {
         });
 
         path_input.dispatchEvent(event);
+
     };
+
+    //home directory button
+    var home_dir = document.createElement("div");
+    path_container.appendChild(home_dir);
+    home_dir.classList.add("file_browser_icon_button");
+    home_dir.innerHTML = "<i class=\"ri-home-4-line\"></i>";
+    home_dir.onclick = async () => {
+        //go to home directory
+        let home_dir_path = await ipcRenderer.invoke("get-home-path");
+        updatePathInput(home_dir_path);
+    };
+
+
+
+    // drives container
+    var drives_container = document.createElement("div");
+    container.appendChild(drives_container);
+    path_container.classList.add("file_browser_flex_sub_container");
+
+
+
+    for (const d of drives_list) {
+        const btn = document.createElement("button");
+        drives_container.appendChild(btn);
+        btn.classList.add("panel_button", "dialog_button");
+        btn.innerHTML = d;
+        btn.onclick = function() {
+            updatePathInput(d);
+        };
+    
+    }
 
 
 

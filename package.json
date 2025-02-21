@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "colors": "^1.4.0",
+    "drivelist": "^12.0.2",
     "electron-squirrel-startup": "^1.0.0",
     "fluent-ffmpeg": "^2.1.2",
     "fourier-transform": "^1.1.2",
