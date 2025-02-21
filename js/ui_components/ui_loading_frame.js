@@ -77,7 +77,9 @@ export class UILoadingFrame extends ui_components.UIComponent {
         if (this._visible) {
             this.DOM_container.classList.remove("visible");
             setTimeout(() => {
-                this.DOM_container.parentNode.removeChild(this.DOM_container);
+                if (this.DOM_container.parentNode) {
+                    this.DOM_container.parentNode.removeChild(this.DOM_container);
+                }
             }, this._TIMEOUT);
             this._visible = false;
         }

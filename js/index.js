@@ -147,6 +147,7 @@ class SaveHandler {
     async loadSave(save_file_path, no_warnings = false) {
         if (!imports.utils.IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
     
+        this._owner_project.user_interface.loadingMode(true);
         imports.utils.CustomLog("info", "Backing up currently opened save...");
         this.exportSave(`${working_dir}/temp/before_new_save_open.w2bzip`, true);
         await this._owner_project.closeAudio();
@@ -164,7 +165,8 @@ class SaveHandler {
         ipcRenderer.once("finished-caching-save", async () => {
             //read data cached in ./temp/current_save
             imports.utils.CustomLog("info","reading the save...");
-
+            
+            this._owner_project.user_interface.loadingMode(false);
             try {
                 const JSON_data = await ipcRenderer.invoke("read-json-file",`${working_dir}/temp/current_save/data.json`);
                 this._save_data = JSON.parse(JSON.stringify(JSON_data)); //copy data
