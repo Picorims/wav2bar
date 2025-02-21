@@ -46,6 +46,8 @@ function Export(path) {
         imports.utils.CustomLog("debug","renderer created, sending data...");
 
 
+
+
         //data to send to the renderer process (the project, so it can be recreated into the new window)
         let filename = project.save_handler.save_data.audio_filename;
         let extension = filename.replace(/^.*\./,"").toLowerCase();
@@ -66,6 +68,7 @@ function Export(path) {
         };
 
         //cache audio for rendering in a separate file.
+        UpdateExportContext("Caching audio (might take a while for large files)...");
         let from_path = `${project.working_dir}/temp/current_save/assets/audio/${filename}`;
         let to_path = `${project.working_dir}/temp/temp.${extension}`;
         await ipcRenderer.invoke("copy-file", from_path, to_path);
@@ -99,6 +102,9 @@ function Export(path) {
         document.getElementById("export_encoding_progress").style.width = "0%";
 
         //events
+        ipcRenderer.on("update-export-context", (event, str) => {
+            UpdateExportContext(str);
+        });
         ipcRenderer.on("export-progress", (event, max, progress) => {
             //progress display
             document.getElementById("export_frame_span").innerHTML = `${progress}/${max}`;
@@ -150,6 +156,8 @@ function Export(path) {
         });
         ipcRenderer.once("encoding-finished", (event, success) => {
             ipcRenderer.removeAllListeners("encoding-progress");
+            ipcRenderer.removeAllListeners("update-export-context");
+            UpdateExportContext("Encoding finished!");
             project.user_interface.loadingMode(false);
             if (success) {
                 let now = performance.now();
@@ -173,4 +181,12 @@ function Export(path) {
     ipcRenderer.invoke("create-export-win");
 
     return true;
+}
+
+/**
+ * Show information to the main GUI window. Previous text is overriden.
+ * @param {string} str 
+ */
+function UpdateExportContext(str) {
+    document.getElementById("export_context_span").innerHTML = str;
 }
