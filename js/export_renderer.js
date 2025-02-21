@@ -307,14 +307,14 @@ async function Render() {
     if ( project.updateFinished() ) {
 
         //update progress display
-        imports.utils.CustomLog("info",`rendered: ${frames_rendered}/${frames_to_render}`);
+        if (frames_rendered % 100 === 0 || frames_rendered >= frames_to_render) imports.utils.CustomLog("info",`rendered: ${frames_rendered}/${frames_to_render}`);
         ipcRenderer.sendTo(1, "export-progress", frames_to_render, frames_rendered);
 
         //if there is still frames to draw
         if (frames_rendered < frames_to_render) {
 
             //the previous frame is rendered only now because the render of this one is now finished (UpdateFinished = true). it wasn't the case before
-            await ipcRenderer.invoke("export-screen", {width: project.save_handler.save_data.screen.width, height: project.save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
+            await ipcRenderer.invoke("export-screen", {width: project.save_handler.save_data.screen.width, height: project.save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg, frames_rendered);
 
             //get waveform data
             var length = 8192;//output is length/2
@@ -341,7 +341,7 @@ async function Render() {
 
             //Draw the new frame now that the previous finished exporting .
             //render frame, recall loop
-            imports.utils.CustomLog("info",`audio time: ${current_time}`);
+            if (frames_rendered % 100 === 0) imports.utils.CustomLog("info",`audio time: ${current_time}`);
             project.drawFrame();
             frames_rendered++;
             document.dispatchEvent(event.render_loop);
@@ -351,7 +351,7 @@ async function Render() {
         }//if all frames have been rendered and this is the last frame to export, stop the loop and export the last frame
         else {
 
-            await ipcRenderer.invoke("export-screen", {width: project.save_handler.save_data.screen.width, height: project.save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
+            await ipcRenderer.invoke("export-screen", {width: project.save_handler.save_data.screen.width, height: project.save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg, frames_rendered);
 
             document.removeEventListener("render-loop", Render);
             ipcRenderer.sendTo(1, "frames-rendered");

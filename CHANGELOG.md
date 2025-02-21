@@ -11,6 +11,10 @@ https://keepachangelog.com/en/1.0.0/
 - Added a loading animation while caching audio file in save load.
 - Additional context is now printed under the export progress bars to inform about potentially long processes, for which progress can't be tracked.
 
+### Changed
+
+- Reduced log spam at export.
+
 ### Fixed
 
 - Fixed: Temporary folder is never cleaned up (#69)

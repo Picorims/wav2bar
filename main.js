@@ -817,21 +817,24 @@ ipcMain.handle("pcm-to-spectrum", async (event, waveform) => {
  * @param {Object} screen_data
  * @param {String} name
  * @param {Boolean} use_jpeg
+ * @param {number} index
  */
-ipcMain.handle("export-screen", async (event, screen_data, name, use_jpeg) => {
+ipcMain.handle("export-screen", async (event, screen_data, name, use_jpeg, index) => {
     
-    main_log.info("Capture requested.");
-    main_log.info(`frame: ${name}`);
+    if (index % 100 === 0) {
+        main_log.info("Capture requested.");
+        main_log.info(`frame: ${name}`);
+    }
 
     try {
         //capture the screen
         let image = await export_win.capturePage(screen_data);//screen_data: x,y,width,height.
-        main_log.info("captured! Writing file...");
+        if (index % 100 === 0) main_log.info("captured! Writing file...", index);
 
         //create the file
         if (use_jpeg) await fs.promises.writeFile(path.resolve(working_dir, `./temp/render/${name}.jpeg`), image.toJPEG(100));
         else await fs.promises.writeFile(path.resolve(working_dir, `./temp/render/${name}.png`), image.toPNG());
-        main_log.info("image of the screen created!");
+        if (index % 100 === 0) main_log.info("image of the screen created!", index);
     } catch (error) {
         main_log.error(error);
         throw error;
