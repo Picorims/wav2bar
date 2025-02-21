@@ -1462,6 +1462,12 @@ function LoadModules() {
  */
 function InitPage(export_mode) {
 
+    ipcRenderer.invoke("encountered-write-issue").then((issue) => {
+        if (issue) {
+            MessageDialog("error","An issue was encountered while trying to write app data. If you are running a system with restricted permissions, it is recommended to use the portable zip version instead. In all cases, it is discouraged to proceed to avoid save loss.");
+        }
+    });
+
     //SETUP PROJECT AND PREPARE SAVE
     project = new Project(export_mode);
     project.save_handler = new SaveHandler();
