@@ -4,7 +4,19 @@ https://keepachangelog.com/en/1.0.0/
 
 ## 0.3.4-beta (????-??-??)
 
-### Changed
+### Added
+
+- Wav2Bar now warns if it fails to load a save file due to corrupted internal JSON data.
+- Wav2Bar now warns if it is not able to write app data (which can lead to save failure for instance).
+
+### Fixed
+
+- Fixed: Temporary folder is never cleaned up (#69)
+    - An automatic clean up of render frames is done at export, and additional info is provided.
+- Fixed: False information display for number of points count (#84)
+- Fixed: Save files won't load correctly (#73)
+    - Wav2Bar now correctly uses the appdata directory instead of picking the disk root directory. To recover old settings on Windows, copy the content of `C:\Wav2Bar` over to `C:\Users\USERNAME\AppData\Roaming\Wav2Bar` (you likely only want the `user` directory there).
+- Some log messages were lost in specific scenarios where the window could not be identified.
 
 ## 0.3.3-beta (2023-02-04)
 

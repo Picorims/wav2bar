@@ -164,9 +164,13 @@ class SaveHandler {
         ipcRenderer.once("finished-caching-save", async () => {
             //read data cached in ./temp/current_save
             imports.utils.CustomLog("info","reading the save...");
-    
-            const JSON_data = await ipcRenderer.invoke("read-json-file",`${working_dir}/temp/current_save/data.json`);
-            this._save_data = JSON.parse(JSON.stringify(JSON_data)); //copy data
+
+            try {
+                const JSON_data = await ipcRenderer.invoke("read-json-file",`${working_dir}/temp/current_save/data.json`);
+                this._save_data = JSON.parse(JSON.stringify(JSON_data)); //copy data
+            } catch (error) {
+                MessageDialog("error", "The save file data could not be read. The save file may be corrupted. To check out, change the extension to '.zip' and unzip it (make a backup!), and look for a data.json file.");
+            }
     
             //check version
             if (this._save_data.save_version > this._CURRENT_SAVE_VERSION) {
@@ -1457,6 +1461,12 @@ function LoadModules() {
  * @param {Boolean} export_mode If the process is in an export context (no user interface, no CLI analysis).
  */
 function InitPage(export_mode) {
+
+    ipcRenderer.invoke("encountered-write-issue").then((issue) => {
+        if (issue) {
+            MessageDialog("error","An issue was encountered while trying to write app data. If you are running a system with restricted permissions, it is recommended to use the portable zip version instead. In all cases, it is discouraged to proceed to avoid save loss.");
+        }
+    });
 
     //SETUP PROJECT AND PREPARE SAVE
     project = new Project(export_mode);
