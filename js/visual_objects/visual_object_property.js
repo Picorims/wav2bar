@@ -2397,7 +2397,7 @@ export class VPVisualizerPointsCount extends VisualObjectProperty {
                 false,
                 [{
                     title: "Points count",
-                    unit: "px",
+                    unit: "",
                     default_value: this.getCurrentValue(),
                     min: 0,
                     step: 1,
