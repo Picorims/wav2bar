@@ -562,8 +562,6 @@ describe('utils', () => {
                     let c = new testClass();
                     let methods = [
                         "_setupEventMixin",
-                        "_createEvent",
-                        "_deleteEvent",
                         "subscribeToEvent",
                         "unsubscribeToEvent",
                         "triggerEvent",
@@ -603,36 +601,6 @@ describe('utils', () => {
                     expect(c.hasHandlers("c")).to.be.true;
                     c.unsubscribeToEvent("c", func);
                     expect(c.hasHandlers("c")).to.be.false;
-                });
-
-                it('can create new events', function(done) {
-                    let c = new testClass();
-                    let func = () => {};
-                    this.timeout(1000);
-
-                    c._createEvent("new_event");
-                    c.subscribeToEvent("new_event", () => {done();});
-                    c.triggerEvent("new_event");
-                });
-
-                it('can delete events', () => {
-                    let c = new testClass();
-                    let func = () => {};
-
-                    c._deleteEvent("a");
-                    expect(() => {c.triggerEvent("a");}).to.throw();                    
-                });
-
-                it('cannot delete unknown events', () => {
-                    let c = new testClass();
-                    let func = () => {};
-                    expect(() => {c._deleteEvent("unknown");}).to.throw();
-                });
-
-                it('cannot create existing events', () => {
-                    let c = new testClass();
-                    let func = () => {};
-                    expect(() => {c._createEvent("a");}).to.throw();
                 });
             });
         });

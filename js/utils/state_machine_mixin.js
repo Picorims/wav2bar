@@ -34,8 +34,6 @@ import * as equals from "./deep_equals.js";
  * add event function for the EventMixin (cleaner), or use a toggled boolean as an
  * event dispatcher (quick hack).
  * 
- * The structure is immutable, except for array objects.
- * 
  * @mixin StateMachineMixin
  * @export
  */
@@ -153,7 +151,7 @@ export let StateMachineMixin = {
                 }
             }
         } else if (is_array) {
-            //if it is an array, change all of its index values, and create or remove index references as necessary.
+            //if it is an array, change all of its index values.
             let array = value;
             for (let i = 0; i < array.length; i++) {
                 let modifiedLocal = this.setState(`${state_path}/${i}`, array[i], true);
