@@ -562,8 +562,6 @@ describe('utils', () => {
                     let c = new testClass();
                     let methods = [
                         "_setupEventMixin",
-                        "_createEvent",
-                        "_deleteEvent",
                         "subscribeToEvent",
                         "unsubscribeToEvent",
                         "triggerEvent",
@@ -603,36 +601,6 @@ describe('utils', () => {
                     expect(c.hasHandlers("c")).to.be.true;
                     c.unsubscribeToEvent("c", func);
                     expect(c.hasHandlers("c")).to.be.false;
-                });
-
-                it('can create new events', function(done) {
-                    let c = new testClass();
-                    let func = () => {};
-                    this.timeout(1000);
-
-                    c._createEvent("new_event");
-                    c.subscribeToEvent("new_event", () => {done();});
-                    c.triggerEvent("new_event");
-                });
-
-                it('can delete events', () => {
-                    let c = new testClass();
-                    let func = () => {};
-
-                    c._deleteEvent("a");
-                    expect(() => {c.triggerEvent("a");}).to.throw();                    
-                });
-
-                it('cannot delete unknown events', () => {
-                    let c = new testClass();
-                    let func = () => {};
-                    expect(() => {c._deleteEvent("unknown");}).to.throw();
-                });
-
-                it('cannot create existing events', () => {
-                    let c = new testClass();
-                    let func = () => {};
-                    expect(() => {c._createEvent("a");}).to.throw();
                 });
             });
         });
@@ -734,9 +702,6 @@ describe('utils', () => {
                                 expect(class_instance.getState(path)).to.deep.equal(value);
                             } else if (value instanceof Array) {
                                 expect(class_instance.getState(path)).to.deep.equal(value);
-                                for (let i=0; i < value.length; i++) {
-                                    expect(class_instance.getState(path+"/"+i)).to.deep.equal(value[i]);
-                                }
                             } else {
                                 expect(class_instance.getState(path)).to.equal(value);
                             }
@@ -765,9 +730,6 @@ describe('utils', () => {
                     c.setState("d", {f: "test2"});
                     expect(c.getState("d")).to.deep.equal({e: true, f: "test2"});
                     expect(c.getState("d/f")).to.equal("test2");
-
-                    c.setState("c/0", 3);
-                    expect(c.getState("c/0")).to.equal(3);
                 });
 
                 it('does not allow NaN', () => {
@@ -783,7 +745,6 @@ describe('utils', () => {
                     expect(() => {c.getState("d/unknown")}).to.throw();
                     expect(() => {c.setState("d/unknown", 2)}).to.throw();
                     expect(() => {c.setState("d", {unknown: "a"})}).to.throw();
-                    expect(() => {c.setState("c/2", 5)}).to.throw();
                 });
     
                 it('supports using validators on states', () => {
@@ -806,7 +767,7 @@ describe('utils', () => {
                     let c = new testClass2();
     
                     this.timeout(1000);
-                    expect(c._state_paths).to.be.of.length(8);
+                    expect(c._state_paths).to.be.of.length(6);
     
                     c.subscribeToState("a", (value) => {
                         expect(value).to.equal("foo");
@@ -815,7 +776,7 @@ describe('utils', () => {
                     c.setState("a", "foo");
                 });
 
-                it('allows to subscribe to a state change happening in children (object)', function(done) {
+                it('allows to subscribe to a state change happening in children', function(done) {
                     let c = new testClass2();
     
                     this.timeout(1000);
@@ -825,42 +786,6 @@ describe('utils', () => {
                         done();
                     })
                     c.setState("d/f", 5);
-                });
-    
-                it('allows to subscribe to a state change happening in children (array)', function(done) {
-                    let c = new testClass2();
-    
-                    this.timeout(1000);
-    
-                    c.subscribeToState("c", (value) => {
-                        expect(value[0]).to.deep.equal(15);
-                        done();
-                    })
-                    c.setState("c/0", 15);
-                });
-    
-                it('allows to subscribe to a state change happening in parent (object)', function(done) {
-                    let c = new testClass2();
-    
-                    this.timeout(1000);
-    
-                    c.subscribeToState("d/f", (value) => {
-                        expect(value).to.deep.equal(5);
-                        done();
-                    })
-                    c.setState("d", {e: true, f: 5});
-                });
-    
-                it('allows to subscribe to a state change happening in parent (array)', function(done) {
-                    let c = new testClass2();
-    
-                    this.timeout(1000);
-    
-                    c.subscribeToState("c", (value) => {
-                        expect(value).to.deep.equal([15,5]);
-                        done();
-                    })
-                    c.setState("c/0", 15);
                 });
     
                 it('lets unsubscribe to state', () => {
@@ -898,7 +823,7 @@ describe('utils', () => {
                             path: "c",
                             other_machine: c3,
                             other_path: "tab",
-                            test_val: [45,87],
+                            test_val: [45,89,87],
                         },
                         {
                             machine: c3,
