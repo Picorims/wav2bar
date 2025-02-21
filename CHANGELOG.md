@@ -17,6 +17,10 @@ https://keepachangelog.com/en/1.0.0/
 - Reduced log spam at export.
 - If only one extension kind is allowed, the extension will be automatically fixed instead of prompting the user to do so.
 
+### Removed
+
+- App no longer scales based on DPI due to negative impact on rendering (see fixes for the reason).
+
 ### Fixed
 
 - Fixed: Temporary folder is never cleaned up (#69)
@@ -26,6 +30,9 @@ https://keepachangelog.com/en/1.0.0/
     - Wav2Bar now correctly uses the appdata directory instead of picking the disk root directory. To recover old settings on Windows, copy the content of `C:\Wav2Bar` over to `C:\Users\USERNAME\AppData\Roaming\Wav2Bar` (you likely only want the `user` directory there).
 - Some log messages were lost in specific scenarios where the window could not be identified.
 - Fixed: Choosing no file in file picker leads to errors such as soft lock on save load (#90)
+- Fixed: High DPI screens cause the app to scale, which includes intermediatory files for rendering (#71)
+    - This might alter existing save files depending of your system display settings (basically if scaling was applied to the app for you during edition of the file).
+    - The save file display should now be consistent regardless of the scaling of the screen.
 
 ## 0.3.3-beta (2023-02-04)
 
