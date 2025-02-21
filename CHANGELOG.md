@@ -8,6 +8,8 @@ https://keepachangelog.com/en/1.0.0/
 
 - Wav2Bar now warns if it fails to load a save file due to corrupted internal JSON data.
 - Wav2Bar now warns if it is not able to write app data (which can lead to save failure for instance).
+- Added a loading animation while caching audio file in save load.
+- Additional context is now printed under the export progress bars to inform about potentially long processes, for which progress can't be tracked.
 
 ### Fixed
 
