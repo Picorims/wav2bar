@@ -15,6 +15,7 @@ https://keepachangelog.com/en/1.0.0/
 ### Changed
 
 - Reduced log spam at export.
+- If only one extension kind is allowed, the extension will be automatically fixed instead of prompting the user to do so.
 
 ### Fixed
 
