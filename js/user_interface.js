@@ -1249,6 +1249,11 @@ async function FileBrowserDialog(settings, callback, args) {
         var name_input = document.getElementById(this.getAttribute("data-tmp-input-id"));
         var extensions = settings.allowed_extensions;
 
+        if ((settings.type === "get_file" || settings.type === "save_file") && name_input.value === "") {
+            MessageDialog("warn","No name provided! Please pick a file or choose a name.");
+            return;
+        }
+
         if ( settings.type === "save_file") {
             if (extensions[0] === "#none") {
 
