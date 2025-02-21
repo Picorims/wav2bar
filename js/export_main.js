@@ -159,9 +159,10 @@ function Export(path) {
                 let secs = Math.floor((ellapsed/1000)%60);
                 mins = (mins<10)? "0"+mins : mins;
                 secs = (secs<10)? "0"+secs : secs;
-
+                
                 MessageDialog("info",`The video has been successfully created in ${hours}:${mins}:${secs} !`);
                 imports.utils.CustomLog("info",`The video has been successfully created in ${hours}:${mins}:${secs} !`);
+                ipcRenderer.invoke("clean-up-render-files");
             }
             else MessageDialog("error","An error occurred during the encoding process. For more information, see the logs.");
         });

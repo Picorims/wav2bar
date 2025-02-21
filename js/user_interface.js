@@ -248,6 +248,11 @@ async function InitUI() {
         ipcRenderer.invoke("open-folder-in-file-explorer", `${project.working_dir}/logs`);
     };
 
+    //open logs folder
+    document.getElementById("open_temp_button").onclick = function() {
+        ipcRenderer.invoke("open-folder-in-file-explorer", `${project.working_dir}/temp`);
+    };
+
     //choose ffmpeg path through file browser
     /** @type {uiComponents.WebUIFilePicker} */
     let ffmpeg_picker = document.getElementById("locate-ffmpeg-picker");
