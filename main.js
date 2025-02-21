@@ -346,7 +346,7 @@ function PreInit() {
         })
         .catch(() => {
             cant_write_to_root = true;
-            working_dir = path.resolve(app.getPath("appData"), "/Wav2Bar");
+            working_dir = path.join(app.getPath("appData"), "/Wav2Bar");
             if (!fs.existsSync(working_dir)) fs.mkdirSync(working_dir);
 
             Init();
