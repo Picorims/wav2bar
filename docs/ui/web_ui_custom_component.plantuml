@@ -1,4 +1,4 @@
-@startuml ui_base_components
+@startuml web_ui_custom_component
 
 'Wav2Bar - Free software for creating audio visualization (motion design) videos
 'Copyright (C) 2023  Picorims <picorims.contact@gmail.com>

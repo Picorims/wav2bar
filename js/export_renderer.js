@@ -43,6 +43,14 @@ function ConfirmCreation() {
 }
 
 /**
+ * Show information to the main GUI window. Previous text is overriden.
+ * @param {string} str 
+ */
+function SendExportContext(str) {
+    ipcRenderer.sendTo(1, "update-export-context", str);
+}
+
+/**
  * render initialization
  *
  */
@@ -166,6 +174,7 @@ function GetAudioData() {
         channel_count = audio_buffer.numberOfChannels;
 
         //STEREO FUSION TO A SINGLE INTERLEAVED PCM ARRAY
+        SendExportContext("Interleaving PCM data if needed (this might take a while for large stereo files)...");
         if (audio_buffer.numberOfChannels > 1) {
             // Float32Array samples
             const [left, right] =  [audio_buffer.getChannelData(0), audio_buffer.getChannelData(1)];
@@ -209,12 +218,18 @@ function GetAudioBuffer(callback) {
     imports.utils.CustomLog("debug", `audio source: ${url}`);
 
     //get buffer
+    SendExportContext("[BUFFER 1/4] Caching audio file in memory (this might take a while for large files)...");
     fetch(url)
-        .then(response => response.blob()) // Gets the response and returns it as a blob
+        .then(response => {
+            SendExportContext("[BUFFER 2/4] Converting to blob (this might take a while for large files)...");
+            return response.blob();
+        }) // Gets the response and returns it as a blob
         .then(blob => {
+            SendExportContext("[BUFFER 3/4] Converting to array buffer (this might take a while for large files)...");
             new Response(blob).arrayBuffer().then(function(result) {//converts to array buffer
                 let array_buffer = result;
 
+                SendExportContext("[BUFFER 4/4] Decoding audio data (this might take a while for large files)...");
                 context.decodeAudioData(array_buffer, function(decoded_buffer) {//converts to audio buffer
                     callback(decoded_buffer);//return data
 
@@ -244,6 +259,7 @@ function GetAudioBuffer(callback) {
  *
  */
 function PrepareRendering() {
+    SendExportContext("Preparing rendering...");
 
     //FPS PREPARATION
     export_array = [0, duration];//from when to when in seconds to export, based on audio length.
@@ -273,6 +289,8 @@ function StartRendering(fps) {
     frames_to_render = Math.floor((export_array[1] - export_array[0]) * fps);
     frames_rendered = 0;
 
+    SendExportContext("Rendering...");
+
     document.addEventListener("render-loop", Render);
     Render();
 }
@@ -289,14 +307,14 @@ async function Render() {
     if ( project.updateFinished() ) {
 
         //update progress display
-        imports.utils.CustomLog("info",`rendered: ${frames_rendered}/${frames_to_render}`);
+        if (frames_rendered % 100 === 0 || frames_rendered >= frames_to_render) imports.utils.CustomLog("info",`rendered: ${frames_rendered}/${frames_to_render}`);
         ipcRenderer.sendTo(1, "export-progress", frames_to_render, frames_rendered);
 
         //if there is still frames to draw
         if (frames_rendered < frames_to_render) {
 
             //the previous frame is rendered only now because the render of this one is now finished (UpdateFinished = true). it wasn't the case before
-            await ipcRenderer.invoke("export-screen", {width: project.save_handler.save_data.screen.width, height: project.save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
+            await ipcRenderer.invoke("export-screen", {width: project.save_handler.save_data.screen.width, height: project.save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg, frames_rendered);
 
             //get waveform data
             var length = 8192;//output is length/2
@@ -323,7 +341,7 @@ async function Render() {
 
             //Draw the new frame now that the previous finished exporting .
             //render frame, recall loop
-            imports.utils.CustomLog("info",`audio time: ${current_time}`);
+            if (frames_rendered % 100 === 0) imports.utils.CustomLog("info",`audio time: ${current_time}`);
             project.drawFrame();
             frames_rendered++;
             document.dispatchEvent(event.render_loop);
@@ -333,12 +351,13 @@ async function Render() {
         }//if all frames have been rendered and this is the last frame to export, stop the loop and export the last frame
         else {
 
-            await ipcRenderer.invoke("export-screen", {width: project.save_handler.save_data.screen.width, height: project.save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg);
+            await ipcRenderer.invoke("export-screen", {width: project.save_handler.save_data.screen.width, height: project.save_handler.save_data.screen.height, top:0, left:0}, `frame${frames_rendered}`, received_data.use_jpeg, frames_rendered);
 
             document.removeEventListener("render-loop", Render);
             ipcRenderer.sendTo(1, "frames-rendered");
             var data = received_data;
             var export_duration = export_array[1] - export_array[0];
+            SendExportContext("Encoding video...");
             ipcRenderer.invoke("create-video", project.save_handler.save_data.screen, data.audio_file_type, project.save_handler.save_data.fps, export_duration, data.output_path, received_data.use_jpeg)
                 .then( () => {
                     imports.utils.CustomLog("info","shutting down the renderer...");

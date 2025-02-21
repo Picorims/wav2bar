@@ -1,4 +1,4 @@
-@startuml index
+@startuml state_machine_mixin
 
 'Wav2Bar - Free software for creating audio visualization (motion design) videos
 'Copyright (C) 2023  Picorims <picorims.contact@gmail.com>

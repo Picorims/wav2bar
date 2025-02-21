@@ -2,6 +2,38 @@
 This document is based on Keep a Changelog 1.0.0
 https://keepachangelog.com/en/1.0.0/
 
+## 0.3.4-beta (????-??-??)
+
+### Added
+
+- Wav2Bar now warns if it fails to load a save file due to corrupted internal JSON data.
+- Wav2Bar now warns if it is not able to write app data (which can lead to save failure for instance).
+- Added a loading animation while caching audio file in save load.
+- Additional context is now printed under the export progress bars to inform about potentially long processes, for which progress can't be tracked.
+- Added shortcut buttons to pick another drive in the file picker.
+
+### Changed
+
+- Reduced log spam at export.
+- If only one extension kind is allowed, the extension will be automatically fixed instead of prompting the user to do so.
+
+### Removed
+
+- App no longer scales based on DPI due to negative impact on rendering (see fixes for the reason).
+
+### Fixed
+
+- Fixed: Temporary folder is never cleaned up (#69)
+    - An automatic clean up of render frames is done at export, and additional info is provided.
+- Fixed: False information display for number of points count (#84)
+- Fixed: Save files won't load correctly (#73)
+    - Wav2Bar now correctly uses the appdata directory instead of picking the disk root directory. To recover old settings on Windows, copy the content of `C:\Wav2Bar` over to `C:\Users\USERNAME\AppData\Roaming\Wav2Bar` (you likely only want the `user` directory there).
+- Some log messages were lost in specific scenarios where the window could not be identified.
+- Fixed: Choosing no file in file picker leads to errors such as soft lock on save load (#90)
+- Fixed: High DPI screens cause the app to scale, which includes intermediatory files for rendering (#71)
+    - This might alter existing save files depending of your system display settings (basically if scaling was applied to the app for you during edition of the file).
+    - The save file display should now be consistent regardless of the scaling of the screen.
+
 ## 0.3.3-beta (2023-02-04)
 
 ### Fixed

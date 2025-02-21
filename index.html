@@ -20,10 +20,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self';"/> -->
     <title>Wav2Bar</title>
 
@@ -37,8 +38,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     <script type="text/javascript" src="js/export_main.js"></script>
 
     <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-    <link rel="stylesheet" type="text/css" href="node_modules/remixicon/fonts/remixicon.css"/>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="node_modules/remixicon/fonts/remixicon.css" />
 </head>
 
 
@@ -47,7 +48,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         <ui-split-layout data-direction="vertical" data-size-min="300" data-size-max="600">
             <!--CONTROL PANEL-->
             <div slot="first-child" id="control_panel">
-    
+
                 <!--Labels, tabs naviguation-->
                 <div id="naviguation_tab_labels">
                     <div class="tab_label" id="project_label"> <i class="ri-file-edit-line"></i></i> PROJECT</div>
@@ -56,26 +57,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                     <div class="tab_label" id="settings_label"> <i class="ri-settings-4-line"></i> SETTINGS</div>
                     <div class="tab_label" id="help_label"> <i class="ri-question-line"></i> CONTACT AND HELP</div>
                 </div>
-    
-    
-    
+
+
+
                 <!--Tabs container-->
                 <div id="tabs_container">
-    
+
                     <!--PROJECT-->
                     <div id="project_tab" class="tab">
 
                         <ui-parameter data-help="fps">
-                            <ui-input-field id="fps-input"
-                                data-name="Framerate"
-                                data-type="int"
-                                data-value="0"
-                                data-min="1"
-                                data-max="8000"
-                                data-step="1">
+                            <ui-input-field id="fps-input" data-name="Framerate" data-type="int" data-value="0"
+                                data-min="1" data-max="8000" data-step="1">
                             </ui-input-field>
                         </ui-parameter>
-    
+
                         <!-- <div class="panel_param_container" data-help="screen_size">
                             <ui-label-block data-name="Screen resolution">
                                 <div>
@@ -87,51 +83,46 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                         </div> -->
 
                         <ui-parameter data-help="screen_size" data-title="Screen resolution">
-                            <ui-input-field id="screen-width-input"
-                                data-name="Width"
-                                data-type="int"
-                                data-value="1280"
-                                data-min="16"
-                                data-max="8000"
-                                data-step="1">
+                            <ui-input-field id="screen-width-input" data-name="Width" data-type="int" data-value="1280"
+                                data-min="16" data-max="8000" data-step="1">
                             </ui-input-field>
-                            <ui-input-field id="screen-height-input"
-                                data-name="Height"
-                                data-type="int"
-                                data-value="720"
-                                data-min="16"
-                                data-max="8000"
-                                data-step="1">
+                            <ui-input-field id="screen-height-input" data-name="Height" data-type="int" data-value="720"
+                                data-min="16" data-max="8000" data-step="1">
                             </ui-input-field>
                         </ui-parameter>
 
                         <ui-parameter id="load-audio" data-title="Import audio (mp3/wav/ogg)" data-help="audio">
-                            <ui-file-picker id="load-audio-picker" data-type="get_file" data-button-text="CHOOSE AUDIO FILE" data-opened-span-text="Opened audio file"></ui-file-picker>
+                            <ui-file-picker id="load-audio-picker" data-type="get_file"
+                                data-button-text="CHOOSE AUDIO FILE"
+                                data-opened-span-text="Opened audio file"></ui-file-picker>
                         </ui-parameter>
                         <!-- <div class="panel_param_container" data-help="audio">
                             <button id="load_audio_button" class="panel_button">CHOOSE AUDIO FILE</button>
                             <div><span>: </span><span id="opened_audio"></span></div>
                         </div> -->
-                        
+
                         <ui-parameter id="load-save" data-title="Import save (.w2bzip)" data-help="save_import">
-                            <ui-file-picker id="load-save-picker" data-type="get_file" data-button-text="CHOOSE SAVE FILE" data-opened-span-text="Opened save"></ui-file-picker>
+                            <ui-file-picker id="load-save-picker" data-type="get_file"
+                                data-button-text="CHOOSE SAVE FILE"
+                                data-opened-span-text="Opened save"></ui-file-picker>
                         </ui-parameter>
                         <!-- <div class="panel_param_container" data-help="save_import">
                             <span>Import save (.w2bzip): </span>
                             <button id="save_file_button" class="panel_button">CHOOSE SAVE FILE</button>
                             <div><span>Opened save: </span><span id="opened_save"></span></div>
                         </div> -->
-    
+
                         <ui-parameter id="export-save" data-title="Export save" data-help="save_export">
-                            <ui-file-picker id="export-save-picker" data-type="save_file" data-button-text="SAVE" data-opened-span-text="Saved at"></ui-file-picker>
+                            <ui-file-picker id="export-save-picker" data-type="save_file" data-button-text="SAVE"
+                                data-opened-span-text="Saved at"></ui-file-picker>
                         </ui-parameter>
                         <!-- <div class="panel_param_container" data-help="save_export">
                             <span>Export save: </span>
                             <button id="export_save_button" class="panel_button">SAVE</button>
                         </div> -->
-                    
+
                     </div>
-    
+
                     <!--OBJECTS-->
                     <div id="objects_tab" class="tab">
                         <ui-parameter data-help="new_object" data-title="New Object">
@@ -149,13 +140,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                                         <option value="visualizer_straight_wave">Visualizer - straight, waves</option>
                                         <option value="visualizer_circular_bar">Visualizer - circular</option>
                                     </optgroup>
-                                </select>    
+                                </select>
                             </ui-label-block>
                             <button id="create_object_button" class="panel_button panel_button_wide">CREATE</button>
                         </ui-parameter>
                         <!--all object parameters container go here-->
                     </div>
-    
+
                     <!--EXPORT-->
                     <div id="export_tab" class="tab">
                         <ui-parameter id="choose-video-path" data-title="Save directory" data-help="export_video_path">
@@ -166,17 +157,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <input id="video_export_path_input" class="panel_input panel_input_string" />
                             <button id="choose_video_path_button" class="panel_button">BROWSE</button>
                         </div> -->
-    
+
                         <!-- <div class="panel_param_container" data-help="experimental_jpeg_export">
                             <span>Experimental JPEG export: </span>
                             <input id="experimental_export_input" type="checkbox" class="panel_input panel_input_checkbox" />
                         </div> -->
                         <ui-parameter data-help="experimental_jpeg_export">
-                            <ui-input-field id="experimental-export-input"
-                                data-name="Use JPEG for frames export"
-                                data-type="bool"
-                                data-value="false">
+                            <ui-input-field id="experimental-export-input" data-name="Use JPEG for frames export"
+                                data-type="bool" data-value="false">
                             </ui-input-field>
+                        </ui-parameter>
+
+                        <ui-parameter>
+                            <p>
+                                Warning: due to how export is handled in Wav2Bar, export can take up a lot of storage
+                                space on disk (around 100GB). Make sure you have enough space on your disk before
+                                exporting.
+                            </p>
+                            <p>
+                                For more information, report to this issue: https://github.com/Picorims/wav2bar/issues/69
+                            </p>
                         </ui-parameter>
 
                         <ui-parameter data-title="Export" data-help="export">
@@ -191,7 +191,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <div class="progress_bar">
                                 <div id="export_frame_progress" class="progress_child"></div>
                             </div>
-                            
+
                             <ui-label-block data-name="Encoding video">
                                 <span id="export_encoding_span"></span>
                             </ui-label-block>
@@ -202,6 +202,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <div class="progress_bar">
                                 <div id="export_encoding_progress" class="progress_child"></div>
                             </div>
+
+                            <span id="export_context_span"></span>
                         </ui-parameter>
 
                         <!-- <div class="panel_param_container" data-help="export">
@@ -221,11 +223,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             </div>
                         </div> -->
                     </div>
-    
+
                     <!--SETTINGS-->
                     <div id="settings_tab" class="tab">
                         <ui-parameter data-title="Logs">
-                            <button id="open_logs_button" class="panel_button panel_button_wide">BROWSE LOGS FOLDER</button>    
+                            <button id="open_logs_button" class="panel_button panel_button_wide">BROWSE LOGS
+                                FOLDER</button>
+                        </ui-parameter>
+                        <ui-parameter data-title="Temp">
+                            <button id="open_temp_button" class="panel_button panel_button_wide">BROWSE TEMP
+                                FOLDER</button>
                         </ui-parameter>
                         <ui-parameter id="locate-ffmpeg" data-title="FFmpeg location">
                             <ui-file-picker id="locate-ffmpeg-picker" data-type="get_file"></ui-file-picker>
@@ -247,7 +254,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <button id="open_ffmpeg_help" class="panel_button panel_button_wide">OPEN HELP</button>
                         </ui-parameter>
                     </div>
-    
+
                     <!--CONTACT AND HELP-->
                     <div id="help_tab" class="tab">
                         <ui-parameter class="about_info">
@@ -255,75 +262,77 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                                 Wav2Bar v<span id="software_version"></span>
                             </p>
                             <p>
-                                Place your mouse over the <i class="ri-question-line"></i> icons to get help on a specific feature.
+                                Place your mouse over the <i class="ri-question-line"></i> icons to get help on a
+                                specific feature.
                             </p>
                             <p>
                                 Information and contact:
-                                <br/>
-                                <a id="website_link">Website</a><br/>
-                                <a id="github_link">GitHub repository</a><br/>
-                                <a id="twitter_link">Twitter</a><br/>
-                                <a id="youtube_link">YouTube</a><br/>
-                                <a id="discord_link">Discord Server</a><br/>
+                                <br />
+                                <a id="website_link">Website</a><br />
+                                <a id="github_link">GitHub repository</a><br />
+                                <a id="twitter_link">Twitter</a><br />
+                                <a id="youtube_link">YouTube</a><br />
+                                <a id="discord_link">Discord Server</a><br />
                             </p>
                             <p>
-                                Send an email at: <a href="mailto:picorims.contact@gmail.com">picorims.contact@gmail.com</a>
+                                Send an email at: <a
+                                    href="mailto:picorims.contact@gmail.com">picorims.contact@gmail.com</a>
                             </p>
                             <p>
                                 Special thanks:
-                                <br/>
-                                - My amazing friend Kanade_Senpai<br/>
+                                <br />
+                                - My amazing friend Kanade_Senpai<br />
                                 - RemixIcon (remixicon.com)
                             </p>
                             <hr>
                             <p>
                                 Wav2Bar - Free software for creating audio visualization (motion design) videos
-                                <br/>Copyright (C) 2023  Picorims &lt;picorims.contact@gmail.com&gt;
-                                <br/><br/>
+                                <br />Copyright (C) 2023 Picorims &lt;picorims.contact@gmail.com&gt;
+                                <br /><br />
                                 This program is free software: you can redistribute it and/or modify
                                 it under the terms of the GNU General Public License as published by
                                 the Free Software Foundation, either version 3 of the License, or
                                 any later version.
-                                <br/><br/>
+                                <br /><br />
                                 This program is distributed in the hope that it will be useful,
                                 but WITHOUT ANY WARRANTY; without even the implied warranty of
-                                MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+                                MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
                                 GNU General Public License for more details.
-                                <br/><br/>
+                                <br /><br />
                                 You should have received a copy of the GNU General Public License
-                                along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
+                                along with this program. If not, see &lt;https://www.gnu.org/licenses/&gt;.
                             </p>
                             <p>
                                 Helpers:
-                                <br/>
-                                - Kanade_Senpai (trailer video rendering)<br/>
+                                <br />
+                                - Kanade_Senpai (trailer video rendering)<br />
                                 - pdejan (fix help.json information)
                             </p>
                         </ui-parameter>
                     </div>
                 </div>
             </div>
-    
-    
-    
-    
-    
+
+
+
+
+
             <!--INTERFACE WITH SCREEN-->
             <div slot="second-child" id="interface">
-                
+
                 <div id="screen_container">
                     <!-- PREVIEW / RENDER -->
                     <div id="screen">
                         <!-- objects goes here! -->
                     </div>
-        
+
                     <!-- INNER SPACING FIXER -->
                     <div id="inner_spacing_fixer"></div>
                 </div>
 
                 <!--Naviguation Buttons-->
                 <div id="top_UI">
-    
+
                     <!--Audio control-->
                     <div class="top_UI_block">
                         <button class="top_UI_tile left_round" id="play_audio">
@@ -339,34 +348,34 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             <span class="text" id="time_display">0:00 | 0:00</span>
                         </div>
                     </div>
-    
+
                     <!--audio position-->
                     <div class="top_UI_block">
                         <button class="top_UI_tile left_round" id="audio_to_start">
                             <i class="ri-skip-back-fill"></i>
                         </button>
                         <div class="top_UI_tile range">
-                            <input class="range_track" type="range" id="audio_range"/>
+                            <input class="range_track" type="range" id="audio_range" />
                         </div>
                         <button class="top_UI_tile right_round" id="audio_to_end">
                             <i class="ri-skip-forward-fill"></i>
                         </button>
                     </div>
-    
+
                     <!--Loop music-->
                     <div class="top_UI_block">
                         <button class="top_UI_tile left_round right_round" id="loop_audio">
                             <i class="ri-repeat-fill"></i>
                         </button>
                     </div>
-    
+
                     <!--FPS-->
                     <div class="top_UI_block">
                         <div class="top_UI_tile left_round right_round double_size">
                             <span id="fps" class="text"></span>
                         </div>
                     </div>
-    
+
                     <!--Zoom-->
                     <div class="top_UI_block">
                         <button class="top_UI_tile left_round" id="zoom_out">
@@ -375,16 +384,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                         <button class="top_UI_tile double_size" id="zoom_value">
                             <span id="zoom_display" class="text"></span>
                         </button>
-                        <button class="top_UI_tile right_round"id="zoom_in">
+                        <button class="top_UI_tile right_round" id="zoom_in">
                             <i class="ri-zoom-in-line"></i>
                         </button>
                     </div>
                 </div>
-    
+
             </div>
         </ui-split-layout>
-      
-    
+
+
         <!--FILTERS TESTS-->
         <!--<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
             <defs>
@@ -413,4 +422,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         </svg>-->
     </div>
 </body>
+
 </html>

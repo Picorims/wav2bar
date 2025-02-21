@@ -19,7 +19,7 @@
 const {ipcRenderer} = require("electron");
 
 /** @type {String} current build version*/
-const software_version = "0.3.3-beta";
+const software_version = "0.3.4-indev";
 /** @type {String} current build type */
 let working_dir; //working directory for user, temp, logs...
 let root_dir; //root of the app (where main.js is located, and html/css folders)
@@ -147,6 +147,7 @@ class SaveHandler {
     async loadSave(save_file_path, no_warnings = false) {
         if (!imports.utils.IsAString(save_file_path)) throw "LoadSave: No valid path provided!";
     
+        this._owner_project.user_interface.loadingMode(true);
         imports.utils.CustomLog("info", "Backing up currently opened save...");
         this.exportSave(`${working_dir}/temp/before_new_save_open.w2bzip`, true);
         await this._owner_project.closeAudio();
@@ -164,9 +165,14 @@ class SaveHandler {
         ipcRenderer.once("finished-caching-save", async () => {
             //read data cached in ./temp/current_save
             imports.utils.CustomLog("info","reading the save...");
-    
-            const JSON_data = await ipcRenderer.invoke("read-json-file",`${working_dir}/temp/current_save/data.json`);
-            this._save_data = JSON.parse(JSON.stringify(JSON_data)); //copy data
+            
+            this._owner_project.user_interface.loadingMode(false);
+            try {
+                const JSON_data = await ipcRenderer.invoke("read-json-file",`${working_dir}/temp/current_save/data.json`);
+                this._save_data = JSON.parse(JSON.stringify(JSON_data)); //copy data
+            } catch (error) {
+                MessageDialog("error", "The save file data could not be read. The save file may be corrupted. To check out, change the extension to '.zip' and unzip it (make a backup!), and look for a data.json file.");
+            }
     
             //check version
             if (this._save_data.save_version > this._CURRENT_SAVE_VERSION) {
@@ -1380,7 +1386,12 @@ class UserInterface {
         this._owner_project = owner_project;
 
         this._loading_frame = new imports.ui_components.UILoadingFrame();
+
+        this._drives = [];
     }
+
+    get drives() {return [...this._drives];}
+    set drives(drives) {this._drives = drives;}
 
     get screen() {return this._screen;}
     set owner_project(owner_project) {this._owner_project = owner_project;}
@@ -1457,6 +1468,12 @@ function LoadModules() {
  * @param {Boolean} export_mode If the process is in an export context (no user interface, no CLI analysis).
  */
 function InitPage(export_mode) {
+
+    ipcRenderer.invoke("encountered-write-issue").then((issue) => {
+        if (issue) {
+            MessageDialog("error","An issue was encountered while trying to write app data. If you are running a system with restricted permissions, it is recommended to use the portable zip version instead. In all cases, it is discouraged to proceed to avoid save loss.");
+        }
+    });
 
     //SETUP PROJECT AND PREPARE SAVE
     project = new Project(export_mode);

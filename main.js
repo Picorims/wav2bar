@@ -32,7 +32,7 @@ const ft = require("fourier-transform/asm");
 require("./node_modules/log4js/lib/appenders/stdout");
 require("./node_modules/log4js/lib/appenders/console");
 const log4js = require("log4js");
-let main_log, main_renderer_log, export_log;
+let main_log, fallback_log, main_renderer_log, export_log;
 // eslint-disable-next-line no-unused-vars
 const colors = require("colors");
 
@@ -44,11 +44,15 @@ const ffmpeg = require("fluent-ffmpeg");
 var ffmpeg_path = "";
 var ffprobe_path = "";
 
+const drivelist = require("drivelist");
+let drives;
+
 //set process directory to the position of main.js (i.e root of the app)
 process.chdir(__dirname);
 //folder to write temp data and user data
 let working_dir;
 let cant_write_to_root = false;
+let encountered_write_issue = false;
 
 
 
@@ -147,7 +151,7 @@ function createWindow () {
     win.loadFile("index.html");
 
     // Open the DevTools.
-    //win.webContents.openDevTools();
+    win.webContents.openDevTools();
 
     //Hide menu bar
     win.setMenuBarVisibility(false);
@@ -163,6 +167,12 @@ function createWindow () {
 
     main_log.info("main renderer created.");
 }
+
+// disable scaling and force high dpi support to fix inconsistent scaling on screen content depending of system settings
+// see: https://github.com/Picorims/wav2bar/issues/71
+// Thanks to @Magimedia for the solution!
+app.commandLine.appendSwitch("high-dpi-support", 1);
+app.commandLine.appendSwitch("force-device-scale-factor", 1);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -255,6 +265,18 @@ ipcMain.handle("resize-export-window", async (event, width, height) => {
     main_log.info(`export window: new size: ${width}x${height}`);
 });
 
+/**
+ * Attempts to delete render frames
+ */
+ipcMain.handle("clean-up-render-files", () => {
+    try {
+        fsExtra.emptyDirSync(path.resolve(working_dir, "./temp/render")); //clear render cache
+        main_log.info("render cache cleared.");
+    } catch (e) {
+        main_log.error("Couldn't clear all the render cache because some files are still busy.");
+    }
+});
+
 
 
 
@@ -330,14 +352,21 @@ function PreInit() {
     fs.promises.writeFile(test_path, "can write : OK")
         .then(() => {
             fsExtra.removeSync(test_path);
-            Init();
         })
         .catch(() => {
             cant_write_to_root = true;
-            working_dir = path.resolve(app.getPath("appData"), "/Wav2Bar");
+            working_dir = path.join(app.getPath("appData"), "/Wav2Bar");
             if (!fs.existsSync(working_dir)) fs.mkdirSync(working_dir);
-
-            Init();
+        }).finally(() => {
+            drivelist.list().then((drives_list) => {
+                drives = drives_list
+                    .filter(drive => drive.mountpoints.length > 0)
+                    .map(drive => drive.mountpoints[0].path);
+            }).catch((error) => {
+                main_log.error(`Couldn't get the drives list: ${error}`);
+            }).finally(() => {
+                Init();
+            });
         });
 }
 
@@ -353,20 +382,25 @@ function Init() {
     let path_user_settings = path.resolve(working_dir, "./user/settings");
     let path_logs = path.resolve(working_dir, "./logs");
 
-    //create temp directory
-    if (!fs.existsSync(path_temp)) fs.mkdirSync(path_temp);
-    //clear existing cache if files remains from the last execution
-    fsExtra.emptyDirSync(path_temp);
-    //recreate the temp hierarchy
-    if (!fs.existsSync(path_temp_render)) fs.mkdirSync(path_temp_render);
-    if(!fs.existsSync(path_temp_current_save)) fs.mkdirSync(path_temp_current_save);
-
-    //create user directory
-    if(!fs.existsSync(path_user)) fs.mkdirSync(path_user);
-    if(!fs.existsSync(path_user_settings)) fs.mkdirSync(path_user_settings);
-
-    //create logs directory
-    if(!fs.existsSync(path_logs)) fs.mkdirSync(path_logs);
+    try {
+        //create temp directory
+        if (!fs.existsSync(path_temp)) fs.mkdirSync(path_temp);
+        //clear existing cache if files remains from the last execution
+        fsExtra.emptyDirSync(path_temp);
+        //recreate the temp hierarchy
+        if (!fs.existsSync(path_temp_render)) fs.mkdirSync(path_temp_render);
+        if(!fs.existsSync(path_temp_current_save)) fs.mkdirSync(path_temp_current_save);
+    
+        //create user directory
+        if(!fs.existsSync(path_user)) fs.mkdirSync(path_user);
+        if(!fs.existsSync(path_user_settings)) fs.mkdirSync(path_user_settings);
+    
+        //create logs directory
+        if(!fs.existsSync(path_logs)) fs.mkdirSync(path_logs);
+    } catch (e) {
+        encountered_write_issue = true;
+        main_log.error(`Couldn't create the necessary directories: ${e}`);
+    }
 
 
 
@@ -391,6 +425,7 @@ function Init() {
     main_log = log4js.getLogger("main");
     main_renderer_log = log4js.getLogger("main_renderer");
     export_log = log4js.getLogger("export");
+    fallback_log = log4js.getLogger("fallback_renderer_log");
 
     main_log.info(`Running Wav2Bar v${software_version}`);
     if (cant_write_to_root) main_log.warn("Can't write in app's root folder. Writing in app data folder provided by the OS.");
@@ -419,6 +454,10 @@ ipcMain.handle("is-export-win", async (event) => {
     else return event.sender.id === export_win.webContents.id;
 });
 
+ipcMain.handle("encountered-write-issue", async () => {
+    return encountered_write_issue;
+});
+
 
 /**
  * log4js logging from renderer
@@ -427,37 +466,41 @@ ipcMain.handle("is-export-win", async (event) => {
  * @param {String} log
  */
 ipcMain.handle("log", (event, type, log) => {
-    var logger;
-    switch (event.sender.id) {
-        case win.webContents.id: logger = main_renderer_log; break;
-        case export_win.webContents.id: logger = export_log; break;
-        default:
-            logger = main_log;
-            main_log.warn(`receiving logs from an unknown renderer with id ${event.sender.id}!`);
-            break;
+    let logger;
+    let using_fallback = false;
+    if (win && win.webContents && win.webContents.id === event.sender.id) {logger = main_renderer_log;}
+    else if (export_win && export_win.webContents && export_win.webContents.id === event.sender.id) {logger = export_log;}
+    else {
+        logger = fallback_log;
+        using_fallback = true;
+    }
+
+    let log_msg = log;
+    if (using_fallback) {
+        log_msg = `[RENDERER ${event.sender.id}] ${log}`;
     }
 
     switch (type) {
         case "trace":
-            logger.trace(log);
+            logger.trace(log_msg);
             break;
         case "debug":
-            logger.debug(log);
+            logger.debug(log_msg);
             break;
         case "info":
-            logger.info(log);
+            logger.info(log_msg);
             break;
         case "log":
-            logger.log(log);
+            logger.log(log_msg);
             break;
         case "warn":
-            logger.warn(log);
+            logger.warn(log_msg);
             break;
         case "error":
-            logger.error(log);
+            logger.error(log_msg);
             break;
         case "fatal":
-            logger.fatal(log);
+            logger.fatal(log_msg);
             break;
     }
 });
@@ -580,6 +623,10 @@ ipcMain.handle("open-folder-in-file-explorer", async (event, path_to_open) => {
     var regexp = new RegExp(/^\.\//);
     if (regexp.test(path_to_open)) path_to_open = path.join(__dirname, path_to_open);
     shell.openPath(path_to_open);
+});
+
+ipcMain.handle("get-drives", async () => {
+    return drives;
 });
 
 
@@ -790,21 +837,24 @@ ipcMain.handle("pcm-to-spectrum", async (event, waveform) => {
  * @param {Object} screen_data
  * @param {String} name
  * @param {Boolean} use_jpeg
+ * @param {number} index
  */
-ipcMain.handle("export-screen", async (event, screen_data, name, use_jpeg) => {
+ipcMain.handle("export-screen", async (event, screen_data, name, use_jpeg, index) => {
     
-    main_log.info("Capture requested.");
-    main_log.info(`frame: ${name}`);
+    if (index % 100 === 0) {
+        main_log.info("Capture requested.");
+        main_log.info(`frame: ${name}`);
+    }
 
     try {
         //capture the screen
         let image = await export_win.capturePage(screen_data);//screen_data: x,y,width,height.
-        main_log.info("captured! Writing file...");
+        if (index % 100 === 0) main_log.info("captured! Writing file...", index);
 
         //create the file
         if (use_jpeg) await fs.promises.writeFile(path.resolve(working_dir, `./temp/render/${name}.jpeg`), image.toJPEG(100));
         else await fs.promises.writeFile(path.resolve(working_dir, `./temp/render/${name}.png`), image.toPNG());
-        main_log.info("image of the screen created!");
+        if (index % 100 === 0) main_log.info("image of the screen created!", index);
     } catch (error) {
         main_log.error(error);
         throw error;

@@ -1,6 +1,6 @@
 {
   "name": "wav2bar",
-  "version": "0.3.3-beta",
+  "version": "0.3.4-indev",
   "description": "A tool to create and export audio visualization mainly for the music industry",
   "main": "main.js",
   "scripts": {
@@ -29,13 +29,14 @@
     "@electron-forge/maker-wix": "^6.0.4",
     "@electron-forge/maker-zip": "^6.0.4",
     "chai": "^4.3.4",
-    "electron": "^22.2.0",
+    "electron": "^22.3.25",
     "electron-mocha": "^11.0.2",
     "eslint": "^8.7.0",
     "esm": "^3.2.25"
   },
   "dependencies": {
     "colors": "^1.4.0",
+    "drivelist": "^12.0.2",
     "electron-squirrel-startup": "^1.0.0",
     "fluent-ffmpeg": "^2.1.2",
     "fourier-transform": "^1.1.2",

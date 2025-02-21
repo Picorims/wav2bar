@@ -34,6 +34,8 @@ var audio_time_update;//setInterval that updates audio time display
 
 var help; //help strings
 
+let drives_list; //list of drives
+
 
 
 /*
@@ -48,6 +50,14 @@ INITIALIZATION
  */
 // eslint-disable-next-line no-unused-vars
 async function InitUI() {
+
+    ipcRenderer.invoke("get-drives").then((drives) => {
+        drives_list = drives;
+        imports.utils.CustomLog("info", "Drives list found");
+    }).catch((error) => {
+        imports.utils.CustomLog("error", "Could not get drives: " + error);
+    });
+
     //IMPORTS
     imports.ui_components = await import("./ui_components/ui_components.js");
 
@@ -246,6 +256,11 @@ async function InitUI() {
     //open logs folder
     document.getElementById("open_logs_button").onclick = function() {
         ipcRenderer.invoke("open-folder-in-file-explorer", `${project.working_dir}/logs`);
+    };
+
+    //open logs folder
+    document.getElementById("open_temp_button").onclick = function() {
+        ipcRenderer.invoke("open-folder-in-file-explorer", `${project.working_dir}/temp`);
     };
 
     //choose ffmpeg path through file browser
@@ -1119,16 +1134,8 @@ async function FileBrowserDialog(settings, callback, args) {
         }, path_input.value.replace(/\\$/,"").replace(/\/$/,"")); //path
     };
 
-    //home directory button
-    var home_dir = document.createElement("div");
-    path_container.appendChild(home_dir);
-    home_dir.classList.add("file_browser_icon_button");
-    home_dir.innerHTML = "<i class=\"ri-home-4-line\"></i>";
-    home_dir.onclick = async () => {
-        //go to home directory
-        var home_dir = await ipcRenderer.invoke("get-home-path");
-
-        path_input.value = home_dir;
+    const updatePathInput = (path) => {
+        path_input.value = path;
 
         var event = new Event("input", {
             bubbles: true,
@@ -1136,7 +1143,39 @@ async function FileBrowserDialog(settings, callback, args) {
         });
 
         path_input.dispatchEvent(event);
+
     };
+
+    //home directory button
+    var home_dir = document.createElement("div");
+    path_container.appendChild(home_dir);
+    home_dir.classList.add("file_browser_icon_button");
+    home_dir.innerHTML = "<i class=\"ri-home-4-line\"></i>";
+    home_dir.onclick = async () => {
+        //go to home directory
+        let home_dir_path = await ipcRenderer.invoke("get-home-path");
+        updatePathInput(home_dir_path);
+    };
+
+
+
+    // drives container
+    var drives_container = document.createElement("div");
+    container.appendChild(drives_container);
+    path_container.classList.add("file_browser_flex_sub_container");
+
+
+
+    for (const d of drives_list) {
+        const btn = document.createElement("button");
+        drives_container.appendChild(btn);
+        btn.classList.add("panel_button", "dialog_button");
+        btn.innerHTML = d;
+        btn.onclick = function() {
+            updatePathInput(d);
+        };
+    
+    }
 
 
 
@@ -1209,6 +1248,26 @@ async function FileBrowserDialog(settings, callback, args) {
 
         var name_input = document.getElementById(this.getAttribute("data-tmp-input-id"));
         var extensions = settings.allowed_extensions;
+
+        if ((settings.type === "get_file" || settings.type === "save_file") && name_input.value === "") {
+            MessageDialog("warn","No name provided! Please pick a file or choose a name.");
+            return;
+        }
+
+        // auto add extension if not provided and only one extension is allowed
+        if (settings.type === "save_file") {
+            if (extensions.length === 1 && extensions[0] !== "#any" && extensions[0] !== "#none") {
+                const was = name_input.value;
+                // replace the extension if it is has one, otherwise add it.
+                var regexp = new RegExp(/\..*$/,"g"); //has a dot with anything after it at the end of the path.
+                if (!regexp.test(name_input.value)) {
+                    name_input.value += `.${extensions[0]}`;
+                } else {
+                    name_input.value = name_input.value.replace(/\..*$/,"") + `.${extensions[0]}`;
+                }
+                imports.utils.CustomLog("info",`extension automatically fixed for the file: ${name_input.value} (was ${was})`);
+            }
+        }
 
         if ( settings.type === "save_file") {
             if (extensions[0] === "#none") {
