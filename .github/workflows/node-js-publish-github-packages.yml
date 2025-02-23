@@ -41,7 +41,7 @@ jobs:
       - name: Make packages
         run: npm run make
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v4
         with:
           # Artifact name
           name: artifact-${{ matrix.os }} # optional, default is artifact
@@ -69,7 +69,7 @@ jobs:
     
     steps:
       - name: Download all artifacts
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v4
         #with:
           # Artifact name
           #name: artifact-ubuntu-latest # optional
