@@ -48,6 +48,7 @@ const DEFAULTS = {
 
     TEXT_TYPE: "any",
     TEXT_CONTENT: "text",
+    FONT_FAMILY: "verdana",
     FONT_SIZE: 20,
     TEXT_DECORATION: {
         italic: false,
@@ -1332,7 +1333,65 @@ export class VPTextContent extends VisualObjectProperty {
     }
 }
 
+/**
+ * font family property, font family for the object.
+ *
+ * @export
+ * @class VPFontFamily
+ * @extends {VisualObjectProperty}
+ */
+export class VPFontFamily extends VisualObjectProperty {
+    /**
+     * Creates an instance of VPFontFamily.
+     * @param {SaveHandler} save_handler The SaveHandler to read and write from.
+     * @param {object.VisualObject} visual_object The VisualObject that it manipulates.
+     * @memberof VPFontFamily
+     */
+    constructor(save_handler, visual_object) {
+        super(save_handler, visual_object, "font_family");
+        
+        // create associated UI        
+        if (!this._save_handler.owner_project.export_mode) {
+            this._ui_parameter = new ui_components.UIParameterString(
+                this._visual_object.parameter_rack,
+                "Font family",
+                this.getCurrentValue(),
+                () => {
+                    this.setSaveUISafe(this._ui_parameter.value);
+                }
+            );
+            this._ui_parameter.help_string = help.parameter.object.text.font_family;
+        }
+    }
+    
+    /**
+     * Get the default value of the visual object property.
+     * If it is undefined, assign a value.
+     *
+     * @memberof VPFontFamily
+     * @override
+     * @return {String}
+     */
+    getDefaultValue() {
+        if (this._default_value) return this._default_value;
+        else {
+            this._default_value = DEFAULTS.FONT_FAMILY;
+            return this._default_value;
+        };
+    }
 
+    /**
+     * Only checking for \ like the text_content. Could possibly add validation to state if the font exists. 
+     *
+     * @override
+     * @param {*} value
+     * @return {Boolean} is valid
+     * @memberof VPFontFamily
+     */
+    hasValidValue(value) {
+        return (!utils.IsUndefined(value) && utils.IsAString(value) && !(value.indexOf("\\") > -1));
+    }
+}
 
 /**
  * Visual property to set the font size of a text based object
