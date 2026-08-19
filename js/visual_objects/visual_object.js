@@ -342,7 +342,7 @@ export class VText extends VisualObject {
         //###########
 
         this._properties["text_content"].subscribeToEvent("value_changed", (value) => {
-            this._element.innerHTML = value;
+            this._element.textContent = value;
         });
 
         this._properties["font_size"].subscribeToEvent("value_changed", (value) => {
@@ -403,7 +403,7 @@ export class VText extends VisualObject {
             let time_length_min = Math.floor(audio_duration/60);
 
             //apply time
-            this._element.innerHTML = `${time_pos_min}:${time_pos_sec} | ${time_length_min}:${time_length_sec}`;
+            this._element.textContent = `${time_pos_min}:${time_pos_sec} | ${time_length_min}:${time_length_sec}`;
         }
 
         //finished updating
