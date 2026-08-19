@@ -5,7 +5,7 @@ const description = "Wav2Bar - " + packageJson.description;
 
 module.exports = {
     packagerConfig: {
-        appCopyright: "Copyright (C) 2023 Picorims <picorims.contact@gmail.com> - GPL-3.0-or-later",
+        appCopyright: "Copyright (C) 2026 Picorims <picorims.contact@gmail.com> - GPL-3.0-or-later",
         icon: "assets/icons/wav2bar_square_logo",
         name: "Wav2Bar",
         executableName: "wav2bar",
@@ -20,6 +20,7 @@ module.exports = {
     makers: [
         {
             name: "@electron-forge/maker-zip",
+            description: description,
             platforms: [
                 "win32",
                 "darwin",
