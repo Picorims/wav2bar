@@ -2,6 +2,12 @@
 This document is based on Keep a Changelog 1.0.0
 https://keepachangelog.com/en/1.0.0/
 
+## 0.3.5-beta (2026-08-19)
+
+### Security
+
+- Fixed text objects text content allowing any HTML, being a vector for XSS attacks and Node API access.
+
 ## 0.3.4-beta (2025-02-23)
 
 ### Added
